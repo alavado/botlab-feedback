@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import './Login.css'
 
 const Login = () => {
 
-  const [variables, setVariables] = useState({
-    usuario: '',
+  const [auth, setAuth] = useState({
+    username: '',
     password: ''
   })
 
   const cambiarVariable = variable => e => {
-    setVariables({ ...variables, [variable]: e.target.value })
+    setAuth({ ...auth, [variable]: e.target.value })
   }
 
-  const login = e => {
+  const login = async e => {
     e.preventDefault()
-    console.log(variables)
+    const { data: { token } } = await axios.get('https://api.dev.botlab.cl/token', { auth })
+    console.log(token)
   }
 
   return (
@@ -24,7 +26,7 @@ const Login = () => {
           <label>Usuario</label>
           <input
             type="text"
-            onChange={cambiarVariable('usuario')}
+            onChange={cambiarVariable('username')}
           />
         </div>
         <div>
