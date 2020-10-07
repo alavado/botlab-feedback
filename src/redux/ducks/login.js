@@ -8,12 +8,11 @@ export default function(state = {}, action) {
         token: action.payload
       }
     }
-    default:
-      return state
+    default: return state
   }
 }
 
-export const guardaToken = token => ({
+export const guardaToken = jsonLogin => ({
   type: guardarToken,
-  payload: token
+  payload: jsonLogin.token
 })

@@ -4,6 +4,7 @@ import './Login.css'
 import { useDispatch } from 'react-redux'
 import { guardaToken } from '../../redux/ducks/login'
 import { useHistory } from 'react-router-dom'
+import { guardaTiposEncuestas } from '../../redux/ducks/encuestas'
 
 const Login = () => {
 
@@ -11,6 +12,7 @@ const Login = () => {
     username: '',
     password: ''
   })
+  const [error, setError] = useState()
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -20,9 +22,15 @@ const Login = () => {
 
   const login = async e => {
     e.preventDefault()
-    const { data: { token } } = await axios.get('https://api.dev.botlab.cl/token', { auth })
-    dispatch(guardaToken(token))
-    history.push('/respuestas')
+    try {
+      const { data } = await axios.get('https://api.dev.botlab.cl/token', { auth })
+      console.log(data)
+      dispatch(guardaToken(data))
+      dispatch(guardaTiposEncuestas(data))
+      history.push('/respuestas')
+    } catch (e) {
+      setError('Usuario o contraseña incorrectos')
+    }
   }
 
   return (
@@ -43,6 +51,7 @@ const Login = () => {
           />
         </div>
         <button type="submit">Ingresar</button>
+        {error && <p>{error}</p>}
       </form>
     </div>
   )
