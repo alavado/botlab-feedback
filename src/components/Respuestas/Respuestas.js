@@ -5,6 +5,7 @@ import './Respuestas.css'
 import { useHistory } from 'react-router-dom'
 import { guardaHeadersEncuesta } from '../../redux/ducks/encuestas'
 import TablaRespuestas from './TablaRespuestas'
+import SelectorRangoFechas from './SelectorRangoFechas'
 
 const Respuestas = () => {
 
@@ -31,11 +32,10 @@ const Respuestas = () => {
       console.error('un error', e)
     }
   }
-  console.log({headers})
 
   return (
     <div className="Respuestas">
-      Respuestas
+      <h1>Respuestas</h1>
       {tipos.map(({ id, nombre }) => (
         <button
           key={`boton-${id}`}
@@ -44,6 +44,7 @@ const Respuestas = () => {
           Ver encuesta {nombre}
         </button>
       ))}
+      <SelectorRangoFechas />
       {cargando && <p>Obteniendo headers...</p>}
       {headers && <TablaRespuestas />}
     </div>

@@ -28,11 +28,12 @@ const Login = () => {
       const { data } = await axios.get('https://api.dev.botlab.cl/token', { auth })
       dispatch(guardaToken(data))
       dispatch(guardaTiposEncuestas(data))
+      setCargando(false)
       history.push('/respuestas')
     } catch (e) {
+      setCargando(false)
       setError('Usuario o contraseña incorrectos')
     }
-    setCargando(false)
   }
 
   return (
