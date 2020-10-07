@@ -8,6 +8,7 @@ import { format } from 'date-fns'
 const TablaRespuestas = () => {
 
   const [cargando, setCargando] = useState(false)
+  const [pagina, setPagina] = useState(1)
   const { token } = useSelector(state => state.login)
   const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
   const { fechaInicio, fechaTermino, respuestas } = useSelector(state => state.respuestas)
@@ -18,8 +19,7 @@ const TablaRespuestas = () => {
       setCargando(true)
       const inicio = format(fechaInicio, 'yyyy-MM-dd')
       const termino = format(fechaTermino, 'yyyy-MM-dd')
-      const url = `https://api.dev.botlab.cl/answers/${idEncuestaSeleccionada}?fecha_inicio=${inicio}&fecha_termino=${termino}`
-      console.log(url)
+      const url = `https://api.dev.botlab.cl/answers/${idEncuestaSeleccionada}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`
       const data = await axios.get(url, {
         headers: { 'Api-Token': token }
       })
@@ -28,10 +28,22 @@ const TablaRespuestas = () => {
     }
     fetchData()
   }, [idEncuestaSeleccionada, token, dispatch, fechaInicio, fechaTermino])
-
+console.log(pagina)
   return (
     <div className="TablaRespuestas">
       {cargando && <p>Obteniendo datos...</p>}
+      {respuestas &&
+        <>
+          <p>Se encontraron {respuestas.length} registros</p>
+          <select onChange={e => setPagina(Number(e.target.value))}>
+            {Array(Math.floor(respuestas.length / 25)).fill(0).map((v, i) => (
+              <option key={`option-pagina-${i + 1}`} value={i + 1}>
+                Página {i + 1}
+              </option>
+            ))}
+          </select>
+        </>
+      }
       <div className="TablaRespuestas__headers">
         {headers.map(({ nombre, texto }) => (
           <div
@@ -42,7 +54,7 @@ const TablaRespuestas = () => {
           </div>
         ))}
       </div>
-      {respuestas && respuestas.slice(0, 50).map((respuesta, i) => (
+      {respuestas && respuestas.slice(25 * (pagina - 1), 25 * pagina).map((respuesta, i) => (
         <div
           key={`fila-respuestas-${i}`}
           className="TablaRespuestas__fila"

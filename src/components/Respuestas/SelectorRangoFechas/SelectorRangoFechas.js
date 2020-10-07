@@ -1,9 +1,12 @@
 import React from 'react'
-import ReactDatePicker from 'react-datepicker'
-import { useDispatch, useSelector } from 'react-redux'
-import './SelectorRangoFechas.css'
 import 'react-datepicker/dist/react-datepicker.css'
+import ReactDatePicker, { registerLocale } from 'react-datepicker'
+import es from 'date-fns/locale/es'
+import { useDispatch, useSelector } from 'react-redux'
 import { guardaFechaInicio, guardaFechaTermino } from '../../../redux/ducks/respuestas'
+import './SelectorRangoFechas.css'
+
+registerLocale('es', es)
 
 const SelectorRangoFechas = () => {
 
@@ -12,13 +15,19 @@ const SelectorRangoFechas = () => {
 
   return (
     <div className="SelectorRangoFechas">
+      Rango de fechas:
       <ReactDatePicker
         selected={fechaInicio}
         onChange={f => dispatch(guardaFechaInicio(f))}
+        dateFormat="d MMMM yyyy"
+        locale="es"
       />
+      -
       <ReactDatePicker
         selected={fechaTermino}
         onChange={f => dispatch(guardaFechaTermino(f))}
+        dateFormat="d MMMM yyyy"
+        locale="es"
       />
     </div>
   )
