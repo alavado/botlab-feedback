@@ -31,7 +31,7 @@ export const guardaTiposEncuestas = jsonLogin => ({
   payload: jsonLogin
 })
 
-export const guardaHeadersEcuesta = jsonHeaders => ({
+export const guardaHeadersEncuesta = jsonHeaders => ({
   type: fijarHeadersEncuestaSeleccionada,
   payload: jsonHeaders
 })

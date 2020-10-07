@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import './Respuestas.css'
 import { useHistory } from 'react-router-dom'
-import { guardaHeadersEcuesta, guardaTiposEncuestas } from '../../redux/ducks/encuestas'
+import { guardaHeadersEncuesta } from '../../redux/ducks/encuestas'
+import TablaRespuestas from './TablaRespuestas'
 
 const Respuestas = () => {
 
@@ -17,10 +18,6 @@ const Respuestas = () => {
     return null
   }
 
-  // useEffect(() => {
-  //   axios.get('https://api.botlab.cl/answer_headers/110')
-  // })
-
   const verEncuesta = async id => {
     try {
       const data = await axios.get(`https://api.dev.botlab.cl/answer_headers/${id}`, {
@@ -28,7 +25,7 @@ const Respuestas = () => {
           'Api-Token': token
         }
       })
-      dispatch(guardaHeadersEcuesta(data))
+      dispatch(guardaHeadersEncuesta(data))
     } catch (e) {
       console.error('un error')
     }
@@ -46,6 +43,7 @@ const Respuestas = () => {
           Ver encuesta {nombre}
         </button>
       ))}
+      {headers && <TablaRespuestas />}
     </div>
   )
 }

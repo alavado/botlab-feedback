@@ -1,0 +1,12 @@
+.TablaRespuestas {
+  display: flex;
+  justify-content: center;
+}
+
+.TablaRespuestas__headers {
+  display: flex;
+}
+
+.TablaRespuestas__celda {
+  padding: .5rem;
+}
