@@ -12,6 +12,10 @@
   padding: .5rem;
 }
 
+.TablaRespuestas__celda {
+  width: 8rem;
+}
+
 .TablaRespuestas__fila {
   display: flex;
 }

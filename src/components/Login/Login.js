@@ -13,6 +13,7 @@ const Login = () => {
     password: ''
   })
   const [error, setError] = useState()
+  const [cargando, setCargando] = useState()
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -23,14 +24,15 @@ const Login = () => {
   const login = async e => {
     e.preventDefault()
     try {
+      setCargando(true)
       const { data } = await axios.get('https://api.dev.botlab.cl/token', { auth })
-      console.log(data)
       dispatch(guardaToken(data))
       dispatch(guardaTiposEncuestas(data))
       history.push('/respuestas')
     } catch (e) {
       setError('Usuario o contraseña incorrectos')
     }
+    setCargando(false)
   }
 
   return (
@@ -52,6 +54,7 @@ const Login = () => {
           />
         </div>
         <button type="submit">Ingresar</button>
+        {cargando && <p>Ingresando...</p>}
         {error && <p>{error}</p>}
       </form>
     </div>

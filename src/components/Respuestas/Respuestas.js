@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import './Respuestas.css'
@@ -12,6 +12,7 @@ const Respuestas = () => {
   const { tipos, headers } = useSelector(state => state.encuestas)
   const history = useHistory()
   const dispatch = useDispatch()
+  const [cargando, setCargando] = useState(false)
 
   if (!token) {
     history.push('/')
@@ -20,10 +21,12 @@ const Respuestas = () => {
 
   const verEncuesta = async id => {
     try {
+      setCargando(true)
       const data = await axios.get(`https://api.dev.botlab.cl/answer_headers/${id}`, {
         headers: { 'Api-Token': token }
       })
       dispatch(guardaHeadersEncuesta(id, data))
+      setCargando(false)
     } catch (e) {
       console.error('un error', e)
     }
@@ -41,6 +44,7 @@ const Respuestas = () => {
           Ver encuesta {nombre}
         </button>
       ))}
+      {cargando && <p>Obteniendo headers...</p>}
       {headers && <TablaRespuestas />}
     </div>
   )
