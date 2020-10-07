@@ -35,6 +35,7 @@ const Login = () => {
 
   return (
     <div>
+      <h1>Botlab Feedback</h1>
       <form onSubmit={login}>
         <div>
           <label>Usuario</label>

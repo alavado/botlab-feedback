@@ -1,6 +1,7 @@
 .TablaRespuestas {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .TablaRespuestas__headers {
@@ -9,4 +10,8 @@
 
 .TablaRespuestas__celda {
   padding: .5rem;
+}
+
+.TablaRespuestas__fila {
+  display: flex;
 }

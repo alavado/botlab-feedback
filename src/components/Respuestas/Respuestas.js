@@ -21,13 +21,11 @@ const Respuestas = () => {
   const verEncuesta = async id => {
     try {
       const data = await axios.get(`https://api.dev.botlab.cl/answer_headers/${id}`, {
-        headers: {
-          'Api-Token': token
-        }
+        headers: { 'Api-Token': token }
       })
-      dispatch(guardaHeadersEncuesta(data))
+      dispatch(guardaHeadersEncuesta(id, data))
     } catch (e) {
-      console.error('un error')
+      console.error('un error', e)
     }
   }
   console.log({headers})

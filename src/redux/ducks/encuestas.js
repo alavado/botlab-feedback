@@ -1,5 +1,6 @@
 const fijarTiposEncuestas = 'encuestas/fijarTipos'
 const fijarHeadersEncuestaSeleccionada = 'encuestas/fijarHeaders'
+const fijarRespuestas = 'encuestas/fijarRespuestas'
 
 export default function(state = {}, action) {
   switch (action.type) {
@@ -13,13 +14,22 @@ export default function(state = {}, action) {
       }
     }
     case fijarHeadersEncuestaSeleccionada: {
+      const { id, data } = action.payload
       return {
         ...state,
-        headers: action.payload.data.data.map(({ name, display_name, type }) => ({
+        idEncuestaSeleccionada: id,
+        headers: data.data.map(({ name, display_name, type }) => ({
           nombre: name,
           texto: display_name,
           tipo: type
         }))
+      }
+    }
+    case fijarRespuestas: {
+      const jsonRespuestas = action.payload
+      return {
+        ...state,
+        respuestas: jsonRespuestas.data.data
       }
     }
     default: return state
@@ -31,7 +41,12 @@ export const guardaTiposEncuestas = jsonLogin => ({
   payload: jsonLogin
 })
 
-export const guardaHeadersEncuesta = jsonHeaders => ({
+export const guardaHeadersEncuesta = (id, jsonHeaders) => ({
   type: fijarHeadersEncuestaSeleccionada,
-  payload: jsonHeaders
+  payload: { id, data: jsonHeaders.data }
+})
+
+export const guardaRespuestas = jsonRespuestas => ({
+  type: fijarRespuestas,
+  payload: jsonRespuestas
 })
