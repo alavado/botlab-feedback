@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
 import './TablaRespuestas.css'
 import { guardaRespuestas } from '../../../redux/ducks/respuestas'
-import { format } from 'date-fns'
+import { respuestas as respuestasAPI} from '../../../api/endpoints'
 
 const TablaRespuestas = () => {
 
@@ -17,12 +16,7 @@ const TablaRespuestas = () => {
   useEffect(() => {
     const fetchData = async () => {
       setCargando(true)
-      const inicio = format(fechaInicio, 'yyyy-MM-dd')
-      const termino = format(fechaTermino, 'yyyy-MM-dd')
-      const url = `https://api.dev.botlab.cl/answers/${idEncuestaSeleccionada}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`
-      const data = await axios.get(url, {
-        headers: { 'Api-Token': token }
-      })
+      const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
       dispatch(guardaRespuestas(data))
       setCargando(false)
     }

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import './Login.css'
 import { useDispatch } from 'react-redux'
 import { guardaToken } from '../../redux/ducks/login'
 import { useHistory } from 'react-router-dom'
 import { guardaTiposEncuestas } from '../../redux/ducks/encuestas'
 import logo from '../../assets/images/logo-feedback.svg'
+import { login as loginAPI } from '../../api/endpoints'
 
 const Login = () => {
 
@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault()
     try {
       setCargando(true)
-      const { data } = await axios.get('https://api.dev.botlab.cl/token', { auth })
+      const { data } = await loginAPI(auth.username, auth.password)
       dispatch(guardaToken(data))
       dispatch(guardaTiposEncuestas(data))
       setCargando(false)
