@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux'
 import { guardaToken } from '../../redux/ducks/login'
 import { useHistory } from 'react-router-dom'
 import { guardaTiposEncuestas } from '../../redux/ducks/encuestas'
-import logo from '../../assets/images/logo-feedback.svg'
 import { login as loginAPI } from '../../api/endpoints'
+import logo from '../../assets/images/logo-feedback.svg'
 
 const Login = () => {
 
@@ -78,10 +78,10 @@ const Login = () => {
         <button
           className="Login__boton"
           type="submit"
+          disabled={cargando}
         >
           Ingresar
         </button>
-        {cargando && <p>Ingresando...</p>}
         {error && <p>{error}</p>}
       </form>
     </div>
