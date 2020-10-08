@@ -1,0 +1,11 @@
+.Login {
+  background:
+    url('../../assets/images/strips.png'),
+    linear-gradient(117deg,#6057f6,#d84763);
+  flex: 1;
+}
+
+.Login__logo {
+  font-weight: bold;
+  font-size: 4rem;
+}

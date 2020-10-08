@@ -28,7 +28,7 @@ const TablaRespuestas = () => {
     }
     fetchData()
   }, [idEncuestaSeleccionada, token, dispatch, fechaInicio, fechaTermino])
-console.log(pagina)
+
   return (
     <div className="TablaRespuestas">
       {cargando && <p>Obteniendo datos...</p>}

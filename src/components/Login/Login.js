@@ -37,24 +37,45 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <h1>Botlab Feedback</h1>
+    <div className="Login">
+      <div className="Login__logo">botlab feedback</div>
       <form onSubmit={login}>
-        <div>
-          <label>Usuario</label>
+        <div className="Login__campo">
+          <label
+            htmlFor="login_usuario"
+            className="Login__label"
+          >
+            Usuario
+          </label>
           <input
             type="text"
             onChange={cambiarVariable('username')}
+            id="login_usuario"
+            autoFocus
+            required
           />
         </div>
-        <div>
-          <label>Contraseña</label>
+        <div className="Login__campo">
+          <label
+            htmlFor="login_password"
+            className="Login__label"
+          >
+            Contraseña
+          </label>
           <input
             type="password"
             onChange={cambiarVariable('password')}
+            id="login_password"
+            autoComplete="current-password"
+            required
           />
         </div>
-        <button type="submit">Ingresar</button>
+        <button
+          className="Login__boton"
+          type="submit"
+        >
+          Ingresar
+        </button>
         {cargando && <p>Ingresando...</p>}
         {error && <p>{error}</p>}
       </form>
