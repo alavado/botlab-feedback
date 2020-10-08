@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { guardaToken } from '../../redux/ducks/login'
 import { useHistory } from 'react-router-dom'
 import { guardaTiposEncuestas } from '../../redux/ducks/encuestas'
+import logo from '../../assets/images/logo-feedback.svg'
 
 const Login = () => {
 
@@ -38,16 +39,19 @@ const Login = () => {
 
   return (
     <div className="Login">
-      <div className="Login__logo">botlab feedback</div>
-      <form onSubmit={login}>
+      <form className="Login__form" onSubmit={login}>
+        <div className="Login__contenedor_logo">
+          <img className="Login__logo" src={logo} alt="Logo Botlab Feedback" />
+        </div>
         <div className="Login__campo">
           <label
             htmlFor="login_usuario"
             className="Login__label"
           >
-            Usuario
+            Nombre de usuario
           </label>
           <input
+            className="Login__input"
             type="text"
             onChange={cambiarVariable('username')}
             id="login_usuario"
@@ -63,6 +67,7 @@ const Login = () => {
             Contraseña
           </label>
           <input
+            className="Login__input"
             type="password"
             onChange={cambiarVariable('password')}
             id="login_password"

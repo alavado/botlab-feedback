@@ -3,9 +3,71 @@
     url('../../assets/images/strips.png'),
     linear-gradient(117deg,#6057f6,#d84763);
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Login__contenedor_logo {
+  padding: 1rem 3rem 2rem 3rem;
+  display: flex;
+  justify-content: center;
 }
 
 .Login__logo {
-  font-weight: bold;
-  font-size: 4rem;
+  width: 9rem;
+  filter: brightness(0%);
+}
+
+.Login__form {
+  background-color: white;
+  padding: 1rem 1.5rem;
+  box-shadow: 0rem .25rem .5rem rgba(0, 0, 0, .15);
+  border-radius: .1rem;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.Login__campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.Login__input {
+  padding: .5rem;
+  font-size: 1rem;
+  border-radius: .25rem;
+  border: 1px solid #6057f6;
+}
+
+.Login__label {
+  margin-bottom: .35rem;
+  font-size: .85rem;
+}
+
+.Login__boton {
+  background-color: #0ABCEB;
+  color: white;
+  border: none;
+  border-radius: .75rem;
+  font-size: 1rem;
+  align-self: center;
+  padding: .8rem 4rem;
+  cursor: pointer;
+  margin-top: .5rem;
+  transition: all .25s ease;
+}
+
+.Login__boton:hover {
+  filter: brightness(110%);
+  box-shadow: 0rem .25rem .5rem rgba(0, 0, 0, .15);
+}
+
+@media(orientation: portrait) {
+  .Login {
+    justify-content: flex-start;
+  }
 }
