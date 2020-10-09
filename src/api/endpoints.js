@@ -8,6 +8,13 @@ export const login = (username, password) => {
   return axios.get(`${API_ROOT}/token`, { auth })
 }
 
+export const headersRespuestas = idEncuesta => {
+  const token = store.getState().login.token
+  return axios.get(`https://api.dev.botlab.cl/answer_headers/${idEncuesta}`, {
+    headers: { 'Api-Token': token }
+  })
+}
+
 export const respuestas = (idEncuesta, fechaInicio, fechaTermino) => {
   const token = store.getState().login.token
   const inicio = format(fechaInicio, 'yyyy-MM-dd')

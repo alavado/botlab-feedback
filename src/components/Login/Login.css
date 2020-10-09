@@ -22,7 +22,7 @@
   background-color: white;
   padding: 1rem 1.5rem;
   box-shadow: 0rem .25rem .5rem rgba(0, 0, 0, .15);
-  border-radius: .1rem;
+  border-radius: .15rem;
   display: flex;
   flex-direction: column;
   margin: 2rem;
@@ -59,7 +59,7 @@
   transition: all .5s ease;
 }
 
-.Login__boton:hover {
+.Login__boton:hover:not(:disabled) {
   filter: brightness(110%);
   box-shadow: 0rem .25rem .5rem rgba(0, 0, 0, .15);
 }
@@ -73,4 +73,9 @@
   .Login {
     justify-content: flex-start;
   }
+}
+
+.Login__footer {
+  color: rgba(255, 255, 255, .95);
+  font-size: .8rem;
 }

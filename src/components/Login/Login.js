@@ -84,6 +84,9 @@ const Login = () => {
         </button>
         {error && <p>{error}</p>}
       </form>
+      <footer className="Login__footer">
+        © Botlab 2020
+      </footer>
     </div>
   )
 }
