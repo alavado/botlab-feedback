@@ -12,5 +12,6 @@
 .Feedback__contenedor_central {
   flex: 1;
   display: flex;
-  background-color: blueviolet;
+  background-color: white;
+  padding: 1.5rem 2rem;
 }

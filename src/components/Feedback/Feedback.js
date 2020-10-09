@@ -5,6 +5,7 @@ import Respuestas from './Respuestas'
 import './Feedback.css'
 import BarraLateral from './BarraLateral'
 import BarraSuperior from './BarraSuperior'
+import Buscador from './Buscador'
 
 const Feedback = () => {
 
@@ -25,6 +26,9 @@ const Feedback = () => {
           <Switch>
             <Route path="/respuestas">
               <Respuestas />
+            </Route>
+            <Route path="/buscar">
+              <Buscador />
             </Route>
           </Switch>
         </div>

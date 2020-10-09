@@ -1,4 +1,5 @@
 const guardarToken = 'login/guardarToken'
+const logout = 'login/logout'
 
 export default function(state = {}, action) {
   switch (action.type) {
@@ -8,6 +9,12 @@ export default function(state = {}, action) {
         token: action.payload
       }
     }
+    case logout: {
+      return {
+        ...state,
+        token: undefined
+      }
+    }
     default: return state
   }
 }
@@ -15,4 +22,8 @@ export default function(state = {}, action) {
 export const guardaToken = jsonLogin => ({
   type: guardarToken,
   payload: jsonLogin.token
+})
+
+export const cierraLaSesion = () => ({
+  type: logout
 })
