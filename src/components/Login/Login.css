@@ -7,6 +7,10 @@
   position: relative;
 }
 
+.Login--cargando, .Login--cargando * {
+  cursor: progress;
+}
+
 .Login__contenedor_logo {
   padding: 1rem 3rem 2rem 3rem;
   display: flex;

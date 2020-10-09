@@ -3,7 +3,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ReactDatePicker, { registerLocale } from 'react-datepicker'
 import es from 'date-fns/locale/es'
 import { useDispatch, useSelector } from 'react-redux'
-import { guardaFechaInicio, guardaFechaTermino } from '../../../redux/ducks/respuestas'
+import { guardaFechaInicio, guardaFechaTermino } from '../../../../redux/ducks/respuestas'
 import './SelectorRangoFechas.css'
 
 registerLocale('es', es)

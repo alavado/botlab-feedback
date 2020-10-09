@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './TablaRespuestas.css'
-import { guardaRespuestas } from '../../../redux/ducks/respuestas'
-import { respuestas as respuestasAPI} from '../../../api/endpoints'
+import { guardaRespuestas } from '../../../../redux/ducks/respuestas'
+import { respuestas as respuestasAPI} from '../../../../api/endpoints'
 
 const TablaRespuestas = () => {
 

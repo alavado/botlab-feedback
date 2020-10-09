@@ -1,8 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Switch, useHistory } from 'react-router-dom'
-import Respuestas from '../Respuestas/Respuestas'
+import Respuestas from './Respuestas'
 import './Feedback.css'
+import BarraLateral from './BarraLateral'
+import BarraSuperior from './BarraSuperior'
 
 const Feedback = () => {
 
@@ -16,11 +18,17 @@ const Feedback = () => {
 
   return (
     <div className="Feedback">
-      <Switch>
-        <Route path="/respuestas">
-          <Respuestas />
-        </Route>
-      </Switch>
+      <BarraLateral />
+      <div className="Feedback__contenedor">
+        <BarraSuperior />
+          <div className="Feedback__contenedor_central">
+          <Switch>
+            <Route path="/respuestas">
+              <Respuestas />
+            </Route>
+          </Switch>
+        </div>
+      </div>
     </div>
   )
 }

@@ -5,6 +5,8 @@ import { guardaToken } from '../../redux/ducks/login'
 import { useHistory } from 'react-router-dom'
 import { guardaTiposEncuestas } from '../../redux/ducks/encuestas'
 import { login as loginAPI } from '../../api/endpoints'
+import { format } from 'date-fns'
+import classNames from 'classnames'
 import logo from '../../assets/images/logo-feedback.svg'
 
 const Login = () => {
@@ -38,7 +40,10 @@ const Login = () => {
   }
 
   return (
-    <div className="Login">
+    <div className={classNames({
+      'Login': true,
+      'Login--cargando': cargando
+    })}>
       <form className="Login__form" onSubmit={login}>
         <div className="Login__contenedor_logo">
           <img className="Login__logo" src={logo} alt="Logo Botlab Feedback" />
@@ -85,7 +90,7 @@ const Login = () => {
         {error && <p>{error}</p>}
       </form>
       <footer className="Login__footer">
-        © Botlab 2020
+        © Botlab {format(Date.now(), 'yyyy')}
       </footer>
     </div>
   )
