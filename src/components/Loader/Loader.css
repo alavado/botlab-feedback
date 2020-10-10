@@ -1,8 +1,8 @@
 .Loader,
 .Loader:after {
   border-radius: 50%;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.15rem;
+  height: 1.15rem;
 }
 .Loader {
   position: relative;

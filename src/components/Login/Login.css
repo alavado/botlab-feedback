@@ -94,6 +94,20 @@
   cursor: progress;
 }
 
+.Login__error {
+  font-size: .8rem;
+  font-weight: 500;
+  padding-bottom: 1rem;
+  color: #d84763;
+  display: flex;
+  align-items: center;
+}
+
+.Login__icono_error {
+  color: #d84763;
+  margin-right: .25rem;
+}
+
 @media(orientation: portrait) {
   .Login {
     justify-content: flex-start;

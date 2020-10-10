@@ -29,6 +29,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+	color: #212121;
 	line-height: 1;
 }
 ol, ul {
@@ -50,5 +51,4 @@ table {
 *, *::before, *::after, body {
 	font-family: 'Roboto', Arial, Helvetica, sans-serif;
 	box-sizing: border-box;
-	color: #212121;
 }
