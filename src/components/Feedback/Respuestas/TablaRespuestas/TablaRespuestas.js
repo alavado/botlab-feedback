@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import './TablaRespuestas.css'
 import { guardaRespuestas } from '../../../../redux/ducks/respuestas'
 import { respuestas as respuestasAPI} from '../../../../api/endpoints'
+import classNames from 'classnames'
+import './TablaRespuestas.css'
 
 const TablaRespuestas = () => {
 
@@ -23,6 +24,8 @@ const TablaRespuestas = () => {
     fetchData()
   }, [idEncuestaSeleccionada, token, dispatch, fechaInicio, fechaTermino])
 
+  const ocultos = ['ID Derivación', 'Fecha Solicitud', 'Hora']
+
   return (
     <div className="TablaRespuestas">
       {cargando && <p>Obteniendo datos...</p>}
@@ -38,31 +41,43 @@ const TablaRespuestas = () => {
           </select>
         </>
       }
-      <div className="TablaRespuestas__headers">
-        {headers.map(({ nombre, texto }) => (
-          <div
-            key={`header-${nombre}`}
-            className="TablaRespuestas__celda"
-          >
-            {texto}
-          </div>
-        ))}
-      </div>
-      {respuestas && respuestas.slice(25 * (pagina - 1), 25 * pagina).map((respuesta, i) => (
-        <div
-          key={`fila-respuestas-${i}`}
-          className="TablaRespuestas__fila"
-        >
-          {headers.map((header, j) => (
-            <div
-              key={`celda-respuesta-${i}-${j}`}
-              className="TablaRespuestas__celda"
+      <table className="TablaRespuestas__tabla">
+        <thead>
+          <tr className="TablaRespuestas__fila">
+            {headers.map(({ nombre, texto }) => (
+              <th
+                key={`header-${nombre}`}
+                className={classNames({
+                  'TablaRespuestas__header': true,
+                  'TablaRespuestas__header--oculto': ocultos.includes(texto)
+                })}
+              >
+                {texto}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {respuestas && respuestas.slice(25 * (pagina - 1), 25 * pagina).map((respuesta, i) => (
+            <tr
+              key={`fila-respuestas-${i}`}
+              className="TablaRespuestas__fila"
             >
-              {respuesta[header.nombre].tag ?? respuesta[header.nombre]}
-            </div>
+              {headers.map(({ nombre, texto }, j) => (
+                <td
+                  key={`celda-respuesta-${i}-${j}`}
+                  className={classNames({
+                    'TablaRespuestas__celda': true,
+                    'TablaRespuestas__celda--oculta': ocultos.includes(texto)
+                  })}
+                >
+                  {respuesta[nombre].tag ?? respuesta[nombre]}
+                </td>
+              ))}
+            </tr>
           ))}
-        </div>
-      ))}
+        </tbody>
+      </table>
     </div>
   )
 }

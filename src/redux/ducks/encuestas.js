@@ -14,14 +14,23 @@ export default function(state = {}, action) {
     }
     case fijarHeadersEncuestaSeleccionada: {
       const { id, data } = action.payload
+      let headersOriginales = data.data.map(({ name, display_name, type }) => ({
+        nombre: name,
+        texto: display_name,
+        tipo: type
+      }))
       return {
         ...state,
         idEncuestaSeleccionada: id,
-        headers: data.data.map(({ name, display_name, type }) => ({
-          nombre: name,
-          texto: display_name,
-          tipo: type
-        }))
+        headers: [
+          ...headersOriginales.slice(0, 3),
+          {
+            nombre: 'fecha',
+            texto: 'Fecha',
+            tipo: 'EXTRA'
+          },
+          ...headersOriginales.slice(3)
+        ]
       }
     }
     default: return state

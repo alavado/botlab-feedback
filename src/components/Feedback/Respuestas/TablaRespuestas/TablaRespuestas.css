@@ -1,21 +1,33 @@
 .TablaRespuestas {
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  flex: 1;
 }
 
-.TablaRespuestas__headers {
-  display: flex;
+.TablaRespuestas__tabla {
+  width: 100%;
 }
 
-.TablaRespuestas__celda {
-  padding: .5rem;
-}
-
-.TablaRespuestas__celda {
-  width: 8rem;
+.TablaRespuestas__header {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: .7rem;
+  text-align: left;
+  padding: .75rem 1rem .75rem 0;
 }
 
 .TablaRespuestas__fila {
-  display: flex;
+  border-bottom: 1px solid #cecece;
+  cursor: pointer;
+}
+
+.TablaRespuestas__celda {
+  padding: .75rem 1rem .75rem 0;
+  font-size: .85rem;
+  vertical-align: middle;
+}
+
+.TablaRespuestas__header--oculto,
+.TablaRespuestas__celda--oculta {
+  display: none;
 }

@@ -25,7 +25,7 @@ const Respuestas = () => {
 
   return (
     <div className="Respuestas">
-      <h1>Respuestas</h1>
+      <h1 className="Respuestas__titulo">Respuestas</h1>
       {tipos.map(({ id, nombre }) => (
         <button
           key={`boton-${id}`}

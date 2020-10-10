@@ -37,6 +37,7 @@
   box-shadow: 
     0rem .25rem .25rem rgba(0, 0, 0, .15),
     0rem .25rem .75rem rgba(0, 0, 0, .15);
+  transition: all .25s ease;
 }
 
 .Login__campo {
