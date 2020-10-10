@@ -7,60 +7,81 @@
   position: relative;
 }
 
+.Login__instruccion {
+  padding-top: .75rem;
+  padding-bottom: 1.75rem;
+  font-size: 1.25rem;
+}
+
 .Login--cargando, .Login--cargando * {
   cursor: progress;
 }
 
 .Login__contenedor_logo {
-  padding: 1rem 3rem 2rem 3rem;
+  padding: 1rem 3rem .5rem 3rem;
   display: flex;
   justify-content: center;
 }
 
 .Login__logo {
-  width: 9rem;
-  filter: brightness(0%);
+  width: 8rem;
 }
 
 .Login__form {
   background-color: white;
-  padding: 1rem 1.5rem;
-  box-shadow: 0rem .25rem .5rem rgba(0, 0, 0, .15);
-  border-radius: .15rem;
+  padding: 1.75rem 2.25rem;
+  border-radius: .25rem;
   display: flex;
   flex-direction: column;
   margin: 2rem;
+  box-shadow: 
+    0rem .25rem .25rem rgba(0, 0, 0, .15),
+    0rem .25rem .75rem rgba(0, 0, 0, .15);
 }
 
 .Login__campo {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 1.75rem;
 }
 
 .Login__input {
-  padding: .5rem;
+  padding: .75rem 1rem;
   font-size: 1rem;
-  border-radius: .25rem;
-  border: 1px solid #6057f6;
+  border-radius: .35rem;
+  width: 20rem;
+  transition: all .25s ease;
+  box-shadow: 0rem 0rem .15rem rgba(0, 0, 0, .5);
+  border: none;
+}
+
+.Login__input:focus {
+  outline: none;
+  box-shadow: 0rem 0rem .25rem blue;
+  border: none;
 }
 
 .Login__label {
-  margin-bottom: .35rem;
-  font-size: .85rem;
+  margin-bottom: .75rem;
+  font-size: .9rem;
+  font-weight: 500;
+  color: #3d2453;
 }
 
 .Login__boton {
   background-color: #0ABCEB;
   color: white;
   border: none;
-  border-radius: .75rem;
+  border-radius: .45rem;
   font-size: 1rem;
-  align-self: center;
   padding: .8rem 4rem;
   cursor: pointer;
   margin-top: .5rem;
   transition: all .5s ease;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Login__boton:hover:not(:disabled) {
@@ -69,7 +90,7 @@
 }
 
 .Login__boton:disabled {
-  filter: saturate(25%);
+  filter: saturate(85%);
   cursor: progress;
 }
 

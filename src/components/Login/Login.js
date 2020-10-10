@@ -8,6 +8,7 @@ import { login as loginAPI } from '../../api/endpoints'
 import { format } from 'date-fns'
 import classNames from 'classnames'
 import logo from '../../assets/images/logo-feedback.svg'
+import Loader from '../Loader'
 
 const Login = () => {
 
@@ -44,10 +45,11 @@ const Login = () => {
       'Login': true,
       'Login--cargando': cargando
     })}>
+      <div className="Login__contenedor_logo">
+        <img className="Login__logo" src={logo} alt="Logo Botlab Feedback" />
+      </div>
       <form className="Login__form" onSubmit={login}>
-        <div className="Login__contenedor_logo">
-          <img className="Login__logo" src={logo} alt="Logo Botlab Feedback" />
-        </div>
+        <h1 className="Login__instruccion">Inicia sesión en tu cuenta</h1>
         <div className="Login__campo">
           <label
             htmlFor="login_usuario"
@@ -85,7 +87,7 @@ const Login = () => {
           type="submit"
           disabled={cargando}
         >
-          Ingresar
+          {cargando ? <Loader /> : 'Ingresar'}
         </button>
         {error && <p>{error}</p>}
       </form>

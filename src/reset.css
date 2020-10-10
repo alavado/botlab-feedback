@@ -50,4 +50,5 @@ table {
 *, *::before, *::after, body {
 	font-family: 'Roboto', Arial, Helvetica, sans-serif;
 	box-sizing: border-box;
+	color: #212121;
 }
