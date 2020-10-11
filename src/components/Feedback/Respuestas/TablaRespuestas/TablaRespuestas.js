@@ -29,18 +29,6 @@ const TablaRespuestas = () => {
   return (
     <div className="TablaRespuestas">
       {cargando && <p>Obteniendo datos...</p>}
-      {respuestas &&
-        <>
-          <p>Se encontraron {respuestas.length} registros</p>
-          <select onChange={e => setPagina(Number(e.target.value))}>
-            {Array(Math.floor(respuestas.length / 25)).fill(0).map((v, i) => (
-              <option key={`option-pagina-${i + 1}`} value={i + 1}>
-                Página {i + 1}
-              </option>
-            ))}
-          </select>
-        </>
-      }
       <table className="TablaRespuestas__tabla">
         <thead>
           <tr className="TablaRespuestas__fila">
@@ -78,6 +66,18 @@ const TablaRespuestas = () => {
           ))}
         </tbody>
       </table>
+      {respuestas &&
+        <>
+          <p>Se encontraron {respuestas.length} registros</p>
+          <select onChange={e => setPagina(Number(e.target.value))}>
+            {Array(Math.floor(respuestas.length / 25)).fill(0).map((v, i) => (
+              <option key={`option-pagina-${i + 1}`} value={i + 1}>
+                Página {i + 1}
+              </option>
+            ))}
+          </select>
+        </>
+      }
     </div>
   )
 }
