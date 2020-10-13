@@ -1,19 +1,25 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { cierraLaSesion } from '../../../../redux/ducks/login'
+import React, { useState } from 'react'
+import PopupMenuUsuario from './PopupMenuUsuario'
+import { InlineIcon } from '@iconify/react'
+import iconoUsuario from '@iconify/icons-mdi/user'
 import './MenuUsuario.css'
 
 const MenuUsuario = () => {
 
-  const { nombreUsuario } = useSelector(state => state.login)
-  const dispatch = useDispatch()
+  const [mostrarMenu, setMostrarMenu] = useState(false)
 
   return (
     <div className="MenuUsuario">
-      { nombreUsuario }
-      <button onClick={() => dispatch(cierraLaSesion())}>
-        Cerrar sesión
+      <button
+        className="MenuUsuario__boton_mostrar_popup"
+        onClick={() => setMostrarMenu(true)}
+      >
+        <InlineIcon icon={iconoUsuario} />
       </button>
+      <PopupMenuUsuario
+        visible={mostrarMenu}
+        esconder={() => setMostrarMenu(false)}
+      />
     </div>
   )
 }

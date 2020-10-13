@@ -1,0 +1,57 @@
+.PopupMenuUsuario {
+  position: absolute;
+  top: 2.5rem;
+  right: .75rem;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  background-color: white;
+  border: 1px solid #CFD8DC;
+  border-radius: .25rem;
+  transition: all .15s ease;
+  transform: scale(.85);
+}
+
+.PopupMenuUsuario--visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: scale(1);
+}
+
+.PopupMenuUsuario__lamina {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 999;
+}
+
+.PopupMenuUsuario__superior {
+  padding: 1rem 3rem 1rem .75rem;
+  border-bottom: 1px solid #CFD8DC;
+  font-weight: 500;
+  font-size: .9rem;
+}
+
+.PopupMenuUsuario__opciones {
+  padding: .5rem 0;
+}
+
+.PopupMenuUsuario__boton_opcion {
+  background-color: white;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: .4rem .75rem;
+  cursor: pointer;
+  font-size: .85rem;
+  font-weight: 500;
+  color: #6057f6;
+  transition: all .15s ease;
+}
+
+.PopupMenuUsuario__boton_opcion:hover {
+  background-color: #f1f0fe;
+  color: #0b066f;
+}
