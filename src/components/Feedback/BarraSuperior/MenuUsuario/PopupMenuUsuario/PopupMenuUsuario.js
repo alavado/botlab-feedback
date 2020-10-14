@@ -33,7 +33,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
         </div>
       </div>
     </div>,
-    document.getElementById('popup')
+    document.getElementById('popup_menu_usuario')
   )
 }
 

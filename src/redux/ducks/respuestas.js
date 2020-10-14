@@ -1,5 +1,3 @@
-
-
 const fijarRespuestas = 'respuestas/fijarRespuestas'
 const fijarFechaInicio = 'respuestas/fijarFechaInicio'
 const fijarFechaTermino = 'respuestas/fijarFechaTermino'

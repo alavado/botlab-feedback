@@ -1,11 +1,22 @@
 .TablaRespuestas {
   display: flex;
   flex-direction: column;
-  flex: 1;
+}
+
+.TablaRespuestas__superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.TablaRespuestas__titulo {
+  font-weight: bold;
+  font-size: 1.6rem;
 }
 
 .TablaRespuestas__tabla {
   width: 100%;
+  padding-top: 1rem;
 }
 
 .TablaRespuestas__header {
@@ -19,6 +30,11 @@
 .TablaRespuestas__fila {
   border-bottom: 1px solid #CFD8DC;
   cursor: pointer;
+  transition: all .15s ease;
+}
+
+.TablaRespuestas tbody .TablaRespuestas__fila:hover {
+  background-color: #f0f3f4;
 }
 
 .TablaRespuestas__celda {

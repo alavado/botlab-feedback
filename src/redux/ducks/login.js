@@ -12,10 +12,7 @@ export default function(state = {}, action) {
       }
     }
     case logout: {
-      return {
-        ...state,
-        token: undefined
-      }
+      return {}
     }
     default: return state
   }

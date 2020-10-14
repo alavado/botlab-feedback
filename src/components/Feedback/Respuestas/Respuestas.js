@@ -1,18 +1,21 @@
 import React from 'react'
-import TablaRespuestas from './TablaRespuestas'
-import SelectorRangoFechas from './SelectorRangoFechas'
+import { Route, Switch } from 'react-router-dom'
+import Chat from './Chat'
 import './Respuestas.css'
-import { useSelector } from 'react-redux'
+import TablaRespuestas from './TablaRespuestas/TablaRespuestas'
 
 const Respuestas = () => {
 
-  const { headers } = useSelector(state => state.encuestas)
-
   return (
     <div className="Respuestas">
-      <h1 className="Respuestas__titulo">Respuestas</h1>
-      <SelectorRangoFechas />
-      {headers && <TablaRespuestas />}
+      <Switch>
+        <Route path="/respuestas">
+          <TablaRespuestas />
+        </Route>
+        <Route path="/chat/:id">
+          <Chat />
+        </Route>
+      </Switch>
     </div>
   )
 }

@@ -1,14 +1,10 @@
-.MenuUsuario {
-  padding-right: 1rem;
-}
-
 .MenuUsuario__boton_mostrar_popup {
   border: none;
   background: none;
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   cursor: pointer;
   color: #5e7782;
-  transition: all .15s ease;
+  transition: all .25s ease;
   outline: none;
 }
 
