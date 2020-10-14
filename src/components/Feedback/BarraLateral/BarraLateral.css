@@ -1,8 +1,12 @@
 .BarraLateral {
-  background-color: #272727;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   z-index: 3;
+  position: fixed;
+  left: 0;
+  height: 100%;
+  width: 3rem;
 }
 
 .BarraLateral__logo {
@@ -10,7 +14,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0ABCEB;
+  background-color: rgba(255, 255, 255, .4);
+  color: rgba(255, 255, 255, 1);
 }
 
 .BarraLateral__link::after {
@@ -22,7 +27,7 @@
 }
 
 .BarraLateral__link {
-  color: #626262;
+  color: rgba(255, 255, 255, .7);
   font-size: 1.35rem;
   padding: .75rem .75rem;
   display: flex;

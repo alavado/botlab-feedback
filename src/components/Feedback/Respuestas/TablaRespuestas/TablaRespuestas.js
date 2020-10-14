@@ -11,7 +11,6 @@ const TablaRespuestas = () => {
 
   const [cargando, setCargando] = useState(false)
   const [pagina, setPagina] = useState(1)
-  const { token } = useSelector(state => state.login)
   const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
   const { fechaInicio, fechaTermino, respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
@@ -27,10 +26,10 @@ const TablaRespuestas = () => {
       }
       fetchData()
     }
-  }, [idEncuestaSeleccionada, token, dispatch, fechaInicio, fechaTermino])
+  }, [idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino])
 
-  const verChat = () => id => {
-    history.push(`/chat/${id}`)
+  const verChat = respuesta => () => {
+    history.push(`/respuestas/chat/${idEncuestaSeleccionada}/${respuesta.user_id}`)
   }
 
   const ocultos = ['Fecha Solicitud', 'Hora']
@@ -65,7 +64,7 @@ const TablaRespuestas = () => {
                 <tr
                   key={`fila-respuestas-${i}`}
                   className="TablaRespuestas__fila"
-                  onClick={verChat(respuesta[''])}
+                  onClick={verChat(respuesta)}
                 >
                   {headers.map(({ nombre, texto }, j) => (
                     <td

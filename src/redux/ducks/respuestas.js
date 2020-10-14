@@ -18,8 +18,6 @@ export default function(state = defaultState, action) {
         respuestas: jsonRespuestas.data.data.map(r => {
           const [dia,, nombreMes] = r.date.split(' ')
           const fecha = `${dia} ${nombreMes.slice(0, 3)}. ${r.time}`
-          delete r.dia
-          delete r.nombreMes
           return {
             ...r,
             fecha

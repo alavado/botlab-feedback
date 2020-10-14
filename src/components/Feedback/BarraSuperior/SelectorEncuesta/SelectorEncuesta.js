@@ -18,6 +18,12 @@ const SelectorEncuesta = () => {
     }
   }, [dispatch])
 
+  useEffect(() => {
+    if (!idEncuestaSeleccionada) {
+      verEncuesta(tipos[0].id)
+    }
+  }, [idEncuestaSeleccionada, tipos, verEncuesta])
+
   return (
     <div className="SelectorEncuesta">
       <select onChange={e => verEncuesta(e.target.value)}>

@@ -15,14 +15,14 @@ const SelectorRangoFechas = () => {
 
   return (
     <div className="SelectorRangoFechas">
-      Rango de fechas:
+      Período:
       <ReactDatePicker
         selected={fechaInicio}
         onChange={f => dispatch(guardaFechaInicio(f))}
         dateFormat="d MMMM yyyy"
         locale="es"
       />
-      -
+      al
       <ReactDatePicker
         selected={fechaTermino}
         onChange={f => dispatch(guardaFechaTermino(f))}

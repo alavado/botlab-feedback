@@ -22,3 +22,9 @@ export const respuestas = (idEncuesta, fechaInicio, fechaTermino) => {
   const url = `${API_ROOT}/answers/${idEncuesta}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
+
+export const chat = (idEncuesta, idUsuario) => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/chat/${idEncuesta}/${idUsuario}`
+  return axios.get(url, { headers: { 'Api-Token': token } })
+}

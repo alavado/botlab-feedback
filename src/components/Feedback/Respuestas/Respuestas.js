@@ -1,18 +1,18 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Chat from './Chat'
+import TablaRespuestas from './TablaRespuestas'
 import './Respuestas.css'
-import TablaRespuestas from './TablaRespuestas/TablaRespuestas'
 
 const Respuestas = () => {
 
   return (
     <div className="Respuestas">
       <Switch>
-        <Route path="/respuestas">
+        <Route exact path="/respuestas">
           <TablaRespuestas />
         </Route>
-        <Route path="/chat/:id">
+        <Route path="/respuestas/chat/:idEncuesta/:idUsuario">
           <Chat />
         </Route>
       </Switch>
