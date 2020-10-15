@@ -1,0 +1,68 @@
+.PopupEncuestas__lamina {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  display: flex;
+  transition: all .25s ease;
+}
+
+.PopupEncuestas__lamina--activo {
+  opacity: 1;
+}
+
+.PopupEncuestas {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 101;
+  left: 4rem;
+  top: 0;
+  box-shadow: 0 .2rem .35rem rgba(0, 0, 0, .15);
+}
+
+.PopupEncuestas__opcion {
+  background-color: transparent;
+  padding: .5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding-right: 1rem;
+  transition: all .1s ease;
+}
+
+.PopupEncuestas__opcion:hover {
+  background-color: #6057f6;
+  color: white;
+}
+
+.PopupEncuestas__opcion:first-child {
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+
+.PopupEncuestas__opcion:last-child {
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+.PopupEncuestas__icono_empresa {
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: .25rem;
+  background-color: white;
+  border-radius: 100%;
+  box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .15);
+  margin-right: .5rem;
+  color: #9f9eae;
+}
+
+.PopupEncuestas__nombre_encuesta {
+  padding-right: .5rem;
+  font-weight: 500;
+  font-size: .93rem;
+}

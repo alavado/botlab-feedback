@@ -1,12 +1,17 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { Icon } from '@iconify/react'
+import chevronDown from '@iconify/icons-mdi/chevron-down'
+import whatsapp from '@iconify/icons-mdi/whatsapp'
 import { useDispatch, useSelector } from 'react-redux'
 import { headersRespuestas as headersAPI } from '../../../../api/endpoints'
 import { guardaHeadersEncuesta } from '../../../../redux/ducks/encuestas'
 import './SelectorEncuesta.css'
+import PopupEncuestas from './PopupEncuestas'
 
 const SelectorEncuesta = () => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const [popupActivo, setPopupActivo] = useState(false)
   const dispatch = useDispatch()
 
   const verEncuesta = useCallback(async id => {
@@ -24,18 +29,22 @@ const SelectorEncuesta = () => {
     }
   }, [idEncuestaSeleccionada, tipos, verEncuesta])
 
+  if (!idEncuestaSeleccionada) {
+    return <div />
+  }
+
   return (
-    <div className="SelectorEncuesta">
-      <select onChange={e => verEncuesta(e.target.value)}>
-        {tipos.map(({ id, nombre }) => (
-          <option
-            key={`boton-${id}`}
-            value={id}
-          >
-            {nombre}
-          </option>
-        ))}
-      </select>
+    <div className="SelectorEncuesta" onClick={() => setPopupActivo(true)}>
+      <Icon className="SelectorEncuesta__icono_empresa" icon={whatsapp} />
+      <div className="SelectorEncuesta__nombre_encuesta">
+        {tipos.find(t => t.id === idEncuestaSeleccionada).nombre}
+      </div>
+      <Icon className="SelectorEncuesta__icono_menu" icon={chevronDown} />
+      <PopupEncuestas
+        activo={popupActivo}
+        esconder={() => setPopupActivo(false)}
+        verEncuesta={verEncuesta}
+      />
     </div>
   )
 }

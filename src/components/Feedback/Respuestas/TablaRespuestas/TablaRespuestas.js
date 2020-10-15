@@ -106,9 +106,9 @@ const TablaRespuestas = () => {
               ))}
             </tbody>
           </table>
-          {respuestas &&
-            <>
-              <p>Se encontraron {respuestas.length} registros</p>
+          <div className="TablaRespuestas__footer">
+            <p className="TablaRespuestas__total">{respuestas.length} respuestas</p>
+            {respuestas.length > respuestasPorPagina &&
               <select onChange={e => setPagina(Number(e.target.value))}>
                 {Array(Math.floor(respuestas.length / respuestasPorPagina)).fill(0).map((v, i) => (
                   <option key={`option-pagina-${i + 1}`} value={i + 1}>
@@ -116,8 +116,8 @@ const TablaRespuestas = () => {
                   </option>
                 ))}
               </select>
-            </>
-          }
+            }
+          </div>
         </div>
       }
     </div>

@@ -11,7 +11,7 @@
 
 .TablaRespuestas__titulo {
   font-weight: bold;
-  font-size: 1.6rem;
+  font-size: 1.75rem;
 }
 
 .TablaRespuesta__selector_filtro_principal {
@@ -21,7 +21,7 @@
 }
 
 .TablaRespuestas__selector_filtro_principal_opcion {
-  font-size: .875rem;
+  font-size: .85rem;
   margin-right: 2rem;
   font-weight: 500;
   color: #7c8285;
@@ -64,4 +64,14 @@
 .TablaRespuestas__header--oculto,
 .TablaRespuestas__celda--oculta {
   display: none;
+}
+
+.TablaRespuestas__footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.TablaRespuestas__total {
+  font-size: .85rem
 }
