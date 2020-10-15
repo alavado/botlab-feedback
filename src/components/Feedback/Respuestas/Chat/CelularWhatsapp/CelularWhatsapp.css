@@ -2,3 +2,134 @@
   width: 50%;
   height: 25%;
 }
+
+.CelularWhatsapp__celular {
+  background-color: #F5F5F5;
+  padding: 2rem .5rem 1.5rem .5rem;
+  border-radius: 1.5rem;
+  height: 80vh;
+  width: 47vh;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #DADBDA;
+}
+
+.CelularWhatsapp__pantalla {
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: .05rem solid #b6b6b6;
+}
+
+.CelularWhatsapp__barra_estado {
+  background-color: #054D44;
+  min-height: 1rem;
+  font-size: .6rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 .35rem;
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.CelularWhatsapp__icono_volver {
+  font-size: 1.1rem;
+  margin-right: .1rem;
+}
+
+.CelularWhatsapp__barra_app_contenedor_nombre {
+  display: flex;
+  flex-direction: column;
+}
+
+.CelularWhatsapp__barra_app {
+  background-color: #075E54;
+  color: white;
+  font-size: .8rem;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: .15rem;
+  cursor: default;
+}
+
+.CelularWhatsapp__barra_app_izquierda {
+  display: flex;
+  align-items: center;
+}
+
+.CelularWhatsapp___barra_app_avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: white;
+  border-radius: 100%;
+  margin-right: .35rem;
+}
+
+.CelularWhatsapp__barra_app_nombre {
+  font-size: .85rem;
+  font-weight: 500;
+  margin-bottom: .2rem;
+}
+
+.CelularWhatsapp__barra_app_estado {
+  font-size: .55rem;
+  opacity: .9;
+}
+
+.CelularWhatsapp__barra_app_iconos {
+  padding-right: 1rem;
+  font-size: 1.15rem;
+}
+
+.CelularWhatsapp__contenedor_mensajes {
+  background-color: #EDEBE6;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: .35rem;
+  overflow-y: auto;
+  max-height: calc(80vh - 7rem);
+}
+
+.CelularWhatsapp__mensaje {
+  font-size: .8rem;
+  background-color: white;
+  padding: .4rem .5rem;
+  max-width: 75%;
+  line-height: 1.15;
+  margin-bottom: .5rem;
+  border-radius: .5rem;
+  position: relative;
+  box-shadow: 0 .1rem .05em rgba(0, 0, 0, .2);
+}
+
+.CelularWhatsapp__mensaje--saliente {
+  align-self: flex-end;
+  background-color: #dcf8c6;
+}
+
+.CelularWhatsapp__hora {
+  display: inline;
+  padding-left: .5rem;
+  opacity: 0;
+}
+
+.CelularWhatsapp__hora_visible {
+  font-size: .6rem;
+  opacity: .65;
+  position: absolute;
+  right: .35rem;
+  bottom: .3rem;
+  display: flex;
+  align-items: center;
+}
+
+.CelularWhatsapp__icono_visto {
+  margin-left: .1rem;
+  font-size: .9rem;
+  color: #34b3ee;
+}
