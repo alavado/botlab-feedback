@@ -7,6 +7,7 @@ export default function(state = {}, action) {
   switch (action.type) {
     case guardarToken: {
       const { token, client: nombreUsuario } = action.payload
+      console.log(action.payload)
       return {
         ...state,
         token,

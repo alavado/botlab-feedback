@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { chat as chatAPI } from '../../../../api/endpoints'
+import { CelularWhatsapp } from './CelularWhatsapp/CelularWhatsapp'
 import './Chat.css'
+import DatosChat from './DatosChat'
 
 const Chat = () => {
 
@@ -18,13 +20,10 @@ const Chat = () => {
 
   return (
     <div className="Chat">
-      {mensajes.map(mensaje => (
-        <div className="Chat__mensaje" key={mensaje.epoch}>
-          <p>{mensaje.type}</p>
-          <p>{mensaje.timestamp}</p>
-          <p>{mensaje.message}</p>
-        </div>
-      ))}
+      <DatosChat />
+      <CelularWhatsapp
+        mensajes={mensajes}
+      />
     </div>
   )
 }
