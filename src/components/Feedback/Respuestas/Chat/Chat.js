@@ -14,7 +14,7 @@ const Chat = () => {
         const { data: { messages } } = data
         setMensajes(messages)
       })
-  }, [])
+  }, [idEncuesta, idUsuario])
 
   return (
     <div className="Chat">

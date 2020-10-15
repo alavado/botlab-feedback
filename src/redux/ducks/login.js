@@ -1,3 +1,5 @@
+import store from '../store'
+
 const guardarToken = 'login/guardarToken'
 const logout = 'login/logout'
 
@@ -12,6 +14,7 @@ export default function(state = {}, action) {
       }
     }
     case logout: {
+      window.location.reload()
       return {}
     }
     default: return state

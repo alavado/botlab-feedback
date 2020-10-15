@@ -21,6 +21,7 @@ const TablaRespuestas = () => {
 
   const [cargando, setCargando] = useState(false)
   const [pagina, setPagina] = useState(1)
+  const [opcionActiva, setOpcionActiva] = useState(0)
   const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
   const { fechaInicio, fechaTermino, respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
@@ -61,7 +62,11 @@ const TablaRespuestas = () => {
             {enumYesNo.map((valor, i) => (
               <li
                 key={`enumyesno-${i}`}
-                className="TablaRespuestas__selector_filtro_principal_opcion"
+                className={classNames({
+                  'TablaRespuestas__selector_filtro_principal_opcion': true,
+                  'TablaRespuestas__selector_filtro_principal_opcion--activa': opcionActiva === i
+                })}
+                onClick={() => setOpcionActiva(i)}
               >
                 {valor}
               </li>

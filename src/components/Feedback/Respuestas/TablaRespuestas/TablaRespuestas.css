@@ -16,8 +16,8 @@
 
 .TablaRespuesta__selector_filtro_principal {
   display: flex;
-  border-bottom: 1px solid #CFD8DC;
   margin-top: 1.25rem;
+  border-bottom: 1px solid #CFD8DC;
 }
 
 .TablaRespuestas__selector_filtro_principal_opcion {
@@ -26,6 +26,32 @@
   font-weight: 500;
   color: #7c8285;
   padding-bottom: .5rem;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.TablaRespuestas__selector_filtro_principal_opcion:not(.TablaRespuestas__selector_filtro_principal_opcion--activa):hover {
+  color: #35393a;
+}
+
+.TablaRespuestas__selector_filtro_principal_opcion--activa {
+  color: #6057f6;
+  position: relative;
+}
+
+.TablaRespuestas__selector_filtro_principal_opcion::after {
+  background-color: white;
+  transition: all .25s ease;
+}
+
+.TablaRespuestas__selector_filtro_principal_opcion--activa::after {
+  background-color: #6057f6;
+  content: '';
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
 }
 
 .TablaRespuestas__contenedor_tabla {
