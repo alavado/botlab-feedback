@@ -7,6 +7,16 @@ import SelectorRangoFechas from '../SelectorRangoFechas'
 import classNames from 'classnames'
 import './TablaRespuestas.css'
 
+const diccionarioTags = {
+  '': 'Sin respuesta',
+  'NO': 'Cancelaciones',
+  'YES': 'Confirmaciones',
+  'OUT': 'Inconclusas',
+  'REAGENDA': 'Reagendamientos'
+}
+
+const respuestasPorPagina = 20
+
 const TablaRespuestas = () => {
 
   const [cargando, setCargando] = useState(false)
@@ -32,7 +42,12 @@ const TablaRespuestas = () => {
     history.push(`/respuestas/chat/${idEncuestaSeleccionada}/${respuesta.user_id}`)
   }
 
-  const ocultos = ['Fecha Solicitud', 'Hora']
+  const headersOcultos = ['Fecha Solicitud', 'Hora']
+
+  const primerYesNo = headers && headers.find(header => header.tipo === 'YESNO')
+  const enumYesNo = primerYesNo && respuestas && Array.from(
+    new Set(['Todas', ...respuestas.map(r => diccionarioTags[r[primerYesNo.nombre].tag])])
+  )
 
   return (
     <div className="TablaRespuestas">
@@ -40,8 +55,18 @@ const TablaRespuestas = () => {
         <h1 className="TablaRespuestas__titulo">Respuestas</h1>
         <SelectorRangoFechas />
       </div>
-      {headers && 
-        <div className="TablaRespuestas__tabla">
+      {respuestas && 
+        <div className="TablaRespuestas__contenedor_tabla">
+          <ul className="TablaRespuesta__selector_filtro_principal">
+            {enumYesNo.map((valor, i) => (
+              <li
+                key={`enumyesno-${i}`}
+                className="TablaRespuestas__selector_filtro_principal_opcion"
+              >
+                {valor}
+              </li>
+            ))}
+          </ul>
           {cargando && <p>Obteniendo datos...</p>}
           <table className="TablaRespuestas__tabla">
             <thead>
@@ -51,7 +76,7 @@ const TablaRespuestas = () => {
                     key={`header-${nombre}`}
                     className={classNames({
                       'TablaRespuestas__header': true,
-                      'TablaRespuestas__header--oculto': ocultos.includes(texto)
+                      'TablaRespuestas__header--oculto': headersOcultos.includes(texto)
                     })}
                   >
                     {texto}
@@ -60,7 +85,7 @@ const TablaRespuestas = () => {
               </tr>
             </thead>
             <tbody>
-              {respuestas && respuestas.slice(25 * (pagina - 1), 25 * pagina).map((respuesta, i) => (
+              {respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina).map((respuesta, i) => (
                 <tr
                   key={`fila-respuestas-${i}`}
                   className="TablaRespuestas__fila"
@@ -71,7 +96,7 @@ const TablaRespuestas = () => {
                       key={`celda-respuesta-${i}-${j}`}
                       className={classNames({
                         'TablaRespuestas__celda': true,
-                        'TablaRespuestas__celda--oculta': ocultos.includes(texto)
+                        'TablaRespuestas__celda--oculta': headersOcultos.includes(texto)
                       })}
                     >
                       {respuesta[nombre].tag ?? respuesta[nombre]}
@@ -85,7 +110,7 @@ const TablaRespuestas = () => {
             <>
               <p>Se encontraron {respuestas.length} registros</p>
               <select onChange={e => setPagina(Number(e.target.value))}>
-                {Array(Math.floor(respuestas.length / 25)).fill(0).map((v, i) => (
+                {Array(Math.floor(respuestas.length / respuestasPorPagina)).fill(0).map((v, i) => (
                   <option key={`option-pagina-${i + 1}`} value={i + 1}>
                     Página {i + 1}
                   </option>

@@ -49,6 +49,7 @@
   font-weight: 500;
   color: #6057f6;
   transition: all .15s ease;
+  outline: none;
 }
 
 .PopupMenuUsuario__boton_opcion:hover {

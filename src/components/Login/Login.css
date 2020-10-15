@@ -52,13 +52,13 @@
   border-radius: .35rem;
   width: 20rem;
   transition: all .25s ease;
-  box-shadow: 0rem 0rem .15rem rgba(0, 0, 0, .5);
+  box-shadow: 0rem 0rem .15rem #363286;
   border: none;
 }
 
 .Login__input:focus {
   outline: none;
-  box-shadow: 0rem 0rem .25rem blue;
+  box-shadow: 0rem 0rem .25rem #6057f6;
   border: none;
 }
 
@@ -82,11 +82,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 .05rem .1rem rgba(0, 0, 0, .25);
 }
 
 .Login__boton:hover:not(:disabled) {
   filter: brightness(110%);
-  box-shadow: 0rem .25rem .5rem rgba(0, 0, 0, .15);
+  box-shadow: 0rem .05rem .5rem rgba(0, 0, 0, .15);
 }
 
 .Login__boton:disabled {
