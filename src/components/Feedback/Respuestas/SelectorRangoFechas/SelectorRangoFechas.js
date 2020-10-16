@@ -21,6 +21,7 @@ const SelectorRangoFechas = () => {
         onChange={f => dispatch(guardaFechaInicio(f))}
         dateFormat="d MMMM yyyy"
         locale="es"
+        className="SelectorRangoFechas__datepicker"
       />
       al
       <ReactDatePicker
@@ -28,6 +29,7 @@ const SelectorRangoFechas = () => {
         onChange={f => dispatch(guardaFechaTermino(f))}
         dateFormat="d MMMM yyyy"
         locale="es"
+        className="SelectorRangoFechas__datepicker"
       />
     </div>
   )

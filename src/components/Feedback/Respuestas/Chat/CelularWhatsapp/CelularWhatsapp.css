@@ -11,7 +11,7 @@
   width: 47vh;
   display: flex;
   flex-direction: column;
-  border: 2px solid #DADBDA;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, .15), 0 .1rem .25rem rgba(0, 0, 0, .1);
 }
 
 .CelularWhatsapp__pantalla {

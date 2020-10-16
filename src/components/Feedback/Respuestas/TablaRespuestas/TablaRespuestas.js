@@ -6,13 +6,34 @@ import { useHistory } from 'react-router-dom'
 import SelectorRangoFechas from '../SelectorRangoFechas'
 import classNames from 'classnames'
 import './TablaRespuestas.css'
+import BuscadorRespuestas from '../BuscadorRespuestas'
 
 const diccionarioTags = {
-  '': 'Sin respuesta',
-  'NO': 'Cancelaciones',
-  'YES': 'Confirmaciones',
-  'OUT': 'Inconclusas',
-  'REAGENDA': 'Reagendamientos'
+  '': {
+    texto: '',
+    titulo: 'Sin respuesta',
+    icono: null
+  },
+  'NO': {
+    texto: 'No',
+    titulo: 'Cancelaciones',
+    icono: null
+  },
+  'YES': {
+    texto: 'Sí',
+    titulo: 'Confirmaciones',
+    icono: null
+  },
+  'OUT': {
+    texto: 'No responde',
+    titulo: 'Inconclusas',
+    icono: null
+  },
+  'REAGENDA': {
+    texto: 'Reagenda',
+    titulo: 'Reagendamientos',
+    icono: null
+  }
 }
 
 const respuestasPorPagina = 20
@@ -47,7 +68,7 @@ const TablaRespuestas = () => {
 
   const primerYesNo = headers && headers.find(header => header.tipo === 'YESNO')
   const enumYesNo = primerYesNo && respuestas && Array.from(
-    new Set(['Todas', ...respuestas.map(r => diccionarioTags[r[primerYesNo.nombre].tag])])
+    new Set(['Todas', ...respuestas.map(r => diccionarioTags[r[primerYesNo.nombre].tag].titulo)])
   )
 
   return (
@@ -55,6 +76,7 @@ const TablaRespuestas = () => {
       <div className="TablaRespuestas__superior">
         <h1 className="TablaRespuestas__titulo">Respuestas</h1>
         <SelectorRangoFechas />
+        <BuscadorRespuestas />
       </div>
       {respuestas && 
         <div className="TablaRespuestas__contenedor_tabla">

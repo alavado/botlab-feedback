@@ -36,7 +36,7 @@
 }
 
 .PopupEncuestas__opcion:hover {
-  background-color: #6057f6;
+  background-color: var(--color-principal);
   color: white;
 }
 

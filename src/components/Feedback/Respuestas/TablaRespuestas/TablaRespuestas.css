@@ -16,8 +16,8 @@
 
 .TablaRespuesta__selector_filtro_principal {
   display: flex;
-  margin-top: 1.25rem;
-  border-bottom: 1px solid #CFD8DC;
+  margin-top: 1.75rem;
+  border-bottom: 1px solid var(--color-bordes);
 }
 
 .TablaRespuestas__selector_filtro_principal_opcion {
@@ -35,7 +35,7 @@
 }
 
 .TablaRespuestas__selector_filtro_principal_opcion--activa {
-  color: #6057f6;
+  color: var(--color-principal);
   position: relative;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .TablaRespuestas__selector_filtro_principal_opcion--activa::after {
-  background-color: #6057f6;
+  background-color: var(--color-principal);
   content: '';
   height: 2px;
   width: 100%;
@@ -60,7 +60,7 @@
 }
 
 .TablaRespuestas__tabla {
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
 }
 
 .TablaRespuestas__header {
@@ -72,7 +72,7 @@
 }
 
 .TablaRespuestas__fila {
-  border-bottom: 1px solid #CFD8DC;
+  border-bottom: 1px solid var(--color-bordes);
   cursor: pointer;
   transition: all .15s ease;
 }
