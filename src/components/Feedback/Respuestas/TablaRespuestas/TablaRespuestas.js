@@ -11,7 +11,7 @@ import LoaderRespuestas from './LoaderRespuestas'
 import TagRespuesta from './TagRespuesta'
 import { diccionarioTags } from '../../../../helpers/tags'
 
-const respuestasPorPagina = 10
+const respuestasPorPagina = 50
 
 const TablaRespuestas = () => {
 
@@ -55,74 +55,76 @@ const TablaRespuestas = () => {
       </div>
       {cargando
         ? <LoaderRespuestas />
-        : <div className="TablaRespuestas__contenedor_tabla">
-            <ul className="TablaRespuesta__selector_filtro_principal">
-              {enumYesNo.map((valor, i) => (
-                <li
-                  key={`enumyesno-${i}`}
-                  className={classNames({
-                    'TablaRespuestas__selector_filtro_principal_opcion': true,
-                    'TablaRespuestas__selector_filtro_principal_opcion--activa': opcionActiva === i
-                  })}
-                  onClick={() => setOpcionActiva(i)}
-                >
-                  {valor}
-                </li>
-              ))}
-            </ul>
-            <table className="TablaRespuestas__tabla">
-              <thead>
-                <tr className="TablaRespuestas__fila">
-                  {headers.map(({ nombre, texto }) => (
-                    <th
-                      key={`header-${nombre}`}
-                      className={classNames({
-                        'TablaRespuestas__header': true,
-                        'TablaRespuestas__header--oculto': headersOcultos.includes(texto)
-                      })}
-                    >
-                      {texto}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina).map((respuesta, i) => (
-                  <tr
-                    key={`fila-respuestas-${i}`}
-                    className="TablaRespuestas__fila"
-                    onClick={verChat(respuesta)}
+        : <>
+          <div className="TablaRespuestas__contenedor_tabla">
+              <ul className="TablaRespuesta__selector_filtro_principal">
+                {enumYesNo.map((valor, i) => (
+                  <li
+                    key={`enumyesno-${i}`}
+                    className={classNames({
+                      'TablaRespuestas__selector_filtro_principal_opcion': true,
+                      'TablaRespuestas__selector_filtro_principal_opcion--activa': opcionActiva === i
+                    })}
+                    onClick={() => setOpcionActiva(i)}
                   >
-                    {headers.map(({ nombre, texto }, j) => (
-                      <td
-                        key={`celda-respuesta-${i}-${j}`}
+                    {valor}
+                  </li>
+                ))}
+              </ul>
+              <table className="TablaRespuestas__tabla">
+                <thead>
+                  <tr className="TablaRespuestas__fila">
+                    {headers.map(({ nombre, texto }) => (
+                      <th
+                        key={`header-${nombre}`}
                         className={classNames({
-                          'TablaRespuestas__celda': true,
-                          'TablaRespuestas__celda--oculta': headersOcultos.includes(texto)
+                          'TablaRespuestas__header': true,
+                          'TablaRespuestas__header--oculto': headersOcultos.includes(texto)
                         })}
                       >
-                        {respuesta[nombre].tag !== undefined
-                          ? <TagRespuesta tag={respuesta[nombre].tag} />
-                          : respuesta[nombre]}
-                      </td>
+                        {texto}
+                      </th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="TablaRespuestas__footer">
-              <p className="TablaRespuestas__total">{respuestas.length} respuestas</p>
-              {respuestas.length > respuestasPorPagina &&
-                <select onChange={e => setPagina(Number(e.target.value))}>
-                  {Array(Math.floor(respuestas.length / respuestasPorPagina)).fill(0).map((v, i) => (
-                    <option key={`option-pagina-${i + 1}`} value={i + 1}>
-                      Página {i + 1}
-                    </option>
+                </thead>
+                <tbody>
+                  {respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina).map((respuesta, i) => (
+                    <tr
+                      key={`fila-respuestas-${i}`}
+                      className="TablaRespuestas__fila"
+                      onClick={verChat(respuesta)}
+                    >
+                      {headers.map(({ nombre, texto }, j) => (
+                        <td
+                          key={`celda-respuesta-${i}-${j}`}
+                          className={classNames({
+                            'TablaRespuestas__celda': true,
+                            'TablaRespuestas__celda--oculta': headersOcultos.includes(texto)
+                          })}
+                        >
+                          {respuesta[nombre].tag !== undefined
+                            ? <TagRespuesta tag={respuesta[nombre].tag} />
+                            : respuesta[nombre]}
+                        </td>
+                      ))}
+                    </tr>
                   ))}
-                </select>
-              }
-            </div>
-        </div>
+                </tbody>
+              </table>
+          </div>
+          <div className="TablaRespuestas__footer">
+            <p className="TablaRespuestas__total">{respuestas.length} respuestas</p>
+            {respuestas.length > respuestasPorPagina &&
+              <select onChange={e => setPagina(Number(e.target.value))}>
+                {Array(Math.floor(respuestas.length / respuestasPorPagina)).fill(0).map((v, i) => (
+                  <option key={`option-pagina-${i + 1}`} value={i + 1}>
+                    Página {i + 1}
+                  </option>
+                ))}
+              </select>
+            }
+          </div>
+        </>
       }
     </div>
   )

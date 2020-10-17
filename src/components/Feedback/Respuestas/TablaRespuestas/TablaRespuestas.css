@@ -2,12 +2,16 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  --alto-superior: 3.5rem;
+  --alto-footer: 3rem;
 }
 
 .TablaRespuestas__superior {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: var(--alto-superior);
+  padding-bottom: 1rem;
 }
 
 .TablaRespuestas__titulo {
@@ -17,7 +21,6 @@
 
 .TablaRespuesta__selector_filtro_principal {
   display: flex;
-  margin-top: 1.75rem;
   border-bottom: 1px solid var(--color-bordes);
   display: none;
 }
@@ -60,10 +63,25 @@
   display: flex;
   flex-direction: column;
   animation: aparece-tabla-respuestas .25s ease both;
+  flex: 1;
+  max-height: calc(100vh - calc(var(--alto-superior) + var(--alto-header) + var(--alto-footer) + 3.25rem));
+  overflow: auto;
 }
 
 .TablaRespuestas__tabla {
-  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+}
+
+.TablaRespuestas__tabla thead, .TablaRespuestas__tabla th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+}
+
+.TablaRespuestas__tabla thead th {
+  /* box-shadow: 0 .25rem .25rem rgba(0, 0, 0, .1); */
+  height: 2rem;
 }
 
 .TablaRespuestas__header {
@@ -98,7 +116,9 @@
 .TablaRespuestas__footer {
   display: flex;
   justify-content: space-between;
-  margin-top: 2rem;
+  height: var(--alto-footer);
+  align-items: center;
+  border-top: 1px solid var(--color-bordes);
 }
 
 .TablaRespuestas__total {

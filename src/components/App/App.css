@@ -1,9 +1,11 @@
 .App {
   min-height: 100vh;
+  max-height: 100vh;
   max-width: 100vw;
   display: flex;
   background:
     url('../../assets/images/strips.png'),
     linear-gradient(117deg, var(--color-principal), var(--color-secundario));
   background-size: cover;
+  overflow: hidden;
 }
