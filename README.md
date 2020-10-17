@@ -5,8 +5,6 @@ Pendientes:
 - ordenar tabla
 - filtro por tabs
 - loader chat
-- puntas globos chat
-- agregar fondo a chat
 - agregar fecha a chat
 - agregar icono bateria a telefono
 - agregar seleccion de pov a telefono
@@ -18,3 +16,4 @@ Pendientes:
 - cambiar scroll de whatsapp
 - agregar botones de hablar y refrescar
 - cambiar fuente ws a helvetica
+- cambiar paginado por anterior-siguiente

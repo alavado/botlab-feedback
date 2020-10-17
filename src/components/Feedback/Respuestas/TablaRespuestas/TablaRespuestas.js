@@ -8,34 +8,8 @@ import classNames from 'classnames'
 import './TablaRespuestas.css'
 import BuscadorRespuestas from '../BuscadorRespuestas'
 import LoaderRespuestas from './LoaderRespuestas'
-
-const diccionarioTags = {
-  '': {
-    texto: '',
-    titulo: 'Sin respuesta',
-    icono: null
-  },
-  'NO': {
-    texto: 'No',
-    titulo: 'Cancelaciones',
-    icono: null
-  },
-  'YES': {
-    texto: 'Sí',
-    titulo: 'Confirmaciones',
-    icono: null
-  },
-  'OUT': {
-    texto: 'No responde',
-    titulo: 'Inconclusas',
-    icono: null
-  },
-  'REAGENDA': {
-    texto: 'Reagenda',
-    titulo: 'Reagendamientos',
-    icono: null
-  }
-}
+import TagRespuesta from './TagRespuesta'
+import { diccionarioTags } from '../../../../helpers/tags'
 
 const respuestasPorPagina = 10
 
@@ -127,7 +101,9 @@ const TablaRespuestas = () => {
                           'TablaRespuestas__celda--oculta': headersOcultos.includes(texto)
                         })}
                       >
-                        {respuesta[nombre].tag ?? respuesta[nombre]}
+                        {respuesta[nombre].tag !== undefined
+                          ? <TagRespuesta tag={respuesta[nombre].tag} />
+                          : respuesta[nombre]}
                       </td>
                     ))}
                   </tr>

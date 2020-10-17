@@ -19,6 +19,7 @@
   display: flex;
   margin-top: 1.75rem;
   border-bottom: 1px solid var(--color-bordes);
+  display: none;
 }
 
 .TablaRespuestas__selector_filtro_principal_opcion {
@@ -48,7 +49,7 @@
 .TablaRespuestas__selector_filtro_principal_opcion--activa::after {
   background-color: var(--color-principal);
   content: '';
-  height: 2px;
+  height: .15rem;
   width: 100%;
   position: absolute;
   bottom: -1px;
@@ -80,11 +81,11 @@
 }
 
 .TablaRespuestas tbody .TablaRespuestas__fila:hover {
-  background-color: #f0f3f4;
+  background-color: #f6f5fe;
 }
 
 .TablaRespuestas__celda {
-  padding: .75rem 1rem .75rem 0;
+  padding: .85rem .25rem .85rem 0;
   font-size: .85rem;
   vertical-align: middle;
 }
