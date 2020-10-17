@@ -1,6 +1,7 @@
 .TablaRespuestas {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .TablaRespuestas__superior {
@@ -22,7 +23,7 @@
 
 .TablaRespuestas__selector_filtro_principal_opcion {
   font-size: .85rem;
-  margin-right: 2rem;
+  margin-right: 2.5rem;
   font-weight: 500;
   color: #7c8285;
   padding-bottom: .5rem;
@@ -57,6 +58,7 @@
 .TablaRespuestas__contenedor_tabla {
   display: flex;
   flex-direction: column;
+  animation: aparece-tabla-respuestas .25s ease both;
 }
 
 .TablaRespuestas__tabla {
@@ -100,4 +102,13 @@
 
 .TablaRespuestas__total {
   font-size: .85rem
+}
+
+@keyframes aparece-tabla-respuestas {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -23,7 +23,7 @@ const SelectorRangoFechas = () => {
         locale="es"
         className="SelectorRangoFechas__datepicker"
       />
-      al
+      -
       <ReactDatePicker
         selected={fechaTermino}
         onChange={f => dispatch(guardaFechaTermino(f))}

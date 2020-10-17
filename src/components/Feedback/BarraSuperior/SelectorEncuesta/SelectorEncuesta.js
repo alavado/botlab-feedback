@@ -5,8 +5,9 @@ import whatsapp from '@iconify/icons-mdi/whatsapp'
 import { useDispatch, useSelector } from 'react-redux'
 import { headersRespuestas as headersAPI } from '../../../../api/endpoints'
 import { guardaHeadersEncuesta } from '../../../../redux/ducks/encuestas'
-import './SelectorEncuesta.css'
 import PopupEncuestas from './PopupEncuestas'
+import Loader from '../../../Loader'
+import './SelectorEncuesta.css'
 
 const SelectorEncuesta = () => {
 
@@ -30,7 +31,7 @@ const SelectorEncuesta = () => {
   }, [idEncuestaSeleccionada, tipos, verEncuesta])
 
   if (!idEncuestaSeleccionada) {
-    return <div />
+    return <Loader color="#6057f6" />
   }
 
   return (

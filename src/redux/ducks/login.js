@@ -1,5 +1,3 @@
-import store from '../store'
-
 const guardarToken = 'login/guardarToken'
 const logout = 'login/logout'
 
@@ -7,7 +5,6 @@ export default function(state = {}, action) {
   switch (action.type) {
     case guardarToken: {
       const { token, client: nombreUsuario } = action.payload
-      console.log(action.payload)
       return {
         ...state,
         token,
@@ -16,7 +13,7 @@ export default function(state = {}, action) {
     }
     case logout: {
       window.location.reload()
-      return {}
+      return state
     }
     default: return state
   }

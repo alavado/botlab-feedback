@@ -1,9 +1,9 @@
 import React from 'react'
 import './Loader.css'
 
-const Loader = () => {
+const Loader = ({ color }) => {
   return (
-    <div className="Loader" />
+    <div className="Loader" style={{ borderLeftColor: color ?? 'white' }} />
   )
 }
 

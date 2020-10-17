@@ -3,6 +3,7 @@
   align-items: center;
   cursor: pointer;
   position: relative;
+  animation: aparece-selector-encuesta .25s ease both;
 }
 
 .SelectorEncuesta__icono_empresa {
@@ -25,4 +26,15 @@
 
 .SelectorEncuesta__icono_menu {
   font-size: 1.3rem;
+}
+
+@keyframes aparece-selector-encuesta {
+  0% {
+    opacity: 0;
+    transform: translateY(-.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
 }
