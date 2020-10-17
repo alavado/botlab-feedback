@@ -45,7 +45,7 @@ const TablaRespuestas = () => {
   const [pagina, setPagina] = useState(1)
   const [opcionActiva, setOpcionActiva] = useState(0)
   const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
-  const { fechaInicio, fechaTermino, respuestas } = useSelector(state => state.respuestas)
+  const { fechaInicio, fechaTermino, respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
   const history = useHistory()
 

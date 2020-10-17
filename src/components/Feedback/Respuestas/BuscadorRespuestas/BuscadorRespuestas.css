@@ -2,6 +2,22 @@
   display: flex;
   align-items: center;
   font-size: .8rem;
+  position: relative;
+}
+
+.BuscadorRespuestas__contenedor_icono {
+  position: absolute;
+  right: .5rem;
+  top: 0;
+  z-index: 2;
+  font-size: 1.35rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.BuscadorRespuestas__icono {
+  color: var(--color-gris);
 }
 
 .BuscadorRespuestas__input {

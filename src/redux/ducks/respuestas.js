@@ -1,6 +1,7 @@
 const fijarRespuestas = 'respuestas/fijarRespuestas'
 const fijarFechaInicio = 'respuestas/fijarFechaInicio'
 const fijarFechaTermino = 'respuestas/fijarFechaTermino'
+const fijarBusqueda = 'respuestas/fijarBusqueda'
 
 const defaultState = {
   fechaInicio: new Date(2020, 7, 1),
@@ -13,16 +14,21 @@ export default function(state = defaultState, action) {
   switch (action.type) {
     case fijarRespuestas: {
       const jsonRespuestas = action.payload
+      const respuestas = jsonRespuestas.data.data.map(r => {
+        const [dia,, nombreMes] = r.date.split(' ')
+        const fecha = `${dia} ${nombreMes.slice(0, 3)}. ${r.time}`
+        const respuestaNormalizada = Object.keys(r)
+          .reduce((prev, k) => typeof r[k] === 'string' ? (prev + ' ' + r[k].normalize('NFD').replace(/[\u0300-\u036f]/g, '')) : prev, '').toLowerCase()
+        return {
+          ...r,
+          fecha,
+          respuestaNormalizada
+        }
+      })
       return {
         ...state,
-        respuestas: jsonRespuestas.data.data.map(r => {
-          const [dia,, nombreMes] = r.date.split(' ')
-          const fecha = `${dia} ${nombreMes.slice(0, 3)}. ${r.time}`
-          return {
-            ...r,
-            fecha
-          }
-        })
+        respuestas,
+        respuestasVisibles: respuestas
       }
     }
     case fijarFechaInicio: {
@@ -35,6 +41,13 @@ export default function(state = defaultState, action) {
       return {
         ...state,
         fechaTermino: action.payload
+      }
+    }
+    case fijarBusqueda: {
+      const termino = action.payload.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+      return {
+        ...state,
+        respuestasVisibles: state.respuestas.filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)
       }
     }
     default: return state
@@ -54,4 +67,9 @@ export const guardaFechaInicio = fecha => ({
 export const guardaFechaTermino = fecha => ({
   type: fijarFechaTermino,
   payload: fecha
+})
+
+export const buscaEsto = termino => ({
+  type: fijarBusqueda,
+  payload: termino
 })

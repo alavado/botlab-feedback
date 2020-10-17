@@ -3,7 +3,7 @@
   background: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #5e7782;
+  color: var(--color-gris);
   transition: all .25s ease;
   outline: none;
 }
