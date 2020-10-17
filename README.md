@@ -15,3 +15,6 @@ Pendientes:
 - corregir bug de persistencia de tabla al desmontar componente
 - guardar busqueda en el state
 - boton de clear busqueda
+- cambiar scroll de whatsapp
+- agregar botones de hablar y refrescar
+- cambiar fuente ws a helvetica

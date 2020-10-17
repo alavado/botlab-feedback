@@ -3,6 +3,8 @@ const fijarFechaInicio = 'respuestas/fijarFechaInicio'
 const fijarFechaTermino = 'respuestas/fijarFechaTermino'
 const fijarBusqueda = 'respuestas/fijarBusqueda'
 
+const normalizar = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+
 const defaultState = {
   fechaInicio: new Date(2020, 7, 1),
   fechaTermino: new Date(2020, 7, 2)
@@ -18,13 +20,13 @@ export default function(state = defaultState, action) {
         const [dia,, nombreMes] = r.date.split(' ')
         const fecha = `${dia} ${nombreMes.slice(0, 3)}. ${r.time}`
         const respuestaNormalizada = Object.keys(r)
-          .reduce((prev, k) => typeof r[k] === 'string' ? (prev + ' ' + r[k].normalize('NFD').replace(/[\u0300-\u036f]/g, '')) : prev, '').toLowerCase()
+          .reduce((prev, k) => typeof r[k] === 'string' ? (prev + ' ' + normalizar(r[k])) : prev, '')
         return {
           ...r,
           fecha,
           respuestaNormalizada
         }
-      })
+      }).reverse()
       return {
         ...state,
         respuestas,
@@ -44,10 +46,12 @@ export default function(state = defaultState, action) {
       }
     }
     case fijarBusqueda: {
-      const termino = action.payload.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+      const termino = normalizar(action.payload)
       return {
         ...state,
-        respuestasVisibles: state.respuestas.filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)
+        respuestasVisibles: state
+          .respuestas
+          .filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)
       }
     }
     default: return state

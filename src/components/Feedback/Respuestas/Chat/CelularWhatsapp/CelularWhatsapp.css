@@ -90,26 +90,53 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: .35rem;
+  padding: .35rem .75rem;
   overflow-y: auto;
   max-height: calc(80vh - 7rem);
+  background-image: url('../../../../../assets/images/whatsapp-background.jpg');
+  background-size: cover;
 }
 
 .CelularWhatsapp__mensaje {
   font-size: .8rem;
   background-color: white;
-  padding: .4rem .5rem;
+  padding: .3rem .5rem;
   max-width: 75%;
   line-height: 1.15;
   margin-bottom: .5rem;
   border-radius: .5rem;
   position: relative;
   box-shadow: 0 .1rem .05em rgba(0, 0, 0, .2);
+  --cachito: .45rem;
 }
 
 .CelularWhatsapp__mensaje--saliente {
   align-self: flex-end;
   background-color: #dcf8c6;
+}
+
+.CelularWhatsapp__mensaje::after {
+  position: absolute;
+  z-index: 100;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: var(--cachito) solid white;
+  border-right: var(--cachito) solid white;
+  border-left: var(--cachito) solid transparent;
+  border-bottom: var(--cachito) solid transparent;
+  top: 0;
+  left: calc(-1 * var(--cachito));
+}
+
+.CelularWhatsapp__mensaje--saliente::after {
+  position: absolute;
+  border-top: var(--cachito) solid #dcf8c6;
+  border-right: var(--cachito) solid transparent;
+  border-left: var(--cachito) solid #dcf8c6;
+  border-bottom: var(--cachito) solid transparent;
+  right: calc(-1 * var(--cachito));
+  left: auto;
 }
 
 .CelularWhatsapp__hora {
