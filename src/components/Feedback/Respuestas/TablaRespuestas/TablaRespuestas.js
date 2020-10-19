@@ -113,7 +113,9 @@ const TablaRespuestas = () => {
               </table>
           </div>
           <div className="TablaRespuestas__footer">
-            <p className="TablaRespuestas__total">{respuestas.length} respuestas</p>
+            <p className="TablaRespuestas__total">
+              {respuestas.length} respuestas - mostrando {50 * (pagina - 1) + 1} a {50 * pagina}
+            </p>
             {respuestas.length > respuestasPorPagina &&
               <select onChange={e => setPagina(Number(e.target.value))}>
                 {Array(Math.floor(respuestas.length / respuestasPorPagina)).fill(0).map((v, i) => (

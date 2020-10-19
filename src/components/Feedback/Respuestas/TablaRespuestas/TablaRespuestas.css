@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  --alto-superior: 3.5rem;
-  --alto-footer: 3rem;
+  --alto-superior: 3rem;
+  --alto-footer: 3.5rem;
 }
 
 .TablaRespuestas__superior {
@@ -64,7 +64,7 @@
   flex-direction: column;
   animation: aparece-tabla-respuestas .25s ease both;
   flex: 1;
-  max-height: calc(100vh - calc(var(--alto-superior) + var(--alto-header) + var(--alto-footer) + 3.25rem));
+  max-height: calc(100vh - calc(var(--alto-superior) + var(--alto-header) + var(--alto-footer) + 2.25rem));
   overflow: auto;
 }
 
@@ -115,14 +115,15 @@
 
 .TablaRespuestas__footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   height: var(--alto-footer);
   align-items: center;
   border-top: 1px solid var(--color-bordes);
 }
 
 .TablaRespuestas__total {
-  font-size: .85rem
+  font-size: .85rem;
+  padding-right: 1rem;
 }
 
 @keyframes aparece-tabla-respuestas {

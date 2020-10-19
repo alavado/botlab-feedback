@@ -1,5 +1,6 @@
 Pendientes:
 
+- agrega netlify redirect
 - agregar datos chat
 - agregar pills
 - ordenar tabla
@@ -17,3 +18,4 @@ Pendientes:
 - agregar botones de hablar y refrescar
 - cambiar fuente ws a helvetica
 - cambiar paginado por anterior-siguiente
+- agregar popup con opciones para mostrar ultima semana, mes, etc.
