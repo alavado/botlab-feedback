@@ -1,6 +1,7 @@
 .CelularWhatsapp {
   width: 50%;
   height: 25%;
+  animation: aparece-celular .25s ease both;
 }
 
 .CelularWhatsapp__celular {
@@ -80,6 +81,11 @@
   opacity: .9;
 }
 
+.CelularWhatsapp__icono_barra_estado {
+  margin-right: .15rem;
+  font-size: .75rem;
+}
+
 .CelularWhatsapp__barra_app_iconos {
   padding-right: 1rem;
   font-size: 1.15rem;
@@ -108,11 +114,13 @@
   position: relative;
   box-shadow: 0 .1rem .05em rgba(0, 0, 0, .2);
   --cachito: .45rem;
+  animation: aparece-mensaje-entrante-celular .5s ease both;
 }
 
 .CelularWhatsapp__mensaje--saliente {
   align-self: flex-end;
   background-color: #dcf8c6;
+  animation: aparece-mensaje-saliente-celular .5s ease both;
 }
 
 .CelularWhatsapp__mensaje::after {
@@ -159,4 +167,37 @@
   margin-left: .1rem;
   font-size: .9rem;
   color: #34b3ee;
+}
+
+@keyframes aparece-celular {
+  0% {
+    opacity: 0;
+    transform: translateY(-.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+}
+
+@keyframes aparece-mensaje-entrante-celular {
+  0% {
+    opacity: 0;
+    transform: translateY(-.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+}
+
+@keyframes aparece-mensaje-saliente-celular {
+  0% {
+    opacity: 0;
+    transform: translateY(-.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
 }

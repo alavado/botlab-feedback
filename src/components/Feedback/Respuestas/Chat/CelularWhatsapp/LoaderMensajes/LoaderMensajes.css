@@ -1,0 +1,25 @@
+.LoaderMensajes {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LoaderMensajes__loader {
+  width: 4rem;
+  height: 4rem;
+  border: .5rem solid transparent;
+  border-left: .5rem solid var(--color-secundario);
+  border-radius: 100%;
+  animation: animacion-loader-mensajes 1s infinite both;
+}
+
+@keyframes animacion-loader-mensajes {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(350deg);
+  }
+}

@@ -7,7 +7,7 @@ import DatosChat from './DatosChat'
 
 const Chat = () => {
 
-  const [mensajes, setMensajes] = useState([])
+  const [mensajes, setMensajes] = useState()
   const { idEncuesta, idUsuario } = useParams()
 
   useEffect(() => {
