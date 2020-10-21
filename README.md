@@ -1,12 +1,12 @@
 Pendientes:
 
-- agrega netlify redirect
 - agregar datos chat
 - agregar pills
 - ordenar tabla
 - filtro por tabs
+- animaciones a chat
 - loader chat
-- agregar fecha a chat
+- agregar fecha a pantalla whatsapp
 - agregar icono bateria a telefono
 - agregar seleccion de pov a telefono
 - que recuerde la encuesta seleccionada
@@ -19,3 +19,4 @@ Pendientes:
 - cambiar fuente ws a helvetica
 - cambiar paginado por anterior-siguiente
 - agregar popup con opciones para mostrar ultima semana, mes, etc.
+- corregir bug de que falta la ultima pagina

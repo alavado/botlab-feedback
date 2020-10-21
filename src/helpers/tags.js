@@ -1,26 +1,31 @@
+import check from '@iconify/icons-mdi/check'
+import cancel from '@iconify/icons-mdi/close'
+import refresh from '@iconify/icons-mdi/refresh'
+import question from '@iconify/icons-mdi/question-mark'
+
 export const diccionarioTags = {
   'YES': {
     texto: 'Sí',
     titulo: 'Confirmaciones',
-    icono: null,
+    icono: check,
     clase: 'TagRespuesta TagRespuesta--si'
   },
   'NO': {
     texto: 'No',
     titulo: 'Cancelaciones',
-    icono: null,
+    icono: cancel,
     clase: 'TagRespuesta TagRespuesta--no'
   },
   'REAGENDA': {
     texto: 'Reagenda',
     titulo: 'Reagendamientos',
-    icono: null,
+    icono: refresh,
     clase: 'TagRespuesta TagRespuesta--reagenda'
   },
   'OUT': {
     texto: 'No responde',
     titulo: 'Inconclusas',
-    icono: null,
+    icono: question,
     clase: 'TagRespuesta TagRespuesta--out'
   },
   '': {

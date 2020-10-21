@@ -4,6 +4,7 @@
   font-weight: 500;
   border-radius: .25rem;
   color: rgba(0, 0, 0, .65);
+  margin-right: .5rem;
 }
 
 .TagRespuesta--no {
@@ -20,4 +21,8 @@
 
 .TagRespuesta--reagenda {
   background-color: #d2c8f4;
+}
+
+.TagRespuesta__icono {
+  margin-right: .25rem;
 }
