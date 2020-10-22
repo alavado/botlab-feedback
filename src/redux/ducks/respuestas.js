@@ -1,3 +1,5 @@
+import { diccionarioTags } from "../../helpers/tags"
+
 const fijarRespuestas = 'respuestas/fijarRespuestas'
 const fijarFechaInicio = 'respuestas/fijarFechaInicio'
 const fijarFechaTermino = 'respuestas/fijarFechaTermino'
@@ -21,7 +23,16 @@ export default function(state = defaultState, action) {
         const [dia,, nombreMes] = r.date.split(' ')
         const fecha = `${dia} ${nombreMes.slice(0, 3)}. ${r.time}`
         const respuestaNormalizada = Object.keys(r)
-          .reduce((prev, k) => typeof r[k] === 'string' ? (prev + ' ' + normalizar(r[k])) : prev, '')
+          .reduce((prev, k) => {
+            let slug = ''
+            if (typeof r[k] === 'string') {
+              slug = normalizar(r[k])
+            }
+            else if (r[k].tag) {
+              slug = normalizar(diccionarioTags[r[k].tag].texto)
+            }
+            return prev + slug
+          }, '')
         return {
           ...r,
           fecha,
