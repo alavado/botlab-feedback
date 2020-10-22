@@ -5,7 +5,6 @@ Pendientes:
 - agregar fecha a pantalla whatsapp
 - que recuerde la encuesta seleccionada
 - normalizar colores de datepicker
-- guardar busqueda en el state y mostrar busqueda abajo
 - boton de clear busqueda
 - cambiar scroll de whatsapp
 - agregar botones de hablar y refrescar
@@ -15,3 +14,4 @@ Pendientes:
 - boton volver
 - que aparezcan bloqueadas fechas futuras
 - agregar animacion al cambio de pagina
+- destacar mas busqueda

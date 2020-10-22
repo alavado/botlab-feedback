@@ -9,16 +9,19 @@ import PopupEncuestas from './PopupEncuestas'
 import Loader from '../../../Loader'
 import './SelectorEncuesta.css'
 import { limpiaRespuestas } from '../../../../redux/ducks/respuestas'
+import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
 
 const SelectorEncuesta = () => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { idEncuestaGuardada } = useSelector(state => state.opciones)
   const [popupActivo, setPopupActivo] = useState(false)
   const dispatch = useDispatch()
 
   const verEncuesta = useCallback(async id => {
     try {
       dispatch(limpiaRespuestas())
+      dispatch(guardaIdEncuesta(id))
       const data = await headersAPI(id)
       dispatch(guardaHeadersEncuesta(id, data))
     } catch (e) {
@@ -28,9 +31,14 @@ const SelectorEncuesta = () => {
 
   useEffect(() => {
     if (!idEncuestaSeleccionada) {
-      verEncuesta(tipos[0].id)
+      if (!tipos.find(t => t.id === idEncuestaGuardada)) {
+        verEncuesta(tipos[0].id)
+      }
+      else {
+        verEncuesta(idEncuestaGuardada)
+      }
     }
-  }, [idEncuestaSeleccionada, tipos, verEncuesta])
+  }, [idEncuestaSeleccionada, idEncuestaGuardada, dispatch, tipos, verEncuesta])
 
   if (!idEncuestaSeleccionada) {
     return <Loader color="#6057f6" />
