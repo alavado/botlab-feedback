@@ -116,7 +116,7 @@ const TablaRespuestas = () => {
           </div>
           <div className="TablaRespuestas__footer">
             <p className="TablaRespuestas__total">
-              <span className="TablaRespuestas__numero_total">{respuestas.length}</span> respuestas - mostrando {50 * (pagina - 1) + 1} a {Math.min(50 * pagina, respuestas.length)}
+              <span className="TablaRespuestas__numero_total">{respuestas.length.toLocaleString('de-DE')}</span> respuestas - mostrando {50 * (pagina - 1) + 1} a {Math.min(50 * pagina, respuestas.length)}
             </p>
             {respuestas.length > respuestasPorPagina &&
               <div className="TablaRespuestas__botones_paginas">

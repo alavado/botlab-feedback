@@ -6,7 +6,7 @@ Pendientes:
 - que recuerde la encuesta seleccionada
 - normalizar colores de datepicker
 - corregir bug de persistencia de tabla al desmontar componente
-- guardar busqueda en el state
+- guardar busqueda en el state y mostrar busqueda abajo
 - boton de clear busqueda
 - cambiar scroll de whatsapp
 - agregar botones de hablar y refrescar
@@ -18,4 +18,5 @@ Pendientes:
 - muchos headeres. ancho tabla fijo
 - revisar bug de alto
 - boton volver
-- agregar scroll cuando hay muchas encuestas
+- que aparezcan bloqueadas fechas futuras
+- agregar animacion al cambio de pagina

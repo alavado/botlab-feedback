@@ -65,10 +65,25 @@
   animation: aparece-tabla-respuestas .25s ease both;
   flex: 1;
   max-height: calc(100vh - calc(var(--alto-superior) + var(--alto-header) + var(--alto-footer) + 2.25rem));
+  max-width: calc(100vw - 7rem);
   overflow: auto;
+  scrollbar-width: .5em;
+  scrollbar-color: var(--color-principal) white;
+}
+
+.TablaRespuestas__contenedor_tabla::-webkit-scrollbar {
+  width: .6em;
+  height: .6em;
+  background-color: white;
+}
+
+.TablaRespuestas__contenedor_tabla::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
 }
 
 .TablaRespuestas__tabla {
+  max-width: 100%;
   padding-top: 1.25rem;
 }
 
@@ -103,10 +118,11 @@
 }
 
 .TablaRespuestas__celda {
-  padding: 0 .25rem 0 0;
+  padding: .15rem .25rem .15rem 0;
   font-size: .85rem;
   vertical-align: middle;
   height: 2.5rem;
+  min-width: 15ch;
 }
 
 .TablaRespuestas__header--oculto,

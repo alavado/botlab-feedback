@@ -22,6 +22,20 @@
   left: 4rem;
   top: 0;
   box-shadow: 0 .2rem .35rem rgba(0, 0, 0, .15);
+  max-height: 50vh;
+  overflow: auto;
+  scrollbar-width: .6em;
+  scrollbar-color: var(--color-principal) white;
+}
+
+.PopupEncuestas::-webkit-scrollbar {
+  width: .6em;
+  background-color: white;
+}
+
+.PopupEncuestas::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
 }
 
 .PopupEncuestas__opcion {
