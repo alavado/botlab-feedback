@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { guardaEstaRespuesta, guardaRespuestas } from '../../../../redux/ducks/respuestas'
-import { respuestas as respuestasAPI} from '../../../../api/endpoints'
+import { guardaEstaRespuesta } from '../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
 import SelectorRangoFechas from '../SelectorRangoFechas'
 import classNames from 'classnames'
@@ -14,24 +13,12 @@ const respuestasPorPagina = 50
 
 const TablaRespuestas = () => {
 
-  const [cargando, setCargando] = useState(true)
   const [pagina, setPagina] = useState(1)
   const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
-  const { fechaInicio, fechaTermino, respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
+  const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
   const history = useHistory()
-
-  useEffect(() => {
-    if (idEncuestaSeleccionada && fechaInicio && fechaTermino) {
-      const fetchData = async () => {
-        setCargando(true)
-        const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-        dispatch(guardaRespuestas(data))
-        setCargando(false)
-      }
-      fetchData()
-    }
-  }, [idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino])
+  const cargando = !respuestas || !headers
 
   const verChat = respuesta => () => {
     dispatch(guardaEstaRespuesta(respuesta))

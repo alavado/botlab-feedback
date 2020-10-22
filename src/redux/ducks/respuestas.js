@@ -5,6 +5,7 @@ const fijarFechaInicio = 'respuestas/fijarFechaInicio'
 const fijarFechaTermino = 'respuestas/fijarFechaTermino'
 const fijarBusqueda = 'respuestas/fijarBusqueda'
 const fijarRespuesta = 'respuestas/fijarRespuesta'
+const limpiarRespuestas = 'respuestas/limpiarRespuestas'
 
 const normalizar = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
@@ -72,9 +73,21 @@ export default function(state = defaultState, action) {
         respuestaSeleccionada: action.payload
       }
     }
+    case limpiarRespuestas: {
+      return {
+        ...state,
+        respuestas: undefined,
+        respuestasVisibles: undefined,
+        respuestaSeleccionada: undefined
+      }
+    }
     default: return state
   }
 }
+
+export const limpiaRespuestas = () => ({
+  type: limpiarRespuestas
+})
 
 export const guardaRespuestas = jsonRespuestas => ({
   type: fijarRespuestas,

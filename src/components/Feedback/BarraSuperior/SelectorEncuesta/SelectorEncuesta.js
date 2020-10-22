@@ -8,6 +8,7 @@ import { guardaHeadersEncuesta } from '../../../../redux/ducks/encuestas'
 import PopupEncuestas from './PopupEncuestas'
 import Loader from '../../../Loader'
 import './SelectorEncuesta.css'
+import { limpiaRespuestas } from '../../../../redux/ducks/respuestas'
 
 const SelectorEncuesta = () => {
 
@@ -17,6 +18,7 @@ const SelectorEncuesta = () => {
 
   const verEncuesta = useCallback(async id => {
     try {
+      dispatch(limpiaRespuestas())
       const data = await headersAPI(id)
       dispatch(guardaHeadersEncuesta(id, data))
     } catch (e) {
