@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { guardaRespuestas } from '../../../../redux/ducks/respuestas'
+import { guardaEstaRespuesta, guardaRespuestas } from '../../../../redux/ducks/respuestas'
 import { respuestas as respuestasAPI} from '../../../../api/endpoints'
 import { useHistory } from 'react-router-dom'
 import SelectorRangoFechas from '../SelectorRangoFechas'
@@ -36,6 +36,7 @@ const TablaRespuestas = () => {
   }, [idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino])
 
   const verChat = respuesta => () => {
+    dispatch(guardaEstaRespuesta(respuesta))
     history.push(`/respuestas/chat/${idEncuestaSeleccionada}/${respuesta.user_id}`)
   }
 

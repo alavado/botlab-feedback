@@ -2,6 +2,7 @@ const fijarRespuestas = 'respuestas/fijarRespuestas'
 const fijarFechaInicio = 'respuestas/fijarFechaInicio'
 const fijarFechaTermino = 'respuestas/fijarFechaTermino'
 const fijarBusqueda = 'respuestas/fijarBusqueda'
+const fijarRespuesta = 'respuestas/fijarRespuesta'
 
 const normalizar = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
@@ -54,6 +55,12 @@ export default function(state = defaultState, action) {
           .filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)
       }
     }
+    case fijarRespuesta: {
+      return {
+        ...state,
+        respuestaSeleccionada: action.payload
+      }
+    }
     default: return state
   }
 }
@@ -76,4 +83,9 @@ export const guardaFechaTermino = fecha => ({
 export const buscaEsto = termino => ({
   type: fijarBusqueda,
   payload: termino
+})
+
+export const guardaEstaRespuesta = respuesta => ({
+  type: fijarRespuesta,
+  payload: respuesta
 })

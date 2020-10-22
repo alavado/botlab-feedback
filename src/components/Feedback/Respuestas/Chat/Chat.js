@@ -8,22 +8,44 @@ import DatosChat from './DatosChat'
 const Chat = () => {
 
   const [mensajes, setMensajes] = useState()
+  const [telefono, setTelefono] = useState()
   const { idEncuesta, idUsuario } = useParams()
 
   useEffect(() => {
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
-        const { data: { messages } } = data
+        const { data: { messages, user: { phone } } } = data
+        console.log(data)
         setMensajes(messages)
+        setTelefono(phone)
       })
   }, [idEncuesta, idUsuario])
 
   return (
     <div className="Chat">
-      <DatosChat />
+      <DatosChat
+        telefono={telefono}
+      />
       <CelularWhatsapp
         mensajes={mensajes}
       />
+      <div>
+        <div className="DatosChat__contenedor_header">
+          <div className="DatosChat__nombre_header">
+            Teléfono
+          </div>
+          <div className="DatosChat__valor_header">
+            {telefono}
+          </div>
+        </div>
+        <a
+          href={`https://wa.me/${telefono}`}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Hablar con usuario
+        </a>
+      </div>
     </div>
   )
 }

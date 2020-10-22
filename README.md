@@ -11,7 +11,5 @@ Pendientes:
 - cambiar scroll de whatsapp
 - agregar botones de hablar y refrescar
 - cambiar fuente ws a helvetica
-- cambiar paginado por anterior-siguiente
 - agregar popup con opciones para mostrar ultima semana, mes, etc.
-- corregir bug de que falta la ultima pagina
 - agregar ojo al login
