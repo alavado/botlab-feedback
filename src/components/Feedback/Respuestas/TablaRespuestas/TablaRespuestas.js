@@ -9,7 +9,6 @@ import './TablaRespuestas.css'
 import BuscadorRespuestas from '../BuscadorRespuestas'
 import LoaderRespuestas from './LoaderRespuestas'
 import TagRespuesta from './TagRespuesta'
-import { diccionarioTags } from '../../../../helpers/tags'
 
 const respuestasPorPagina = 50
 
@@ -17,7 +16,6 @@ const TablaRespuestas = () => {
 
   const [cargando, setCargando] = useState(true)
   const [pagina, setPagina] = useState(1)
-  const [opcionActiva, setOpcionActiva] = useState(0)
   const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
   const { fechaInicio, fechaTermino, respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
@@ -43,11 +41,6 @@ const TablaRespuestas = () => {
   const numeroPaginas = 1 + respuestas && Math.ceil(respuestas.length / respuestasPorPagina)
   const headersOcultos = []
 
-  const primerYesNo = headers && headers.find(header => header.tipo === 'YESNO')
-  const enumYesNo = primerYesNo && respuestas && Array.from(
-    new Set(['Todas', ...respuestas.map(r => diccionarioTags[r[primerYesNo.nombre].tag].titulo)])
-  )
-
   return (
     <div className="TablaRespuestas">
       <div className="TablaRespuestas__superior">
@@ -59,60 +52,46 @@ const TablaRespuestas = () => {
         ? <LoaderRespuestas />
         : <>
           <div className="TablaRespuestas__contenedor_tabla">
-              <ul className="TablaRespuesta__selector_filtro_principal">
-                {enumYesNo.map((valor, i) => (
-                  <li
-                    key={`enumyesno-${i}`}
-                    className={classNames({
-                      'TablaRespuestas__selector_filtro_principal_opcion': true,
-                      'TablaRespuestas__selector_filtro_principal_opcion--activa': opcionActiva === i
-                    })}
-                    onClick={() => setOpcionActiva(i)}
+            <table className="TablaRespuestas__tabla">
+              <thead>
+                <tr className="TablaRespuestas__fila">
+                  {headers.map(({ nombre, texto }) => (
+                    <th
+                      key={`header-${nombre}`}
+                      className={classNames({
+                        'TablaRespuestas__header': true,
+                        'TablaRespuestas__header--oculto': headersOcultos.includes(texto)
+                      })}
+                    >
+                      {texto}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina).map((respuesta, i) => (
+                  <tr
+                    key={`fila-respuestas-${i}`}
+                    className="TablaRespuestas__fila"
+                    onClick={verChat(respuesta)}
                   >
-                    {valor}
-                  </li>
-                ))}
-              </ul>
-              <table className="TablaRespuestas__tabla">
-                <thead>
-                  <tr className="TablaRespuestas__fila">
-                    {headers.map(({ nombre, texto }) => (
-                      <th
-                        key={`header-${nombre}`}
+                    {headers.map(({ nombre, texto }, j) => (
+                      <td
+                        key={`celda-respuesta-${i}-${j}`}
                         className={classNames({
-                          'TablaRespuestas__header': true,
-                          'TablaRespuestas__header--oculto': headersOcultos.includes(texto)
+                          'TablaRespuestas__celda': true,
+                          'TablaRespuestas__celda--oculta': headersOcultos.includes(texto)
                         })}
                       >
-                        {texto}
-                      </th>
+                        {respuesta[nombre] && respuesta[nombre].tag !== undefined
+                          ? <TagRespuesta tag={respuesta[nombre].tag} />
+                          : respuesta[nombre]}
+                      </td>
                     ))}
                   </tr>
-                </thead>
-                <tbody>
-                  {respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina).map((respuesta, i) => (
-                    <tr
-                      key={`fila-respuestas-${i}`}
-                      className="TablaRespuestas__fila"
-                      onClick={verChat(respuesta)}
-                    >
-                      {headers.map(({ nombre, texto }, j) => (
-                        <td
-                          key={`celda-respuesta-${i}-${j}`}
-                          className={classNames({
-                            'TablaRespuestas__celda': true,
-                            'TablaRespuestas__celda--oculta': headersOcultos.includes(texto)
-                          })}
-                        >
-                          {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                            ? <TagRespuesta tag={respuesta[nombre].tag} />
-                            : respuesta[nombre]}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                ))}
+              </tbody>
+            </table>
           </div>
           <div className="TablaRespuestas__footer">
             <p className="TablaRespuestas__total">

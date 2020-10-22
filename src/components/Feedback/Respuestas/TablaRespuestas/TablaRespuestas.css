@@ -19,46 +19,6 @@
   font-size: 1.75rem;
 }
 
-.TablaRespuesta__selector_filtro_principal {
-  display: flex;
-  border-bottom: 1px solid var(--color-bordes);
-  display: none;
-}
-
-.TablaRespuestas__selector_filtro_principal_opcion {
-  font-size: .85rem;
-  margin-right: 2.5rem;
-  font-weight: 500;
-  color: #7c8285;
-  padding-bottom: .5rem;
-  cursor: pointer;
-  transition: all .15s ease;
-}
-
-.TablaRespuestas__selector_filtro_principal_opcion:not(.TablaRespuestas__selector_filtro_principal_opcion--activa):hover {
-  color: #35393a;
-}
-
-.TablaRespuestas__selector_filtro_principal_opcion--activa {
-  color: var(--color-principal);
-  position: relative;
-}
-
-.TablaRespuestas__selector_filtro_principal_opcion::after {
-  background-color: white;
-  transition: all .25s ease;
-}
-
-.TablaRespuestas__selector_filtro_principal_opcion--activa::after {
-  background-color: var(--color-principal);
-  content: '';
-  height: .15rem;
-  width: 100%;
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-}
-
 .TablaRespuestas__contenedor_tabla {
   display: flex;
   flex-direction: column;
@@ -132,7 +92,7 @@
 
 .TablaRespuestas__footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: var(--alto-footer);
   align-items: center;
   border-top: 1px solid var(--color-bordes);

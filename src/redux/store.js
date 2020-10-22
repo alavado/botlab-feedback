@@ -1,6 +1,11 @@
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
+import { save, load } from 'redux-localstorage-simple'
 import rootReducer from './ducks/index'
 
-const store = createStore(combineReducers(rootReducer))
+const createStoreWithMiddleware = applyMiddleware(save({
+  states: ['opciones']
+}))(createStore)
+  
+const store = createStoreWithMiddleware(combineReducers(rootReducer), load())
 
 export default store
