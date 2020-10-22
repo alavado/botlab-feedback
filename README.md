@@ -2,8 +2,6 @@ Pendientes:
 
 - agregar datos chat
 - ordenar tabla
-- animaciones a chat
-- loader chat
 - agregar fecha a pantalla whatsapp
 - que recuerde la encuesta seleccionada
 - normalizar colores de datepicker
@@ -16,3 +14,4 @@ Pendientes:
 - cambiar paginado por anterior-siguiente
 - agregar popup con opciones para mostrar ultima semana, mes, etc.
 - corregir bug de que falta la ultima pagina
+- agregar ojo al login

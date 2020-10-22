@@ -103,9 +103,10 @@
 }
 
 .TablaRespuestas__celda {
-  padding: .85rem .25rem .85rem 0;
+  padding: 0 .25rem 0 0;
   font-size: .85rem;
   vertical-align: middle;
+  height: 2.5rem;
 }
 
 .TablaRespuestas__header--oculto,
@@ -119,6 +120,26 @@
   height: var(--alto-footer);
   align-items: center;
   border-top: 1px solid var(--color-bordes);
+}
+
+.TablaRespuestas__numero_total {
+  font-weight: 500;
+}
+
+.TablaRespuestas__boton_pagina {
+  margin-left: .45rem;
+  font-weight: 600;
+  border-radius: .25rem;
+  padding: .35rem .5rem;
+  background-color: white;
+  color: #666;
+  border: 1px solid #666;
+  cursor: pointer;
+  box-shadow: 0 .1rem .1rem rgba(0, 0, 0, .1);
+}
+
+.TablaRespuestas__boton_pagina:disabled {
+  filter: brightness(200%);
 }
 
 .TablaRespuestas__total {

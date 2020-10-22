@@ -39,6 +39,7 @@ const TablaRespuestas = () => {
     history.push(`/respuestas/chat/${idEncuestaSeleccionada}/${respuesta.user_id}`)
   }
 
+  const numeroPaginas = 1 + respuestas && Math.ceil(respuestas.length / respuestasPorPagina)
   const headersOcultos = ['Fecha Solicitud', 'Hora']
 
   const primerYesNo = headers && headers.find(header => header.tipo === 'YESNO')
@@ -114,16 +115,25 @@ const TablaRespuestas = () => {
           </div>
           <div className="TablaRespuestas__footer">
             <p className="TablaRespuestas__total">
-              {respuestas.length} respuestas - mostrando {50 * (pagina - 1) + 1} a {50 * pagina}
+              <span className="TablaRespuestas__numero_total">{respuestas.length}</span> respuestas - mostrando {50 * (pagina - 1) + 1} a {Math.min(50 * pagina, respuestas.length)}
             </p>
             {respuestas.length > respuestasPorPagina &&
-              <select onChange={e => setPagina(Number(e.target.value))}>
-                {Array(Math.floor(respuestas.length / respuestasPorPagina)).fill(0).map((v, i) => (
-                  <option key={`option-pagina-${i + 1}`} value={i + 1}>
-                    Página {i + 1}
-                  </option>
-                ))}
-              </select>
+              <div className="TablaRespuestas__botones_paginas">
+                <button
+                  className="TablaRespuestas__boton_pagina"
+                  onClick={() => setPagina(pagina - 1)}
+                  disabled={pagina === 1}
+                >
+                  Anterior
+                </button>
+                <button
+                  className="TablaRespuestas__boton_pagina"
+                  onClick={() => setPagina(pagina + 1)}
+                  disabled={numeroPaginas === 1 || pagina >= numeroPaginas}
+                >
+                  Siguiente
+                </button>
+              </div>
             }
           </div>
         </>
