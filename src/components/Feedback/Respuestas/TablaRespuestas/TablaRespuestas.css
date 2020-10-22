@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  --alto-superior: 3rem;
+  --alto-superior: 2.75rem;
   --alto-footer: 3.5rem;
 }
 
@@ -17,6 +17,7 @@
 .TablaRespuestas__titulo {
   font-weight: bold;
   font-size: 1.75rem;
+  font-family: 'Raleway';
 }
 
 .TablaRespuestas__contenedor_tabla {
@@ -61,9 +62,10 @@
 
 .TablaRespuestas__header {
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   font-size: .7rem;
   text-align: left;
+  white-space: nowrap;
   padding: .75rem 1rem .75rem 0;
 }
 
@@ -78,11 +80,12 @@
 }
 
 .TablaRespuestas__celda {
-  padding: .15rem .25rem .15rem 0;
-  font-size: .85rem;
+  padding: .15rem 1rem .15rem 0;
+  font-size: .8rem;
   vertical-align: middle;
   height: 2.5rem;
-  min-width: 15ch;
+  line-height: 1.15;
+  white-space: nowrap;
 }
 
 .TablaRespuestas__header--oculto,
@@ -99,7 +102,7 @@
 }
 
 .TablaRespuestas__numero_total {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .TablaRespuestas__boton_pagina {

@@ -1,22 +1,17 @@
 Pendientes:
 
-- agregar datos chat
+- mejorar orden datos chat
 - ordenar tabla
 - agregar fecha a pantalla whatsapp
 - que recuerde la encuesta seleccionada
 - normalizar colores de datepicker
-- corregir bug de persistencia de tabla al desmontar componente
 - guardar busqueda en el state y mostrar busqueda abajo
 - boton de clear busqueda
 - cambiar scroll de whatsapp
 - agregar botones de hablar y refrescar
 - agregar popup con opciones para mostrar ultima semana, mes, etc.
 - agregar ojo al login
-- tablas muy largas
 - otro modo de vista para chat
-- poner todos los headers
-- muchos headeres. ancho tabla fijo
-- revisar bug de alto
 - boton volver
 - que aparezcan bloqueadas fechas futuras
 - agregar animacion al cambio de pagina

@@ -30,7 +30,7 @@
 .PopupMenuUsuario__superior {
   padding: 1rem 3rem 1rem .75rem;
   border-bottom: 1px solid var(--color-bordes);
-  font-weight: 500;
+  font-weight: 600;
   font-size: .9rem;
 }
 
@@ -46,7 +46,7 @@
   padding: .4rem .75rem;
   cursor: pointer;
   font-size: .85rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-principal);
   transition: all .15s ease;
   outline: none;

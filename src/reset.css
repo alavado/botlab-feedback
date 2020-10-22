@@ -49,7 +49,7 @@ table {
 }
 
 *, *::before, *::after, body {
-	font-family: 'Roboto', Arial, Helvetica, sans-serif;
+	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 	box-sizing: border-box;
 	--color-principal: #6057f6;
 	--color-secundario: #d84763;
