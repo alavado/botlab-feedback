@@ -2,15 +2,13 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  --alto-superior: 2.75rem;
-  --alto-footer: 3.5rem;
 }
 
 .TablaRespuestas__superior {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: var(--alto-superior);
+  height: 2.75rem;
   padding-bottom: 1rem;
 }
 
@@ -25,7 +23,7 @@
   flex-direction: column;
   animation: aparece-tabla-respuestas .25s ease both;
   flex: 1;
-  max-height: calc(100vh - calc(var(--alto-superior) + var(--alto-header) + var(--alto-footer) + 2.25rem));
+  max-height: calc(100vh - calc(2.75rem + 3rem + 3.5rem + 2.25rem));
   max-width: calc(100vw - 7rem);
   overflow: auto;
   scrollbar-width: .5em;
@@ -96,7 +94,7 @@
 .TablaRespuestas__footer {
   display: flex;
   justify-content: space-between;
-  height: var(--alto-footer);
+  height: 3.5rem;
   align-items: center;
   border-top: 1px solid var(--color-bordes);
 }
