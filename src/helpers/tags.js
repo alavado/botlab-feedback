@@ -5,13 +5,13 @@ import question from '@iconify/icons-mdi/question-mark'
 
 export const diccionarioTags = {
   'YES': {
-    texto: 'Confirma',
+    texto: 'Sí',
     titulo: 'Confirmaciones',
     icono: check,
     clase: 'TagRespuesta TagRespuesta--si'
   },
   'NO': {
-    texto: 'No confirma',
+    texto: 'No',
     titulo: 'Cancelaciones',
     icono: cancel,
     clase: 'TagRespuesta TagRespuesta--no'
@@ -23,7 +23,7 @@ export const diccionarioTags = {
     clase: 'TagRespuesta TagRespuesta--reagenda'
   },
   'OUT': {
-    texto: 'No responde',
+    texto: 'Out',
     titulo: 'Inconclusas',
     icono: question,
     clase: 'TagRespuesta TagRespuesta--out'

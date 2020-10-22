@@ -41,7 +41,7 @@ const TablaRespuestas = () => {
   }
 
   const numeroPaginas = 1 + respuestas && Math.ceil(respuestas.length / respuestasPorPagina)
-  const headersOcultos = ['Fecha Solicitud', 'Hora']
+  const headersOcultos = []
 
   const primerYesNo = headers && headers.find(header => header.tipo === 'YESNO')
   const enumYesNo = primerYesNo && respuestas && Array.from(
@@ -104,7 +104,7 @@ const TablaRespuestas = () => {
                             'TablaRespuestas__celda--oculta': headersOcultos.includes(texto)
                           })}
                         >
-                          {respuesta[nombre].tag !== undefined
+                          {respuesta[nombre] && respuesta[nombre].tag !== undefined
                             ? <TagRespuesta tag={respuesta[nombre].tag} />
                             : respuesta[nombre]}
                         </td>

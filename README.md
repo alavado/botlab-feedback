@@ -10,6 +10,12 @@ Pendientes:
 - boton de clear busqueda
 - cambiar scroll de whatsapp
 - agregar botones de hablar y refrescar
-- cambiar fuente ws a helvetica
 - agregar popup con opciones para mostrar ultima semana, mes, etc.
 - agregar ojo al login
+- tablas muy largas
+- otro modo de vista para chat
+- poner todos los headers
+- muchos headeres. ancho tabla fijo
+- revisar bug de alto
+- boton volver
+- agregar scroll cuando hay muchas encuestas

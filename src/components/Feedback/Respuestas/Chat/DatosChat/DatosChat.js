@@ -7,7 +7,7 @@ const DatosChat = ({ telefono }) => {
   const { respuestaSeleccionada } = useSelector(state => state.respuestas)
   const { headers } = useSelector(state => state.encuestas)
 
-  const headersOcultos = ['Fecha Solicitud', 'Hora']
+  const headersOcultos = []
   const headersVisibles = headers.filter(h => !headersOcultos.includes(h.texto))
 
   return (
