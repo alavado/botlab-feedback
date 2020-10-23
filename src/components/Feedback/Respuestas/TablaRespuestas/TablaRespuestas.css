@@ -93,7 +93,7 @@
 
 .TablaRespuestas__footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   height: 3.5rem;
   align-items: center;
   border-top: 1px solid var(--color-bordes);
@@ -106,18 +106,19 @@
 .TablaRespuestas__boton_pagina {
   margin-left: .45rem;
   font-weight: 600;
-  border-radius: .25rem;
+  border-radius: .35rem;
   padding: .35rem .5rem;
   background-color: white;
   color: var(--color-gris);
-  border: 1px solid var(--color-bordes);
+  border: 2px solid var(--color-bordes);
   cursor: pointer;
-  box-shadow: 0 .1rem .1rem rgba(0, 0, 0, .1);
+  box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .1);
   transition: all .25s ease;
 }
 
 .TablaRespuestas__boton_pagina:disabled {
-  filter: brightness(150%) saturate(10%);
+  filter: brightness(110%) saturate(20%);
+  border: 1px solid var(--color-bordes);
 }
 
 .TablaRespuestas__total {

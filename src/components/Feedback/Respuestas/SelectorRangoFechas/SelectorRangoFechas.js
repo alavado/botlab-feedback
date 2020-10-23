@@ -5,6 +5,7 @@ import es from 'date-fns/locale/es'
 import { useDispatch, useSelector } from 'react-redux'
 import { guardaFechaInicio, guardaFechaTermino } from '../../../../redux/ducks/respuestas'
 import './SelectorRangoFechas.css'
+import './react-datepicker-overrides.css'
 
 registerLocale('es', es)
 

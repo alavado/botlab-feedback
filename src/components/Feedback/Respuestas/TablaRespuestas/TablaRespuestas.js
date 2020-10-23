@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { guardaEstaRespuesta } from '../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
@@ -9,7 +9,7 @@ import BuscadorRespuestas from '../BuscadorRespuestas'
 import LoaderRespuestas from './LoaderRespuestas'
 import TagRespuesta from './TagRespuesta'
 
-const respuestasPorPagina = 50
+const respuestasPorPagina = 20
 
 const TablaRespuestas = () => {
 
@@ -24,6 +24,8 @@ const TablaRespuestas = () => {
     dispatch(guardaEstaRespuesta(respuesta))
     history.push(`/respuestas/chat/${idEncuestaSeleccionada}/${respuesta.user_id}`)
   }
+
+  useEffect(() => setPagina(1), [respuestas])
 
   const numeroPaginas = 1 + respuestas && Math.ceil(respuestas.length / respuestasPorPagina)
   const headersOcultos = []
@@ -82,7 +84,8 @@ const TablaRespuestas = () => {
           </div>
           <div className="TablaRespuestas__footer">
             <p className="TablaRespuestas__total">
-              <span className="TablaRespuestas__numero_total">{respuestas.length.toLocaleString('de-DE')}</span> respuestas - mostrando {50 * (pagina - 1) + 1} a {Math.min(50 * pagina, respuestas.length)}
+              {/* <span className="TablaRespuestas__numero_total">{respuestas.length.toLocaleString('de-DE')}</span> resultados - mostrando {50 * (pagina - 1) + 1} a {Math.min(50 * pagina, respuestas.length)} */}
+              <span className="TablaRespuestas__numero_total">{respuestas.length.toLocaleString('de-DE')}</span> resultados
             </p>
             {respuestas.length > respuestasPorPagina &&
               <div className="TablaRespuestas__botones_paginas">
