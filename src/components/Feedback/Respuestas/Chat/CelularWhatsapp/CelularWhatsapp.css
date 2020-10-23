@@ -114,6 +114,29 @@
   background-color: rgba(0, 0, 0, .25);
 }
 
+.CelularWhatsapp__contenedor_mensaje_y_fecha {
+  display: flex;
+  flex-direction: column;
+}
+
+.CelularWhatsapp__fecha_mensaje {
+  align-self: center;
+  background-color: #D4EAF4;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  font-size: .65rem;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+  padding: 0 .35rem;
+  border-radius: .15rem;
+  box-shadow: 0 .05rem .05rem rgba(0, 0, 0, .1);
+  color: rgba(0, 0, 0, .7);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
 .CelularWhatsapp__mensaje {
   font-size: .8rem;
   background-color: white;

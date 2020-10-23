@@ -20,6 +20,7 @@ const SelectorRangoFechas = () => {
       <ReactDatePicker
         selected={fechaInicio}
         onChange={f => dispatch(guardaFechaInicio(f))}
+        maxDate={fechaTermino}
         dateFormat="d MMMM yyyy"
         locale="es"
         className="SelectorRangoFechas__datepicker"

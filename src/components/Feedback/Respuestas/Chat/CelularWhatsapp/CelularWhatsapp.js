@@ -9,6 +9,7 @@ import iconoBateria from '@iconify/icons-mdi/battery'
 import iconoSeñal from '@iconify/icons-mdi/signal'
 import LoaderMensajes from './LoaderMensajes'
 import classNames from 'classnames'
+import { es } from 'date-fns/locale'
 import './CelularWhatsapp.css'
 
 export const CelularWhatsapp = ({ mensajes }) => {
@@ -52,24 +53,33 @@ export const CelularWhatsapp = ({ mensajes }) => {
             {Array.isArray(mensajes)
               ? mensajes.map((mensaje, i) => (
                   <div
-                    className={classNames({
-                      'CelularWhatsapp__mensaje': true,
-                      'CelularWhatsapp__mensaje--entrante': mensaje.type === 'bot',
-                      'CelularWhatsapp__mensaje--saliente': mensaje.type !== 'bot'
-                    })}
+                    className="CelularWhatsapp__contenedor_mensaje_y_fecha"
                     key={mensaje.epoch}
-                    style={{ animationDelay: `${i * .15}s` }}
                   >
-                    <div className="CelularWhatsapp__texto">
-                      {mensaje.message}
-                      <div className="CelularWhatsapp__hora">
+                    {(i === 0 || format(parseISO(mensaje.timestamp), 'd') !== format(parseISO(mensajes[i - 1].timestamp), 'd')) &&
+                      <div className="CelularWhatsapp__fecha_mensaje">
+                        {format(parseISO(mensaje.timestamp), 'd \'de\' MMMM \'de\' yyyy', { locale: es })}
+                      </div>
+                    }
+                    <div
+                      className={classNames({
+                        'CelularWhatsapp__mensaje': true,
+                        'CelularWhatsapp__mensaje--entrante': mensaje.type === 'bot',
+                        'CelularWhatsapp__mensaje--saliente': mensaje.type !== 'bot'
+                      })}
+                      style={{ animationDelay: `${i * .15}s` }}
+                    >
+                      <div className="CelularWhatsapp__texto">
+                        {mensaje.message}
+                        <div className="CelularWhatsapp__hora">
+                          {format(parseISO(mensaje.timestamp), 'HH:mm')}
+                          {mensaje.type !== 'bot' && <InlineIcon className="CelularWhatsapp__icono_visto" icon={iconoVisto} />}
+                        </div>
+                      </div>
+                      <div className="CelularWhatsapp__hora_visible">
                         {format(parseISO(mensaje.timestamp), 'HH:mm')}
                         {mensaje.type !== 'bot' && <InlineIcon className="CelularWhatsapp__icono_visto" icon={iconoVisto} />}
                       </div>
-                    </div>
-                    <div className="CelularWhatsapp__hora_visible">
-                      {format(parseISO(mensaje.timestamp), 'HH:mm')}
-                      {mensaje.type !== 'bot' && <InlineIcon className="CelularWhatsapp__icono_visto" icon={iconoVisto} />}
                     </div>
                   </div>
                 ))

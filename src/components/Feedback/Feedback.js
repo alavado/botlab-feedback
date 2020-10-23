@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch, useHistory } from 'react-router-dom'
 import { guardaRespuestas, limpiaRespuestas } from '../../redux/ducks/respuestas'
@@ -12,6 +12,7 @@ import Buscador from './Buscador'
 const Feedback = () => {
 
   const { token } = useSelector(state => state.login)
+  const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
   const { fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const history = useHistory()
@@ -24,7 +25,12 @@ const Feedback = () => {
         const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
         dispatch(guardaRespuestas(data))
       }
-      fetchData()
+      try {
+        setErrorCargandoRespuestas(null)
+        fetchData()
+      } catch (e) {
+        setErrorCargandoRespuestas('Ocurrió un error')
+      }
     }
   }, [token, idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino])
 
@@ -35,6 +41,7 @@ const Feedback = () => {
 
   return (
     <div className="Feedback">
+      {errorCargandoRespuestas}
       <BarraLateral />
       <div className="Feedback__contenedor">
         <BarraSuperior />
