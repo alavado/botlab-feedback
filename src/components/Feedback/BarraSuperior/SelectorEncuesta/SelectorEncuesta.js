@@ -10,6 +10,7 @@ import Loader from '../../../Loader'
 import './SelectorEncuesta.css'
 import { limpiaRespuestas } from '../../../../redux/ducks/respuestas'
 import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
+import { useHistory } from 'react-router-dom'
 
 const SelectorEncuesta = () => {
 
@@ -17,9 +18,11 @@ const SelectorEncuesta = () => {
   const { idEncuestaGuardada } = useSelector(state => state.opciones)
   const [popupActivo, setPopupActivo] = useState(false)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const verEncuesta = useCallback(async id => {
     try {
+      history.push('/respuestas')
       dispatch(limpiaRespuestas())
       dispatch(guardaIdEncuesta(id))
       const data = await headersAPI(id)
@@ -27,7 +30,7 @@ const SelectorEncuesta = () => {
     } catch (e) {
       console.error('un error', e)
     }
-  }, [dispatch])
+  }, [dispatch, history])
 
   useEffect(() => {
     if (!idEncuestaSeleccionada) {

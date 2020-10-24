@@ -4,6 +4,7 @@ import { format, parseISO } from 'date-fns'
 import { Icon, InlineIcon } from '@iconify/react'
 import phone from '@iconify/icons-mdi/phone'
 import iconoVisto from '@iconify/icons-mdi/check-all'
+import iconoArchivo from '@iconify/icons-mdi/file-pdf-outline'
 import iconoVolver from '@iconify/icons-mdi/arrow-back'
 import iconoBateria from '@iconify/icons-mdi/battery'
 import iconoSeñal from '@iconify/icons-mdi/signal'
@@ -70,7 +71,13 @@ export const CelularWhatsapp = ({ mensajes }) => {
                       style={{ animationDelay: `${i * .15}s` }}
                     >
                       <div className="CelularWhatsapp__texto">
-                        {mensaje.message}
+                        {mensaje.message.indexOf('ATTACHMENT') > 0
+                          ? <>
+                              <InlineIcon className="CelularWhatsapp__pdf" icon={iconoArchivo} />
+                              {mensaje.message.slice(0, mensaje.message.indexOf('ATTACHMENT'))}
+                            </>
+                          : mensaje.message
+                        }
                         <div className="CelularWhatsapp__hora">
                           {format(parseISO(mensaje.timestamp), 'HH:mm')}
                           {mensaje.type !== 'bot' && <InlineIcon className="CelularWhatsapp__icono_visto" icon={iconoVisto} />}

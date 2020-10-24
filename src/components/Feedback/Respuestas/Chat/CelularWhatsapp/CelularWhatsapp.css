@@ -149,6 +149,7 @@
   box-shadow: 0 .1rem .05em rgba(0, 0, 0, .2);
   --cachito: .45rem;
   animation: aparece-mensaje-entrante-celular .5s ease both;
+  overflow: hidden;
 }
 
 .CelularWhatsapp__mensaje--saliente {
@@ -201,6 +202,10 @@
   margin-left: .1rem;
   font-size: .9rem;
   color: #34b3ee;
+}
+
+.CelularWhatsapp__pdf {
+  font-size: 1rem;
 }
 
 @keyframes aparece-celular {
