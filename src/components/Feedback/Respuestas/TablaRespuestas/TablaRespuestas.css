@@ -65,6 +65,20 @@
   text-align: left;
   white-space: nowrap;
   padding: .75rem 1rem .75rem 0;
+  cursor: zoom-out;
+  transition: all .25s ease;
+}
+
+.TablaRespuestas__header--oculto {
+  cursor: zoom-in;
+}
+
+.TablaRespuestas__header--oculto,
+.TablaRespuestas__celda--oculta {
+  max-width: 8ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: .3rem !important;
 }
 
 .TablaRespuestas__fila {
@@ -84,11 +98,6 @@
   height: 2.5rem;
   line-height: 1.15;
   white-space: nowrap;
-}
-
-.TablaRespuestas__header--oculto,
-.TablaRespuestas__celda--oculta {
-  display: none;
 }
 
 .TablaRespuestas__footer {

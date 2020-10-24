@@ -14,6 +14,7 @@ const respuestasPorPagina = 20
 const TablaRespuestas = () => {
 
   const [pagina, setPagina] = useState(1)
+  const [headersOcultos, setHeadersOcultos] = useState([])
   const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
@@ -28,7 +29,6 @@ const TablaRespuestas = () => {
   useEffect(() => setPagina(1), [respuestas])
 
   const numeroPaginas = 1 + respuestas && Math.ceil(respuestas.length / respuestasPorPagina)
-  const headersOcultos = []
 
   return (
     <div className="TablaRespuestas">
@@ -44,13 +44,18 @@ const TablaRespuestas = () => {
             <table className="TablaRespuestas__tabla">
               <thead>
                 <tr className="TablaRespuestas__fila">
-                  {headers.map(({ nombre, texto }) => (
+                  {headers.map(({ nombre, texto }, i) => (
                     <th
                       key={`header-${nombre}`}
                       className={classNames({
                         'TablaRespuestas__header': true,
-                        'TablaRespuestas__header--oculto': headersOcultos.includes(texto)
+                        'TablaRespuestas__header--oculto': headersOcultos.indexOf(i) >= 0
                       })}
+                      onClick={() => setHeadersOcultos(
+                        headersOcultos.indexOf(i) >= 0
+                          ? headersOcultos.filter(h => h !== i)
+                          : [...headersOcultos, i]
+                      )}
                     >
                       {texto}
                     </th>
@@ -61,7 +66,9 @@ const TablaRespuestas = () => {
                 {respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina).map((respuesta, i) => (
                   <tr
                     key={`fila-respuestas-${i}`}
-                    className="TablaRespuestas__fila"
+                    className={classNames({
+                      'TablaRespuestas__fila': true
+                    })}
                     onClick={verChat(respuesta)}
                   >
                     {headers.map(({ nombre, texto }, j) => (
@@ -69,7 +76,7 @@ const TablaRespuestas = () => {
                         key={`celda-respuesta-${i}-${j}`}
                         className={classNames({
                           'TablaRespuestas__celda': true,
-                          'TablaRespuestas__celda--oculta': headersOcultos.includes(texto)
+                          'TablaRespuestas__celda--oculta': headersOcultos.indexOf(j) >= 0
                         })}
                       >
                         {respuesta[nombre] && respuesta[nombre].tag !== undefined
