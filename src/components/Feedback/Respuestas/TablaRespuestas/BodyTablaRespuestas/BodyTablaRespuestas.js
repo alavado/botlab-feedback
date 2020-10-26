@@ -23,7 +23,7 @@ const BodyTablaRespuestas = ({ pagina, respuestasPorPagina }) => {
   const respuestasPagina = respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina)
 
   return (
-    <tbody classNames="BodyTablaRespuestas">
+    <tbody className="BodyTablaRespuestas">
       {respuestasPagina.map((respuesta, i) => (
         <tr
           key={`fila-respuestas-${i}`}
