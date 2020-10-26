@@ -1,0 +1,28 @@
+.BodyTablaRespuestas__celda--oculta {
+  max-width: 6ch;
+  padding-left: 0rem !important;
+  padding-right: .15rem !important;
+  overflow: hidden;
+  font-size: .4rem !important;
+}
+
+.BodyTablaRespuestas__fila {
+  border-bottom: 1px solid var(--color-bordes);
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.BodyTablaRespuestas__fila:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.BodyTablaRespuestas__celda {
+  padding: .15rem .75rem .15rem .25rem;
+  font-size: .8rem;
+  vertical-align: middle;
+  height: 2.5rem;
+  line-height: 1.15;
+  white-space: nowrap;
+  transition: all .25s ease-in-out;
+  text-overflow: ellipsis;
+}

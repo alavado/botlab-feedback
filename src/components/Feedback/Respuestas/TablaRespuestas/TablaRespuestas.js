@@ -30,22 +30,22 @@ const TablaRespuestas = () => {
       {cargando
         ? <LoaderRespuestas />
         : <>
-          <div className="TablaRespuestas__contenedor_tabla">
-            <table className="TablaRespuestas__tabla">
-              <HeadTablaRespuestas />
-              <BodyTablaRespuestas
-                respuestasPorPagina={respuestasPorPagina}
-                pagina={pagina}
-              />
-            </table>
-          </div>
-          <FooterTablaRespuestas
-            respuestasPorPagina={respuestasPorPagina}
-            totalRespuestas={respuestas ? respuestas.length : 0}
-            pagina={pagina}
-            setPagina={setPagina}
-          />
-        </>
+            <div className="TablaRespuestas__contenedor_tabla">
+              <table className="TablaRespuestas__tabla">
+                <HeadTablaRespuestas />
+                <BodyTablaRespuestas
+                  respuestasPorPagina={respuestasPorPagina}
+                  pagina={pagina}
+                />
+              </table>
+            </div>
+            <FooterTablaRespuestas
+              respuestasPorPagina={respuestasPorPagina}
+              totalRespuestas={respuestas ? respuestas.length : 0}
+              pagina={pagina}
+              setPagina={setPagina}
+            />
+          </>
       }
     </div>
   )

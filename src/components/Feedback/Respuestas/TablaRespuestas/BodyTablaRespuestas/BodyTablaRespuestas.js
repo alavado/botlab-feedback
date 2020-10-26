@@ -1,15 +1,15 @@
 import React from 'react'
-import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
-import './BodyTablaRespuestas.css'
 import { columnaEstaColapsada } from '../../../../../helpers/tablaRespuestas'
 import TagRespuesta from '../TagRespuesta'
+import classNames from 'classnames'
+import './BodyTablaRespuestas.css'
 
 const BodyTablaRespuestas = ({ pagina, respuestasPorPagina }) => {
 
-  const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
+  const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const { columnasColapsadas } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
@@ -17,16 +17,18 @@ const BodyTablaRespuestas = ({ pagina, respuestasPorPagina }) => {
 
   const verChat = respuesta => () => {
     dispatch(guardaEstaRespuesta(respuesta))
-    history.push(`/respuestas/chat/${idEncuestaSeleccionada}/${respuesta.user_id}`)
+    history.push(`/respuestas/chat/${idEncuesta}/${respuesta.user_id}`)
   }
 
+  const respuestasPagina = respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina)
+
   return (
-    <tbody>
-      {respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina).map((respuesta, i) => (
+    <tbody classNames="BodyTablaRespuestas">
+      {respuestasPagina.map((respuesta, i) => (
         <tr
           key={`fila-respuestas-${i}`}
           className={classNames({
-            'TablaRespuestas__fila': true
+            'BodyTablaRespuestas__fila': true
           })}
           onClick={verChat(respuesta)}
         >
@@ -34,8 +36,8 @@ const BodyTablaRespuestas = ({ pagina, respuestasPorPagina }) => {
             <td
               key={`celda-respuesta-${i}-${j}`}
               className={classNames({
-                'TablaRespuestas__celda': true,
-                'TablaRespuestas__celda--oculta': columnaEstaColapsada(idEncuestaSeleccionada, nombre, columnasColapsadas)
+                'BodyTablaRespuestas__celda': true,
+                'BodyTablaRespuestas__celda--oculta': columnaEstaColapsada(idEncuesta, nombre, columnasColapsadas)
               })}
             >
               {respuesta[nombre] && respuesta[nombre].tag !== undefined

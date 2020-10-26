@@ -1,9 +1,9 @@
 import React from 'react'
 import classNames from 'classnames'
-import './HeadTablaRespuestas.css'
 import { columnaEstaColapsada } from '../../../../../helpers/tablaRespuestas'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleaColapsoColumna } from '../../../../../redux/ducks/opciones'
+import './HeadTablaRespuestas.css'
 
 const HeadTablaRespuestas = () => {
 
@@ -13,13 +13,13 @@ const HeadTablaRespuestas = () => {
 
   return (
     <thead className="HeadTablaRespuestas">
-      <tr className="TablaRespuestas__fila">
+      <tr className="HeadTablaRespuestas__fila">
         {headers.map(({ nombre, texto }) => (
           <th
             key={`header-${nombre}`}
             className={classNames({
-              'TablaRespuestas__header': true,
-              'TablaRespuestas__header--oculto': columnaEstaColapsada(idEncuestaSeleccionada, nombre, columnasColapsadas)
+              'HeadTablaRespuestas__header': true,
+              'HeadTablaRespuestas__header--oculto': columnaEstaColapsada(idEncuestaSeleccionada, nombre, columnasColapsadas)
             })}
             title={texto}
             onClick={() => dispatch(toggleaColapsoColumna(idEncuestaSeleccionada, nombre))}

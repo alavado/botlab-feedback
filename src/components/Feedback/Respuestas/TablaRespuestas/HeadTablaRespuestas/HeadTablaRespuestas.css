@@ -1,0 +1,39 @@
+.HeadTablaRespuestas thead, .HeadTablaRespuestas th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+}
+
+.HeadTablaRespuestas thead th {
+  height: 2rem;
+}
+
+.HeadTablaRespuestas__header {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: .7rem;
+  text-align: left;
+  white-space: nowrap;
+  padding: .75rem .75rem .75rem .25rem;
+  cursor: zoom-out;
+  transition: all .25s ease-in-out;
+  text-overflow: ellipsis;
+}
+
+.HeadTablaRespuestas__header:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.HeadTablaRespuestas__header--oculto {
+  cursor: zoom-in;
+}
+
+.HeadTablaRespuestas__header--oculto,
+.HeadTablaRespuestas__celda--oculta {
+  max-width: 6ch;
+  padding-left: 0rem !important;
+  padding-right: .15rem !important;
+  overflow: hidden;
+  font-size: .4rem !important;
+}
