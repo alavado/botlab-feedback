@@ -1,0 +1,50 @@
+.BarraAppCelular {
+  background-color: #075E54;
+  color: white;
+  font-size: .8rem;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: .15rem;
+  cursor: default;
+}
+
+.BarraAppCelular__icono_volver {
+  font-size: 1.1rem;
+  margin-right: .1rem;
+}
+
+.BarraAppCelular__contenedor_nombre {
+  display: flex;
+  flex-direction: column;
+}
+
+.BarraAppCelular__izquierda {
+  display: flex;
+  align-items: center;
+}
+
+.BarraAppCelular__avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: white;
+  border-radius: 100%;
+  margin-right: .35rem;
+}
+
+.BarraAppCelular__nombre {
+  font-size: .85rem;
+  font-weight: 500;
+  margin-bottom: .2rem;
+}
+
+.BarraAppCelular__estado {
+  font-size: .55rem;
+  opacity: .9;
+}
+
+.BarraAppCelular__iconos {
+  padding-right: 1rem;
+  font-size: 1.15rem;
+}

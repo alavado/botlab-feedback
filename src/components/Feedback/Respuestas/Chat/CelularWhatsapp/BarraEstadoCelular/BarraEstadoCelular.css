@@ -1,0 +1,16 @@
+.BarraEstadoCelular {
+  background-color: #054D44;
+  min-height: 1rem;
+  font-size: .6rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 .35rem;
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.BarraEstadoCelular__icono {
+  margin-right: .15rem;
+  font-size: .75rem;
+}

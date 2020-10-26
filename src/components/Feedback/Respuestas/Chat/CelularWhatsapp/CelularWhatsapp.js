@@ -1,55 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
 import { format, parseISO } from 'date-fns'
-import { Icon, InlineIcon } from '@iconify/react'
-import phone from '@iconify/icons-mdi/phone'
+import { InlineIcon } from '@iconify/react'
 import iconoVisto from '@iconify/icons-mdi/check-all'
 import iconoArchivo from '@iconify/icons-mdi/file-pdf-outline'
-import iconoVolver from '@iconify/icons-mdi/arrow-back'
-import iconoBateria from '@iconify/icons-mdi/battery'
-import iconoSeñal from '@iconify/icons-mdi/signal'
 import LoaderMensajes from './LoaderMensajes'
 import classNames from 'classnames'
 import { es } from 'date-fns/locale'
+import BarraAppCelular from './BarraAppCelular'
+import BarraEstadoCelular from './BarraEstadoCelular'
 import './CelularWhatsapp.css'
 
 export const CelularWhatsapp = ({ mensajes }) => {
-
-  const { nombreUsuario } = useSelector(state => state.login)
-  const [hora, setHora] = useState(new Date())
-
-  useEffect(() => {
-    const actualizarHora = setInterval(() => setHora(new Date()), 1000)
-    return () => clearInterval(actualizarHora)
-  }, [])
 
   return (
     <div className="CelularWhatsapp">
       <div className="CelularWhatsapp__celular">
         <div className="CelularWhatsapp__pantalla">
-          <div className="CelularWhatsapp__barra_estado">
-            <InlineIcon icon={iconoSeñal} className="CelularWhatsapp__icono_barra_estado" />
-            100%
-            <InlineIcon icon={iconoBateria} className="CelularWhatsapp__icono_barra_estado" />
-            {format(hora, 'HH:mm')}
-          </div>
-          <div className="CelularWhatsapp__barra_app">
-            <div className="CelularWhatsapp__barra_app_izquierda">
-              <Icon icon={iconoVolver} className="CelularWhatsapp__icono_volver" />
-              <div className="CelularWhatsapp___barra_app_avatar" />
-              <div className="CelularWhatsapp__barra_app_contenedor_nombre">
-                <div className="CelularWhatsapp__barra_app_nombre">
-                  Gaby de {nombreUsuario.split(' ')[0]}
-                </div>
-                <div className="CelularWhatsapp__barra_app_estado">
-                  en línea
-                </div>
-              </div>
-            </div>
-            <div className="CelularWhatsapp__barra_app_iconos">
-              <Icon icon={phone} />
-            </div>
-          </div>
+          <BarraEstadoCelular />
+          <BarraAppCelular />
           <div className="CelularWhatsapp__contenedor_mensajes">
             {Array.isArray(mensajes)
               ? mensajes.map((mensaje, i) => (

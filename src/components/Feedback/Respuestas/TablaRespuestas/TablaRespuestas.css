@@ -47,35 +47,6 @@
   padding-top: 1.25rem;
 }
 
-.TablaRespuestas__celda--oculta {
-  max-width: 6ch;
-  padding-left: 0rem !important;
-  padding-right: .15rem !important;
-  overflow: hidden;
-  font-size: .4rem !important;
-}
-
-.TablaRespuestas__fila {
-  border-bottom: 1px solid var(--color-bordes);
-  cursor: pointer;
-  transition: all .15s ease;
-}
-
-.TablaRespuestas tbody .TablaRespuestas__fila:hover {
-  background-color: var(--color-fila-destacada);
-}
-
-.TablaRespuestas__celda {
-  padding: .15rem .75rem .15rem .25rem;
-  font-size: .8rem;
-  vertical-align: middle;
-  height: 2.5rem;
-  line-height: 1.15;
-  white-space: nowrap;
-  transition: all .25s ease-in-out;
-  text-overflow: ellipsis;
-}
-
 @keyframes aparece-tabla-respuestas {
   0% {
     opacity: 0;
