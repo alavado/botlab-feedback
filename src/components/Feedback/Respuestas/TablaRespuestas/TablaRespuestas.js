@@ -8,18 +8,19 @@ import './TablaRespuestas.css'
 import BuscadorRespuestas from '../BuscadorRespuestas'
 import LoaderRespuestas from './LoaderRespuestas'
 import TagRespuesta from './TagRespuesta'
+import { columnaEstaColapsada } from '../../../../helpers/tablaRespuestas'
+import { toggleaColapsoColumna } from '../../../../redux/ducks/opciones'
 
 const respuestasPorPagina = 20
 
 const TablaRespuestas = () => {
 
   const [pagina, setPagina] = useState(1)
-  const [headersOcultos, setHeadersOcultos] = useState([])
   const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
+  const { columnasColapsadas } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   const history = useHistory()
-  const cargando = !respuestas || !headers
 
   const verChat = respuesta => () => {
     dispatch(guardaEstaRespuesta(respuesta))
@@ -28,6 +29,7 @@ const TablaRespuestas = () => {
 
   useEffect(() => setPagina(1), [respuestas])
 
+  const cargando = !respuestas || !headers
   const numeroPaginas = 1 + respuestas && Math.ceil(respuestas.length / respuestasPorPagina)
 
   return (
@@ -44,18 +46,15 @@ const TablaRespuestas = () => {
             <table className="TablaRespuestas__tabla">
               <thead>
                 <tr className="TablaRespuestas__fila">
-                  {headers.map(({ nombre, texto }, i) => (
+                  {headers.map(({ nombre, texto }) => (
                     <th
                       key={`header-${nombre}`}
                       className={classNames({
                         'TablaRespuestas__header': true,
-                        'TablaRespuestas__header--oculto': headersOcultos.indexOf(i) >= 0
+                        'TablaRespuestas__header--oculto': columnaEstaColapsada(idEncuestaSeleccionada, nombre, columnasColapsadas)
                       })}
-                      onClick={() => setHeadersOcultos(
-                        headersOcultos.indexOf(i) >= 0
-                          ? headersOcultos.filter(h => h !== i)
-                          : [...headersOcultos, i]
-                      )}
+                      title={texto}
+                      onClick={() => dispatch(toggleaColapsoColumna(idEncuestaSeleccionada, nombre))}
                     >
                       {texto}
                     </th>
@@ -71,12 +70,12 @@ const TablaRespuestas = () => {
                     })}
                     onClick={verChat(respuesta)}
                   >
-                    {headers.map(({ nombre, texto }, j) => (
+                    {headers.map(({ nombre }, j) => (
                       <td
                         key={`celda-respuesta-${i}-${j}`}
                         className={classNames({
                           'TablaRespuestas__celda': true,
-                          'TablaRespuestas__celda--oculta': headersOcultos.indexOf(j) >= 0
+                          'TablaRespuestas__celda--oculta': columnaEstaColapsada(idEncuestaSeleccionada, nombre, columnasColapsadas)
                         })}
                       >
                         {respuesta[nombre] && respuesta[nombre].tag !== undefined

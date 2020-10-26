@@ -6,7 +6,7 @@ import rootReducer from './ducks/index'
 const states = ['opciones']
 
 const createStoreWithMiddleware = applyMiddleware(save({ states }))(createStore)
-  
+
 const store = createStoreWithMiddleware(combineReducers(rootReducer), load({ states }))
 
 export default store
