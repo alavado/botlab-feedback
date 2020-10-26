@@ -16,3 +16,4 @@ Pendientes:
 - manejo de error cargando chat
 - corrige que se queda pegado al elegir la misma encuesta
 - popups a menu lateral
+- mover pagina tabla respuestas a state (y quizas scroll, para cuando vuelvan desde otra pagina)
