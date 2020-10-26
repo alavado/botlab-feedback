@@ -14,52 +14,64 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
   const fechaMensaje = format(ts, 'd \'de\' MMMM \'de\' yyyy', { locale: es })
   const diaMensaje = format(ts, 'd')
   const diaMensajeAnterior = posicion > 0 && format(parseISO(mensajes[posicion - 1].timestamp), 'd')
-  const mensajeEsDeHumano = mensaje.type !== 'bot'
   const mostrarFecha = posicion === 0 || diaMensaje !== diaMensajeAnterior
+  const mensajeEsDeHumano = mensaje.type !== 'bot'
 
   return (
     <div className="MensajeWhatsapp">
-      {mostrarFecha &&
-        <div className="MensajeWhatsapp__fecha">
-          {fechaMensaje}
-        </div>
-      }
-      <div
-        className={classNames({
-          'MensajeWhatsapp__globo': true,
-          'MensajeWhatsapp__globo--entrante': !mensajeEsDeHumano,
-          'MensajeWhatsapp__globo--saliente': mensajeEsDeHumano
-        })}
-        style={{ animationDelay: `${posicion * .15}s` }}
-      >
-        <div className="MensajeWhatsapp__texto">
-          {texto(mensaje)}
-          <div className="MensajeWhatsapp__hora">
-            {horaMensaje}
-            {mensajeEsDeHumano && visto}
-          </div>
-        </div>
-        <div className="MensajeWhatsapp__hora_visible">
-          {horaMensaje}
-          {mensajeEsDeHumano && visto}
-        </div>
-      </div>
+      {mostrarFecha && <Fecha fecha={fechaMensaje} />}
+      <Globo esDeHumano={mensajeEsDeHumano} posicion={posicion}>
+        <Texto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
+        <Hora hora={horaMensaje} esDeHumano={mensajeEsDeHumano} />
+      </Globo>
     </div>
   )
 }
 
-const visto = () => (
+const Fecha = ({ fecha }) => (
+  <div className="MensajeWhatsapp__fecha">
+    {fecha}
+  </div>
+)
+
+const Globo = ({ esDeHumano, posicion, children }) => (
+  <div
+    className={classNames({
+      'MensajeWhatsapp__globo': true,
+      'MensajeWhatsapp__globo--saliente': esDeHumano,
+      'MensajeWhatsapp__globo--entrante': !esDeHumano
+    })}
+    style={{ animationDelay: `${posicion * .15}s` }}
+  >
+    {children}
+  </div>
+)
+
+const Texto = ({ mensaje, hora, esDeHumano }) => (
+  <div className="MensajeWhatsapp__texto">
+    {mensaje.message.indexOf('ATTACHMENT') > 0
+      ? <>
+          <InlineIcon className="MensajeWhatsapp__pdf" icon={iconoArchivo} />
+          {mensaje.message.slice(0, mensaje.message.indexOf('ATTACHMENT'))}
+        </>
+      : mensaje.message
+    }
+    <Hora hora={hora} escondida={true} esDeHumano={esDeHumano} />
+  </div>
+)
+
+const Hora = ({ hora, esDeHumano, escondida }) => (
+  <div className={escondida ? 'MensajeWhatsapp__hora_visible' : 'MensajeWhatsapp__hora'}>
+    {hora}
+    {esDeHumano && <Visto />}
+  </div>
+)
+
+const Visto = () => (
   <InlineIcon
     className="MensajeWhatsapp__icono_visto"
     icon={iconoVisto}
   />
 )
-
-const texto = mensaje => mensaje.message.indexOf('ATTACHMENT') > 0
-  ? <>
-      <InlineIcon className="MensajeWhatsapp__pdf" icon={iconoArchivo} />
-      {mensaje.message.slice(0, mensaje.message.indexOf('ATTACHMENT'))}
-    </>
-  : mensaje.message
 
 export default MensajeWhatsapp
