@@ -10,6 +10,7 @@ import LoaderRespuestas from './LoaderRespuestas'
 import TagRespuesta from './TagRespuesta'
 import { columnaEstaColapsada } from '../../../../helpers/tablaRespuestas'
 import { toggleaColapsoColumna } from '../../../../redux/ducks/opciones'
+import FooterTablaRespuestas from './FooterTablaRespuestas'
 
 const respuestasPorPagina = 20
 
@@ -30,7 +31,6 @@ const TablaRespuestas = () => {
   useEffect(() => setPagina(1), [respuestas])
 
   const cargando = !respuestas || !headers
-  const numeroPaginas = 1 + respuestas && Math.ceil(respuestas.length / respuestasPorPagina)
 
   return (
     <div className="TablaRespuestas">
@@ -88,30 +88,12 @@ const TablaRespuestas = () => {
               </tbody>
             </table>
           </div>
-          <div className="TablaRespuestas__footer">
-            <p className="TablaRespuestas__total">
-              {/* <span className="TablaRespuestas__numero_total">{respuestas.length.toLocaleString('de-DE')}</span> resultados - mostrando {50 * (pagina - 1) + 1} a {Math.min(50 * pagina, respuestas.length)} */}
-              <span className="TablaRespuestas__numero_total">{respuestas.length.toLocaleString('de-DE')}</span> resultados
-            </p>
-            {respuestas.length > respuestasPorPagina &&
-              <div className="TablaRespuestas__botones_paginas">
-                <button
-                  className="TablaRespuestas__boton_pagina"
-                  onClick={() => setPagina(pagina - 1)}
-                  disabled={pagina === 1}
-                >
-                  Anterior
-                </button>
-                <button
-                  className="TablaRespuestas__boton_pagina"
-                  onClick={() => setPagina(pagina + 1)}
-                  disabled={numeroPaginas === 1 || pagina >= numeroPaginas}
-                >
-                  Siguiente
-                </button>
-              </div>
-            }
-          </div>
+          <FooterTablaRespuestas
+            respuestasPorPagina={respuestasPorPagina}
+            totalRespuestas={respuestas ? respuestas.length : 0}
+            pagina={pagina}
+            setPagina={setPagina}
+          />
         </>
       }
     </div>
