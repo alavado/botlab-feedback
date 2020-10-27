@@ -36,7 +36,7 @@ const SelectorEncuesta = () => {
   }, [dispatch, history, idEncuestaSeleccionada])
 
   useEffect(() => {
-    if (!idEncuestaSeleccionada) {
+    if (tipos && !idEncuestaSeleccionada) {
       if (!tipos.find(t => t.id === idEncuestaGuardada)) {
         verEncuesta(tipos[0].id)
       }

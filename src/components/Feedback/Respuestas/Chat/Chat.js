@@ -22,13 +22,11 @@ const Chat = () => {
 
   return (
     <div className="Chat">
-      <DatosChat
-        telefono={telefono}
-      />
+      <DatosChat />
       <CelularWhatsapp
         mensajes={mensajes}
       />
-      <div>
+      <div style={{flex: 1}}>
         <div className="DatosChat__contenedor_header">
           <div className="DatosChat__nombre_header">
             Teléfono

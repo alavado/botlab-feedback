@@ -56,3 +56,8 @@ table {
 	--color-bordes: #CFD8DC;
 	--color-gris: #5e7782;
 }
+
+a {
+	color: inherit;
+	text-decoration: inherit;
+}

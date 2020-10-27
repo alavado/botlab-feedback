@@ -2,11 +2,63 @@
   flex: 1;
 }
 
+.DatosChat__link_atras {
+  font-weight: bold;
+  font-size: .9rem;
+  display: flex;
+  align-items: center;
+  transition: all .15s ease;
+}
+
+.DatosChat__link_atras:hover {
+  opacity: .8;
+}
+
+.DatosChat__titulo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  font-family: 'Raleway';
+  margin-top: .75rem;
+  margin-bottom: 1.5rem;
+}
+
+.DatosChat__contenedor_datos {
+  max-height: calc(100vh - 12.5rem);
+  overflow: auto;
+  padding-right: 1rem;
+}
+
+.DatosChat__contenedor_datos::-webkit-scrollbar {
+  width: .6em;
+  height: .6em;
+  background-color: white;
+}
+
+.DatosChat__contenedor_datos::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
+}
+
 .DatosChat__contenedor_header {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  font-size: .85rem;
+  line-height: 1.15;
+}
+
+.DatosChat__contenedor_header--oculto {
+  display: none;
 }
 
 .DatosChat__nombre_header {
   font-weight: 600;
   margin-bottom: .25rem;
+  min-width: 16ch;
+  max-width: 16ch;
+  padding-right: 1rem;
+}
+
+.DatosChat__icono_volver {
+  margin-right: .25rem;
+  font-size: 1.25rem;
 }

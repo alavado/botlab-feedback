@@ -9,8 +9,9 @@
 .LoaderMensajes__loader {
   width: 4rem;
   height: 4rem;
-  border: .5rem solid transparent;
-  border-left: .5rem solid var(--color-secundario);
+  border: .4rem solid transparent;
+  border-left: .4rem solid #075E54;
+  border-bottom: .4rem solid #075E54;
   border-radius: 100%;
   animation: animacion-loader-mensajes 1s infinite both;
 }
