@@ -1,13 +1,15 @@
 import React from 'react'
 import { Icon } from '@iconify/react'
 import iconoVolver from '@iconify/icons-mdi/arrow-back'
-import iconoTelefono from '@iconify/icons-mdi/phone'
+import iconoExpandir from '@iconify/icons-mdi/arrow-expand'
 import './BarraAppCelular.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { fijaChatExpandido } from '../../../../../../redux/ducks/opciones'
 
 const BarraAppCelular = () => {
 
   const { nombreUsuario } = useSelector(state => state.login)
+  const dispatch = useDispatch()
 
   return (
     <div className="BarraAppCelular">
@@ -23,8 +25,12 @@ const BarraAppCelular = () => {
           </div>
         </div>
       </div>
-      <div className="BarraAppCelular__iconos">
-        <Icon icon={iconoTelefono} />
+      <div
+        onClick={() => dispatch(fijaChatExpandido(true))}
+        className="BarraAppCelular__iconos"
+        title="Vista expandida"
+      >
+        <Icon icon={iconoExpandir} />
       </div>
     </div>
   )

@@ -1,12 +1,14 @@
 const guardarIdEncuestaSeleccionada = 'opciones/guardarEncuestaSeleccionada'
 const toggleColapsoColumna = 'opciones/toggleColapsoColumna'
+const fijarChatExpandido = 'opciones/fijarChatExpandido'
 
 // Por alguna razón siento que es buena idea comentar este reducer
 const defaultState = {
   columnasColapsadas: [{
     idEncuesta: -1,
     columnasColapsadas: []
-  }]
+  }],
+  chatExpandido: true
 }
 
 export default function(state = defaultState, action) {
@@ -46,6 +48,12 @@ export default function(state = defaultState, action) {
         ]
       }
     }
+    case fijarChatExpandido: {
+      return {
+        ...state,
+        chatExpandido: action.payload
+      }
+    }
     default: return state
   }
 }
@@ -60,4 +68,9 @@ export const guardaIdEncuesta = id => ({
 export const toggleaColapsoColumna = (idEncuesta, nombreColumna) => ({
   type: toggleColapsoColumna,
   payload: { idEncuesta, nombreColumna }
+})
+
+export const fijaChatExpandido = estado => ({
+  type: fijarChatExpandido,
+  payload: estado
 })

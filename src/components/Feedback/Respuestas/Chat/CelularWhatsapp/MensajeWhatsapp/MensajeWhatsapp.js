@@ -12,6 +12,7 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
   const ts = parseISO(mensaje.timestamp)
   const horaMensaje = format(ts, 'HH:mm')
   const fechaMensaje = format(ts, 'd \'de\' MMMM \'de\' yyyy', { locale: es })
+  const horaFechamensaje = format(ts, 'd MMM yy\',\' HH:mm', { locale: es })
   const diaMensaje = format(ts, 'd')
   const diaMensajeAnterior = posicion > 0 && format(parseISO(mensajes[posicion - 1].timestamp), 'd')
   const mostrarFecha = posicion === 0 || diaMensaje !== diaMensajeAnterior
@@ -20,7 +21,7 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
   return (
     <div className="MensajeWhatsapp">
       {mostrarFecha && <Fecha fecha={fechaMensaje} />}
-      <Globo esDeHumano={mensajeEsDeHumano} posicion={posicion}>
+      <Globo esDeHumano={mensajeEsDeHumano} posicion={posicion} hora={horaFechamensaje}>
         <Texto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
         <Hora hora={horaMensaje} esDeHumano={mensajeEsDeHumano} />
       </Globo>
@@ -34,7 +35,7 @@ const Fecha = ({ fecha }) => (
   </div>
 )
 
-const Globo = ({ esDeHumano, posicion, children }) => (
+const Globo = ({ esDeHumano, posicion, hora, children }) => (
   <div
     className={classNames({
       'MensajeWhatsapp__globo': true,
@@ -43,6 +44,10 @@ const Globo = ({ esDeHumano, posicion, children }) => (
     })}
     style={{ animationDelay: `${posicion * .15}s` }}
   >
+    <div className="MensajeWhatsapp__titulo">
+      <div>{esDeHumano ? 'Usuario' : 'Bot'}</div>
+      <div className="MensajeWhatsapp__titulo_hora">{hora}</div>
+    </div>
     {children}
   </div>
 )

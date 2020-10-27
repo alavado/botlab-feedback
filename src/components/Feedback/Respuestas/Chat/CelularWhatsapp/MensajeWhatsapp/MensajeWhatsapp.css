@@ -82,6 +82,14 @@
   align-items: center;
 }
 
+.CelularWhatsapp--expandido .MensajeWhatsapp__hora_visible,
+.CelularWhatsapp--expandido .MensajeWhatsapp__icono_visto,
+.CelularWhatsapp--expandido .MensajeWhatsapp__fecha,
+.CelularWhatsapp--expandido .MensajeWhatsapp__hora {
+  max-height: 0;
+  overflow: hidden;
+}
+
 .MensajeWhatsapp__icono_visto {
   margin-left: .1rem;
   font-size: .9rem;
@@ -90,4 +98,24 @@
 
 .MensajeWhatsapp__pdf {
   font-size: 1rem;
+}
+
+.MensajeWhatsapp__titulo {
+  align-self: flex-end;
+  font-size: .6rem;
+  font-weight: 600;
+  height: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: .1rem;
+}
+
+.CelularWhatsapp--expandido .MensajeWhatsapp__titulo {
+  height: auto;
+}
+
+.MensajeWhatsapp__titulo_hora {
+  font-weight: 400;
+  padding-left: .25rem;
 }

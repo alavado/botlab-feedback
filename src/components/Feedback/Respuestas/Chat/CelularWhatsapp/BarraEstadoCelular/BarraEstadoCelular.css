@@ -14,3 +14,9 @@
   margin-right: .15rem;
   font-size: .75rem;
 }
+
+.CelularWhatsapp--expandido .BarraEstadoCelular {
+  min-height: 0;
+  height: 0;
+  overflow: hidden;
+}

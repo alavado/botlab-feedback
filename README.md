@@ -3,7 +3,6 @@ Pendientes:
 - boton volver
 - que preserve pagina y scroll al volver a respuestas
 
-- mejorar orden datos chat
 - boton de clear busqueda
 - agregar botones de hablar y refrescar
 - otro modo de vista para chat
@@ -15,3 +14,5 @@ Pendientes:
 
 - agregar ojo al login?
 - ordenar tabla?
+preguntas wax: 
+- exportar csv 

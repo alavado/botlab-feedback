@@ -47,4 +47,11 @@
 .BarraAppCelular__iconos {
   padding-right: 1rem;
   font-size: 1.15rem;
+  cursor: pointer;
+}
+
+.CelularWhatsapp--expandido .BarraAppCelular {
+  min-height: 0;
+  height: 0;
+  overflow: hidden;
 }
