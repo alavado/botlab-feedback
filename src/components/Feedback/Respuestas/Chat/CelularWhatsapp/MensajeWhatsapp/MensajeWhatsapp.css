@@ -108,10 +108,10 @@
   overflow: hidden;
   display: flex;
   justify-content: space-between;
-  padding-bottom: .1rem;
 }
 
 .CelularWhatsapp--expandido .MensajeWhatsapp__titulo {
+  padding-bottom: .1rem;
   height: auto;
 }
 

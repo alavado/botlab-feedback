@@ -15,7 +15,7 @@ const BarraAppCelular = () => {
     <div className="BarraAppCelular">
       <div className="BarraAppCelular__izquierda">
         <Icon icon={iconoVolver} className="BarraAppCelular__icono_volver" />
-        <div className="BarraAppCelular__avatar" />
+        <div className="BarraAppCelular__avatar">G</div>
         <div className="BarraAppCelular__contenedor_nombre">
           <div className="BarraAppCelular__nombre">
             Gaby de {nombreUsuario.split(' ')[0]}
