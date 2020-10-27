@@ -3,6 +3,7 @@ import { diccionarioTags } from "../../helpers/tags"
 const fijarRespuestas = 'respuestas/fijarRespuestas'
 const fijarFechaInicio = 'respuestas/fijarFechaInicio'
 const fijarFechaTermino = 'respuestas/fijarFechaTermino'
+const fijarRangoFechas = 'respuestas/fijarRangoFechas'
 const fijarBusqueda = 'respuestas/fijarBusqueda'
 const fijarRespuesta = 'respuestas/fijarRespuesta'
 const limpiarRespuestas = 'respuestas/limpiarRespuestas'
@@ -58,6 +59,14 @@ export default function(state = defaultState, action) {
         fechaTermino: action.payload
       }
     }
+    case fijarRangoFechas: {
+      const { fechaInicio, fechaTermino } = action.payload
+      return {
+        ...state,
+        fechaInicio,
+        fechaTermino
+      }
+    }
     case fijarBusqueda: {
       const termino = normalizar(action.payload)
       return {
@@ -102,6 +111,11 @@ export const guardaFechaInicio = fecha => ({
 export const guardaFechaTermino = fecha => ({
   type: fijarFechaTermino,
   payload: fecha
+})
+
+export const guardaRangoFechas = (fechaInicio, fechaTermino) => ({
+  type: fijarRangoFechas,
+  payload: { fechaInicio, fechaTermino }
 })
 
 export const buscaEsto = termino => ({

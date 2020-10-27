@@ -1,9 +1,50 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import './PopupRangosFechas.css'
+import { useDispatch } from 'react-redux'
+import { guardaRangoFechas } from '../../../../../redux/ducks/respuestas'
+import { startOfDay, startOfToday, sub } from 'date-fns'
 
 const PopupRangosFechas = ({ activo, esconder }) => {
+
+  const dispatch = useDispatch()
+  const opciones = useMemo(() => [
+    {
+      texto: 'Hoy',
+      accion: () => {
+        dispatch(
+          guardaRangoFechas(
+            startOfToday(),
+            Date.now()
+          ))
+        esconder()
+      }
+    },
+    {
+      texto: 'Última semana',
+      accion: () => {
+        dispatch(
+          guardaRangoFechas(
+            startOfDay(sub(Date.now(), { days: 7 })),
+            Date.now()
+          ))
+        esconder()
+      }
+    },
+    {
+      texto: 'Ultimo mes',
+      accion: () => {
+        dispatch(
+          guardaRangoFechas(
+            startOfDay(sub(Date.now(), { months: 1 })),
+            Date.now()
+          ))
+        esconder()
+      }
+    }
+  ], [dispatch, esconder])
+
   return (
     <>
       {
@@ -18,15 +59,15 @@ const PopupRangosFechas = ({ activo, esconder }) => {
         PopupRangosFechas: true,
         'PopupRangosFechas--activo': activo
       })}>
-        <div className="PopupRangosFecha__opcion">
-          Hoy
-        </div>
-        <div className="PopupRangosFecha__opcion">
-          Última semana
-        </div>
-        <div className="PopupRangosFecha__opcion">
-          Último mes
-        </div>
+        {opciones.map(({ texto, accion }, i) => (
+          <div
+            key={`opcion-rangos-${i}`}
+            className="PopupRangosFecha__opcion"
+            onClick={accion}
+          >
+            {texto}
+          </div>
+        ))}
       </div>
     </>
   )

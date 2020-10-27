@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import ReactDatePicker, { registerLocale } from 'react-datepicker'
 import es from 'date-fns/locale/es'
@@ -17,6 +17,7 @@ const SelectorRangoFechas = () => {
   const { fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
   const [popupActivo, setPopupActivo] = useState(false)
   const dispatch = useDispatch()
+  const esconder = useCallback(() => setPopupActivo(false), [setPopupActivo])
 
   return (
     <div className="SelectorRangoFechas">
@@ -45,7 +46,7 @@ const SelectorRangoFechas = () => {
       </button>
       <PopupRangosFechas
         activo={popupActivo}
-        esconder={() => setPopupActivo(false)}
+        esconder={esconder}
       />
     </div>
   )
