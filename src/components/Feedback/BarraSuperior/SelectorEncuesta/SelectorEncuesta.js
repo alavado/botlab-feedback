@@ -21,6 +21,9 @@ const SelectorEncuesta = () => {
   const history = useHistory()
 
   const verEncuesta = useCallback(async id => {
+    if (id === idEncuestaSeleccionada) {
+      return
+    }
     try {
       history.push('/respuestas')
       dispatch(limpiaRespuestas())
@@ -30,7 +33,7 @@ const SelectorEncuesta = () => {
     } catch (e) {
       console.error('un error', e)
     }
-  }, [dispatch, history])
+  }, [dispatch, history, idEncuestaSeleccionada])
 
   useEffect(() => {
     if (!idEncuestaSeleccionada) {
