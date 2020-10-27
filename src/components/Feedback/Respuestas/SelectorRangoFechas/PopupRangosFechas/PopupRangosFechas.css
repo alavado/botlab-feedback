@@ -1,0 +1,54 @@
+.PopupRangosFechas__lamina {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.PopupRangosFechas {
+  z-index: 102;
+  top: 0;
+  right: 0;
+  position: absolute;
+  opacity: 0;
+  transition: all .25s ease;
+  background-color: white;
+  box-shadow: 0 .2rem .35rem rgba(0, 0, 0, .15);
+  pointer-events: none;
+}
+
+.PopupRangosFechas--activo {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.PopupRangosFecha__opcion {
+  background-color: transparent;
+  padding: .5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: .5rem .75rem;
+  transition: all .1s ease;
+  font-weight: 600;
+  font-size: .9rem;
+}
+
+.PopupRangosFecha__opcion:first-child {
+  border-top-right-radius: .25rem;
+  border-top-left-radius: .25rem;
+}
+
+.PopupRangosFecha__opcion:last-child {
+  border-bottom-right-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.PopupRangosFecha__opcion:hover {
+  background-color: var(--color-principal);
+  color: white;
+}

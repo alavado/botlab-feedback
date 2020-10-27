@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   font-size: .8rem;
+  position: relative;
 }
 
 .SelectorRangoFechas__datepicker {
@@ -15,4 +16,30 @@
   cursor: pointer;
   font-size: .75rem;
   font-weight: 600;
+}
+
+.SelectorRangoFechas__boton_opciones {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
+  transition: all .25s ease;
+  position: relative;
+}
+
+.SelectorRangoFechas__boton_opciones:hover {
+  box-shadow: .15rem .15rem .25rem rgba(0, 0, 0, .1);
+  filter: brightness(110%);
+}
+
+.SelectorRangoFechas__boton_opciones_icono {
+  font-size: 1rem;
 }

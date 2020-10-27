@@ -61,7 +61,7 @@ const Texto = ({ mensaje, hora, esDeHumano }) => (
 )
 
 const Hora = ({ hora, esDeHumano, escondida }) => (
-  <div className={escondida ? 'MensajeWhatsapp__hora_visible' : 'MensajeWhatsapp__hora'}>
+  <div className={escondida ? 'MensajeWhatsapp__hora' : 'MensajeWhatsapp__hora_visible' }>
     {hora}
     {esDeHumano && <Visto />}
   </div>
