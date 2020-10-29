@@ -24,7 +24,7 @@ export const diccionarioTags = {
   },
   'OUT': {
     texto: 'Out',
-    titulo: 'Inconclusas',
+    titulo: 'Out',
     icono: question,
     clase: 'TagRespuesta TagRespuesta--out'
   },

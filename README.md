@@ -11,7 +11,7 @@ Pendientes:
 - agregar ojo al login?
 - ordenar tabla?
 - siguiente respuesta
-'
+'attachment
 
 - ejemplo chat http://localhost:3000/respuestas/chat/103/101281
 proc e imagenes 1 servicio Myriam Francisca Barahona Verdugo
@@ -21,3 +21,6 @@ preguntas wax:
 - exportar csv 
 - responsive
 
+- telefono con los datos del chat
+- subir scroll al pasar pagina
+- ordenar por defecto y esconder en una opcion

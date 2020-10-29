@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const guardarIdEncuestaSeleccionada = 'opciones/guardarEncuestaSeleccionada'
 const toggleColapsoColumna = 'opciones/toggleColapsoColumna'
 const fijarChatExpandido = 'opciones/fijarChatExpandido'
@@ -34,16 +36,13 @@ export default function(state = defaultState, action) {
           ]
         }
       }
-      const estabaColapsada = encuesta.columnasColapsadas.indexOf(nombreColumna) >= 0
       return {
         ...state,
         columnasColapsadas: [
           ...state.columnasColapsadas.filter(e => e.idEncuesta !== idEncuesta),
           {
             idEncuesta,
-            columnasColapsadas: estabaColapsada
-              ? encuesta.columnasColapsadas.filter(n => n !== nombreColumna)
-              : [...encuesta.columnasColapsadas, nombreColumna]
+            columnasColapsadas: _.xor(encuesta.columnasColapsadas, [nombreColumna])
           }
         ]
       }
