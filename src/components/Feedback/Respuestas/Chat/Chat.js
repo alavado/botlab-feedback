@@ -14,9 +14,8 @@ const Chat = () => {
   useEffect(() => {
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
-        const { data: { messages, user: { phone } } } = data
-        console.log(data)
-        setMensajes(messages)
+        const { data: { messages, previous_messages, user: { phone } } } = data
+        setMensajes([...previous_messages,  ...messages])
         setTelefono(phone)
       })
   }, [idEncuesta, idUsuario])

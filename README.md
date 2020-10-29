@@ -2,9 +2,7 @@ Pendientes:
 
 - que preserve pagina y scroll al volver a respuestas
 
-- boton de clear busqueda
 - agregar botones de hablar y refrescar
-- destacar mas busqueda
 - agregar zoom in zoom out
 - mejorar manejo de error cargando respuestas
 - manejo de error cargando chat
@@ -12,6 +10,8 @@ Pendientes:
 
 - agregar ojo al login?
 - ordenar tabla?
+- siguiente respuesta
+'
 
 - ejemplo chat http://localhost:3000/respuestas/chat/103/101281
 proc e imagenes 1 servicio Myriam Francisca Barahona Verdugo

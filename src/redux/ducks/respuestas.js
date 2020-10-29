@@ -12,7 +12,8 @@ const normalizar = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLow
 
 const defaultState = {
   fechaInicio: new Date(2020, 7, 1),
-  fechaTermino: new Date(2020, 7, 2)
+  fechaTermino: new Date(2020, 7, 2),
+  busqueda: ''
   // fechaInicio: Date.now(),
   // fechaTermino: Date.now()
 }
@@ -72,9 +73,11 @@ export default function(state = defaultState, action) {
       return {
         ...state,
         busqueda: action.payload,
-        respuestasVisibles: state
-          .respuestas
-          .filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)
+        respuestasVisibles: state.respuestas
+          ? state
+              .respuestas
+              .filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)
+          : []
       }
     }
     case fijarRespuesta: {

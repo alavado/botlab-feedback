@@ -5,6 +5,7 @@ const Buscador = () => {
   return (
     <div className="Buscador">
       Buscador
+      <input type="text" />
     </div>
   )
 }

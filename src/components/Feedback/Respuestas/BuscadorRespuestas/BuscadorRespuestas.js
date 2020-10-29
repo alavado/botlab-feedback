@@ -26,12 +26,14 @@ const BuscadorRespuestas = () => {
         />
       </div>
       <input
+        type="text"
         className={classNames({
           BuscadorRespuestas__input: true,
           'BuscadorRespuestas__input--activo': busqueda,
         })}
-        onChange={e => dispatch(buscaEsto(e.target.value))}
         value={busqueda}
+        onChange={e => dispatch(buscaEsto(e.target.value))}
+        spellCheck="false"
       />
     </div>
   )

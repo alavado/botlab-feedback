@@ -2,9 +2,14 @@
   flex: 1;
 }
 
+.DatosChat__icono_volver {
+  margin-right: .25rem;
+  font-size: .9rem;
+}
+
 .DatosChat__link_atras {
   font-weight: bold;
-  font-size: .9rem;
+  font-size: .8rem;
   display: flex;
   align-items: center;
   transition: all .15s ease;
@@ -56,9 +61,4 @@
   min-width: 16ch;
   max-width: 16ch;
   padding-right: 1rem;
-}
-
-.DatosChat__icono_volver {
-  margin-right: .25rem;
-  font-size: 1.25rem;
 }

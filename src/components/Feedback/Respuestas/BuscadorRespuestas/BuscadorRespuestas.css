@@ -32,6 +32,7 @@
   font-size: 1rem;
   padding: 0 1rem;
   transition: all .25s ease;
+  letter-spacing: 1px;
 }
 
 .BuscadorRespuestas__input:focus,
