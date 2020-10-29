@@ -8,7 +8,7 @@ const defaultState = {
     idEncuesta: -1,
     columnasColapsadas: []
   }],
-  chatExpandido: true
+  chatExpandido: false
 }
 
 export default function(state = defaultState, action) {

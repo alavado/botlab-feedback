@@ -12,5 +12,12 @@ Pendientes:
 
 - agregar ojo al login?
 - ordenar tabla?
+
+- ejemplo chat http://localhost:3000/respuestas/chat/103/101281
+proc e imagenes 1 servicio Myriam Francisca Barahona Verdugo
+3 de agosto
+
 preguntas wax: 
 - exportar csv 
+- responsive
+

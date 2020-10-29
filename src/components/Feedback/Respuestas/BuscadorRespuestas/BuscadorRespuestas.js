@@ -1,30 +1,31 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import Icon from '@iconify/react'
 import iconoBuscar from '@iconify/icons-mdi/search'
 import './BuscadorRespuestas.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { buscaEsto } from '../../../../redux/ducks/respuestas'
+import classNames from 'classnames'
 
 const BuscadorRespuestas = () => {
 
-  const refInput = useRef()
+  const { busqueda } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
 
   return (
     <div className="BuscadorRespuestas">
-      <div
-        className="BuscadorRespuestas__contenedor_icono"
-        onClick={() => refInput.current.focus()}
-      >
+      <div className="BuscadorRespuestas__contenedor_icono">
         <Icon
           icon={iconoBuscar}
           className="BuscadorRespuestas__icono"
         />
       </div>
       <input
-        ref={refInput}
-        className="BuscadorRespuestas__input"
+        className={classNames({
+          BuscadorRespuestas__input: true,
+          'BuscadorRespuestas__input--activo': busqueda,
+        })}
         onChange={e => dispatch(buscaEsto(e.target.value))}
+        value={busqueda}
       />
     </div>
   )

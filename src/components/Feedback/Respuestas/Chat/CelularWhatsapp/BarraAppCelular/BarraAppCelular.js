@@ -5,16 +5,22 @@ import iconoExpandir from '@iconify/icons-mdi/arrow-expand'
 import './BarraAppCelular.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fijaChatExpandido } from '../../../../../../redux/ducks/opciones'
+import { useHistory } from 'react-router-dom'
 
 const BarraAppCelular = () => {
 
   const { nombreUsuario } = useSelector(state => state.login)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   return (
     <div className="BarraAppCelular">
       <div className="BarraAppCelular__izquierda">
-        <Icon icon={iconoVolver} className="BarraAppCelular__icono_volver" />
+        <Icon
+          icon={iconoVolver}
+          className="BarraAppCelular__icono_volver"
+          onClick={() => history.goBack()}
+        />
         <div className="BarraAppCelular__avatar">G</div>
         <div className="BarraAppCelular__contenedor_nombre">
           <div className="BarraAppCelular__nombre">

@@ -71,6 +71,7 @@ export default function(state = defaultState, action) {
       const termino = normalizar(action.payload)
       return {
         ...state,
+        busqueda: action.payload,
         respuestasVisibles: state
           .respuestas
           .filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)

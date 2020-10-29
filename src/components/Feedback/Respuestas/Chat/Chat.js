@@ -15,6 +15,7 @@ const Chat = () => {
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
         const { data: { messages, user: { phone } } } = data
+        console.log(data)
         setMensajes(messages)
         setTelefono(phone)
       })
