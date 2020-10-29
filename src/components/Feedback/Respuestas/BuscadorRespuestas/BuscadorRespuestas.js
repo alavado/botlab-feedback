@@ -1,6 +1,7 @@
 import React from 'react'
 import Icon from '@iconify/react'
 import iconoBuscar from '@iconify/icons-mdi/search'
+import iconoBorrarBusqueda from '@iconify/icons-mdi/close'
 import './BuscadorRespuestas.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { buscaEsto } from '../../../../redux/ducks/respuestas'
@@ -13,9 +14,14 @@ const BuscadorRespuestas = () => {
 
   return (
     <div className="BuscadorRespuestas">
-      <div className="BuscadorRespuestas__contenedor_icono">
+      <div
+        className="BuscadorRespuestas__contenedor_icono"
+        onClick={() => dispatch(buscaEsto(''))}
+        style={{ pointerEvents: busqueda ? 'all' : 'none' }}
+        title="Limpiar búsqueda"
+      >
         <Icon
-          icon={iconoBuscar}
+          icon={busqueda ? iconoBorrarBusqueda : iconoBuscar}
           className="BuscadorRespuestas__icono"
         />
       </div>
