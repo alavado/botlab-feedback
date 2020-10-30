@@ -1,18 +1,15 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import classNames from 'classnames'
-import './DatosChat.css'
-import { columnaEstaColapsada } from '../../../../../helpers/tablaRespuestas'
 import TagRespuesta from '../../TablaRespuestas/TagRespuesta'
 import iconoVolver from '@iconify/icons-mdi/arrow-left'
 import { InlineIcon } from '@iconify/react'
+import './DatosChat.css'
 
 const DatosChat = () => {
 
   const { respuestaSeleccionada: respuesta } = useSelector(state => state.respuestas)
-  const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
-  const { columnasColapsadas } = useSelector(state => state.opciones)
+  const { headers } = useSelector(state => state.encuestas)
 
   if (!headers) {
     return null
@@ -29,10 +26,7 @@ const DatosChat = () => {
         {headers.map(({ nombre, texto }, i) => (
           <div
             key={`header-chat-${i}`}
-            className={classNames({
-              DatosChat__contenedor_header: true,
-              'DatosChat__contenedor_header--oculto': columnaEstaColapsada(idEncuesta, nombre, columnasColapsadas)
-            })}
+            className="DatosChat__contenedor_header"
           >
             <div className="DatosChat__nombre_header">
               {texto}

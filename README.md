@@ -24,3 +24,5 @@ preguntas wax:
 - telefono con los datos del chat
 - subir scroll al pasar pagina
 - ordenar por defecto y esconder en una opcion
+- mover confirmaciones a la derecha?
+- agregar paginacion

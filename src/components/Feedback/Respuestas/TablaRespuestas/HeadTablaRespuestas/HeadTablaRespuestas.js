@@ -11,6 +11,10 @@ const HeadTablaRespuestas = () => {
   const { columnasColapsadas } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
 
+  if (!headers) {
+    return null
+  }
+
   return (
     <thead className="HeadTablaRespuestas">
       <tr className="HeadTablaRespuestas__fila">
