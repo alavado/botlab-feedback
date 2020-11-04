@@ -4,8 +4,9 @@ import './Buscador.css'
 const Buscador = () => {
   return (
     <div className="Buscador">
-      Buscador
-      <input type="text" />
+      <div className="Buscador__superior">
+        <h1 className="Buscador__titulo">Buscador</h1>
+      </div>
     </div>
   )
 }

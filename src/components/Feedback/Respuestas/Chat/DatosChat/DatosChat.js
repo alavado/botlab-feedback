@@ -14,7 +14,7 @@ const DatosChat = () => {
   if (!headers) {
     return null
   }
-
+  
   return (
     <div className="DatosChat">
       <Link className="DatosChat__link_atras" to="/respuestas">

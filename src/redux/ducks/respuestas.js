@@ -7,13 +7,15 @@ const fijarRangoFechas = 'respuestas/fijarRangoFechas'
 const fijarBusqueda = 'respuestas/fijarBusqueda'
 const fijarRespuesta = 'respuestas/fijarRespuesta'
 const limpiarRespuestas = 'respuestas/limpiarRespuestas'
+const ordenarRespuestas = 'respuestas/ordenarRespuestas'
 
 const normalizar = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
 const defaultState = {
   fechaInicio: new Date(2020, 7, 1),
   fechaTermino: new Date(2020, 7, 2),
-  busqueda: ''
+  busqueda: '',
+  orden: 'ASC'
   // fechaInicio: Date.now(),
   // fechaTermino: Date.now()
 }
@@ -94,6 +96,14 @@ export default function(state = defaultState, action) {
         respuestaSeleccionada: undefined
       }
     }
+    case ordenarRespuestas: {
+      const header = action.payload
+      return {
+        ...state,
+        respuestas: state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1),
+        respuestasVisibles: state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+      }
+    }
     default: return state
   }
 }
@@ -130,4 +140,9 @@ export const buscaEsto = termino => ({
 export const guardaEstaRespuesta = respuesta => ({
   type: fijarRespuesta,
   payload: respuesta
+})
+
+export const ordenaRespuestas = nombreHeader => ({
+  type: ordenarRespuestas,
+  payload: nombreHeader
 })

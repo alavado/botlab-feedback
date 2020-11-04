@@ -2,3 +2,17 @@
   display: flex;
   flex-direction: column;
 }
+
+.Buscador__superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2.75rem;
+  padding-bottom: 1rem;
+}
+
+.Buscador__titulo {
+  font-weight: bold;
+  font-size: 1.75rem;
+  font-family: 'Raleway';
+}

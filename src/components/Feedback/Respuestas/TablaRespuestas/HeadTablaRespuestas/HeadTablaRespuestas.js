@@ -4,6 +4,7 @@ import { columnaEstaColapsada } from '../../../../../helpers/tablaRespuestas'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleaColapsoColumna } from '../../../../../redux/ducks/opciones'
 import './HeadTablaRespuestas.css'
+import { ordenaRespuestas } from '../../../../../redux/ducks/respuestas'
 
 const HeadTablaRespuestas = () => {
 
@@ -14,7 +15,8 @@ const HeadTablaRespuestas = () => {
   if (!headers) {
     return null
   }
-
+  // esto era para colapsar la columna
+  // dispatch(toggleaColapsoColumna(idEncuestaSeleccionada, nombre))
   return (
     <thead className="HeadTablaRespuestas">
       <tr className="HeadTablaRespuestas__fila">
@@ -26,7 +28,7 @@ const HeadTablaRespuestas = () => {
               'HeadTablaRespuestas__header--oculto': columnaEstaColapsada(idEncuestaSeleccionada, nombre, columnasColapsadas)
             })}
             title={texto}
-            onClick={() => dispatch(toggleaColapsoColumna(idEncuestaSeleccionada, nombre))}
+            onClick={() => dispatch(ordenaRespuestas(nombre))}
           >
             {texto}
           </th>

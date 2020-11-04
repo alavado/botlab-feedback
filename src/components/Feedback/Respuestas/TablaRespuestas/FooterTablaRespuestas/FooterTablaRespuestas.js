@@ -8,8 +8,7 @@ const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas, pagina, s
   return (
     <div className="FooterTablaRespuestas">
       <p className="FooterTablaRespuestas__total">
-        {/* <span className="FooterTablaRespuestas__numero_total">{respuestas.length.toLocaleString('de-DE')}</span> resultados - mostrando {50 * (pagina - 1) + 1} a {Math.min(50 * pagina, respuestas.length)} */}
-        <span className="FooterTablaRespuestas__numero_total">{totalRespuestas.toLocaleString('de-DE')}</span> resultados
+        Mostrando {respuestasPorPagina * (pagina - 1) + 1} a {Math.min(respuestasPorPagina * pagina, totalRespuestas)} de <span className="FooterTablaRespuestas__numero_total">{totalRespuestas.toLocaleString('de-DE')}</span>
       </p>
       {totalRespuestas > respuestasPorPagina &&
         <div className="FooterTablaRespuestas__botones_paginas">
