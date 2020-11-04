@@ -1,0 +1,28 @@
+.CuadroBusqueda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.CuadroBusqueda__explicacion {
+  font-size: .85rem;
+  max-width: 50ch;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.CuadroBusqueda__input {
+  height: 3rem;
+  padding: 0 1.5rem;
+  font-size: 1.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-gris);
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.CuadroBusqueda__boton_buscar {
+  margin-bottom: 1rem;
+  cursor: pointer;
+}

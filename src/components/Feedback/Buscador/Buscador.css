@@ -1,6 +1,7 @@
 .Buscador {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .Buscador__superior {
@@ -15,4 +16,13 @@
   font-weight: bold;
   font-size: 1.75rem;
   font-family: 'Raleway';
+}
+
+.Buscador__contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  padding-bottom: 2rem;
 }
