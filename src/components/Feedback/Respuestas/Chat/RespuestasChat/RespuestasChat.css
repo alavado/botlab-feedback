@@ -1,0 +1,11 @@
+.RespuestasChat {
+  flex: 1;
+}
+
+.RespuestasChat__titulo {
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Raleway';
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}

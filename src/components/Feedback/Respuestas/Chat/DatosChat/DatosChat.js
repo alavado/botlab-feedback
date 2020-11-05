@@ -6,7 +6,7 @@ import iconoVolver from '@iconify/icons-mdi/arrow-left'
 import { InlineIcon } from '@iconify/react'
 import './DatosChat.css'
 
-const DatosChat = () => {
+const DatosChat = ({ telefono }) => {
 
   const { respuestaSeleccionada: respuesta } = useSelector(state => state.respuestas)
   const { headers } = useSelector(state => state.encuestas)
@@ -14,6 +14,8 @@ const DatosChat = () => {
   if (!headers) {
     return null
   }
+
+  const headersSinPreguntas = headers.filter(header => header.tipo !== 'YESNO')
   
   return (
     <div className="DatosChat">
@@ -23,7 +25,15 @@ const DatosChat = () => {
       </Link>
       <h1 className="DatosChat__titulo">Datos del chat</h1>
       <div className="DatosChat__contenedor_datos">
-        {headers.map(({ nombre, texto }, i) => (
+        <div className="DatosChat__contenedor_header">
+          <div className="DatosChat__nombre_header">
+            Teléfono
+          </div>
+          <div className="DatosChat__valor_header">
+            {telefono}
+          </div>
+        </div>
+        {headersSinPreguntas.map(({ nombre, texto }, i) => (
           <div
             key={`header-chat-${i}`}
             className="DatosChat__contenedor_header"

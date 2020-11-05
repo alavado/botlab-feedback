@@ -4,6 +4,7 @@ import { chat as chatAPI } from '../../../../api/endpoints'
 import { CelularWhatsapp } from './CelularWhatsapp/CelularWhatsapp'
 import './Chat.css'
 import DatosChat from './DatosChat'
+import RespuestasChat from './RespuestasChat'
 
 const Chat = () => {
 
@@ -22,27 +23,9 @@ const Chat = () => {
 
   return (
     <div className="Chat">
-      <DatosChat />
-      <CelularWhatsapp
-        mensajes={mensajes}
-      />
-      <div style={{flex: 1}}>
-        <div className="DatosChat__contenedor_header">
-          <div className="DatosChat__nombre_header">
-            Teléfono
-          </div>
-          <div className="DatosChat__valor_header">
-            {telefono}
-          </div>
-        </div>
-        <a
-          href={`https://wa.me/${telefono}`}
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          Hablar con usuario
-        </a>
-      </div>
+      <DatosChat telefono={telefono} />
+      <CelularWhatsapp mensajes={mensajes} />
+      <RespuestasChat telefono={telefono} />
     </div>
   )
 }

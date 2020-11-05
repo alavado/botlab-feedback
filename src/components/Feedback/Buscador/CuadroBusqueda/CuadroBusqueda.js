@@ -13,8 +13,8 @@ const CuadroBusqueda = () => {
         Buscar
       </button>
       <p className="CuadroBusqueda__explicacion">
-        La búsqueda entrega hasta 100 resultados más relevantes de cualquier encuesta asociada a la cuenta del usuario.
-        Los resultados entregados pueden tener un desfase de hasta 15 minutos.
+        La búsqueda entrega hasta 100 resultados más relevantes de cualquier encuesta asociada al término ingresado.
+        Los resultados pueden tener un desfase de hasta 15 minutos.
       </p>
     </div>
   )

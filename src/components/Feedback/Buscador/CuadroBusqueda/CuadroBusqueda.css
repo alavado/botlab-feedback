@@ -5,13 +5,6 @@
   justify-content: center;
 }
 
-.CuadroBusqueda__explicacion {
-  font-size: .85rem;
-  max-width: 50ch;
-  line-height: 1.5;
-  text-align: center;
-}
-
 .CuadroBusqueda__input {
   height: 3rem;
   padding: 0 1.5rem;
@@ -25,4 +18,11 @@
 .CuadroBusqueda__boton_buscar {
   margin-bottom: 1rem;
   cursor: pointer;
+}
+
+.CuadroBusqueda__explicacion {
+  font-size: .85rem;
+  max-width: 50ch;
+  line-height: 1.5;
+  text-align: center;
 }
