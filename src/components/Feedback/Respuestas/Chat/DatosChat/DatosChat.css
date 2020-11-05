@@ -14,6 +14,7 @@
 
 .DatosChat__botones_navegacion {
   display: flex;
+  align-items: center;
 }
 
 .DatosChat__link_atras {
@@ -55,6 +56,11 @@
 
 .DatosChat__link_siguiente:hover {
   opacity: 1;
+}
+
+.DatosChat__posicion {
+  font-weight: 600;
+  font-size: .7rem;
 }
 
 .DatosChat__titulo {

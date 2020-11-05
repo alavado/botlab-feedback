@@ -51,15 +51,14 @@ const DatosChat = ({ telefono }) => {
             title={!hayChatAnterior && 'Este es el primer chat de esta búsqueda'}
           >
             <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
-            
           </button>
+          <div className="DatosChat__posicion">{indiceRespuestaSeleccionada + 1} / {respuestas.length}</div>
           <button
             className="DatosChat__link_siguiente"
             onClick={irASiguienteRespuesta}
             disabled={!haySiguienteChat}
             title={!haySiguienteChat && 'No hay más chats en esta búsqueda'}
           >
-            
             <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
           </button>
         </div>
