@@ -4,6 +4,7 @@ Pendientes:
 - mejorar manejo de error cargando respuestas
 - manejo de error cargando chat
 - popups a menu lateral
+- respuestas: mensaje cuando no hay resultados
 
 - agregar ojo al login?
 - ordenar tabla?

@@ -55,10 +55,15 @@ const Globo = ({ esDeHumano, posicion, hora, children }) => (
 const Texto = ({ mensaje, hora, esDeHumano }) => (
   <div className="MensajeWhatsapp__texto">
     {mensaje.message.indexOf('ATTACHMENT') > 0
-      ? <>
+      ? <a
+          target="_blank"
+          rel="noreferrer noopener"
+          className="MensajeWhatsapp__link_archivo"
+          href={mensaje.message.slice(mensaje.message.indexOf('http'))}
+        >
           <InlineIcon className="MensajeWhatsapp__pdf" icon={iconoArchivo} />
           {mensaje.message.slice(0, mensaje.message.indexOf('ATTACHMENT'))}
-        </>
+        </a>
       : mensaje.message
     }
     <Hora hora={hora} escondida={true} esDeHumano={esDeHumano} />
