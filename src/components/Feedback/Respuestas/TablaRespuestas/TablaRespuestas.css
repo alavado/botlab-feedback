@@ -13,6 +13,10 @@
   padding-bottom: 1rem;
 }
 
+.TablaRespuestas__herramientas {
+  display: flex;
+}
+
 .TablaRespuestas__titulo {
   font-weight: bold;
   font-size: 1.75rem;

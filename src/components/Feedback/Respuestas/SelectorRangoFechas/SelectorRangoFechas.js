@@ -41,6 +41,7 @@ const SelectorRangoFechas = () => {
       <button
         className="SelectorRangoFechas__boton_opciones"
         onClick={() => setPopupActivo(true)}
+        title="Rangos habituales"
       >
         <Icon className="SelectorRangoFechas__boton_opciones_icono" icon={iconoOpciones} />
       </button>

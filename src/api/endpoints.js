@@ -34,3 +34,19 @@ export const busqueda = termino => {
   const url = `${API_ROOT}/answers_es?query=${termino}`
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
+
+export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino) => {
+  const fi = format(fechaInicio, 'yyyy-MM-dd')
+  const ft = format(fechaTermino, 'yyyy-MM-dd')
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/report/${idEncuesta}?type=tag&fecha_inicio=${fi}%2000%3A00&fecha_termino=${ft}%2023%3A59`
+  return axios.get(url, { headers: { 'Api-Token': token, 'Api-UTC-Offset': -180 }, responseType: 'blob' })
+    .then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', 'feedback.csv')
+      document.body.appendChild(link)
+      link.click()
+    })
+}
