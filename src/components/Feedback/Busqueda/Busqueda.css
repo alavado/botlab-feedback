@@ -1,10 +1,10 @@
-.Buscador {
+.Busqueda {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.Buscador__superior {
+.Busqueda__superior {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,13 +12,13 @@
   padding-bottom: 1rem;
 }
 
-.Buscador__titulo {
+.Busqueda__titulo {
   font-weight: bold;
   font-size: 1.75rem;
   font-family: 'Raleway';
 }
 
-.Buscador__contenedor {
+.Busqueda__contenedor {
   display: flex;
   align-items: center;
   justify-content: center;

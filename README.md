@@ -1,9 +1,6 @@
 Pendientes:
 
 - que preserve pagina y scroll al volver a respuestas
-
-- agregar botones de hablar y refrescar
-- agregar zoom in zoom out
 - mejorar manejo de error cargando respuestas
 - manejo de error cargando chat
 - popups a menu lateral
@@ -26,3 +23,5 @@ preguntas wax:
 - ordenar por defecto y esconder en una opcion
 - mover confirmaciones a la derecha?
 - agregar paginacion
+- animacion adelante atras
+- corregir navegacion chats

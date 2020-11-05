@@ -1,9 +1,14 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
+import { busqueda as busquedaAPI } from '../../../../api/endpoints'
+import { guardaResultadosBusqueda } from '../../../../redux/ducks/busqueda'
 import './CuadroBusqueda.css'
 
 const CuadroBusqueda = () => {
 
   const inputRef = useRef()
+  const [termino, setTermino] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(() => {
     inputRef.current.focus()
@@ -11,6 +16,10 @@ const CuadroBusqueda = () => {
 
   const buscar = e => {
     e.preventDefault()
+    busquedaAPI(termino)
+      .then(res => {
+        dispatch(guardaResultadosBusqueda(res.data))
+      })
   }
 
   return (
@@ -24,6 +33,8 @@ const CuadroBusqueda = () => {
           type="text"
           spellCheck="false"
           ref={inputRef}
+          value={termino}
+          onChange={e => setTermino(e.target.value)}
         />
         <button
           type="submit"

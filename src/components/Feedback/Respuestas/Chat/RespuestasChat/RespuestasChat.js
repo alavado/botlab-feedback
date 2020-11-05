@@ -44,7 +44,7 @@ const RespuestasChat = ({ telefono }) => {
           className="RespuestasChat__boton_hablar"
         >
           <InlineIcon className="RespuestasChat__icono_ws" icon={iconoWhatsapp} />
-          Hablar con usuario
+          Hablar con paciente
         </a>
       </div>
     </div>
