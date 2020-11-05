@@ -15,8 +15,8 @@ const BodyTablaRespuestas = ({ pagina, respuestasPorPagina }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const verChat = respuesta => () => {
-    dispatch(guardaEstaRespuesta(respuesta))
+  const verChat = (respuesta, indice) => () => {
+    dispatch(guardaEstaRespuesta(respuesta, indice))
     history.push(`/respuestas/chat/${idEncuesta}/${respuesta.user_id}`)
   }
 
@@ -30,7 +30,7 @@ const BodyTablaRespuestas = ({ pagina, respuestasPorPagina }) => {
           className={classNames({
             'BodyTablaRespuestas__fila': true
           })}
-          onClick={verChat(respuesta)}
+          onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
         >
           {headers.map(({ nombre }, j) => (
             <td

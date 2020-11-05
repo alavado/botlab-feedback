@@ -2,10 +2,18 @@
   flex: 1;
 }
 
+.DatosChat__navegacion {
+  display: flex;
+  justify-content: space-between;
+}
+
 .DatosChat__icono_volver {
   margin-right: .25rem;
   font-size: .9rem;
-  height: 1.5rem;
+}
+
+.DatosChat__botones_navegacion {
+  display: flex;
 }
 
 .DatosChat__link_atras {
@@ -14,10 +22,39 @@
   display: flex;
   align-items: center;
   transition: all .15s ease;
+  height: 1rem;
 }
 
 .DatosChat__link_atras:hover {
   opacity: .8;
+}
+
+.DatosChat__link_siguiente {
+  font-weight: bold;
+  font-size: .8rem;
+  display: flex;
+  align-items: center;
+  transition: all .15s ease;
+  height: 1rem;
+  opacity: .65;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.DatosChat__icono_siguiente {
+  margin-left: .25rem;
+  font-size: .9rem;
+}
+
+.DatosChat__icono_anterior {
+  margin-right: .25rem;
+  font-size: .9rem;
+}
+
+.DatosChat__link_siguiente:hover {
+  opacity: 1;
 }
 
 .DatosChat__titulo {

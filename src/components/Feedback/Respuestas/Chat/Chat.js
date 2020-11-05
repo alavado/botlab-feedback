@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { chat as chatAPI } from '../../../../api/endpoints'
 import { CelularWhatsapp } from './CelularWhatsapp/CelularWhatsapp'
-import './Chat.css'
 import DatosChat from './DatosChat'
 import RespuestasChat from './RespuestasChat'
+import './Chat.css'
 
 const Chat = () => {
 

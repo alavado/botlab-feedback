@@ -5,6 +5,11 @@
   justify-content: center;
 }
 
+.CuadroBusqueda__formulario {
+  display: flex;
+  flex-direction: column;
+}
+
 .CuadroBusqueda__input {
   height: 3rem;
   padding: 0 1.5rem;
@@ -13,16 +18,36 @@
   border: 1px solid var(--color-gris);
   margin-bottom: 1rem;
   outline: none;
+  width: 24ch;
 }
 
 .CuadroBusqueda__boton_buscar {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  background-image: linear-gradient(to bottom, var(--color-principal) 0%, var(--color-principal-2) 100%);
+  height: 2.5rem;
+  color: white;
+  border-radius: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
   cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .15), 0 .1rem .15rem rgba(0, 0, 0, .1);
+  transition: all .25s ease;
+  padding: 0 2rem;
+  border: none;
+}
+
+.CuadroBusqueda__boton_buscar:hover {
+  filter: brightness(110%);
+  box-shadow: 0 .1rem .15rem rgba(0, 0, 0, .15), 0 .15rem .15rem rgba(0, 0, 0, .1);
 }
 
 .CuadroBusqueda__explicacion {
-  font-size: .85rem;
+  font-size: .8rem;
   max-width: 50ch;
   line-height: 1.5;
   text-align: center;
+  opacity: .8;
 }

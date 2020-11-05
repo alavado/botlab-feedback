@@ -1,6 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import TagRespuesta from '../../TablaRespuestas/TagRespuesta'
+import { InlineIcon } from '@iconify/react'
+import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import './RespuestasChat.css'
 
 const RespuestasChat = ({ telefono }) => {
@@ -41,6 +43,7 @@ const RespuestasChat = ({ telefono }) => {
           rel="noreferrer noopener"
           className="RespuestasChat__boton_hablar"
         >
+          <InlineIcon className="RespuestasChat__icono_ws" icon={iconoWhatsapp} />
           Hablar con usuario
         </a>
       </div>

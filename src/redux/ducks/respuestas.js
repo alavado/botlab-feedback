@@ -83,9 +83,11 @@ export default function(state = defaultState, action) {
       }
     }
     case fijarRespuesta: {
+      const { respuesta, indice } = action.payload
       return {
         ...state,
-        respuestaSeleccionada: action.payload
+        respuestaSeleccionada: respuesta,
+        indiceRespuestaSeleccionada: indice
       }
     }
     case limpiarRespuestas: {
@@ -137,9 +139,12 @@ export const buscaEsto = termino => ({
   payload: termino
 })
 
-export const guardaEstaRespuesta = respuesta => ({
+export const guardaEstaRespuesta = (respuesta, indice) => ({
   type: fijarRespuesta,
-  payload: respuesta
+  payload: {
+    respuesta,
+    indice
+  }
 })
 
 export const ordenaRespuestas = nombreHeader => ({
