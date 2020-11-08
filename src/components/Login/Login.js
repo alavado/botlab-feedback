@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './Login.css'
 import { useDispatch } from 'react-redux'
 import { guardaToken } from '../../redux/ducks/login'
-import { useHistory } from 'react-router-dom'
 import { guardaTiposEncuestas } from '../../redux/ducks/encuestas'
 import { login as loginAPI } from '../../api/endpoints'
 import { format } from 'date-fns'
@@ -21,7 +20,6 @@ const Login = () => {
   const [error, setError] = useState()
   const [cargando, setCargando] = useState()
   const dispatch = useDispatch()
-  const history = useHistory()
 
   const cambiarVariable = variable => e => {
     setAuth({ ...auth, [variable]: e.target.value })
@@ -34,8 +32,6 @@ const Login = () => {
       const { data } = await loginAPI(auth.username, auth.password)
       dispatch(guardaToken(data))
       dispatch(guardaTiposEncuestas(data))
-      setCargando(false)
-      history.push('/respuestas')
     } catch (e) {
       setCargando(false)
       setError('Usuario o contraseña incorrectos')

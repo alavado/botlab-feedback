@@ -98,7 +98,7 @@
 .DatosChat__nombre_header {
   font-weight: 600;
   margin-bottom: .25rem;
-  min-width: 16ch;
-  max-width: 16ch;
+  min-width: 12em;
+  max-width: 12em;
   padding-right: 1rem;
 }

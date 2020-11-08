@@ -27,13 +27,13 @@ const DatosChat = ({ telefono }) => {
   const irARespuestaAnterior = () => {
     const respuestaAnterior = respuestas[indiceRespuestaSeleccionada - 1]
     dispatch(guardaEstaRespuesta(respuestaAnterior, indiceRespuestaSeleccionada - 1))
-    history.push(`/respuestas/chat/${idEncuesta}/${respuestaAnterior.user_id}`)
+    history.push(`/chat/${idEncuesta}/${respuestaAnterior.user_id}`)
   }
 
   const irASiguienteRespuesta = () => {
     const siguienteRespuesta = respuestas[indiceRespuestaSeleccionada + 1]
     dispatch(guardaEstaRespuesta(siguienteRespuesta, indiceRespuestaSeleccionada + 1))
-    history.push(`/respuestas/chat/${idEncuesta}/${siguienteRespuesta.user_id}`)
+    history.push(`/chat/${idEncuesta}/${siguienteRespuesta.user_id}`)
   }
   
   return (

@@ -17,7 +17,7 @@ const BodyTablaRespuestas = ({ pagina, respuestasPorPagina }) => {
 
   const verChat = (respuesta, indice) => () => {
     dispatch(guardaEstaRespuesta(respuesta, indice))
-    history.push(`/respuestas/chat/${idEncuesta}/${respuesta.user_id}`)
+    history.push(`/chat/${idEncuesta}/${respuesta.user_id}`)
   }
 
   const respuestasPagina = respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina)

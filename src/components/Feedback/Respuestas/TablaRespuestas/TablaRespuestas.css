@@ -15,6 +15,7 @@
 
 .TablaRespuestas__herramientas {
   display: flex;
+  align-items: center;
 }
 
 .TablaRespuestas__titulo {

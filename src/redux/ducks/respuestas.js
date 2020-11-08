@@ -12,8 +12,8 @@ const ordenarRespuestas = 'respuestas/ordenarRespuestas'
 const normalizar = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
 const defaultState = {
-  fechaInicio: new Date(2020, 7, 1),
-  fechaTermino: new Date(2020, 7, 2),
+  fechaInicio: window.location.href.indexOf('localhost') < 0 ? Date.now() : new Date(2020, 7, 1),
+  fechaTermino: window.location.href.indexOf('localhost') < 0 ? Date.now() : new Date(2020, 7, 14),
   busqueda: '',
   orden: 'ASC'
   // fechaInicio: Date.now(),
@@ -25,8 +25,6 @@ export default function(state = defaultState, action) {
     case fijarRespuestas: {
       const jsonRespuestas = action.payload
       const respuestas = jsonRespuestas.data.data.map(r => {
-        const [dia,, nombreMes] = r.date.split(' ')
-        const fecha = `${dia} ${nombreMes.slice(0, 3)}. ${r.time}`
         const respuestaNormalizada = Object.keys(r)
           .reduce((prev, k) => {
             let slug = ''
@@ -40,7 +38,6 @@ export default function(state = defaultState, action) {
           }, '')
         return {
           ...r,
-          fecha,
           respuestaNormalizada
         }
       }).reverse()

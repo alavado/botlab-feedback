@@ -12,7 +12,7 @@ const Respuestas = () => {
         <Route exact path="/respuestas">
           <TablaRespuestas />
         </Route>
-        <Route path="/respuestas/chat/:idEncuesta/:idUsuario">
+        <Route path="/chat/:idEncuesta/:idUsuario">
           <Chat />
         </Route>
       </Switch>
