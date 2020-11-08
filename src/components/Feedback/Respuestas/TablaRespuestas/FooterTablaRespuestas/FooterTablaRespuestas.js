@@ -3,12 +3,18 @@ import './FooterTablaRespuestas.css'
 
 const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas, pagina, setPagina }) => {
 
-  const numeroPaginas = 1 + Math.ceil(totalRespuestas / respuestasPorPagina)
+  const numeroPaginas = Math.ceil(totalRespuestas / respuestasPorPagina)
 
+  const mensaje = totalRespuestas === 0
+    ? <>No se encontraron respuestas</>
+    : <>
+        Mostrando {respuestasPorPagina * (pagina - 1) + 1} a {Math.min(respuestasPorPagina * pagina, totalRespuestas)} de <span className="FooterTablaRespuestas__numero_total">{totalRespuestas.toLocaleString('de-DE')}</span>
+      </>
+  
   return (
     <div className="FooterTablaRespuestas">
       <p className="FooterTablaRespuestas__total">
-        Mostrando {respuestasPorPagina * (pagina - 1) + 1} a {Math.min(respuestasPorPagina * pagina, totalRespuestas)} de <span className="FooterTablaRespuestas__numero_total">{totalRespuestas.toLocaleString('de-DE')}</span>
+        {mensaje}
       </p>
       {totalRespuestas > respuestasPorPagina &&
         <div className="FooterTablaRespuestas__botones_paginas">

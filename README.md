@@ -1,11 +1,10 @@
 Pendientes:
 
-- refactor ruta chat
+- respuestas: mensaje cuando no hay resultados
 - que preserve pagina y scroll al volver a respuestas
 - mejorar manejo de error cargando respuestas
 - manejo de error cargando chat
 - popups a menu lateral
-- respuestas: mensaje cuando no hay resultados
 
 - agregar ojo al login?
 - ordenar tabla?
@@ -16,19 +15,13 @@ Pendientes:
 proc e imagenes 1 servicio Myriam Francisca Barahona Verdugo
 3 de agosto
 
-- telefono con los datos del chat
-- subir scroll al pasar pagina
 - ordenar por defecto y esconder en una opcion
-- mover confirmaciones a la derecha?
-- agregar paginacion
 - animacion adelante atras
 - corregir navegacion chats
 - cambiar flechitas
-- corregir scroll
 - sacar los headers de la poll
 - ademas de los yesno, hay otros tipo de respuesta: "open", nueva poll redsalud
 - tambien considerar RANGE
-- boton de exportar
 - ver que pasa con los open default (nueva encuesta wax)
 - aparece una pagina extra al final
 - agregar indicacion de chats anteriores a vista expandida
