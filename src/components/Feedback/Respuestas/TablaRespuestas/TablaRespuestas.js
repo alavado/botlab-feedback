@@ -28,7 +28,7 @@ const TablaRespuestas = () => {
         <SelectorRangoFechas />
         <div className="TablaRespuestas__herramientas">
           <BuscadorRespuestas />
-          <ExportadorRespuestas />
+          <ExportadorRespuestas cargando={cargando} />
         </div>
       </div>
       {cargando

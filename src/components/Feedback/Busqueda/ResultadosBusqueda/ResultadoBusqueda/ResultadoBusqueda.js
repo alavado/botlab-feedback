@@ -1,7 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import './ResultadoBusqueda.css'
 
 const ResultadoBusqueda = ({ resultado }) => {
+
+  const { encuestas } = useSelector(state => state.encuestas)
+
+  console.log(encuestas)
+
   return (
     <div className="ResultadoBusqueda">
       {Object.keys(resultado).map((k, i) => (

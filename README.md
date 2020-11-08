@@ -35,3 +35,4 @@ proc e imagenes 1 servicio Myriam Francisca Barahona Verdugo
 
 preguntas wax:
 - para poder ver el chat directamente con la ruta, necesitamos que el endpoint entregue los demás datos
+- el exportar text y detalle son lo mismo que la tabla, por que no exportarlo desde ahí

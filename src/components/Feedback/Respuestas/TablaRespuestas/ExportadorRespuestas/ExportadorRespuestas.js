@@ -1,27 +1,30 @@
 import React from 'react'
 import Icon from '@iconify/react'
-import iconoExportar from '@iconify/icons-mdi/download'
+import iconoExportar from '@iconify/icons-mdi/arrow-top-right'
 import './ExportadorRespuestas.css'
 import { useSelector } from 'react-redux'
-import { exportarRespuestas } from '../../../../../api/endpoints'
+import { exportarTablaRespuestas } from '../../../../../helpers/tablaRespuestas'
 
-const ExportadorRespuestas = () => {
+const ExportadorRespuestas = ({ cargando }) => {
 
-  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
-  const { fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
+  const { respuestasVisibles } = useSelector(state => state.respuestas)
+  const { headers } = useSelector(state => state.encuestas)
 
   const descargarCSV = () => {
-    exportarRespuestas(idEncuestaSeleccionada, fechaInicio, fechaTermino)
+    // exportarRespuestas(idEncuestaSeleccionada, fechaInicio, fechaTermino)
+    exportarTablaRespuestas(headers, respuestasVisibles)
   }
 
   return (
     <div className="ExportadorRespuestas">
       <button
-        className="SelectorRangoFechas__boton_opciones"
+        className="ExportadorRespuestas__boton"
         title="Exportar a CSV"
         onClick={descargarCSV}
+        disabled={cargando}
       >
-        <Icon className="SelectorRangoFechas__boton_opciones_icono" icon={iconoExportar} />
+        <Icon className="ExportadorRespuestas__icono" icon={iconoExportar} />
+        Exportar 
       </button>
     </div>
   )

@@ -2,7 +2,6 @@ import React from 'react'
 import classNames from 'classnames'
 import { columnaEstaColapsada } from '../../../../../helpers/tablaRespuestas'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleaColapsoColumna } from '../../../../../redux/ducks/opciones'
 import './HeadTablaRespuestas.css'
 import { ordenaRespuestas } from '../../../../../redux/ducks/respuestas'
 
