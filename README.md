@@ -23,7 +23,6 @@ proc e imagenes 1 servicio Myriam Francisca Barahona Verdugo
 - ademas de los yesno, hay otros tipo de respuesta: "open", nueva poll redsalud
 - tambien considerar RANGE
 - ver que pasa con los open default (nueva encuesta wax)
-- aparece una pagina extra al final
 - agregar indicacion de chats anteriores a vista expandida
 
 preguntas wax:

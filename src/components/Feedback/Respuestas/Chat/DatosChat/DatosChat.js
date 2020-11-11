@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import TagRespuesta from '../../TablaRespuestas/TagRespuesta'
 import iconoVolver from '@iconify/icons-mdi/arrow-left'
-import iconoSiguiente from '@iconify/icons-mdi/fast-forward'
-import iconoAnterior from '@iconify/icons-mdi/fast-rewind'
+import iconoSiguiente from '@iconify/icons-mdi/play'
+import iconoAnterior from '@iconify/icons-mdi/play'
 import { InlineIcon } from '@iconify/react'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
@@ -45,7 +45,7 @@ const DatosChat = ({ telefono }) => {
         </Link>
         <div className="DatosChat__botones_navegacion">
           <button
-            className="DatosChat__link_siguiente"
+            className="DatosChat__link_anterior"
             onClick={irARespuestaAnterior}
             disabled={!hayChatAnterior}
             title={!hayChatAnterior && 'Este es el primer chat de esta búsqueda'}

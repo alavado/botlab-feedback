@@ -10,6 +10,7 @@ import logo from '../../assets/images/logo-feedback.svg'
 import Loader from '../Loader'
 import { InlineIcon } from '@iconify/react'
 import iconoError from '@iconify/icons-mdi/warning'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 
 const Login = () => {
 
@@ -20,6 +21,8 @@ const Login = () => {
   const [error, setError] = useState()
   const [cargando, setCargando] = useState()
   const dispatch = useDispatch()
+  const history = useHistory()
+  const { url } = useRouteMatch()
 
   const cambiarVariable = variable => e => {
     setAuth({ ...auth, [variable]: e.target.value })
@@ -32,6 +35,9 @@ const Login = () => {
       const { data } = await loginAPI(auth.username, auth.password)
       dispatch(guardaToken(data))
       dispatch(guardaTiposEncuestas(data))
+      if (url === '/') {
+        history.push('/respuestas')
+      }
     } catch (e) {
       setCargando(false)
       setError('Usuario o contraseña incorrectos')
