@@ -1,10 +1,12 @@
 const fijarTermino = 'busqueda/fijarTermino'
 const fijarResultadosBusqueda = 'busqueda/fijarResultadosBusqueda'
 const limpiarResultadosBusqueda = 'busqueda/limpiarResultadosBusqueda'
+const comenzarBusqueda = 'busqueda/comenzarBusqueda'
 
 const defaultState = {
-  resultadosBusqueda: [],
-  termino: ''
+  resultadosBusqueda: undefined,
+  termino: '',
+  buscando: false
 }
 
 export default function(state = defaultState, action) {
@@ -20,7 +22,14 @@ export default function(state = defaultState, action) {
       const resultados = json.data
       return {
         ...state,
-        resultadosBusqueda: resultados
+        resultadosBusqueda: resultados,
+        buscando: false
+      }
+    }
+    case comenzarBusqueda: {
+      return {
+        ...state,
+        buscando: true
       }
     }
     case limpiarResultadosBusqueda: {
@@ -38,6 +47,10 @@ export const guardaTermino = termino => ({
 export const guardaResultadosBusqueda = json => ({
   type: fijarResultadosBusqueda,
   payload: json
+})
+
+export const comienzaBusqueda = () => ({
+  type: comenzarBusqueda
 })
 
 export const limpiaBusqueda = () => ({

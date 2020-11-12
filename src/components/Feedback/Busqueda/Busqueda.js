@@ -6,7 +6,7 @@ import ResultadosBusqueda from './ResultadosBusqueda'
 
 const Busqueda = () => {
 
-  const { resultadosBusqueda } = useSelector(state => state.busqueda)
+  const { resultadosBusqueda, buscando } = useSelector(state => state.busqueda)
 
   return (
     <div className="Busqueda">
@@ -14,7 +14,7 @@ const Busqueda = () => {
         <h1 className="Busqueda__titulo">Búsqueda</h1>
       </div>
       <div className="Busqueda__contenedor">
-        {resultadosBusqueda.length > 0
+        {resultadosBusqueda || buscando
         ? <ResultadosBusqueda />
         : <CuadroBusqueda />}
       </div>

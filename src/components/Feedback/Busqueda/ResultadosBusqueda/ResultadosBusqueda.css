@@ -1,5 +1,8 @@
 .ResultadosBusqueda {
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column
 }
 
 .ResultadosBusqueda__contenedor_resultados {
@@ -25,4 +28,23 @@
   right: 0;
   top: -2.5rem;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5rem;
+  height: 1.75rem;
+  padding: 0 .6rem;
+  color: white;
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
+  transition: all .25s ease;
+  filter: none;
+}
+
+.ResultadosBusqueda__icono_boton {
+  margin-right: .25rem;
+  font-size: 1.1rem;
 }

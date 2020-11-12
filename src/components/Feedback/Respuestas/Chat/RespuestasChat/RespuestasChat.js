@@ -14,7 +14,7 @@ const RespuestasChat = ({ telefono }) => {
     return null
   }
 
-  const tiposPreguntas = ['YESNO', 'OPEN']
+  const tiposPreguntas = ['YESNO', 'OPEN', 'RANGE']
   const headersPreguntas = headers.filter(header => tiposPreguntas.includes(header.tipo))
 
   return (

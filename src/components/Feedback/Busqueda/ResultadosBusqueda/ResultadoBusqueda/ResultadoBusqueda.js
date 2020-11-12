@@ -1,31 +1,49 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './ResultadoBusqueda.css'
 
 const ResultadoBusqueda = ({ resultado }) => {
 
-  const { encuestas } = useSelector(state => state.encuestas)
+  const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
 
-  console.log(encuestas)
+  const history = useHistory()
+  const dispatch = useDispatch()
+
+  const verChat = resultado => {
+    dispatch(guardaEstaRespuesta(resultado))
+    history.push(`/chat/${resultado.poll_id}/${resultado.user_id}`)
+  }
 
   return (
-    <div className="ResultadoBusqueda">
-      {Object.keys(resultado).map((k, i) => (
-        <div
-          key={`${resultado.user_id}-${i}`}
-          className="ResultadoBusqueda__encabezado"
-        >
-          {k}
-        </div>
-      ))}
-      {Object.keys(resultado).map((k, i) => (
-        <div
-          key={`${resultado.user_id}-v-${i}`}
-          className="ResultadoBusqueda__valor"
-        >
-          {typeof resultado[k] === 'object' ? resultado[k].tag : resultado[k]}
-        </div>
-      ))}
+    <div className="ResultadoBusqueda" onClick={() => verChat(resultado)}>
+      <table>
+        <thead>
+          <tr>
+            {Object.keys(resultado).map((k, i) => (
+              <th
+                key={`${resultado.user_id}-${i}`}
+                className="ResultadoBusqueda__encabezado"
+              >
+                {k}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {Object.keys(resultado).map((k, i) => (
+              <td
+                key={`${resultado.user_id}-v-${i}`}
+                className="ResultadoBusqueda__valor"
+              >
+                {typeof resultado[k] === 'object' ? resultado[k].tag : resultado[k]}
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }

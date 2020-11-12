@@ -23,7 +23,7 @@ const DatosChat = ({ telefono }) => {
   const haySiguienteChat = indiceRespuestaSeleccionada < respuestas.length - 1
   const hayChatAnterior = indiceRespuestaSeleccionada > 0
 
-  const tiposPreguntas = ['YESNO', 'OPEN']
+  const tiposPreguntas = ['YESNO', 'OPEN', 'RANGE']
   const headersSinPreguntas = headers.filter(header => !tiposPreguntas.includes(header.tipo))
 
   const irARespuestaAnterior = () => {
@@ -41,29 +41,31 @@ const DatosChat = ({ telefono }) => {
   return (
     <div className="DatosChat">
       <div className="DatosChat__navegacion">
-        <Link className="DatosChat__link_atras" to="/respuestas">
+        <Link className="DatosChat__link_atras" to={indiceRespuestaSeleccionada ? '/respuestas' : '/buscar'}>
           <InlineIcon className="DatosChat__icono_volver" icon={iconoVolver} />
           Volver
         </Link>
-        <div className="DatosChat__botones_navegacion">
-          <button
-            className="DatosChat__link_anterior"
-            onClick={irARespuestaAnterior}
-            disabled={!hayChatAnterior}
-            title={!hayChatAnterior && 'Este es el primer chat de esta búsqueda'}
-          >
-            <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
-          </button>
-          <div className="DatosChat__posicion">{indiceRespuestaSeleccionada + 1} / {respuestas.length}</div>
-          <button
-            className="DatosChat__link_siguiente"
-            onClick={irASiguienteRespuesta}
-            disabled={!haySiguienteChat}
-            title={!haySiguienteChat && 'No hay más chats en esta búsqueda'}
-          >
-            <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
-          </button>
-        </div>
+        {indiceRespuestaSeleccionada && 
+          <div className="DatosChat__botones_navegacion">
+            <button
+              className="DatosChat__link_anterior"
+              onClick={irARespuestaAnterior}
+              disabled={!hayChatAnterior}
+              title={!hayChatAnterior && 'Este es el primer chat de esta búsqueda'}
+            >
+              <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
+            </button>
+            <div className="DatosChat__posicion">{indiceRespuestaSeleccionada + 1} / {respuestas.length}</div>
+            <button
+              className="DatosChat__link_siguiente"
+              onClick={irASiguienteRespuesta}
+              disabled={!haySiguienteChat}
+              title={!haySiguienteChat && 'No hay más chats en esta búsqueda'}
+            >
+              <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
+            </button>
+          </div>
+        }
       </div>
       <h1 className="DatosChat__titulo">Datos del chat</h1>
       <div className="DatosChat__contenedor_datos">

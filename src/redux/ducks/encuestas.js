@@ -1,5 +1,3 @@
-import { createSelector } from 'reselect'
-
 const fijarTiposEncuestas = 'encuestas/fijarTipos'
 const fijarHeadersEncuestaSeleccionada = 'encuestas/fijarHeaders'
 
@@ -40,3 +38,4 @@ export const guardaHeadersEncuesta = (id, jsonHeaders) => ({
   type: fijarHeadersEncuestaSeleccionada,
   payload: { id, data: jsonHeaders.data }
 })
+ 

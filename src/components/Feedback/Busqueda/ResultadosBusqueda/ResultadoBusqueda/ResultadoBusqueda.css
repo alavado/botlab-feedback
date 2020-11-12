@@ -1,3 +1,39 @@
 .ResultadoBusqueda {
-  border: 1px solid black;
+  margin-bottom: 1rem;
+  overflow: auto;
+  max-width: calc(100vw - 7rem);
+  cursor: pointer;
+}
+
+.ResultadoBusqueda::-webkit-scrollbar {
+  width: .6em;
+  height: .6em;
+  background-color: white;
+}
+
+.ResultadoBusqueda::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
+}
+
+.ResultadoBusqueda__encabezado {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: .7rem;
+  text-align: left;
+  white-space: nowrap;
+  padding: .75rem .75rem .75rem .25rem;
+  transition: all .25s ease-in-out;
+  text-overflow: ellipsis;
+}
+
+.ResultadoBusqueda__valor {
+  padding: .15rem .75rem .15rem .25rem;
+  font-size: .8rem;
+  vertical-align: middle;
+  height: 2.5rem;
+  line-height: 1.15;
+  white-space: nowrap;
+  transition: all .25s ease-in-out;
+  text-overflow: ellipsis;
 }
