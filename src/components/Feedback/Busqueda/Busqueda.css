@@ -20,9 +20,6 @@
 
 .Busqueda__contenedor {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
   flex: 1;
-  padding-bottom: 5rem;
 }

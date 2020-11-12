@@ -1,3 +1,28 @@
 .ResultadosBusqueda {
+  position: relative;
+}
+
+.ResultadosBusqueda__contenedor_resultados {
+  max-height: calc(100vh - 9rem);
+  scrollbar-width: .5em;
+  scrollbar-color: var(--color-principal) white;
   overflow: auto;
+}
+
+.ResultadosBusqueda__contenedor_resultados::-webkit-scrollbar {
+  width: .6em;
+  height: .6em;
+  background-color: white;
+}
+
+.ResultadosBusqueda__contenedor_resultados::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
+}
+
+.ResultadosBusqueda__boton_nueva_busqueda {
+  position: absolute;
+  right: 0;
+  top: -2.5rem;
+  z-index: 2;
 }
