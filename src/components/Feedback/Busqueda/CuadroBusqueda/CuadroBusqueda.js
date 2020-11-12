@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { busqueda as busquedaAPI } from '../../../../api/endpoints'
-import { comienzaBusqueda, guardaResultadosBusqueda } from '../../../../redux/ducks/busqueda'
+import { comienzaBusqueda, guardaResultadosBusqueda, guardaTermino } from '../../../../redux/ducks/busqueda'
 import './CuadroBusqueda.css'
 
 const CuadroBusqueda = () => {
@@ -19,6 +19,7 @@ const CuadroBusqueda = () => {
     dispatch(comienzaBusqueda())
     busquedaAPI(termino)
       .then(res => {
+        dispatch(guardaTermino(termino))
         dispatch(guardaResultadosBusqueda(res.data))
       })
   }

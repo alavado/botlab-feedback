@@ -45,7 +45,7 @@ const DatosChat = ({ telefono }) => {
           <InlineIcon className="DatosChat__icono_volver" icon={iconoVolver} />
           Volver
         </Link>
-        {indiceRespuestaSeleccionada && 
+        {indiceRespuestaSeleccionada !== undefined && 
           <div className="DatosChat__botones_navegacion">
             <button
               className="DatosChat__link_anterior"

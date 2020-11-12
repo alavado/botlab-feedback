@@ -3,6 +3,8 @@
   overflow: auto;
   max-width: calc(100vw - 7rem);
   cursor: pointer;
+  animation: aparece-resultado-busqueda .15s ease;
+  transition: all .25s ease-in-out;
 }
 
 .ResultadoBusqueda::-webkit-scrollbar {
@@ -36,4 +38,17 @@
   white-space: nowrap;
   transition: all .25s ease-in-out;
   text-overflow: ellipsis;
+}
+
+.ResultadoBusqueda:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+@keyframes aparece-resultado-busqueda {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -1,0 +1,26 @@
+.LoaderResultadosBusqueda {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 3rem;
+  animation: aparece-loader-respuestas .35s ease both;
+}
+
+.LoaderResultadosBusqueda__mensaje {
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.LoaderResultadosBusqueda__loader {
+  width: 4rem;
+  height: 4rem;
+  border-left: .4rem solid var(--color-principal);
+  border-top: .4rem solid var(--color-bordes);
+  border-right: .4rem solid var(--color-bordes);
+  border-bottom: .4rem solid var(--color-bordes);
+  border-radius: 100%;
+  margin-bottom: 1rem;
+  animation: gira-loader 1.2s infinite linear;
+}

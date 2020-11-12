@@ -23,11 +23,24 @@
   background-color: var(--color-principal);
 }
 
-.ResultadosBusqueda__boton_nueva_busqueda {
+.ResultadosBusqueda__superior {
   position: absolute;
   right: 0;
   top: -2.5rem;
-  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+
+.ResultadosBusqueda__encontrados {
+  margin-right: 1rem;
+  font-size: .85rem;
+}
+
+.ResuladosBusqueda__termino {
+  font-weight: bold;
+}
+
+.ResultadosBusqueda__boton_nueva_busqueda {
   display: flex;
   align-items: center;
   justify-content: center;
