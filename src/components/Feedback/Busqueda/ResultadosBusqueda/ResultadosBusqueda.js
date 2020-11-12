@@ -9,8 +9,6 @@ const ResultadosBusqueda = () => {
   const { resultadosBusqueda } = useSelector(state => state.busqueda)
   const dispatch = useDispatch()
 
-  console.log(resultadosBusqueda)
-
   return (
     <div className="ResultadosBusqueda">
       <div className="ResultadosBusqueda__contenedor_resultados">

@@ -24,6 +24,7 @@ export default function(state = defaultState, action) {
   switch (action.type) {
     case fijarRespuestas: {
       const jsonRespuestas = action.payload
+      console.log(jsonRespuestas)
       const respuestas = jsonRespuestas.data.data.map(r => {
         const respuestaNormalizada = Object.keys(r)
           .reduce((prev, k) => {

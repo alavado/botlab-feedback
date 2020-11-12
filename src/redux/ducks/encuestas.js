@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect'
+
 const fijarTiposEncuestas = 'encuestas/fijarTipos'
 const fijarHeadersEncuestaSeleccionada = 'encuestas/fijarHeaders'
 

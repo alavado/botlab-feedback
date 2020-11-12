@@ -28,6 +28,12 @@ export const diccionarioTags = {
     icono: question,
     clase: 'TagRespuesta TagRespuesta--out'
   },
+  'DEFAULT': {
+    texto: 'Responde',
+    titulo: 'Responde',
+    icono: check,
+    clase: 'TagRespuesta TagRespuesta--si'
+  },
   '': {
     texto: '',
     titulo: 'Sin respuesta',

@@ -22,7 +22,9 @@ const DatosChat = ({ telefono }) => {
 
   const haySiguienteChat = indiceRespuestaSeleccionada < respuestas.length - 1
   const hayChatAnterior = indiceRespuestaSeleccionada > 0
-  const headersSinPreguntas = headers.filter(header => header.tipo !== 'YESNO')
+
+  const tiposPreguntas = ['YESNO', 'OPEN']
+  const headersSinPreguntas = headers.filter(header => !tiposPreguntas.includes(header.tipo))
 
   const irARespuestaAnterior = () => {
     const respuestaAnterior = respuestas[indiceRespuestaSeleccionada - 1]
