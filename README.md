@@ -28,3 +28,7 @@ proc e imagenes 1 servicio Myriam Francisca Barahona Verdugo
 preguntas wax:
 - para poder ver el chat directamente con la ruta, necesitamos que el endpoint entregue los demás datos
 - el exportar text y detalle son lo mismo que la tabla, por que no exportarlo desde ahí
+
+- falta el endpoint para todos los polls headers, sebastian lo va a agregar a la api, creo que es poll_headers
+- hay un bug cuando son muchas respuestas xxx/yyyy
+- hay un bug al volver desde chat a respuestas

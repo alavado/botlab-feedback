@@ -10,7 +10,7 @@ export const login = (username, password) => {
 
 export const headersRespuestas = idEncuesta => {
   const token = store.getState().login.token
-  return axios.get(`https://api.dev.botlab.cl/answer_headers/${idEncuesta}`, {
+  return axios.get(`${API_ROOT}/answer_headers/${idEncuesta}`, {
     headers: { 'Api-Token': token }
   })
 }

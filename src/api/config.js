@@ -1,1 +1,1 @@
-export const API_ROOT = 'https://api.dev.botlab.cl'
+export const API_ROOT = 'https://api.botlab.cl'
