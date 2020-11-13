@@ -62,9 +62,10 @@
 .DatosChat__posicion {
   font-weight: 600;
   font-size: .7rem;
-  width: 3rem;
   display: flex;
   justify-content: center;
+  padding: 0 .5rem;
+  min-width: 4rem;
 }
 
 .DatosChat__titulo {
