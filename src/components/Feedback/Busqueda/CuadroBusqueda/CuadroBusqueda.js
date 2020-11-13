@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
-import { busqueda as busquedaAPI } from '../../../../api/endpoints'
-import { comienzaBusqueda, guardaResultadosBusqueda, guardaTermino } from '../../../../redux/ducks/busqueda'
+import { useHistory } from 'react-router-dom'
 import './CuadroBusqueda.css'
 
 const CuadroBusqueda = () => {
 
   const inputRef = useRef()
   const [termino, setTermino] = useState('')
-  const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     inputRef.current.focus()
@@ -16,12 +14,7 @@ const CuadroBusqueda = () => {
 
   const buscar = e => {
     e.preventDefault()
-    dispatch(comienzaBusqueda())
-    busquedaAPI(termino)
-      .then(res => {
-        dispatch(guardaTermino(termino))
-        dispatch(guardaResultadosBusqueda(res.data))
-      })
+    history.push(`/busqueda/${termino}`)
   }
 
   return (

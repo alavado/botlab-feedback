@@ -24,6 +24,11 @@
   align-items: center;
   transition: all .15s ease;
   height: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
 }
 
 .DatosChat__link_atras:hover {

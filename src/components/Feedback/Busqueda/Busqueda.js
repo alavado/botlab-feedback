@@ -1,12 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import './Busqueda.css'
 import CuadroBusqueda from './CuadroBusqueda'
 import ResultadosBusqueda from './ResultadosBusqueda'
 
 const Busqueda = () => {
 
-  const { resultadosBusqueda, buscando } = useSelector(state => state.busqueda)
+  const { termino } = useParams()
 
   return (
     <div className="Busqueda">
@@ -14,7 +14,7 @@ const Busqueda = () => {
         <h1 className="Busqueda__titulo">Búsqueda</h1>
       </div>
       <div className="Busqueda__contenedor">
-        {resultadosBusqueda || buscando
+        {termino
         ? <ResultadosBusqueda />
         : <CuadroBusqueda />}
       </div>

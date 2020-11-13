@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { limpiaBusqueda } from '../../../../redux/ducks/busqueda'
+import { comienzaBusqueda, guardaResultadosBusqueda } from '../../../../redux/ducks/busqueda'
 import ResultadoBusqueda from './ResultadoBusqueda'
 import Icon from '@iconify/react'
 import iconoBuscar from '@iconify/icons-mdi/search'
 import './ResultadosBusqueda.css'
 import LoaderResultadosBusqueda from './LoaderResultadosBusqueda'
+import { useHistory, useParams } from 'react-router-dom'
+import { busqueda as busquedaAPI } from '../../../../api/endpoints'
 
 const ResultadosBusqueda = () => {
 
-  const { resultadosBusqueda, buscando, termino } = useSelector(state => state.busqueda)
+  const { resultadosBusqueda } = useSelector(state => state.busqueda)
+  const [buscando, setBuscando] = useState(true)
+  const { termino } = useParams()
   const dispatch = useDispatch()
+  const history = useHistory()
+
+  useEffect(() => {
+    dispatch(comienzaBusqueda())
+    busquedaAPI(termino)
+      .then(res => {
+        dispatch(guardaResultadosBusqueda(res.data))
+        setBuscando(false)
+      })
+  }, [dispatch, setBuscando, termino])
 
   if (buscando) {
     return <LoaderResultadosBusqueda />
@@ -32,7 +46,7 @@ const ResultadosBusqueda = () => {
         </div>
         <button
           className="ResultadosBusqueda__boton_nueva_busqueda"
-          onClick={() => dispatch(limpiaBusqueda())}
+          onClick={() => history.push('/busqueda')}
         >
           <Icon className="ResultadosBusqueda__icono_boton" icon={iconoBuscar} />
           Nueva búsqueda

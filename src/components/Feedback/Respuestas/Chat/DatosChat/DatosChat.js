@@ -41,10 +41,10 @@ const DatosChat = ({ telefono }) => {
   return (
     <div className="DatosChat">
       <div className="DatosChat__navegacion">
-        <Link className="DatosChat__link_atras" to={indiceRespuestaSeleccionada !== undefined ? '/respuestas' : '/buscar'}>
+        <button className="DatosChat__link_atras" onClick={() => history.goBack()}>
           <InlineIcon className="DatosChat__icono_volver" icon={iconoVolver} />
           Volver
-        </Link>
+        </button>
         {indiceRespuestaSeleccionada !== undefined && 
           <div className="DatosChat__botones_navegacion">
             <button

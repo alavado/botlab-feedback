@@ -52,7 +52,10 @@ const Feedback = () => {
             <Route path="/chat">
               <Respuestas />
             </Route>
-            <Route path="/buscar">
+            <Route exact path="/busqueda">
+              <Busqueda />
+            </Route>
+            <Route path="/busqueda/:termino">
               <Busqueda />
             </Route>
           </Switch>

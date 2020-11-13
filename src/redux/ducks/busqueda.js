@@ -5,18 +5,11 @@ const comenzarBusqueda = 'busqueda/comenzarBusqueda'
 
 const defaultState = {
   resultadosBusqueda: undefined,
-  termino: '',
   buscando: false
 }
 
 export default function(state = defaultState, action) {
   switch (action.type) {
-    case fijarTermino: {
-      return {
-        ...state,
-        termino: action.payload
-      }
-    }
     case fijarResultadosBusqueda: {
       const json = action.payload
       const resultados = json.data
@@ -38,11 +31,6 @@ export default function(state = defaultState, action) {
     default: return state
   }
 }
-
-export const guardaTermino = termino => ({
-  type: fijarTermino,
-  payload: termino
-})
 
 export const guardaResultadosBusqueda = json => ({
   type: fijarResultadosBusqueda,

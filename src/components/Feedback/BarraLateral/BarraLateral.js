@@ -21,7 +21,7 @@ const BarraLateral = () => {
       <NavLink
         className="BarraLateral__link"
         activeClassName="BarraLateral__link--activo"
-        to="/buscar"
+        to="/busqueda"
       >
         <Icon icon={search} />
       </NavLink>
