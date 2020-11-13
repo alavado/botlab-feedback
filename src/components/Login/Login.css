@@ -75,7 +75,8 @@
   border: none;
   border-radius: .45rem;
   font-size: 1rem;
-  padding: .8rem 4rem;
+  padding: 0 4rem;
+  height: 3rem;
   cursor: pointer;
   margin-top: .5rem;
   transition: all .5s ease;

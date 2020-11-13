@@ -29,6 +29,7 @@
   top: -2.75rem;
   display: flex;
   align-items: center;
+  animation: aparece-barra-busqueda .35s .35s ease-in both;
 }
 
 .ResultadosBusqueda__encontrados {
@@ -60,4 +61,15 @@
 .ResultadosBusqueda__icono_boton {
   margin-right: .25rem;
   font-size: 1.1rem;
+}
+
+@keyframes aparece-barra-busqueda {
+  0% {
+    opacity: 0;
+    transform: translateY(.15rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
 }

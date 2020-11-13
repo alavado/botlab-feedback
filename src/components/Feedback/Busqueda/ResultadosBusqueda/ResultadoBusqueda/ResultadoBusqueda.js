@@ -1,12 +1,10 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './ResultadoBusqueda.css'
 
 const ResultadoBusqueda = ({ resultado }) => {
-
-  const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
 
   const history = useHistory()
   const dispatch = useDispatch()

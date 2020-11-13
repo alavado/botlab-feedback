@@ -4,7 +4,7 @@
   align-items: center;
   flex-direction: column;
   flex: 1;
-  margin-bottom: 3rem;
+  margin-bottom: 8rem;
   animation: aparece-loader-respuestas .35s ease both;
 }
 

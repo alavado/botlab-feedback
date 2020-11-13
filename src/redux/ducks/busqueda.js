@@ -1,4 +1,3 @@
-const fijarTermino = 'busqueda/fijarTermino'
 const fijarResultadosBusqueda = 'busqueda/fijarResultadosBusqueda'
 const limpiarResultadosBusqueda = 'busqueda/limpiarResultadosBusqueda'
 const comenzarBusqueda = 'busqueda/comenzarBusqueda'

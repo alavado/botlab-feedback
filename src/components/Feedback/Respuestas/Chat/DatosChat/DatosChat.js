@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import TagRespuesta from '../../TablaRespuestas/TagRespuesta'
 import iconoVolver from '@iconify/icons-mdi/arrow-left'
 import iconoSiguiente from '@iconify/icons-mdi/play'
@@ -37,7 +37,7 @@ const DatosChat = ({ telefono }) => {
     dispatch(guardaEstaRespuesta(siguienteRespuesta, indiceRespuestaSeleccionada + 1))
     history.push(`/chat/${idEncuesta}/${siguienteRespuesta.user_id}`)
   }
-  
+
   return (
     <div className="DatosChat">
       <div className="DatosChat__navegacion">
