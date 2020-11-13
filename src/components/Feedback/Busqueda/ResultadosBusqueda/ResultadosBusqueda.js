@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { comienzaBusqueda, guardaResultadosBusqueda } from '../../../../redux/ducks/busqueda'
-import ResultadoBusqueda from './ResultadoBusqueda'
+import TarjetaResultadoBusqueda from './TarjetaResultadoBusqueda'
 import Icon from '@iconify/react'
 import iconoBuscar from '@iconify/icons-mdi/search'
 import './ResultadosBusqueda.css'
@@ -34,7 +34,7 @@ const ResultadosBusqueda = () => {
     <div className="ResultadosBusqueda">
       <div className="ResultadosBusqueda__contenedor_resultados">
         {resultadosBusqueda.map((r, i) => (
-          <ResultadoBusqueda
+          <TarjetaResultadoBusqueda
             key={`resultado-busqueda-${i}`}
             resultado={r}
           />
@@ -42,7 +42,7 @@ const ResultadosBusqueda = () => {
       </div>
       <div className="ResultadosBusqueda__superior">
         <div className="ResultadosBusqueda__encontrados">
-          Buscaste: <span className="ResuladosBusqueda__termino">"{termino}"</span> - {resultadosBusqueda.length} chats encontrados
+          Buscaste <span className="ResuladosBusqueda__termino">"{termino}"</span> - {resultadosBusqueda.length} chats encontrados
         </div>
         <button
           className="ResultadosBusqueda__boton_nueva_busqueda"

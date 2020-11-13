@@ -58,6 +58,11 @@
   filter: none;
 }
 
+.ResultadosBusqueda__boton_nueva_busqueda:hover {
+  box-shadow: .15rem .15rem .2rem rgba(0, 0, 0, .1);
+  filter: brightness(110%);
+}
+
 .ResultadosBusqueda__icono_boton {
   margin-right: .25rem;
   font-size: 1.1rem;

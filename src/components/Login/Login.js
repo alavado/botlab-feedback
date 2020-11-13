@@ -22,7 +22,7 @@ const Login = () => {
   const [cargando, setCargando] = useState()
   const dispatch = useDispatch()
   const history = useHistory()
-  const { url } = useRouteMatch()
+  const match = useRouteMatch()
 
   const cambiarVariable = variable => e => {
     setAuth({ ...auth, [variable]: e.target.value })
@@ -35,7 +35,8 @@ const Login = () => {
       const { data } = await loginAPI(auth.username, auth.password)
       dispatch(guardaToken(data))
       dispatch(guardaTiposEncuestas(data))
-      if (url === '/') {
+      if (match.isExact) {
+        console.log(match)
         history.push('/respuestas')
       }
     } catch (e) {

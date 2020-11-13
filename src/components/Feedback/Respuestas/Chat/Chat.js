@@ -18,6 +18,7 @@ const Chat = () => {
         const { data: { messages, previous_messages, user: { phone } } } = data
         setMensajes([...previous_messages,  ...messages])
         setTelefono(phone)
+        console.log(data)
       })
   }, [idEncuesta, idUsuario])
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import iconoBuscar from '@iconify/icons-mdi/search'
 import './CuadroBusqueda.css'
+import Icon from '@iconify/react'
 
 const CuadroBusqueda = () => {
 
@@ -30,6 +32,10 @@ const CuadroBusqueda = () => {
           ref={inputRef}
           value={termino}
           onChange={e => setTermino(e.target.value)}
+        />
+        <Icon
+          icon={iconoBuscar}
+          className="CuadroBusqueda__icono_buscar"
         />
         <button
           type="submit"
