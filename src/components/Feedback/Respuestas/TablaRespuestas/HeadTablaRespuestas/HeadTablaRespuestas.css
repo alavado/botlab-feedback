@@ -25,15 +25,16 @@
   background-color: var(--color-fila-destacada);
 }
 
-.HeadTablaRespuestas__header--oculto {
-  cursor: zoom-in;
+.HeaderTablaRespuestas__icono_orden {
+  font-size: 1.5rem;
+  color: var(--color-principal) !important;
 }
 
-.HeadTablaRespuestas__header--oculto,
-.HeadTablaRespuestas__celda--oculta {
-  max-width: 6ch;
-  padding-left: 0rem !important;
-  padding-right: .15rem !important;
-  overflow: hidden;
-  font-size: .4rem !important;
+.HeadTablaRespuestas__texto_header {
+  display: flex;
+  align-items: center;
+}
+
+.HeaderTablaRespuestas__icono_orden--girado {
+  transform: rotateZ(180deg) !important;
 }

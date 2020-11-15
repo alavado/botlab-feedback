@@ -10,7 +10,7 @@ const limpiarRespuestas = 'respuestas/limpiarRespuestas'
 const ordenarRespuestas = 'respuestas/ordenarRespuestas'
 const fijarPagina = 'respuestas/fijarPagina'
 
-const normalizar = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
 const defaultState = {
   fechaInicio: window.location.href.indexOf('localhost') < 0 ? Date.now() : new Date(2020, 7, 1),
@@ -100,10 +100,23 @@ export default function(state = defaultState, action) {
     }
     case ordenarRespuestas: {
       const header = action.payload
-      return {
-        ...state,
-        respuestas: state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1),
-        respuestasVisibles: state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+      if (state.orden === 'ASC') {
+        return {
+          ...state,
+          orden: 'DESC',
+          ordenHeader: action.payload,
+          respuestas: state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1),
+          respuestasVisibles: state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+        }
+      }
+      else {
+        return {
+          ...state,
+          orden: 'ASC',
+          ordenHeader: action.payload,
+          respuestas: state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1),
+          respuestasVisibles: state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
+        }
       }
     }
     case fijarPagina: {

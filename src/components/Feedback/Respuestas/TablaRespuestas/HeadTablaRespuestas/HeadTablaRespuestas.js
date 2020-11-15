@@ -1,21 +1,21 @@
 import React from 'react'
 import classNames from 'classnames'
-import { columnaEstaColapsada } from '../../../../../helpers/tablaRespuestas'
 import { useDispatch, useSelector } from 'react-redux'
 import './HeadTablaRespuestas.css'
 import { ordenaRespuestas } from '../../../../../redux/ducks/respuestas'
+import Icon from '@iconify/react'
+import triangulito from '@iconify/icons-mdi/arrow-down-drop'
 
 const HeadTablaRespuestas = () => {
 
-  const { idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
-  const { columnasColapsadas } = useSelector(state => state.opciones)
+  const { headers } = useSelector(state => state.encuestas)
+  const { orden, ordenHeader } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
 
   if (!headers) {
     return null
   }
-  // esto era para colapsar la columna
-  // dispatch(toggleaColapsoColumna(idEncuestaSeleccionada, nombre))
+
   return (
     <thead className="HeadTablaRespuestas">
       <tr className="HeadTablaRespuestas__fila">
@@ -24,12 +24,19 @@ const HeadTablaRespuestas = () => {
             key={`header-${nombre}`}
             className={classNames({
               'HeadTablaRespuestas__header': true,
-              'HeadTablaRespuestas__header--oculto': columnaEstaColapsada(idEncuestaSeleccionada, nombre, columnasColapsadas)
             })}
             title={texto}
             onClick={() => dispatch(ordenaRespuestas(nombre))}
           >
-            {texto}
+            <div className="HeadTablaRespuestas__texto_header">
+              {texto}
+              {ordenHeader === nombre && orden === 'ASC' &&
+                <Icon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />
+              }
+              {ordenHeader === nombre && orden === 'DESC' &&
+                <Icon icon={triangulito} className="HeaderTablaRespuestas__icono_orden HeaderTablaRespuestas__icono_orden--girado" />
+              }
+            </div>
           </th>
         ))}
       </tr>
