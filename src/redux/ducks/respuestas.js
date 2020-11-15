@@ -8,6 +8,7 @@ const fijarBusqueda = 'respuestas/fijarBusqueda'
 const fijarRespuesta = 'respuestas/fijarRespuesta'
 const limpiarRespuestas = 'respuestas/limpiarRespuestas'
 const ordenarRespuestas = 'respuestas/ordenarRespuestas'
+const fijarPagina = 'respuestas/fijarPagina'
 
 const normalizar = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
@@ -15,7 +16,8 @@ const defaultState = {
   fechaInicio: window.location.href.indexOf('localhost') < 0 ? Date.now() : new Date(2020, 7, 1),
   fechaTermino: window.location.href.indexOf('localhost') < 0 ? Date.now() : new Date(2020, 7, 14),
   busqueda: '',
-  orden: 'ASC'
+  orden: 'ASC',
+  pagina: 1
   // fechaInicio: Date.now(),
   // fechaTermino: Date.now()
 }
@@ -24,7 +26,6 @@ export default function(state = defaultState, action) {
   switch (action.type) {
     case fijarRespuestas: {
       const jsonRespuestas = action.payload
-      console.log(jsonRespuestas)
       const respuestas = jsonRespuestas.data.data.map(r => {
         const respuestaNormalizada = Object.keys(r)
           .reduce((prev, k) => {
@@ -45,7 +46,8 @@ export default function(state = defaultState, action) {
       return {
         ...state,
         respuestas,
-        respuestasVisibles: respuestas
+        respuestasVisibles: respuestas,
+        pagina: 1
       }
     }
     case fijarFechaInicio: {
@@ -104,6 +106,12 @@ export default function(state = defaultState, action) {
         respuestasVisibles: state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
       }
     }
+    case fijarPagina: {
+      return {
+        ...state,
+        pagina: state.pagina + action.payload
+      }
+    }
     default: return state
   }
 }
@@ -148,4 +156,14 @@ export const guardaEstaRespuesta = (respuesta, indice) => ({
 export const ordenaRespuestas = nombreHeader => ({
   type: ordenarRespuestas,
   payload: nombreHeader
+})
+
+export const avanzaPagina = () => ({
+  type: fijarPagina,
+  payload: 1
+})
+
+export const retrocedePagina = () => ({
+  type: fijarPagina,
+  payload: -1
 })

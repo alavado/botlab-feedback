@@ -1,9 +1,13 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { avanzaPagina, retrocedePagina } from '../../../../../redux/ducks/respuestas'
 import './FooterTablaRespuestas.css'
 
-const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas, pagina, setPagina }) => {
+const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
 
   const numeroPaginas = Math.ceil(totalRespuestas / respuestasPorPagina)
+  const { pagina } = useSelector(state => state.respuestas)
+  const dispatch = useDispatch()
 
   const mensaje = totalRespuestas === 0
     ? <>No se encontraron respuestas</>
@@ -20,14 +24,14 @@ const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas, pagina, s
         <div className="FooterTablaRespuestas__botones_paginas">
           <button
             className="FooterTablaRespuestas__boton_pagina"
-            onClick={() => setPagina(pagina - 1)}
+            onClick={() => dispatch(retrocedePagina())}
             disabled={pagina === 1}
           >
             Anterior
           </button>
           <button
             className="FooterTablaRespuestas__boton_pagina"
-            onClick={() => setPagina(pagina + 1)}
+            onClick={() => dispatch(avanzaPagina())}
             disabled={numeroPaginas === 1 || pagina >= numeroPaginas}
           >
             Siguiente

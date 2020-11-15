@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import SelectorRangoFechas from '../SelectorRangoFechas'
 import BuscadorRespuestas from '../BuscadorRespuestas'
 import LoaderRespuestas from './LoaderRespuestas'
@@ -13,11 +13,8 @@ const respuestasPorPagina = 20
 
 const TablaRespuestas = () => {
 
-  const [pagina, setPagina] = useState(1)
   const { headers } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
-
-  useEffect(() => setPagina(1), [respuestas])
 
   const cargando = !respuestas || !headers
 
@@ -37,17 +34,12 @@ const TablaRespuestas = () => {
             <div className="TablaRespuestas__contenedor_tabla">
               <table className="TablaRespuestas__tabla">
                 <HeadTablaRespuestas />
-                <BodyTablaRespuestas
-                  respuestasPorPagina={respuestasPorPagina}
-                  pagina={pagina}
-                />
+                <BodyTablaRespuestas respuestasPorPagina={respuestasPorPagina} />
               </table>
             </div>
             <FooterTablaRespuestas
               respuestasPorPagina={respuestasPorPagina}
               totalRespuestas={respuestas ? respuestas.length : 0}
-              pagina={pagina}
-              setPagina={setPagina}
             />
           </>
       }

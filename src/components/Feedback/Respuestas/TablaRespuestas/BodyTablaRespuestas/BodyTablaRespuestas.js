@@ -7,10 +7,10 @@ import TagRespuesta from '../TagRespuesta'
 import classNames from 'classnames'
 import './BodyTablaRespuestas.css'
 
-const BodyTablaRespuestas = ({ pagina, respuestasPorPagina }) => {
+const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
   const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
-  const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
+  const { respuestasVisibles: respuestas, pagina } = useSelector(state => state.respuestas)
   const { columnasColapsadas } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   const history = useHistory()
