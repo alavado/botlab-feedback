@@ -1,4 +1,5 @@
 import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 import './BarraSuperior.css'
 import MenuUsuario from './MenuUsuario'
 import SelectorEncuesta from './SelectorEncuesta'
@@ -6,7 +7,10 @@ import SelectorEncuesta from './SelectorEncuesta'
 const BarraSuperior = () => {
   return (
     <div className="BarraSuperior">
-      <SelectorEncuesta />
+      <Switch>
+        <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
+        <Route path="/" component={SelectorEncuesta} />
+      </Switch>
       <MenuUsuario />
     </div>
   )

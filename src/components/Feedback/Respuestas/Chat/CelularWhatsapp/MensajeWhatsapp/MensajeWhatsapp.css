@@ -33,7 +33,6 @@
   box-shadow: 0 .1rem .05em rgba(0, 0, 0, .2);
   --cachito: .45rem;
   animation: aparece-mensaje-entrante-celular .5s ease both;
-  overflow: hidden;
 }
 
 .MensajeWhatsapp__globo::after {

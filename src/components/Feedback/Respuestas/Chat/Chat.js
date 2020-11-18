@@ -5,12 +5,14 @@ import { CelularWhatsapp } from './CelularWhatsapp/CelularWhatsapp'
 import DatosChat from './DatosChat'
 import RespuestasChat from './RespuestasChat'
 import './Chat.css'
+import { useSelector } from 'react-redux'
 
 const Chat = () => {
 
   const [mensajes, setMensajes] = useState()
   const [telefono, setTelefono] = useState()
   const { idEncuesta, idUsuario } = useParams()
+  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
 
   useEffect(() => {
     chatAPI(idEncuesta, idUsuario)
@@ -22,9 +24,13 @@ const Chat = () => {
       })
   }, [idEncuesta, idUsuario])
 
+  if (!idEncuestaSeleccionada) {
+    return 'aaa'
+  }
+
   return (
     <div className="Chat">
-      <DatosChat telefono={telefono} />
+      {/* <DatosChat telefono={telefono} /> */}
       <CelularWhatsapp mensajes={mensajes} />
       <RespuestasChat telefono={telefono} />
     </div>

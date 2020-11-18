@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import './HeadTablaRespuestas.css'
 import { ordenaRespuestas } from '../../../../../redux/ducks/respuestas'
-import Icon from '@iconify/react'
+import { InlineIcon } from '@iconify/react'
 import triangulito from '@iconify/icons-mdi/arrow-down-drop'
 
 const HeadTablaRespuestas = () => {
@@ -31,10 +31,10 @@ const HeadTablaRespuestas = () => {
             <div className="HeadTablaRespuestas__texto_header">
               {texto}
               {ordenHeader === nombre && orden === 'ASC' &&
-                <Icon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />
+                <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />
               }
               {ordenHeader === nombre && orden === 'DESC' &&
-                <Icon icon={triangulito} className="HeaderTablaRespuestas__icono_orden HeaderTablaRespuestas__icono_orden--girado" />
+                <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden HeaderTablaRespuestas__icono_orden--girado" />
               }
             </div>
           </th>

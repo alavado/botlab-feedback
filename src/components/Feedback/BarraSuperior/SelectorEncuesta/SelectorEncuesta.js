@@ -10,12 +10,14 @@ import Loader from '../../../Loader'
 import './SelectorEncuesta.css'
 import { limpiaRespuestas } from '../../../../redux/ducks/respuestas'
 import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
+import { useParams } from 'react-router-dom'
 
 const SelectorEncuesta = () => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { idEncuestaGuardada } = useSelector(state => state.opciones)
   const [popupActivo, setPopupActivo] = useState(false)
+  const { idEncuesta: idEncuestaRuta } = useParams()
   const dispatch = useDispatch()
 
   const verEncuesta = useCallback(async id => {
@@ -34,14 +36,17 @@ const SelectorEncuesta = () => {
 
   useEffect(() => {
     if (tipos && !idEncuestaSeleccionada) {
-      if (!tipos.find(t => t.id === idEncuestaGuardada)) {
-        verEncuesta(tipos[0].id)
+      if (idEncuestaRuta && tipos.find(t => t.id === Number(idEncuestaRuta))) {
+        verEncuesta(Number(idEncuestaRuta))
       }
-      else {
+      else if (tipos.find(t => t.id === idEncuestaGuardada)) {
         verEncuesta(idEncuestaGuardada)
       }
+      else {
+        verEncuesta(tipos[0].id)
+      }
     }
-  }, [idEncuestaSeleccionada, idEncuestaGuardada, dispatch, tipos, verEncuesta])
+  }, [idEncuestaSeleccionada, idEncuestaGuardada, idEncuestaRuta, dispatch, tipos, verEncuesta])
 
   if (!idEncuestaSeleccionada) {
     return <Loader color="#6057f6" />

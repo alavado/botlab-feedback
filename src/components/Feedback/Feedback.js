@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { guardaRespuestas, limpiaRespuestas } from '../../redux/ducks/respuestas'
 import { respuestas as respuestasAPI } from '../../api/endpoints'
+import { headers as headersAPI } from '../../api/endpoints'
 import Respuestas from './Respuestas'
 import './Feedback.css'
 import BarraLateral from './BarraLateral'
 import BarraSuperior from './BarraSuperior'
 import Busqueda from './Busqueda'
 import Login from '../Login'
+import { guardaHeaders } from '../../redux/ducks/encuestas'
 
 const Feedback = () => {
 
@@ -24,6 +26,8 @@ const Feedback = () => {
         dispatch(limpiaRespuestas())
         const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
         dispatch(guardaRespuestas(data))
+        const headers = await headersAPI()
+        dispatch(guardaHeaders(headers))
       }
       try {
         setErrorCargandoRespuestas(null)
@@ -44,7 +48,7 @@ const Feedback = () => {
       <BarraLateral />
       <div className="Feedback__contenedor">
         <BarraSuperior />
-          <div className="Feedback__contenedor_central">
+        <div className="Feedback__contenedor_central">
           <Switch>
             <Route path="/respuestas">
               <Respuestas />

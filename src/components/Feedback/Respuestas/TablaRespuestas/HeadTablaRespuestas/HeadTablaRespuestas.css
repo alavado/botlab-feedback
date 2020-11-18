@@ -26,8 +26,9 @@
 }
 
 .HeaderTablaRespuestas__icono_orden {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--color-principal) !important;
+  height: 1rem;
 }
 
 .HeadTablaRespuestas__texto_header {
