@@ -52,7 +52,7 @@ const DatosChat = ({ respuesta }) => {
               className="DatosChat__link_anterior"
               onClick={irARespuestaAnterior}
               disabled={!hayChatAnterior || !respuesta}
-              title={!hayChatAnterior && 'Este es el primer chat de esta búsqueda'}
+              title={hayChatAnterior ? '' : 'Este es el primer chat de esta búsqueda'}
             >
               <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
             </button>
@@ -61,7 +61,7 @@ const DatosChat = ({ respuesta }) => {
               className="DatosChat__link_siguiente"
               onClick={irASiguienteRespuesta}
               disabled={!haySiguienteChat || !respuesta}
-              title={!haySiguienteChat && 'No hay más chats en esta búsqueda'}
+              title={haySiguienteChat ? '' : 'Este es el primer chat de esta búsqueda'}
             >
               <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
             </button>

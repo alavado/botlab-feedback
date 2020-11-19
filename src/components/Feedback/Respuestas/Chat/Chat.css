@@ -1,4 +1,14 @@
 .Chat {
   display: flex;
   flex: 1;
+  animation: aparece-chat .15s ease both;
+}
+
+@keyframes aparece-chat {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
