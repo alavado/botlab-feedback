@@ -6,6 +6,7 @@ import DatosChat from './DatosChat'
 import RespuestasChat from './RespuestasChat'
 import './Chat.css'
 import { useSelector } from 'react-redux'
+import Error403 from '../../Error403'
 
 const Chat = () => {
 
@@ -26,7 +27,7 @@ const Chat = () => {
   }, [idEncuesta, idUsuario])
 
   if (error403) {
-    return 'No tienes permisos'
+    return <Error403 mensaje="No puedes ver este chat." />
   }
   else if (!idEncuestaSeleccionada || !respuesta) {
     return 'aaa'
