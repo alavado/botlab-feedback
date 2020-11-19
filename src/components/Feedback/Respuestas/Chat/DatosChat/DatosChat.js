@@ -9,9 +9,9 @@ import { InlineIcon } from '@iconify/react'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
 
-const DatosChat = ({ telefono }) => {
+const DatosChat = ({ respuesta }) => {
 
-  const { respuestasVisibles: respuestas, respuestaSeleccionada: respuesta, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
+  const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
   const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
   const history = useHistory()
@@ -20,7 +20,7 @@ const DatosChat = ({ telefono }) => {
     return null
   }
 
-  const haySiguienteChat = indiceRespuestaSeleccionada < respuestas.length - 1
+  const haySiguienteChat = respuestas && indiceRespuestaSeleccionada < respuestas.length - 1
   const hayChatAnterior = indiceRespuestaSeleccionada > 0
 
   const tiposPreguntas = ['YESNO', 'OPEN', 'RANGE']
@@ -74,7 +74,7 @@ const DatosChat = ({ telefono }) => {
             Teléfono
           </div>
           <div className="DatosChat__valor_header">
-            {telefono}
+            {respuesta.phone}
           </div>
         </div>
         {headersSinPreguntas.map(({ nombre, texto }, i) => (

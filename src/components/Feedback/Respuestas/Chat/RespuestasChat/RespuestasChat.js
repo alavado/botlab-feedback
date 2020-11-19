@@ -5,9 +5,9 @@ import { InlineIcon } from '@iconify/react'
 import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import './RespuestasChat.css'
 
-const RespuestasChat = ({ telefono }) => {
+const RespuestasChat = ({ respuesta }) => {
 
-  const { respuestaSeleccionada: respuesta } = useSelector(state => state.respuestas)
+  console.log({respuesta})
   const { headers } = useSelector(state => state.encuestas)
 
   if (!headers) {
@@ -39,7 +39,7 @@ const RespuestasChat = ({ telefono }) => {
       <div className="RespuestasChat__contenedor_opciones">
         <h2 className="RespuestasChat__titulo">Opciones</h2>
         <a
-          href={`https://wa.me/${telefono}`}
+          href={`https://wa.me/${respuesta.phone}`}
           target="_blank"
           rel="noreferrer noopener"
           className="RespuestasChat__boton_hablar"

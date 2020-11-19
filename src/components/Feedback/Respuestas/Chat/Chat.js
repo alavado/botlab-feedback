@@ -10,29 +10,33 @@ import { useSelector } from 'react-redux'
 const Chat = () => {
 
   const [mensajes, setMensajes] = useState()
-  const [telefono, setTelefono] = useState()
+  const [respuesta, setRespuesta] = useState()
+  const [error403, setError403] = useState(false)
   const { idEncuesta, idUsuario } = useParams()
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
 
   useEffect(() => {
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
-        const { data: { messages, previous_messages, user: { phone } } } = data
+        const { data: { messages, previous_messages, user } } = data
         setMensajes([...previous_messages,  ...messages])
-        setTelefono(phone)
-        console.log(data)
+        setRespuesta(user)
       })
+      .catch(({ message }) => setError403(message.indexOf('403') >= 0))
   }, [idEncuesta, idUsuario])
 
-  if (!idEncuestaSeleccionada) {
+  if (error403) {
+    return 'No tienes permisos'
+  }
+  else if (!idEncuestaSeleccionada || !respuesta) {
     return 'aaa'
   }
 
   return (
     <div className="Chat">
-      {/* <DatosChat telefono={telefono} /> */}
+      <DatosChat respuesta={respuesta} />
       <CelularWhatsapp mensajes={mensajes} />
-      <RespuestasChat telefono={telefono} />
+      <RespuestasChat respuesta={respuesta} />
     </div>
   )
 }
