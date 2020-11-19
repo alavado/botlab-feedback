@@ -57,6 +57,7 @@
   padding: .15rem .35rem;
   max-height: 80vh;
   border-radius: 1rem;
+  overflow-x: hidden;
 }
 
 .CelularWhatsapp__contenedor_mensajes::-webkit-scrollbar {

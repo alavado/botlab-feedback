@@ -37,6 +37,7 @@ const ResultadosBusqueda = () => {
           <TarjetaResultadoBusqueda
             key={`resultado-busqueda-${i}`}
             resultado={r}
+            posicion={i + 1}
           />
         ))}
       </div>

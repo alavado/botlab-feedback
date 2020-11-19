@@ -7,10 +7,10 @@
 }
 
 .LoaderChat__loader {
-  width: 4rem;
-  height: 4rem;
-  border: .35rem solid transparent;
-  border-left: .35rem solid var(--color-principal);
+  width: 2rem;
+  height: 2rem;
+  border: .15rem solid transparent;
+  border-left: .35rem solid var(--color-bordes);
   border-radius: 100%;
   position: relative;
   display: flex;

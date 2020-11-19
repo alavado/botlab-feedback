@@ -24,10 +24,10 @@ const Feedback = () => {
     if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino) {
       const fetchData = async () => {
         dispatch(limpiaRespuestas())
-        const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-        dispatch(guardaRespuestas(data))
         const headers = await headersAPI()
         dispatch(guardaHeaders(headers))
+        const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
+        dispatch(guardaRespuestas(data))
       }
       try {
         setErrorCargandoRespuestas(null)

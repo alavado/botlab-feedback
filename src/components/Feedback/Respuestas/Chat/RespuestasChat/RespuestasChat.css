@@ -42,3 +42,12 @@
   height: 1.15rem;
   margin-right: .25rem;
 }
+
+@keyframes aparece-contenedor-datos {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

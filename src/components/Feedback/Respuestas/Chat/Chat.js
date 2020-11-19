@@ -23,7 +23,7 @@ const Chat = () => {
         setMensajes([...previous_messages,  ...messages])
         setRespuesta(user)
       })
-      .catch(({ message }) => setError403(message.indexOf('403') >= 0))
+      .catch(() => setError403(true))
   }, [idEncuesta, idUsuario])
 
   if (error403) {
