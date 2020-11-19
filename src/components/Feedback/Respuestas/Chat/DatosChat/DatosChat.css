@@ -104,6 +104,7 @@
   display: flex;
   font-size: .85rem;
   line-height: 1.15;
+  animation: aparece-contenedor-datos .25s ease both;
 }
 
 .DatosChat__nombre_header {
@@ -112,4 +113,13 @@
   min-width: 12em;
   max-width: 12em;
   padding-right: 1rem;
+}
+
+@keyframes aparece-contenedor-datos {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

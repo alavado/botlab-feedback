@@ -1,0 +1,28 @@
+.LoaderChat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+}
+
+.LoaderChat__loader {
+  width: 4rem;
+  height: 4rem;
+  border: .35rem solid transparent;
+  border-left: .35rem solid var(--color-principal);
+  border-radius: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  animation: animacion-loader-chat 1s ease-in-out infinite both;
+}
+
+@keyframes animacion-loader-chat {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}

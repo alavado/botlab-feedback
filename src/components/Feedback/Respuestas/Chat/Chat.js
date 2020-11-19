@@ -4,9 +4,8 @@ import { chat as chatAPI } from '../../../../api/endpoints'
 import { CelularWhatsapp } from './CelularWhatsapp/CelularWhatsapp'
 import DatosChat from './DatosChat'
 import RespuestasChat from './RespuestasChat'
-import './Chat.css'
-import { useSelector } from 'react-redux'
 import Error403 from '../../Error403'
+import './Chat.css'
 
 const Chat = () => {
 
@@ -14,9 +13,10 @@ const Chat = () => {
   const [respuesta, setRespuesta] = useState()
   const [error403, setError403] = useState(false)
   const { idEncuesta, idUsuario } = useParams()
-  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
 
   useEffect(() => {
+    setRespuesta(undefined)
+    setMensajes(undefined)
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
         const { data: { messages, previous_messages, user } } = data
@@ -28,9 +28,6 @@ const Chat = () => {
 
   if (error403) {
     return <Error403 mensaje="No puedes ver este chat." />
-  }
-  else if (!idEncuestaSeleccionada || !respuesta) {
-    return 'aaa'
   }
 
   return (

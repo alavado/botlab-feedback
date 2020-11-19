@@ -8,6 +8,7 @@ import iconoAnterior from '@iconify/icons-mdi/play'
 import { InlineIcon } from '@iconify/react'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
+import LoaderChat from '../LoaderChat'
 
 const DatosChat = ({ respuesta }) => {
 
@@ -50,7 +51,7 @@ const DatosChat = ({ respuesta }) => {
             <button
               className="DatosChat__link_anterior"
               onClick={irARespuestaAnterior}
-              disabled={!hayChatAnterior}
+              disabled={!hayChatAnterior || !respuesta}
               title={!hayChatAnterior && 'Este es el primer chat de esta búsqueda'}
             >
               <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
@@ -59,7 +60,7 @@ const DatosChat = ({ respuesta }) => {
             <button
               className="DatosChat__link_siguiente"
               onClick={irASiguienteRespuesta}
-              disabled={!haySiguienteChat}
+              disabled={!haySiguienteChat || !respuesta}
               title={!haySiguienteChat && 'No hay más chats en esta búsqueda'}
             >
               <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
@@ -68,32 +69,35 @@ const DatosChat = ({ respuesta }) => {
         }
       </div>
       <h1 className="DatosChat__titulo">Datos del chat</h1>
-      <div className="DatosChat__contenedor_datos">
-        <div className="DatosChat__contenedor_header">
-          <div className="DatosChat__nombre_header">
-            Teléfono
-          </div>
-          <div className="DatosChat__valor_header">
-            {respuesta.phone}
-          </div>
-        </div>
-        {headersSinPreguntas.map(({ nombre, texto }, i) => (
-          <div
-            key={`header-chat-${i}`}
-            className="DatosChat__contenedor_header"
-          >
-            <div className="DatosChat__nombre_header">
-              {texto}
+      {respuesta
+        ? <div className="DatosChat__contenedor_datos">
+            <div className="DatosChat__contenedor_header">
+              <div className="DatosChat__nombre_header">
+                Teléfono
+              </div>
+              <div className="DatosChat__valor_header">
+                {respuesta.phone}
+              </div>
             </div>
-            <div className="DatosChat__valor_header">
-              {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                ? <TagRespuesta tag={respuesta[nombre].tag} />
-                : respuesta[nombre]
-              }
-            </div>
+            {headersSinPreguntas.map(({ nombre, texto }, i) => (
+              <div
+                key={`header-chat-${i}`}
+                className="DatosChat__contenedor_header"
+              >
+                <div className="DatosChat__nombre_header">
+                  {texto}
+                </div>
+                <div className="DatosChat__valor_header">
+                  {respuesta[nombre] && respuesta[nombre].tag !== undefined
+                    ? <TagRespuesta tag={respuesta[nombre].tag} />
+                    : respuesta[nombre]
+                  }
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        : <LoaderChat />
+      }
     </div>
   )
 }
