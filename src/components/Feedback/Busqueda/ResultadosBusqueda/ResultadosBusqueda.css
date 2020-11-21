@@ -13,6 +13,7 @@
   display: flex;
   flex-wrap: wrap;
   padding-top: 1rem;
+  padding-left: .5rem;
 }
 
 .ResultadosBusqueda__contenedor_resultados::-webkit-scrollbar {

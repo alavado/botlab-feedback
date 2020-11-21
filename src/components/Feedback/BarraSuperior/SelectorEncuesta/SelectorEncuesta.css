@@ -6,6 +6,10 @@
   animation: aparece-selector-encuesta .25s ease both;
 }
 
+.SelectorEncuesta--oculto {
+  opacity: 0 !important;
+}
+
 .SelectorEncuesta__icono_empresa {
   width: 1.9rem;
   height: 1.9rem;

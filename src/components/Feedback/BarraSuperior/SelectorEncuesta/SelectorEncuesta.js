@@ -10,7 +10,8 @@ import Loader from '../../../Loader'
 import './SelectorEncuesta.css'
 import { limpiaRespuestas } from '../../../../redux/ducks/respuestas'
 import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
-import { useParams } from 'react-router-dom'
+import { useParams, useRouteMatch } from 'react-router-dom'
+import classNames from 'classnames'
 
 const SelectorEncuesta = () => {
 
@@ -18,6 +19,7 @@ const SelectorEncuesta = () => {
   const { idEncuestaGuardada } = useSelector(state => state.opciones)
   const [popupActivo, setPopupActivo] = useState(false)
   const { idEncuesta: idEncuestaRuta } = useParams()
+  const { path } = useRouteMatch()
   const dispatch = useDispatch()
 
   const verEncuesta = useCallback(async id => {
@@ -53,17 +55,33 @@ const SelectorEncuesta = () => {
   }
 
   return (
-    <div className="SelectorEncuesta" onClick={() => setPopupActivo(true)}>
-      <Icon className="SelectorEncuesta__icono_empresa" icon={whatsapp} />
-      <div className="SelectorEncuesta__nombre_encuesta">
-        {tipos.find(t => t.id === idEncuestaSeleccionada).nombre}
-      </div>
-      <Icon className="SelectorEncuesta__icono_menu" icon={chevronDown} />
-      <PopupEncuestas
-        activo={popupActivo}
-        esconder={() => setPopupActivo(false)}
-        verEncuesta={verEncuesta}
-      />
+    <div
+      className={classNames({
+        SelectorEncuesta: true,
+        'SelectorEncuesta--oculto': path.indexOf('chat') >= 0
+      })}
+      onClick={() => setPopupActivo(true)}
+    >
+      {path.indexOf('busqueda') >= 0
+        ? <>
+            <Icon className="SelectorEncuesta__icono_empresa" icon={whatsapp} />
+            <div className="SelectorEncuesta__nombre_encuesta">
+              Todas las encuestas
+            </div>
+          </>
+        : <>
+            <Icon className="SelectorEncuesta__icono_empresa" icon={whatsapp} />
+            <div className="SelectorEncuesta__nombre_encuesta">
+              {tipos.find(t => t.id === idEncuestaSeleccionada).nombre}
+            </div>
+            <Icon className="SelectorEncuesta__icono_menu" icon={chevronDown} />
+            <PopupEncuestas
+              activo={popupActivo}
+              esconder={() => setPopupActivo(false)}
+              verEncuesta={verEncuesta}
+            />
+          </>
+      }
     </div>
   )
 }
