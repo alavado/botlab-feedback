@@ -28,6 +28,42 @@
   position: relative;
 }
 
+.BarraLateral__popup_link {
+  position: absolute;
+  content: attr('xx');
+  left: 100%;
+  background-color: var(--color-principal-oscuro);
+  color: white;
+  font-size: .75rem;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  --alto-popup-barra-lateral: 1.5rem;
+  height: var(--alto-popup-barra-lateral);
+  display: flex;
+  align-items: center;
+  padding: 0 .75rem 0 .35rem;
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+  box-shadow: 0 .1rem .25rem rgba(0, 0, 0, .25);
+  transform: translateX(-.25rem);
+  transition: all .25s ease;
+}
+
+.BarraLateral__popup_link::before {
+  border: calc(var(--alto-popup-barra-lateral) / 2) solid transparent;
+  border-right: calc(var(--alto-popup-barra-lateral) / 2) solid var(--color-principal-oscuro);
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--alto-popup-barra-lateral));
+  top: 0;
+}
+
+.BarraLateral__link:hover .BarraLateral__popup_link {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 .BarraLateral__link--activo {
   color: white;
 }

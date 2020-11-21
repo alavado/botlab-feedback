@@ -16,6 +16,7 @@ const BarraLateral = () => {
         activeClassName="BarraLateral__link--activo"
         to="/respuestas"
       >
+        <div className="BarraLateral__popup_link">Respuestas</div>
         <Icon icon={cloudQuestion} />
       </NavLink>
       <NavLink
@@ -23,6 +24,7 @@ const BarraLateral = () => {
         activeClassName="BarraLateral__link--activo"
         to="/busqueda"
       >
+        <div className="BarraLateral__popup_link">Búsqueda</div>
         <Icon icon={search} />
       </NavLink>
     </div>

@@ -9,9 +9,6 @@ Pendientes:
 
 preguntas wax:
 
-- hay un bug al volver desde chat a respuestas
 - fecha conversacion (start)
-- agregar punto a "mostrando"
 - http://localhost:3000/chat/103/101281
-- sacar polls de busqueda o poner todas
 - quitar dropdown encuestas al api
