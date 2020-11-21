@@ -25,4 +25,5 @@
   white-space: nowrap;
   transition: all .25s ease-in-out;
   text-overflow: ellipsis;
+  overflow: hidden;
 }

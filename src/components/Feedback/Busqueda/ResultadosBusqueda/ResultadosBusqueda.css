@@ -12,6 +12,7 @@
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
+  padding-top: 1rem;
 }
 
 .ResultadosBusqueda__contenedor_resultados::-webkit-scrollbar {
@@ -28,10 +29,11 @@
 .ResultadosBusqueda__superior {
   position: absolute;
   right: 0;
-  top: -2.75rem;
+  top: -2.5rem;
   display: flex;
   align-items: center;
   animation: aparece-barra-busqueda .35s .35s ease-in both;
+  z-index: 3;
 }
 
 .ResultadosBusqueda__encontrados {

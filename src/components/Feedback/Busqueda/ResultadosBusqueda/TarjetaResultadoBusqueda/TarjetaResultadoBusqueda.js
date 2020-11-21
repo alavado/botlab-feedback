@@ -49,7 +49,7 @@ const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
             </div>
             <div className="TarjetaResultadoBusqueda__valor">
               {resultado[k] && resultado[k].tag !== undefined
-                ? <div><TagRespuesta tag={resultado[k].tag} /></div>
+                ? <div style={{ display: 'flex', alignItems: 'center' }}><TagRespuesta tag={resultado[k].tag} /></div>
                 : resultado[k]
               }
             </div>

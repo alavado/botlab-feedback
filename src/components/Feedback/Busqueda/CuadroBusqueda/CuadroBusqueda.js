@@ -3,16 +3,20 @@ import { useHistory } from 'react-router-dom'
 import iconoBuscar from '@iconify/icons-mdi/search'
 import './CuadroBusqueda.css'
 import Icon from '@iconify/react'
+import { useDispatch } from 'react-redux'
+import { limpiaBusqueda } from '../../../../redux/ducks/busqueda'
 
 const CuadroBusqueda = () => {
 
   const inputRef = useRef()
   const [termino, setTermino] = useState('')
   const history = useHistory()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     inputRef.current.focus()
-  }, [])
+    dispatch(limpiaBusqueda())
+  }, [dispatch])
 
   const buscar = e => {
     e.preventDefault()
