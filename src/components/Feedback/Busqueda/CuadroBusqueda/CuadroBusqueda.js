@@ -32,6 +32,7 @@ const CuadroBusqueda = () => {
           ref={inputRef}
           value={termino}
           onChange={e => setTermino(e.target.value)}
+          placeholder="RUT, nombre, teléfono..."
         />
         <Icon
           icon={iconoBuscar}

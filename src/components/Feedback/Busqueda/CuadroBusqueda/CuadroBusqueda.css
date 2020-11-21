@@ -24,10 +24,17 @@
   width: 24ch;
   transition: all .25s ease;
   animation: aparece-input-busqueda .5s ease both;
+  display: flex;
+  align-items: center;
 }
 
 .CuadroBusqueda__input:focus {
   box-shadow: 0 .05rem .25rem var(--color-bordes);
+}
+
+.CuadroBusqueda__input::placeholder {
+  opacity: .3;
+  font-size: 1.25rem;
 }
 
 .CuadroBusqueda__icono_buscar {

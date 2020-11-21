@@ -15,8 +15,9 @@ const Busqueda = () => {
       </div>
       <div className="Busqueda__contenedor">
         {termino
-        ? <ResultadosBusqueda />
-        : <CuadroBusqueda />}
+          ? <ResultadosBusqueda />
+          : <CuadroBusqueda />
+        }
       </div>
     </div>
   )
