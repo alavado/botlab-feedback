@@ -20,7 +20,10 @@ const Chat = () => {
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
         const { data: { messages, previous_messages, user } } = data
-        setMensajes([...previous_messages,  ...messages])
+        setMensajes({
+          anteriores: [...previous_messages],
+          actuales: [...messages]
+        })
         setRespuesta(user)
       })
       .catch(() => setError403(true))

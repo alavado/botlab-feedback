@@ -42,3 +42,9 @@
     transform: translateY(0rem);
   }
 }
+
+@media (orientation: portrait) {
+  .SelectorEncuesta__nombre_encuesta {
+    font-size: .8rem;
+  }
+}

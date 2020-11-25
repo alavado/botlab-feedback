@@ -1,8 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import TagRespuesta from '../../TablaRespuestas/TagRespuesta'
-import { InlineIcon } from '@iconify/react'
-import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import './RespuestasChat.css'
 import LoaderChat from '../LoaderChat'
 
@@ -39,21 +37,6 @@ const RespuestasChat = ({ respuesta }) => {
         ))
         : <LoaderChat />
       }
-      <div className="RespuestasChat__contenedor_opciones">
-        <h2 className="RespuestasChat__titulo">Opciones</h2>
-        {respuesta
-          ? <a
-              href={`https://wa.me/${respuesta.phone}`}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="RespuestasChat__boton_hablar"
-            >
-              <InlineIcon className="RespuestasChat__icono_ws" icon={iconoWhatsapp} />
-              Hablar con paciente
-            </a>
-          : <LoaderChat />
-        }
-      </div>
     </div>
   )
 }

@@ -79,3 +79,14 @@
   content: '';
   display: none;
 }
+
+@media (orientation: portrait) {
+  .BarraLateral {
+    flex-direction: row;
+    z-index: 3;
+    position: fixed;
+    height: 3rem;
+    width: 3em;
+    bottom: 0;
+  }
+}

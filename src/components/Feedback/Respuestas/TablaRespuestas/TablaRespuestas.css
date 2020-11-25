@@ -59,3 +59,13 @@
     opacity: 1;
   }
 }
+
+@media (orientation: portrait) {
+  .TablaRespuestas__herramientas {
+    display: none;
+  }
+
+  .TablaRespuestas__contenedor_tabla {
+    max-width: calc(100vw - 4rem);
+  }
+}

@@ -1,8 +1,10 @@
+import { format, parseISO } from 'date-fns'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../../Respuestas/TablaRespuestas/TagRespuesta'
+import { es } from 'date-fns/locale'
 import './TarjetaResultadoBusqueda.css'
 
 const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
@@ -61,6 +63,14 @@ const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
         </div>
         <div className="TarjetaResultadoBusqueda__valor">
           {resultado.phone}
+        </div>
+      </div>
+      <div className="TarjetaResultadoBusqueda__contenedor_valores">
+        <div className="TarjetaResultadoBusqueda__encabezado">
+          Fecha conversación
+        </div>
+        <div className="TarjetaResultadoBusqueda__valor">
+          {format(parseISO(resultado.start), 'd MMM yy\',\' HH:mm', { locale: es })}
         </div>
       </div>
       {Object

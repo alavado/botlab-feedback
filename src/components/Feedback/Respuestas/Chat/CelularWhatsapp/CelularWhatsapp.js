@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import LoaderMensajes from './LoaderMensajes'
 import BarraAppCelular from './BarraAppCelular'
 import BarraEstadoCelular from './BarraEstadoCelular'
@@ -14,6 +14,9 @@ export const CelularWhatsapp = ({ mensajes }) => {
 
   const { chatExpandido } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
+  const todosLosMensajes = useMemo(() => {
+    return mensajes ? [...mensajes.anteriores, ...mensajes.actuales] : []
+  }, [mensajes])
 
   return (
     <div className={classNames({
@@ -35,17 +38,32 @@ export const CelularWhatsapp = ({ mensajes }) => {
           <BarraEstadoCelular />
           <BarraAppCelular />
           <div className="CelularWhatsapp__contenedor_mensajes">
-            {Array.isArray(mensajes)
-              ? mensajes.map((mensaje, i) => (
-                  <MensajeWhatsapp
-                    mensaje={mensaje}
-                    mensajes={mensajes}
-                    posicion={i}
-                    key={`mensaje-${i}`}
-                  />
-                ))
-              : <LoaderMensajes />
-            }
+            <div className="CelularWhatsapp__contenedor_mensajes_anteriores">
+              {Array.isArray(mensajes?.anteriores)
+                ? mensajes.anteriores.map((mensaje, i) => (
+                    <MensajeWhatsapp
+                      mensaje={mensaje}
+                      mensajes={todosLosMensajes}
+                      posicion={i}
+                      key={`mensaje-${i}`}
+                    />
+                  ))
+                : <LoaderMensajes />
+              }
+            </div>
+            <div className="CelularWhatsapp__contenedor_mensajes_actuales">
+              {Array.isArray(mensajes?.actuales)
+                ? mensajes.actuales.map((mensaje, i) => (
+                    <MensajeWhatsapp
+                      mensaje={mensaje}
+                      mensajes={todosLosMensajes}
+                      posicion={i}
+                      key={`mensaje-${i}`}
+                    />
+                  ))
+                : null
+              }
+            </div>
           </div>
         </div>
       </div>

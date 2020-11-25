@@ -43,3 +43,9 @@
 .SelectorRangoFechas__boton_opciones_icono {
   font-size: 1rem;
 }
+
+@media (orientation: portrait) {
+  .SelectorRangoFechas {
+    display: none;
+  }
+}
