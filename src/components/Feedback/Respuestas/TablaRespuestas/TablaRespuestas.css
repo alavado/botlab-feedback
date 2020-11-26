@@ -61,11 +61,16 @@
 }
 
 @media (orientation: portrait) {
+  .TablaRespuestas__titulo {
+    font-size: 1.35rem;
+  }
+
   .TablaRespuestas__herramientas {
     display: none;
   }
 
   .TablaRespuestas__contenedor_tabla {
-    max-width: calc(100vw - 4rem);
+    max-width: calc(100vw - 3rem);
+    max-height: calc(100vh - calc(2.75rem + 3rem + 3.5rem + 2.25rem + 2.5rem));
   }
 }

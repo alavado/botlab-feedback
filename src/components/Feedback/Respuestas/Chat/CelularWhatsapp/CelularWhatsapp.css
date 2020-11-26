@@ -124,3 +124,15 @@
     transform: translateY(0rem);
   }
 }
+
+@media (orientation: portrait) {
+  .CelularWhatsapp {
+    height: auto;
+    padding: 2rem 0;
+  }
+
+  .CelularWhatsapp--expandido .CelularWhatsapp__celular {
+    padding: 0;
+    width: 90vw;
+  }
+}

@@ -32,3 +32,14 @@
   font-size: .85rem;
   padding-right: 1rem;
 }
+
+@media (orientation: portrait) {
+  .FooterTablaRespuestas__total {
+    display: none;
+  }
+  .FooterTablaRespuestas__botones_paginas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -12,3 +12,11 @@
     opacity: 1;
   }
 }
+
+@media (orientation: portrait) {
+  .Chat {
+    flex-direction: column;
+    overflow: auto;
+    max-height: calc(100vh - 8rem);
+  }
+}

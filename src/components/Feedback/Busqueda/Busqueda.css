@@ -44,3 +44,10 @@
   flex-direction: column;
   flex: 1;
 }
+
+@media (orientation: portrait) {
+
+  .Busqueda__titulo {
+    font-size: 1.35rem;
+  }
+}

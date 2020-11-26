@@ -129,6 +129,10 @@
 
 @media(orientation: portrait) {
   .Login {
-    justify-content: flex-start;
+    width: 100%;
+  }
+  
+  .Login__input {
+    width: 70vw;
   }
 }

@@ -63,3 +63,10 @@
     transform: translateY(0);
   }
 }
+
+@media (orientation: portrait) {
+  .TarjetaResultadoBusqueda__valor {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

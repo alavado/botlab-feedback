@@ -83,3 +83,13 @@
     transform: translateY(0rem);
   }
 }
+
+@media (orientation: portrait) {
+  .ResultadosBusqueda__contenedor_resultados {
+    max-height: calc(100vh - 12rem);
+  }
+
+  .ResultadosBusqueda__encontrados {
+    display: none;
+  }
+}

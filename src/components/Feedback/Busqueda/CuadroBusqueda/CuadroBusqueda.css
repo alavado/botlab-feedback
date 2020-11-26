@@ -108,3 +108,9 @@
     opacity: 1;
   }
 }
+
+@media (orientation: portrait) {
+  .CuadroBusqueda__input {
+    width: 20ch;
+  }
+}

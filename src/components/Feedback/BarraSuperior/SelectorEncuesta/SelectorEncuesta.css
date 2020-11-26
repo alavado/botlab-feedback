@@ -6,6 +6,11 @@
   animation: aparece-selector-encuesta .25s ease both;
 }
 
+.SelectorEncuesta--todas {
+  cursor: auto;
+  pointer-events: none;
+}
+
 .SelectorEncuesta--oculto {
   opacity: 0 !important;
 }

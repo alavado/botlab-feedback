@@ -58,7 +58,8 @@ const SelectorEncuesta = () => {
     <div
       className={classNames({
         SelectorEncuesta: true,
-        'SelectorEncuesta--oculto': path.indexOf('chat') >= 0
+        'SelectorEncuesta--oculto': path.indexOf('chat') >= 0,
+        'SelectorEncuesta--todas': path.indexOf('busqueda') >= 0
       })}
       onClick={() => setPopupActivo(true)}
     >

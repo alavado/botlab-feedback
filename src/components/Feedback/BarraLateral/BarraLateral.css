@@ -80,13 +80,20 @@
   display: none;
 }
 
-@media (orientation: portrait) {
+@media(orientation: portrait) {
   .BarraLateral {
-    flex-direction: row;
-    z-index: 3;
-    position: fixed;
+    z-index: 100;
+    position: absolute;
     height: 3rem;
-    width: 3em;
+    width: 100%;
     bottom: 0;
+    left: 0;
+    top: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .BarraLateral__logo, .BarraLateral__popup_link {
+    display: none;
   }
 }
