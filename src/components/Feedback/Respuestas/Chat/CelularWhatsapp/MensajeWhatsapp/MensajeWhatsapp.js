@@ -9,8 +9,6 @@ import './MensajeWhatsapp.css'
 
 const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
 
-  console.log({mensajes})
-
   const ts = parseISO(mensaje.timestamp)
   const horaMensaje = format(ts, 'HH:mm')
   const fechaMensaje = format(ts, 'd \'de\' MMMM \'de\' yyyy', { locale: es })
