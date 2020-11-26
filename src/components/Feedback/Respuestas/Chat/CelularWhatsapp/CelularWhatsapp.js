@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect, useRef } from 'react'
 import LoaderMensajes from './LoaderMensajes'
 import BarraAppCelular from './BarraAppCelular'
 import BarraEstadoCelular from './BarraEstadoCelular'
@@ -13,9 +13,19 @@ import iconoEncoger from '@iconify/icons-mdi/arrow-collapse'
 export const CelularWhatsapp = ({ mensajes }) => {
 
   const { chatExpandido } = useSelector(state => state.opciones)
+  const contenedorMensajes = useRef()
+  const contenedorMensajesActuales = useRef()
   const dispatch = useDispatch()
   const todosLosMensajes = useMemo(() => {
     return mensajes ? [...mensajes.anteriores, ...mensajes.actuales] : []
+  }, [mensajes])
+
+  useEffect(() => {
+    if (mensajes?.anteriores.length > 0) {
+      const contenedor = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes')[0]
+      const contenedorActuales = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes_actuales')[0]
+      contenedor.scrollTop = contenedorActuales.getBoundingClientRect().top - contenedor.getBoundingClientRect().top
+    }
   }, [mensajes])
 
   return (
@@ -37,7 +47,10 @@ export const CelularWhatsapp = ({ mensajes }) => {
           </button>
           <BarraEstadoCelular />
           <BarraAppCelular />
-          <div className="CelularWhatsapp__contenedor_mensajes">
+          <div
+            className="CelularWhatsapp__contenedor_mensajes"
+            ref={contenedorMensajes}
+          >
             <div className="CelularWhatsapp__contenedor_mensajes_anteriores">
               {Array.isArray(mensajes?.anteriores)
                 ? mensajes.anteriores.map((mensaje, i) => (
@@ -51,13 +64,16 @@ export const CelularWhatsapp = ({ mensajes }) => {
                 : <LoaderMensajes />
               }
             </div>
-            <div className="CelularWhatsapp__contenedor_mensajes_actuales">
+            <div
+              className="CelularWhatsapp__contenedor_mensajes_actuales"
+              ref={contenedorMensajesActuales}
+            >
               {Array.isArray(mensajes?.actuales)
                 ? mensajes.actuales.map((mensaje, i) => (
                     <MensajeWhatsapp
                       mensaje={mensaje}
                       mensajes={todosLosMensajes}
-                      posicion={i}
+                      posicion={i + mensajes.anteriores.length}
                       key={`mensaje-${i}`}
                     />
                   ))

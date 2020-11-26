@@ -9,6 +9,8 @@ import './MensajeWhatsapp.css'
 
 const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
 
+  console.log({mensajes})
+
   const ts = parseISO(mensaje.timestamp)
   const horaMensaje = format(ts, 'HH:mm')
   const fechaMensaje = format(ts, 'd \'de\' MMMM \'de\' yyyy', { locale: es })
@@ -42,7 +44,7 @@ const Globo = ({ esDeHumano, posicion, hora, children }) => (
       'MensajeWhatsapp__globo--saliente': esDeHumano,
       'MensajeWhatsapp__globo--entrante': !esDeHumano
     })}
-    style={{ animationDelay: `${posicion * .15}s` }}
+    // style={{ animationDelay: `${posicion * .15}s` }}
   >
     <div className="MensajeWhatsapp__titulo">
       <div>{esDeHumano ? 'Usuario' : 'Bot'}</div>
