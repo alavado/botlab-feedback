@@ -5,6 +5,7 @@ import iconoVisto from '@iconify/icons-mdi/check-all'
 import iconoArchivo from '@iconify/icons-mdi/file-pdf-outline'
 import classNames from 'classnames'
 import { es } from 'date-fns/locale'
+import Linkify from 'react-linkify'
 import './MensajeWhatsapp.css'
 
 const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
@@ -64,7 +65,7 @@ const Texto = ({ mensaje, hora, esDeHumano }) => (
           <InlineIcon className="MensajeWhatsapp__pdf" icon={iconoArchivo} />
           {mensaje.message.slice(0, mensaje.message.indexOf('ATTACHMENT'))}
         </a>
-      : mensaje.message
+      : <Linkify>{mensaje.message}</Linkify>
     }
     <Hora hora={hora} escondida={true} esDeHumano={esDeHumano} />
   </div>

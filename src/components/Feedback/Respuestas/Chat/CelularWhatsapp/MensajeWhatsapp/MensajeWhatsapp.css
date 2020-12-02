@@ -33,6 +33,7 @@
   box-shadow: 0 .1rem .05em rgba(0, 0, 0, .2);
   --cachito: .45rem;
   animation: aparece-mensaje-entrante-celular .5s ease both;
+  word-wrap: break-word;
 }
 
 .MensajeWhatsapp__globo::after {
@@ -117,4 +118,12 @@
 .MensajeWhatsapp__titulo_hora {
   font-weight: 400;
   padding-left: .25rem;
+}
+
+.MensajeWhatsapp__texto a {
+  color: #039be5;
+}
+
+.MensajeWhatsapp__texto a:hover {
+  text-decoration: underline;
 }
