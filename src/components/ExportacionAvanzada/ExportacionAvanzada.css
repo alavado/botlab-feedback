@@ -1,0 +1,104 @@
+.ExportacionAvanzada {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.ExportacionAvanzada__superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2.75rem;
+  padding-bottom: 1rem;
+}
+
+.ExportacionAvanzada__titulo {
+  font-weight: bold;
+  font-size: 1.75rem;
+  font-family: 'Raleway';
+  z-index: 3;
+}
+
+.ExportacionAvanzada__subtitulo {
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.ExportacionAvanzada__contenedor {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ExportacionAvanzada__contenedor_formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10rem;
+}
+
+.ExportacionAvanzada__botones_tipos {
+  display: flex;
+  flex-direction: row;
+}
+
+.ExportacionAvanzada__boton {
+  margin: 0 .5rem;
+  width: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5rem;
+  height: 1.75rem;
+  padding: 0 .6rem;
+  color: white;
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
+  transition: all .25s ease;
+  position: relative;
+  filter: saturate(50%);
+  opacity: .5;
+  border: none;
+}
+
+.ExportacionAvanzada__boton--activo {
+  filter: none;
+  opacity: 1;
+  border: 1px solid var(--color-gris);
+}
+
+.ExportacionAvanzada__boton_exportar {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  height: 2rem;
+  padding: 0 1rem;
+  color: white;
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
+  transition: all .25s ease;
+  position: relative;
+  filter: none;
+}
+
+.ExportacionAvanzada__explicacion {
+  margin-top: 2rem;
+  font-size: .8rem;
+  max-width: 50ch;
+  line-height: 1.5;
+  text-align: center;
+  opacity: .8;
+  animation: aparece-explicacion-busqueda 1s .3s ease both;
+}

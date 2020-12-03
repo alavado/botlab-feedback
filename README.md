@@ -12,3 +12,6 @@ preguntas wax:
 preguntas wax: 
 - certificado api dev expiró
 - chat demora mucho
+
+- cambiar presentacion de busqueda
+rut nombre telefono fecha_conv encuesta
