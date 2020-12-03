@@ -41,11 +41,17 @@ export const busqueda = termino => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
-export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino) => {
+export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, tipo) => {
   const fi = format(fechaInicio, 'yyyy-MM-dd')
   const ft = format(fechaTermino, 'yyyy-MM-dd')
   const token = store.getState().login.token
-  const url = `${API_ROOT}/report/${idEncuesta}?type=tag&fecha_inicio=${fi}%2000%3A00&fecha_termino=${ft}%2023%3A59`
+  let url
+  if (tipo === 'Chats') {
+    url = `${API_ROOT}/chat_report/${idEncuesta}?fecha_inicio=${fi}%2000%3A00&fecha_termino=${ft}%2023%3A59`
+  }
+  else {
+    url = `${API_ROOT}/report/${idEncuesta}?fecha_inicio=${fi}%2000%3A00&fecha_termino=${ft}%2023%3A59&type=${tipo === 'Resumen' ? 'tag' : 'text'}`
+  }
   return axios.get(url, { headers: { 'Api-Token': token, 'Api-UTC-Offset': -180 }, responseType: 'blob' })
     .then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]))

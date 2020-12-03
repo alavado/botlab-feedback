@@ -31,6 +31,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: aparece-exportacion-avanzada .35s ease both;
+}
+
+.ExportacionAvanzada__contenedor_rango {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ExportacionAvanzada__contenedor_formulario {
@@ -106,4 +113,32 @@
 .ExportacionAvanzada__icono {
   margin-right: .25rem;
   font-size: 1.1rem;
+}
+
+.ExportacionAvanzada__loader_exportando {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+  margin-right: .25rem;
+  border: .15rem solid transparent;
+  border-top: .15rem solid white;
+  animation: gira-loader-exportando 1s ease infinite both;
+}
+
+@keyframes aparece-exportacion-avanzada {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes gira-loader-exportando {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
 }

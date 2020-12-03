@@ -5,6 +5,8 @@ import classNames from 'classnames'
 import iconoExportar from '@iconify/icons-mdi/arrow-top-right'
 import Icon from '@iconify/react'
 import './ExportacionAvanzada.css'
+import { exportarRespuestas } from '../../api/endpoints'
+import { useSelector } from 'react-redux'
 
 const tiposExportacion = [
   'Resumen',
@@ -16,10 +18,17 @@ const ExportacionAvanzada = () => {
 
   const [inicio, setInicio] = useState(Date.now())
   const [termino, setTermino] = useState(Date.now())
+  const [exportando, setExportando] = useState(false)
   const [tipoExportacion, setTipoExportacion] = useState(tiposExportacion[0])
+  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
 
   const exportar = () => {
-    
+    if (exportando) {
+      return
+    }
+    setExportando(true)
+    exportarRespuestas(idEncuestaSeleccionada, inicio, termino, tipoExportacion)
+      .then(() => setExportando(false))
   }
   
   return (
@@ -67,11 +76,14 @@ const ExportacionAvanzada = () => {
             className="ExportacionAvanzada__boton_exportar"
             onClick={exportar}
           >
-            <Icon className="ExportacionAvanzada__icono" icon={iconoExportar} />
+            {exportando
+              ? <div className="ExportacionAvanzada__loader_exportando" />
+              : <Icon className="ExportacionAvanzada__icono" icon={iconoExportar} />
+            }
             Exportar
           </button>
           <p className="ExportacionAvanzada__explicacion">
-            Este módulo permite exportar los datos de respuestas a un archivo en formato CSV.
+            Este módulo permite exportar las respuestas para la encuesta seleccionada a un archivo en formato CSV.
           </p>
         </div>
       </div>
