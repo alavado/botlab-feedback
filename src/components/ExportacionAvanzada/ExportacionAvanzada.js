@@ -7,12 +7,7 @@ import Icon from '@iconify/react'
 import './ExportacionAvanzada.css'
 import { exportarRespuestas } from '../../api/endpoints'
 import { useSelector } from 'react-redux'
-
-const tiposExportacion = [
-  'Resumen',
-  'Detalle',
-  'Chats'
-]
+import { tiposExportacion } from '../../helpers/exportar'
 
 const ExportacionAvanzada = () => {
 

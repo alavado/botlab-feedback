@@ -41,12 +41,12 @@
   width: 0;
   height: 0;
   content: '';
-  border-top: var(.45rem) solid white;
-  border-right: var(.45rem) solid white;
-  border-left: var(.45rem) solid transparent;
-  border-bottom: var(.45rem) solid transparent;
+  border-top: .45rem solid white;
+  border-right: .45rem solid white;
+  border-left: .45rem solid transparent;
+  border-bottom: .45rem solid transparent;
   top: 0;
-  left: calc(-1 * var(.45rem));
+  left: calc(-1 * .45rem);
 }
 
 .MensajeWhatsapp__globo--saliente {
@@ -57,11 +57,11 @@
 
 .MensajeWhatsapp__globo--saliente::after {
   position: absolute;
-  border-top: var(.45rem) solid #dcf8c6;
-  border-right: var(.45rem) solid transparent;
-  border-left: var(.45rem) solid #dcf8c6;
-  border-bottom: var(.45rem) solid transparent;
-  right: calc(-1 * var(.45rem));
+  border-top: .45rem solid #dcf8c6;
+  border-right: .45rem solid transparent;
+  border-left: .45rem solid #dcf8c6;
+  border-bottom: .45rem solid transparent;
+  right: calc(-1 * .45rem);
   left: auto;
 }
 
