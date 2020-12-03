@@ -102,3 +102,8 @@
   opacity: .8;
   animation: aparece-explicacion-busqueda 1s .3s ease both;
 }
+
+.ExportacionAvanzada__icono {
+  margin-right: .25rem;
+  font-size: 1.1rem;
+}

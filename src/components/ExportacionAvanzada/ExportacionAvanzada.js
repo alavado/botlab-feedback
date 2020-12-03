@@ -19,7 +19,7 @@ const ExportacionAvanzada = () => {
   const [tipoExportacion, setTipoExportacion] = useState(tiposExportacion[0])
 
   const exportar = () => {
-
+    
   }
   
   return (
@@ -67,7 +67,7 @@ const ExportacionAvanzada = () => {
             className="ExportacionAvanzada__boton_exportar"
             onClick={exportar}
           >
-            <Icon className="ExportadorRespuestas__icono" icon={iconoExportar} />
+            <Icon className="ExportacionAvanzada__icono" icon={iconoExportar} />
             Exportar
           </button>
           <p className="ExportacionAvanzada__explicacion">

@@ -31,7 +31,6 @@
   border-radius: .5rem;
   position: relative;
   box-shadow: 0 .1rem .05em rgba(0, 0, 0, .2);
-  --cachito: .45rem;
   animation: aparece-mensaje-entrante-celular .5s ease both;
   word-wrap: break-word;
 }
@@ -42,12 +41,12 @@
   width: 0;
   height: 0;
   content: '';
-  border-top: var(--cachito) solid white;
-  border-right: var(--cachito) solid white;
-  border-left: var(--cachito) solid transparent;
-  border-bottom: var(--cachito) solid transparent;
+  border-top: var(.45rem) solid white;
+  border-right: var(.45rem) solid white;
+  border-left: var(.45rem) solid transparent;
+  border-bottom: var(.45rem) solid transparent;
   top: 0;
-  left: calc(-1 * var(--cachito));
+  left: calc(-1 * var(.45rem));
 }
 
 .MensajeWhatsapp__globo--saliente {
@@ -58,11 +57,11 @@
 
 .MensajeWhatsapp__globo--saliente::after {
   position: absolute;
-  border-top: var(--cachito) solid #dcf8c6;
-  border-right: var(--cachito) solid transparent;
-  border-left: var(--cachito) solid #dcf8c6;
-  border-bottom: var(--cachito) solid transparent;
-  right: calc(-1 * var(--cachito));
+  border-top: var(.45rem) solid #dcf8c6;
+  border-right: var(.45rem) solid transparent;
+  border-left: var(.45rem) solid #dcf8c6;
+  border-bottom: var(.45rem) solid transparent;
+  right: calc(-1 * var(.45rem));
   left: auto;
 }
 

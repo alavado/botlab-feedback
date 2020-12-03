@@ -38,8 +38,7 @@
   z-index: 4;
   pointer-events: none;
   opacity: 0;
-  --alto-popup-barra-lateral: 1.5rem;
-  height: var(--alto-popup-barra-lateral);
+  height: var(1.5rem);
   display: flex;
   align-items: center;
   padding: 0 .75rem 0 .35rem;
@@ -51,11 +50,11 @@
 }
 
 .BarraLateral__popup_link::before {
-  border: calc(var(--alto-popup-barra-lateral) / 2) solid transparent;
-  border-right: calc(var(--alto-popup-barra-lateral) / 2) solid var(--color-principal-oscuro);
+  border: calc(var(1.5rem) / 2) solid transparent;
+  border-right: calc(var(1.5rem) / 2) solid var(--color-principal-oscuro);
   content: '';
   position: absolute;
-  left: calc(-1 * var(--alto-popup-barra-lateral));
+  left: calc(-1 * var(1.5rem));
   top: 0;
 }
 
