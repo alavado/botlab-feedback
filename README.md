@@ -15,3 +15,7 @@ preguntas wax:
 
 - cambiar presentacion de busqueda
 rut nombre telefono fecha_conv encuesta
+- persistir sesion
+- agregar dos botones para actualizar llamadas
+- saltos de linea
+- vista de alertas

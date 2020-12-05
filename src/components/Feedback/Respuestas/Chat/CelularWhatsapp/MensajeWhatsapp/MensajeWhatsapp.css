@@ -46,13 +46,17 @@
   border-left: .45rem solid transparent;
   border-bottom: .45rem solid transparent;
   top: 0;
-  left: calc(-1 * .45rem);
+  left: -.45rem;
 }
 
 .MensajeWhatsapp__globo--saliente {
   align-self: flex-end;
   background-color: #dcf8c6;
   animation: aparece-mensaje-saliente-celular .5s ease both;
+}
+
+.CelularWhatsapp--expandido .MensajeWhatsapp__globo--saliente {
+  align-self: flex-start;
 }
 
 .MensajeWhatsapp__globo--saliente::after {
@@ -63,6 +67,12 @@
   border-bottom: .45rem solid transparent;
   right: calc(-1 * .45rem);
   left: auto;
+}
+
+.CelularWhatsapp--expandido .MensajeWhatsapp__globo--saliente::after {
+  align-self: flex-start;
+  left: calc(-1 * .45rem);
+  right: auto;
 }
 
 .MensajeWhatsapp__hora {
