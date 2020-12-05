@@ -18,7 +18,7 @@
   font-weight: 600;
 }
 
-.SelectorRangoFechas__boton_opciones {
+.SelectorRangoFechas__boton {
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 100%;
@@ -31,21 +31,90 @@
   cursor: pointer;
   outline: none;
   box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
-  transition: all .25s ease;
+  transition: all .15s ease;
   position: relative;
 }
 
-.SelectorRangoFechas__boton_opciones:hover {
+.SelectorRangoFechas__boton:last-child {
+  margin-left: .5rem;
+}
+
+.SelectorRangoFechas__boton:hover {
   box-shadow: .15rem .15rem .25rem rgba(0, 0, 0, .1);
   filter: brightness(110%);
 }
 
-.SelectorRangoFechas__boton_opciones_icono {
+.SelectorRangoFechas__boton:active {
+  filter: brightness(130%);
+}
+
+.SelectorRangoFechas__boton:hover::before {
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border: .5rem solid transparent;
+  border-top: .5rem solid var(--color-principal-2);
+  top: -.5rem;
+  animation: aparece-tooltip-opcion .15s ease both;
+}
+
+.SelectorRangoFechas__boton:hover::after {
+  position: absolute;
+  content: attr(title);
+  background-color: var(--color-principal-2);
+  color: white;
+  top: -100%;
+  white-space: nowrap;
+  border-radius: .25rem;
+  padding: 0 .5rem;
+  height: 1.5rem;
+  font-size: .7rem;
+  display: flex;
+  align-items: center;
+  animation: aparece-tooltip-opcion .15s ease both;
+  z-index: 4;
+}
+
+.SelectorRangoFechas__boton_icono {
   font-size: 1rem;
+}
+
+.SelectorRangoFechas__boton:disabled {
+  filter: saturate(20%) brightness(120%);
+  animation: girar-boton-actualizando 1s ease-in-out infinite both;
+}
+
+.SelectorRangoFechas__boton:disabled:hover::after {
+  display: none;
+}
+
+.SelectorRangoFechas__boton:disabled:hover::before {
+  display: none;
 }
 
 @media (orientation: portrait) {
   .SelectorRangoFechas {
     display: none;
+  }
+}
+
+@keyframes aparece-tooltip-opcion {
+  0% {
+    opacity: 0;
+    transform: translateY(.1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes girar-boton-actualizando {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
   }
 }

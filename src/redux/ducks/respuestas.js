@@ -9,6 +9,7 @@ const fijarRespuesta = 'respuestas/fijarRespuesta'
 const limpiarRespuestas = 'respuestas/limpiarRespuestas'
 const ordenarRespuestas = 'respuestas/ordenarRespuestas'
 const fijarPagina = 'respuestas/fijarPagina'
+const actualizarRespuestas = 'respuestas/actualizar'
 
 const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
@@ -17,7 +18,8 @@ const defaultState = {
   fechaTermino: window.location.href.indexOf('localhost') < 0 ? Date.now() : new Date(2020, 7, 14),
   busqueda: '',
   orden: 'ASC',
-  pagina: 1
+  pagina: 1,
+  cacheInvalido: true
   // fechaInicio: Date.now(),
   // fechaTermino: Date.now()
 }
@@ -47,19 +49,22 @@ export default function(state = defaultState, action) {
         ...state,
         respuestas,
         respuestasVisibles: respuestas,
-        pagina: 1
+        pagina: 1,
+        cacheInvalido: false
       }
     }
     case fijarFechaInicio: {
       return {
         ...state,
-        fechaInicio: action.payload
+        fechaInicio: action.payload,
+        cacheInvalido: true
       }
     }
     case fijarFechaTermino: {
       return {
         ...state,
-        fechaTermino: action.payload
+        fechaTermino: action.payload,
+        cacheInvalido: true
       }
     }
     case fijarRangoFechas: {
@@ -67,7 +72,8 @@ export default function(state = defaultState, action) {
       return {
         ...state,
         fechaInicio,
-        fechaTermino
+        fechaTermino,
+        cacheInvalido: true
       }
     }
     case fijarBusqueda: {
@@ -125,6 +131,12 @@ export default function(state = defaultState, action) {
         pagina: state.pagina + action.payload
       }
     }
+    case actualizarRespuestas: {
+      return {
+        ...state,
+        cacheInvalido: true
+      }
+    }
     default: return state
   }
 }
@@ -179,4 +191,8 @@ export const avanzaPagina = () => ({
 export const retrocedePagina = () => ({
   type: fijarPagina,
   payload: -1
+})
+
+export const actualizaRespuestas = () => ({
+  type: actualizarRespuestas
 })

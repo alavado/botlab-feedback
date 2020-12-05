@@ -122,6 +122,7 @@
 .CelularWhatsapp--expandido .MensajeWhatsapp__titulo {
   padding-bottom: .1rem;
   height: auto;
+  justify-content: flex-start;
 }
 
 .MensajeWhatsapp__titulo_hora {

@@ -58,6 +58,11 @@
   top: 0;
 }
 
+.BarraLateral__link:active {
+  color: white;
+  opacity: .9;
+}
+
 .BarraLateral__link:hover .BarraLateral__popup_link {
   opacity: 1;
   transform: translateX(0);

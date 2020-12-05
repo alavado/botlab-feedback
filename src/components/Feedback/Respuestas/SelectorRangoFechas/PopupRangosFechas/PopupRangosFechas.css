@@ -11,7 +11,7 @@
 .PopupRangosFechas {
   z-index: 102;
   top: 0;
-  left: calc(100% - 1.75rem);
+  left: calc(100% - 4rem);
   position: absolute;
   opacity: 0;
   transition: all .25s ease;

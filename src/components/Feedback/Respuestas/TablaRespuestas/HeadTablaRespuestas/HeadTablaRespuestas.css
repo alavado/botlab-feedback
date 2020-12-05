@@ -1,3 +1,7 @@
+.HeadTablaRespuestas {
+  border-bottom: 1px solid var(--color-bordes);
+}
+
 .HeadTablaRespuestas thead, .HeadTablaRespuestas th {
   position: sticky;
   top: 0;

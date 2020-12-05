@@ -17,12 +17,12 @@ const Feedback = () => {
 
   const { token } = useSelector(state => state.login)
   const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
-  const { fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
+  const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(state => state.respuestas)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino) {
+    if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino && cacheInvalido) {
       const fetchData = async () => {
         dispatch(limpiaRespuestas())
         const headers = await headersAPI()
@@ -37,7 +37,7 @@ const Feedback = () => {
         setErrorCargandoRespuestas('Ocurrió un error')
       }
     }
-  }, [token, idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino])
+  }, [token, idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino, cacheInvalido])
 
   if (!token) {
     return <Login />
