@@ -6,6 +6,7 @@ import iconoArchivo from '@iconify/icons-mdi/file-pdf-outline'
 import classNames from 'classnames'
 import { es } from 'date-fns/locale'
 import Linkify from 'react-linkify'
+import nl2br from 'react-newline-to-break'
 import './MensajeWhatsapp.css'
 
 const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
@@ -65,7 +66,7 @@ const Texto = ({ mensaje, hora, esDeHumano }) => (
           <InlineIcon className="MensajeWhatsapp__pdf" icon={iconoArchivo} />
           {mensaje.message.slice(0, mensaje.message.indexOf('ATTACHMENT'))}
         </a>
-      : <Linkify>{mensaje.message}</Linkify>
+      : <Linkify><span className="MensajeWhatsapp__texto_nl2br">{nl2br(mensaje.message)}</span></Linkify>
     }
     <Hora hora={hora} escondida={true} esDeHumano={esDeHumano} />
   </div>

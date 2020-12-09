@@ -18,6 +18,7 @@
   transition: all .25s ease;
   position: relative;
   filter: none;
+  font-size: .8rem;
 }
 
 .ExportadorRespuestas__boton:hover {

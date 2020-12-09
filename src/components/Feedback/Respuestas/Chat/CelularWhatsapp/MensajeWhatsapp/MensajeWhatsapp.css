@@ -137,3 +137,7 @@
 .MensajeWhatsapp__texto a:hover {
   text-decoration: underline;
 }
+
+.MensajeWhatsapp__texto_nl2br span:last-child br {
+  display: none;
+}

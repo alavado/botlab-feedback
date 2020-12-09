@@ -73,6 +73,7 @@
   filter: saturate(50%);
   opacity: .5;
   border: none;
+  font-size: .8rem;
 }
 
 .ExportacionAvanzada__boton--activo {
@@ -98,6 +99,7 @@
   transition: all .25s ease;
   position: relative;
   filter: none;
+  font-size: .8rem;
 }
 
 .ExportacionAvanzada__explicacion {

@@ -13,14 +13,20 @@
 }
 
 .CelularWhatsapp__celular {
-  background-color: #F5F5F5;
+  background-color: #fafafa;
   padding: 2rem .5rem 1.5rem .5rem;
   border-radius: 1.5rem;
   height: 80vh;
   width: 47vh;
+  min-width: 15rem;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, .15), 0 .1rem .25rem rgba(0, 0, 0, .1);
+  box-shadow:
+    0 0 0 .12rem #eee,
+    inset 0 0 .2rem rgba(0, 0, 0, .25),
+    inset 0 -.1rem .1rem white,
+    0 .1rem 1rem -.25rem rgba(0, 0, 0, .15),
+    0 .1rem .15rem rgba(0, 0, 0, .1);
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__celular {
@@ -33,12 +39,27 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  border: .05rem solid #b6b6b6;
   position: relative;
+}
+
+.CelularWhatsapp__pantalla::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  box-shadow:
+    inset 0 0 .2rem rgba(0, 0, 0, .12),
+    inset 0 0 0 .1rem rgba(0, 0, 0, .12);
+  z-index: 3;
+  pointer-events: none;
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__pantalla {
   border: none;
+}
+
+.CelularWhatsapp--expandido .CelularWhatsapp__pantalla::before {
+  display: none;
 }
 
 .CelularWhatsapp__contenedor_mensajes {
