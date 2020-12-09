@@ -8,12 +8,16 @@ export default function(state = {}, action) {
       return {
         ...state,
         token,
+        fechaToken: Date.now(),
         nombreUsuario
       }
     }
     case logout: {
-      window.location.reload()
-      return state
+      return {
+        ...state,
+        token: undefined,
+        fechaToken: undefined
+      }
     }
     default: return state
   }

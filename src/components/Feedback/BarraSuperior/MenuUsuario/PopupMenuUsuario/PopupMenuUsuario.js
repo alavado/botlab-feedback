@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import './PopupMenuUsuario.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { cierraLaSesion } from '../../../../../redux/ducks/login'
+import { limpiaEncuestas } from '../../../../../redux/ducks/encuestas'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
@@ -26,7 +27,11 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
         <div className="PopupMenuUsuario__opciones">
           <button
             className="PopupMenuUsuario__boton_opcion"
-            onClick={() => dispatch(cierraLaSesion())}
+            onClick={() => {
+              dispatch(cierraLaSesion())
+              dispatch(limpiaEncuestas())
+              window.location.reload()
+            }}
           >
             Cerrar sesión
           </button>

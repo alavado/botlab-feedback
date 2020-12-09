@@ -28,11 +28,12 @@
   max-width: 90%;
   line-height: 1.15;
   margin-bottom: .5rem;
-  border-radius: .5rem;
+  border-radius: .25rem;
   position: relative;
   box-shadow: 0 .1rem .05em rgba(0, 0, 0, .2);
   animation: aparece-mensaje-entrante-celular .5s ease both;
   word-wrap: break-word;
+  align-self: flex-start;
 }
 
 .MensajeWhatsapp__globo::after {
@@ -83,10 +84,10 @@
 
 .MensajeWhatsapp__hora_visible {
   font-size: .6rem;
-  opacity: .65;
+  opacity: .7;
   position: absolute;
   right: .35rem;
-  bottom: .3rem;
+  bottom: .2rem;
   display: flex;
   align-items: center;
 }

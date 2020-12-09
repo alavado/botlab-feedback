@@ -36,7 +36,6 @@ const Login = () => {
       dispatch(guardaToken(data))
       dispatch(guardaTiposEncuestas(data))
       if (match.isExact) {
-        console.log(match)
         history.push('/respuestas')
       }
     } catch (e) {

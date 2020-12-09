@@ -8,12 +8,8 @@ const RespuestasChat = ({ respuesta }) => {
 
   const { headers } = useSelector(state => state.encuestas)
 
-  if (!headers) {
-    return null
-  }
-
   const tiposPreguntas = ['YESNO', 'OPEN', 'RANGE']
-  const headersPreguntas = headers.filter(header => tiposPreguntas.includes(header.tipo))
+  const headersPreguntas = headers?.filter(header => tiposPreguntas.includes(header.tipo))
 
   return (
     <div className="RespuestasChat">

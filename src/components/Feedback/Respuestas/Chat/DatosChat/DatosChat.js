@@ -17,15 +17,11 @@ const DatosChat = ({ respuesta }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  if (!headers) {
-    return null
-  }
-
   const haySiguienteChat = respuestas && indiceRespuestaSeleccionada < respuestas.length - 1
   const hayChatAnterior = indiceRespuestaSeleccionada > 0
 
   const tiposPreguntas = ['YESNO', 'OPEN', 'RANGE']
-  const headersSinPreguntas = headers.filter(header => !tiposPreguntas.includes(header.tipo))
+  const headersSinPreguntas = headers?.filter(header => !tiposPreguntas.includes(header.tipo))
 
   const irARespuestaAnterior = () => {
     const respuestaAnterior = respuestas[indiceRespuestaSeleccionada - 1]

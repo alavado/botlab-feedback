@@ -1,13 +1,23 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import Feedback from '../Feedback'
 import Login from '../Login'
+import { differenceInDays } from 'date-fns'
+import { cierraLaSesion } from '../../redux/ducks/login'
 import './App.css'
 
 const App = () => {
 
-  const { token } = useSelector(state => state.login)
+  const { token, fechaToken } = useSelector(state => state.login)
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    if (fechaToken && differenceInDays(Date.now(), fechaToken) > 1) {
+      console.log('token viejo')
+      dispatch(cierraLaSesion())
+    }
+  }, [fechaToken, dispatch])
 
   return (
     <div className="App">

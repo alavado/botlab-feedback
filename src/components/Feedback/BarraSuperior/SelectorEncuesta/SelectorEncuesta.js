@@ -55,11 +55,13 @@ const SelectorEncuesta = () => {
     return <Loader color="#6057f6" />
   }
 
+  const encuestaSeleccionada = tipos.find(t => t.id === idEncuestaSeleccionada)
+
   return (
     <div
       className={classNames({
         SelectorEncuesta: true,
-        'SelectorEncuesta--oculto': path.indexOf('chat') >= 0,
+        'SelectorEncuesta--visible': path.indexOf('chat') < 0,
         'SelectorEncuesta--todas': path.indexOf('busqueda') >= 0
       })}
       onClick={() => setPopupActivo(true)}
@@ -74,7 +76,7 @@ const SelectorEncuesta = () => {
         : <>
             <Icon className="SelectorEncuesta__icono_empresa" icon={whatsapp} />
             <div className="SelectorEncuesta__nombre_encuesta">
-              {tipos.find(t => t.id === idEncuestaSeleccionada).nombre}
+              {encuestaSeleccionada.nombre}
             </div>
             <Icon className="SelectorEncuesta__icono_menu" icon={chevronDown} />
             <PopupEncuestas

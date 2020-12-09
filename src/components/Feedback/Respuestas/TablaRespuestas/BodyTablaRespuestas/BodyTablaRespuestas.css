@@ -13,7 +13,7 @@
 }
 
 .BodyTablaRespuestas__fila:nth-child(odd) {
-  /* background-color: var(--color-fila-destacada); */
+  background-color: #fcfcfc;
 }
 
 .BodyTablaRespuestas__fila:hover {
@@ -22,7 +22,7 @@
 
 .BodyTablaRespuestas__celda {
   padding: .15rem .75rem .15rem .25rem;
-  font-size: .8rem;
+  font-size: .75rem;
   vertical-align: middle;
   height: 2.5rem;
   line-height: 1.15;

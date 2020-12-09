@@ -1,6 +1,7 @@
 const fijarTiposEncuestas = 'encuestas/fijarTipos'
 const fijarHeadersEncuestaSeleccionada = 'encuestas/fijarHeaders'
 const fijarHeaders = 'encuestas/fijarTodosLosHeaders'
+const limpiarDatos = 'encuestas/limpiarDatos'
 
 export default function(state = {}, action) {
   switch (action.type) {
@@ -33,6 +34,9 @@ export default function(state = {}, action) {
         todosLosHeaders: json.data.data
       }
     }
+    case limpiarDatos: {
+      return {}
+    }
     default: return state
   }
 }
@@ -50,4 +54,8 @@ export const guardaHeadersEncuesta = (id, jsonHeaders) => ({
 export const guardaHeaders = json => ({
   type: fijarHeaders,
   payload: json
+})
+
+export const limpiaEncuestas = () => ({
+  type: limpiarDatos
 })

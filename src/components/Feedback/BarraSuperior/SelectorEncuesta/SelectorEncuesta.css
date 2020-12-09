@@ -3,7 +3,7 @@
   align-items: center;
   cursor: pointer;
   position: relative;
-  animation: aparece-selector-encuesta .25s ease both;
+  opacity: 0;
 }
 
 .SelectorEncuesta--todas {
@@ -11,8 +11,8 @@
   pointer-events: none;
 }
 
-.SelectorEncuesta--oculto {
-  opacity: 0 !important;
+.SelectorEncuesta--visible {
+  animation: aparece-selector-encuesta .25s ease both;
 }
 
 .SelectorEncuesta__icono_empresa {

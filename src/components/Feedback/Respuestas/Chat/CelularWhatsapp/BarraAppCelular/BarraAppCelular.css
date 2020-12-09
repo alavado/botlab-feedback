@@ -63,7 +63,7 @@
 }
 
 .BarraAppCelular__iconos:not(:last-child) {
-  padding-right: .75rem;
+  padding-right: .5rem;
 }
 
 .CelularWhatsapp--expandido .BarraAppCelular {
