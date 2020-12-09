@@ -64,3 +64,15 @@ a {
 	color: inherit;
 	text-decoration: inherit;
 }
+
+@media (min-width: 1500px) {
+	html {
+		font-size: 1.25rem;
+	}
+}
+
+@media (min-width: 2000px) {
+	html {
+		font-size: 2rem;
+	}
+}

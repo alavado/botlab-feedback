@@ -3,7 +3,6 @@
   flex: 1;
   animation: aparece-chat .15s ease both;
   transform: translateY(-.75rem);
-  max-width: 1280px;
 }
 
 @keyframes aparece-chat {

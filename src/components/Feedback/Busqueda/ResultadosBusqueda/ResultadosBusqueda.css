@@ -61,6 +61,7 @@
   box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
   transition: all .25s ease;
   filter: none;
+  font-size: .8rem;
 }
 
 .ResultadosBusqueda__boton_nueva_busqueda:hover {

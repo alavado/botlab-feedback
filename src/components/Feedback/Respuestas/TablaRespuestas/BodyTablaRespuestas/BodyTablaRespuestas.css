@@ -12,6 +12,10 @@
   transition: all .15s ease;
 }
 
+.BodyTablaRespuestas__fila:nth-child(odd) {
+  /* background-color: var(--color-fila-destacada); */
+}
+
 .BodyTablaRespuestas__fila:hover {
   background-color: var(--color-fila-destacada);
 }
