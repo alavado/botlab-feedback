@@ -19,7 +19,7 @@ const ExportadorRespuestas = ({ cargando }) => {
     <div className="ExportadorRespuestas">
       <button
         className="ExportadorRespuestas__boton"
-        title="Exportar a CSV"
+        title="Exportar tabla a CSV"
         onClick={descargarCSV}
         disabled={cargando}
       >

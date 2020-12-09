@@ -10,7 +10,7 @@ import { fijaChatExpandido } from '../../../../../redux/ducks/opciones'
 import Icon from '@iconify/react'
 import iconoEncoger from '@iconify/icons-mdi/arrow-collapse'
 
-export const CelularWhatsapp = ({ mensajes }) => {
+const CelularWhatsapp = ({ mensajes, actualizarMensajes }) => {
 
   const { chatExpandido } = useSelector(state => state.opciones)
   const contenedorMensajes = useRef()
@@ -46,7 +46,10 @@ export const CelularWhatsapp = ({ mensajes }) => {
             <Icon icon={iconoEncoger} />
           </button>
           <BarraEstadoCelular />
-          <BarraAppCelular />
+          <BarraAppCelular
+            mensajes={mensajes}
+            actualizarMensajes={actualizarMensajes}
+          />
           <div
             className="CelularWhatsapp__contenedor_mensajes"
             ref={contenedorMensajes}
@@ -86,3 +89,5 @@ export const CelularWhatsapp = ({ mensajes }) => {
     </div>
   )
 }
+
+export default CelularWhatsapp

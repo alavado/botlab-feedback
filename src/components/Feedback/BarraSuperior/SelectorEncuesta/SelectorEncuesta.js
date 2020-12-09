@@ -8,7 +8,7 @@ import { guardaHeadersEncuesta } from '../../../../redux/ducks/encuestas'
 import PopupEncuestas from './PopupEncuestas'
 import Loader from '../../../Loader'
 import './SelectorEncuesta.css'
-import { limpiaRespuestas } from '../../../../redux/ducks/respuestas'
+import { actualizaRespuestas, limpiaRespuestas } from '../../../../redux/ducks/respuestas'
 import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
 import { useParams, useRouteMatch } from 'react-router-dom'
 import classNames from 'classnames'
@@ -31,6 +31,7 @@ const SelectorEncuesta = () => {
       dispatch(guardaIdEncuesta(id))
       const data = await headersAPI(id)
       dispatch(guardaHeadersEncuesta(id, data))
+      dispatch(actualizaRespuestas())
     } catch (e) {
       console.error('un error', e)
     }

@@ -57,6 +57,10 @@
   border: none;
 }
 
+.Login__input:-webkit-autofill::first-line {
+  font-size: 1rem;
+}
+
 .Login__input:focus {
   outline: none;
   box-shadow: 0rem 0rem .25rem var(--color-principal);

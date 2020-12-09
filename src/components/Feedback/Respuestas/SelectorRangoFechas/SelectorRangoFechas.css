@@ -83,6 +83,7 @@
 .SelectorRangoFechas__boton:disabled {
   filter: saturate(20%) brightness(120%);
   animation: girar-boton-actualizando 1s ease-in-out infinite both;
+  box-shadow: 0 0 0 rgba(0, 0, 0, .1);
 }
 
 .SelectorRangoFechas__boton:disabled:hover::after {

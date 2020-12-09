@@ -31,6 +31,34 @@
   cursor: not-allowed;
 }
 
+.ExportadorRespuestas__boton:hover::after {
+  position: absolute;
+  content: attr(title);
+  background-color: var(--color-principal-2);
+  color: white;
+  top: -100%;
+  white-space: nowrap;
+  border-radius: .25rem;
+  padding: 0 .5rem;
+  height: 1.5rem;
+  font-size: .7rem;
+  display: flex;
+  align-items: center;
+  animation: aparece-tooltip-opcion .15s ease both;
+  z-index: 4;
+}
+
+.ExportadorRespuestas__boton:hover::before {
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border: .5rem solid transparent;
+  border-top: .5rem solid var(--color-principal-2);
+  top: -.5rem;
+  animation: aparece-tooltip-opcion .15s ease both;
+}
+
 .ExportadorRespuestas__icono {
   margin-right: .25rem;
   font-size: 1.1rem;

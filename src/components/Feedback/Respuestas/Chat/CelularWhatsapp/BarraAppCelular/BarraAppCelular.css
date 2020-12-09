@@ -51,12 +51,31 @@
 
 .BarraAppCelular__iconos {
   padding-right: 1rem;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  color: white;
+  outline: none;
+}
+
+.BarraAppCelular__iconos:not(:last-child) {
+  padding-right: .75rem;
 }
 
 .CelularWhatsapp--expandido .BarraAppCelular {
   min-height: 0;
   height: 0;
   overflow: hidden;
+}
+
+.BarraAppCelular__contenedor_iconos {
+  display: flex;
+}
+
+.BarraAppCelular__cargando {
+  opacity: .7;
 }
