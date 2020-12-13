@@ -4,18 +4,16 @@ Pendientes:
 - manejo de error cargando chat
 - animacion adelante atras
 - agregar indicacion de chats anteriores a vista expandida
-
-preguntas wax:
-
 - http://localhost:3000/chat/103/101281
-
-preguntas wax: 
-- certificado api dev expiró
-- chat demora mucho
-
-- cambiar presentacion de busqueda
-rut nombre telefono fecha_conv encuesta
 - persistir sesion
 - agregar dos botones para actualizar llamadas
 - saltos de linea
 - vista de alertas
+
+preguntas wax:
+- cuanto dura el token
+- que un usuario con cierto permiso pueda mandar una peticion
+- que el cliente sanasalud tiene asociada la cuenta sanasalud y sanasalud_botlab y a esa cuenta
+tenemos acceso nosotros y nosotros podemos ver la encuesta de sanasalud
+podriamos partir por ver este tema de lso permisos e impelementarlo en la cuenta
+sanasalud_botlab

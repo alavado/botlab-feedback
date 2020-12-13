@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import Feedback from '../Feedback'
 import Login from '../Login'
-import { differenceInDays } from 'date-fns'
+import { differenceInHours } from 'date-fns'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import './App.css'
 
@@ -13,8 +13,8 @@ const App = () => {
   const dispatch = useDispatch()
   
   useEffect(() => {
-    if (fechaToken && differenceInDays(Date.now(), fechaToken) > 1) {
-      console.log('token viejo')
+    if (fechaToken && differenceInHours(Date.now(), fechaToken) > 8) {
+      console.log('token expirado')
       dispatch(cierraLaSesion())
     }
   }, [fechaToken, dispatch])
