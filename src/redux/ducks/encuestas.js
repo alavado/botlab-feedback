@@ -3,7 +3,7 @@ const fijarHeadersEncuestaSeleccionada = 'encuestas/fijarHeaders'
 const fijarHeaders = 'encuestas/fijarTodosLosHeaders'
 const limpiarDatos = 'encuestas/limpiarDatos'
 
-export default function(state = {}, action) {
+const reducer = (state = {}, action) => {
   switch (action.type) {
     case fijarTiposEncuestas: {
       return {
@@ -40,6 +40,8 @@ export default function(state = {}, action) {
     default: return state
   }
 }
+
+export default reducer
 
 export const guardaTiposEncuestas = jsonLogin => ({
   type: fijarTiposEncuestas,

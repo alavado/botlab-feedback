@@ -1,7 +1,7 @@
 const guardarToken = 'login/guardarToken'
 const logout = 'login/logout'
 
-export default function(state = {}, action) {
+const reducer = (state = {}, action) => {
   switch (action.type) {
     case guardarToken: {
       const { token, client: nombreUsuario } = action.payload
@@ -22,6 +22,8 @@ export default function(state = {}, action) {
     default: return state
   }
 }
+
+export default reducer
 
 export const guardaToken = jsonLogin => ({
   type: guardarToken,

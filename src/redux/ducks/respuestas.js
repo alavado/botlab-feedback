@@ -14,17 +14,15 @@ const actualizarRespuestas = 'respuestas/actualizar'
 const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
 const defaultState = {
-  fechaInicio: window.location.href.indexOf('localhost') < 0 ? Date.now() : new Date(2020, 7, 1),
-  fechaTermino: window.location.href.indexOf('localhost') < 0 ? Date.now() : new Date(2020, 7, 14),
+  fechaInicio: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2020, 7, 1),
+  fechaTermino: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2020, 7, 7),
   busqueda: '',
   orden: 'ASC',
   pagina: 1,
   cacheInvalido: true
-  // fechaInicio: Date.now(),
-  // fechaTermino: Date.now()
 }
 
-export default function(state = defaultState, action) {
+const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case fijarRespuestas: {
       const jsonRespuestas = action.payload
@@ -140,6 +138,8 @@ export default function(state = defaultState, action) {
     default: return state
   }
 }
+
+export default reducer
 
 export const limpiaRespuestas = () => ({
   type: limpiarRespuestas

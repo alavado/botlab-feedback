@@ -7,7 +7,7 @@ const defaultState = {
   buscando: false
 }
 
-export default function(state = defaultState, action) {
+const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case fijarResultadosBusqueda: {
       const json = action.payload
@@ -30,6 +30,8 @@ export default function(state = defaultState, action) {
     default: return state
   }
 }
+
+export default reducer
 
 export const guardaResultadosBusqueda = json => ({
   type: fijarResultadosBusqueda,
