@@ -68,7 +68,7 @@ const sliceRespuestas = createSlice({
         : []
     },
     guardaEstaRespuesta(state, action) {
-      const { respuesta, indice } = action.payload
+      const [respuesta, indice] = action.payload
       state.respuestaSeleccionada = respuesta
       state.indiceRespuestaSeleccionada = indice
     },

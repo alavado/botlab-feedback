@@ -16,7 +16,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
   const history = useHistory()
 
   const verChat = (respuesta, indice) => () => {
-    dispatch(guardaEstaRespuesta(respuesta, indice))
+    dispatch(guardaEstaRespuesta([respuesta, indice]))
     history.push(`/chat/${idEncuesta}/${respuesta.user_id}`)
   }
 
