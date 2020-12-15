@@ -14,10 +14,10 @@ const PopupRangosFechas = ({ activo, esconder }) => {
       texto: 'Hoy',
       accion: () => {
         dispatch(
-          guardaRangoFechas(
+          guardaRangoFechas([
             startOfToday(),
             Date.now()
-          ))
+          ]))
         esconder()
       }
     },
@@ -25,10 +25,10 @@ const PopupRangosFechas = ({ activo, esconder }) => {
       texto: 'Última semana',
       accion: () => {
         dispatch(
-          guardaRangoFechas(
+          guardaRangoFechas([
             startOfDay(sub(Date.now(), { days: 7 })),
             Date.now()
-          ))
+          ]))
         esconder()
       }
     },
@@ -36,10 +36,10 @@ const PopupRangosFechas = ({ activo, esconder }) => {
       texto: 'Ultimo mes',
       accion: () => {
         dispatch(
-          guardaRangoFechas(
+          guardaRangoFechas([
             startOfDay(sub(Date.now(), { months: 1 })),
             Date.now()
-          ))
+          ]))
         esconder()
       }
     }

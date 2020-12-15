@@ -30,7 +30,7 @@ const SelectorEncuesta = () => {
       dispatch(limpiaRespuestas())
       dispatch(guardaIdEncuesta(id))
       const data = await headersAPI(id)
-      dispatch(guardaHeadersEncuesta(id, data))
+      dispatch(guardaHeadersEncuesta({id, data}))
       dispatch(actualizaRespuestas())
     } catch (e) {
       console.error('un error', e)

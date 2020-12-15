@@ -1,35 +1,25 @@
-const guardarToken = 'login/guardarToken'
-const logout = 'login/logout'
+import { createSlice } from "@reduxjs/toolkit"
 
-const reducer = (state = {}, action) => {
-  switch (action.type) {
-    case guardarToken: {
+const loginSlice = createSlice({
+  name: 'login',
+  initialState: {},
+  reducers: {
+    guardaToken(state, action) {
       const { token, client: nombreUsuario } = action.payload
-      return {
-        ...state,
-        token,
-        fechaToken: Date.now(),
-        nombreUsuario
-      }
+      state.token = token
+      state.fechaToken = Date.now()
+      state.nombreUsuario = nombreUsuario
+    },
+    cierraLaSesion(state) {
+      state.token = undefined
+      state.fechaToken = undefined
     }
-    case logout: {
-      return {
-        ...state,
-        token: undefined,
-        fechaToken: undefined
-      }
-    }
-    default: return state
   }
-}
-
-export default reducer
-
-export const guardaToken = jsonLogin => ({
-  type: guardarToken,
-  payload: jsonLogin
 })
 
-export const cierraLaSesion = () => ({
-  type: logout
-})
+export const {
+  guardaToken,
+  cierraLaSesion
+} = loginSlice.actions
+
+export default loginSlice.reducer

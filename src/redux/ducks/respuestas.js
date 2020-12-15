@@ -53,7 +53,7 @@ const sliceRespuestas = createSlice({
       state.cacheInvalido = true
     },
     guardaRangoFechas(state, action) {
-      const { fechaInicio, fechaTermino } = action.payload
+      const [fechaInicio, fechaTermino] = action.payload
       state.fechaInicio = fechaInicio
       state.fechaTermino = fechaTermino
       state.cacheInvalido = true
