@@ -1,36 +1,20 @@
-const guardarIdEncuestaSeleccionada = 'opciones/guardarEncuestaSeleccionada'
-const fijarChatExpandido = 'opciones/fijarChatExpandido'
+import { createSlice } from "@reduxjs/toolkit"
 
-const defaultState = {
-  chatExpandido: false
-}
-
-const reducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case guardarIdEncuestaSeleccionada: {
-      return {
-        ...state,
-        idEncuestaGuardada: action.payload
-      }
+const opcionesSlice = createSlice({
+  name: 'opciones',
+  initialState: {
+    chatExpandido: false
+  },
+  reducers: {
+    guardaIdEncuesta(state, action) {
+      state.idEncuestaGuardada = action.payload
+    },
+    fijaChatExpandido(state, action) {
+      state.chatExpandido = action.payload
     }
-    case fijarChatExpandido: {
-      return {
-        ...state,
-        chatExpandido: action.payload
-      }
-    }
-    default: return state
   }
-}
-
-export default reducer
-
-export const guardaIdEncuesta = id => ({
-  type: guardarIdEncuestaSeleccionada,
-  payload: id
 })
 
-export const fijaChatExpandido = estado => ({
-  type: fijarChatExpandido,
-  payload: estado
-})
+export const { guardaIdEncuesta, fijaChatExpandido } = opcionesSlice.actions
+
+export default opcionesSlice.reducer

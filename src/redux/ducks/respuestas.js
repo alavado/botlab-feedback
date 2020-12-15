@@ -1,30 +1,25 @@
+import { createSlice } from "@reduxjs/toolkit"
 import { diccionarioTags } from "../../helpers/tags"
-
-const fijarRespuestas = 'respuestas/fijarRespuestas'
-const fijarFechaInicio = 'respuestas/fijarFechaInicio'
-const fijarFechaTermino = 'respuestas/fijarFechaTermino'
-const fijarRangoFechas = 'respuestas/fijarRangoFechas'
-const fijarBusqueda = 'respuestas/fijarBusqueda'
-const fijarRespuesta = 'respuestas/fijarRespuesta'
-const limpiarRespuestas = 'respuestas/limpiarRespuestas'
-const ordenarRespuestas = 'respuestas/ordenarRespuestas'
-const fijarPagina = 'respuestas/fijarPagina'
-const actualizarRespuestas = 'respuestas/actualizar'
 
 const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
-const defaultState = {
-  fechaInicio: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2020, 7, 1),
-  fechaTermino: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2020, 7, 7),
-  busqueda: '',
-  orden: 'ASC',
-  pagina: 1,
-  cacheInvalido: true
-}
-
-const reducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case fijarRespuestas: {
+const sliceRespuestas = createSlice({
+  name: 'respuestas',
+  initialState: {
+    fechaInicio: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2020, 7, 1),
+    fechaTermino: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2020, 7, 7),
+    busqueda: '',
+    orden: 'ASC',
+    pagina: 1,
+    cacheInvalido: true
+  },
+  reducers: {
+    limpiaRespuestas(state) {
+      state.respuestas = undefined
+      state.respuestasVisibles = undefined
+      state.respuestaSeleccionada = undefined
+    },
+    guardaRespuestas(state, action) {
       const jsonRespuestas = action.payload
       const respuestas = jsonRespuestas.data.data.map(r => {
         const respuestaNormalizada = Object.keys(r)
@@ -43,156 +38,79 @@ const reducer = (state = defaultState, action) => {
           respuestaNormalizada
         }
       }).reverse()
-      return {
-        ...state,
-        respuestas,
-        respuestasVisibles: respuestas,
-        pagina: 1,
-        cacheInvalido: false
-      }
-    }
-    case fijarFechaInicio: {
-      return {
-        ...state,
-        fechaInicio: action.payload,
-        cacheInvalido: true
-      }
-    }
-    case fijarFechaTermino: {
-      return {
-        ...state,
-        fechaTermino: action.payload,
-        cacheInvalido: true
-      }
-    }
-    case fijarRangoFechas: {
+      state.respuestas = respuestas
+      state.respuestas = respuestas
+      state.respuestasVisibles = respuestas
+      state.pagina = 1
+      state.cacheInvalido = false
+    },
+    guardaFechaInicio(state, action) {
+      state.fechaInicio = action.payload
+      state.cacheInvalido = true
+    },
+    guardaFechaTermino(state, action) {
+      state.fechaTermino = action.payload
+      state.cacheInvalido = true
+    },
+    guardaRangoFechas(state, action) {
       const { fechaInicio, fechaTermino } = action.payload
-      return {
-        ...state,
-        fechaInicio,
-        fechaTermino,
-        cacheInvalido: true
-      }
-    }
-    case fijarBusqueda: {
+      state.fechaInicio = fechaInicio
+      state.fechaTermino = fechaTermino
+      state.cacheInvalido = true
+    },
+    buscaEsto(state, action) {
       const termino = normalizar(action.payload)
-      return {
-        ...state,
-        busqueda: action.payload,
-        respuestasVisibles: state.respuestas
-          ? state
-              .respuestas
-              .filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)
-          : []
-      }
-    }
-    case fijarRespuesta: {
+      state.busqueda = action.payload
+      state.respuestasVisibles = state.respuestas
+        ? state
+            .respuestas
+            .filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)
+        : []
+    },
+    guardaEstaRespuesta(state, action) {
       const { respuesta, indice } = action.payload
-      return {
-        ...state,
-        respuestaSeleccionada: respuesta,
-        indiceRespuestaSeleccionada: indice
-      }
-    }
-    case limpiarRespuestas: {
-      return {
-        ...state,
-        respuestas: undefined,
-        respuestasVisibles: undefined,
-        respuestaSeleccionada: undefined
-      }
-    }
-    case ordenarRespuestas: {
+      state.respuestaSeleccionada = respuesta
+      state.indiceRespuestaSeleccionada = indice
+    },
+    ordenaRespuestas(state, action) {
       const header = action.payload
       if (state.orden === 'ASC') {
-        return {
-          ...state,
-          orden: 'DESC',
-          ordenHeader: action.payload,
-          respuestas: state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1),
-          respuestasVisibles: state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
-        }
+        state.orden = 'DESC'
+        state.ordenHeader = action.payload
+        state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+        state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
       }
       else {
-        return {
-          ...state,
-          orden: 'ASC',
-          ordenHeader: action.payload,
-          respuestas: state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1),
-          respuestasVisibles: state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
-        }
+        state.orden = 'ASC'
+        state.ordenHeader = action.payload
+        state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
+        state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
       }
+    },
+    avanzaPagina(state) {
+      state.pagina++
+    },
+    retrocedePagina(state) {
+      state.pagina--
+    },
+    actualizaRespuestas(state) {
+      state.cacheInvalido = true
     }
-    case fijarPagina: {
-      return {
-        ...state,
-        pagina: state.pagina + action.payload
-      }
-    }
-    case actualizarRespuestas: {
-      return {
-        ...state,
-        cacheInvalido: true
-      }
-    }
-    default: return state
-  }
-}
-
-export default reducer
-
-export const limpiaRespuestas = () => ({
-  type: limpiarRespuestas
-})
-
-export const guardaRespuestas = jsonRespuestas => ({
-  type: fijarRespuestas,
-  payload: jsonRespuestas
-})
-
-export const guardaFechaInicio = fecha => ({
-  type: fijarFechaInicio,
-  payload: fecha
-})
-
-export const guardaFechaTermino = fecha => ({
-  type: fijarFechaTermino,
-  payload: fecha
-})
-
-export const guardaRangoFechas = (fechaInicio, fechaTermino) => ({
-  type: fijarRangoFechas,
-  payload: { fechaInicio, fechaTermino }
-})
-
-export const buscaEsto = termino => ({
-  type: fijarBusqueda,
-  payload: termino
-})
-
-export const guardaEstaRespuesta = (respuesta, indice) => ({
-  type: fijarRespuesta,
-  payload: {
-    respuesta,
-    indice
   }
 })
 
-export const ordenaRespuestas = nombreHeader => ({
-  type: ordenarRespuestas,
-  payload: nombreHeader
-})
+export const {
+  limpiaRespuestas,
+  guardaRespuestas,
+  guardaFechaInicio,
+  guardaFechaTermino,
+  guardaRangoFechas,
+  buscaEsto,
+  guardaEstaRespuesta,
+  ordenaRespuestas,
+  avanzaPagina,
+  retrocedePagina,
+  actualizaRespuestas
+} = sliceRespuestas.actions
 
-export const avanzaPagina = () => ({
-  type: fijarPagina,
-  payload: 1
-})
-
-export const retrocedePagina = () => ({
-  type: fijarPagina,
-  payload: -1
-})
-
-export const actualizaRespuestas = () => ({
-  type: actualizarRespuestas
-})
+export default sliceRespuestas.reducer

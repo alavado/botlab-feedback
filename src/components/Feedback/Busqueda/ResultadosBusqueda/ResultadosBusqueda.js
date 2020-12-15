@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { comienzaBusqueda, guardaResultadosBusqueda } from '../../../../redux/ducks/busqueda'
 import TarjetaResultadoBusqueda from './TarjetaResultadoBusqueda'
@@ -12,7 +12,6 @@ import { busqueda as busquedaAPI } from '../../../../api/endpoints'
 const ResultadosBusqueda = () => {
 
   const { resultadosBusqueda } = useSelector(state => state.busqueda)
-  const [buscando, setBuscando] = useState(true)
   const { termino } = useParams()
   const dispatch = useDispatch()
   const history = useHistory()
@@ -22,11 +21,10 @@ const ResultadosBusqueda = () => {
     busquedaAPI(termino)
       .then(res => {
         dispatch(guardaResultadosBusqueda(res.data))
-        setBuscando(false)
       })
-  }, [dispatch, setBuscando, termino])
+  }, [dispatch, termino])
 
-  if (buscando) {
+  if (!resultadosBusqueda) {
     return <LoaderResultadosBusqueda />
   }
 

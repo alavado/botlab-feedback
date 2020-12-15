@@ -1,47 +1,23 @@
-const fijarResultadosBusqueda = 'busqueda/fijarResultadosBusqueda'
-const limpiarResultadosBusqueda = 'busqueda/limpiarResultadosBusqueda'
-const comenzarBusqueda = 'busqueda/comenzarBusqueda'
+import { createSlice } from "@reduxjs/toolkit"
 
-const defaultState = {
-  resultadosBusqueda: undefined,
-  buscando: false
-}
-
-const reducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case fijarResultadosBusqueda: {
-      const json = action.payload
-      const resultados = json.data
-      return {
-        ...state,
-        resultadosBusqueda: resultados,
-        buscando: false
-      }
+const busquedaSlice = createSlice({
+  name: 'busqueda',
+  initialState: {
+    resultadosBusqueda: undefined
+  },
+  reducers: {
+    guardaResultadosBusqueda(state, action) {
+      state.resultadosBusqueda = action.payload.data
+    },
+    comienzaBusqueda(state) {
+      state.resultadosBusqueda = undefined
+    },
+    limpiaBusqueda(state) {
+      state.resultadosBusqueda = undefined
     }
-    case comenzarBusqueda: {
-      return {
-        ...state,
-        buscando: true
-      }
-    }
-    case limpiarResultadosBusqueda: {
-      return defaultState
-    }
-    default: return state
   }
-}
-
-export default reducer
-
-export const guardaResultadosBusqueda = json => ({
-  type: fijarResultadosBusqueda,
-  payload: json
 })
 
-export const comienzaBusqueda = () => ({
-  type: comenzarBusqueda
-})
+export const { guardaResultadosBusqueda, comienzaBusqueda, limpiaBusqueda } = busquedaSlice.actions
 
-export const limpiaBusqueda = () => ({
-  type: limpiarResultadosBusqueda
-})
+export default busquedaSlice.reducer
