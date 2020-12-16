@@ -1,0 +1,115 @@
+.Uso {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.Uso__titulo {
+  font-weight: bold;
+  font-size: 1.75rem;
+  font-family: 'Raleway';
+}
+
+.Uso__explicacion {
+  padding: 1.5rem 0;
+  font-size: .85rem;
+  animation: Uso__aparece .25s ease both;
+}
+
+.Uso__selector_periodo {
+  padding: .5rem;
+  font-size: .8rem;
+}
+
+.Uso__actualizacion {
+  font-size: .8rem;
+  opacity: .8;
+}
+
+.Uso__encabezado {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fafafa;
+  height: 3.25rem;
+  padding: 0 .5rem;
+  border: 1px solid var(--color-bordes);
+  align-items: center;
+  animation: Uso__aparece .35s .1s ease both;
+}
+
+.Uso__contenedor_tabla {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 16rem);
+  overflow-y: auto;
+}
+
+.Uso__contenedor_tabla::-webkit-scrollbar {
+  width: .6em;
+  height: .6em;
+  background-color: white;
+}
+
+.Uso__contenedor_tabla::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
+}
+
+.Uso__tabla_uso {
+  animation: Uso__aparece .35s .1s ease both;
+}
+
+.Uso__tabla_uso thead {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.Uso__tabla_uso thead th {
+  background-color: #fafafa;
+  text-transform: uppercase;
+  font-size: .7rem;
+}
+
+.Uso__tabla_uso tr {
+  border: 1px solid var(--color-bordes);
+  height: 3rem;
+}
+
+.Uso__tabla_uso thead tr {
+  border-top: none;
+  height: 2.25rem;
+}
+
+.Uso__tabla_uso th,
+.Uso__tabla_uso td {
+  padding: 0 .5rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.Uso__tabla_uso td {
+  font-size: .85rem;
+}
+
+.Uso__tabla_uso tbody tr:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.Uso__fila_todas {
+  font-weight: 600;
+}
+
+.Uso__fila_tipo_encuesta {
+
+}
+
+@keyframes Uso__aparece {
+  0% {
+    transform: translateY(-.1rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

@@ -12,7 +12,7 @@ import Busqueda from './Busqueda'
 import Login from '../Login'
 import { guardaHeaders } from '../../redux/ducks/encuestas'
 import ExportacionAvanzada from '../ExportacionAvanzada'
-import Uso from '../Uso'
+import Uso from './Uso'
 
 const Feedback = () => {
 
