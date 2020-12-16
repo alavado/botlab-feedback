@@ -10,6 +10,7 @@ const BarraSuperior = () => {
       <Switch>
         <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
         <Route path="/busqueda" component={SelectorEncuesta} />
+        <Route path="/uso" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
       <MenuUsuario />

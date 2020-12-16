@@ -66,7 +66,7 @@ const SelectorEncuesta = () => {
       })}
       onClick={() => setPopupActivo(true)}
     >
-      {path.indexOf('busqueda') >= 0
+      {path.indexOf('busqueda') >= 0 || path.indexOf('uso') >= 0
         ? <>
             <Icon className="SelectorEncuesta__icono_empresa" icon={whatsapp} />
             <div className="SelectorEncuesta__nombre_encuesta">

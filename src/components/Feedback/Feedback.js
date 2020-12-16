@@ -12,6 +12,7 @@ import Busqueda from './Busqueda'
 import Login from '../Login'
 import { guardaHeaders } from '../../redux/ducks/encuestas'
 import ExportacionAvanzada from '../ExportacionAvanzada'
+import Uso from '../Uso'
 
 const Feedback = () => {
 
@@ -65,6 +66,9 @@ const Feedback = () => {
             </Route>
             <Route path="/exportar">
               <ExportacionAvanzada />
+            </Route>
+            <Route path="/uso">
+              <Uso />
             </Route>
           </Switch>
         </div>
