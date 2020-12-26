@@ -2,7 +2,7 @@ import axios from 'axios'
 import { API_ROOT } from './config'
 import { format } from 'date-fns'
 import store from '../redux/store'
-import { TIPO_EXPORTACION_CHATS, TIPO_EXPORTACION_RESUMEN } from '../helpers/exportar'
+import { TIPO_EXPORTACION_RESUMEN } from '../helpers/exportar'
 
 export const login = (username, password) => {
   const auth = { username, password }
@@ -46,13 +46,7 @@ export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, tipo) 
   const fi = format(fechaInicio, 'yyyy-MM-dd')
   const ft = format(fechaTermino, 'yyyy-MM-dd')
   const token = store.getState().login.token
-  let url
-  if (tipo === TIPO_EXPORTACION_CHATS) {
-    url = `${API_ROOT}/chat_report/${idEncuesta}?fecha_inicio=${fi}%2000%3A00&fecha_termino=${ft}%2023%3A59`
-  }
-  else {
-    url = `${API_ROOT}/report/${idEncuesta}?fecha_inicio=${fi}%2000%3A00&fecha_termino=${ft}%2023%3A59&type=${tipo === TIPO_EXPORTACION_RESUMEN ? 'tag' : 'text'}`
-  }
+  let url = `${API_ROOT}/report/${idEncuesta}?fecha_inicio=${fi}%2000%3A00&fecha_termino=${ft}%2023%3A59&type=${tipo === TIPO_EXPORTACION_RESUMEN ? 'tag' : 'text'}`
   return axios.get(url, { headers: { 'Api-Token': token, 'Api-UTC-Offset': -180 }, responseType: 'blob' })
     .then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]))

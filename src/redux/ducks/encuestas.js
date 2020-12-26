@@ -13,11 +13,12 @@ const encuestasSlice = createSlice({
     guardaHeadersEncuesta(state, action) {
       const { id, data } = action.payload
       state.idEncuestaSeleccionada = id
-      state.headers = data.data.data.map(({ name, display_name, type }) => ({
-        nombre: name,
-        texto: display_name,
-        tipo: type
-      }))
+      state.headers = data.data.data
+        .map(({ name, display_name, type }) => ({
+          nombre: name,
+          texto: display_name,
+          tipo: type
+        }))
     },
     guardaHeaders(state, action) {
       state.todosLosHeaders = action.payload.data.data

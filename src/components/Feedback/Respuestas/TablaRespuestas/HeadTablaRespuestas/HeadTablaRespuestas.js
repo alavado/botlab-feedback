@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import './HeadTablaRespuestas.css'
@@ -12,14 +12,14 @@ const HeadTablaRespuestas = () => {
   const { orden, ordenHeader } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
 
-  if (!headers) {
-    return null
-  }
+  const headersOrdenados = useMemo(() => {
+    return [...headers.filter(h => h.tipo === 'YESNO'), ...headers.filter(h => h.tipo !== 'YESNO')]
+  }, [headers])
 
   return (
     <thead className="HeadTablaRespuestas">
       <tr className="HeadTablaRespuestas__fila">
-        {headers.map(({ nombre, texto }) => (
+        {headersOrdenados.map(({ nombre, texto }) => (
           <th
             key={`header-${nombre}`}
             className={classNames({

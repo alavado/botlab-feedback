@@ -17,8 +17,17 @@
 }
 
 .Uso__selector_periodo {
-  padding: .5rem;
+  padding: 0 .75rem;
   font-size: .8rem;
+  border-radius: 1rem;
+  height: 2rem;
+  cursor: pointer;
+  border: 1px solid var(--color-gris);
+  outline: none;
+}
+
+.Uso__selector_periodo:focus {
+  border: 1px solid var(--color-principal);
 }
 
 .Uso__actualizacion {
@@ -97,10 +106,6 @@
 
 .Uso__fila_todas {
   font-weight: 600;
-}
-
-.Uso__fila_tipo_encuesta {
-
 }
 
 @keyframes Uso__aparece {

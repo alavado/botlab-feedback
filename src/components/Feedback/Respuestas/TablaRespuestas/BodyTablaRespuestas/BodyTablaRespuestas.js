@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
-import { columnaEstaColapsada } from '../../../../../helpers/tablaRespuestas'
 import TagRespuesta from '../TagRespuesta'
 import classNames from 'classnames'
 import './BodyTablaRespuestas.css'
@@ -11,7 +10,6 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
   const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas, pagina } = useSelector(state => state.respuestas)
-  const { columnasColapsadas } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -21,6 +19,10 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
   }
 
   const respuestasPagina = respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina)
+
+  const headersOrdenados = useMemo(() => {
+    return [...headers.filter(h => h.tipo === 'YESNO'), ...headers.filter(h => h.tipo !== 'YESNO')]
+  }, [headers])
 
   return (
     <tbody className="BodyTablaRespuestas">
@@ -32,16 +34,13 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
           })}
           onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
         >
-          {headers.map(({ nombre }, j) => (
+          {headersOrdenados.map(({ nombre }, j) => (
             <td
               key={`celda-respuesta-${i}-${j}`}
-              className={classNames({
-                'BodyTablaRespuestas__celda': true,
-                'BodyTablaRespuestas__celda--oculta': columnaEstaColapsada(idEncuesta, nombre, columnasColapsadas)
-              })}
+              className="BodyTablaRespuestas__celda"
             >
               {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                ? <div style={{ display: 'flex', justifyContent: 'center' }}><TagRespuesta tag={respuesta[nombre].tag} /></div>
+                ? <div style={{ display: 'flex', justifyContent: 'flex-start' }}><TagRespuesta tag={respuesta[nombre].tag} /></div>
                 : respuesta[nombre]
               }
             </td>
