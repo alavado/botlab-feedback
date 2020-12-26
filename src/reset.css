@@ -57,7 +57,11 @@ table {
 	--color-secundario: #d84763;
 	--color-bordes: #CFD8DC;
 	--color-gris: #5e7782;
-  --color-fila-destacada: #f6f5fe;
+	--color-fila-destacada: #f6f5fe;
+	--color-si: #cbf4c9;
+	--color-no: #f4c8c8;
+	--color-out: #f4eac8;
+	--color-reagenda: #d2c8f4;
 }
 
 a {

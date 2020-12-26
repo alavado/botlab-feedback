@@ -1,0 +1,22 @@
+.ResumenRespuestas {
+  background:
+    linear-gradient(to right,
+      var(--color-si) 0% 30%,
+      var(--color-no) 30% 70%,
+      var(--color-reagenda) 70% 75%,
+      var(--color-out) 75% 78%,
+      white 78%)
+  ;
+  color: var(--color-texto);
+  height: 2rem;
+  border-radius: .25rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1rem;
+  font-weight: 600;
+  font-size: .8rem;
+  box-shadow:
+    0 0 .15rem rgba(0, 0, 0, .15),
+    0 0 .05rem rgba(0, 0, 0, .45);
+}

@@ -8,6 +8,7 @@ import BodyTablaRespuestas from './BodyTablaRespuestas'
 import { useSelector } from 'react-redux'
 import './TablaRespuestas.css'
 import ExportadorRespuestas from './ExportadorRespuestas'
+import ResumenRespuestas from '../ResumenRespuestas'
 
 const respuestasPorPagina = 20
 
@@ -30,7 +31,8 @@ const TablaRespuestas = () => {
       </div>
       {cargando
         ? <LoaderRespuestas />
-        : <>
+        : <div className="TablaRespuestas__contenedor">
+            <ResumenRespuestas />
             <div className="TablaRespuestas__contenedor_tabla">
               <table className="TablaRespuestas__tabla">
                 <HeadTablaRespuestas />
@@ -41,7 +43,7 @@ const TablaRespuestas = () => {
               respuestasPorPagina={respuestasPorPagina}
               totalRespuestas={respuestas ? respuestas.length : 0}
             />
-          </>
+          </div>
       }
     </div>
   )

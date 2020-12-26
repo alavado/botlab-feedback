@@ -10,19 +10,19 @@
 }
 
 .TagRespuesta--no {
-  background-color: #f4c8c8;
+  background-color: var(--color-no);
 }
 
 .TagRespuesta--si {
-  background-color: #cbf4c9;
+  background-color: var(--color-si);
 }
 
 .TagRespuesta--out {
-  background-color: #f4eac8;
+  background-color: var(--color-out);
 }
 
 .TagRespuesta--reagenda {
-  background-color: #d2c8f4;
+  background-color: var(--color-reagenda);
 }
 
 .TagRespuesta__icono {
