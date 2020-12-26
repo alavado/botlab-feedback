@@ -13,6 +13,7 @@ import Login from '../Login'
 import { guardaHeaders } from '../../redux/ducks/encuestas'
 import ExportacionAvanzada from '../ExportacionAvanzada'
 import Uso from './Uso'
+import ErrorBoundary from '../../helpers/ErrorBoundary'
 
 const Feedback = () => {
 
@@ -45,37 +46,39 @@ const Feedback = () => {
   }
 
   return (
-    <div className="Feedback">
-      {errorCargandoRespuestas}
-      <BarraLateral />
-      <div className="Feedback__contenedor">
-        <BarraSuperior />
-        <div className="Feedback__contenedor_central">
-          <Switch>
-            <Route path="/respuestas">
-              <Respuestas />
-            </Route>
-            <Route path="/chat">
-              <Respuestas />
-            </Route>
-            <Route exact path="/busqueda">
-              <Busqueda />
-            </Route>
-            <Route path="/busqueda/:termino">
-              <Busqueda />
-            </Route>
-            <Route path="/exportar">
-              <ExportacionAvanzada />
-            </Route>
-            {process.env.NODE_ENV === 'development' && 
-              <Route path="/uso">
-                <Uso />
+    <ErrorBoundary>
+      <div className="Feedback">
+        {errorCargandoRespuestas}
+        <BarraLateral />
+        <div className="Feedback__contenedor">
+          <BarraSuperior />
+          <div className="Feedback__contenedor_central">
+            <Switch>
+              <Route path="/respuestas">
+                <Respuestas />
               </Route>
-            }
-          </Switch>
+              <Route path="/chat">
+                <Respuestas />
+              </Route>
+              <Route exact path="/busqueda">
+                <Busqueda />
+              </Route>
+              <Route path="/busqueda/:termino">
+                <Busqueda />
+              </Route>
+              <Route path="/exportar">
+                <ExportacionAvanzada />
+              </Route>
+              {process.env.NODE_ENV === 'development' && 
+                <Route path="/uso">
+                  <Uso />
+                </Route>
+              }
+            </Switch>
+          </div>
         </div>
       </div>
-    </div>
+    </ErrorBoundary>
   )
 }
 
