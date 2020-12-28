@@ -68,9 +68,15 @@ const sliceRespuestas = createSlice({
         : []
     },
     guardaEstaRespuesta(state, action) {
-      const [respuesta, indice] = action.payload
-      state.respuestaSeleccionada = respuesta
-      state.indiceRespuestaSeleccionada = indice
+      if (Array.isArray(action.payload)) {
+        const [respuesta, indice] = action.payload
+        state.respuestaSeleccionada = respuesta
+        state.indiceRespuestaSeleccionada = indice
+      }
+      else {
+        state.respuestaSeleccionada = action.payload
+        state.indiceRespuestaSeleccionada = undefined
+      }
     },
     ordenaRespuestas(state, action) {
       const header = action.payload

@@ -32,7 +32,7 @@ const TablaRespuestas = () => {
       {cargando
         ? <LoaderRespuestas />
         : <div className="TablaRespuestas__contenedor">
-            <ResumenRespuestas />
+            {/* <ResumenRespuestas /> */}
             <div className="TablaRespuestas__contenedor_tabla">
               <table className="TablaRespuestas__tabla">
                 <HeadTablaRespuestas />
