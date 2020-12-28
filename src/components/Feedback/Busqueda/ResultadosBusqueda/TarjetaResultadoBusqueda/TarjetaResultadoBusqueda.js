@@ -12,7 +12,7 @@ const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const { tipos, todosLosHeaders } = useSelector(state => state.encuestas)
-  const headersEncuesta = todosLosHeaders?.find(h => h.poll_id === resultado.poll_id).headers
+  const headersEncuesta = todosLosHeaders?.find(h => h.poll_id === resultado.poll_id)?.headers
 
   const verChat = resultado => {
     dispatch(guardaEstaRespuesta(resultado))

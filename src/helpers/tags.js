@@ -1,6 +1,6 @@
 import check from '@iconify/icons-mdi/check'
 import cancel from '@iconify/icons-mdi/close'
-import refresh from '@iconify/icons-mdi/refresh'
+import refresh from '@iconify/icons-mdi/arrow-right'
 import question from '@iconify/icons-mdi/question-mark'
 
 export const diccionarioTags = {

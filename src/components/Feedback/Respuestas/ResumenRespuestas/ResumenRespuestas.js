@@ -1,4 +1,3 @@
-import { head } from 'lodash'
 import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import './ResumenRespuestas.css'
@@ -8,7 +7,7 @@ const ResumenRespuestas = () => {
   const { headers } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
 
-  const [total, si, no, out, reagenda, nr] = useMemo(() => {
+  const [total, si, no, out, reagenda] = useMemo(() => {
     const primerHeaderYESNO = headers.find(h => h.tipo === 'YESNO')
     const tags = ['YES', 'NO', 'OUT', 'REAGENDA']
     return [respuestas.length, ...respuestas.reduce((prev, respuesta) => {

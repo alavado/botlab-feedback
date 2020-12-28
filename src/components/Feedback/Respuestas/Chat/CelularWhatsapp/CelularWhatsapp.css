@@ -16,7 +16,7 @@
   background-color: #fafafa;
   padding: 2rem .5rem 1.5rem .5rem;
   border-radius: 1.5rem;
-  height: 80vh;
+  height: 83vh;
   width: 47vh;
   min-width: 15rem;
   display: flex;
@@ -69,7 +69,7 @@
   flex: 1;
   padding: .35rem .75rem;
   overflow-y: auto;
-  max-height: calc(80vh - 7rem);
+  max-height: calc(83vh - 7rem);
   background-image: url('../../../../../assets/images/whatsapp-background.jpg');
   background-size: cover;
 }

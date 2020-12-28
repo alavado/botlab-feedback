@@ -57,6 +57,11 @@ const SelectorEncuesta = () => {
 
   const encuestaSeleccionada = tipos.find(t => t.id === idEncuestaSeleccionada)
 
+  if (!encuestaSeleccionada) {
+    verEncuesta(tipos[0].id)
+    return <Loader color="#6057f6" />
+  }
+
   return (
     <div
       className={classNames({

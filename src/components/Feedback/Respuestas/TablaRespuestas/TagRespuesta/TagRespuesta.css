@@ -7,6 +7,9 @@
   margin-right: .5rem;
   overflow: hidden;
   align-self: flex-start;
+  display: flex;
+  align-items: center;
+  min-width: 9ch;
 }
 
 .TagRespuesta--no {
