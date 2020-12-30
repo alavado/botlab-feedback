@@ -26,33 +26,33 @@ const ResumenRespuestas = () => {
 
   return (
     <div className="ResumenRespuestas">
+      Tasa de respuesta: <span className="ResumenRespuestas__porcentaje">{porcentaje}%</span>
       <div className="ResumenRespuestas__barras">
         <div
           className="ResumenRespuestas__barra ResumenRespuestas__barra--si"
-          style={{ width: `${100 * si / total}%` }}
+          // style={{ width: `${100 * si / total}%` }}
         >
           {si}
         </div>
         <div
           className="ResumenRespuestas__barra ResumenRespuestas__barra--no"
-          style={{ width: `${100 * no / total}%` }}
+          // style={{ width: `${100 * no / total}%` }}
         >
           {no}
         </div>
         <div
           className="ResumenRespuestas__barra ResumenRespuestas__barra--reagenda"
-          style={{ width: `${100 * reagenda / total}%` }}
+          // style={{ width: `${100 * reagenda / total}%` }}
         >
           {reagenda}
         </div>
         <div
           className="ResumenRespuestas__barra ResumenRespuestas__barra--out"
-          style={{ width: `${100 * out / total}%` }}
+          // style={{ width: `${100 * out / total}%` }}
         >
           {out}
         </div>
       </div>
-      Tasa de respuesta: <span className="ResumenRespuestas__porcentaje">{porcentaje}%</span>
     </div>
   )
 }

@@ -14,6 +14,5 @@ total respondidas
 sacar costo
 sacar mensaje por ahora: t
 tener en mente agregar reagendamiento a chat
--
-poner respuestas adelante de tabla
-exportar quitar chats
+
+- poner boton de cerrar sesion en 403

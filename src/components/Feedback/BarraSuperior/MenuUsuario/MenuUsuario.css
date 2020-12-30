@@ -6,8 +6,16 @@
   color: var(--color-gris);
   transition: all .25s ease;
   outline: none;
+  display: flex;
+  align-items: center;
 }
 
 .MenuUsuario__boton_mostrar_popup:hover {
   color: #334147;
+}
+
+.MenuUsuario__nombre_usuario {
+  font-size: .85rem;
+  font-weight: 600;
+  margin-right: .5rem;
 }
