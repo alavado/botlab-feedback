@@ -30,20 +30,16 @@ const ResumenRespuestas = () => {
 
   return (
     <div className="ResumenRespuestas">
-      <div className="ResumenRespuestas__tasa">
-        <div>Cargadas {total.toLocaleString('de-DE')}</div>
+      {/* <div className="ResumenRespuestas__tasa">
+        <div>Enviadas {total.toLocaleString('de-DE')}</div>
         <div className="ResumenRespuestas__porcentaje">100%</div>
-      </div>
-      <div className="ResumenRespuestas__tasa">
-        <div>Iniciadas {total.toLocaleString('de-DE')}</div>
-        <div className="ResumenRespuestas__porcentaje">100%</div>
-      </div>
+      </div> */}
       <div
         className="ResumenRespuestas__detalle"
         style={{ '--porcentaje-lleno': `${porcentaje}%` }}
       >
         <div className="ResumenRespuestas__detalle_tasa">
-          <div>Respondidas {conRespuesta.toLocaleString('de-DE')}</div>
+          <div>Respondidas {conRespuesta.toLocaleString('de-DE')} / {total.toLocaleString('de-DE')}</div>
           <div className="ResumenRespuestas__porcentaje">{porcentaje.toLocaleString('de-DE', { maximumFractionDigits: 1 })}%</div>
         </div>
         <table className="ResumenRespuestas__detalle_tabla">
@@ -51,7 +47,7 @@ const ResumenRespuestas = () => {
             {Object.keys(diccionarioTags).slice(0, 4).map(tag => (
               <tr>
                 <td><div className="ResumenRespuestas__tag"><TagRespuesta tag={tag} /></div></td>
-                <td>{conteosTags[tag] || 0}</td>
+                <td>{conteosTags[tag]?.toLocaleString('de-DE') || 0}</td>
                 <td>{((100 * conteosTags[tag] / total) || 0).toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%</td>
               </tr>
             ))}

@@ -35,6 +35,13 @@
   letter-spacing: 1px;
 }
 
+.BuscadorRespuestas__input::placeholder {
+  opacity: .75;
+  font-weight: 500;
+  letter-spacing: normal;
+  font-size: .9rem;
+}
+
 .BuscadorRespuestas__input:focus,
 .BuscadorRespuestas__input--activo {
   box-shadow: 0rem 0rem .35rem var(--color-secundario);
