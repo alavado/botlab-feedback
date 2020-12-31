@@ -53,7 +53,7 @@
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - 14rem);
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .Uso__contenedor_tabla::-webkit-scrollbar {
@@ -68,6 +68,7 @@
 }
 
 .Uso__tabla_uso {
+  border: 1px solid var(--color-bordes);
   animation: Uso__aparece .35s .1s ease both;
 }
 
@@ -84,12 +85,17 @@
 
 .Uso__tabla_uso tr {
   border: 1px solid var(--color-bordes);
-  height: 3rem;
+  height: 2.75rem;
 }
 
 .Uso__tabla_uso thead tr {
-  border-top: none;
+  border-top-color: transparent;
   height: 2.25rem;
+}
+
+.Uso__tabla_uso th:first-child,
+.Uso__tabla_uso td:first-child {
+  width: 70%;
 }
 
 .Uso__tabla_uso th,
@@ -97,6 +103,7 @@
   padding: 0 .75rem;
   text-align: right;
   vertical-align: middle;
+  width: 15%;
 }
 
 .Uso__tabla_uso th:first-child,
@@ -121,6 +128,10 @@
   text-transform: capitalize;
 }
 
+.Uso__fila_tipo_encuesta {
+  animation: Uso__aparece_fila_tabla_uso .25s ease both;
+}
+
 @keyframes Uso__aparece {
   0% {
     transform: translateY(-.1rem);
@@ -128,6 +139,15 @@
   }
   100% {
     transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes Uso__aparece_fila_tabla_uso {
+  0% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
   }
 }

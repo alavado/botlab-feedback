@@ -2,19 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { uso } from '../../../api/endpoints'
 import { subMonths, format, startOfMonth, endOfMonth } from 'date-fns'
 import { es } from 'date-fns/locale'
+import Skeleton from 'react-loading-skeleton'
 import './Uso.css'
 
 const mesesSelector = 12
 
 const Uso = () => {
 
-  const ultimos6Meses = Array(mesesSelector).fill(0).map((_, i) => subMonths(new Date(), i))
+  const meses = Array(mesesSelector).fill(0).map((_, i) => subMonths(new Date(), i))
   const [mes, setMes] = useState(0)
   const [filas, setFilas] = useState()
 
   useEffect(() => {
     const inicioMes = format(startOfMonth(subMonths(new Date(), mes)), 'yyyy-MM-dd')
     const terminoMes = format(endOfMonth(subMonths(new Date(), mes)), 'yyyy-MM-dd')
+    setFilas(undefined)
     uso(inicioMes, terminoMes)
       .then(data => {
         const datosPorEncuesta = data.data.data.map(d => ({
@@ -32,12 +34,6 @@ const Uso = () => {
       })
   }, [mes])
 
-  if (!filas) {
-    return null
-  }
-
-  console.log(filas)
-
   return (
     <div className="Uso">
       <div className="Uso__superior">
@@ -48,7 +44,7 @@ const Uso = () => {
       </div>
       <div className="Uso__encabezado">
         <select onChange={e => setMes(e.target.value)} className="Uso__selector_periodo">
-          {ultimos6Meses.map((mes, i) => (
+          {meses.map((mes, i) => (
             <option
               key={`option-mes-${i}`}
               value={i}
@@ -72,16 +68,23 @@ const Uso = () => {
             </tr>
           </thead>
           <tbody>
-            {filas.map(f => (
+            {filas?.map((f, i) => (
               <tr
                 className="Uso__fila_tipo_encuesta"
                 key={`uso-tipo-${f.idEncuesta}`}
               >
-                <td>{f.nombreEncuesta}</td>
+                <td>{i > 0 && '➞'} {f.nombreEncuesta}</td>
                 <td>{f.enviadas.toLocaleString('de-DE')}</td>
                 <td>{f.respondidas.toLocaleString('de-DE')}</td>
               </tr>
-            ))}
+              ))
+              || 
+              <tr className="Uso__fila_tipo_encuesta">
+                <td><Skeleton /></td>
+                <td><Skeleton /></td>
+                <td><Skeleton /></td>
+              </tr>
+            }
           </tbody>
         </table>
 
