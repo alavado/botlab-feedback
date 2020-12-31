@@ -1,53 +1,76 @@
 .ResumenRespuestas {
   display: flex;
-  align-items: center;
+  gap: 1rem;
   font-size: .8rem;
   color: var(--color-texto);
 }
 
-.ResumenRespuestas__barras {
-  flex: 1;
-  height: 1.5rem;
-  margin-left: 1rem;
-  display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
-}
-
-.ResumenRespuestas__barra {
+.ResumenRespuestas__tasa {
+  padding: .25rem 1rem;
+  border-radius: .15rem;
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, .15);
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(25deg, #AFAAFA 40%, #A19AF7 55%);
+  color: white;
+  width: 15rem;
+}
+
+.ResumenRespuestas__tasa,
+.ResumenRespuestas__detalle_tasa {
+  font-size: 1.15rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, .75);
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: all .1s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  text-shadow: .1rem .1rem .1rem rgba(0, 0, 0, .15);
 }
 
-.ResumenRespuestas__barra--si {
-  background-color: var(--color-si);
+.ResumenRespuestas__detalle {
+  padding: .25rem 1rem .25rem 3rem;
+  border-radius: .15rem;
+  box-shadow: 0 0 .15rem rgba(0, 0, 0, .15);
+  display: flex;
+  align-items: center;
   flex: 1;
+  gap: 10rem;
+  --porcentaje-lleno: 50%;
+  background:
+    linear-gradient(to right, rgba(96, 87, 246, .15) 0% var(--porcentaje-lleno), transparent var(--porcentaje-lleno)),
+    linear-gradient(25deg, #AFAAFA 40%, #A19AF7 55%)
+  ;
+  color: white;
+  transition: all .25s ease;
 }
 
-.ResumenRespuestas__barra--no {
-  background-color: var(--color-no);
-  flex: 1;
+.ResumenRespuestas__detalle_tasa {
+  display: flex;
+  align-items: center;
 }
 
-.ResumenRespuestas__barra--out {
-  background-color: var(--color-out);
+.ResumenRespuestas__detalle_tabla {
   flex: 1;
+  font-size: 1rem;
 }
 
-.ResumenRespuestas__barra--reagenda {
-  background-color: var(--color-reagenda);
-  flex: 1;
+.ResumenRespuestas__tag {
+  display: flex;
+  justify-content: flex-end;
+  margin: .1rem;
+}
+
+.ResumenRespuestas__detalle_tabla td:not(:first-child) {
+  text-align: right;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, .25);
+}
+
+.ResumenRespuestas__detalle_tabla td {
+  padding: 0 .5rem;
 }
 
 .ResumenRespuestas__porcentaje {
-  font-weight: 600;
-  margin-left: .25rem;
-  font-size: 1rem;
+  font-size: 2rem;
 }
