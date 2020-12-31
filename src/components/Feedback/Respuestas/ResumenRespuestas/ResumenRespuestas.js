@@ -45,7 +45,7 @@ const ResumenRespuestas = () => {
         <table className="ResumenRespuestas__detalle_tabla">
           <tbody>
             {Object.keys(diccionarioTags).slice(0, 4).map(tag => (
-              <tr>
+              <tr key={`fila-respuestas-${tag}`}>
                 <td><div className="ResumenRespuestas__tag"><TagRespuesta tag={tag} /></div></td>
                 <td>{conteosTags[tag]?.toLocaleString('de-DE') || 0}</td>
                 <td>{((100 * conteosTags[tag] / total) || 0).toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%</td>

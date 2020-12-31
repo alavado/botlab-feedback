@@ -37,16 +37,14 @@ const BarraLateral = () => {
         <div className="BarraLateral__popup_link">Búsqueda</div>
         <Icon icon={search} />
       </NavLink>
-      {process.env.NODE_ENV === 'development' && 
-        <NavLink
-          className="BarraLateral__link"
-          activeClassName="BarraLateral__link--activo"
-          to="/uso"
-        >
-          <div className="BarraLateral__popup_link">Uso</div>
-          <Icon icon={usage} />
-        </NavLink>
-      }
+      <NavLink
+        className="BarraLateral__link"
+        activeClassName="BarraLateral__link--activo"
+        to="/uso"
+      >
+        <div className="BarraLateral__popup_link">Uso</div>
+        <Icon icon={usage} />
+      </NavLink>
     </div>
   )
 }
