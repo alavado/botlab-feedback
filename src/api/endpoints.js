@@ -1,7 +1,7 @@
 import axios from 'axios'
+import store from '../redux/store'
 import { API_ROOT } from './config'
 import { format } from 'date-fns'
-import store from '../redux/store'
 import { TIPO_EXPORTACION_RESUMEN } from '../helpers/exportar'
 
 export const login = (username, password) => {
@@ -39,6 +39,12 @@ export const chat = (idEncuesta, idUsuario) => {
 export const busqueda = termino => {
   const token = store.getState().login.token
   const url = `${API_ROOT}/answers_es?query=${termino}`
+  return axios.get(url, { headers: { 'Api-Token': token } })
+}
+
+export const uso = (fechaInicio, fechaTermino) => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/usage?fecha_inicio=${fechaInicio}&fecha_termino=${fechaTermino}`
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 

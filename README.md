@@ -11,8 +11,6 @@ Escribir readme
 - invertir orden tabla (respuestas primero)
 total enviadas
 total respondidas
-sacar costo
-sacar mensaje por ahora: t
 tener en mente agregar reagendamiento a chat
 
 - poner boton de cerrar sesion en 403
