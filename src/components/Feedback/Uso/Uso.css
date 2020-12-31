@@ -94,9 +94,15 @@
 
 .Uso__tabla_uso th,
 .Uso__tabla_uso td {
+  padding: 0 .75rem;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.Uso__tabla_uso th:first-child,
+.Uso__tabla_uso td:first-child {
   padding: 0 .5rem;
   text-align: left;
-  vertical-align: middle;
 }
 
 .Uso__tabla_uso td {
@@ -107,7 +113,7 @@
   background-color: var(--color-fila-destacada);
 }
 
-.Uso__fila_todas {
+.Uso__tabla_uso tbody tr:first-child {
   font-weight: 600;
 }
 

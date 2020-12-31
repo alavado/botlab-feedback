@@ -17,13 +17,18 @@ const Uso = () => {
     const terminoMes = format(endOfMonth(subMonths(new Date(), mes)), 'yyyy-MM-dd')
     uso(inicioMes, terminoMes)
       .then(data => {
-        console.log(data.data.data)
-        setFilas(data.data.data.map(d => ({
+        const datosPorEncuesta = data.data.data.map(d => ({
           idEncuesta: d.poll_id,
           nombreEncuesta: d.poll_name,
           enviadas: d.polls_sent,
           respondidas: d.effective_interactions
-        })))
+        })).sort((d1, d2) => d1.enviadas > d2.enviadas ? -1 : 1) 
+        const total = datosPorEncuesta.reduce((obj, e) => ({
+          ...obj,
+          enviadas: obj.enviadas + e.enviadas,
+          respondidas: obj.respondidas + e.respondidas
+        }), { nombreEncuesta: 'Todas las encuestas', enviadas: 0, respondidas: 0 })
+        setFilas([total, ...datosPorEncuesta])
       })
   }, [mes])
 
@@ -67,19 +72,14 @@ const Uso = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="Uso__fila_todas">
-              <td>Todas las encuestas</td>
-              <td>1.000</td>
-              <td>20.500</td>
-            </tr>
             {filas.map(f => (
               <tr
                 className="Uso__fila_tipo_encuesta"
                 key={`uso-tipo-${f.idEncuesta}`}
               >
-                <td>➟ {f.nombreEncuesta}</td>
-                <td>{f.enviadas}</td>
-                <td>{f.respondidas}</td>
+                <td>{f.nombreEncuesta}</td>
+                <td>{f.enviadas.toLocaleString('de-DE')}</td>
+                <td>{f.respondidas.toLocaleString('de-DE')}</td>
               </tr>
             ))}
           </tbody>
