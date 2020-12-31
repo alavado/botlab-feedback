@@ -1,1 +1,3 @@
-export const API_ROOT = window.location.href.indexOf('localhost') < 0 ? 'https://api.botlab.cl' : 'https://api.botlab.cl'
+export const API_ROOT = process.env.NODE_ENV === 'development'
+  ? 'https://api.botlab.cl'
+  : 'https://api.botlab.cl'

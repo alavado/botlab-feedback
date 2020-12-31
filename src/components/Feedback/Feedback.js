@@ -69,11 +69,9 @@ const Feedback = () => {
               <Route path="/exportar">
                 <ExportacionAvanzada />
               </Route>
-              {process.env.NODE_ENV === 'development' && 
-                <Route path="/uso">
-                  <Uso />
-                </Route>
-              }
+              <Route path="/uso">
+                <Uso />
+              </Route>
             </Switch>
           </div>
         </div>
