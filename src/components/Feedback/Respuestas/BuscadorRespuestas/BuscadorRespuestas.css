@@ -35,6 +35,11 @@
   letter-spacing: 1px;
 }
 
+.BuscadorRespuestas__input:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
 .BuscadorRespuestas__input::placeholder {
   opacity: .75;
   font-weight: 500;

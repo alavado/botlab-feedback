@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { buscaEsto } from '../../../../redux/ducks/respuestas'
 import classNames from 'classnames'
 
-const BuscadorRespuestas = () => {
+const BuscadorRespuestas = ({ cargando }) => {
 
   const { busqueda } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ const BuscadorRespuestas = () => {
       <div
         className="BuscadorRespuestas__contenedor_icono"
         onClick={() => dispatch(buscaEsto(''))}
-        style={{ pointerEvents: busqueda ? 'all' : 'none' }}
+        style={{ pointerEvents: busqueda ? 'all' : 'none', opacity: cargando ? .5 : .75 }}
         title="Limpiar búsqueda"
       >
         <Icon
@@ -34,6 +34,7 @@ const BuscadorRespuestas = () => {
         value={busqueda}
         onChange={e => dispatch(buscaEsto(e.target.value))}
         spellCheck="false"
+        disabled={cargando}
         placeholder="Filtrar tabla"
       />
     </div>

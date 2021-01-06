@@ -18,6 +18,7 @@ const sliceRespuestas = createSlice({
       state.respuestas = undefined
       state.respuestasVisibles = undefined
       state.respuestaSeleccionada = undefined
+      state.busqueda = ''
     },
     guardaRespuestas(state, action) {
       const jsonRespuestas = action.payload
