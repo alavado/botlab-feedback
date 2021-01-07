@@ -1,17 +1,18 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Icon } from '@iconify/react'
-import cloudQuestion from '@iconify/icons-mdi/frequently-asked-questions'
+// import cloudQuestion from '@iconify/icons-mdi/frequently-asked-questions'
 import search from '@iconify/icons-mdi/search'
 import exportar from '@iconify/icons-mdi/file-export-outline'
 import usage from '@iconify/icons-mdi/wallet'
+import home from '@iconify/icons-mdi/home'
 import './BarraLateral.css'
 
 const BarraLateral = () => {
   return (
     <div className="BarraLateral">
       <div className="BarraLateral__logo">
-        
+        {/* <Icon icon={home} /> */}
       </div>
       <NavLink
         className="BarraLateral__link"
@@ -19,7 +20,7 @@ const BarraLateral = () => {
         to="/respuestas"
       >
         <div className="BarraLateral__popup_link">Respuestas</div>
-        <Icon icon={cloudQuestion} />
+        <Icon icon={home} />
       </NavLink>
       <NavLink
         className="BarraLateral__link"

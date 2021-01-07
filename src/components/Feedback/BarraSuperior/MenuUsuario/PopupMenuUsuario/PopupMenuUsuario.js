@@ -25,6 +25,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           {nombreUsuario}
         </div>
         <div className="PopupMenuUsuario__opciones">
+          {/* <button className="PopupMenuUsuario__boton_opcion">Modo oscuro</button> */}
           <button
             className="PopupMenuUsuario__boton_opcion"
             onClick={() => {

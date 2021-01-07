@@ -26,6 +26,7 @@
   align-items: center;
   gap: .5rem;
   text-shadow: .1rem .1rem .1rem rgba(0, 0, 0, .15);
+  position: relative;
 }
 
 .ResumenRespuestas__detalle {
@@ -73,4 +74,16 @@
 
 .ResumenRespuestas__porcentaje {
   font-size: 2rem;
+  overflow: visible;
+}
+
+.ResumenRespuestas__sankey {
+  position: absolute;
+  top: -1rem;
+  left: 2rem;
+  stroke: rgba(255, 255, 255, .25);
+  stroke-width: 1;
+  z-index: 10;
+  background-color: rgba(255, 0, 0, .5);
+  height: calc(100% + 2rem);
 }
