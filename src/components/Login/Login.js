@@ -40,6 +40,7 @@ const Login = () => {
       }
     } catch (e) {
       setCargando(false)
+      // servicio no disponible, por favor vuelva a intentarlo en unos minutos
       setError('Usuario o contraseña incorrectos')
     }
   }

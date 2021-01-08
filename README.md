@@ -8,9 +8,13 @@ Escribir readme
 - agregar indicacion de chats anteriores a vista expandida
 - http://localhost:3000/chat/103/101281
 
-- invertir orden tabla (respuestas primero)
-total enviadas
-total respondidas
-tener en mente agregar reagendamiento a chat
-
-- poner boton de cerrar sesion en 403
+- barras
+- probar tags para vacíos
+- mostrar menos cosas en selector
+- cambiar error
+- agregar filtro tabla
+- agregar error 500 en login
+- agregar logo cero arriba
+- modo oscuro
+- link feedback classic
+- sankey

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { diccionarioTags } from '../../../../helpers/tags'
 import TagRespuesta from '../TablaRespuestas/TagRespuesta'
@@ -24,21 +24,6 @@ const ResumenRespuestas = () => {
     }, {})
   }, [headers, respuestas])
 
-  const [l, setL] = useState(0)
-  const [w, setW] = useState(0)
-
-  useEffect(() => {
-    const f = () => {
-      setL(() => {
-        return document.getElementsByClassName('ResumenRespuestas__porcentaje')[0]?.getBoundingClientRect().left - document.getElementsByClassName('ResumenRespuestas__porcentaje')[0]?.clientWidth
-      })
-      setW(() => {
-        console.log(document.getElementsByClassName('ResumenRespuestas__detalle_tabla')[0]?.getBoundingClientRect().width)
-        return document.getElementsByClassName('ResumenRespuestas')[0]?.getBoundingClientRect().width - document.getElementsByClassName('ResumenRespuestas__detalle_tabla')[0]?.getBoundingClientRect().width
-      })
-    }
-    window.addEventListener('resize', f)
-  }, [])
   const total = respuestas.length
   const conRespuesta = Object.keys(conteosTags).reduce((prev, k) => prev + conteosTags[k], 0)
   const porcentaje = ((100 * conRespuesta / total) || 0)
@@ -54,16 +39,6 @@ const ResumenRespuestas = () => {
         style={{ '--porcentaje-lleno': `${porcentaje}%` }}
       >
         <div className="ResumenRespuestas__detalle_tasa">
-          <svg
-            className="ResumenRespuestas__sankey"
-            viewBox="0 0 100 100"
-            style={{
-              left: l,
-              width: w
-            }}
-          >
-            <path d="M0,0 L100,100" />
-          </svg>
           <div>Respondidas {conRespuesta.toLocaleString('de-DE')} / {total.toLocaleString('de-DE')}</div>
           <div className="ResumenRespuestas__porcentaje">
             {porcentaje.toLocaleString('de-DE', { maximumFractionDigits: 1 })}%
