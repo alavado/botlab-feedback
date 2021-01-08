@@ -1,7 +1,7 @@
 .FooterTablaRespuestas {
   display: flex;
   justify-content: flex-end;
-  height: 1rem;
+  height: 2rem;
   align-items: center;
 }
 

@@ -2,6 +2,7 @@ import check from '@iconify/icons-mdi/check'
 import cancel from '@iconify/icons-mdi/close'
 import refresh from '@iconify/icons-mdi/arrow-right'
 import question from '@iconify/icons-mdi/question-mark'
+import time from '@iconify/icons-mdi/timer-sand'
 
 export const diccionarioTags = {
   'YES': {
@@ -28,16 +29,10 @@ export const diccionarioTags = {
     icono: question,
     clase: 'TagRespuesta TagRespuesta--out'
   },
-  'DEFAULT': {
-    texto: 'Responde',
-    titulo: 'Responde',
-    icono: check,
-    clase: 'TagRespuesta TagRespuesta--si'
-  },
-  '': {
-    texto: '',
+  'S/R': {
+    texto: 'Sin respuesta',
     titulo: 'Sin respuesta',
-    icono: null,
-    clase: 'TagRespuesta'
-  },
+    icono: time,
+    clase: 'TagRespuesta TagRespuesta--vacia'
+  }
 }

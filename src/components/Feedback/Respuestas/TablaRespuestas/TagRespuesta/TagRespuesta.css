@@ -28,6 +28,21 @@
   background-color: var(--color-reagenda);
 }
 
+.TagRespuesta--vacia {
+  background-color: var(--color-vacia);
+  border: 1px dashed rgba(0, 0, 0, .25);
+  justify-content: center;
+}
+
 .TagRespuesta__icono {
   margin-right: .25rem;
+}
+
+.TagRespuesta--vacia .TagRespuesta__icono {
+  margin: 0;
+  opacity: .75;
+}
+
+.TagRespuesta--vacia > span {
+  display: none;
 }

@@ -6,13 +6,13 @@ import './TagRespuesta.css'
 const TagRespuesta = ({ tag }) => {
 
   if (!tag) {
-    return null
+    tag = Object.keys(diccionarioTags).slice(-1)[0]
   }
 
   return (
     <div className={diccionarioTags[tag].clase}>
       <InlineIcon className="TagRespuesta__icono" icon={diccionarioTags[tag].icono} />
-      {diccionarioTags[tag].texto}
+      {diccionarioTags[tag].texto && <span>{diccionarioTags[tag].texto}</span>}
     </div>
   )
 }

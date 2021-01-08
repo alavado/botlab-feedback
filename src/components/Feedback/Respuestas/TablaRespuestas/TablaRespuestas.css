@@ -7,7 +7,7 @@
 .TablaRespuestas__contenedor {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: .5rem;
 }
 
 .TablaRespuestas__superior {
@@ -34,7 +34,7 @@
   flex-direction: column;
   animation: aparece-tabla-respuestas .25s ease both;
   flex: 1;
-  max-height: calc(100vh - calc(2.75rem + 3rem + 3.5rem + 2.25rem + 7rem));
+  max-height: calc(100vh - calc(2.75rem + 3rem + 3.5rem + 2.5rem + 7rem));
   max-width: calc(100vw - 7rem);
   overflow: auto;
   scrollbar-width: .5em;
@@ -54,7 +54,6 @@
 
 .TablaRespuestas__tabla {
   max-width: 100%;
-  padding-top: 1.25rem;
 }
 
 @keyframes aparece-tabla-respuestas {
