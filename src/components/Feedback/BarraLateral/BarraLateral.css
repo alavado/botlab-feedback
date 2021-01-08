@@ -13,9 +13,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, .4);
-  color: rgba(255, 255, 255, 1);
-  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, .2);
+  cursor: pointer;
+}
+
+.BarraLateral__link_logo {
+  padding: 0;
+  margin: 0;
+}
+
+.BarraLateral__logo_imagen {
+  width: 1.7rem;
+  filter: drop-shadow(-.05rem .1rem .01rem rgba(0, 0, 0, .1));
 }
 
 .BarraLateral__link {

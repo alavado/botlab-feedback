@@ -54,6 +54,9 @@ const Feedback = () => {
           <BarraSuperior />
           <div className="Feedback__contenedor_central">
             <Switch>
+              <Route exact path="/">
+                <Respuestas />
+              </Route>
               <Route path="/respuestas">
                 <Respuestas />
               </Route>

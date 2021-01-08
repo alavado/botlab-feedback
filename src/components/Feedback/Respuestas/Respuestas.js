@@ -9,6 +9,9 @@ const Respuestas = () => {
   return (
     <div className="Respuestas">
       <Switch>
+        <Route exact path="/">
+          <TablaRespuestas />
+        </Route>
         <Route exact path="/respuestas">
           <TablaRespuestas />
         </Route>

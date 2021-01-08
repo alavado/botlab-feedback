@@ -1,19 +1,24 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Icon } from '@iconify/react'
-// import cloudQuestion from '@iconify/icons-mdi/frequently-asked-questions'
 import search from '@iconify/icons-mdi/search'
 import exportar from '@iconify/icons-mdi/file-export-outline'
 import usage from '@iconify/icons-mdi/wallet'
 import home from '@iconify/icons-mdi/home'
+import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 
 const BarraLateral = () => {
   return (
     <div className="BarraLateral">
-      <div className="BarraLateral__logo">
-        {/* <Icon icon={home} /> */}
-      </div>
+      <Link
+        to="/respuestas"
+        className="BarraLateral__link_logo"
+      >
+        <div className="BarraLateral__logo">
+          <img className="BarraLateral__logo_imagen" src={logo} alt="Logo Cero.ai" />
+        </div>
+      </Link>
       <NavLink
         className="BarraLateral__link"
         activeClassName="BarraLateral__link--activo"
