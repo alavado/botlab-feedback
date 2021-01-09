@@ -18,7 +18,7 @@ const BuscadorRespuestas = ({ cargando }) => {
         className="BuscadorRespuestas__contenedor_icono"
         onClick={() => dispatch(buscaEsto(''))}
         style={{ pointerEvents: busqueda ? 'all' : 'none', opacity: cargando ? .5 : .75 }}
-        title="Limpiar búsqueda"
+        title="Limpiar filtro"
       >
         <Icon
           icon={busqueda ? iconoBorrarBusqueda : iconoBuscar}

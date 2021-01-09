@@ -40,7 +40,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
               className="BodyTablaRespuestas__celda"
             >
               {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                ? <div style={{ display: 'flex', justifyContent: 'flex-start' }}><TagRespuesta tag={respuesta[nombre].tag} /></div>
+                ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
                 : respuesta[nombre]
               }
             </td>

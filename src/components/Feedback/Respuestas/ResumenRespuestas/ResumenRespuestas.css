@@ -37,10 +37,10 @@
   align-items: center;
   flex: 1;
   gap: 10rem;
-  --porcentaje-lleno: 50%;
+  --porcentaje-lleno: 0%;
   background:
-    /* linear-gradient(to right, rgba(96, 87, 246, .15) 0% var(--porcentaje-lleno), transparent var(--porcentaje-lleno)), */
-    linear-gradient(25deg, #AFAAFA 40%, #A19AF7 55%)
+    linear-gradient(to right, rgba(86, 79, 224, 0.15) 0% 100%),
+    linear-gradient(25deg, #AFAAFAFF 40%, #A19AF7EE 55%)
   ;
   color: white;
   transition: all .25s ease;
@@ -72,15 +72,14 @@
 }
 
 .ResumenRespuestas__porcentaje {
-  font-size: 2rem;
+  font-size: 2.15rem;
   overflow: visible;
 }
 
-.ResumenRespuestas__fila_mini_tabla {
+.ResumenRespuestas__celda_barra {
   background-image:
     linear-gradient(to right,
-      transparent 50%,
-      rgba(96, 87, 246, .15) 0% calc(50% + var(--porcentaje-lleno) / 2),
+      rgba(96, 87, 246, .15) 0% var(--porcentaje-lleno),
       transparent 0
     )
   ;

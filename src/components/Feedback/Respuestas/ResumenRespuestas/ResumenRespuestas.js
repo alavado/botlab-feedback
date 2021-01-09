@@ -10,17 +10,17 @@ const ResumenRespuestas = () => {
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
 
   const conteosTags = useMemo(() => {
-    const tags = Object.keys(diccionarioTags)
+    const tags = Object.keys(diccionarioTags).slice(0, 4)
     const primerHeaderYESNO = headers.find(h => h.tipo === 'YESNO')
     return respuestas.reduce((prev, respuesta) => {
-      const indice = tags.find(t => t === respuesta[primerHeaderYESNO.nombre].tag) || 'S/R'
-      prev[indice] = prev[indice] ? prev[indice] + 1 : 1
+      const indice = tags.find(t => t === respuesta[primerHeaderYESNO.nombre].tag)
+      indice && (prev[indice] = prev[indice] ? prev[indice] + 1 : 1)
       return prev
     }, {})
   }, [headers, respuestas])
 
   const total = respuestas.length
-  const conRespuesta = Object.keys(conteosTags).filter(v => v !== 'S/R').reduce((prev, k) => prev + conteosTags[k], 0)
+  const conRespuesta = Object.keys(conteosTags).reduce((prev, k) => prev + conteosTags[k], 0)
   const porcentaje = ((100 * conRespuesta / total) || 0)
 
   return (
@@ -41,17 +41,22 @@ const ResumenRespuestas = () => {
         </div>
         <table className="ResumenRespuestas__detalle_tabla">
           <tbody>
-            {Object.keys(diccionarioTags).map(tag => {
+            {Object.keys(diccionarioTags).slice(0, 4).map(tag => {
               const porcentaje = ((100 * conteosTags[tag] / total) || 0)
               return (
-                <tr
-                  key={`fila-respuestas-${tag}`}
-                  className="ResumenRespuestas__fila_mini_tabla"
-                  style={{ '--porcentaje-lleno': `${porcentaje}%` }}
-                >
+                <tr key={`fila-respuestas-${tag}`}>
                   <td><div className="ResumenRespuestas__tag"><TagRespuesta tag={tag} /></div></td>
-                  <td>{conteosTags[tag]?.toLocaleString('de-DE') || 0}</td>
-                  <td>{((100 * conteosTags[tag] / total) || 0).toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%</td>
+                  <td
+                    className="ResumenRespuestas__celda_barra"
+                    style={{ '--porcentaje-lleno': `${Math.min(100, 2 * porcentaje)}%` }}
+                  >
+                    {conteosTags[tag]?.toLocaleString('de-DE') || 0}</td>
+                  <td
+                    className="ResumenRespuestas__celda_barra"
+                    style={{ '--porcentaje-lleno': `${Math.max(0, 2 * porcentaje - 100)}%` }}
+                  >
+                    {((100 * conteosTags[tag] / total) || 0).toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%
+                  </td>
                 </tr>
               )
             })}

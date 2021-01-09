@@ -6,7 +6,7 @@ import './TagRespuesta.css'
 const TagRespuesta = ({ tag }) => {
 
   if (!tag) {
-    tag = Object.keys(diccionarioTags).slice(-1)[0]
+    return null
   }
 
   return (

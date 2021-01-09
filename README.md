@@ -8,11 +8,15 @@ Escribir readme
 - agregar indicacion de chats anteriores a vista expandida
 - http://localhost:3000/chat/103/101281
 
-- ajustar bien barras
+- barras
 - mostrar menos cosas en selector
 - cambiar error
-- agregar filtro tabla
+- persistir filtros
+- agregar filtros tabla
 - agregar error 500 en login
 - modo oscuro
 - link feedback classic
 - sankey
+
+- agregar logo cero arriba: OK
+- probar tags para vacíos: OK
