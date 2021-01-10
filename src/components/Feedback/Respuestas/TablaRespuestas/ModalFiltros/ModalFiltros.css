@@ -1,0 +1,22 @@
+.ModalFiltros__lamina {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transition: all .25s ease;
+}
+
+.ModalFiltros__lamina--oculta {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ModalFiltros {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid black;
+}

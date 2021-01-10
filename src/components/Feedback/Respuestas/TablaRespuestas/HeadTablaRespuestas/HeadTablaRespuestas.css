@@ -19,7 +19,7 @@
   font-size: .7rem;
   text-align: left;
   white-space: nowrap;
-  padding: .75rem .75rem .75rem .25rem;
+  padding: .75rem .25rem;
   cursor: pointer;
   transition: all .25s ease-in-out;
   text-overflow: ellipsis;
@@ -39,8 +39,21 @@
   display: flex;
   align-items: center;
   height: .5rem;
+  justify-content: space-between;
 }
 
 .HeaderTablaRespuestas__icono_orden--girado {
   transform: rotateZ(180deg) !important;
+}
+
+.HeaderTablaRespuestas__boton_filtros {
+  margin-left: .5rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .25s ease;
+  position: relative;
+}
+
+.HeadTablaRespuestas__header:hover .HeaderTablaRespuestas__boton_filtros {
+  opacity: 1;
 }
