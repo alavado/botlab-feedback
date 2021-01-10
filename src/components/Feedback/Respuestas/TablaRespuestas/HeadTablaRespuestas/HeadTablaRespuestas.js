@@ -26,16 +26,16 @@ const HeadTablaRespuestas = () => {
               'HeadTablaRespuestas__header': true,
             })}
             title={texto}
-            onClick={() => dispatch(ordenaRespuestas(nombre))}
+            // onClick={() => dispatch(ordenaRespuestas(nombre))}
           >
             <div className="HeadTablaRespuestas__texto_header">
               {texto}
-              {ordenHeader === nombre && orden === 'ASC' &&
+              {/* {ordenHeader === nombre && orden === 'ASC' &&
                 <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />
               }
               {ordenHeader === nombre && orden === 'DESC' &&
                 <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden HeaderTablaRespuestas__icono_orden--girado" />
-              }
+              } */}
             </div>
           </th>
         ))}

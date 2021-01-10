@@ -49,6 +49,7 @@
 .ResumenRespuestas__detalle_tasa {
   display: flex;
   align-items: center;
+  min-width: 15rem;
 }
 
 .ResumenRespuestas__detalle_tabla {
@@ -77,6 +78,7 @@
 }
 
 .ResumenRespuestas__celda_barra {
+  min-width: 3.5rem;
   background-image:
     linear-gradient(to right,
       rgba(96, 87, 246, .15) 0% var(--porcentaje-lleno),

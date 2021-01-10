@@ -20,6 +20,7 @@
   cursor: pointer;
   box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .1);
   transition: all .25s ease;
+  font-size: .75rem;
 }
 
 .FooterTablaRespuestas__boton_pagina:disabled {

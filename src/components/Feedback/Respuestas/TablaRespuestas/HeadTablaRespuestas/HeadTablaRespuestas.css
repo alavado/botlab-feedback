@@ -38,6 +38,7 @@
 .HeadTablaRespuestas__texto_header {
   display: flex;
   align-items: center;
+  height: .5rem;
 }
 
 .HeaderTablaRespuestas__icono_orden--girado {
