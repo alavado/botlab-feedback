@@ -11,6 +11,7 @@ const sliceRespuestas = createSlice({
     busqueda: '',
     orden: 'ASC',
     pagina: 1,
+    filtros: [],
     cacheInvalido: true
   },
   reducers: {
@@ -19,11 +20,12 @@ const sliceRespuestas = createSlice({
       state.respuestasVisibles = undefined
       state.respuestaSeleccionada = undefined
       state.busqueda = ''
+      state.filtros = []
     },
     guardaRespuestas(state, action) {
       const jsonRespuestas = action.payload
       const respuestas = jsonRespuestas.data.data.map(r => {
-        const respuestaNormalizada = Object.keys(r)
+        const respuestaString = Object.keys(r)
           .reduce((prev, k) => {
             let slug = ''
             if (typeof r[k] === 'string') {
@@ -34,12 +36,22 @@ const sliceRespuestas = createSlice({
             }
             return prev + slug
           }, '')
+        const respuestaNormalizada = Object.keys(r)
+          .reduce((prev, k) => {
+            if (typeof r[k] === 'string') {
+              prev.push(normalizar(r[k]))
+            }
+            else if (r[k].tag) {
+              prev.push(normalizar(diccionarioTags[r[k].tag].texto))
+            }
+            return prev
+          }, [])
         return {
           ...r,
+          respuestaString,
           respuestaNormalizada
         }
       }).reverse()
-      state.respuestas = respuestas
       state.respuestas = respuestas
       state.respuestasVisibles = respuestas
       state.pagina = 1
@@ -62,11 +74,35 @@ const sliceRespuestas = createSlice({
     buscaEsto(state, action) {
       const termino = normalizar(action.payload)
       state.busqueda = action.payload
+      state.pagina = 1
+      const indiceFiltroGlobal = state.filtros.findIndex(f => f.headers === '*')
+      if (indiceFiltroGlobal >= 0) {
+        state.filtros[indiceFiltroGlobal] = { headers: '*', f: r => r.respuestaString.indexOf(termino) >= 0 }
+      }
+      else {
+        state.filtros.push({ headers: '*', termino, f: r => r.respuestaString.indexOf(termino) >= 0 })
+      }
       state.respuestasVisibles = state.respuestas
-        ? state
-            .respuestas
-            .filter(r => r.respuestaNormalizada.indexOf(termino) >= 0)
+        ? state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
         : []
+    },
+    agregaFiltro(state, action) {
+      const [indiceHeader, busqueda] = action.payload
+      const terminoNormalizado = normalizar(busqueda)
+      const indiceFiltro = state.filtros.findIndex(f => f.headers?.indexOf(indiceHeader) >= 0)
+      const filtro = {
+        headers: [indiceHeader],
+        busqueda,
+        f: r => r.respuestaNormalizada[indiceHeader].indexOf(terminoNormalizado) >= 0
+      }
+      if (indiceFiltro >= 0) {
+        state.filtros[indiceFiltro] = filtro
+      }
+      else {
+        state.filtros.push(filtro)
+      }
+      state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+      state.pagina = 1
     },
     guardaEstaRespuesta(state, action) {
       if (Array.isArray(action.payload)) {
@@ -117,7 +153,8 @@ export const {
   ordenaRespuestas,
   avanzaPagina,
   retrocedePagina,
-  actualizaRespuestas
+  actualizaRespuestas,
+  agregaFiltro
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer

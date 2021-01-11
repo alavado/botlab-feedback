@@ -4,11 +4,13 @@
   left: 0;
   bottom: 0;
   right: 0;
-  transition: all .25s ease;
+  transform: translateY(0rem);
+  transition: all .1s ease-in-out;
 }
 
 .ModalFiltros__lamina--oculta {
   opacity: 0;
+  transform: translateY(-.5rem);
   pointer-events: none;
 }
 
@@ -17,6 +19,7 @@
   top: 0;
   left: 0;
   background-color: white;
-  padding: 1rem;
-  border: 1px solid black;
+  padding: 1.5rem;
+  box-shadow: 0rem 0rem .25rem rgba(0, 0, 0, .15);
+  border-radius: .25rem;
 }
