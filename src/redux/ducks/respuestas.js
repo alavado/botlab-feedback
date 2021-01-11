@@ -63,6 +63,9 @@ const sliceRespuestas = createSlice({
     },
     guardaFechaTermino(state, action) {
       state.fechaTermino = action.payload
+      if (state.fechaInicio > action.payload) {
+        state.fechaInicio = action.payload
+      }
       state.cacheInvalido = true
     },
     guardaRangoFechas(state, action) {

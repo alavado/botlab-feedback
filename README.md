@@ -20,3 +20,4 @@ Escribir readme
 - agregar logo cero arriba: OK
 - probar tags para vacíos: OK
 - barras: OK
+- cambiar fecha minima cuando maxima es menor: OK
