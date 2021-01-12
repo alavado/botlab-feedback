@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { uso } from '../../../api/endpoints'
-import { subMonths, format, startOfMonth, endOfMonth } from 'date-fns'
+import { subMonths, format, startOfMonth, endOfMonth, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import Skeleton from 'react-loading-skeleton'
 import './Uso.css'
@@ -9,7 +9,7 @@ const mesesSelector = 12
 
 const Uso = () => {
 
-  const meses = Array(mesesSelector).fill(0).map((_, i) => subMonths(new Date(), i))
+  const [meses, setMeses] = useState([])
   const [mes, setMes] = useState(0)
   const [filas, setFilas] = useState()
 
@@ -23,7 +23,8 @@ const Uso = () => {
           idEncuesta: d.poll_id,
           nombreEncuesta: d.poll_name,
           enviadas: d.polls_sent,
-          respondidas: d.effective_interactions
+          respondidas: d.effective_interactions,
+          inicio: d.start
         })).sort((d1, d2) => d1.enviadas > d2.enviadas ? -1 : 1) 
         const total = datosPorEncuesta.reduce((obj, e) => ({
           ...obj,
@@ -31,6 +32,16 @@ const Uso = () => {
           respondidas: obj.respondidas + e.respondidas
         }), { nombreEncuesta: 'Todas las encuestas', enviadas: 0, respondidas: 0 })
         setFilas([total, ...datosPorEncuesta])
+        const fechaInicio = datosPorEncuesta.reduce((min, d) => min < d ? min : d)
+        const meses = []
+        for (let i = 0; i < mesesSelector; i++) {
+          const fechaMes = subMonths(new Date(), i)
+          if (parseISO(fechaInicio).getMonth() < fechaMes.getMonth()) {
+            break
+          }
+          meses.push(fechaMes)
+        }
+        setMeses(meses)
       })
   }, [mes])
 
