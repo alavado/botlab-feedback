@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { uso } from '../../../api/endpoints'
-import { subMonths, format, startOfMonth, endOfMonth, parseISO } from 'date-fns'
+import { subMonths, format, startOfMonth, endOfMonth, parse } from 'date-fns'
 import { es } from 'date-fns/locale'
 import Skeleton from 'react-loading-skeleton'
 import './Uso.css'
@@ -32,11 +32,15 @@ const Uso = () => {
           respondidas: obj.respondidas + e.respondidas
         }), { nombreEncuesta: 'Todas las encuestas', enviadas: 0, respondidas: 0 })
         setFilas([total, ...datosPorEncuesta])
-        const fechaInicio = datosPorEncuesta.reduce((min, d) => min < d ? min : d)
+        const fechaInicio = parse(
+          datosPorEncuesta.map(d => d.inicio).reduce((min, d) => min < d ? min : d),
+          'yyyy-MM-dd',
+          new Date()
+        )
         const meses = []
         for (let i = 0; i < mesesSelector; i++) {
           const fechaMes = subMonths(new Date(), i)
-          if (parseISO(fechaInicio).getMonth() < fechaMes.getMonth()) {
+          if (fechaInicio > fechaMes) {
             break
           }
           meses.push(fechaMes)
@@ -44,6 +48,8 @@ const Uso = () => {
         setMeses(meses)
       })
   }, [mes])
+
+  console.log(meses)
 
   return (
     <div className="Uso">
