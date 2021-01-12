@@ -34,16 +34,17 @@ const HeadTablaRespuestas = () => {
               className={classNames({
                 'HeadTablaRespuestas__header': true,
               })}
+              // onClick={() => dispatch(ordenaRespuestas(nombre))}
               onClick={() => mostrarModalFiltros(i)}
               title={texto}
             >
               <div className="HeadTablaRespuestas__texto_header">
                 {texto}
-                {/* <button
+                <button
                   className="HeaderTablaRespuestas__boton_filtros"
                 >
                   <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_filtros" />
-                </button> */}
+                </button>
                 {/* {ordenHeader === nombre && orden === 'ASC' &&
                   <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />
                 }

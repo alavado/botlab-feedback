@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { chat as chatAPI } from '../../../../api/endpoints'
+import { tiposRespuestas } from '../../../../api/constantes'
 import CelularWhatsapp from './CelularWhatsapp/CelularWhatsapp'
 import DatosChat from './DatosChat'
 import RespuestasChat from './RespuestasChat'
@@ -41,16 +42,17 @@ const Chat = () => {
     return <Error403 mensaje="No puedes ver este chat." />
   }
 
-  console.log(headers)
-
   return (
     <div className="Chat">
       <DatosChat
         respuesta={respuesta}
-        headersSinPreguntas={headers?.filter(h => !['YESNO', 'RANGE', 'OPEN'].includes(h.type))}
+        headersSinPreguntas={headers?.filter(h => !tiposRespuestas.includes(h.type))}
       />
       <CelularWhatsapp mensajes={mensajes} actualizarMensajes={actualizarMensajes} />
-      <RespuestasChat respuesta={respuesta} />
+      <RespuestasChat
+        respuesta={respuesta}
+        headersPreguntas={headers?.filter(h => tiposRespuestas.includes(h.type))}
+      />
     </div>
   )
 }
