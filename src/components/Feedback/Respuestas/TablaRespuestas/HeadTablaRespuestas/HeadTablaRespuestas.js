@@ -39,11 +39,11 @@ const HeadTablaRespuestas = () => {
             >
               <div className="HeadTablaRespuestas__texto_header">
                 {texto}
-                <button
+                {/* <button
                   className="HeaderTablaRespuestas__boton_filtros"
                 >
                   <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_filtros" />
-                </button>
+                </button> */}
                 {/* {ordenHeader === nombre && orden === 'ASC' &&
                   <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />
                 }
@@ -54,12 +54,12 @@ const HeadTablaRespuestas = () => {
             </th>
           ))}
         </tr>
-        <ModalFiltros
+        {/* <ModalFiltros
           i={indiceColumnaFiltrada}
           activo={modalFiltroActivo}
           containerClass="HeadTablaRespuestas__header"
           esconder={() => setModalFiltroActivo(false)}
-        />
+        /> */}
       </>
     </thead>
   )

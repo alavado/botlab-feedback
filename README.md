@@ -7,9 +7,8 @@ Escribir readme
 - agregar indicacion de chats anteriores a vista expandida
 - http://localhost:3000/chat/103/101281
 
-- corregir bug de pegado al cerrar sesion e iniciar con otra cuenta
 - corregir bug de chat al llegar desde link directo
-- mostrar menos cosas en selector de uso
+- subir front conectado con dev
 - persistir filtros
 - agregar filtros tabla
 - agregar error 500 en login
@@ -21,4 +20,6 @@ Escribir readme
 - agregar logo cero arriba: OK
 - probar tags para vacíos: OK
 - barras: OK
+- mostrar menos meses en selector de uso: OK
 - cambiar fecha minima cuando maxima es menor: OK
+- corregir bug de pegado al cerrar sesion e iniciar con otra cuenta: OK

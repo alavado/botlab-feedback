@@ -10,18 +10,15 @@ import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
 import LoaderChat from '../LoaderChat'
 
-const DatosChat = ({ respuesta }) => {
+const DatosChat = ({ respuesta, headersSinPreguntas }) => {
 
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
-  const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
+  const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
   const history = useHistory()
 
   const haySiguienteChat = respuestas && indiceRespuestaSeleccionada < respuestas.length - 1
   const hayChatAnterior = indiceRespuestaSeleccionada > 0
-
-  const tiposPreguntas = ['YESNO', 'OPEN', 'RANGE']
-  const headersSinPreguntas = headers?.filter(header => !tiposPreguntas.includes(header.tipo))
 
   const irARespuestaAnterior = () => {
     const respuestaAnterior = respuestas[indiceRespuestaSeleccionada - 1]
@@ -75,7 +72,7 @@ const DatosChat = ({ respuesta }) => {
                 {respuesta.phone}
               </div>
             </div>
-            {headersSinPreguntas.map(({ nombre, texto }, i) => (
+            {headersSinPreguntas.map(({ name: nombre, display_name: texto }, i) => (
               <div
                 key={`header-chat-${i}`}
                 className="DatosChat__contenedor_header"
