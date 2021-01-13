@@ -1,12 +1,15 @@
+import { InlineIcon } from '@iconify/react'
+import iconoRemoverFiltro from '@iconify/icons-mdi/close'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { avanzaPagina, retrocedePagina } from '../../../../../redux/ducks/respuestas'
+import { avanzaPagina, remueveFiltro, retrocedePagina } from '../../../../../redux/ducks/respuestas'
 import './FooterTablaRespuestas.css'
 
 const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
 
   const numeroPaginas = Math.ceil(totalRespuestas / respuestasPorPagina)
   const { pagina } = useSelector(state => state.respuestas)
+  const { filtros } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
 
   const mensaje = totalRespuestas === 0
@@ -17,27 +20,49 @@ const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
   
   return (
     <div className="FooterTablaRespuestas">
-      <p className="FooterTablaRespuestas__total">
-        {mensaje}
-      </p>
-      {totalRespuestas > respuestasPorPagina &&
-        <div className="FooterTablaRespuestas__botones_paginas">
-          <button
-            className="FooterTablaRespuestas__boton_pagina"
-            onClick={() => dispatch(retrocedePagina())}
-            disabled={pagina === 1}
-          >
-            Anterior
-          </button>
-          <button
-            className="FooterTablaRespuestas__boton_pagina"
-            onClick={() => dispatch(avanzaPagina())}
-            disabled={numeroPaginas === 1 || pagina >= numeroPaginas}
-          >
-            Siguiente
-          </button>
+      <div className="FooterTablaRespuestas__filtros">
+        <div className="FooterTablaRespuestas__titulo_filtros">
+          {filtros.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}
         </div>
-      }
+        {filtros.map((f, i) => (
+          <div
+            className="FooterTablaRespuestas__tag_filtro"
+            key={`tag-filtro-${i}`}
+          >
+            {f.descripcion}
+            <button
+              className="FooterTablaRespuestas__boton_remover_filtro"
+              title="Remover este filtro"
+              onClick={() => dispatch(remueveFiltro(i))}
+            >
+              <InlineIcon icon={iconoRemoverFiltro} />
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="FooterTablaRespuestas__datos_paginacion">
+        <p className="FooterTablaRespuestas__total">
+          {mensaje}
+        </p>
+        {totalRespuestas > respuestasPorPagina &&
+          <div className="FooterTablaRespuestas__botones_paginas">
+            <button
+              className="FooterTablaRespuestas__boton_pagina"
+              onClick={() => dispatch(retrocedePagina())}
+              disabled={pagina === 1}
+            >
+              Anterior
+            </button>
+            <button
+              className="FooterTablaRespuestas__boton_pagina"
+              onClick={() => dispatch(avanzaPagina())}
+              disabled={numeroPaginas === 1 || pagina >= numeroPaginas}
+            >
+              Siguiente
+            </button>
+          </div>
+        }
+      </div>
     </div>
   )
 }

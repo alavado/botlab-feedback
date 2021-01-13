@@ -4,19 +4,22 @@ import classNames from 'classnames'
 import './ModalFiltros.css'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { agregaFiltro } from '../../../../../redux/ducks/respuestas'
+import { agregaFiltro, ordenaRespuestas } from '../../../../../redux/ducks/respuestas'
+import iconoOrdenDescendente from '@iconify/icons-mdi/sort-ascending'
+import iconoFiltro from '@iconify/icons-mdi/filter'
+import { InlineIcon } from '@iconify/react'
 
-const ModalFiltros = ({ i, activo, containerClass, esconder }) => {
+const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
 
   const [ancho, setAncho] = useState(0)
   const { filtros } = useSelector(state => state.respuestas)
+  const filtroRef = useRef()
+  const dispatch = useDispatch()
   const filtro = filtros.filter(f => f.headers?.indexOf(i) >= 0)[0]
   const container = i >= 0 && document.getElementsByClassName(containerClass)[i]
   const { left, top, width } = (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }
-  
-  const filtroRef = useRef()
-  const dispatch = useDispatch()
-  useEffect(() => setAncho(document.getElementsByClassName('ModalFiltros')[0].clientWidth), [])
+
+  useEffect(() => setAncho(document.getElementsByClassName('ModalFiltros')[0].clientWidth), [filtro])
   useEffect(() => {
     if (activo) {
       filtroRef.current.value = filtro?.busqueda || ''
@@ -42,10 +45,25 @@ const ModalFiltros = ({ i, activo, containerClass, esconder }) => {
           }}
           onClick={e => e.stopPropagation()}
         >
-          <input
-            ref={filtroRef}
-            onChange={e => dispatch(agregaFiltro([i, e.target.value]))}
-          />
+          <button
+            className="ModalFiltros__boton"
+            onClick={() => dispatch(ordenaRespuestas(header.nombre))}
+          >
+            <InlineIcon icon={iconoOrdenDescendente} /> Ordenar
+          </button>
+          <button
+            className="ModalFiltros__boton"
+            onClick={() => filtroRef.current.focus()}
+          >
+            <InlineIcon icon={iconoFiltro} />
+            <input
+              className="ModalFiltros__input_filtro"
+              ref={filtroRef}
+              onChange={e => dispatch(agregaFiltro([i, e.target.value, header.texto]))}
+              title="Filtrar por "
+              placeholder={`Filtrar por "${header.texto}"`}
+            />
+          </button>
         </div>
       </div>
     , document.getElementById('modal-filtros'))

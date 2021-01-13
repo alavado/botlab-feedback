@@ -1,6 +1,6 @@
 .FooterTablaRespuestas {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: 2rem;
   align-items: center;
 }
@@ -31,6 +31,48 @@
 .FooterTablaRespuestas__total {
   font-size: .85rem;
   padding-right: 1rem;
+}
+
+.FooterTablaRespuestas__datos_paginacion {
+  display: flex;
+  align-items: center;
+}
+
+.FooterTablaRespuestas__titulo_filtros {
+  font-size: .8rem;
+  font-style: italic;
+}
+
+.FooterTablaRespuestas__filtros {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.FooterTablaRespuestas__tag_filtro {
+  background-color: var(--color-secundario);
+  color: white;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  padding: 0 .25rem 0 1rem;
+  border-radius: .6rem;
+  font-size: .7rem;
+}
+
+.FooterTablaRespuestas__boton_remover_filtro {
+  border: none;
+  cursor: pointer;
+  background: none;
+  padding: 0 .5rem;
+  margin: 0;
+  color: white;
+  opacity: .7;
+}
+
+.FooterTablaRespuestas__boton_remover_filtro:hover {
+  opacity: 1;
 }
 
 @media (orientation: portrait) {
