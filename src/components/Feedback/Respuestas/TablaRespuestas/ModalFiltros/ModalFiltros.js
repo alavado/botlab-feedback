@@ -15,7 +15,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   const { filtros } = useSelector(state => state.respuestas)
   const filtroRef = useRef()
   const dispatch = useDispatch()
-  const filtro = filtros.filter(f => f.headers?.indexOf(i) >= 0)[0]
+  const filtro = filtros.find(f => f.headers.length === 1 && f.headers[0] === i)
   const container = i >= 0 && document.getElementsByClassName(containerClass)[i]
   const { left, top, width } = (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }
 
