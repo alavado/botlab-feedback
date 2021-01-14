@@ -23,3 +23,6 @@ Escribir readme
 - cambiar fecha minima cuando maxima es menor: OK
 - corregir bug de pegado al cerrar sesion e iniciar con otra cuenta: OK
 - corregir bug de chat al llegar desde link directo: OK
+
+PREGUNTAS:
+- cambiar * por negrita en chats?

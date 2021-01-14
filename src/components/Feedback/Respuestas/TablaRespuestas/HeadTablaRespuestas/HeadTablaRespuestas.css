@@ -63,6 +63,12 @@
   border-radius: 50%;
   background-color: var(--color-principal);
   color: white;
+  outline: none;
+  font-size: 1rem;
+}
+
+.HeaderTablaRespuestas__boton_filtros:focus {
+  filter: brightness(120%);
 }
 
 .HeadTablaRespuestas__header:hover .HeaderTablaRespuestas__boton_filtros,

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { ja } from "date-fns/locale"
 import { diccionarioTags } from "../../helpers/tags"
 
 const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
@@ -103,10 +104,11 @@ const sliceRespuestas = createSlice({
     agregaFiltro(state, action) {
       const [indiceHeader, busqueda, nombreHeader] = action.payload
       const terminoNormalizado = normalizar(busqueda)
-      const indiceFiltro = state.filtros.findIndex(f => f.headers?.indexOf(indiceHeader) >= 0)
+      const indiceFiltro = state.filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === indiceHeader)
       const filtro = {
         headers: [indiceHeader],
-        busqueda,
+        nombresHeaders: [nombreHeader],
+        busqueda: [busqueda],
         descripcion: `"${busqueda}" en ${nombreHeader}`,
         f: r => r.respuestaNormalizada[indiceHeader].indexOf(terminoNormalizado) >= 0
       }
@@ -123,6 +125,30 @@ const sliceRespuestas = createSlice({
       }
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1
+    },
+    combinaFiltros(state, action) {
+      const [i, j] = action.payload
+      if (i === j) {
+        return
+      }
+      const indiceFiltroGlobal = state.filtros.findIndex(f => f.headers === '*')
+      if (i === indiceFiltroGlobal || j === indiceFiltroGlobal) {
+        return
+      }
+      const fi = state.filtros[i].f
+      const fj = state.filtros[j].f
+      const headers = [...state.filtros[j].headers, ...state.filtros[i].headers]
+      const nombresHeaders = [...state.filtros[j].nombresHeaders, ...state.filtros[i].nombresHeaders]
+      const busqueda = [...state.filtros[j].busqueda, ...state.filtros[i].busqueda]
+      state.filtros[j] = {
+        headers,
+        busqueda,
+        nombresHeaders,
+        descripcion: nombresHeaders.map((h, i) => `"${busqueda[i]}" en ${h}`).join(' o '),
+        f: r => fi(r) || fj(r)
+      }
+      state.filtros.splice(i, 1)
+      state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
     },
     remueveFiltro(state, action) {
       const indiceFiltro = action.payload
@@ -184,7 +210,8 @@ export const {
   retrocedePagina,
   actualizaRespuestas,
   agregaFiltro,
-  remueveFiltro
+  remueveFiltro,
+  combinaFiltros
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer

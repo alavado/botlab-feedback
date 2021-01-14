@@ -1,8 +1,9 @@
+import React, { useState } from 'react'
 import { InlineIcon } from '@iconify/react'
 import iconoRemoverFiltro from '@iconify/icons-mdi/close'
-import React from 'react'
+import iconoFiltros from '@iconify/icons-mdi/filter'
 import { useDispatch, useSelector } from 'react-redux'
-import { avanzaPagina, remueveFiltro, retrocedePagina } from '../../../../../redux/ducks/respuestas'
+import { avanzaPagina, remueveFiltro, retrocedePagina, combinaFiltros } from '../../../../../redux/ducks/respuestas'
 import './FooterTablaRespuestas.css'
 
 const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
@@ -10,6 +11,8 @@ const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
   const numeroPaginas = Math.ceil(totalRespuestas / respuestasPorPagina)
   const { pagina } = useSelector(state => state.respuestas)
   const { filtros } = useSelector(state => state.respuestas)
+  const [indiceFiltroInicioDrag, setIndiceFiltroInicioDrag] = useState()
+
   const dispatch = useDispatch()
 
   const mensaje = totalRespuestas === 0
@@ -22,12 +25,17 @@ const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
     <div className="FooterTablaRespuestas">
       <div className="FooterTablaRespuestas__filtros">
         <div className="FooterTablaRespuestas__titulo_filtros">
-          {filtros.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}
+          <InlineIcon icon={iconoFiltros} /> {filtros.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}
         </div>
         {filtros.map((f, i) => (
           <div
             className="FooterTablaRespuestas__tag_filtro"
             key={`tag-filtro-${i}`}
+            draggable={true}
+            onDragStart={() => setIndiceFiltroInicioDrag(i)}
+            onDragOver={e => e.preventDefault()}
+            onDragEnter={e => e.preventDefault()}
+            onDrop={() => dispatch(combinaFiltros([indiceFiltroInicioDrag, i]))}
           >
             {f.descripcion}
             <button

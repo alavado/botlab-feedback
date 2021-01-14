@@ -60,8 +60,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               className="ModalFiltros__input_filtro"
               ref={filtroRef}
               onChange={e => dispatch(agregaFiltro([i, e.target.value, header.texto]))}
-              title="Filtrar por "
-              placeholder={`Filtrar por "${header.texto}"`}
+              placeholder="Filtrar"
             />
           </button>
         </div>

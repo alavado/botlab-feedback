@@ -34,7 +34,6 @@ const HeadTablaRespuestas = () => {
                 'HeadTablaRespuestas__header': true,
                 'HeadTablaRespuestas__header--activo': modalFiltroActivo && i === indiceColumnaFiltrada,
               })}
-              // onClick={() => dispatch(ordenaRespuestas(nombre))}
               onClick={() => tipo === 'YESNO' && mostrarModalFiltros(i)}
               title={texto}
             >
