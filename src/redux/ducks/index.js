@@ -3,6 +3,7 @@ import encuestas from './encuestas'
 import respuestas from './respuestas'
 import opciones from './opciones'
 import busqueda from './busqueda'
+import alertas from './alertas'
 import { combineReducers } from 'redux'
 
 export default combineReducers({
@@ -10,5 +11,6 @@ export default combineReducers({
   encuestas,
   respuestas,
   opciones,
-  busqueda
+  busqueda,
+  alertas
 })

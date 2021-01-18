@@ -48,6 +48,14 @@ export const uso = (fechaInicio, fechaTermino) => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
+export const alertas = (idEncuesta, fechaInicio, fechaTermino) => {
+  const token = store.getState().login.token
+  const inicio = format(fechaInicio, 'yyyy-MM-dd')
+  const termino = format(fechaTermino, 'yyyy-MM-dd')
+  const url = `${API_ROOT}/alerts/${idEncuesta}?fecha_inicio=${inicio}&fecha_termino=${termino}`
+  return axios.get(url, { headers: { 'Api-Token': token } })
+}
+
 export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, tipo) => {
   const fi = format(fechaInicio, 'yyyy-MM-dd')
   const ft = format(fechaTermino, 'yyyy-MM-dd')

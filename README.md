@@ -9,7 +9,6 @@ Escribir readme
 
 - hotjar
 - exportar tabla no lo entiende felipe, podría destacarse con borde la tabla
-- sacar GABY DE
 - que los tags se vean todos del mismo ancho?
 - persistir filtros
 - agregar filtros tabla
@@ -24,15 +23,8 @@ Escribir readme
 - poner en alguna parte que se pueden arrastrar (tooltip en pill?)
 - vista alertas (revisar api en https://github.com/mquezada/botlab-encuestas/blob/master/app/docs/api.md)
 
-- agregar logo cero arriba: OK
-- probar tags para vacíos: OK
-- barras: OK
-- mostrar menos meses en selector de uso: OK
-- cambiar fecha minima cuando maxima es menor: OK
-- corregir bug de pegado al cerrar sesion e iniciar con otra cuenta: OK
-- corregir bug de chat al llegar desde link directo: OK
 - subir front conectado con dev: SOSO
 
 PREGUNTAS:
-
+- el endpoint /alerts no admite hora como los otros (con hora falla)
 -http://localhost:3000/chat/104/209439

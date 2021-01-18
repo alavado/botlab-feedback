@@ -1,0 +1,39 @@
+.Alertas {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.Alertas__titulo {
+  font-weight: bold;
+  font-size: 1.75rem;
+  font-family: 'Raleway';
+}
+
+.Alertas__tabla {
+  animation: Alertas__aparece .25s ease-in-out;
+}
+
+.Alertas__tabla tr {
+  cursor: pointer;
+  padding: .25rem 0;
+}
+
+.Alertas__tabla tbody td {
+  padding: .5rem 1rem .5rem 0;
+}
+
+.Alertas__tabla tbody tr:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+@keyframes Alertas__aparece {
+  0% {
+    transform: translateY(-.1rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

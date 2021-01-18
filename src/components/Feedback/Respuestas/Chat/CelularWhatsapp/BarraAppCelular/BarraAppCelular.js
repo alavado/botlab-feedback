@@ -26,7 +26,7 @@ const BarraAppCelular = ({ mensajes, actualizarMensajes }) => {
         <div className="BarraAppCelular__avatar">G</div>
         <div className="BarraAppCelular__contenedor_nombre">
           <div className="BarraAppCelular__nombre">
-            Gaby de {nombreUsuario.split(' ')[0]}
+            {nombreUsuario.split(' ')[0]}
           </div>
           <div className="BarraAppCelular__estado">
             en línea

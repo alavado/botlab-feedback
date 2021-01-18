@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { guardaRespuestas, limpiaRespuestas } from '../../redux/ducks/respuestas'
-import { respuestas as respuestasAPI } from '../../api/endpoints'
+import { alertas as alertasAPI, respuestas as respuestasAPI } from '../../api/endpoints'
 import { headers as headersAPI } from '../../api/endpoints'
 import Respuestas from './Respuestas'
 import './Feedback.css'
@@ -14,6 +14,10 @@ import { guardaHeaders } from '../../redux/ducks/encuestas'
 import ExportacionAvanzada from '../ExportacionAvanzada'
 import Uso from './Uso'
 import ErrorBoundary from '../../helpers/ErrorBoundary'
+import Alertas from './Alertas'
+import { guardaAlertas } from '../../redux/ducks/alertas'
+
+const intervaloRefrescoAlertas = 5_000
 
 const Feedback = () => {
 
@@ -39,6 +43,11 @@ const Feedback = () => {
         setErrorCargandoRespuestas('Ocurrió un error')
       }
     }
+    const intervalAlertas = setInterval(async () => {
+      const { data } = await alertasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
+      dispatch(guardaAlertas(data))
+    }, intervaloRefrescoAlertas)
+    return () => clearInterval(intervalAlertas)
   }, [token, idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino, cacheInvalido])
 
   if (!token) {
@@ -62,6 +71,9 @@ const Feedback = () => {
               </Route>
               <Route path="/chat">
                 <Respuestas />
+              </Route>
+              <Route path="/alertas">
+                <Alertas />
               </Route>
               <Route exact path="/busqueda">
                 <Busqueda />

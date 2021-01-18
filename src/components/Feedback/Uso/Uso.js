@@ -49,8 +49,6 @@ const Uso = () => {
       })
   }, [mes])
 
-  console.log(meses)
-
   return (
     <div className="Uso">
       <div className="Uso__superior">
