@@ -7,7 +7,10 @@ Escribir readme
 - agregar indicacion de chats anteriores a vista expandida
 - http://localhost:3000/chat/103/101281
 
-- subir front conectado con dev
+- hotjar
+- exportar tabla no lo entiende felipe, podría destacarse con borde la tabla
+- sacar GABY DE
+- que los tags se vean todos del mismo ancho?
 - persistir filtros
 - agregar filtros tabla
 - agregar error 500 en login
@@ -15,6 +18,11 @@ Escribir readme
 - modo oscuros
 - mejorar carga de chat con skeletons
 - sankey
+- cambiar * por negrita en chats
+- achicar un poco tabla
+- agregar click en tags de tabla
+- poner en alguna parte que se pueden arrastrar (tooltip en pill?)
+- vista alertas (revisar api en https://github.com/mquezada/botlab-encuestas/blob/master/app/docs/api.md)
 
 - agregar logo cero arriba: OK
 - probar tags para vacíos: OK
@@ -23,6 +31,8 @@ Escribir readme
 - cambiar fecha minima cuando maxima es menor: OK
 - corregir bug de pegado al cerrar sesion e iniciar con otra cuenta: OK
 - corregir bug de chat al llegar desde link directo: OK
+- subir front conectado con dev: SOSO
 
 PREGUNTAS:
-- cambiar * por negrita en chats?
+
+-http://localhost:3000/chat/104/209439
