@@ -23,45 +23,43 @@ const HeadTablaRespuestas = () => {
     setModalFiltroActivo(true)
   }
 
+  console.log({headersOrdenados})
+
   return (
     <thead className="HeadTablaRespuestas">
-      <>
-        <tr className="HeadTablaRespuestas__fila">
-          {headersOrdenados.map(({ nombre, texto, tipo }, i) => (
-            <th
-              key={`header-${nombre}`}
-              className={classNames({
-                'HeadTablaRespuestas__header': true,
-                'HeadTablaRespuestas__header--activo': modalFiltroActivo && i === indiceColumnaFiltrada,
-              })}
-              onClick={() => tipo === 'YESNO' && mostrarModalFiltros(i)}
-              title={texto}
-            >
-              <div className="HeadTablaRespuestas__texto_header">
-                {texto}
-                {tipo === 'YESNO' && <button
-                  className="HeaderTablaRespuestas__boton_filtros"
-                >
-                  <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_filtros" />
-                </button>}
-                {/* {ordenHeader === nombre && orden === 'ASC' &&
-                  <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />
-                }
-                {ordenHeader === nombre && orden === 'DESC' &&
-                  <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden HeaderTablaRespuestas__icono_orden--girado" />
-                } */}
-              </div>
-            </th>
-          ))}
-        </tr>
-        <ModalFiltros
-          i={indiceColumnaFiltrada}
-          header={headersOrdenados[indiceColumnaFiltrada]}
-          activo={modalFiltroActivo}
-          containerClass="HeadTablaRespuestas__header"
-          esconder={() => setModalFiltroActivo(false)}
-        />
-      </>
+      <tr className="HeadTablaRespuestas__fila">
+        {headersOrdenados.map(({ nombre, texto }, i) => (
+          <th
+            key={`header-${nombre}`}
+            className={classNames({
+              'HeadTablaRespuestas__header': true,
+              'HeadTablaRespuestas__header--activo': modalFiltroActivo && i === indiceColumnaFiltrada,
+            })}
+            onClick={() => mostrarModalFiltros(i)}
+            title={texto}
+          >
+            <div className="HeadTablaRespuestas__texto_header">
+              {texto}
+              <button className="HeaderTablaRespuestas__boton_filtros">
+                <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_filtros" />
+              </button>
+              {/* {ordenHeader === nombre && orden === 'ASC' &&
+                <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />
+              }
+              {ordenHeader === nombre && orden === 'DESC' &&
+                <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden HeaderTablaRespuestas__icono_orden--girado" />
+              } */}
+            </div>
+          </th>
+        ))}
+      </tr>
+      <ModalFiltros
+        i={indiceColumnaFiltrada}
+        header={headersOrdenados[indiceColumnaFiltrada]}
+        activo={modalFiltroActivo}
+        containerClass="HeadTablaRespuestas__header"
+        esconder={() => setModalFiltroActivo(false)}
+      />
     </thead>
   )
 }

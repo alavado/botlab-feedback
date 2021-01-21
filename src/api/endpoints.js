@@ -36,6 +36,12 @@ export const chat = (idEncuesta, idUsuario) => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
+export const chat2 = (idEncuesta, idUsuario) => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/chat2/${idEncuesta}/${idUsuario}`
+  return axios.get(url, { headers: { 'Api-Token': token } })
+}
+
 export const busqueda = termino => {
   const token = store.getState().login.token
   const url = `${API_ROOT}/answers_es?query=${termino}`

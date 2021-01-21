@@ -13,8 +13,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, .3);
+  background-color: rgba(255, 255, 255, .2);
   cursor: pointer;
+  margin-bottom: .25rem;
 }
 
 .BarraLateral__link_logo {
@@ -28,9 +29,10 @@
 }
 
 .BarraLateral__link {
-  color: rgba(255, 255, 255, .7);
+  color: rgba(255, 255, 255, .5);
   width: 3rem;
-  height: 4rem;
+  height: 3rem;
+  margin-bottom: .75rem;
   font-size: 1.6rem;
   display: flex;
   align-items: center;
@@ -80,18 +82,19 @@
 
 .BarraLateral__link--activo {
   color: white;
+  background-color: rgba(255, 255, 255, .15);
+  box-shadow: 1px 0px rgba(0, 0, 0, .25);
 }
 
 .BarraLateral__link--activo::before {
   width: .2rem;
-  height: .8rem;
-  background-color: rgba(255, 255, 255, 1);
+  height: 3rem;
+  background-color: rgba(255, 255, 255, .8);
   position: absolute;
   z-index: 2;
   left: 0;
-  top: 1.6rem;
+  top: 0;
   content: '';
-  display: none;
 }
 
 @media(orientation: portrait) {

@@ -12,6 +12,7 @@ const Chat = () => {
 
   const [mensajes, setMensajes] = useState()
   const [headers, setHeaders] = useState([])
+  const [tags, setTags] = useState()
   const [respuesta, setRespuesta] = useState()
   const [error403, setError403] = useState(false)
   const { idEncuesta, idUsuario } = useParams()
@@ -23,11 +24,12 @@ const Chat = () => {
     setMensajes(undefined)
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
-        const { data: { messages, previous_messages, user, headers } } = data
+        const { data: { messages, previous_messages, user, headers, tags } } = data
         setMensajes({
           anteriores: [...previous_messages],
           actuales: [...messages]
         })
+        setTags(tags)
         setRespuesta(user)
         setHeaders(headers)
       })
@@ -48,11 +50,11 @@ const Chat = () => {
         respuesta={respuesta}
         headersSinPreguntas={headers?.filter(h => !tiposRespuestas.includes(h.type))}
       />
-      <CelularWhatsapp mensajes={mensajes} actualizarMensajes={actualizarMensajes} />
-      <RespuestasChat
-        respuesta={respuesta}
-        headersPreguntas={headers?.filter(h => tiposRespuestas.includes(h.type))}
+      <CelularWhatsapp
+        mensajes={mensajes}
+        actualizarMensajes={actualizarMensajes}
       />
+      <RespuestasChat tags={tags} />
     </div>
   )
 }

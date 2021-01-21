@@ -28,14 +28,16 @@ const BarraLateral = () => {
         <div className="BarraLateral__popup_link">Respuestas</div>
         <Icon icon={home} />
       </NavLink>
-      <NavLink
-        className="BarraLateral__link"
-        activeClassName="BarraLateral__link--activo"
-        to="/alertas"
-      >
-        <div className="BarraLateral__popup_link">Alertas</div>
-        <Icon icon={alertas} />
-      </NavLink>
+      {process.env.NODE_ENV === 'development' &&
+        <NavLink
+          className="BarraLateral__link"
+          activeClassName="BarraLateral__link--activo"
+          to="/alertas"
+        >
+          <div className="BarraLateral__popup_link">Alertas</div>
+          <Icon icon={alertas} />
+        </NavLink>
+      }
       <NavLink
         className="BarraLateral__link"
         activeClassName="BarraLateral__link--activo"

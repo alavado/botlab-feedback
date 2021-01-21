@@ -102,6 +102,7 @@ const sliceRespuestas = createSlice({
     },
     agregaFiltro(state, action) {
       const [indiceHeader, busqueda, nombreHeader] = action.payload
+      console.log({indiceHeader, busqueda, nombreHeader})
       const terminoNormalizado = normalizar(busqueda)
       const indiceFiltro = state.filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === indiceHeader)
       const filtro = {

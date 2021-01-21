@@ -43,11 +43,13 @@ const Feedback = () => {
         setErrorCargandoRespuestas('Ocurrió un error')
       }
     }
-    const intervalAlertas = setInterval(async () => {
-      const { data } = await alertasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-      dispatch(guardaAlertas(data))
-    }, intervaloRefrescoAlertas)
-    return () => clearInterval(intervalAlertas)
+    if (process.env.NODE_ENV === 'development') {
+      const intervalAlertas = setInterval(async () => {
+        const { data } = await alertasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
+        dispatch(guardaAlertas(data))
+      }, intervaloRefrescoAlertas)
+      return () => clearInterval(intervalAlertas)
+    }
   }, [token, idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino, cacheInvalido])
 
   if (!token) {
