@@ -25,10 +25,6 @@ const ResumenRespuestas = () => {
 
   return (
     <div className="ResumenRespuestas">
-      {/* <div className="ResumenRespuestas__tasa">
-        <div>Enviadas {total.toLocaleString('de-DE')}</div>
-        <div className="ResumenRespuestas__porcentaje">100%</div>
-      </div> */}
       <div
         className="ResumenRespuestas__detalle"
         style={{ '--porcentaje-lleno': `${porcentaje}%` }}
