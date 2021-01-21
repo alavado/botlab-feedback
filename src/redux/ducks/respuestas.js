@@ -112,7 +112,7 @@ const sliceRespuestas = createSlice({
       }
       const indiceFiltro = state.filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === nombreHeader)
       if (indiceFiltro >= 0) {
-        if (terminoNormalizado.length > 0) {
+        if (terminoNormalizado.length > 0 && state.filtros[indiceFiltro].busqueda[0] !== busqueda) {
           state.filtros[indiceFiltro] = filtro
         }
         else {

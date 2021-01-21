@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { diccionarioTags } from '../../../../helpers/tags'
+import { agregaFiltro } from '../../../../redux/ducks/respuestas'
 import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import './ResumenRespuestas.css'
 
@@ -8,6 +9,8 @@ const ResumenRespuestas = () => {
 
   const { headers } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
+  const dispatch = useDispatch()
+  const primerTag = headers.find(h => h.tipo === 'YESNO')
 
   const conteosTags = useMemo(() => {
     const tags = Object.keys(diccionarioTags).slice(0, 4)
@@ -41,7 +44,14 @@ const ResumenRespuestas = () => {
               const porcentaje = ((100 * conteosTags[tag] / total) || 0)
               return (
                 <tr key={`fila-respuestas-${tag}`}>
-                  <td><div className="ResumenRespuestas__tag"><TagRespuesta tag={tag} /></div></td>
+                  <td>
+                    <div
+                      className="ResumenRespuestas__tag"
+                      onClick={() => dispatch(agregaFiltro([diccionarioTags[tag].texto, primerTag.nombre, primerTag.texto]))}
+                    >
+                      <TagRespuesta tag={tag} />
+                    </div>
+                  </td>
                   <td
                     className="ResumenRespuestas__celda_barra"
                     style={{ '--porcentaje-lleno': `${Math.min(100, 2 * porcentaje)}%` }}

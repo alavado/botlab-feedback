@@ -59,6 +59,12 @@
 .ResumenRespuestas__tag {
   display: flex;
   justify-content: flex-end;
+  cursor: pointer;
+  transition: all .15s ease-in-out;
+}
+
+.ResumenRespuestas__tag:hover {
+  filter: brightness(105%);
 }
 
 .ResumenRespuestas__detalle_tabla td:not(:first-child) {
