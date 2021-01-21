@@ -39,13 +39,13 @@ const sliceRespuestas = createSlice({
         const respuestaNormalizada = Object.keys(r)
           .reduce((prev, k) => {
             if (typeof r[k] === 'string') {
-              prev.push(normalizar(r[k]))
+              prev[k] = normalizar(r[k])
             }
-            else if (r[k].tag) {
-              prev.push(normalizar(diccionarioTags[r[k].tag].texto))
+            else if (r[k].tag || r[k].tag === '') {
+              prev[k] = normalizar(diccionarioTags[r[k].tag].texto)
             }
             return prev
-          }, [])
+          }, {})
         return {
           ...r,
           respuestaString,
@@ -101,17 +101,16 @@ const sliceRespuestas = createSlice({
         : []
     },
     agregaFiltro(state, action) {
-      const [indiceHeader, busqueda, nombreHeader] = action.payload
-      console.log({indiceHeader, busqueda, nombreHeader})
+      const [busqueda, nombreHeader, textoHeader] = action.payload
       const terminoNormalizado = normalizar(busqueda)
-      const indiceFiltro = state.filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === indiceHeader)
       const filtro = {
-        headers: [indiceHeader],
-        nombresHeaders: [nombreHeader],
+        headers: [nombreHeader],
+        nombresHeaders: [textoHeader],
         busqueda: [busqueda],
-        descripcion: `"${busqueda}" en ${nombreHeader}`,
-        f: r => r.respuestaNormalizada[indiceHeader].indexOf(terminoNormalizado) >= 0
+        descripcion: `"${busqueda}" en ${textoHeader}`,
+        f: r => r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
       }
+      const indiceFiltro = state.filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === nombreHeader)
       if (indiceFiltro >= 0) {
         if (terminoNormalizado.length > 0) {
           state.filtros[indiceFiltro] = filtro

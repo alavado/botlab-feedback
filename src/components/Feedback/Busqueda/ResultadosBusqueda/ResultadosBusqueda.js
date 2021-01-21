@@ -21,7 +21,6 @@ const ResultadosBusqueda = () => {
     busquedaAPI(termino)
       .then(res => {
         dispatch(guardaResultadosBusqueda(res.data))
-        console.log(res.data)
       })
   }, [dispatch, termino])
 

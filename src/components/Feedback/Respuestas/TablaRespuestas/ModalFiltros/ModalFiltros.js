@@ -59,8 +59,13 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
             <input
               className="ModalFiltros__input_filtro"
               ref={filtroRef}
-              onChange={e => dispatch(agregaFiltro([i, e.target.value, header.texto]))}
+              onChange={e => dispatch(agregaFiltro([e.target.value, header.nombre, header.texto]))}
               placeholder="Filtrar"
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === 'Escape') {
+                  esconder()
+                }
+              }}
             />
           </button>
         </div>

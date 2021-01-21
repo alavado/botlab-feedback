@@ -23,8 +23,6 @@ const HeadTablaRespuestas = () => {
     setModalFiltroActivo(true)
   }
 
-  console.log({headersOrdenados})
-
   return (
     <thead className="HeadTablaRespuestas">
       <tr className="HeadTablaRespuestas__fila">

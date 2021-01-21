@@ -34,5 +34,11 @@ export const diccionarioTags = {
     titulo: 'Sin respuesta',
     icono: time,
     clase: 'TagRespuesta TagRespuesta--vacia'
+  },
+  '': {
+    texto: '',
+    titulo: '',
+    icono: time,
+    clase: 'TagRespuesta TagRespuesta--vacia'
   }
 }
