@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import './TablaRespuestas.css'
 import ExportadorRespuestas from './ExportadorRespuestas'
 import ResumenRespuestas from '../ResumenRespuestas'
+import Filtros from './Filtros'
 
 const respuestasPorPagina = 20
 
@@ -32,6 +33,7 @@ const TablaRespuestas = () => {
       {cargando
         ? <LoaderRespuestas />
         : <div className="TablaRespuestas__contenedor">
+            <Filtros />
             <ResumenRespuestas />
             <div className="TablaRespuestas__contenedor_tabla">
               <table className="TablaRespuestas__tabla">

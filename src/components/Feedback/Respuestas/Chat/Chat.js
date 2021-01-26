@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { chat as chatAPI } from '../../../../api/endpoints'
+import { chat2 as chatAPI } from '../../../../api/endpoints'
 import { tiposRespuestas } from '../../../../api/constantes'
 import CelularWhatsapp from './CelularWhatsapp/CelularWhatsapp'
 import DatosChat from './DatosChat'
@@ -24,6 +24,7 @@ const Chat = () => {
     setMensajes(undefined)
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
+        console.log(data)
         const { data: { messages, previous_messages, user, headers, tags } } = data
         setMensajes({
           anteriores: [...previous_messages],

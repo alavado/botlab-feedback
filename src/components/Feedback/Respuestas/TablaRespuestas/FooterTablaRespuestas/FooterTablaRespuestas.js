@@ -1,17 +1,12 @@
-import React, { useState } from 'react'
-import { InlineIcon } from '@iconify/react'
-import iconoRemoverFiltro from '@iconify/icons-mdi/close'
-import iconoFiltros from '@iconify/icons-mdi/filter'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { avanzaPagina, remueveFiltro, retrocedePagina, combinaFiltros } from '../../../../../redux/ducks/respuestas'
+import { avanzaPagina, retrocedePagina } from '../../../../../redux/ducks/respuestas'
 import './FooterTablaRespuestas.css'
 
 const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
 
   const numeroPaginas = Math.ceil(totalRespuestas / respuestasPorPagina)
   const { pagina } = useSelector(state => state.respuestas)
-  const { filtros } = useSelector(state => state.respuestas)
-  const [indiceFiltroInicioDrag, setIndiceFiltroInicioDrag] = useState()
 
   const dispatch = useDispatch()
 
@@ -23,31 +18,6 @@ const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
   
   return (
     <div className="FooterTablaRespuestas">
-      <div className="FooterTablaRespuestas__filtros">
-        <div className="FooterTablaRespuestas__titulo_filtros">
-          <InlineIcon icon={iconoFiltros} /> {filtros.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}
-        </div>
-        {filtros.map((f, i) => (
-          <div
-            className="FooterTablaRespuestas__tag_filtro"
-            key={`tag-filtro-${i}`}
-            draggable={true}
-            onDragStart={() => setIndiceFiltroInicioDrag(i)}
-            onDragOver={e => e.preventDefault()}
-            onDragEnter={e => e.preventDefault()}
-            onDrop={() => dispatch(combinaFiltros([indiceFiltroInicioDrag, i]))}
-          >
-            {f.descripcion}
-            <button
-              className="FooterTablaRespuestas__boton_remover_filtro"
-              title="Remover este filtro"
-              onClick={() => dispatch(remueveFiltro(i))}
-            >
-              <InlineIcon icon={iconoRemoverFiltro} />
-            </button>
-          </div>
-        ))}
-      </div>
       <div className="FooterTablaRespuestas__datos_paginacion">
         <p className="FooterTablaRespuestas__total">
           {mensaje}

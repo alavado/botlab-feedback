@@ -1,0 +1,45 @@
+.Filtros {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 1.5rem;
+}
+
+.Filtros__titulo {
+  font-size: .75rem;
+  font-style: italic;
+  opacity: .7;
+}
+
+.Filtros__tag_filtro {
+  background-color: var(--color-secundario);
+  color: white;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  padding: 0 .25rem 0 1rem;
+  border-radius: .6rem;
+  font-size: .7rem;
+  box-shadow: .1rem .1rem .15rem -.1rem rgba(0, 0, 0, .2);
+  transition: all .25s ease;
+  cursor: move;
+}
+
+.Filtros__tag_filtro {
+  box-shadow: .1rem .1rem .25rem -.1rem rgba(0, 0, 0, .25);
+}
+
+.Filtros__boton_remover_filtro {
+  border: none;
+  cursor: pointer;
+  background: none;
+  padding: 0 .5rem;
+  margin: 0;
+  color: white;
+  opacity: .7;
+}
+
+.Filtros__boton_remover_filtro:hover {
+  opacity: 1;
+}

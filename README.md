@@ -7,6 +7,8 @@ Escribir readme
 - agregar indicacion de chats anteriores a vista expandida
 - http://localhost:3000/chat/103/101281
 
+- icono de ayuda en filtros
+- que el color de las disyunciones sea distinto o algo asi
 - exportar tabla no lo entiende felipe, podría destacarse con borde la tabla
 - que los tags se vean todos del mismo ancho?
 - persistir filtros
@@ -20,12 +22,8 @@ Escribir readme
 
 hechos:
 - reincorporar etiquetas a vista de chat: OK (acotacion: solo en dev)
-- agregar filtros tabla a todas las columnas: OK
-- agregar click en tags de tabla: ...
-- achicar un poco tabla: OK
 - hotjar: OK (probé mouseswap pero era más enredado)
 - poner en alguna parte que se pueden arrastrar (tooltip en pill?): ...
 
 PREGUNTAS:
-- el endpoint /alerts no admite hora como los otros (con hora falla)
--http://localhost:3000/chat/104/209439
+- nombre bot (chat 2, pero no tiene previous messages)
