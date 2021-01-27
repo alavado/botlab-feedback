@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { chat2 as chatAPI } from '../../../../api/endpoints'
-import { tiposRespuestas } from '../../../../api/constantes'
 import CelularWhatsapp from './CelularWhatsapp/CelularWhatsapp'
 import DatosChat from './DatosChat'
 import RespuestasChat from './RespuestasChat'
@@ -10,29 +9,17 @@ import './Chat.css'
 
 const Chat = () => {
 
-  const [mensajes, setMensajes] = useState()
-  const [headers, setHeaders] = useState([])
-  const [tags, setTags] = useState()
-  const [respuesta, setRespuesta] = useState()
+  const [conversaciones, setConversaciones] = useState()
+  const [indiceConversacion, setIndiceConversacion] = useState()
   const [error403, setError403] = useState(false)
   const { idEncuesta, idUsuario } = useParams()
 
   const actualizarMensajes = useCallback((fetchInicial = true) => {
-    if (fetchInicial) {
-      setRespuesta(undefined)
-    }
-    setMensajes(undefined)
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
-        console.log(data)
-        const { data: { messages, previous_messages, user, headers, tags } } = data
-        setMensajes({
-          anteriores: [...previous_messages],
-          actuales: [...messages]
-        })
-        setTags(tags)
-        setRespuesta(user)
-        setHeaders(headers)
+        const { data: { conversations } } = data
+        setConversaciones(conversations)
+        setIndiceConversacion(conversations.length - 1)
       })
       .catch(() => setError403(true))
   }, [idEncuesta, idUsuario])
@@ -48,14 +35,16 @@ const Chat = () => {
   return (
     <div className="Chat">
       <DatosChat
-        respuesta={respuesta}
-        headersSinPreguntas={headers?.filter(h => !tiposRespuestas.includes(h.type))}
+        datos={conversaciones && conversaciones[indiceConversacion]?.context}
       />
       <CelularWhatsapp
-        mensajes={mensajes}
+        conversaciones={conversaciones}
+        indiceConversacion={indiceConversacion}
         actualizarMensajes={actualizarMensajes}
       />
-      <RespuestasChat tags={tags} />
+      <RespuestasChat
+        tags={conversaciones && conversaciones[indiceConversacion]?.tags}
+      />
     </div>
   )
 }

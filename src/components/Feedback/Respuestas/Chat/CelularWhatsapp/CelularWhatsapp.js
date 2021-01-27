@@ -10,23 +10,23 @@ import { fijaChatExpandido } from '../../../../../redux/ducks/opciones'
 import Icon from '@iconify/react'
 import iconoEncoger from '@iconify/icons-mdi/arrow-collapse'
 
-const CelularWhatsapp = ({ mensajes, actualizarMensajes }) => {
+const CelularWhatsapp = ({ conversaciones, indiceConversacion, actualizarMensajes }) => {
 
   const { chatExpandido } = useSelector(state => state.opciones)
   const contenedorMensajes = useRef()
   const contenedorMensajesActuales = useRef()
   const dispatch = useDispatch()
   const todosLosMensajes = useMemo(() => {
-    return mensajes ? [...mensajes.anteriores, ...mensajes.actuales] : []
-  }, [mensajes])
+    return conversaciones ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], []) : []
+  }, [conversaciones])
 
-  useEffect(() => {
-    if (mensajes?.anteriores.length > 0) {
-      const contenedor = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes')[0]
-      const contenedorActuales = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes_actuales')[0]
-      contenedor.scrollTop = contenedorActuales.getBoundingClientRect().top - contenedor.getBoundingClientRect().top
-    }
-  }, [mensajes])
+  // useEffect(() => {
+  //   if (mensajes?.anteriores.length > 0) {
+  //     const contenedor = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes')[0]
+  //     const contenedorActuales = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes_actuales')[0]
+  //     contenedor.scrollTop = contenedorActuales.getBoundingClientRect().top - contenedor.getBoundingClientRect().top
+  //   }
+  // }, [mensajes])
 
   return (
     <div className={classNames({
@@ -47,36 +47,23 @@ const CelularWhatsapp = ({ mensajes, actualizarMensajes }) => {
           </button>
           <BarraEstadoCelular />
           <BarraAppCelular
-            mensajes={mensajes}
+            mensajes={todosLosMensajes}
             actualizarMensajes={actualizarMensajes}
           />
           <div
             className="CelularWhatsapp__contenedor_mensajes"
             ref={contenedorMensajes}
           >
-            <div className="CelularWhatsapp__contenedor_mensajes_anteriores">
-              {Array.isArray(mensajes?.anteriores)
-                ? mensajes.anteriores.map((mensaje, i) => (
-                    <MensajeWhatsapp
-                      mensaje={mensaje}
-                      mensajes={todosLosMensajes}
-                      posicion={i}
-                      key={`mensaje-${i}`}
-                    />
-                  ))
-                : <LoaderMensajes />
-              }
-            </div>
             <div
               className="CelularWhatsapp__contenedor_mensajes_actuales"
               ref={contenedorMensajesActuales}
             >
-              {Array.isArray(mensajes?.actuales)
-                ? mensajes.actuales.map((mensaje, i) => (
+              {Array.isArray(todosLosMensajes)
+                ? todosLosMensajes.map((mensaje, i) => (
                     <MensajeWhatsapp
                       mensaje={mensaje}
                       mensajes={todosLosMensajes}
-                      posicion={i + mensajes.anteriores.length}
+                      posicion={i}
                       key={`mensaje-${i}`}
                     />
                   ))
