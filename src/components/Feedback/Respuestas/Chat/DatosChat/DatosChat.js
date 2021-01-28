@@ -9,7 +9,7 @@ import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
 import LoaderChat from '../LoaderChat'
 
-const DatosChat = ({ datos }) => {
+const DatosChat = ({ datos, telefono }) => {
 
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
   const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
@@ -68,7 +68,7 @@ const DatosChat = ({ datos }) => {
                 Teléfono
               </div>
               <div className="DatosChat__valor_header">
-                {datos.phone}
+                {telefono}
               </div>
             </div>
             {datos.map(({ value: nombre, title: texto }, i) => (

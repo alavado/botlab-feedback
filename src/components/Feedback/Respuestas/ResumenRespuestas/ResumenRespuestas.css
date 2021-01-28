@@ -91,3 +91,9 @@
     )
   ;
 }
+
+@media(orientation:portrait) {
+  .ResumenRespuestas__detalle_tasa {
+    display: none;
+  }
+}

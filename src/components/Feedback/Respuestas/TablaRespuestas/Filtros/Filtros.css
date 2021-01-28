@@ -1,6 +1,6 @@
 .Filtros {
   display: flex;
-  gap: .5rem;
+  gap: .15rem;
   align-items: center;
   flex-wrap: wrap;
   height: 1.5rem;
@@ -62,4 +62,10 @@
 
 .Filtros__boton_ayuda:hover {
   opacity: 1;
+}
+
+@media(orientation:portrait) {
+  .Filtros {
+    display: none;
+  }
 }

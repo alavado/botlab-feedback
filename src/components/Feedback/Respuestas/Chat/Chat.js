@@ -10,6 +10,7 @@ import './Chat.css'
 const Chat = () => {
 
   const [conversaciones, setConversaciones] = useState()
+  const [telefono, setTelefono] = useState()
   const [indiceConversacion, setIndiceConversacion] = useState()
   const [error403, setError403] = useState(false)
   const { idEncuesta, idUsuario } = useParams()
@@ -18,7 +19,8 @@ const Chat = () => {
     setConversaciones(undefined)
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
-        const { data: { conversations } } = data
+        const { data: { conversations, user } } = data
+        setTelefono(user ? user.phone : '')
         setConversaciones(conversations)
         setIndiceConversacion(conversations.length - 1)
       })
@@ -37,6 +39,7 @@ const Chat = () => {
     <div className="Chat">
       <DatosChat
         datos={conversaciones && conversaciones[indiceConversacion]?.context}
+        telefono={telefono}
       />
       <CelularWhatsapp
         conversaciones={conversaciones}

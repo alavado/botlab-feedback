@@ -21,4 +21,5 @@ Escribir readme
 - vista alertas (revisar api en https://github.com/mquezada/botlab-encuestas/blob/master/app/docs/api.md)
 
 PREGUNTAS:
-- nombre bot (chat 2, pero no tiene previous messages)
+- id cita 1 viene vacío (chat2)
+- user no esta en dev (chat2)

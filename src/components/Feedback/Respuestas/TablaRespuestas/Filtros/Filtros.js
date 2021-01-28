@@ -44,7 +44,7 @@ const Filtros = () => {
       <button className="Filtros__boton_ayuda">
         <InlineIcon icon={iconoAyuda} onClick={() => setMostrarAyuda(!mostrarAyuda)} />
       </button>
-      {mostrarAyuda && <ModalAyuda />}
+      {mostrarAyuda && <ModalAyuda cerrar={() => setMostrarAyuda(false)} />}
     </div>
   )
 }
