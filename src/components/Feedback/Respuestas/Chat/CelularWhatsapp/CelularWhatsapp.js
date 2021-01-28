@@ -58,7 +58,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, actualizarMensaje
               className="CelularWhatsapp__contenedor_mensajes_actuales"
               ref={contenedorMensajesActuales}
             >
-              {Array.isArray(todosLosMensajes)
+              {todosLosMensajes.length > 0
                 ? todosLosMensajes.map((mensaje, i) => (
                     <MensajeWhatsapp
                       mensaje={mensaje}
@@ -67,7 +67,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, actualizarMensaje
                       key={`mensaje-${i}`}
                     />
                   ))
-                : null
+                : <LoaderMensajes />
               }
             </div>
           </div>

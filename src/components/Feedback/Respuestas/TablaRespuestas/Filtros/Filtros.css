@@ -4,12 +4,17 @@
   align-items: center;
   flex-wrap: wrap;
   height: 1.5rem;
+  position: relative;
+  align-self: flex-start;
 }
 
 .Filtros__titulo {
   font-size: .75rem;
   font-style: italic;
   opacity: .7;
+  display: flex;
+  gap: .25rem;
+  align-items: center;
 }
 
 .Filtros__tag_filtro {
@@ -41,5 +46,20 @@
 }
 
 .Filtros__boton_remover_filtro:hover {
+  opacity: 1;
+}
+
+.Filtros__boton_ayuda {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--color-principal);
+  font-size: 1rem;
+  cursor: help;
+  outline: none;
+  opacity: .7;
+}
+
+.Filtros__boton_ayuda:hover {
   opacity: 1;
 }

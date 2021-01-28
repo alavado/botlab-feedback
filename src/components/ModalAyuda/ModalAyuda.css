@@ -1,0 +1,38 @@
+.ModalAyuda {
+  position: absolute;
+  background: white;
+  left: 100%;
+  top: 0%;
+  z-index: 3;
+  border-radius: .25rem;
+  border: 1px solid var(--color-bordes);
+  box-shadow:
+    0 0 .1rem rgba(0, 0, 0, .15),
+    0rem .25rem .25rem rgba(0, 0, 0, .15);
+}
+
+.ModalAyuda__gif {
+  object-fit: contain;
+  width: 16rem;
+}
+
+.ModalAyuda__bajada {
+  padding: 1rem;
+}
+
+.ModalAyuda__titulo {
+  font-weight: bold;
+  font-size: .7rem;
+}
+
+.ModalAyuda__explicación {
+  padding-top: .5rem;
+  font-size: .7rem;
+  line-height: 1.35;
+  list-style-type: disc;
+  padding-left: 1rem;
+}
+
+.ModalAyuda__explicación li:not(:last-child) {
+  margin-bottom: .25rem;
+}

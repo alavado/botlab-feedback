@@ -14,7 +14,8 @@ const Chat = () => {
   const [error403, setError403] = useState(false)
   const { idEncuesta, idUsuario } = useParams()
 
-  const actualizarMensajes = useCallback((fetchInicial = true) => {
+  const actualizarMensajes = useCallback(() => {
+    setConversaciones(undefined)
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
         const { data: { conversations } } = data
