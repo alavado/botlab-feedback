@@ -1,15 +1,16 @@
 import React from 'react'
+import classNames from 'classnames'
+import { useSelector } from 'react-redux'
 import SelectorRangoFechas from '../SelectorRangoFechas'
 import BuscadorRespuestas from '../BuscadorRespuestas'
 import LoaderRespuestas from './LoaderRespuestas'
 import FooterTablaRespuestas from './FooterTablaRespuestas'
 import HeadTablaRespuestas from './HeadTablaRespuestas'
 import BodyTablaRespuestas from './BodyTablaRespuestas'
-import { useSelector } from 'react-redux'
-import './TablaRespuestas.css'
 import ExportadorRespuestas from './ExportadorRespuestas'
 import ResumenRespuestas from '../ResumenRespuestas'
 import Filtros from './Filtros'
+import './TablaRespuestas.css'
 
 const respuestasPorPagina = 20
 
@@ -19,6 +20,7 @@ const TablaRespuestas = () => {
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
 
   const cargando = !respuestas || !headers
+  const mostrarResumen = !!(headers.find(h => h.tipo === 'YESNO'))
 
   return (
     <div className="TablaRespuestas">
@@ -34,8 +36,11 @@ const TablaRespuestas = () => {
         ? <LoaderRespuestas />
         : <div className="TablaRespuestas__contenedor">
             <Filtros />
-            <ResumenRespuestas />
-            <div className="TablaRespuestas__contenedor_tabla">
+            {mostrarResumen && <ResumenRespuestas />}
+            <div className={classNames({
+              "TablaRespuestas__contenedor_tabla": true,
+              "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen
+            })}>
               <table className="TablaRespuestas__tabla">
                 <HeadTablaRespuestas />
                 <BodyTablaRespuestas respuestasPorPagina={respuestasPorPagina} />

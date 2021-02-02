@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   gap: .5rem;
+  overflow: hidden;
 }
 
 .TablaRespuestas__superior {
@@ -41,6 +42,10 @@
   overflow: auto;
   scrollbar-width: .5em;
   scrollbar-color: var(--color-principal) white;
+}
+
+.TablaRespuestas__contenedor_tabla--extendido {
+  --h: calc(100vh - calc(2.75rem + 9.5rem));
 }
 
 .TablaRespuestas__contenedor_tabla::-webkit-scrollbar {

@@ -22,6 +22,10 @@ const ResumenRespuestas = () => {
     }, {})
   }, [headers, respuestas])
 
+  if (!conteosTags) {
+    return null
+  }
+
   const total = respuestas.length
   const conRespuesta = Object.keys(conteosTags).reduce((prev, k) => prev + conteosTags[k], 0)
   const porcentaje = ((100 * conRespuesta / total) || 0)

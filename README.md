@@ -7,6 +7,7 @@ Escribir readme
 - agregar indicacion de chats anteriores a vista expandida
 - http://localhost:3000/chat/103/101281
 
+- corrige error en redsalud derivaciones notificaciones (mini dahboard se cae pq no hay YESNO)
 - icono de ayuda en filtros con gif
 - que el color de las disyunciones sea distinto o algo asi
 - que el color del filtro global sea distinto
@@ -21,5 +22,4 @@ Escribir readme
 - vista alertas (revisar api en https://github.com/mquezada/botlab-encuestas/blob/master/app/docs/api.md)
 
 PREGUNTAS:
-- id cita 1 viene vacío (chat2)
-- user no esta en dev (chat2)
+-agregar x al gif

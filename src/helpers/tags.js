@@ -35,6 +35,12 @@ export const diccionarioTags = {
     icono: time,
     clase: 'TagRespuesta TagRespuesta--vacia'
   },
+  'DEFAULT': {
+    texto: 'Sí',
+    titulo: 'Respuestas',
+    icono: check,
+    clase: 'TagRespuesta TagRespuesta--si'
+  },
   '': {
     texto: '',
     titulo: '',
