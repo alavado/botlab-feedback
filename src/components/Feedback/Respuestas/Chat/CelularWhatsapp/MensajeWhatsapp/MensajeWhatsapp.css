@@ -142,3 +142,7 @@
 .MensajeWhatsapp__texto_nl2br span:last-child br {
   display: none;
 }
+
+.MensajeWhatsapp__strong {
+  font-weight: bold;
+}

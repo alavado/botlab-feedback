@@ -54,23 +54,54 @@ const Globo = ({ esDeHumano, posicion, hora, children }) => (
   </div>
 )
 
-const Texto = ({ mensaje, hora, esDeHumano }) => (
-  <div className="MensajeWhatsapp__texto">
-    {mensaje.message.indexOf('ATTACHMENT') > 0
-      ? <a
-          target="_blank"
-          rel="noreferrer noopener"
-          className="MensajeWhatsapp__link_archivo"
-          href={mensaje.message.slice(mensaje.message.indexOf('http'))}
-        >
-          <InlineIcon className="MensajeWhatsapp__pdf" icon={iconoArchivo} />
-          {mensaje.message.slice(0, mensaje.message.indexOf('ATTACHMENT'))}
-        </a>
-      : <Linkify><span className="MensajeWhatsapp__texto_nl2br">{nl2br(mensaje.message)}</span></Linkify>
-    }
-    <Hora hora={hora} escondida={true} esDeHumano={esDeHumano} />
-  </div>
-)
+const Texto = ({ mensaje, hora, esDeHumano }) => {
+
+  const marcar = texto => {
+    return texto.map(t => {
+      const partes = t.props.children[0].split('*')
+      return {
+        ...t,
+        props: {
+          ...t.props,
+          children: [
+            React.createElement(
+              'span',
+              [],
+              partes.map((p, i) => 0 < i && i < partes.length - 1
+                ? <strong className="MensajeWhatsapp__strong" key={Date.now()}>{p}</strong>
+                : p
+              )
+            ),
+            ...t.props.children.slice(1)
+          ]
+        }
+      }
+    })
+  }
+  const indiceAdjunto = mensaje.message.indexOf('ATTACHMENT')
+
+  return (
+    <div className="MensajeWhatsapp__texto">
+      {indiceAdjunto > 0
+        ? <a
+            target="_blank"
+            rel="noreferrer noopener"
+            className="MensajeWhatsapp__link_archivo"
+            href={mensaje.message.slice(mensaje.message.indexOf('http'))}
+          >
+            <InlineIcon className="MensajeWhatsapp__pdf" icon={iconoArchivo} />
+            {mensaje.message.slice(0, indiceAdjunto)}
+          </a>
+        : <Linkify>
+            <span className="MensajeWhatsapp__texto_nl2br">
+              {marcar(nl2br(mensaje.message))}
+            </span>
+          </Linkify>
+      }
+      <Hora hora={hora} escondida={true} esDeHumano={esDeHumano} />
+    </div>
+  )
+}
 
 const Hora = ({ hora, esDeHumano, escondida }) => (
   <div className={escondida ? 'MensajeWhatsapp__hora' : 'MensajeWhatsapp__hora_visible' }>
