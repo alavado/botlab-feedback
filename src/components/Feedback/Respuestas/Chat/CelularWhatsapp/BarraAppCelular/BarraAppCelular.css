@@ -28,7 +28,7 @@
 .BarraAppCelular__avatar {
   width: 1.5rem;
   height: 1.5rem;
-  background-image: linear-gradient(to bottom, #B0AAFA 0%, #7C71F4 100%);
+  background: #7C71F4;
   border-radius: 100%;
   margin-right: .35rem;
   display: flex;

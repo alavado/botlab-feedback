@@ -10,12 +10,13 @@ import { fijaChatExpandido } from '../../../../../redux/ducks/opciones'
 import Icon from '@iconify/react'
 import iconoEncoger from '@iconify/icons-mdi/arrow-collapse'
 
-const CelularWhatsapp = ({ conversaciones, indiceConversacion, actualizarMensajes }) => {
+const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConversacion, actualizarMensajes }) => {
 
   const { chatExpandido } = useSelector(state => state.opciones)
   const contenedorMensajes = useRef()
   const contenedorMensajesActuales = useRef()
   const dispatch = useDispatch()
+
   const todosLosMensajes = useMemo(() => {
     return conversaciones ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], []) : []
   }, [conversaciones])
@@ -27,6 +28,8 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, actualizarMensaje
   //     contenedor.scrollTop = contenedorActuales.getBoundingClientRect().top - contenedor.getBoundingClientRect().top
   //   }
   // }, [mensajes])
+
+  console.log(indiceConversacion)
 
   return (
     <div className={classNames({
@@ -58,15 +61,29 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, actualizarMensaje
               className="CelularWhatsapp__contenedor_mensajes_actuales"
               ref={contenedorMensajesActuales}
             >
-              {todosLosMensajes.length > 0
-                ? todosLosMensajes.map((mensaje, i) => (
-                    <MensajeWhatsapp
-                      mensaje={mensaje}
-                      mensajes={todosLosMensajes}
-                      posicion={i}
-                      key={`mensaje-${i}`}
-                    />
-                  ))
+              {conversaciones
+                ? conversaciones.map((c, ic) => {
+                    const mensajes = c.messages
+                    return (
+                      <div
+                        key={`contenedor-conversacion-${ic}`}
+                        className={classNames({
+                          "CelularWhatsapp__contenedor_conversacion": true,
+                          "CelularWhatsapp__contenedor_conversacion--seleccionada": ic === indiceConversacion,
+                        })}
+                        onClick={() => seleccionarConversacion(ic)}
+                      >
+                        {mensajes.map((mensaje, i) => (
+                          <MensajeWhatsapp
+                            mensaje={mensaje}
+                            mensajes={mensajes}
+                            posicion={i}
+                            key={`mensaje-${i}`}
+                          />
+                        ))}
+                      </div>
+                    )
+                  })
                 : <LoaderMensajes />
               }
             </div>

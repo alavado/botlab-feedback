@@ -23,7 +23,7 @@ const BarraAppCelular = ({ mensajes, actualizarMensajes }) => {
           className="BarraAppCelular__icono_volver"
           onClick={() => history.goBack()}
         />
-        <div className="BarraAppCelular__avatar">G</div>
+        <div className="BarraAppCelular__avatar">{nombreUsuario[0]}</div>
         <div className="BarraAppCelular__contenedor_nombre">
           <div className="BarraAppCelular__nombre">
             {nombreUsuario.split(' ')[0]}

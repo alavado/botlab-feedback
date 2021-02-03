@@ -20,6 +20,7 @@ const Chat = () => {
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
         const { data: { conversations, user } } = data
+        console.log(data)
         setTelefono(user ? user.phone : '')
         setConversaciones(conversations)
         setIndiceConversacion(conversations.length - 1)
@@ -45,6 +46,7 @@ const Chat = () => {
         conversaciones={conversaciones}
         indiceConversacion={indiceConversacion}
         actualizarMensajes={actualizarMensajes}
+        seleccionarConversacion={setIndiceConversacion}
       />
       <RespuestasChat
         tags={conversaciones && conversaciones[indiceConversacion]?.tags}

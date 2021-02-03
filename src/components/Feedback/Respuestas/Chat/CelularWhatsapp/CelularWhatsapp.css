@@ -72,6 +72,7 @@
   max-height: calc(83vh - 7rem);
   background-image: url('../../../../../assets/images/whatsapp-background.jpg');
   background-size: cover;
+  scroll-behavior: smooth;
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__contenedor_mensajes {
@@ -111,6 +112,19 @@
 
 .CelularWhatsapp__boton_encoger--visible {
   opacity: 1;
+}
+
+.CelularWhatsapp__contenedor_conversacion {
+  filter: saturate(0%) brightness(95%);
+  opacity: .7;
+  transition: all .25s ease-in-out;
+  cursor: pointer;
+}
+
+.CelularWhatsapp__contenedor_conversacion--seleccionada {
+  filter: none;
+  opacity: 1;
+  cursor: auto;
 }
 
 @keyframes aparece-celular {

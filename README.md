@@ -9,13 +9,13 @@ Escribir readme
 
 - que el color de las disyunciones sea distinto o algo asi
 - que el color del filtro global sea distinto
+- agregar x en filtros
 - exportar tabla no lo entiende felipe, podría destacarse con borde la tabla
 - agregar error 500 en login
 - link feedback classic
 - modo oscuros
 - mejorar carga de chat con skeletons
 - sankey
-- cambiar * por negrita en chats
 - vista alertas (revisar api en https://github.com/mquezada/botlab-encuestas/blob/master/app/docs/api.md)
 
 PREGUNTAS:
@@ -23,3 +23,4 @@ PREGUNTAS:
 
 HECHOS:
 - corrige error en redsalud derivaciones notificaciones (mini dahboard se cae pq no hay YESNO)
+- cambiar * por negrita en chats

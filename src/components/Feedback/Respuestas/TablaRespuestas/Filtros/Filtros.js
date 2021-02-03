@@ -5,12 +5,14 @@ import iconoFiltros from '@iconify/icons-mdi/filter'
 import iconoAyuda from '@iconify/icons-mdi/help-circle'
 import { useDispatch, useSelector } from 'react-redux'
 import { remueveFiltro, combinaFiltros } from '../../../../../redux/ducks/respuestas'
-import './Filtros.css'
 import ModalAyuda from '../../../../ModalAyuda'
+import classNames from 'classnames'
+import './Filtros.css'
 
 const Filtros = () => {
   
   const { filtros } = useSelector(state => state.respuestas)
+  console.log(filtros)
   const [indiceFiltroInicioDrag, setIndiceFiltroInicioDrag] = useState()
   const [mostrarAyuda, setMostrarAyuda] = useState(false)
   const dispatch = useDispatch()
@@ -22,7 +24,6 @@ const Filtros = () => {
       </div>
       {filtros.map((f, i) => (
         <div
-          className="Filtros__tag_filtro"
           key={`tag-filtro-${i}`}
           draggable={true}
           onDragStart={() => setIndiceFiltroInicioDrag(i)}
@@ -30,8 +31,14 @@ const Filtros = () => {
           onDragEnter={e => e.preventDefault()}
           onDrop={() => dispatch(combinaFiltros([indiceFiltroInicioDrag, i]))}
           title="Arrastra un filtro sobre otro para combinarlos"
+          className={classNames({
+            'Filtros__tag_filtro': true,
+            'Filtros__tag_filtro--global': f.headers === '*'
+          })}
         >
-          {f.descripcion}
+          {f.headers === '*' ? f.descripcion : f.busqueda.map((b, i) => (
+            <span key={`tag-filtro-${i}`} className="Filtros__elemento_tag_filtro">{`"${b}" en ${f.nombresHeaders[i]}`}</span>
+          ))}
           <button
             className="Filtros__boton_remover_filtro"
             title="Remover este filtro"
