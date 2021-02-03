@@ -115,8 +115,8 @@
 }
 
 .CelularWhatsapp__contenedor_conversacion {
-  filter: saturate(0%) brightness(95%);
-  opacity: .7;
+  filter: saturate(10%) brightness(90%);
+  opacity: .75;
   transition: all .25s ease-in-out;
   cursor: pointer;
 }

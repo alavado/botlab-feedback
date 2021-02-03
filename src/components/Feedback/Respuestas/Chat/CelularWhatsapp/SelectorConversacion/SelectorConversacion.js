@@ -23,7 +23,6 @@ const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, 
             style={{ background: diccionarioTags[primerTag].color }}
             onClick={() => seleccionarConversacion(i)}
           >
-  
           </button>
         )
       })}

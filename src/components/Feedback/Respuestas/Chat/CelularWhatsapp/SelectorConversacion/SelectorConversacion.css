@@ -18,13 +18,17 @@
   border: none;
   cursor: pointer;
   outline: none;
-  transition: all .25s ease-in-out;
-  transform: scale(.9);
+  transition: all .2s ease-in-out;
+  font-size: .5rem;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
 }
 
 .SelectorConversacion__boton:not(.SelectorConversacion__boton--seleccionado):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, .15);
-  transform: scale(1.2);
+  filter: brightness(105%);
 }
 
 .SelectorConversacion__boton--seleccionado {

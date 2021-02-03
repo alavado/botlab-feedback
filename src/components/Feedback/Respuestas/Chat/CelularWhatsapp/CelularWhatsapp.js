@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useRef, useEffect } from 'react'
 import LoaderMensajes from './LoaderMensajes'
 import BarraAppCelular from './BarraAppCelular'
 import BarraEstadoCelular from './BarraEstadoCelular'
@@ -15,11 +15,23 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
 
   const { chatExpandido } = useSelector(state => state.opciones)
   const contenedorMensajes = useRef()
-  const contenedorMensajesActuales = useRef()
   const dispatch = useDispatch()
 
   const todosLosMensajes = useMemo(() => {
     return conversaciones ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], []) : []
+  }, [conversaciones])
+
+  const irAConversacion = indice => {
+    seleccionarConversacion(indice)
+    const conversacion = document.getElementById(`contenedor-conversacion-${indice}`)
+    conversacion.scrollIntoView()
+  }
+
+  useEffect(() => {
+    if (conversaciones?.length > 0) {
+      const conversacion = document.getElementById(`contenedor-conversacion-${conversaciones.length - 1}`)
+      conversacion.scrollIntoView()
+    }
   }, [conversaciones])
 
   return (
@@ -30,7 +42,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
       <SelectorConversacion
         conversaciones={conversaciones}
         indiceConversacionSeleccionada={indiceConversacion}
-        seleccionarConversacion={seleccionarConversacion}
+        seleccionarConversacion={irAConversacion}
       />
       <div className="CelularWhatsapp__celular">
         <div className="CelularWhatsapp__pantalla">
@@ -53,36 +65,32 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
             className="CelularWhatsapp__contenedor_mensajes"
             ref={contenedorMensajes}
           >
-            <div
-              className="CelularWhatsapp__contenedor_mensajes_actuales"
-              ref={contenedorMensajesActuales}
-            >
-              {conversaciones
-                ? conversaciones.map((c, ic) => {
-                    const mensajes = c.messages
-                    return (
-                      <div
-                        key={`contenedor-conversacion-${ic}`}
-                        className={classNames({
-                          "CelularWhatsapp__contenedor_conversacion": true,
-                          "CelularWhatsapp__contenedor_conversacion--seleccionada": ic === indiceConversacion,
-                        })}
-                        onClick={() => seleccionarConversacion(ic)}
-                      >
-                        {mensajes.map((mensaje, i) => (
-                          <MensajeWhatsapp
-                            mensaje={mensaje}
-                            mensajes={mensajes}
-                            posicion={i}
-                            key={`mensaje-${i}`}
-                          />
-                        ))}
-                      </div>
-                    )
-                  })
-                : <LoaderMensajes />
-              }
-            </div>
+            {conversaciones
+              ? conversaciones.map((c, ic) => {
+                  const mensajes = c.messages
+                  return (
+                    <div
+                      key={`contenedor-conversacion-${ic}`}
+                      id={`contenedor-conversacion-${ic}`}
+                      className={classNames({
+                        "CelularWhatsapp__contenedor_conversacion": true,
+                        "CelularWhatsapp__contenedor_conversacion--seleccionada": ic === indiceConversacion,
+                      })}
+                      onClick={() => seleccionarConversacion(ic)}
+                    >
+                      {mensajes.map((mensaje, i) => (
+                        <MensajeWhatsapp
+                          mensaje={mensaje}
+                          mensajes={mensajes}
+                          posicion={i}
+                          key={`mensaje-${i}`}
+                        />
+                      ))}
+                    </div>
+                  )
+                })
+              : <LoaderMensajes />
+            }
           </div>
         </div>
       </div>

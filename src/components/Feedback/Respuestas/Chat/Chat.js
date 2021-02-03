@@ -20,7 +20,6 @@ const Chat = () => {
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
         const { data: { conversations, user } } = data
-        console.log(data)
         setTelefono(user ? user.phone : '')
         setConversaciones(conversations)
         setIndiceConversacion(conversations.length - 1)

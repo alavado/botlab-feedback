@@ -6,6 +6,8 @@ Escribir readme
 - manejo de error cargando chat
 - agregar indicacion de chats anteriores a vista expandida
 - http://localhost:3000/chat/103/101281
+varios chats:
+- http://localhost:3000/chat/103/86707
 
 - agregar x en filtros
 - exportar tabla no lo entiende felipe, podría destacarse con borde la tabla
@@ -18,6 +20,7 @@ Escribir readme
 
 PREGUNTAS:
 - cuando no hay mensajes, context viene vacío
+- que pasa si desde la busqueda llegan a un chat que no es el ultimo
 
 HECHOS:
 - corrige error en redsalud derivaciones notificaciones (mini dahboard se cae pq no hay YESNO)
