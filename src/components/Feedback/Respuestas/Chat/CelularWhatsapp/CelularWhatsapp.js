@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import LoaderMensajes from './LoaderMensajes'
 import BarraAppCelular from './BarraAppCelular'
 import BarraEstadoCelular from './BarraEstadoCelular'
@@ -9,6 +9,7 @@ import './CelularWhatsapp.css'
 import { fijaChatExpandido } from '../../../../../redux/ducks/opciones'
 import Icon from '@iconify/react'
 import iconoEncoger from '@iconify/icons-mdi/arrow-collapse'
+import SelectorConversacion from './SelectorConversacion'
 
 const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConversacion, actualizarMensajes }) => {
 
@@ -21,21 +22,16 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
     return conversaciones ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], []) : []
   }, [conversaciones])
 
-  // useEffect(() => {
-  //   if (mensajes?.anteriores.length > 0) {
-  //     const contenedor = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes')[0]
-  //     const contenedorActuales = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes_actuales')[0]
-  //     contenedor.scrollTop = contenedorActuales.getBoundingClientRect().top - contenedor.getBoundingClientRect().top
-  //   }
-  // }, [mensajes])
-
-  console.log(indiceConversacion)
-
   return (
     <div className={classNames({
       CelularWhatsapp: true,
       'CelularWhatsapp--expandido': chatExpandido
     })}>
+      <SelectorConversacion
+        conversaciones={conversaciones}
+        indiceConversacionSeleccionada={indiceConversacion}
+        seleccionarConversacion={seleccionarConversacion}
+      />
       <div className="CelularWhatsapp__celular">
         <div className="CelularWhatsapp__pantalla">
           <button

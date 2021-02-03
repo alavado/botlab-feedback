@@ -1,0 +1,32 @@
+.SelectorConversacion {
+  position: absolute;
+  left: 1.5rem;
+  top: 1rem;
+  gap: .75rem;
+  flex: 1;
+  height: 67vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.SelectorConversacion__boton {
+  width: .75rem;
+  height: .75rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all .25s ease-in-out;
+  transform: scale(.9);
+}
+
+.SelectorConversacion__boton:not(.SelectorConversacion__boton--seleccionado):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, .15);
+  transform: scale(1.2);
+}
+
+.SelectorConversacion__boton--seleccionado {
+  transform: scale(1.5);
+}

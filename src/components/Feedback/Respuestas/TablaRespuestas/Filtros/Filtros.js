@@ -33,11 +33,14 @@ const Filtros = () => {
           title="Arrastra un filtro sobre otro para combinarlos"
           className={classNames({
             'Filtros__tag_filtro': true,
-            'Filtros__tag_filtro--global': f.headers === '*'
+            'Filtros__tag_filtro--global': f.headers === '*',
+            'Filtros__tag_filtro--multiple': f.nombresHeaders?.length > 1
           })}
         >
           {f.headers === '*' ? f.descripcion : f.busqueda.map((b, i) => (
-            <span key={`tag-filtro-${i}`} className="Filtros__elemento_tag_filtro">{`"${b}" en ${f.nombresHeaders[i]}`}</span>
+            <span key={`tag-filtro-${i}`} className="Filtros__elemento_tag_filtro">
+              <span style={{ fontWeight: '600' }}>"{b}"</span> <span>en</span> <span style={{ fontWeight: '600', textTransform: 'uppercase' }}>{f.nombresHeaders[i]}</span>
+            </span>
           ))}
           <button
             className="Filtros__boton_remover_filtro"
