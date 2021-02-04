@@ -23,6 +23,7 @@ PREGUNTAS:
 - que pasa si desde la busqueda llegan a un chat que no es el ultimo
 
 HECHOS:
+- cambiar gif filtros y agregar x
 - corrige error en redsalud derivaciones notificaciones (mini dahboard se cae pq no hay YESNO)
 - cambiar * por negrita en chats
 - que el color de las disyunciones sea distinto o algo asi

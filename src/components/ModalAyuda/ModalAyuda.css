@@ -40,14 +40,16 @@
 
 .ModalAyuda__boton_cerrar {
   position: absolute;
-  top: .25rem;
-  right: .25rem;
+  top: 0;
+  right: 0;
   background: none;
   outline: none;
   cursor: pointer;
   border: none;
   color: var(--color-principal);
   font-size: 1rem;
+  background-color: white;
+  border-bottom-left-radius: .25rem;
 }
 
 @keyframes aparece-modal-ayuda {

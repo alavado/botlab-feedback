@@ -61,7 +61,7 @@ const DatosChat = ({ datos, telefono }) => {
         }
       </div>
       <h1 className="DatosChat__titulo">Datos del chat</h1>
-      {datos
+      {datos && datos[0]
         ? <div className="DatosChat__contenedor_datos">
             <div className="DatosChat__contenedor_header">
               <div className="DatosChat__nombre_header">
