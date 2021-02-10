@@ -130,6 +130,41 @@
   animation: Uso__aparece_fila_tabla_uso .25s ease both;
 }
 
+.Uso__boton_descargar_pdf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5rem;
+  height: 1.75rem;
+  padding: 0 .6rem;
+  margin-left: .5rem;
+  color: white;
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
+  transition: all .25s ease;
+  position: relative;
+  filter: none;
+  font-size: .8rem;
+}
+
+.Uso__boton_descargar_pdf:hover {
+  box-shadow: .15rem .15rem .2rem rgba(0, 0, 0, .1);
+  filter: brightness(110%);
+}
+
+.Uso__boton_descargar_pdf:disabled {
+  filter: saturate(20%) brightness(200%);
+  cursor: not-allowed;
+}
+
+.Uso__icono_descargar_pdf {
+  margin-right: .25rem;
+  font-size: 1.1rem;
+}
+
 @keyframes Uso__aparece {
   0% {
     transform: translateY(-.1rem);

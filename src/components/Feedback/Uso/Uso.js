@@ -5,7 +5,10 @@ import { es } from 'date-fns/locale'
 import Skeleton from 'react-loading-skeleton'
 import { PDFDocument, StandardFonts } from 'pdf-lib'
 import logoCeroPNG from '../../../assets/images/logo.png'
+import Icon from '@iconify/react'
+import iconoDescargarPDF from '@iconify/icons-mdi/pdf'
 import './Uso.css'
+import { useSelector } from 'react-redux'
 
 const mesesSelector = 12
 
@@ -14,6 +17,7 @@ const Uso = () => {
   const [meses, setMeses] = useState([])
   const [mes, setMes] = useState(0)
   const [filas, setFilas] = useState()
+  const { nombreUsuario } = useSelector(state => state.login)
 
   useEffect(() => {
     const inicioMes = format(startOfMonth(subMonths(new Date(), mes)), 'yyyy-MM-dd')
@@ -70,10 +74,20 @@ const Uso = () => {
     const fechaHoyFormateada = format(new Date(), 'dd/MM/yyyy')
     page.drawText(`Informe de uso para ${mesInformeFormateado}`, { x: 210, y: 735, size: 12, font: helvetica })
     page.drawText(`Fecha de emisión: ${fechaHoyFormateada}`, { x: 230, y: 720, size: 10, font: helvetica })
-    page.drawText('Resumen', { x: 40, y: 675, size: 10, font: helveticaBold })
+    page.drawText('Encuesta'.toUpperCase(), { x: 40, y: 675, size: 10, font: helveticaBold })
+    page.drawText('Enviadas'.toUpperCase(), { x: 380, y: 675, size: 10, font: helveticaBold })
+    page.drawText('Respondidas'.toUpperCase(), { x: 480, y: 675, size: 10, font: helveticaBold })
     page.drawLine({
       start: { x: 40, y: 670 },
       end: { x: 560, y: 670 }
+    })
+    page.drawText(`Todas las encuestas de ${nombreUsuario}`, { x: 40, y: 655, size: 10, font: helveticaBold })
+    page.drawText(filas[0].enviadas.toLocaleString('de-DE'), { x: 380, y: 655, size: 10, font: helveticaBold })
+    page.drawText(filas[0].enviadas.toLocaleString('de-DE'), { x: 480, y: 655, size: 10, font: helveticaBold })
+    filas.slice(1).forEach((f, i) => {
+      page.drawText(f.nombreEncuesta, { x: 45, y: 630 - 30 * i, size: 10, font: helvetica })
+      page.drawText(f.enviadas.toLocaleString('de-DE'), { x: 380, y: 630 - 30 * i, size: 10, font: helvetica })
+      page.drawText(f.respondidas.toLocaleString('de-DE'), { x: 480, y: 630 - 30 * i, size: 10, font: helvetica })
     })
     const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true })
     const elemento = document.createElement('a')
@@ -89,7 +103,14 @@ const Uso = () => {
     <div className="Uso">
       <div className="Uso__superior">
         <h1 className="Uso__titulo">Uso</h1>
-        <button onClick={generarPDF}>Descargar en PDF</button>
+        <button
+          onClick={generarPDF}
+          className="Uso__boton_descargar_pdf"
+          disabled={!filas}
+        >
+          <Icon className="Uso__icono_descargar_pdf" icon={iconoDescargarPDF} />
+          Descargar PDF
+        </button>
       </div>
       <div className="Uso__encabezado">
         <select onChange={e => setMes(e.target.value)} className="Uso__selector_periodo">
