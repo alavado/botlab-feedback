@@ -19,12 +19,12 @@ const ExportadorRespuestas = ({ cargando }) => {
     <div className="ExportadorRespuestas">
       <button
         className="ExportadorRespuestas__boton"
-        title="Exportar tabla a CSV"
+        tooltip="Exportar tabla a CSV"
         onClick={descargarCSV}
         disabled={cargando}
       >
         <Icon className="ExportadorRespuestas__icono" icon={iconoExportar} />
-        Exportar 
+        Exportar
       </button>
     </div>
   )

@@ -5,7 +5,7 @@ import './SelectorConversacion.css'
 
 const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, seleccionarConversacion }) => {
 
-  if (!conversaciones) {
+  if (!conversaciones || conversaciones.length === 1) {
     return null
   }
 

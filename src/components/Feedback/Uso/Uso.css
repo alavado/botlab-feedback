@@ -4,17 +4,15 @@
   width: 100%;
 }
 
+.Uso__superior {
+  display: flex;
+  justify-content: space-between;
+}
+
 .Uso__titulo {
   font-weight: bold;
   font-size: 1.75rem;
   font-family: 'Raleway';
-}
-
-.Uso__explicacion {
-  padding: 1.5rem 0;
-  font-size: .85rem;
-  animation: Uso__aparece .25s ease both;
-  display: none;
 }
 
 .Uso__selector_periodo {

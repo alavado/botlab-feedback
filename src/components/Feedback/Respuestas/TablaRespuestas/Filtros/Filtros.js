@@ -12,7 +12,6 @@ import './Filtros.css'
 const Filtros = () => {
   
   const { filtros } = useSelector(state => state.respuestas)
-  console.log(filtros)
   const [indiceFiltroInicioDrag, setIndiceFiltroInicioDrag] = useState()
   const [mostrarAyuda, setMostrarAyuda] = useState(false)
   const dispatch = useDispatch()

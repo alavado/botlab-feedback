@@ -9,6 +9,7 @@
   border-radius: .5rem;
   height: 1.75rem;
   padding: 0 .6rem;
+  margin-left: .5rem;
   color: white;
   background-color: var(--color-principal);
   border: none;
@@ -33,7 +34,7 @@
 
 .ExportadorRespuestas__boton:hover::after {
   position: absolute;
-  content: attr(title);
+  content: attr(tooltip);
   background-color: var(--color-principal-2);
   color: white;
   top: -100%;

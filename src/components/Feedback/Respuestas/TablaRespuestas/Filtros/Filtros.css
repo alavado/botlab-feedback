@@ -71,7 +71,6 @@
 
 .Filtros__tag_filtro--global {
   background: var(--color-principal-2);
-  box-shadow: 0 0 0 .075rem var(--color-secundario);
   cursor: default;
   padding-left: 1rem;
 }

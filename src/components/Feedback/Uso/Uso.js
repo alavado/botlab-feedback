@@ -3,6 +3,8 @@ import { uso } from '../../../api/endpoints'
 import { subMonths, format, startOfMonth, endOfMonth, parse } from 'date-fns'
 import { es } from 'date-fns/locale'
 import Skeleton from 'react-loading-skeleton'
+import { PDFDocument, StandardFonts } from 'pdf-lib'
+import logoCeroPNG from '../../../assets/images/logo.png'
 import './Uso.css'
 
 const mesesSelector = 12
@@ -49,13 +51,45 @@ const Uso = () => {
       })
   }, [mes])
 
+  const generarPDF = async () => {
+    const pdfDoc = await PDFDocument.create()
+    const page = pdfDoc.addPage()
+    const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica)
+    const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold)
+    page.moveTo(110, 200)
+    const pngBytes = await fetch(logoCeroPNG).then((res) => res.arrayBuffer())
+    const pngLogo = await pdfDoc.embedPng(pngBytes)
+    const pngDims = pngLogo.scale(0.2)
+    page.drawImage(pngLogo, {
+      x: 250,
+      y: 755,
+      width: pngDims.width,
+      height: pngDims.height
+    })
+    const mesInformeFormateado = format(meses[mes], 'MMMM yyyy', { locale: es })
+    const fechaHoyFormateada = format(new Date(), 'dd/MM/yyyy')
+    page.drawText(`Informe de uso para ${mesInformeFormateado}`, { x: 210, y: 735, size: 12, font: helvetica })
+    page.drawText(`Fecha de emisión: ${fechaHoyFormateada}`, { x: 230, y: 720, size: 10, font: helvetica })
+    page.drawText('Resumen', { x: 40, y: 675, size: 10, font: helveticaBold })
+    page.drawLine({
+      start: { x: 40, y: 670 },
+      end: { x: 560, y: 670 }
+    })
+    const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true })
+    const elemento = document.createElement('a')
+    elemento.setAttribute('href', pdfDataUri)
+    elemento.setAttribute('download', `Cero - informe uso ${mesInformeFormateado} al ${fechaHoyFormateada}.pdf`)
+    elemento.style.display = 'none'
+    document.body.appendChild(elemento)
+    elemento.click()
+    document.body.removeChild(elemento)
+  }
+
   return (
     <div className="Uso">
       <div className="Uso__superior">
         <h1 className="Uso__titulo">Uso</h1>
-        <p className="Uso__explicacion">
-          Los costos de aquí incluyen IVA o algo por el estilo, un mensaje explicativo amigable y buena onda.  
-        </p>
+        <button onClick={generarPDF}>Descargar en PDF</button>
       </div>
       <div className="Uso__encabezado">
         <select onChange={e => setMes(e.target.value)} className="Uso__selector_periodo">
