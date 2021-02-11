@@ -40,8 +40,12 @@ const Login = () => {
       }
     } catch (e) {
       setCargando(false)
-      // servicio no disponible, por favor vuelva a intentarlo en unos minutos
-      setError('Usuario o contraseña incorrectos')
+      if (e.response.status === 401) {
+        setError('Usuario o contraseña incorrectos.')
+      }
+      else {
+        setError('Servicio no disponible en estos momentos. Por favor, intenta de nuevo en unos minutos.')
+      }
     }
   }
 
