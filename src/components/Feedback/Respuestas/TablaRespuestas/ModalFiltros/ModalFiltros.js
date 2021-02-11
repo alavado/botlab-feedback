@@ -5,6 +5,7 @@ import './ModalFiltros.css'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { agregaFiltro, ordenaRespuestas } from '../../../../../redux/ducks/respuestas'
+import iconoLimpiarFiltro from '@iconify/icons-mdi/close'
 import iconoOrdenDescendente from '@iconify/icons-mdi/sort-ascending'
 import iconoFiltro from '@iconify/icons-mdi/filter'
 import { InlineIcon } from '@iconify/react'
@@ -68,12 +69,13 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               }}
             />
           </button>
-          {/* <button
+          <button
             className="ModalFiltros__boton_limpiar_filtro"
-            onClick={() => dispatch(remueveFiltro(i))}
+            onClick={() => dispatch(agregaFiltro(['', header.nombre, header.texto]))}
+            title="Limpiar filtro"
           >
-            <InlineIcon icon={iconoFiltro} />
-          </button> */}
+            <InlineIcon icon={iconoLimpiarFiltro} />
+          </button>
         </div>
       </div>
     , document.getElementById('modal-filtros'))

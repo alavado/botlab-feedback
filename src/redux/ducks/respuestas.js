@@ -119,7 +119,7 @@ const sliceRespuestas = createSlice({
           state.filtros.splice(indiceFiltro, 1)
         }
       }
-      else {
+      else if (busqueda !== '') {
         state.filtros.push(filtro)
       }
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))

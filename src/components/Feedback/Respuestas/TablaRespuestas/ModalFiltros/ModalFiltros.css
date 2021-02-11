@@ -68,3 +68,19 @@
   font-size: .7rem;
   color: var(--color-gris);
 }
+
+.ModalFiltros__boton_limpiar_filtro {
+  position: absolute;
+  right: 1.25rem;
+  bottom: .65rem;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: .8rem;
+  color: var(--color-gris);
+}
+
+.ModalFiltros__boton_limpiar_filtro:hover {
+  filter: brightness(70%);
+}
