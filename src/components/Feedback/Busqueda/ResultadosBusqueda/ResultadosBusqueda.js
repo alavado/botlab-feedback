@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { comienzaBusqueda, guardaResultadosBusqueda } from '../../../../redux/ducks/busqueda'
 import TarjetaResultadoBusqueda from './TarjetaResultadoBusqueda'
@@ -13,6 +13,7 @@ const ResultadosBusqueda = () => {
 
   const { resultadosBusqueda } = useSelector(state => state.busqueda)
   const { termino } = useParams()
+  const [terminoNuevaBusqueda, setTerminoNuevaBusqueda] = useState(termino)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -26,6 +27,11 @@ const ResultadosBusqueda = () => {
 
   if (!resultadosBusqueda) {
     return <LoaderResultadosBusqueda />
+  }
+
+  const buscar = e => {
+    e.preventDefault()
+    history.push(`/busqueda/${terminoNuevaBusqueda}`)
   }
 
   return (
@@ -43,13 +49,16 @@ const ResultadosBusqueda = () => {
         <div className="ResultadosBusqueda__encontrados">
           Buscaste <span className="ResuladosBusqueda__termino">"{termino}"</span> - {resultadosBusqueda.length} chats encontrados
         </div>
-        <button
-          className="ResultadosBusqueda__boton_nueva_busqueda"
-          onClick={() => history.push('/busqueda')}
-        >
-          <Icon className="ResultadosBusqueda__icono_boton" icon={iconoBuscar} />
-          Nueva búsqueda
-        </button>
+        <form onSubmit={buscar}>
+          <input
+            className="ResultadosBusqueda__input_nueva_busqueda"
+            onChange={e => setTerminoNuevaBusqueda(e.target.value)}
+            value={terminoNuevaBusqueda}
+          />
+          <button className="ResultadosBusqueda__boton_nueva_busqueda" type="submit">
+            <Icon icon={iconoBuscar} />
+          </button>
+        </form>
       </div>
       </div>
   )

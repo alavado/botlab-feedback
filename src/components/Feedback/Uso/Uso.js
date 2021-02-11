@@ -79,9 +79,6 @@ const Uso = () => {
             </option>
           ))}
         </select>
-        <div className="Uso__actualizacion">
-          Actualización: 1 de marzo de 2020, 10:15
-        </div>
       </div>
       <div className="Uso__contenedor_tabla">
         <table className="Uso__tabla_uso">
@@ -112,7 +109,6 @@ const Uso = () => {
             }
           </tbody>
         </table>
-
       </div>
     </div>
   )

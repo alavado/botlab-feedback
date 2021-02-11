@@ -29,12 +29,6 @@
   border: 1px solid var(--color-principal);
 }
 
-.Uso__actualizacion {
-  font-size: .8rem;
-  opacity: .8;
-  display: none;
-}
-
 .Uso__encabezado {
   display: flex;
   justify-content: space-between;
