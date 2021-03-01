@@ -65,6 +65,10 @@
   box-shadow: 0 0 0 .1rem var(--color-principal);
 }
 
+.ResultadosBusqueda__input_nueva_busqueda:disabled {
+  filter: brightness(90%);
+}
+
 .ResultadosBusqueda__boton_nueva_busqueda {
   margin-right: .25rem;
   font-size: 1.1rem;
