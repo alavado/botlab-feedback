@@ -3,6 +3,7 @@
   gap: 1rem;
   font-size: .8rem;
   color: var(--color-texto);
+  height: 6rem;
 }
 
 .ResumenRespuestas__tasa {

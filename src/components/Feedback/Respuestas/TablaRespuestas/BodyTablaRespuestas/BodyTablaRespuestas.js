@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import TagRespuesta from '../TagRespuesta'
 import classNames from 'classnames'
 import './BodyTablaRespuestas.css'
+import Skeleton from 'react-loading-skeleton'
 
 const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
@@ -26,27 +27,44 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
   return (
     <tbody className="BodyTablaRespuestas">
-      {respuestasPagina.map((respuesta, i) => (
-        <tr
-          key={`fila-respuestas-${i}`}
-          className={classNames({
-            'BodyTablaRespuestas__fila': true
-          })}
-          onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
-        >
-          {headersOrdenados.map(({ nombre }, j) => (
-            <td
-              key={`celda-respuesta-${i}-${j}`}
-              className="BodyTablaRespuestas__celda"
+      {respuestasPagina ?
+        respuestasPagina.map((respuesta, i) => (
+          <tr
+            key={`fila-respuestas-${i}`}
+            className={classNames({
+              'BodyTablaRespuestas__fila': true
+            })}
+            onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
+          >
+            {headersOrdenados.map(({ nombre }, j) => (
+              <td
+                key={`celda-respuesta-${i}-${j}`}
+                className="BodyTablaRespuestas__celda"
+              >
+                {respuesta[nombre] && respuesta[nombre].tag !== undefined
+                  ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
+                  : respuesta[nombre]
+                }
+              </td>
+            ))}
+          </tr>
+        ))
+        : Array(respuestasPorPagina).fill(0).map((x, i) => (
+            <tr
+              key={`fila-skeleton-respuestas-${i}`}
+              className="BodyTablaRespuestas__fila"
             >
-              {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
-                : respuesta[nombre]
-              }
-            </td>
-          ))}
-        </tr>
-      ))}
+              {headersOrdenados.map(({ nombre }, j) => (
+                <td
+                  key={`celda-skeleton-respuesta-${i}-${j}`}
+                  className="BodyTablaRespuestas__celda"
+                >
+                  <Skeleton />
+                </td>
+              ))}
+            </tr>
+        ))
+      }
     </tbody>
   )
 }

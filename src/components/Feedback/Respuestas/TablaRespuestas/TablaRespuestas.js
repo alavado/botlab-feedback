@@ -32,26 +32,24 @@ const TablaRespuestas = () => {
           <ExportadorRespuestas cargando={cargando} />
         </div>
       </div>
-      {cargando
-        ? <LoaderRespuestas />
-        : <div className="TablaRespuestas__contenedor">
-            <Filtros />
-            {mostrarResumen && <ResumenRespuestas />}
-            <div className={classNames({
-              "TablaRespuestas__contenedor_tabla": true,
-              "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen
-            })}>
-              <table className="TablaRespuestas__tabla">
-                <HeadTablaRespuestas />
-                <BodyTablaRespuestas respuestasPorPagina={respuestasPorPagina} />
-              </table>
-            </div>
-            <FooterTablaRespuestas
-              respuestasPorPagina={respuestasPorPagina}
-              totalRespuestas={respuestas ? respuestas.length : 0}
-            />
-          </div>
-      }
+      <div className="TablaRespuestas__contenedor">
+        <Filtros />
+        <ResumenRespuestas cargando={cargando} />
+        <div className={classNames({
+          "TablaRespuestas__contenedor_tabla": true,
+          "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen
+        })}>
+          <table className="TablaRespuestas__tabla">
+            <HeadTablaRespuestas />
+            <BodyTablaRespuestas respuestasPorPagina={respuestasPorPagina} />
+          </table>
+        </div>
+        <FooterTablaRespuestas
+          cargando={cargando}
+          respuestasPorPagina={respuestasPorPagina}
+          totalRespuestas={respuestas ? respuestas.length : 0}
+        />
+      </div>
     </div>
   )
 }

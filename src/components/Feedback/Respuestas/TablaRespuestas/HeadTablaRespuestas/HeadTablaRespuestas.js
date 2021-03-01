@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
 import './HeadTablaRespuestas.css'
-// import { ordenaRespuestas } from '../../../../../redux/ducks/respuestas'
 import { InlineIcon } from '@iconify/react'
 import triangulito from '@iconify/icons-mdi/arrow-down-drop'
 import ModalFiltros from '../ModalFiltros'
@@ -10,12 +9,11 @@ import ModalFiltros from '../ModalFiltros'
 const HeadTablaRespuestas = () => {
 
   const { headers } = useSelector(state => state.encuestas)
-  // const { orden, ordenHeader } = useSelector(state => state.respuestas)
   const [modalFiltroActivo, setModalFiltroActivo] = useState(false)
   const [indiceColumnaFiltrada, setIndiceColumnaFiltrada] = useState(0)
 
   const headersOrdenados = useMemo(() => {
-    return [...headers.filter(h => h.tipo === 'YESNO'), ...headers.filter(h => h.tipo !== 'YESNO')]
+    return headers ? [...headers.filter(h => h.tipo === 'YESNO'), ...headers.filter(h => h.tipo !== 'YESNO')] : []
   }, [headers])
 
   const mostrarModalFiltros = indiceColumna => {

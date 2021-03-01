@@ -1,9 +1,10 @@
 import React from 'react'
+import Skeleton from 'react-loading-skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { avanzaPagina, retrocedePagina } from '../../../../../redux/ducks/respuestas'
 import './FooterTablaRespuestas.css'
 
-const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
+const FooterTablaRespuestas = ({ cargando, respuestasPorPagina, totalRespuestas }) => {
 
   const numeroPaginas = Math.ceil(totalRespuestas / respuestasPorPagina)
   const { pagina } = useSelector(state => state.respuestas)
@@ -19,27 +20,32 @@ const FooterTablaRespuestas = ({ respuestasPorPagina, totalRespuestas }) => {
   return (
     <div className="FooterTablaRespuestas">
       <div className="FooterTablaRespuestas__datos_paginacion">
-        <p className="FooterTablaRespuestas__total">
-          {mensaje}
-        </p>
-        {totalRespuestas > respuestasPorPagina &&
-          <div className="FooterTablaRespuestas__botones_paginas">
-            <button
-              className="FooterTablaRespuestas__boton_pagina"
-              onClick={() => dispatch(retrocedePagina())}
-              disabled={pagina === 1}
-            >
-              Anterior
-            </button>
-            <button
-              className="FooterTablaRespuestas__boton_pagina"
-              onClick={() => dispatch(avanzaPagina())}
-              disabled={numeroPaginas === 1 || pagina >= numeroPaginas}
-            >
-              Siguiente
-            </button>
-          </div>
-        }
+        {cargando
+          ? <Skeleton width={300} />
+          : <>
+              <p className="FooterTablaRespuestas__total">
+                {mensaje}
+              </p>
+              {totalRespuestas > respuestasPorPagina &&
+                <div className="FooterTablaRespuestas__botones_paginas">
+                  <button
+                    className="FooterTablaRespuestas__boton_pagina"
+                    onClick={() => dispatch(retrocedePagina())}
+                    disabled={pagina === 1}
+                  >
+                    Anterior
+                  </button>
+                  <button
+                    className="FooterTablaRespuestas__boton_pagina"
+                    onClick={() => dispatch(avanzaPagina())}
+                    disabled={numeroPaginas === 1 || pagina >= numeroPaginas}
+                  >
+                    Siguiente
+                  </button>
+                </div>
+              }
+            </>
+          }
       </div>
     </div>
   )

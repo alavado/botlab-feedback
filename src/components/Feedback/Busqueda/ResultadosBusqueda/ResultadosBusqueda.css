@@ -58,7 +58,7 @@
   filter: none;
   font-size: .8rem;
   position: relative;
-  border: .1rem solid var(--color-gris);
+  border: .1rem solid var(--color-bordes);
 }
 
 .ResultadosBusqueda__input_nueva_busqueda:focus {
