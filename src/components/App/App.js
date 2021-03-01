@@ -5,11 +5,14 @@ import Feedback from '../Feedback'
 import Login from '../Login'
 import { differenceInHours } from 'date-fns'
 import { cierraLaSesion } from '../../redux/ducks/login'
+import classNames from 'classnames'
 import './App.css'
+import { ESQUEMA_OSCURO } from '../../redux/ducks/opciones'
 
 const App = () => {
 
   const { token, fechaToken } = useSelector(state => state.login)
+  const { esquema } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   
   useEffect(() => {
@@ -20,7 +23,10 @@ const App = () => {
   }, [fechaToken, dispatch])
 
   return (
-    <div className="App">
+    <div className={classNames({
+      'App': true,
+      'App__oscura': esquema === ESQUEMA_OSCURO
+    })}>
       <Switch>
         <Route exact path="/">
           {token ? <Feedback /> : <Login />}

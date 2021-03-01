@@ -20,7 +20,7 @@
   height: 2rem;
   bottom: 0;
   left: -1rem;
-  background-color: white;
+  background-color: var(--color-blanco);
   z-index: 1;
 }
 

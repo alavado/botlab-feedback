@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(25deg, #AFAAFA 40%, #A19AF7 55%);
-  color: white;
+  color: var(--color-blanco);
   width: 15rem;
 }
 
@@ -43,7 +43,7 @@
     linear-gradient(to right, rgba(86, 79, 224, 0.25) 0% 100%),
     linear-gradient(25deg, #AFAAFAFF 40%, #A19AF7EE 55%)
   ;
-  color: white;
+  color: var(--color-blanco);
   transition: all .25s ease;
 }
 

@@ -51,7 +51,7 @@
 .Uso__contenedor_tabla::-webkit-scrollbar {
   width: .6em;
   height: .6em;
-  background-color: white;
+  background-color: var(--color-blanco);
 }
 
 .Uso__contenedor_tabla::-webkit-scrollbar-thumb {
@@ -132,7 +132,7 @@
   height: 1.75rem;
   padding: 0 .6rem;
   margin-left: .5rem;
-  color: white;
+  color: var(--color-blanco);
   background-color: var(--color-principal);
   border: none;
   cursor: pointer;

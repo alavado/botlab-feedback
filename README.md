@@ -10,8 +10,8 @@ varios chats:
 - http://localhost:3000/chat/103/86707
 
 - REVISAR HORAS QUE parece que estan UTC en chat 2 hay que restarles 4
+- cambiar skeleton de mini dashboard por loader
 - mejorar carga de chat con skeletons
-- en las cajitas de busqueda no poner skeletons, solo mantener barra superior
 - exportar tabla no lo entiende felipe, podría destacarse con borde la tabla
 - link feedback classic
 - modo oscuros
@@ -20,3 +20,5 @@ varios chats:
 Hechos:
 - agregar disclaimer al pdf
 - en el pdf, ser explicito en las fechas de emision (este reporte consdiera de xx a xx, con horas en ambos casos) y ademas poner fecha de emision en el footer yo creo
+- en las cajitas de busqueda no poner skeletons, solo mantener barra superior
+

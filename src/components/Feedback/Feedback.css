@@ -12,7 +12,7 @@
 .Feedback__contenedor_central {
   flex: 1;
   display: flex;
-  background-color: white;
+  background-color: var(--color-blanco);
   padding: 2rem 2rem 0rem 2rem;
 }
 

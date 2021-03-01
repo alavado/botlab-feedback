@@ -9,3 +9,22 @@
   background-size: cover;
   overflow: hidden;
 }
+
+*, *::before, *::after {
+	--color-principal: #6057f6;
+	--color-principal-2: #5b53eb;
+	--color-principal-oscuro: #2017d9;
+	--color-secundario: #d84763;
+	--color-bordes: #CFD8DC;
+	--color-gris: #5e7782;
+	--color-fila-destacada: #f6f5fe;
+	--color-si: #cbf4c9;
+	--color-no: #f4c8c8;
+	--color-out: #f4eac8;
+	--color-reagenda: #d2c8f4;
+  --color-blanco: white;
+}
+
+.App__oscura *, .App__oscura *::before, .App__oscura *::after {
+	--color-blanco: black;
+}

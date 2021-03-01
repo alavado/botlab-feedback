@@ -10,7 +10,7 @@
   height: 1.75rem;
   padding: 0 .6rem;
   margin-left: .5rem;
-  color: white;
+  color: var(--color-blanco);
   background-color: var(--color-principal);
   border: none;
   cursor: pointer;
@@ -36,7 +36,7 @@
   position: absolute;
   content: attr(tooltip);
   background-color: var(--color-principal-2);
-  color: white;
+  color: var(--color-blanco);
   top: -100%;
   white-space: nowrap;
   border-radius: .25rem;

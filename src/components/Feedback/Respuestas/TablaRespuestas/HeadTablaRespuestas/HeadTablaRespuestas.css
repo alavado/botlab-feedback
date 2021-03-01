@@ -5,7 +5,7 @@
 .HeadTablaRespuestas thead, .HeadTablaRespuestas th {
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: var(--color-blanco);
   z-index: 2;
 }
 
@@ -61,7 +61,7 @@
   border: none;
   border-radius: 50%;
   background-color: var(--color-principal);
-  color: white;
+  color: var(--color-blanco);
   outline: none;
   font-size: 1rem;
 }

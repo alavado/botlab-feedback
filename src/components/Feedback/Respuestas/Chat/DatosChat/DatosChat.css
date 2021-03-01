@@ -91,7 +91,7 @@
 .DatosChat__contenedor_datos::-webkit-scrollbar {
   width: .6em;
   height: .6em;
-  background-color: white;
+  background-color: var(--color-blanco);
 }
 
 .DatosChat__contenedor_datos::-webkit-scrollbar-thumb {

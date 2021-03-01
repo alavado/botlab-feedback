@@ -8,7 +8,7 @@
 .ResultadosBusqueda__contenedor_resultados {
   max-height: calc(100vh - 9rem);
   scrollbar-width: .5em;
-  scrollbar-color: var(--color-principal) white;
+  scrollbar-color: var(--color-principal) var(--color-blanco);
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
@@ -19,7 +19,7 @@
 .ResultadosBusqueda__contenedor_resultados::-webkit-scrollbar {
   width: .6em;
   height: .6em;
-  background-color: white;
+  background-color: var(--color-blanco);
 }
 
 .ResultadosBusqueda__contenedor_resultados::-webkit-scrollbar-thumb {

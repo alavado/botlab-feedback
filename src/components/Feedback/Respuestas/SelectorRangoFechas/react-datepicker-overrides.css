@@ -10,7 +10,7 @@
 }
 
 .react-datepicker__header, .react-datepicker__header * {
-  color: white;
+  color: var(--color-blanco);
 }
 
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
@@ -19,15 +19,15 @@
 
 .react-datepicker__day--selected {
   background-color: var(--color-principal-claro);
-  color: white;
+  color: var(--color-blanco);
 }
 
 .react-datepicker__navigation--next {
-  border-left-color: white;
+  border-left-color: var(--color-blanco);
 }
 
 .react-datepicker__navigation--previous {
-  border-right-color: white;
+  border-right-color: var(--color-blanco);
 }
 
 .react-datepicker__day--keyboard-selected {
