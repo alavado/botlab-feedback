@@ -1,5 +1,6 @@
 .DatosChat {
   flex: 1;
+  color: var(--color-texto);
 }
 
 .DatosChat__navegacion {
@@ -91,7 +92,7 @@
 .DatosChat__contenedor_datos::-webkit-scrollbar {
   width: .6em;
   height: .6em;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
 }
 
 .DatosChat__contenedor_datos::-webkit-scrollbar-thumb {

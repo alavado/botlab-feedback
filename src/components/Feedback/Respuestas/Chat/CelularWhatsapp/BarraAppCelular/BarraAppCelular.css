@@ -1,6 +1,6 @@
 .BarraAppCelular {
   background-color: #075E54;
-  color: var(--color-blanco);
+  color: var(--color-texto-claro);
   font-size: .8rem;
   min-height: 2.5rem;
   display: flex;
@@ -58,7 +58,7 @@
   justify-content: center;
   background-color: transparent;
   border: none;
-  color: var(--color-blanco);
+  color: var(--color-texto-claro);
   outline: none;
 }
 

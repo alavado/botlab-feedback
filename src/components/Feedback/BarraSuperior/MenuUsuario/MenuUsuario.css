@@ -3,7 +3,7 @@
   background: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: var(--color-gris);
+  color: var(--color-texto);
   transition: all .25s ease;
   outline: none;
   display: flex;

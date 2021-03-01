@@ -2,7 +2,7 @@
   display: flex;
   gap: 1rem;
   font-size: .8rem;
-  color: var(--color-texto);
+  color: var(--color-texto-claro);
   height: 6rem;
 }
 
@@ -13,8 +13,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(25deg, #AFAAFA 40%, #A19AF7 55%);
-  color: var(--color-blanco);
+  background: linear-gradient(25deg, var(--color-mini-dasdhboard-1) 40%, var(--color-mini-dasdhboard-2) 55%);
+  color: var(--color-texto-claro);
   width: 15rem;
 }
 
@@ -41,9 +41,9 @@
   --porcentaje-lleno: 0%;
   background:
     linear-gradient(to right, rgba(86, 79, 224, 0.25) 0% 100%),
-    linear-gradient(25deg, #AFAAFAFF 40%, #A19AF7EE 55%)
+    linear-gradient(25deg, var(--color-mini-dasdhboard-1) 40%, var(--color-mini-dasdhboard-2) 55%)
   ;
-  color: var(--color-blanco);
+  color: var(--color-texto-claro);
   transition: all .25s ease;
 }
 
@@ -87,7 +87,7 @@
   width: 7.5rem;
   background-image:
     linear-gradient(to right,
-      rgba(96, 87, 246, .3) 0% var(--porcentaje-lleno),
+      var(--color-barras-mini-dashboard) 0% var(--porcentaje-lleno),
       transparent 0
     )
   ;

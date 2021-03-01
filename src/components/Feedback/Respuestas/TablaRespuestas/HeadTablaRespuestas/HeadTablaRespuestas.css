@@ -5,7 +5,7 @@
 .HeadTablaRespuestas thead, .HeadTablaRespuestas th {
   position: sticky;
   top: 0;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
   z-index: 2;
 }
 
@@ -23,6 +23,7 @@
   cursor: pointer;
   transition: all .25s ease-in-out;
   text-overflow: ellipsis;
+  color: var(--color-texto);
 }
 
 .HeadTablaRespuestas__header:hover {
@@ -61,7 +62,7 @@
   border: none;
   border-radius: 50%;
   background-color: var(--color-principal);
-  color: var(--color-blanco);
+  color: var(--color-texto-claro);
   outline: none;
   font-size: 1rem;
 }

@@ -25,12 +25,12 @@
   max-height: 50vh;
   overflow: auto;
   scrollbar-width: .6em;
-  scrollbar-color: var(--color-principal) var(--color-blanco);
+  scrollbar-color: var(--color-principal) var(--color-fondo);
 }
 
 .PopupEncuestas::-webkit-scrollbar {
   width: .6em;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
 }
 
 .PopupEncuestas::-webkit-scrollbar-thumb {
@@ -39,19 +39,18 @@
 }
 
 .PopupEncuestas__opcion {
-  background-color: transparent;
   padding: .5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
   padding-right: 1rem;
   transition: all .1s ease;
 }
 
 .PopupEncuestas__opcion:hover {
   background-color: var(--color-principal);
-  color: var(--color-blanco);
+  color: var(--color-texto-claro);
 }
 
 .PopupEncuestas__opcion:first-child {
@@ -68,7 +67,7 @@
   width: 1.9rem;
   height: 1.9rem;
   padding: .25rem;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
   border-radius: 100%;
   box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .15);
   margin-right: .5rem;

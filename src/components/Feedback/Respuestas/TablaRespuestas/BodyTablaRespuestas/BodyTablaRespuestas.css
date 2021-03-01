@@ -13,7 +13,7 @@
 }
 
 .BodyTablaRespuestas__fila:nth-child(odd) {
-  background-color: #fcfcfc;
+  background-color: var(--color-alternativo-fila-tabla);
 }
 
 .BodyTablaRespuestas__fila:hover {
@@ -30,4 +30,5 @@
   transition: all .25s ease-in-out;
   text-overflow: ellipsis;
   overflow: hidden;
+  color: var(--color-texto);
 }

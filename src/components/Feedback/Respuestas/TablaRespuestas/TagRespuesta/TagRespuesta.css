@@ -3,7 +3,7 @@
   font-size: .7rem;
   font-weight: 600;
   border-radius: .25rem;
-  color: rgba(0, 0, 0, .75);
+  color: var(--color-texto-tag) !important;
   margin-right: .5rem;
   overflow: hidden;
   align-self: flex-start;

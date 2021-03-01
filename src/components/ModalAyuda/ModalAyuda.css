@@ -1,6 +1,6 @@
 .ModalAyuda {
   position: absolute;
-  background: var(--color-blanco);
+  background: var(--color-fondo);
   left: 100%;
   top: 0%;
   z-index: 3;
@@ -48,7 +48,7 @@
   border: none;
   color: var(--color-principal);
   font-size: 1rem;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
   border-bottom-left-radius: .25rem;
 }
 

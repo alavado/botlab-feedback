@@ -28,7 +28,7 @@
 }
 
 .Login__form {
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
   padding: 1.75rem 2.25rem;
   border-radius: .25rem;
   display: flex;
@@ -75,7 +75,7 @@
 
 .Login__boton {
   background-color: #0ABCEB;
-  color: var(--color-blanco);
+  color: var(--color-texto-claro);
   border: none;
   border-radius: .45rem;
   font-size: 1rem;

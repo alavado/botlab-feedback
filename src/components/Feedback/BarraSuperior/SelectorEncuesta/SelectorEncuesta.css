@@ -19,7 +19,7 @@
   width: 1.9rem;
   height: 1.9rem;
   padding: .25rem;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
   border-radius: 100%;
   box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .15);
   margin-right: .5rem;
@@ -30,11 +30,12 @@
   padding-right: .5rem;
   font-weight: 600;
   font-size: .93rem;
-  color: #35393a;
+  color: var(--color-texto);
 }
 
 .SelectorEncuesta__icono_menu {
   font-size: 1.3rem;
+  color: var(--color-texto);
 }
 
 @keyframes aparece-selector-encuesta {

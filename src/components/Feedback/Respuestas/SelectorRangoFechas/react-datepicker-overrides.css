@@ -2,15 +2,14 @@
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   box-shadow: 0 .25rem .25rem rgba(0, 0, 0, .15);
   animation: aparece-datepicker .25s ease both;
-  --color-principal-claro: #7B71F4
 }
 
 .react-datepicker__header {
-  background-image: linear-gradient(to bottom, var(--color-principal) 0%, var(--color-principal-claro) 100% );
+  background-image: linear-gradient(to bottom, var(--color-principal) 0%, var(--color-principal-claro) 100%);
 }
 
 .react-datepicker__header, .react-datepicker__header * {
-  color: var(--color-blanco);
+  color: var(--color-texto-claro);
 }
 
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
@@ -19,15 +18,15 @@
 
 .react-datepicker__day--selected {
   background-color: var(--color-principal-claro);
-  color: var(--color-blanco);
+  color: var(--color-texto-claro);
 }
 
 .react-datepicker__navigation--next {
-  border-left-color: var(--color-blanco);
+  border-left-color: var(--color-texto-claro);
 }
 
 .react-datepicker__navigation--previous {
-  border-right-color: var(--color-blanco);
+  border-right-color: var(--color-texto-claro);
 }
 
 .react-datepicker__day--keyboard-selected {

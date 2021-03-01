@@ -28,6 +28,7 @@
   font-weight: bold;
   font-size: 1.75rem;
   font-family: 'Raleway';
+  color: var(--color-texto);
 }
 
 .TablaRespuestas__contenedor_tabla {
@@ -41,7 +42,7 @@
   max-width: calc(100vw - 7rem);
   overflow: auto;
   scrollbar-width: .5em;
-  scrollbar-color: var(--color-principal) var(--color-blanco);
+  scrollbar-color: var(--color-principal) var(--color-fondo);
 }
 
 .TablaRespuestas__contenedor_tabla--extendido {
@@ -51,7 +52,7 @@
 .TablaRespuestas__contenedor_tabla::-webkit-scrollbar {
   width: .6em;
   height: .6em;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
 }
 
 .TablaRespuestas__contenedor_tabla::-webkit-scrollbar-thumb {

@@ -1,5 +1,6 @@
 .RespuestasChat {
   flex: .75;
+  color: var(--color-texto);
 }
 
 .RespuestasChat__titulo {

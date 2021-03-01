@@ -23,7 +23,7 @@
 
 .MensajeWhatsapp__globo {
   font-size: .8rem;
-  background-color: var(--color-blanco);
+  background-color: white;
   padding: .3rem .5rem;
   max-width: 90%;
   line-height: 1.15;
@@ -42,8 +42,8 @@
   width: 0;
   height: 0;
   content: '';
-  border-top: .45rem solid var(--color-blanco);
-  border-right: .45rem solid var(--color-blanco);
+  border-top: .45rem solid white;
+  border-right: .45rem solid white;
   border-left: .45rem solid transparent;
   border-bottom: .45rem solid transparent;
   top: 0;

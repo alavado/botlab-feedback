@@ -20,7 +20,7 @@
 .Alertas__contenedor_tabla::-webkit-scrollbar {
   width: .6em;
   height: .6em;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
 }
 
 .Alertas__contenedor_tabla::-webkit-scrollbar-thumb {
@@ -32,7 +32,7 @@
 .Alertas__tabla th {
   position: sticky;
   top: 0;
-  background-color: var(--color-blanco);
+  background-color: var(--color-fondo);
   text-align: left;
   text-transform: uppercase;
   font-weight: 600;

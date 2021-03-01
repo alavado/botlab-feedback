@@ -14,6 +14,7 @@
 	--color-principal: #6057f6;
 	--color-principal-2: #5b53eb;
 	--color-principal-oscuro: #2017d9;
+  --color-principal-claro: #7B71F4;
 	--color-secundario: #d84763;
 	--color-bordes: #CFD8DC;
 	--color-gris: #5e7782;
@@ -22,9 +23,33 @@
 	--color-no: #f4c8c8;
 	--color-out: #f4eac8;
 	--color-reagenda: #d2c8f4;
-  --color-blanco: white;
+  --color-fondo: white;
+  --color-texto-claro: white;
+  --color-barra-superior: #fafaff;
+  --color-alternativo-fila-tabla: #fcfcfc;
+  --color-texto-tag: rgba(0, 0, 0, .75);
+  --color-mini-dasdhboard-1: #AFAAFA;
+  --color-mini-dasdhboard-2: #A19AF7;
+  --color-barras-mini-dashboard: rgba(96, 87, 246, .3);
+  --color-texto: #212121;
 }
 
 .App__oscura *, .App__oscura *::before, .App__oscura *::after {
-	--color-blanco: black;
+	--color-principal: #3f38a3;
+	--color-principal-2: #1a13a0;
+	--color-principal-oscuro: #100b6a;
+  --color-principal-claro: #2917ee;
+	--color-secundario: #d84763;
+	--color-bordes: #CFD8DC;
+	--color-fondo: #01010a;
+  --color-barra-superior: #030222;
+	--color-fila-destacada: #222;
+	--color-bordes: #444;
+  --color-texto-claro: rgba(250, 250, 250, 1);
+  --color-alternativo-fila-tabla: #151515;
+  --color-texto-tag: rgba(0, 0, 0, .95);
+  --color-mini-dasdhboard-1: #3f38a3;
+  --color-mini-dasdhboard-2: #4d45bf;
+  --color-barras-mini-dashboard: rgba(0, 0, 0, .25);
+  --color-texto: rgba(250, 250, 250, 1);
 }
