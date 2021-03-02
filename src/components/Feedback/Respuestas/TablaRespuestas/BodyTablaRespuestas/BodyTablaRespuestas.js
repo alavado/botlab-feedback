@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import TagRespuesta from '../TagRespuesta'
 import classNames from 'classnames'
 import './BodyTablaRespuestas.css'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from '../../../../Skeleton'
 
 const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 

@@ -18,7 +18,6 @@
     "react-datepicker": "^3.2.2",
     "react-dom": "^16.13.1",
     "react-linkify": "^1.0.0-alpha",
-    "react-loading-skeleton": "^2.1.1",
     "react-newline-to-break": "^1.0.6",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",

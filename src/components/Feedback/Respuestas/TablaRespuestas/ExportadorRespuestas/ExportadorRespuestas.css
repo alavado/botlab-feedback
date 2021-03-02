@@ -28,7 +28,7 @@
 }
 
 .ExportadorRespuestas__boton:disabled {
-  filter: saturate(20%) brightness(200%);
+  filter: brightness(90%);
   cursor: not-allowed;
 }
 

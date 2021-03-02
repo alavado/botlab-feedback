@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from '../../../Skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { diccionarioTags } from '../../../../helpers/tags'
 import { agregaFiltro } from '../../../../redux/ducks/respuestas'
@@ -39,50 +39,47 @@ const ResumenRespuestas = ({ cargando }) => {
         className="ResumenRespuestas__detalle"
         style={{ '--porcentaje-lleno': `${porcentaje}%` }}
       >
-        <div className="ResumenRespuestas__detalle_tasa">
-          <div>Respondidas {cargando ? <Skeleton width={70} /> : conRespuesta.toLocaleString('de-DE')} / {cargando ? <Skeleton width={70} /> : total.toLocaleString('de-DE')}</div>
-          <div className="ResumenRespuestas__porcentaje">
-            {cargando ? <Skeleton width={170} /> : `${porcentaje.toLocaleString('de-DE', { maximumFractionDigits: 1 })}%`}
-          </div>
-        </div>
-        <table className="ResumenRespuestas__detalle_tabla">
-          <tbody>
-            {cargando
-              ? <>
-                  <tr><td className="ResumenRespuestas__celda_barra"><Skeleton /></td></tr>
-                  <tr><td className="ResumenRespuestas__celda_barra"><Skeleton /></td></tr>
-                  <tr><td className="ResumenRespuestas__celda_barra"><Skeleton /></td></tr>
-                  <tr><td className="ResumenRespuestas__celda_barra"><Skeleton /></td></tr>
-                </>
-              : Object.keys(diccionarioTags).slice(0, 4).map(tag => {
-                  const porcentaje = ((100 * conteosTags[tag] / total) || 0)
-                  return (
-                    <tr key={`fila-respuestas-${tag}`}>
-                      <td>
-                        <div
-                          className="ResumenRespuestas__tag"
-                          onClick={() => dispatch(agregaFiltro([diccionarioTags[tag].texto, primerTag.nombre, primerTag.texto]))}
+        {cargando
+          ? <div className="ResumenRespuestas__cargando">Cargando respuestas...</div>
+          : <>
+              <div className="ResumenRespuestas__detalle_tasa">
+                <div>Respondidas {cargando ? <Skeleton width={70} /> : conRespuesta.toLocaleString('de-DE')} / {cargando ? <Skeleton width={70} /> : total.toLocaleString('de-DE')}</div>
+                <div className="ResumenRespuestas__porcentaje">
+                  {porcentaje.toLocaleString('de-DE', { maximumFractionDigits: 1 })}%
+                </div>
+              </div>
+              <table className="ResumenRespuestas__detalle_tabla">
+                <tbody>
+                  {Object.keys(diccionarioTags).slice(0, 4).map(tag => {
+                    const porcentaje = ((100 * conteosTags[tag] / total) || 0)
+                    return (
+                      <tr key={`fila-respuestas-${tag}`}>
+                        <td>
+                          <div
+                            className="ResumenRespuestas__tag"
+                            onClick={() => dispatch(agregaFiltro([diccionarioTags[tag].texto, primerTag.nombre, primerTag.texto]))}
+                          >
+                            <TagRespuesta tag={tag} />
+                          </div>
+                        </td>
+                        <td
+                          className="ResumenRespuestas__celda_barra"
+                          style={{ '--porcentaje-lleno': `${Math.min(100, 2 * porcentaje)}%` }}
                         >
-                          <TagRespuesta tag={tag} />
-                        </div>
-                      </td>
-                      <td
-                        className="ResumenRespuestas__celda_barra"
-                        style={{ '--porcentaje-lleno': `${Math.min(100, 2 * porcentaje)}%` }}
-                      >
-                        {conteosTags[tag]?.toLocaleString('de-DE') || 0}</td>
-                      <td
-                        className="ResumenRespuestas__celda_barra"
-                        style={{ '--porcentaje-lleno': `${Math.max(0, 2 * porcentaje - 100)}%` }}
-                      >
-                        {((100 * conteosTags[tag] / total) || 0).toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%
-                      </td>
-                    </tr>
-                  )
-                })
-            }
-          </tbody>
-        </table>
+                          {conteosTags[tag]?.toLocaleString('de-DE') || 0}</td>
+                        <td
+                          className="ResumenRespuestas__celda_barra"
+                          style={{ '--porcentaje-lleno': `${Math.max(0, 2 * porcentaje - 100)}%` }}
+                        >
+                          {((100 * conteosTags[tag] / total) || 0).toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </>
+          }
       </div>
     </div>
   )

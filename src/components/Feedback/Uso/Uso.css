@@ -153,7 +153,7 @@
 }
 
 .Uso__boton_descargar_pdf:disabled {
-  filter: saturate(20%) brightness(200%);
+  filter: brightness(80%);
   cursor: not-allowed;
 }
 

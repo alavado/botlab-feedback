@@ -1,5 +1,5 @@
 import React from 'react'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from '../../../../Skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { avanzaPagina, retrocedePagina } from '../../../../../redux/ducks/respuestas'
 import './FooterTablaRespuestas.css'
