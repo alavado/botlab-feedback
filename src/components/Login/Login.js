@@ -36,7 +36,7 @@ const Login = () => {
       dispatch(guardaToken(data))
       dispatch(guardaTiposEncuestas(data))
       if (match.isExact) {
-        history.push('/respuestas')
+        history.push('/')
       }
     } catch (e) {
       setCargando(false)
@@ -106,7 +106,7 @@ const Login = () => {
         </button>
       </form>
       <footer className="Login__footer">
-        © Botlab {format(Date.now(), 'yyyy')}
+        © Cero {format(Date.now(), 'yyyy')}
       </footer>
     </div>
   )

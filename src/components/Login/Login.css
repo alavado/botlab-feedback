@@ -75,7 +75,7 @@
 }
 
 .Login__boton {
-  background-color: #0ABCEB;
+  background-color: var(--color-boton-alegre);
   color: var(--color-texto-claro);
   border: none;
   border-radius: .45rem;
@@ -93,7 +93,7 @@
 }
 
 .Login__boton:hover:not(:disabled) {
-  filter: brightness(110%);
+  filter: brightness(120%);
   box-shadow: 0rem .05rem .5rem rgba(0, 0, 0, .15);
 }
 
@@ -106,7 +106,7 @@
   font-size: .8rem;
   font-weight: 600;
   padding-bottom: 1rem;
-  color: #d84763;
+  color: var(--color-secundario);
   display: flex;
   align-items: flex-start;
   max-width: 40ch;
@@ -114,7 +114,7 @@
 }
 
 .Login__icono_error {
-  color: #d84763;
+  color: var(--color-secundario);
   margin-right: .25rem;
   min-width: 1rem;
 }

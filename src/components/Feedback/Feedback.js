@@ -89,6 +89,9 @@ const Feedback = () => {
               <Route path="/uso">
                 <Uso />
               </Route>
+              <Route path="/respuestas">
+                <Respuestas />
+              </Route>
             </Switch>
           </div>
         </div>

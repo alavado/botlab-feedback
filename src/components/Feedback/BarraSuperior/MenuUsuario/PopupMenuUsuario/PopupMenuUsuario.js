@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { cierraLaSesion } from '../../../../../redux/ducks/login'
 import { limpiaEncuestas } from '../../../../../redux/ducks/encuestas'
 import { cambiaEsquemaColor, ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
+import iconoCerrarSesion from '@iconify/icons-mdi/exit-to-app'
+import iconoLuna from '@iconify/icons-mdi/weather-night'
+import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
+import { InlineIcon } from '@iconify/react'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
@@ -13,16 +17,14 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
   const { esquema } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
 
-  return ReactDOM.createPortal(
-    <div
-      className="PopupMenuUsuario__lamina"
-      onClick={esconder}
-      style={{ pointerEvents: visible ? 'all' : 'none' }}
-    >
-      <div className={classNames({
-        'PopupMenuUsuario': true,
-        'PopupMenuUsuario--visible': visible
-      })}>
+  return <>
+      <div
+        onClick={e => e.stopPropagation()}
+        className={classNames({
+          'PopupMenuUsuario': true,
+          'PopupMenuUsuario--visible': visible
+        })}
+      >
         <div className="PopupMenuUsuario__superior">
           {nombreUsuario}
         </div>
@@ -34,7 +36,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               dispatch(cambiaEsquemaColor())
             }}
           >
-            Cambiar a modo {esquema === ESQUEMA_OSCURO ? 'claro' : 'oscuro'}
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna}></InlineIcon> Ver colores {esquema === ESQUEMA_OSCURO ? 'diurnos' : 'nocturnos'}
           </button>
           <button
             className="PopupMenuUsuario__boton_opcion"
@@ -44,13 +46,20 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               window.location.reload()
             }}
           >
-            Cerrar sesión
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoCerrarSesion}></InlineIcon> Cerrar sesión
           </button>
         </div>
       </div>
-    </div>,
-    document.getElementById('popup_menu_usuario')
-  )
+      {ReactDOM.createPortal(
+        <div
+          className="PopupMenuUsuario__lamina"
+          onClick={esconder}
+          style={{ pointerEvents: visible ? 'all' : 'none' }}
+        >
+        </div>,
+        document.getElementById('popup-menu-usuario')
+      )}
+    </>
 }
 
 export default PopupMenuUsuario

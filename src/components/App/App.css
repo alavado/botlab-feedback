@@ -32,6 +32,7 @@
   --color-barras-mini-dashboard: rgba(96, 87, 246, .3);
   --color-texto: #161922;
   --color-sombras: rgba(0, 0, 0, .15);
+  --color-boton-alegre: #0ABCEB;
 }
 
 .App__oscura, .App__oscura *, .App__oscura *::before, .App__oscura *::after {
@@ -39,7 +40,7 @@
 	--color-principal-2: #1a13a0;
 	--color-principal-oscuro: #100b6a;
   --color-principal-claro: #2917ee;
-	--color-secundario: #1a13a0;
+	--color-secundario: #803ecc;
 	--color-bordes: #CFD8DC;
 	--color-fondo: #1C1F2B;
   --color-barra-superior: #161922;
@@ -53,4 +54,5 @@
   --color-barras-mini-dashboard: rgba(0, 0, 0, .25);
   --color-texto: #dedede;
   --color-sombras: rgba(255, 255, 255, .1);
+  --color-boton-alegre: #1c317d;
 }

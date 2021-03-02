@@ -13,7 +13,7 @@ const BarraLateral = () => {
   return (
     <div className="BarraLateral">
       <Link
-        to="/respuestas"
+        to="/"
         className="BarraLateral__link_logo"
       >
         <div className="BarraLateral__logo">
@@ -23,7 +23,8 @@ const BarraLateral = () => {
       <NavLink
         className="BarraLateral__link"
         activeClassName="BarraLateral__link--activo"
-        to="/respuestas"
+        to="/"
+        exact
       >
         <div className="BarraLateral__popup_link">Respuestas</div>
         <Icon icon={home} />

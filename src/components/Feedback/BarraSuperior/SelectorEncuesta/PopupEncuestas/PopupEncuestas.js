@@ -18,23 +18,35 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
     ]
   }, [tipos, idEncuestaSeleccionada])
 
-  return ReactDOM.createPortal(
-    <div
-      className={classNames({
-        'PopupEncuestas__lamina': true,
-        'PopupEncuestas__lamina--activo': activo
-      })}
-      style={{ pointerEvents: activo ? 'all' : 'none' }}
-      onClick={e => {
-        esconder()
-        e.stopPropagation()
-      }}
-    >
-      <div className="PopupEncuestas">
+  return <>
+      {ReactDOM.createPortal(
+      <div
+        className={classNames({
+          'PopupEncuestas__lamina': true,
+          'PopupEncuestas__lamina--activo': activo
+        })}
+        style={{ pointerEvents: activo ? 'all' : 'none' }}
+        onClick={e => {
+          esconder()
+          e.stopPropagation()
+        }}
+      >
+      </div>, document.getElementById('popup-encuestas'))}
+      <div
+        className="PopupEncuestas" 
+        style={{
+          pointerEvents:activo ? 'all' : 'none',
+          opacity: activo ? 1 : 0
+        }}
+      >
         {tiposOrdenados.map(({ id, nombre }) => (
           <div
             key={`boton-${id}`}
-            onClick={() => verEncuesta(id)}
+            onClick={e => {
+              verEncuesta(id)
+              esconder()
+              e.stopPropagation()
+            }}
             className="PopupEncuestas__opcion"
           >
             <Icon className="PopupEncuestas__icono_empresa" icon={whatsapp} />
@@ -44,7 +56,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
           </div>
         ))}
       </div>
-    </div>, document.getElementById('popup-encuestas'))
+    </>
 }
 
 export default PopupEncuestas
