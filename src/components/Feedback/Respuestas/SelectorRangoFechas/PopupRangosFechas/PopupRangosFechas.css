@@ -16,8 +16,9 @@
   opacity: 0;
   transition: all .25s ease;
   background-color: var(--color-fondo);
-  box-shadow: 0 .2rem .35rem rgba(0, 0, 0, .15);
+  box-shadow: 0 .2rem .35rem var(--color-sombras);
   pointer-events: none;
+  border-radius: .25rem;
 }
 
 .PopupRangosFechas--activo {

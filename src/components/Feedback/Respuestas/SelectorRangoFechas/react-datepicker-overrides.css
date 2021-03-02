@@ -2,6 +2,8 @@
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   box-shadow: 0 .25rem .25rem rgba(0, 0, 0, .15);
   animation: aparece-datepicker .25s ease both;
+  background: var(--color-fondo);
+  color: var(--color-texto);
 }
 
 .react-datepicker__header {

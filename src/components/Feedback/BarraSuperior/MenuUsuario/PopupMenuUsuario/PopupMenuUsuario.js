@@ -5,11 +5,12 @@ import './PopupMenuUsuario.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { cierraLaSesion } from '../../../../../redux/ducks/login'
 import { limpiaEncuestas } from '../../../../../redux/ducks/encuestas'
-import { cambiaEsquemaColor } from '../../../../../redux/ducks/opciones'
+import { cambiaEsquemaColor, ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
   const { nombreUsuario } = useSelector(state => state.login)
+  const { esquema } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
 
   return ReactDOM.createPortal(
@@ -33,7 +34,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               dispatch(cambiaEsquemaColor())
             }}
           >
-            Cambia esquema
+            Cambiar a modo {esquema === ESQUEMA_OSCURO ? 'claro' : 'oscuro'}
           </button>
           <button
             className="PopupMenuUsuario__boton_opcion"

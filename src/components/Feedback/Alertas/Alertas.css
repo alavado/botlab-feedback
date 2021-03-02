@@ -1,6 +1,7 @@
 .Alertas {
   display: flex;
   flex-direction: column;
+  color: var(--color-texto);
 }
 
 .Alertas__titulo {

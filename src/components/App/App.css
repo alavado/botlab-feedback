@@ -4,8 +4,7 @@
   max-width: 100vw;
   display: flex;
   background:
-    url('../../assets/images/strips.png'),
-    linear-gradient(117deg, var(--color-principal), var(--color-secundario));
+    linear-gradient(135deg, var(--color-principal), var(--color-secundario));
   background-size: cover;
   overflow: hidden;
 }
@@ -31,25 +30,27 @@
   --color-mini-dasdhboard-1: #AFAAFA;
   --color-mini-dasdhboard-2: #A19AF7;
   --color-barras-mini-dashboard: rgba(96, 87, 246, .3);
-  --color-texto: #212121;
+  --color-texto: #161922;
+  --color-sombras: rgba(0, 0, 0, .15);
 }
 
-.App__oscura *, .App__oscura *::before, .App__oscura *::after {
-	--color-principal: #3f38a3;
+.App__oscura, .App__oscura *, .App__oscura *::before, .App__oscura *::after {
+	--color-principal: #3c435d;
 	--color-principal-2: #1a13a0;
 	--color-principal-oscuro: #100b6a;
   --color-principal-claro: #2917ee;
-	--color-secundario: #d84763;
+	--color-secundario: #1a13a0;
 	--color-bordes: #CFD8DC;
-	--color-fondo: #01010a;
-  --color-barra-superior: #030222;
-	--color-fila-destacada: #222;
+	--color-fondo: #1C1F2B;
+  --color-barra-superior: #161922;
+	--color-fila-destacada: #0e1016;
 	--color-bordes: #444;
-  --color-texto-claro: rgba(250, 250, 250, 1);
-  --color-alternativo-fila-tabla: #151515;
+  --color-texto-claro: #dedede;
+  --color-alternativo-fila-tabla: #161922;
   --color-texto-tag: rgba(0, 0, 0, .95);
   --color-mini-dasdhboard-1: #3f38a3;
   --color-mini-dasdhboard-2: #4d45bf;
   --color-barras-mini-dashboard: rgba(0, 0, 0, .25);
-  --color-texto: rgba(250, 250, 250, 1);
+  --color-texto: #dedede;
+  --color-sombras: rgba(255, 255, 255, .1);
 }

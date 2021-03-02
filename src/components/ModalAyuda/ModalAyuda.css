@@ -1,6 +1,7 @@
 .ModalAyuda {
   position: absolute;
   background: var(--color-fondo);
+  color: var(--color-texto);
   left: 100%;
   top: 0%;
   z-index: 3;
@@ -8,8 +9,8 @@
   border: 1px solid var(--color-bordes);
   animation: aparece-modal-ayuda .15s ease-in-out both;
   box-shadow:
-    0 0 .1rem rgba(0, 0, 0, .15),
-    0rem .25rem .25rem rgba(0, 0, 0, .15);
+    0 0 .1rem var(--color-sombras),
+    0rem .15rem .5rem var(--color-sombras);
 }
 
 .ModalAyuda__gif {
@@ -46,7 +47,7 @@
   outline: none;
   cursor: pointer;
   border: none;
-  color: var(--color-principal);
+  color: var(--color-texto);
   font-size: 1rem;
   background-color: var(--color-fondo);
   border-bottom-left-radius: .25rem;

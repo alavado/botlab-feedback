@@ -10,8 +10,8 @@
   right: .5rem;
   top: 0;
   z-index: 2;
-  font-size: 1.35rem;
-  height: 2rem;
+  font-size: 1.15rem;
+  height: 1.75rem;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -34,6 +34,8 @@
   padding: 0 1rem;
   transition: all .25s ease;
   letter-spacing: 1px;
+  background: var(--color-fondo);
+  color: var(--color-texto);
 }
 
 .BuscadorRespuestas__input:disabled {
