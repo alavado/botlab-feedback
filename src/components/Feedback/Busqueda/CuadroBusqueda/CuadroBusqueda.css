@@ -26,6 +26,8 @@
   animation: aparece-input-busqueda .5s ease both;
   display: flex;
   align-items: center;
+  background: var(--color-fondo);
+  color: var(--color-texto);
 }
 
 .CuadroBusqueda__input:focus {
@@ -35,6 +37,7 @@
 .CuadroBusqueda__input::placeholder {
   opacity: .35;
   font-size: 1.25rem;
+  color: var(--color-texto);
 }
 
 .CuadroBusqueda__icono_buscar {
@@ -58,7 +61,7 @@
   font-size: 1rem;
   cursor: pointer;
   font-weight: 600;
-  box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .15), 0 .1rem .15rem rgba(0, 0, 0, .1);
+  box-shadow: 0 .05rem .15rem var(--color-sombras), 0 .1rem .15rem var(--color-sombras);
   transition: all .25s ease;
   padding: 0 2rem;
   border: none;
@@ -68,7 +71,7 @@
 
 .CuadroBusqueda__boton_buscar:hover {
   filter: brightness(110%);
-  box-shadow: 0 .1rem .15rem rgba(0, 0, 0, .15), 0 .15rem .15rem rgba(0, 0, 0, .1);
+  box-shadow: 0 .1rem .15rem var(--color-sombras), 0 .15rem .15rem var(--color-sombras);
 }
 
 .CuadroBusqueda__explicacion {

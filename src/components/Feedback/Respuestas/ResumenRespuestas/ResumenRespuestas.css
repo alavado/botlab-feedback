@@ -51,10 +51,12 @@
   display: flex;
   align-items: center;
   min-width: 15rem;
+  animation: ResumenRespuestas__anim_detalle .15s ease both;
 }
 
 .ResumenRespuestas__detalle_tabla {
   font-size: 1rem;
+  animation: ResumenRespuestas__anim_tabla .15s .15s ease both;
 }
 
 .ResumenRespuestas__tag {
@@ -93,8 +95,48 @@
   ;
 }
 
+.ResumenRespuestas__cargando {
+  font-size: 1rem;
+  font-weight: bold;
+  text-shadow: .1rem .1rem .1rem rgba(0, 0, 0, .15);
+  animation: ResumenRespuestas__anim_cargando .25s ease both;
+}
+
 @media(orientation:portrait) {
   .ResumenRespuestas__detalle_tasa {
     display: none;
+  }
+}
+
+@keyframes ResumenRespuestas__anim_cargando {
+  0% {
+    opacity: 0;
+    transform: translateX(-.1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ResumenRespuestas__anim_detalle {
+  0% {
+    opacity: 0;
+    transform: translateY(-.1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ResumenRespuestas__anim_tabla {
+  0% {
+    opacity: 0;
+    transform: translateY(-.1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

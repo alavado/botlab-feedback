@@ -59,6 +59,8 @@
   font-size: .8rem;
   position: relative;
   border: .1rem solid var(--color-bordes);
+  color: var(--color-texto);
+  background: var(--color-fondo);
 }
 
 .ResultadosBusqueda__input_nueva_busqueda:focus {

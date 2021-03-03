@@ -11,7 +11,7 @@
 }
 
 .MenuUsuario__boton_mostrar_popup:hover {
-  color: var(--color-texto-claro);
+  opacity: 80%;
 }
 
 .MenuUsuario__nombre_usuario {
