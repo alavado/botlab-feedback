@@ -1,5 +1,5 @@
 .BarraAppCelular {
-  background-color: #075E54;
+  background-color: var(--whatsapp-fondo-barra-superior);
   color: var(--color-texto-claro);
   font-size: .8rem;
   min-height: 2.5rem;

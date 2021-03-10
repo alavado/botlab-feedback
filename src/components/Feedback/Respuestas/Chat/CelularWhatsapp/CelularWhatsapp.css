@@ -13,8 +13,8 @@
 }
 
 .CelularWhatsapp__celular {
-  background-color: #fafafa;
-  padding: 2rem .5rem 1.5rem .5rem;
+  background-color: var(--whatsapp-color-celular);
+  padding: 2rem .35rem 1.5rem .35rem;
   border-radius: 1.5rem;
   height: 83vh;
   width: 47vh;
@@ -22,11 +22,11 @@
   display: flex;
   flex-direction: column;
   box-shadow:
-    0 0 0 .12rem #eee,
+    0 0 0 .12rem var(--whatsapp-color-borde-celular),
     inset 0 0 .2rem rgba(0, 0, 0, .25),
-    inset 0 -.1rem .1rem white,
-    0 .1rem 1rem -.25rem rgba(0, 0, 0, .15),
-    0 .1rem .15rem rgba(0, 0, 0, .1);
+    inset 0 -.1rem .1rem var(--whatsapp-color-brillo-celular),
+    0 .1rem 1rem -.25rem var(--color-sombras),
+    0 .1rem .15rem var(--color-sombras);
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__celular {
@@ -63,14 +63,13 @@
 }
 
 .CelularWhatsapp__contenedor_mensajes {
-  background-color: #EDEBE6;
   display: flex;
   flex-direction: column;
   flex: 1;
   padding: .35rem .75rem;
   overflow-y: auto;
   max-height: calc(83vh - 7rem);
-  background-image: url('../../../../../assets/images/whatsapp-background.jpg');
+  background: var(--whatsapp-fondo);
   background-size: cover;
   scroll-behavior: smooth;
 }

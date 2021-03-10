@@ -33,6 +33,18 @@
   --color-texto: #161922;
   --color-sombras: rgba(0, 0, 0, .15);
   --color-boton-alegre: #0ABCEB;
+
+  --whatsapp-fondo-barra-estado: #054D44;
+  --whatsapp-fondo-barra-superior: #075E54;
+  --whatsapp-fondo: url('../../assets/images/whatsapp-background.jpg');
+  --whatsapp-fondo-mensajes-salientes: #dcf8c6;
+  --whatsapp-fondo-mensajes-entrantes: white;
+  --whatsapp-color-texto: black;
+  --whatsapp-fondo-fecha: #D4EAF4;
+  --whatsapp-color-texto-fecha: rgba(0, 0, 0, .7);
+  --whatsapp-color-celular: #fafafa;
+  --whatsapp-color-borde-celular: #eee;
+  --whatsapp-color-brillo-celular: #fff;
 }
 
 .App__oscura, .App__oscura *, .App__oscura *::before, .App__oscura *::after {
@@ -55,4 +67,16 @@
   --color-texto: #dedede;
   --color-sombras: rgba(255, 255, 255, .1);
   --color-boton-alegre: #1c317d;
+
+  --whatsapp-fondo-barra-estado: #0C2027;
+  --whatsapp-fondo-barra-superior: #162D33;
+  --whatsapp-fondo: #00151C;
+  --whatsapp-fondo-mensajes-salientes: #00463F;
+  --whatsapp-fondo-mensajes-entrantes: #0E282F;
+  --whatsapp-color-texto: rgba(255, 255, 255, 0.8);
+  --whatsapp-fondo-fecha: #0E282F;
+  --whatsapp-color-texto-fecha: rgba(255, 255, 255, .7);
+  --whatsapp-color-celular: #111;
+  --whatsapp-color-borde-celular: #222;
+  --whatsapp-color-brillo-celular: #777;
 }

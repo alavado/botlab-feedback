@@ -1,5 +1,5 @@
 .BarraEstadoCelular {
-  background-color: #054D44;
+  background-color: var(--whatsapp-fondo-barra-estado);
   min-height: 1rem;
   font-size: .6rem;
   display: flex;
