@@ -1,24 +1,26 @@
 .Skeleton {
   width: 5rem;
   min-height: 1rem;
-  background: linear-gradient(
+  background: #00000022;
+  /* background: linear-gradient(
     90deg,
     #00000022 15%,
     #00000011 50%,
     #00000022 85%
-  );
+  ); */
   border-radius: .25rem;
-  animation: Skeleton__mover 1s linear infinite;
+  /* animation: Skeleton__mover 1s linear infinite; */
 }
 
 .App__oscura .Skeleton {
-  background: linear-gradient(
+  background: #eeeeee11;
+  /* background: linear-gradient(
     90deg,
     #eeeeee11 15%,
     #ffffff22 50%,
     #eeeeee11 85%
-  );
-  animation: Skeleton__mover 1s ease-in-out infinite;
+  ); */
+  /* animation: Skeleton__mover 1s ease-in-out infinite; */
 }
 
 @keyframes Skeleton__mover {

@@ -5,6 +5,7 @@ import { diccionarioTags } from '../../../../helpers/tags'
 import { agregaFiltro } from '../../../../redux/ducks/respuestas'
 import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import './ResumenRespuestas.css'
+import LoaderRespuestas from '../TablaRespuestas/LoaderRespuestas/LoaderRespuestas'
 
 const ResumenRespuestas = ({ cargando }) => {
 
@@ -40,7 +41,7 @@ const ResumenRespuestas = ({ cargando }) => {
         style={{ '--porcentaje-lleno': `${porcentaje}%` }}
       >
         {cargando
-          ? <div className="ResumenRespuestas__cargando">Cargando respuestas...</div>
+          ? <LoaderRespuestas />
           : <>
               <div className="ResumenRespuestas__detalle_tasa">
                 <div>Respondidas {cargando ? <Skeleton width={70} /> : conRespuesta.toLocaleString('de-DE')} / {cargando ? <Skeleton width={70} /> : total.toLocaleString('de-DE')}</div>

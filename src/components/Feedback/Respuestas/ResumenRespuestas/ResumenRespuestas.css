@@ -95,27 +95,9 @@
   ;
 }
 
-.ResumenRespuestas__cargando {
-  font-size: 1rem;
-  font-weight: bold;
-  text-shadow: .1rem .1rem .1rem rgba(0, 0, 0, .15);
-  animation: ResumenRespuestas__anim_cargando .25s ease both;
-}
-
 @media(orientation:portrait) {
   .ResumenRespuestas__detalle_tasa {
     display: none;
-  }
-}
-
-@keyframes ResumenRespuestas__anim_cargando {
-  0% {
-    opacity: 0;
-    transform: translateX(-.1rem);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
   }
 }
 

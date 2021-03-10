@@ -1,44 +1,17 @@
 .LoaderRespuestas {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  flex: 1;
-  margin-bottom: 3rem;
-  animation: aparece-loader-respuestas .35s ease both;
+  font-size: 1rem;
+  font-weight: bold;
+  text-shadow: .1rem .1rem .1rem rgba(0, 0, 0, .15);
+  animation: LoaderRespuestas__anim_cargando .25s ease both;
 }
 
-.LoaderRespuestas__mensaje {
-  font-size: .8rem;
-  font-weight: 600;
-}
-
-.LoaderRespuestas__loader {
-  width: 4rem;
-  height: 4rem;
-  border-left: .4rem solid var(--color-principal);
-  border-top: .4rem solid var(--color-bordes);
-  border-right: .4rem solid var(--color-bordes);
-  border-bottom: .4rem solid var(--color-bordes);
-  border-radius: 100%;
-  margin-bottom: 1rem;
-  animation: gira-loader 1.2s infinite linear;
-}
-
-@keyframes gira-loader {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes aparece-loader-respuestas {
+@keyframes LoaderRespuestas__anim_cargando {
   0% {
     opacity: 0;
+    transform: translateX(-.1rem);
   }
   100% {
     opacity: 1;
+    transform: translateX(0);
   }
 }
