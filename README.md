@@ -14,11 +14,4 @@ varios chats:
 - exportar tabla no lo entiende felipe, podría destacarse con borde la tabla
 - link feedback classic
 - sankey
-
-Hechos:
-- agregar disclaimer al pdf
-- en el pdf, ser explicito en las fechas de emision (este reporte consdiera de xx a xx, con horas en ambos casos) y ademas poner fecha de emision en el footer yo creo
-- cambiar skeleton de mini dashboard por loader
-- modo oscuros
-- en las cajitas de busqueda no poner skeletons, solo mantener barra superior
-
+- agregar numero de respuestas por pagina
