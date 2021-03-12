@@ -20,7 +20,7 @@ const TablaRespuestas = () => {
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
 
   const cargando = !respuestas || !headers
-  const mostrarResumen = !!(headers.find(h => h.tipo === 'YESNO'))
+  const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO'))
 
   return (
     <div className="TablaRespuestas">

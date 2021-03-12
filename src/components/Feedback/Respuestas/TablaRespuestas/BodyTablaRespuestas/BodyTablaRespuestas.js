@@ -22,8 +22,15 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
   const respuestasPagina = respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina)
 
   const headersOrdenados = useMemo(() => {
+    if (!headers) {
+      return null
+    }
     return [...headers.filter(h => h.tipo === 'YESNO'), ...headers.filter(h => h.tipo !== 'YESNO')]
   }, [headers])
+
+  if (!headersOrdenados) {
+    return null
+  }
 
   return (
     <tbody className="BodyTablaRespuestas">
