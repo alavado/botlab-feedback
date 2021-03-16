@@ -12,7 +12,7 @@ import ResumenRespuestas from '../ResumenRespuestas'
 import Filtros from './Filtros'
 import './TablaRespuestas.css'
 
-const respuestasPorPagina = 20
+const respuestasPorPagina = 50
 
 const TablaRespuestas = () => {
 
