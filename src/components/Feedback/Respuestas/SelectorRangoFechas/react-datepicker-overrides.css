@@ -18,6 +18,23 @@
   border-bottom-color: var(--color-principal);
 }
 
+.react-datepicker__day {
+  color: var(--color-texto);
+}
+
+.react-datepicker__day:hover {
+  background: var(--color-secundario);
+  color: white;
+}
+
+.react-datepicker__day--disabled {
+  opacity: .5;
+}
+
+.react-datepicker__day--outside-month {
+  opacity: .5;
+}
+
 .react-datepicker__day--selected {
   background-color: var(--color-principal-claro);
   color: var(--color-texto-claro);
