@@ -34,7 +34,7 @@ const TablaRespuestas = () => {
       </div>
       <div className="TablaRespuestas__contenedor">
         <Filtros />
-        <ResumenRespuestas cargando={cargando} />
+        {mostrarResumen && <ResumenRespuestas cargando={cargando} />}
         <div className={classNames({
           "TablaRespuestas__contenedor_tabla": true,
           "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen

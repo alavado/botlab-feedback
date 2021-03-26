@@ -20,11 +20,13 @@ const ResumenRespuestas = ({ cargando }) => {
     }
     const tags = Object.keys(diccionarioTags).slice(0, 4)
     const primerHeaderYESNO = headers.find(h => h.tipo === 'YESNO')
-    return respuestas.reduce((prev, respuesta) => {
-      const indice = tags.find(t => t === respuesta[primerHeaderYESNO.nombre].tag)
-      indice && (prev[indice] = prev[indice] ? prev[indice] + 1 : 1)
-      return prev
-    }, {})
+    return primerHeaderYESNO
+      ? respuestas.reduce((prev, respuesta) => {
+          const indice = tags.find(t => t === respuesta[primerHeaderYESNO.nombre].tag)
+          indice && (prev[indice] = prev[indice] ? prev[indice] + 1 : 1)
+          return prev
+        }, {})
+      : null
   }, [cargando, headers, respuestas])
 
   let total, conRespuesta, porcentaje
