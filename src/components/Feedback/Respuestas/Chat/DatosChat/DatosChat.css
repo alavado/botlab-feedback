@@ -9,8 +9,8 @@
 }
 
 .DatosChat__icono_volver {
-  margin-right: .25rem;
-  font-size: .8rem;
+  margin-right: .5rem;
+  font-size: .85rem;
 }
 
 .DatosChat__botones_navegacion {
@@ -20,7 +20,7 @@
 
 .DatosChat__link_atras {
   font-weight: bold;
-  font-size: .75rem;
+  font-size: .85rem;
   display: flex;
   align-items: center;
   transition: all .15s ease;
@@ -41,18 +41,22 @@
 .DatosChat__link_siguiente,
 .DatosChat__link_anterior {
   font-weight: bold;
-  font-size: .8rem;
+  font-size: .7rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   transition: all .15s ease;
-  height: 1rem;
-  opacity: .65;
+  height: .9rem;
+  opacity: .75;
   border: none;
   background: none;
   cursor: pointer;
   outline: none;
   padding: 0;
-  color: var(--color-texto);
+  color: var(--color-texto-claro);
+  background: var(--color-principal);
+  width: 1.7rem;
+  border-radius: 1rem;
 }
 
 .DatosChat__link_anterior {
@@ -61,20 +65,26 @@
 
 .DatosChat__icono_siguiente,
 .DatosChat__icono_anterior {
-  font-size: .9rem;
+  font-size: .8rem;
 }
 
+.DatosChat__link_anterior:hover,
 .DatosChat__link_siguiente:hover {
   opacity: 1;
 }
 
+.DatosChat__link_anterior:disabled,
+.DatosChat__link_siguiente:disabled {
+  filter: saturate(0%) opacity(.4);
+}
+
 .DatosChat__posicion {
-  font-weight: 600;
-  font-size: .7rem;
+  font-weight: 700;
+  font-size: .85rem;
   display: flex;
   justify-content: center;
-  padding: 0 .5rem;
-  min-width: 4rem;
+  padding: 0 .25rem;
+  min-width: 3.5rem;
 }
 
 .DatosChat__titulo {

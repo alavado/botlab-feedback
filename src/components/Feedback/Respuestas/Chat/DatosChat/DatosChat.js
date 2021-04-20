@@ -53,7 +53,7 @@ const DatosChat = ({ datos, telefono }) => {
               className="DatosChat__link_siguiente"
               onClick={irASiguienteRespuesta}
               disabled={!haySiguienteChat || !datos}
-              title={haySiguienteChat ? '' : 'Este es el primer chat de esta búsqueda'}
+              title={haySiguienteChat ? '' : 'Este es el último chat de esta búsqueda'}
             >
               <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
             </button>
