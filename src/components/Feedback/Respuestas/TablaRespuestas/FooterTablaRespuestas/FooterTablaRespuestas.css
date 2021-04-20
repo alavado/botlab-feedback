@@ -26,9 +26,10 @@
 }
 
 .FooterTablaRespuestas__boton_pagina:disabled {
-  filter: brightness(90%);
+  filter: saturate(0%);
+  opacity: .5;
   cursor: not-allowed;
-  border: 1px solid var(--color-bordes);
+  box-shadow: 0 0 0 1px var(--color-bordes);
 }
 
 .FooterTablaRespuestas__total {

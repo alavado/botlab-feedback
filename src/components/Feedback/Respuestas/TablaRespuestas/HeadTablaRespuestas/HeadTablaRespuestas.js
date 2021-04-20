@@ -24,6 +24,7 @@ const HeadTablaRespuestas = () => {
   return (
     <thead className="HeadTablaRespuestas">
       <tr className="HeadTablaRespuestas__fila">
+        <th style={{ display: 'none' }}></th>
         {headersOrdenados.map(({ nombre, texto }, i) => (
           <th
             key={`header-${nombre}`}

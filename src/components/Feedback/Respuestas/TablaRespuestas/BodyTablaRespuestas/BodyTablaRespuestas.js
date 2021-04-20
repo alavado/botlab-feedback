@@ -6,6 +6,8 @@ import TagRespuesta from '../TagRespuesta'
 import classNames from 'classnames'
 import './BodyTablaRespuestas.css'
 import Skeleton from '../../../../Skeleton'
+import { InlineIcon } from '@iconify/react'
+import iconoVerChat from '@iconify/icons-mdi/chevron-right'
 
 const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
@@ -43,6 +45,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
             })}
             onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
           >
+            <td className="BodyTablaRespuestas__celda BodyTablaRespuestas__celda--numero">{respuestasPorPagina * (pagina - 1) + i + 1}</td>
             {headersOrdenados.map(({ nombre }, j) => (
               <td
                 key={`celda-respuesta-${i}-${j}`}
@@ -54,6 +57,9 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
                 }
               </td>
             ))}
+            <div className="BodyTablaRespuestas__indicador_accion">
+              ver chat <InlineIcon icon={iconoVerChat} />
+            </div>
           </tr>
         ))
         : Array(respuestasPorPagina).fill(0).map((x, i) => (

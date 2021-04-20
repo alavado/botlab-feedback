@@ -45,9 +45,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .15s ease;
   height: .9rem;
-  opacity: .75;
   border: none;
   background: none;
   cursor: pointer;
@@ -57,6 +55,7 @@
   background: var(--color-principal);
   width: 1.7rem;
   border-radius: 1rem;
+  transition: all .15s ease;
 }
 
 .DatosChat__link_anterior {
@@ -70,7 +69,7 @@
 
 .DatosChat__link_anterior:hover,
 .DatosChat__link_siguiente:hover {
-  opacity: 1;
+  filter: brightness(120%);
 }
 
 .DatosChat__link_anterior:disabled,
@@ -80,11 +79,10 @@
 
 .DatosChat__posicion {
   font-weight: 700;
-  font-size: .85rem;
+  font-size: .8rem;
   display: flex;
   justify-content: center;
-  padding: 0 .25rem;
-  min-width: 3.5rem;
+  padding: 0 .75rem;
 }
 
 .DatosChat__titulo {

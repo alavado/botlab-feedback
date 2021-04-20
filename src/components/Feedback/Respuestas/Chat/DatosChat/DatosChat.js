@@ -34,9 +34,9 @@ const DatosChat = ({ datos, telefono }) => {
   return (
     <div className="DatosChat">
       <div className="DatosChat__navegacion">
-        <button className="DatosChat__link_atras" onClick={() => history.goBack()}>
+        <button className="DatosChat__link_atras" onClick={() => history.push('/')}>
           <InlineIcon className="DatosChat__icono_volver" icon={iconoVolver} />
-          Volver
+          Respuestas
         </button>
         {indiceRespuestaSeleccionada !== undefined && 
           <div className="DatosChat__botones_navegacion">
@@ -48,7 +48,9 @@ const DatosChat = ({ datos, telefono }) => {
             >
               <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
             </button>
-            <div className="DatosChat__posicion">{indiceRespuestaSeleccionada + 1} / {respuestas.length}</div>
+            <div className="DatosChat__posicion">
+              Chat {(indiceRespuestaSeleccionada + 1).toLocaleString('de-DE')} / {respuestas.length.toLocaleString('de-DE')}
+            </div>
             <button
               className="DatosChat__link_siguiente"
               onClick={irASiguienteRespuesta}
