@@ -56,7 +56,10 @@ const ResumenRespuestas = ({ cargando }) => {
                   {Object.keys(diccionarioTags).slice(0, 4).map(tag => {
                     const porcentaje = ((100 * conteosTags[tag] / total) || 0)
                     return (
-                      <tr key={`fila-respuestas-${tag}`}>
+                      <tr
+                        key={`fila-respuestas-${tag}`}
+                        title={`${porcentaje.toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}% de respuestas "${diccionarioTags[tag].texto}"`}
+                      >
                         <td>
                           <div
                             className="ResumenRespuestas__tag"
@@ -74,7 +77,7 @@ const ResumenRespuestas = ({ cargando }) => {
                           className="ResumenRespuestas__celda_barra"
                           style={{ '--porcentaje-lleno': `${Math.max(0, 2 * porcentaje - 100)}%` }}
                         >
-                          {((100 * conteosTags[tag] / total) || 0).toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%
+                          {porcentaje.toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%
                         </td>
                       </tr>
                     )

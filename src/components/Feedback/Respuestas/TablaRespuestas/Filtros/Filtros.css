@@ -19,6 +19,10 @@
   color: var(--color-texto);
 }
 
+.Filtros__mensaje {
+  font-size: .8rem;
+}
+
 .Filtros__tag_filtro {
   background-color: var(--color-secundario);
   color: var(--color-texto-claro);

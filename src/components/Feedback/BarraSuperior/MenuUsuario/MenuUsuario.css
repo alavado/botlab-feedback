@@ -11,11 +11,11 @@
 }
 
 .MenuUsuario__boton_mostrar_popup:hover {
-  opacity: 80%;
+  filter: opacity(70%);
 }
 
 .MenuUsuario__nombre_usuario {
-  font-size: .85rem;
+  font-size: .8rem;
   font-weight: 500;
   margin-right: .5rem;
 }

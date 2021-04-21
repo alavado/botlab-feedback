@@ -112,14 +112,18 @@
 
 .DatosChat__contenedor_header {
   min-height: 2.75rem;
-  padding: .5rem 0;
+  padding: .5rem 0 .5rem .25rem;
   display: flex;
   align-items: center;
-  font-size: .85rem;
+  font-size: .8rem;
   line-height: 1.15;
   border-bottom: 1px solid var(--color-bordes);
   align-items: center;
   animation: aparece-contenedor-datos .25s ease both;
+}
+
+.DatosChat__contenedor_header:hover {
+  background: rgba(0, 0, 0, .05);
 }
 
 .DatosChat__contenedor_header:last-child {
