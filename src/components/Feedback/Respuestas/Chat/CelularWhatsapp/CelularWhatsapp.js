@@ -78,14 +78,19 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
                       })}
                       onClick={() => seleccionarConversacion(ic)}
                     >
-                      {mensajes.map((mensaje, i) => (
-                        <MensajeWhatsapp
-                          mensaje={mensaje}
-                          mensajes={mensajes}
-                          posicion={i}
-                          key={`mensaje-${i}`}
-                        />
-                      ))}
+                      {mensajes.length > 0
+                        ? mensajes.map((mensaje, i) => (
+                          <MensajeWhatsapp
+                            mensaje={mensaje}
+                            mensajes={mensajes}
+                            posicion={i}
+                            key={`mensaje-${i}`}
+                          />
+                          ))
+                        : <p className="CelularWhatsapp__conversacion_vacia">
+                            Esta conversacion todavía no contiene mensajes
+                          </p>
+                      }
                     </div>
                   )
                 })

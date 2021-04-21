@@ -126,6 +126,20 @@
   cursor: auto;
 }
 
+.CelularWhatsapp__conversacion_vacia {
+  text-align: center;
+  font-size: .7rem;
+  margin: 1rem 2rem;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  padding: .5rem 1rem;
+  border-radius: .15rem;
+  box-shadow: 0 .1rem .1rem var(--color-sombras);
+  font-style: italic;
+  opacity: .8;
+  line-height: 1.25;
+}
+
 @keyframes aparece-celular {
   0% {
     opacity: 0;
