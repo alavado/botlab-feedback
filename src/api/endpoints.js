@@ -77,3 +77,5 @@ export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, tipo) 
       link.click()
     })
 }
+
+export const maxEstrellas = () => 5
