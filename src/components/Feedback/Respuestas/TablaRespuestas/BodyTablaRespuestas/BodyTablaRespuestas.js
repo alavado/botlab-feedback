@@ -40,9 +40,9 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
   return (
     <>
-      <div className="BodyTablaRespuestas__indicador_accion">
+      {/* <div className="BodyTablaRespuestas__indicador_accion">
         ver chat <InlineIcon icon={iconoVerChat} />
-      </div>
+      </div> */}
       <tbody className="BodyTablaRespuestas">
         {respuestasPagina ?
           respuestasPagina.map((respuesta, i) => (

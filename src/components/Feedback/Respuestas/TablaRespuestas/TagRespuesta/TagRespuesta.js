@@ -11,7 +11,14 @@ const TagRespuesta = ({ tag }) => {
   }
 
   const clase = diccionarioTags[tag]?.clase || (isNaN(tag) ? 'TagRespuesta TagRespuesta--vacia' : 'TagRespuesta--nota')
-  const texto = diccionarioTags[tag]?.texto || (isNaN(tag) ? tag : Array(+tag).fill(0).map(() => <InlineIcon className="TagRespuesta__icono_estrella" icon={estrella} />))
+  const texto = diccionarioTags[tag]?.texto ||
+    (isNaN(tag)
+      ? tag :
+      <>
+        {Array(+tag).fill(0).map((_, i) => <InlineIcon key={`estrella-activa-${i}`} className="TagRespuesta__icono_estrella" icon={estrella} />)}
+        {Array(5 - (+tag)).fill(0).map((_, i) => <InlineIcon key={`estrella-inactiva-${i}`} className="TagRespuesta__icono_estrella TagRespuesta__icono_estrella--inactiva" icon={estrella} />)}
+      </>
+    )
   return (
     <div className={clase}>
       {diccionarioTags[tag] && <InlineIcon className="TagRespuesta__icono" icon={diccionarioTags[tag].icono} />}

@@ -63,5 +63,8 @@
 .TagRespuesta__icono_estrella {
   margin-right: 0;
   color: orange;
-  text-shadow: 0 0 5px red;
+}
+
+.TagRespuesta__icono_estrella--inactiva {
+  color: lightgray
 }
