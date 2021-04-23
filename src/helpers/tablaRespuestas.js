@@ -6,7 +6,7 @@ export const exportarTablaRespuestas = (headers, respuestas) => {
   const texto = `${headersCSV}\n${respuestasCSV}`
   const nombreArchivo = 'feedback.csv'
   const elemento = document.createElement('a')
-  elemento.setAttribute('href', `data:text/plaincharset=utf-8,${encodeURIComponent(texto)}`)
+  elemento.setAttribute('href', `data:text/csv;charset=utf-8,%EF%BB%BF${encodeURIComponent(texto)}`)
   elemento.setAttribute('download', nombreArchivo)
   elemento.style.display = 'none'
   document.body.appendChild(elemento)

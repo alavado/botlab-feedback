@@ -6,7 +6,7 @@ export const extraerTextoHeader = (header, respuesta) => {
     return respuesta[header.nombre].tag
   }
   else if (header.tipo === 'RANGE') {
-    return respuesta[header.nombre].text
+    return respuesta[header.nombre].tag
   }
   else {
     throw Error(`${header}, ${respuesta}`)
