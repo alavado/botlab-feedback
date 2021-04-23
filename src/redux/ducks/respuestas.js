@@ -32,7 +32,7 @@ const sliceRespuestas = createSlice({
               slug = normalizar(r[k])
             }
             else if (r[k].tag) {
-              slug = normalizar(diccionarioTags[r[k].tag].texto)
+              slug = normalizar(diccionarioTags[r[k].tag]?.texto || r[k].tag)
             }
             return prev + slug
           }, '')
@@ -42,7 +42,7 @@ const sliceRespuestas = createSlice({
               prev[k] = normalizar(r[k])
             }
             else if (r[k].tag || r[k].tag === '') {
-              prev[k] = normalizar(diccionarioTags[r[k].tag].texto)
+              prev[k] = normalizar(diccionarioTags[r[k].tag]?.texto || r[k].tag)
             }
             return prev
           }, {})
