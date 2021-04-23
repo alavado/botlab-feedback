@@ -1,6 +1,7 @@
 import React from 'react'
 import { diccionarioTags } from '../../../../../helpers/tags'
 import { InlineIcon } from '@iconify/react'
+import estrella from '@iconify/icons-mdi/star'
 import './TagRespuesta.css'
 
 const TagRespuesta = ({ tag }) => {
@@ -9,13 +10,12 @@ const TagRespuesta = ({ tag }) => {
     return null
   }
 
-  const clase = diccionarioTags[tag]?.clase || 'TagRespuesta--vacia'
-  const texto = diccionarioTags[tag]?.texto || tag
-
+  const clase = diccionarioTags[tag]?.clase || (isNaN(tag) ? 'TagRespuesta TagRespuesta--vacia' : 'TagRespuesta--nota')
+  const texto = diccionarioTags[tag]?.texto || (isNaN(tag) ? tag : Array(+tag).fill(0).map(() => <InlineIcon className="TagRespuesta__icono_estrella" icon={estrella} />))
   return (
     <div className={clase}>
       {diccionarioTags[tag] && <InlineIcon className="TagRespuesta__icono" icon={diccionarioTags[tag].icono} />}
-      {<span>{texto}</span>}
+      <span>{texto}</span>
     </div>
   )
 }

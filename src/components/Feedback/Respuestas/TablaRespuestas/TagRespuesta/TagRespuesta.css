@@ -35,6 +35,18 @@
   justify-content: center;
 }
 
+/* .TagRespuesta--nota {
+  border: 1px solid var(--color-secundario);
+  height: 1.25rem;
+  width: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-fondo);
+  align-self: center;
+} */
+
 .TagRespuesta__icono {
   margin-right: .25rem;
 }
@@ -46,4 +58,10 @@
 
 .TagRespuesta--vacia > span {
   display: none;
+}
+
+.TagRespuesta__icono_estrella {
+  margin-right: 0;
+  color: orange;
+  text-shadow: 0 0 5px red;
 }
