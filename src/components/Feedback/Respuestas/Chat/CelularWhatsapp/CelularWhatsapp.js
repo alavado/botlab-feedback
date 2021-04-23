@@ -88,7 +88,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
                           />
                           ))
                         : <p className="CelularWhatsapp__conversacion_vacia">
-                            Esta conversacion todavía no contiene mensajes
+                            Esta conversación todavía no contiene mensajes
                           </p>
                       }
                     </div>

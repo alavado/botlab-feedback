@@ -9,10 +9,13 @@ const TagRespuesta = ({ tag }) => {
     return null
   }
 
+  const clase = diccionarioTags[tag]?.clase || 'TagRespuesta--vacia'
+  const texto = diccionarioTags[tag]?.texto || tag
+
   return (
-    <div className={diccionarioTags[tag].clase}>
-      <InlineIcon className="TagRespuesta__icono" icon={diccionarioTags[tag].icono} />
-      {diccionarioTags[tag].texto && <span>{diccionarioTags[tag].texto}</span>}
+    <div className={clase}>
+      {diccionarioTags[tag] && <InlineIcon className="TagRespuesta__icono" icon={diccionarioTags[tag].icono} />}
+      {<span>{texto}</span>}
     </div>
   )
 }

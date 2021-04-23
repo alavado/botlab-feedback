@@ -27,7 +27,11 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
     if (!headers) {
       return null
     }
-    return [...headers.filter(h => h.tipo === 'YESNO'), ...headers.filter(h => h.tipo !== 'YESNO')]
+    return [
+      ...headers.filter(h => h.tipo === 'YESNO'),
+      ...headers.filter(h => h.tipo === 'RANGE'),
+      ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE')
+    ]
   }, [headers])
 
   if (!headersOrdenados) {
@@ -35,50 +39,52 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
   }
 
   return (
-    <tbody className="BodyTablaRespuestas">
-      {respuestasPagina ?
-        respuestasPagina.map((respuesta, i) => (
-          <tr
-            key={`fila-respuestas-${i}`}
-            className={classNames({
-              'BodyTablaRespuestas__fila': true
-            })}
-            onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
-          >
-            <td className="BodyTablaRespuestas__celda BodyTablaRespuestas__celda--numero">{respuestasPorPagina * (pagina - 1) + i + 1}</td>
-            {headersOrdenados.map(({ nombre }, j) => (
-              <td
-                key={`celda-respuesta-${i}-${j}`}
-                className="BodyTablaRespuestas__celda"
+    <>
+      <div className="BodyTablaRespuestas__indicador_accion">
+        ver chat <InlineIcon icon={iconoVerChat} />
+      </div>
+      <tbody className="BodyTablaRespuestas">
+        {respuestasPagina ?
+          respuestasPagina.map((respuesta, i) => (
+              <tr
+                key={`fila-respuestas-${i}`}
+                className={classNames({
+                  'BodyTablaRespuestas__fila': true
+                })}
+                onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
               >
-                {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                  ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
-                  : respuesta[nombre]
-                }
-              </td>
-            ))}
-            <div className="BodyTablaRespuestas__indicador_accion">
-              ver chat <InlineIcon icon={iconoVerChat} />
-            </div>
-          </tr>
-        ))
-        : Array(respuestasPorPagina).fill(0).map((x, i) => (
-            <tr
-              key={`fila-skeleton-respuestas-${i}`}
-              className="BodyTablaRespuestas__fila"
-            >
-              {headersOrdenados.map(({ nombre }, j) => (
-                <td
-                  key={`celda-skeleton-respuesta-${i}-${j}`}
-                  className="BodyTablaRespuestas__celda"
-                >
-                  <Skeleton />
-                </td>
-              ))}
-            </tr>
-        ))
-      }
-    </tbody>
+                <td className="BodyTablaRespuestas__celda BodyTablaRespuestas__celda--numero">{respuestasPorPagina * (pagina - 1) + i + 1}</td>
+                {headersOrdenados.map(({ nombre }, j) => (
+                  <td
+                    key={`celda-respuesta-${i}-${j}`}
+                    className="BodyTablaRespuestas__celda"
+                  >
+                    {respuesta[nombre] && respuesta[nombre].tag !== undefined
+                      ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
+                      : respuesta[nombre]
+                    }
+                  </td>
+                ))}
+              </tr>
+          ))
+          : Array(respuestasPorPagina).fill(0).map((x, i) => (
+              <tr
+                key={`fila-skeleton-respuestas-${i}`}
+                className="BodyTablaRespuestas__fila"
+              >
+                {headersOrdenados.map(({ nombre }, j) => (
+                  <td
+                    key={`celda-skeleton-respuesta-${i}-${j}`}
+                    className="BodyTablaRespuestas__celda"
+                  >
+                    <Skeleton />
+                  </td>
+                ))}
+              </tr>
+          ))
+        }
+      </tbody>
+    </>
   )
 }
 

@@ -13,7 +13,14 @@ const HeadTablaRespuestas = () => {
   const [indiceColumnaFiltrada, setIndiceColumnaFiltrada] = useState(0)
 
   const headersOrdenados = useMemo(() => {
-    return headers ? [...headers.filter(h => h.tipo === 'YESNO'), ...headers.filter(h => h.tipo !== 'YESNO')] : []
+    if (!headers) {
+      return []
+    }
+    return [
+      ...headers.filter(h => h.tipo === 'YESNO'),
+      ...headers.filter(h => h.tipo === 'RANGE'),
+      ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE')
+    ]
   }, [headers])
 
   const mostrarModalFiltros = indiceColumna => {
