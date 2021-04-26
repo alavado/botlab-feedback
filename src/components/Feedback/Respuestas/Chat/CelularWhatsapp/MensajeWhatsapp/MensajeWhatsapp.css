@@ -75,6 +75,7 @@
   align-self: flex-start;
   left: calc(-1 * .45rem);
   right: auto;
+  transform: scaleX(-1);
 }
 
 .MensajeWhatsapp__hora {

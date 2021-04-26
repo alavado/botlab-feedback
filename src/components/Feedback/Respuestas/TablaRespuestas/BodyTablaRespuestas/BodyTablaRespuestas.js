@@ -6,8 +6,8 @@ import TagRespuesta from '../TagRespuesta'
 import classNames from 'classnames'
 import './BodyTablaRespuestas.css'
 import Skeleton from '../../../../Skeleton'
-import { InlineIcon } from '@iconify/react'
-import iconoVerChat from '@iconify/icons-mdi/chevron-right'
+// import { InlineIcon } from '@iconify/react'
+// import iconoVerChat from '@iconify/icons-mdi/chevron-right'
 
 const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 

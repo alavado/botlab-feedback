@@ -19,7 +19,7 @@ const TagRespuesta = ({ tag }) => {
       ? tag :
       <>
         {Array(+tag).fill(0).map((_, i) => <InlineIcon key={`estrella-activa-${i}`} className="TagRespuesta__icono_estrella" icon={estrella} />)}
-        {Array(maximoDeEstrellas - (+tag)).fill(0).map((_, i) => <InlineIcon key={`estrella-inactiva-${i}`} className="TagRespuesta__icono_estrella TagRespuesta__icono_estrella--inactiva" icon={estrella} />)}
+        {Array(Math.max(0, maximoDeEstrellas - (+tag))).fill(0).map((_, i) => <InlineIcon key={`estrella-inactiva-${i}`} className="TagRespuesta__icono_estrella TagRespuesta__icono_estrella--inactiva" icon={estrella} />)}
       </>
     )
   return (
