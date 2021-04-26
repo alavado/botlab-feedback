@@ -70,7 +70,7 @@
 
   --whatsapp-fondo-barra-estado: #0C2027;
   --whatsapp-fondo-barra-superior: #162D33;
-  --whatsapp-fondo: #00151C;
+  --whatsapp-fondo: url('../../assets/images/whatsapp-background-oscuro.jpg');
   --whatsapp-fondo-mensajes-salientes: #00463F;
   --whatsapp-fondo-mensajes-entrantes: #0E282F;
   --whatsapp-color-texto: rgba(255, 255, 255, 0.8);
