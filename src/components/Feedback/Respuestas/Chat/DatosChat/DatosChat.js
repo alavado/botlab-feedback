@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import iconoVolver from '@iconify/icons-mdi/arrow-left'
@@ -19,17 +19,36 @@ const DatosChat = ({ datos, telefono }) => {
   const haySiguienteChat = respuestas && indiceRespuestaSeleccionada < respuestas.length - 1
   const hayChatAnterior = indiceRespuestaSeleccionada > 0
 
-  const irARespuestaAnterior = () => {
+  const irARespuestaAnterior = useCallback(() => {
+    if (!datos || !hayChatAnterior) {
+      return
+    }
     const respuestaAnterior = respuestas[indiceRespuestaSeleccionada - 1]
     dispatch(guardaEstaRespuesta([respuestaAnterior, indiceRespuestaSeleccionada - 1]))
     history.push(`/chat/${idEncuesta}/${respuestaAnterior.user_id}`)
-  }
+  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, hayChatAnterior])
 
-  const irASiguienteRespuesta = () => {
+  const irASiguienteRespuesta = useCallback(() => {
+    if (!datos || !haySiguienteChat) {
+      return
+    }
     const siguienteRespuesta = respuestas[indiceRespuestaSeleccionada + 1]
     dispatch(guardaEstaRespuesta([siguienteRespuesta, indiceRespuestaSeleccionada + 1]))
     history.push(`/chat/${idEncuesta}/${siguienteRespuesta.user_id}`)
-  }
+  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, haySiguienteChat])
+
+  useEffect(() => {
+    const teclasMagicas = e => {
+      if (e.code === 'PageUp' || e.code === 'ArrowLeft') {
+        irARespuestaAnterior()
+      }
+      else if (e.code === 'PageDown' || e.code === 'ArrowRight') {
+        irASiguienteRespuesta()
+      }
+    }
+    window.addEventListener('keyup', teclasMagicas)
+    return () => window.removeEventListener('keyup', teclasMagicas)
+  }, [irARespuestaAnterior, irASiguienteRespuesta])
 
   return (
     <div className="DatosChat">
@@ -44,7 +63,7 @@ const DatosChat = ({ datos, telefono }) => {
               className="DatosChat__link_anterior"
               onClick={irARespuestaAnterior}
               disabled={!hayChatAnterior || !datos}
-              title={hayChatAnterior ? '' : 'Este es el primer chat de esta búsqueda'}
+              title={hayChatAnterior ? '' : 'Este es el primer chat de la tabla'}
             >
               <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
             </button>
@@ -55,7 +74,7 @@ const DatosChat = ({ datos, telefono }) => {
               className="DatosChat__link_siguiente"
               onClick={irASiguienteRespuesta}
               disabled={!haySiguienteChat || !datos}
-              title={haySiguienteChat ? '' : 'Este es el último chat de esta búsqueda'}
+              title={haySiguienteChat ? '' : 'Este es el último chat de la tabla'}
             >
               <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
             </button>
