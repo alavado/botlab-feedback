@@ -17,6 +17,7 @@ const SelectorEncuesta = () => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { idEncuestaGuardada } = useSelector(state => state.opciones)
+  const { indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
   const [popupActivo, setPopupActivo] = useState(false)
   const { idEncuesta: idEncuestaRuta } = useParams()
   const { path } = useRouteMatch()
@@ -66,10 +67,11 @@ const SelectorEncuesta = () => {
     <div
       className={classNames({
         SelectorEncuesta: true,
-        'SelectorEncuesta--visible': path.indexOf('chat') < 0,
+        'SelectorEncuesta--visible': path.indexOf('chat') < 0 || indiceRespuestaSeleccionada >= 0,
+        'SelectorEncuesta--interactivo': path.indexOf('chat') < 0,
         'SelectorEncuesta--todas': path.indexOf('busqueda') >= 0
       })}
-      onClick={() => setPopupActivo(true)}
+      onClick={() => setPopupActivo(path.indexOf('chat') < 0)}
     >
       {path.indexOf('busqueda') >= 0 || path.indexOf('uso') >= 0
         ? <>
@@ -83,7 +85,7 @@ const SelectorEncuesta = () => {
             <div className="SelectorEncuesta__nombre_encuesta">
               {encuestaSeleccionada.nombre}
             </div>
-            <Icon className="SelectorEncuesta__icono_menu" icon={chevronDown} />
+            {path.indexOf('chat') < 0 && <Icon className="SelectorEncuesta__icono_menu" icon={chevronDown} />}
             <PopupEncuestas
               activo={popupActivo}
               esconder={() => setPopupActivo(false)}

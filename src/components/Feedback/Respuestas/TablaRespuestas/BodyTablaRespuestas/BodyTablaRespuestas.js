@@ -46,26 +46,26 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
       <tbody className="BodyTablaRespuestas">
         {respuestasPagina ?
           respuestasPagina.map((respuesta, i) => (
-              <tr
-                key={`fila-respuestas-${i}`}
-                className={classNames({
-                  'BodyTablaRespuestas__fila': true
-                })}
-                onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
-              >
-                <td className="BodyTablaRespuestas__celda BodyTablaRespuestas__celda--numero">{respuestasPorPagina * (pagina - 1) + i + 1}</td>
-                {headersOrdenados.map(({ nombre }, j) => (
-                  <td
-                    key={`celda-respuesta-${i}-${j}`}
-                    className="BodyTablaRespuestas__celda"
-                  >
-                    {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                      ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
-                      : respuesta[nombre]
-                    }
-                  </td>
-                ))}
-              </tr>
+            <tr
+              key={`fila-respuestas-${i}`}
+              className={classNames({
+                'BodyTablaRespuestas__fila': true
+              })}
+              onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
+            >
+              <td className="BodyTablaRespuestas__celda BodyTablaRespuestas__celda--numero">{respuestasPorPagina * (pagina - 1) + i + 1}</td>
+              {headersOrdenados.map(({ nombre }, j) => (
+                <td
+                  key={`celda-respuesta-${i}-${j}`}
+                  className="BodyTablaRespuestas__celda"
+                >
+                  {respuesta[nombre] && respuesta[nombre].tag !== undefined
+                    ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
+                    : respuesta[nombre]
+                  }
+                </td>
+              ))}
+            </tr>
           ))
           : Array(respuestasPorPagina).fill(0).map((x, i) => (
               <tr
