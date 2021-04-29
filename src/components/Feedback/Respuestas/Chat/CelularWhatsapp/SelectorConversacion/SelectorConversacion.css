@@ -1,14 +1,13 @@
 .SelectorConversacion {
   position: absolute;
   left: 1.5rem;
-  top: 1rem;
-  gap: .75rem;
+  top: 2rem;
+  gap: .5rem;
   flex: 1;
-  height: 67vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  height: 70vh;
+  display: grid;
+  width: 1rem;
+  place-content: center;
 }
 
 .SelectorConversacion__boton {
@@ -25,6 +24,32 @@
   margin: 0;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.SelectorConversacion__boton::before {
+  position: absolute;
+  content: attr(data-title);
+  background: var(--color-principal-oscuro);
+  color: var(--color-texto-claro);
+  opacity: 0;
+  transition: all .25s ease-out;
+  right: calc(.5rem + 100%);
+  font-size: .7rem;
+  pointer-events: none;
+  white-space: nowrap;
+  padding: .25rem .75rem .25rem .35rem;
+  border-radius: .25rem 0 0 .25rem;
+  clip-path: polygon(0% 0%, calc(100% - .75rem) 0%, 100% 50%, calc(100% - .75rem) 100%, 0% 100%);
+  filter: drop-shadow(0 0 .25rem var(--color-sombras))
+}
+
+.SelectorConversacion__boton:hover {
+  filter: brightness(110%);
+}
+
+.SelectorConversacion__boton:hover::before {
+  opacity: 1;
 }
 
 .SelectorConversacion__boton:not(.SelectorConversacion__boton--seleccionado):hover {
@@ -33,4 +58,5 @@
 
 .SelectorConversacion__boton--seleccionado {
   transform: scale(1.5);
+  box-shadow: 0 0 .15rem var(--color-sombras);
 }

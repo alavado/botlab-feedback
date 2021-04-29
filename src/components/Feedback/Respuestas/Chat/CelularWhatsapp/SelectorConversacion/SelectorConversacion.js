@@ -2,6 +2,8 @@ import React from 'react'
 import { diccionarioTags } from '../../../../../../helpers/tags'
 import classNames from 'classnames'
 import './SelectorConversacion.css'
+import { format, parseISO } from 'date-fns'
+import { es } from 'date-fns/locale'
 
 const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, seleccionarConversacion }) => {
 
@@ -11,7 +13,7 @@ const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, 
 
   return (
     <div className="SelectorConversacion">
-      {conversaciones.slice(-10).map((c, i) => {
+      {conversaciones.map((c, i) => {
         const primerTag = c.tags[0].tag
         return (
           <button
@@ -22,6 +24,7 @@ const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, 
             })}
             style={{ background: diccionarioTags[primerTag].color }}
             onClick={() => seleccionarConversacion(i)}
+            data-title={format(parseISO(c.start), 'dd MMM yyyy', { locale: es })}
           >
           </button>
         )
