@@ -72,6 +72,7 @@
   background: var(--whatsapp-fondo);
   background-size: cover;
   scroll-behavior: smooth;
+  outline: none;
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__contenedor_mensajes {

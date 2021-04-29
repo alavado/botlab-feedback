@@ -63,7 +63,7 @@ const DatosChat = ({ datos, telefono }) => {
               className="DatosChat__link_anterior"
               onClick={irARespuestaAnterior}
               disabled={!hayChatAnterior || !datos}
-              title={hayChatAnterior ? '' : 'Este es el primer chat de la tabla'}
+              title={hayChatAnterior ? 'Ver chat anterior (←)' : 'Este es el primer chat de la tabla'}
             >
               <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
             </button>
@@ -74,7 +74,7 @@ const DatosChat = ({ datos, telefono }) => {
               className="DatosChat__link_siguiente"
               onClick={irASiguienteRespuesta}
               disabled={!haySiguienteChat || !datos}
-              title={haySiguienteChat ? '' : 'Este es el último chat de la tabla'}
+              title={haySiguienteChat ? 'Ver chat siguiente (→)' : 'Este es el último chat de la tabla'}
             >
               <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
             </button>

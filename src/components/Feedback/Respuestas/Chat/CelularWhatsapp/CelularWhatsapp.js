@@ -31,6 +31,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
     if (conversaciones?.length > 0) {
       const conversacion = document.getElementById(`contenedor-conversacion-${conversaciones.length - 1}`)
       conversacion.scrollIntoView()
+      contenedorMensajes.current.focus({ preventScroll: true })
     }
   }, [conversaciones])
 
@@ -64,6 +65,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
           <div
             className="CelularWhatsapp__contenedor_mensajes"
             ref={contenedorMensajes}
+            tabIndex={0}
           >
             {conversaciones
               ? conversaciones.map((c, ic) => {

@@ -11,7 +11,7 @@ const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, 
 
   return (
     <div className="SelectorConversacion">
-      {conversaciones.map((c, i) => {
+      {conversaciones.slice(-10).map((c, i) => {
         const primerTag = c.tags[0].tag
         return (
           <button
