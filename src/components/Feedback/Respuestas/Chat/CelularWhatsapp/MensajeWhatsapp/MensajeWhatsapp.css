@@ -210,4 +210,5 @@
 .MensajeWhatsapp__miniatura_imagen {
   object-fit: cover;
   width: 100%;
+  min-height: 2rem;
 }

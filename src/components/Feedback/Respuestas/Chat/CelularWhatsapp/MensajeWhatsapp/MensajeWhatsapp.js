@@ -83,7 +83,7 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
 
   return (
     <div className="MensajeWhatsapp__texto">
-      {mensaje.message.indexOf('ATTACHMENT') > 0
+      {mensaje.message.indexOf('ATTACHMENT') >= 0
         ? <MensajeConAdjunto mensaje={mensaje.message} />
         : <Linkify>
             <span className="MensajeWhatsapp__texto_nl2br">
@@ -130,7 +130,7 @@ const MensajeConAdjunto = ({ mensaje }) => {
             </div>
           </a>
       }
-      {nl2br(mensajeSinAdjunto)}
+      {mensajeSinAdjunto.length > 0 && nl2br(mensajeSinAdjunto)}
     </div>
   )
 }
