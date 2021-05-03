@@ -10,6 +10,7 @@ import nl2br from 'react-newline-to-break'
 import './MensajeWhatsapp.css'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
+const tokenAdjunto = 'ATTACHMENT:'
 
 const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
 
@@ -83,7 +84,7 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
 
   return (
     <div className="MensajeWhatsapp__texto">
-      {mensaje.message.indexOf('ATTACHMENT') >= 0
+      {mensaje.message.indexOf(tokenAdjunto) >= 0
         ? <MensajeConAdjunto mensaje={mensaje.message} />
         : <Linkify>
             <span className="MensajeWhatsapp__texto_nl2br">
@@ -97,11 +98,11 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
 }
 
 const MensajeConAdjunto = ({ mensaje }) => {
-  const inicioAdjunto = mensaje.indexOf('http')
+  const inicioAdjunto = mensaje.indexOf(tokenAdjunto) + tokenAdjunto.length
   const substringAdjunto = mensaje.substring(inicioAdjunto)
   const finAdjunto = substringAdjunto.search(/\s/) > 0 ? substringAdjunto.search(/\s/) : substringAdjunto.length
   const urlArchivo = substringAdjunto.substring(0, finAdjunto)
-  const mensajeSinAdjunto = mensaje.substring(0, mensaje.indexOf('ATTACHMENT') - 1) + substringAdjunto.substring(finAdjunto)
+  const mensajeSinAdjunto = mensaje.substring(0, mensaje.indexOf(tokenAdjunto) - 1) + substringAdjunto.substring(finAdjunto)
   const nombreArchivo = urlArchivo.substring(urlArchivo.lastIndexOf('/') + 1)
   const extensionArchivo = nombreArchivo.substring(nombreArchivo.lastIndexOf('.') + 1)
   return (
@@ -130,7 +131,7 @@ const MensajeConAdjunto = ({ mensaje }) => {
             </div>
           </a>
       }
-      {mensajeSinAdjunto.length > 0 && nl2br(mensajeSinAdjunto)}
+      {mensajeSinAdjunto.length > 0 && <Linkify>{nl2br(mensajeSinAdjunto)}</Linkify>}
     </div>
   )
 }

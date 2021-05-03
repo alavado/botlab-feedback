@@ -24,13 +24,15 @@ const Chat = () => {
   const actualizarMensajes = useCallback(() => {
     setConversaciones(undefined)
     setCargando(true)
-    const chatCacheado = indiceRespuestaSeleccionada && chatsCacheados[respuestas[indiceRespuestaSeleccionada]?.user_id]
+    const chatCacheado = chatsCacheados[idUsuario]
+    console.log(chatsCacheados)
     if (chatCacheado && Date.now() - chatCacheado.t < expiracionCache) {
       setTelefono(chatCacheado.telefono)
       setConversaciones(chatCacheado.conversaciones)
       setIndiceConversacion(chatCacheado.conversaciones.length - 1)
     }
     else {
+      console.log('no estaba cacheado')
       chatAPI(idEncuesta, idUsuario)
         .then(({ data }) => {
           const { data: { conversations, user } } = data
@@ -62,6 +64,7 @@ const Chat = () => {
             }
           })
           setCargando(false)
+          console.log('carga chat siguiente')
         })
     }
     else {
