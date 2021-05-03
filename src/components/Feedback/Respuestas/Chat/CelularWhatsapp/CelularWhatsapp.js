@@ -78,6 +78,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
                         "CelularWhatsapp__contenedor_conversacion": true,
                         "CelularWhatsapp__contenedor_conversacion--seleccionada": ic === indiceConversacion,
                       })}
+                      title={ic === indiceConversacion ? '' : 'Ver conversación'}
                       onClick={() => seleccionarConversacion(ic)}
                     >
                       {mensajes.length > 0

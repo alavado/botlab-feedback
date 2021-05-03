@@ -75,13 +75,20 @@ const SelectorEncuesta = () => {
     >
       {path.indexOf('busqueda') >= 0 || path.indexOf('uso') >= 0
         ? <>
-            <Icon className="SelectorEncuesta__icono_empresa" icon={whatsapp} />
+            <Icon
+              className="SelectorEncuesta__icono_empresa"
+              icon={whatsapp}
+            />
             <div className="SelectorEncuesta__nombre_encuesta">
               Todas las encuestas
             </div>
           </>
         : <>
-            <Icon className="SelectorEncuesta__icono_empresa" icon={whatsapp} />
+            <Icon
+              className="SelectorEncuesta__icono_empresa"
+              icon={whatsapp}
+              style={{ color: encuestaSeleccionada.enabled ? 'rgb(49, 202, 49)' : '#9f9eae' }}
+            />
             <div className="SelectorEncuesta__nombre_encuesta">
               {encuestaSeleccionada.nombre}
             </div>

@@ -41,7 +41,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
           opacity: activo ? 1 : 0
         }}
       >
-        {tiposOrdenados.map(({ id, nombre }) => (
+        {tiposOrdenados.map(({ id, nombre, enabled }) => (
           <div
             key={`boton-${id}`}
             onClick={e => {
@@ -51,7 +51,11 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
             }}
             className="PopupEncuestas__opcion"
           >
-            <Icon className="PopupEncuestas__icono_empresa" icon={whatsapp} />
+            <Icon
+              className="PopupEncuestas__icono_empresa"
+              icon={whatsapp}
+              style={{ color: enabled ? 'rgb(49, 202, 49)' : '#9f9eae' }}
+            />
             <div className="PopupEncuestas__nombre_encuesta">
               {nombre}
             </div>
