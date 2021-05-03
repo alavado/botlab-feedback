@@ -39,7 +39,7 @@
 }
 
 .BuscadorRespuestas__input:disabled {
-  filter: brightness(90%);
+  opacity: .5;
   cursor: not-allowed;
 }
 

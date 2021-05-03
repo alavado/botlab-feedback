@@ -5,12 +5,10 @@ import { Icon } from '@iconify/react'
 import whatsapp from '@iconify/icons-mdi/whatsapp'
 import classNames from 'classnames'
 import './PopupEncuestas.css'
-import { useRouteMatch } from 'react-router'
 
 const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
-  const { path } = useRouteMatch()
 
   const tiposOrdenados = useMemo(() => {
     const indiceEncuestaSeleccionada = tipos.findIndex(({ id }) => id === idEncuestaSeleccionada)
