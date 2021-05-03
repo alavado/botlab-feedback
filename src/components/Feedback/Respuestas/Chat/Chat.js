@@ -6,26 +6,68 @@ import DatosChat from './DatosChat'
 import RespuestasChat from './RespuestasChat'
 import Error403 from '../../Error403'
 import './Chat.css'
+import { useSelector } from 'react-redux'
+
+const expiracionCache = 60_000
 
 const Chat = () => {
 
   const [conversaciones, setConversaciones] = useState()
   const [telefono, setTelefono] = useState()
   const [indiceConversacion, setIndiceConversacion] = useState()
+  const [chatsCacheados, setChatCacheados] = useState({})
+  const [cargando, setCargando] = useState(false)
   const [error403, setError403] = useState(false)
   const { idEncuesta, idUsuario } = useParams()
+  const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
 
   const actualizarMensajes = useCallback(() => {
     setConversaciones(undefined)
-    chatAPI(idEncuesta, idUsuario)
-      .then(({ data }) => {
-        const { data: { conversations, user } } = data
-        setTelefono(user ? user.phone : '')
-        setConversaciones(conversations)
-        setIndiceConversacion(conversations.length - 1)
-      })
-      .catch(() => setError403(true))
-  }, [idEncuesta, idUsuario])
+    setCargando(true)
+    const chatCacheado = indiceRespuestaSeleccionada && chatsCacheados[respuestas[indiceRespuestaSeleccionada]?.user_id]
+    if (chatCacheado && Date.now() - chatCacheado.t < expiracionCache) {
+      setTelefono(chatCacheado.telefono)
+      setConversaciones(chatCacheado.conversaciones)
+      setIndiceConversacion(chatCacheado.conversaciones.length - 1)
+    }
+    else {
+      chatAPI(idEncuesta, idUsuario)
+        .then(({ data }) => {
+          const { data: { conversations, user } } = data
+          setTelefono(user ? user.phone : '')
+          setConversaciones(conversations)
+          setIndiceConversacion(conversations.length - 1)
+          setChatCacheados({
+            ...chatsCacheados,
+            [idUsuario]: {
+              telefono: user ? user.phone : '',
+              conversaciones: conversations,
+              t: Date.now()
+            }
+          })
+        })
+        .catch(() => setError403(true))
+    }
+    const haySiguienteChat = respuestas && indiceRespuestaSeleccionada < respuestas.length - 1
+    if (haySiguienteChat && !chatsCacheados[respuestas[indiceRespuestaSeleccionada + 1].user_id]) {
+      chatAPI(idEncuesta, respuestas[indiceRespuestaSeleccionada + 1].user_id)
+        .then(({ data }) => {
+          const { data: { conversations, user } } = data
+          setChatCacheados({
+            ...chatsCacheados,
+            [respuestas[indiceRespuestaSeleccionada + 1].user_id]: {
+              telefono: user ? user.phone : '',
+              conversaciones: conversations,
+              t: Date.now()
+            }
+          })
+          setCargando(false)
+        })
+    }
+    else {
+      setCargando(false)
+    }
+  }, [idEncuesta, idUsuario, indiceRespuestaSeleccionada, respuestas])
 
   useEffect(() => {
     actualizarMensajes()
@@ -40,6 +82,7 @@ const Chat = () => {
       <DatosChat
         datos={conversaciones && conversaciones[indiceConversacion]?.context}
         telefono={telefono}
+        cargando={cargando}
       />
       <CelularWhatsapp
         conversaciones={conversaciones}

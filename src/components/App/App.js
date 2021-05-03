@@ -6,8 +6,8 @@ import Login from '../Login'
 import { differenceInHours } from 'date-fns'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import classNames from 'classnames'
-import './App.css'
 import { ESQUEMA_OSCURO } from '../../redux/ducks/opciones'
+import './App.css'
 
 const App = () => {
 

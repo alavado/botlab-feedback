@@ -18,6 +18,7 @@ import Alertas from './Alertas'
 import { guardaAlertas } from '../../redux/ducks/alertas'
 
 const intervaloRefrescoAlertas = 5_000
+const alertasActivas = false
 
 const Feedback = () => {
 
@@ -43,7 +44,7 @@ const Feedback = () => {
         setErrorCargandoRespuestas('Ocurrió un error')
       }
     }
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' && alertasActivas) {
       const intervalAlertas = setInterval(async () => {
         const { data } = await alertasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
         dispatch(guardaAlertas(data))

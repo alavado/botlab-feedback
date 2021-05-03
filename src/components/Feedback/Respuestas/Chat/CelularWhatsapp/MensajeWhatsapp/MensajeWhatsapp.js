@@ -1,13 +1,15 @@
 import React from 'react'
 import { format, parseISO } from 'date-fns'
-import { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import iconoVisto from '@iconify/icons-mdi/check-all'
-import iconoArchivo from '@iconify/icons-mdi/file-pdf-outline'
+import iconoLinkExterno from '@iconify/icons-mdi/arrow-right-bold'
 import classNames from 'classnames'
 import { es } from 'date-fns/locale'
 import Linkify from 'react-linkify'
 import nl2br from 'react-newline-to-break'
 import './MensajeWhatsapp.css'
+
+const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 
 const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
 
@@ -78,20 +80,11 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
       }
     })
   }
-  const indiceAdjunto = mensaje.message.indexOf('ATTACHMENT')
 
   return (
     <div className="MensajeWhatsapp__texto">
-      {indiceAdjunto > 0
-        ? <a
-            target="_blank"
-            rel="noreferrer noopener"
-            className="MensajeWhatsapp__link_archivo"
-            href={mensaje.message.slice(mensaje.message.indexOf('http'))}
-          >
-            <InlineIcon className="MensajeWhatsapp__pdf" icon={iconoArchivo} />
-            {mensaje.message.slice(0, indiceAdjunto)}
-          </a>
+      {mensaje.message.indexOf('ATTACHMENT') > 0
+        ? <MensajeConAdjunto mensaje={mensaje.message} />
         : <Linkify>
             <span className="MensajeWhatsapp__texto_nl2br">
               {marcar(nl2br(mensaje.message))}
@@ -99,6 +92,45 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
           </Linkify>
       }
       <Hora hora={hora} escondida={true} esDeHumano={esDeHumano} />
+    </div>
+  )
+}
+
+const MensajeConAdjunto = ({ mensaje }) => {
+  const inicioAdjunto = mensaje.indexOf('http')
+  const substringAdjunto = mensaje.substring(inicioAdjunto)
+  const finAdjunto = substringAdjunto.search(/\s/) > 0 ? substringAdjunto.search(/\s/) : substringAdjunto.length
+  const urlArchivo = substringAdjunto.substring(0, finAdjunto)
+  const mensajeSinAdjunto = mensaje.substring(0, mensaje.indexOf('ATTACHMENT') - 1) + substringAdjunto.substring(finAdjunto)
+  const nombreArchivo = urlArchivo.substring(urlArchivo.lastIndexOf('/') + 1)
+  const extensionArchivo = nombreArchivo.substring(nombreArchivo.lastIndexOf('.') + 1)
+  return (
+    <div>
+      {extensionesImagenes.includes(extensionArchivo)
+        ? <a
+            target="_blank"
+            rel="noreferrer noopener"
+            className="MensajeWhatsapp__link_archivo"
+            href={urlArchivo}
+          >
+            <img src={urlArchivo} className="MensajeWhatsapp__miniatura_imagen" alt="imagen indicación" />
+          </a>
+        : <a
+            target="_blank"
+            rel="noreferrer noopener"
+            className="MensajeWhatsapp__link_archivo"
+            href={urlArchivo}
+          >
+            <div className="MensajeWhatsapp__icono_pdf">
+              PDF
+            </div>
+            <div className="MensajeWhatsapp__nombre_archivo">{nombreArchivo}</div>
+            <div className="MensajeWhatsapp__icono_link">
+              <Icon icon={iconoLinkExterno} />
+            </div>
+          </a>
+      }
+      {nl2br(mensajeSinAdjunto)}
     </div>
   )
 }

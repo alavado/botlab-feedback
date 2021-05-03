@@ -9,7 +9,7 @@ import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
 import LoaderChat from '../LoaderChat'
 
-const DatosChat = ({ datos, telefono }) => {
+const DatosChat = ({ cargando, datos, telefono }) => {
 
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
   const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
@@ -62,7 +62,7 @@ const DatosChat = ({ datos, telefono }) => {
             <button
               className="DatosChat__link_anterior"
               onClick={irARespuestaAnterior}
-              disabled={!hayChatAnterior || !datos}
+              disabled={cargando || !hayChatAnterior || !datos}
               title={hayChatAnterior ? 'Ver chat anterior (←)' : 'Este es el primer chat de la tabla'}
             >
               <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
@@ -73,7 +73,7 @@ const DatosChat = ({ datos, telefono }) => {
             <button
               className="DatosChat__link_siguiente"
               onClick={irASiguienteRespuesta}
-              disabled={!haySiguienteChat || !datos}
+              disabled={cargando || !haySiguienteChat || !datos}
               title={haySiguienteChat ? 'Ver chat siguiente (→)' : 'Este es el último chat de la tabla'}
             >
               <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
