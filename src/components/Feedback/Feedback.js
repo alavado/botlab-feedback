@@ -10,12 +10,13 @@ import BarraLateral from './BarraLateral'
 import BarraSuperior from './BarraSuperior'
 import Busqueda from './Busqueda'
 import Login from '../Login'
-import { guardaHeaders } from '../../redux/ducks/encuestas'
+import { guardaHeaders, limpiaEncuestas } from '../../redux/ducks/encuestas'
 import ExportacionAvanzada from '../ExportacionAvanzada'
 import Uso from './Uso'
 import ErrorBoundary from '../../helpers/ErrorBoundary'
 import Alertas from './Alertas'
 import { guardaAlertas } from '../../redux/ducks/alertas'
+import { cierraLaSesion } from '../../redux/ducks/login'
 
 const intervaloRefrescoAlertas = 5_000
 const alertasActivas = false
@@ -32,8 +33,15 @@ const Feedback = () => {
     if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino && cacheInvalido) {
       const fetchData = async () => {
         dispatch(limpiaRespuestas())
-        const headers = await headersAPI()
-        dispatch(guardaHeaders(headers))
+        try {
+          const headers = await headersAPI()
+          dispatch(guardaHeaders(headers))
+        }
+        catch (e) {
+          console.error(e)
+          dispatch(cierraLaSesion())
+          window.location.reload()
+        }
         const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
         dispatch(guardaRespuestas(data))
       }
