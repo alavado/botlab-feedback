@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const slice = createSlice({
   name: 'scrambler',
   initialState: {
-    scrambled: true,
+    scrambled: false,
     terminos: []
   },
   reducers: {

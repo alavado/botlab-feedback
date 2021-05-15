@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fijaChatExpandido } from '../../../../../../redux/ducks/opciones'
 import { useHistory } from 'react-router-dom'
 import classNames from 'classnames'
+import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
 
 const BarraAppCelular = ({ mensajes, actualizarMensajes }) => {
 
@@ -26,7 +27,7 @@ const BarraAppCelular = ({ mensajes, actualizarMensajes }) => {
         <div className="BarraAppCelular__avatar">{nombreUsuario[0]}</div>
         <div className="BarraAppCelular__contenedor_nombre">
           <div className="BarraAppCelular__nombre">
-            {nombreUsuario.split(' ')[0]}
+            <Scrambler tipo="usuario">{nombreUsuario.split(' ')[0]}</Scrambler>
           </div>
           <div className="BarraAppCelular__estado">
             en línea

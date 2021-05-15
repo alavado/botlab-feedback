@@ -12,6 +12,7 @@ import { actualizaRespuestas, limpiaRespuestas } from '../../../../redux/ducks/r
 import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
 import { useParams, useRouteMatch } from 'react-router-dom'
 import classNames from 'classnames'
+import Scrambler from '../../../../helpers/Scrambler/Scrambler'
 
 const SelectorEncuesta = () => {
 
@@ -90,7 +91,7 @@ const SelectorEncuesta = () => {
               style={{ color: encuestaSeleccionada.enabled ? 'rgb(49, 202, 49)' : '#9f9eae' }}
             />
             <div className="SelectorEncuesta__nombre_encuesta">
-              {encuestaSeleccionada.nombre}
+              <Scrambler tipo="multi">{encuestaSeleccionada.nombre}</Scrambler>
             </div>
             {path.indexOf('chat') < 0 && <Icon className="SelectorEncuesta__icono_menu" icon={chevronDown} />}
             <PopupEncuestas

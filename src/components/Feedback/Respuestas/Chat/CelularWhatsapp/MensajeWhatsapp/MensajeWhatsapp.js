@@ -10,6 +10,7 @@ import nl2br from 'react-newline-to-break'
 import './MensajeWhatsapp.css'
 import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
 import { scrambleMulti } from '../../../../../../helpers/Scrambler/scramblers'
+import { useSelector } from 'react-redux'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 const tokenAdjunto = 'ATTACHMENT:'
@@ -60,6 +61,8 @@ const Globo = ({ esDeHumano, posicion, hora, children }) => (
 
 const Texto = ({ mensaje, hora, esDeHumano }) => {
 
+  const { terminos, scrambled } = useSelector(state => state.scrambler)
+
   const marcar = texto => {
     return texto.map(t => {
       const partes = t.props.children[0].split('*')
@@ -76,7 +79,7 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
                     className="MensajeWhatsapp__strong"
                     key={Date.now()}
                   >
-                    {p}
+                    <Scrambler tipo="multi">{p}</Scrambler>
                   </strong>
                 : p
               )
@@ -94,7 +97,7 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
         ? <MensajeConAdjunto mensaje={mensaje.message} />
         : <Linkify>
             <span className="MensajeWhatsapp__texto_nl2br">
-              {marcar(nl2br(mensaje.message))}
+              {marcar(nl2br(scrambled ? scrambleMulti(mensaje.message, terminos) : mensaje.message))}
             </span>
           </Linkify>
       }

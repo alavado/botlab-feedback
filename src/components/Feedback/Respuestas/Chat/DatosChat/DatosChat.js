@@ -14,8 +14,6 @@ const DatosChat = ({ cargando, datos, telefono }) => {
 
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
   const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
-  const { terminos } = useSelector(state => state.scrambler)
-  console.log(terminos)
   const dispatch = useDispatch()
   const history = useHistory()
 

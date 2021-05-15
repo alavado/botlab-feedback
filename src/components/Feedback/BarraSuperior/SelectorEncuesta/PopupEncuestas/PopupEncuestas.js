@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react'
 import whatsapp from '@iconify/icons-mdi/whatsapp'
 import classNames from 'classnames'
 import './PopupEncuestas.css'
+import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 
 const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
 
@@ -55,7 +56,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
               style={{ color: enabled ? 'rgb(49, 202, 49)' : '#9f9eae' }}
             />
             <div className="PopupEncuestas__nombre_encuesta">
-              {nombre}
+              <Scrambler tipo="multi">{nombre}</Scrambler>
             </div>
           </div>
         ))}

@@ -1,6 +1,5 @@
 import nombres from './nombres'
 import apellidos from './apellidos'
-import store from '../../redux/store'
 
 const hashearString = s => s.length > 0 ? s.split('').reduce((sum, v) => sum + v.charCodeAt(0), 0) : 0
 
@@ -29,7 +28,7 @@ const comunasMenosPobladasDeChile = [
 
 export const scrambleRut = rut => {
   const millones = hashearString(rut)
-  const dv = hashearString(rut) % 11
+  const dv = hashearString(rut) % 10
   return `${millones.toLocaleString('de-DE')}-${dv}`
 }
 
@@ -39,7 +38,7 @@ export const scrambleSucursal = sucursal => {
 }
 
 export const scrambleUsuario = usuario => {
-  const usuarios = comunasMenosPobladasDeChile.map(c => `BuenaSalud ${c}`)
+  const usuarios = comunasMenosPobladasDeChile.map(c => `Salud ${c}`)
   return usuarios[hashearString(usuario) % usuarios.length]
 }
 
@@ -55,7 +54,37 @@ export const scrambleTelefono = telefono => {
   return telefono.split('').map(n => hashearString(n) % 10).join('')
 }
 
-export const scrambleMulti = texto => {
-  console.log(store.getState().scrambler.terminos)
-  return texto.split(' ').map(p => p.charCodeAt(0) >= 65 && p.charCodeAt(0) <= 90 ? scrambleNombre(p) : p).join(' ')
+export const scrambleMulti = (texto, terminos) => {
+  return terminos.reduce((t, termino) => {
+    return t.replace(termino[0], scramble(termino[0], termino[1]))
+  }, texto)
+}
+
+export const scramble = (texto, tipo, terminos) => {
+  switch (tipo) {
+    case 'usuario':
+      return scrambleUsuario(texto)
+    case 'rut':
+      return scrambleRut(texto)
+    case 'nombre':
+    case 'name':
+    case 'dentist_name':
+    case 'specialist_name_1':
+    case 'specialist_name_2':
+    case 'specialist_name_3':
+    case 'specialist_name_4':
+      return scrambleNombre(texto)
+    case 'telefono':
+    case 'phone':
+      return scrambleTelefono(texto)
+    case 'sucursal':
+    case 'sucursal_name':
+      return scrambleSucursal(texto)
+    case '*':
+      return Array(texto.length).fill('*').join('')
+    case 'multi':
+      return scrambleMulti(texto, terminos)
+    default:
+      return texto
+  }
 }

@@ -48,7 +48,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               dispatch(escondeDatosSensibles(!scrambled))
             }}
           >
-            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna}></InlineIcon> {scrambled ? 'Mostrar datos sensibles' : 'Esconder datos sensibles'}
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna}></InlineIcon> {scrambled ? 'Mostrar datos sensibles' : 'Ocultar datos sensibles'}
           </button>
           <button
             className="PopupMenuUsuario__boton_opcion"
