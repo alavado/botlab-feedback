@@ -62,7 +62,6 @@ const Chat = () => {
             }
           })
           setCargando(false)
-          console.log('carga chat siguiente')
         })
     }
     else {

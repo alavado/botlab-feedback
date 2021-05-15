@@ -1,5 +1,6 @@
 import nombres from './nombres'
 import apellidos from './apellidos'
+import store from '../../redux/store'
 
 const hashearString = s => s.length > 0 ? s.split('').reduce((sum, v) => sum + v.charCodeAt(0), 0) : 0
 
@@ -27,8 +28,8 @@ const comunasMenosPobladasDeChile = [
 ]
 
 export const scrambleRut = rut => {
-  const millones = parseInt(1E7 + Math.random() * 9E6)
-  const dv = parseInt(10 * Math.random())
+  const millones = hashearString(rut)
+  const dv = hashearString(rut) % 11
   return `${millones.toLocaleString('de-DE')}-${dv}`
 }
 
@@ -55,5 +56,6 @@ export const scrambleTelefono = telefono => {
 }
 
 export const scrambleMulti = texto => {
+  console.log(store.getState().scrambler.terminos)
   return texto.split(' ').map(p => p.charCodeAt(0) >= 65 && p.charCodeAt(0) <= 90 ? scrambleNombre(p) : p).join(' ')
 }

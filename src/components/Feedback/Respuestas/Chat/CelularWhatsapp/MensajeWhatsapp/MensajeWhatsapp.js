@@ -94,7 +94,7 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
         ? <MensajeConAdjunto mensaje={mensaje.message} />
         : <Linkify>
             <span className="MensajeWhatsapp__texto_nl2br">
-              {marcar(nl2br(scrambleMulti(mensaje.message)))}
+              {marcar(nl2br(mensaje.message))}
             </span>
           </Linkify>
       }

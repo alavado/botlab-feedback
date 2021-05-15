@@ -18,7 +18,7 @@ const MenuUsuario = () => {
         onClick={() => setMostrarMenu(true)}
       >
         <span className="MenuUsuario__nombre_usuario">
-          <Scrambler tipo="usuario">{nombreUsuario}</Scrambler>
+          <Scrambler tipo="usuario" propagar={true}>{nombreUsuario}</Scrambler>
         </span>
         <InlineIcon icon={iconoUsuario} />
       </button>
