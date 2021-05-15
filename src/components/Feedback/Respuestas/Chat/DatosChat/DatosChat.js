@@ -8,6 +8,7 @@ import { InlineIcon } from '@iconify/react'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
 import LoaderChat from '../LoaderChat'
+import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 
 const DatosChat = ({ cargando, datos, telefono }) => {
 
@@ -89,10 +90,10 @@ const DatosChat = ({ cargando, datos, telefono }) => {
                 Teléfono
               </div>
               <div className="DatosChat__valor_header">
-                {telefono}
+                <Scrambler tipo="telefono">{telefono}</Scrambler>
               </div>
             </div>
-            {datos.map(({ value: nombre, title: texto }, i) => (
+            {datos.map(({ value: nombre, title: texto, target }, i) => (
               <div
                 key={`header-chat-${i}`}
                 className="DatosChat__contenedor_header"
@@ -101,7 +102,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
                   {texto}
                 </div>
                 <div className="DatosChat__valor_header">
-                  {nombre}
+                  <Scrambler tipo={target}>{nombre}</Scrambler>
                 </div>
               </div>
             ))}

@@ -5,7 +5,7 @@ import './PopupMenuUsuario.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { cierraLaSesion } from '../../../../../redux/ducks/login'
 import { limpiaEncuestas } from '../../../../../redux/ducks/encuestas'
-import { cambiaEsquemaColor, ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
+import { cambiaEsquemaColor, ESQUEMA_OSCURO, escondeDatosSensibles } from '../../../../../redux/ducks/opciones'
 import iconoCerrarSesion from '@iconify/icons-mdi/exit-to-app'
 import iconoLuna from '@iconify/icons-mdi/weather-night'
 import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
@@ -14,7 +14,7 @@ import { InlineIcon } from '@iconify/react'
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
   const { nombreUsuario } = useSelector(state => state.login)
-  const { esquema } = useSelector(state => state.opciones)
+  const { esquema, scrambled } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
 
   return <>
@@ -37,6 +37,15 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
             }}
           >
             <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna}></InlineIcon> Ver colores {esquema === ESQUEMA_OSCURO ? 'diurnos' : 'nocturnos'}
+          </button>
+          <button
+            className="PopupMenuUsuario__boton_opcion"
+            onClick={e => {
+              e.stopPropagation()
+              dispatch(escondeDatosSensibles(!scrambled))
+            }}
+          >
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna}></InlineIcon> Scrambled
           </button>
           <button
             className="PopupMenuUsuario__boton_opcion"

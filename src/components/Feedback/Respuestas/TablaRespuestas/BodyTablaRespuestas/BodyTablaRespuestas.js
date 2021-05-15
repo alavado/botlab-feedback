@@ -6,6 +6,7 @@ import TagRespuesta from '../TagRespuesta'
 import classNames from 'classnames'
 import './BodyTablaRespuestas.css'
 import Skeleton from '../../../../Skeleton'
+import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 // import { InlineIcon } from '@iconify/react'
 // import iconoVerChat from '@iconify/icons-mdi/chevron-right'
 
@@ -61,7 +62,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
                 >
                   {respuesta[nombre] && respuesta[nombre].tag !== undefined
                     ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
-                    : respuesta[nombre]
+                    : <Scrambler tipo={nombre}>{respuesta[nombre]}</Scrambler>
                   }
                 </td>
               ))}

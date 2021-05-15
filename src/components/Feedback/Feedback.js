@@ -36,14 +36,14 @@ const Feedback = () => {
         try {
           const headers = await headersAPI()
           dispatch(guardaHeaders(headers))
+          const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
+          dispatch(guardaRespuestas(data))
         }
         catch (e) {
           console.error(e)
           dispatch(cierraLaSesion())
           window.location.reload()
         }
-        const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-        dispatch(guardaRespuestas(data))
       }
       try {
         setErrorCargandoRespuestas(null)

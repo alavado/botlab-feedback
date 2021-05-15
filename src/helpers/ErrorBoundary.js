@@ -12,8 +12,6 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     console.log(error, errorInfo)
-    // localStorage.clear()
-    // window.location.reload()
   }
 
   render() {
