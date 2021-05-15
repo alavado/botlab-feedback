@@ -8,6 +8,8 @@ import { es } from 'date-fns/locale'
 import Linkify from 'react-linkify'
 import nl2br from 'react-newline-to-break'
 import './MensajeWhatsapp.css'
+import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
+import { scrambleMulti } from '../../../../../../helpers/Scrambler/scramblers'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 const tokenAdjunto = 'ATTACHMENT:'
@@ -47,7 +49,6 @@ const Globo = ({ esDeHumano, posicion, hora, children }) => (
       'MensajeWhatsapp__globo--saliente': esDeHumano,
       'MensajeWhatsapp__globo--entrante': !esDeHumano
     })}
-    // style={{ animationDelay: `${posicion * .15}s` }}
   >
     <div className="MensajeWhatsapp__titulo">
       <div>{esDeHumano ? 'Usuario' : 'Bot'}</div>
@@ -71,7 +72,12 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
               'span',
               [],
               partes.map((p, i) => 0 < i && i < partes.length - 1
-                ? <strong className="MensajeWhatsapp__strong" key={Date.now()}>{p}</strong>
+                ? <strong
+                    className="MensajeWhatsapp__strong"
+                    key={Date.now()}
+                  >
+                    {p}
+                  </strong>
                 : p
               )
             ),
@@ -88,7 +94,7 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
         ? <MensajeConAdjunto mensaje={mensaje.message} />
         : <Linkify>
             <span className="MensajeWhatsapp__texto_nl2br">
-              {marcar(nl2br(mensaje.message))}
+              {marcar(nl2br(scrambleMulti(mensaje.message)))}
             </span>
           </Linkify>
       }

@@ -53,3 +53,7 @@ export const scrambleNombre = nombre => {
 export const scrambleTelefono = telefono => {
   return telefono.split('').map(n => hashearString(n) % 10).join('')
 }
+
+export const scrambleMulti = texto => {
+  return texto.split(' ').map(p => p.charCodeAt(0) >= 65 && p.charCodeAt(0) <= 90 ? scrambleNombre(p) : p).join(' ')
+}

@@ -5,16 +5,19 @@ import './PopupMenuUsuario.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { cierraLaSesion } from '../../../../../redux/ducks/login'
 import { limpiaEncuestas } from '../../../../../redux/ducks/encuestas'
-import { cambiaEsquemaColor, ESQUEMA_OSCURO, escondeDatosSensibles } from '../../../../../redux/ducks/opciones'
+import { cambiaEsquemaColor, ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
+import { escondeDatosSensibles } from '../../../../../redux/ducks/scrambler'
 import iconoCerrarSesion from '@iconify/icons-mdi/exit-to-app'
 import iconoLuna from '@iconify/icons-mdi/weather-night'
 import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
 import { InlineIcon } from '@iconify/react'
+import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
   const { nombreUsuario } = useSelector(state => state.login)
-  const { esquema, scrambled } = useSelector(state => state.opciones)
+  const { esquema } = useSelector(state => state.opciones)
+  const { scrambled } = useSelector(state => state.scrambler)
   const dispatch = useDispatch()
 
   return <>
@@ -26,7 +29,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
         })}
       >
         <div className="PopupMenuUsuario__superior">
-          {nombreUsuario}
+          <Scrambler tipo="usuario">{nombreUsuario}</Scrambler>
         </div>
         <div className="PopupMenuUsuario__opciones">
           <button
@@ -45,7 +48,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               dispatch(escondeDatosSensibles(!scrambled))
             }}
           >
-            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna}></InlineIcon> Scrambled
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna}></InlineIcon> {scrambled ? 'Mostrar datos sensibles' : 'Esconder datos sensibles'}
           </button>
           <button
             className="PopupMenuUsuario__boton_opcion"
