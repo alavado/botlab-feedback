@@ -27,9 +27,12 @@ const comunasMenosPobladasDeChile = [
 ]
 
 export const scrambleRut = rut => {
-  const millones = hashearString(rut)
+  let millones = hashearString(rut).toString()
+  while (millones.length < 7) {
+    millones += hashearString(millones).toString()[0]
+  }
   const dv = hashearString(rut) % 10
-  return `${millones.toLocaleString('de-DE')}-${dv}`
+  return `${(+millones).toLocaleString('de-DE')}-${dv}`
 }
 
 export const scrambleSucursal = sucursal => {

@@ -10,6 +10,7 @@ import { escondeDatosSensibles } from '../../../../../redux/ducks/scrambler'
 import iconoCerrarSesion from '@iconify/icons-mdi/exit-to-app'
 import iconoLuna from '@iconify/icons-mdi/weather-night'
 import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
+import iconoIncognito from '@iconify/icons-mdi/incognito'
 import { InlineIcon } from '@iconify/react'
 import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 
@@ -39,7 +40,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               dispatch(cambiaEsquemaColor())
             }}
           >
-            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna}></InlineIcon> Ver colores {esquema === ESQUEMA_OSCURO ? 'diurnos' : 'nocturnos'}
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna} /> Ver colores {esquema === ESQUEMA_OSCURO ? 'diurnos' : 'nocturnos'}
           </button>
           <button
             className="PopupMenuUsuario__boton_opcion"
@@ -48,7 +49,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               dispatch(escondeDatosSensibles(!scrambled))
             }}
           >
-            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna}></InlineIcon> {scrambled ? 'Mostrar datos sensibles' : 'Ocultar datos sensibles'}
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoIncognito} /> {scrambled ? 'Mostrar' : 'Ocultar'} datos sensibles
           </button>
           <button
             className="PopupMenuUsuario__boton_opcion"

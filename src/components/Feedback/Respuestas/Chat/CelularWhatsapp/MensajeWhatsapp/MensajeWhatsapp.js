@@ -107,6 +107,8 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
 }
 
 const MensajeConAdjunto = ({ mensaje }) => {
+
+  const { terminos, scrambled } = useSelector(state => state.scrambler)
   const inicioAdjunto = mensaje.indexOf(tokenAdjunto) + tokenAdjunto.length
   const substringAdjunto = mensaje.substring(inicioAdjunto)
   const finAdjunto = substringAdjunto.search(/\s/) > 0 ? substringAdjunto.search(/\s/) : substringAdjunto.length
@@ -114,6 +116,7 @@ const MensajeConAdjunto = ({ mensaje }) => {
   const mensajeSinAdjunto = mensaje.substring(0, mensaje.indexOf(tokenAdjunto) - 1) + substringAdjunto.substring(finAdjunto)
   const nombreArchivo = urlArchivo.substring(urlArchivo.lastIndexOf('/') + 1)
   const extensionArchivo = nombreArchivo.substring(nombreArchivo.lastIndexOf('.') + 1)
+
   return (
     <div>
       {extensionesImagenes.includes(extensionArchivo)
@@ -134,13 +137,13 @@ const MensajeConAdjunto = ({ mensaje }) => {
             <div className="MensajeWhatsapp__icono_pdf">
               PDF
             </div>
-            <div className="MensajeWhatsapp__nombre_archivo">{nombreArchivo}</div>
+            <div className="MensajeWhatsapp__nombre_archivo">{scrambled ? scrambleMulti(nombreArchivo, terminos) : nombreArchivo}</div>
             <div className="MensajeWhatsapp__icono_link">
               <Icon icon={iconoLinkExterno} />
             </div>
           </a>
       }
-      {mensajeSinAdjunto.length > 0 && <Linkify>{nl2br(mensajeSinAdjunto)}</Linkify>}
+      {mensajeSinAdjunto.length > 0 && <Linkify>{nl2br(scrambled ? scrambleMulti(mensajeSinAdjunto, terminos) : mensajeSinAdjunto)}</Linkify>}
     </div>
   )
 }

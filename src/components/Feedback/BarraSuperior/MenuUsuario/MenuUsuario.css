@@ -10,6 +10,13 @@
   align-items: center;
 }
 
+.MenuUsuario--incognito .MenuUsuario__boton_mostrar_popup {
+  background: var(--color-secundario);
+  color: var(--color-texto-claro);
+  border-radius: 9in;
+  padding: .25rem 1rem;
+}
+
 .MenuUsuario__boton_mostrar_popup:hover {
   filter: opacity(70%);
 }

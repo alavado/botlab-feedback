@@ -6,6 +6,7 @@ import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../../Respuestas/TablaRespuestas/TagRespuesta'
 import { es } from 'date-fns/locale'
 import './TarjetaResultadoBusqueda.css'
+import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 
 const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
 
@@ -52,7 +53,7 @@ const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
             <div className="TarjetaResultadoBusqueda__valor">
               {resultado[k] && resultado[k].tag !== undefined
                 ? <div style={{ display: 'flex', alignItems: 'center' }}><TagRespuesta tag={resultado[k].tag} /></div>
-                : resultado[k]
+                : <Scrambler tipo={k}>{resultado[k]}</Scrambler>
               }
             </div>
           </div>
@@ -62,7 +63,7 @@ const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
           Teléfono
         </div>
         <div className="TarjetaResultadoBusqueda__valor">
-          {resultado.phone}
+          <Scrambler tipo="telefono">{resultado.phone}</Scrambler>
         </div>
       </div>
       <div className="TarjetaResultadoBusqueda__contenedor_valores">

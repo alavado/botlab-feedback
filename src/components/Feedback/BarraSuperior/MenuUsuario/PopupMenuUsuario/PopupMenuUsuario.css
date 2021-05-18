@@ -38,14 +38,15 @@
 
 .PopupMenuUsuario__opciones {
   padding: .5rem 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .PopupMenuUsuario__boton_opcion {
   background-color: var(--color-fondo);
   border: none;
-  width: 100%;
   text-align: left;
-  padding: .4rem .75rem;
+  padding: .4rem 5rem .4rem .75rem;
   cursor: pointer;
   font-size: .85rem;
   font-weight: 600;
