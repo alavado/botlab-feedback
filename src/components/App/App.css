@@ -42,7 +42,7 @@
   --whatsapp-color-texto: black;
   --whatsapp-fondo-fecha: #D4EAF4;
   --whatsapp-color-texto-fecha: rgba(0, 0, 0, .7);
-  --whatsapp-color-celular: #fafafa;
+  --whatsapp-color-celular: #2B292A;
   --whatsapp-color-borde-celular: #eee;
   --whatsapp-color-brillo-celular: #fff;
 }
@@ -76,7 +76,7 @@
   --whatsapp-color-texto: rgba(255, 255, 255, 0.8);
   --whatsapp-fondo-fecha: #0E282F;
   --whatsapp-color-texto-fecha: rgba(255, 255, 255, .7);
-  --whatsapp-color-celular: #111;
+  --whatsapp-color-celular: #010101;
   --whatsapp-color-borde-celular: #222;
   --whatsapp-color-brillo-celular: #777;
 }

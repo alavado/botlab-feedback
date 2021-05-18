@@ -57,14 +57,14 @@ const CuadroBusqueda = () => {
               const promedio = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3)
               grises[i / 4] = promedio > 200 ? 255 : 0
             }
-            const dx = Array(data.length / 4).fill(0)
-            for (let i = 0; i < dx.length; i++) {
-              dx[i] = grises[i + 1] - grises[i]
+            const dy = Array(data.length / 4).fill(0)
+            for (let i = 0; i < dy.length; i++) {
+              dy[i] = grises[i + this.width] - grises[i]
             }
             const bordes = Array(data.length / 4).fill(0)
             bordes[0] = false
             for (let i = 1; i < bordes.length; i++) {
-              bordes[i] = !bordes[i - 1] && (Math.sign(dx[i + 1]) !== Math.sign(dx[i]))
+              bordes[i] = !bordes[i - 1] && (Math.sign(dy[i + 1]) !== Math.sign(dy[i]))
               data[4 * i] = data[4 * i + 1] = data[4 * i + 2] = bordes[i] * 255
               data[4 * i + 3] = 255
             }
@@ -72,22 +72,26 @@ const CuadroBusqueda = () => {
             const largoPatron = 5
             const delimitadores = proporciones
               .map((v, i) => {
-                return i < (proporciones.length - largoPatron) && (
-                  v / proporciones[i + 1] === 1 &&
-                  Math.floor(proporciones[i + 2] / v) === 3 &&
-                  v / proporciones[i + 3] === 1 &&
-                  v / proporciones[i + 4] === 1
-                ) ? i : false
+                return (i < (proporciones.length - largoPatron) && (
+                  Math.round(v / proporciones[i + 1]) === 1 &&
+                  Math.round(proporciones[i + 2] / v) === 3 &&
+                  Math.round(v / proporciones[i + 3]) === 1 &&
+                  Math.round(v / proporciones[i + 4]) === 1
+                )) ? i : false
               })
               .filter(v => v)
-            if (delimitadores) {
+            if (delimitadores.length > 1) {
               const sliceDatos = proporciones.slice(delimitadores[0] + largoPatron, delimitadores[1])
-              const tamañoBit = proporciones[delimitadores[0]] * 1.33
+              const tamañoBit = sliceDatos[0]
+              console.log({sliceDatos, tamañoBit})
               const binario = sliceDatos
-                .map((v, i) => Array(Math.floor(v / tamañoBit)).fill(Number(i % 2 > 0)))
+                .map((v, i) => Array(Math.max(1, Math.floor(v / tamañoBit))).fill(Number(i % 2 > 0)))
                 .flat()
                 .join('')
-              console.log(parseInt(binario, 2))
+              const dec = parseInt(binario, 2).toString()
+              const ruta = `/chat/${dec.slice(0, 3)}/${dec.slice(3)}`
+              console.log(ruta)
+              // history.push(ruta)
             }
             ctx.putImageData(imageData, 0, 0)
           }
@@ -95,7 +99,7 @@ const CuadroBusqueda = () => {
         }
       })
     }, false)
-  }, [])
+  }, [history])
 
   const buscar = e => {
     e.preventDefault()

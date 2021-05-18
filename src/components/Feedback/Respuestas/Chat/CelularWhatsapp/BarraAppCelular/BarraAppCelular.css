@@ -11,7 +11,7 @@
 }
 
 .BarraAppCelular__icono_volver {
-  font-size: 1.1rem;
+  font-size: .9rem;
   margin-right: .1rem;
 }
 
@@ -51,7 +51,7 @@
 
 .BarraAppCelular__iconos {
   padding-right: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   cursor: pointer;
   display: flex;
   align-items: center;

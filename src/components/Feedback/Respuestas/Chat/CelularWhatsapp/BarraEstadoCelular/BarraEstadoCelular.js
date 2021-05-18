@@ -16,10 +16,14 @@ const BarraEstadoCelular = () => {
 
   return (
     <div className="BarraEstadoCelular">
-      <InlineIcon icon={iconoSeñal} className="BarraEstadoCelular__icono" />
-      100%
-      <InlineIcon icon={iconoBateria} className="BarraEstadoCelular__icono" />
-      {format(hora, 'HH:mm')}
+      <div>
+        {format(hora, 'HH:mm')}
+      </div>
+      <div>
+        <InlineIcon icon={iconoSeñal} className="BarraEstadoCelular__icono" />
+        100%
+        <InlineIcon icon={iconoBateria} className="BarraEstadoCelular__icono" />
+      </div>
     </div>
   )
 }
