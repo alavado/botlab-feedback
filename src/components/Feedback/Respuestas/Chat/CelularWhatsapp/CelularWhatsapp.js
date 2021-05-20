@@ -53,6 +53,9 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
         seleccionarConversacion={irAConversacion}
       />
       <div className="CelularWhatsapp__celular">
+        <div className="CelularWhatsapp__datos_extra">
+          {history.location.pathname.slice(6)}
+        </div>
         <div style={{
           position: 'absolute',
           height: '75vh',
