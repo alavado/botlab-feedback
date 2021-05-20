@@ -34,7 +34,7 @@ const Feedback = () => {
       const fetchData = async () => {
         dispatch(limpiaRespuestas())
         try {
-          const headers = await headersAPI()
+          const headers = await headersAPI(token)
           dispatch(guardaHeaders(headers))
           const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
           dispatch(guardaRespuestas(data))

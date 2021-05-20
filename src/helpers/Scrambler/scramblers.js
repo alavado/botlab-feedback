@@ -42,7 +42,7 @@ export const scrambleSucursal = sucursal => {
 
 export const scrambleUsuario = usuario => {
   const usuarios = comunasMenosPobladasDeChile.map(c => `Salud ${c}`)
-  return usuarios[hashearString(usuario) % usuarios.length]
+  return usuarios[hashearString(usuario.split(' ')[0]) % usuarios.length]
 }
 
 export const scrambleNombre = nombre => {
@@ -57,10 +57,14 @@ export const scrambleTelefono = telefono => {
   return telefono.split('').map(n => hashearString(n) % 10).join('')
 }
 
+export const scrambleDireccion = texto => {
+  return texto.replace(/[A-Z]\S{3,} [0-9]+/g, 'Chinchillas 2021')
+}
+
 export const scrambleMulti = (texto, terminos) => {
-  return terminos.reduce((t, termino) => {
-    return t.replace(termino[0], scramble(termino[0], termino[1]))
-  }, texto)
+  return scrambleDireccion(terminos.reduce((t, termino) => {
+    return t.replace(new RegExp(termino[0], 'gi'), scramble(termino[0], termino[1]))
+  }, texto))
 }
 
 export const scramble = (texto, tipo, terminos) => {
@@ -69,6 +73,9 @@ export const scramble = (texto, tipo, terminos) => {
       return scrambleUsuario(texto)
     case 'rut':
       return scrambleRut(texto)
+    case 'address':
+    case 'direccion':
+      return scrambleDireccion(texto)
     case 'nombre':
     case 'name':
     case 'dentist_name':

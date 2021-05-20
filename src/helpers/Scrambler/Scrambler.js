@@ -17,8 +17,12 @@ const Scrambler = ({ tipo, children: texto, propagar }) => {
         'specialist_name_1',
         'specialist_name_2',
         'specialist_name_3',
-        'specialist_name_4'].includes(tipo)) {
+        'specialist_name_4',
+      ].includes(tipo)) {
         texto.split(' ').map(t => agregarAScrambler([t, tipo]))
+      }
+      else if (tipo === 'usuario') {
+        agregarAScrambler([texto.split(' ')[0], tipo])
       }
       else {
         agregarAScrambler([texto, tipo])

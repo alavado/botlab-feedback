@@ -51,7 +51,7 @@
 
 .CuadroBusqueda__boton_buscar {
   margin-bottom: 1.5rem;
-  background-image: linear-gradient(to bottom, var(--color-principal) 0%, var(--color-principal-2) 100%);
+  background: var(--color-principal-2);
   height: 2.5rem;
   color: var(--color-texto-claro);
   border-radius: 1.25rem;

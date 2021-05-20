@@ -36,7 +36,7 @@
   background: var(--whatsapp-color-celular);
   z-index: 2;
   border-radius: 0 0 1rem 1rem;
-  left: 6rem;
+  left: calc(50% - 2.5rem);
 }
 
 .CelularWhatsapp__celular::after {

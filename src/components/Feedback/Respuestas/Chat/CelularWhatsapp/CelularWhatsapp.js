@@ -18,7 +18,11 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
   const contenedorMensajes = useRef()
   const dispatch = useDispatch()
   const history = useHistory()
-  const bin = '0' + Number(history.location.pathname.replace(/[^0-9]/g, '')).toString(2) + '0'
+  let pathBinarizado = Number(history.location.pathname.replace(/[^0-9]/g, '')).toString(2)
+  while (pathBinarizado.length < 30) {
+    pathBinarizado = '0' + pathBinarizado
+  }
+  const bin = '0' + pathBinarizado + '0'
 
   const todosLosMensajes = useMemo(() => {
     return conversaciones ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], []) : []
@@ -51,27 +55,14 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
       <div className="CelularWhatsapp__celular">
         <div style={{
           position: 'absolute',
-          height: '60vh',
+          height: '75vh',
           width: '.5rem',
           display: 'flex',
           flexDirection: 'column',
           right: 0,
-          top: '20vh',
-          transform: 'skewY(45deg)'
+          top: '5vh'
         }}>
-          <div style={{ flex: 3, background: 'transparent' }} />
-          <div style={{ flex: 3, background: 'rgba(255, 255, 255, .05)' }} />
-          <div style={{ flex: 9, background: 'transparent' }} />
-          <div style={{ flex: 3, background: 'rgba(255, 255, 255, .05)' }} />
-          <div style={{ flex: 3, background: 'transparent' }} />
-
-          {bin.split('').map((v, i) => <div key={`pieza{${i}}`} style={{ flex: 4, background: v === '0' ? 'rgba(255, 255, 255, .05)' : 'transparent' }} />)}
-
-          <div style={{ flex: 3, background: 'transparent' }} />
-          <div style={{ flex: 3, background: 'rgba(255, 255, 255, .05)' }} />
-          <div style={{ flex: 9, background: 'transparent' }} />
-          <div style={{ flex: 3, background: 'rgba(255, 255, 255, .05)' }} />
-          <div style={{ flex: 3, background: 'transparent' }} />
+          {bin.split('').map((v, i) => <div key={`pieza{${i}}`} style={{ flex: 1, background: v === '0' ? 'black' : 'transparent' }} />)}
         </div>
         <div className="CelularWhatsapp__pantalla">
           <button
