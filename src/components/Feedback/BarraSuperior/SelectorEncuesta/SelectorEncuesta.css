@@ -27,6 +27,7 @@
   border-radius: 100%;
   box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .15);
   margin-right: .5rem;
+  color: var(--color-texto);
 }
 
 .SelectorEncuesta__nombre_encuesta {

@@ -13,6 +13,7 @@ const loginSlice = createSlice({
     cierraLaSesion(state) {
       state.token = undefined
       state.fechaToken = undefined
+      state.nombreUsuario = undefined
     }
   }
 })

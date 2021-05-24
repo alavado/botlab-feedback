@@ -69,23 +69,22 @@ const CuadroBusqueda = () => {
               for (let j = 0; j < this.height; j++) {
                 if (segmentacionProm[i + j * this.width]) {
                   data[(i + j * this.width) * 4] = 255
-                  for (let k = this.height - 1; k > j && k > 0; k--) {
-                    if (segmentacionProm[i + k * this.width]) {
+                  for (let k = this.height - 1; k > j; k--) {
+                    if (segmentacionProm[i + k * this.width] && k - j > this.height / 3) {
                       const d = Math.ceil((k - j) / 32)
                       data[(i + k * this.width) * 4] = 255
-                      if (d > 1) {
-                        for (let l = 0; l < 32; l++) {
-                          data[(i + (j + d * l) * this.width) * 4] = 255
-                          bits.push(segmentacionProm[i + (j + d * l) * this.width] ? '0' : '1')
-                        }
-                        break out
+                      for (let l = 0; l < 32; l++) {
+                        data[(i + (j + d * l) * this.width) * 4] = 255
+                        bits.push(segmentacionProm[i + (j + d * l) * this.width] ? '0' : '1')
                       }
+                      break out
                     }
                   }
                 }
               }
             }
             const numeroChat = parseInt(bits.slice(0, -1).join(''), 2).toString()
+            console.log(numeroChat)
             ctx.putImageData(imageData, 0, 0)
             history.push(`/chat/${numeroChat.slice(0, 3)}/${numeroChat.slice(3)}`)
           }

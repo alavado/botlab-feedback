@@ -18,6 +18,8 @@ const BarraLateral = () => {
       >
         <div className="BarraLateral__logo">
           <img className="BarraLateral__logo_imagen" src={logo} alt="Logo Cero.ai" />
+          {window.location.href.includes('qa') && <p>QA</p>}
+          {window.location.href.includes('dev') && <p>DEV</p>}
         </div>
       </Link>
       <NavLink
