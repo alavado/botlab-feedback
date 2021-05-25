@@ -66,6 +66,7 @@
   z-index: 2;
   border-radius: 0 0 1rem 1rem;
   left: calc(50% - 3.5rem);
+  transition: all .25s ease-out;
 }
 
 .CelularWhatsapp__celular::after {
@@ -81,6 +82,7 @@
   box-shadow:
     45.5vh -5vh var(--whatsapp-color-celular),
     45.5vh 5vh var(--whatsapp-color-celular);
+  transition: opacity .25s ease-out, box-shadow .25s .5s ease-out;
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__celular {
@@ -97,12 +99,19 @@
   clip-path: inset(0rem round 1.25rem);
 }
 
-.CelularWhatsapp--expandido .CelularWhatsapp__pantalla {
+.CelularWhatsapp--expandido .CelularWhatsapp__celular {
   border: none;
+  clip-path: inset(0rem round 1.25rem);
 }
 
-.CelularWhatsapp--expandido .CelularWhatsapp__pantalla::before {
-  display: none;
+.CelularWhatsapp--expandido .CelularWhatsapp__celular::before {
+  opacity: 0;
+  transform-origin: 50% -1rem;
+  transform: scaleY(0);
+}
+
+.CelularWhatsapp--expandido .CelularWhatsapp__celular::after {
+  opacity: 0;
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__datos_extra {

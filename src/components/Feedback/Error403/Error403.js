@@ -19,7 +19,6 @@ const Error403 = ({ mensaje }) => {
         onClick={() => {
           dispatch(cierraLaSesion())
           dispatch(limpiaEncuestas())
-          window.location.reload()
         }}
       >
         Iniciar sesión con una cuenta diferente
