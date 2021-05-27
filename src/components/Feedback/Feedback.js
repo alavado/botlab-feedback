@@ -40,9 +40,8 @@ const Feedback = () => {
           dispatch(guardaRespuestas(data))
         }
         catch (e) {
-          console.error(e)
           dispatch(cierraLaSesion())
-          window.location.reload()
+          dispatch(limpiaEncuestas())
         }
       }
       try {

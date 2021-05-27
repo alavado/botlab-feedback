@@ -58,7 +58,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
           <InlineIcon className="DatosChat__icono_volver" icon={iconoVolver} />
           Respuestas
         </button>
-        {respuestas && indiceRespuestaSeleccionada !== undefined && 
+        {respuestas && respuestas.length > 0 && indiceRespuestaSeleccionada !== undefined && 
           <div className="DatosChat__botones_navegacion">
             <button
               className="DatosChat__link_anterior"

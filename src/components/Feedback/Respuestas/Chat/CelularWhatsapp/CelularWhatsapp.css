@@ -124,7 +124,7 @@
   flex: 1;
   padding: .35rem .75rem;
   overflow-y: auto;
-  max-height: calc(83vh - 4.25rem);
+  max-height: calc(83vh - 4.1rem);
   background: var(--whatsapp-fondo);
   background-size: cover;
   scroll-behavior: smooth;

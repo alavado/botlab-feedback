@@ -17,7 +17,6 @@ const App = () => {
   
   useEffect(() => {
     if (fechaToken && differenceInHours(Date.now(), fechaToken) > 8) {
-      console.log('token expirado')
       dispatch(cierraLaSesion())
     }
   }, [fechaToken, dispatch])
