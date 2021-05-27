@@ -12,12 +12,14 @@
    inkscape:export-xdpi="47.786667"
    inkscape:export-filename="C:\Users\aleja\OneDrive\Escritorio\react\botlab-feedback\public\logo512.png"
    sodipodi:docname="favicon.svg"
-   inkscape:version="1.0beta1 (fe3e306, 2019-09-17)"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    id="svg880"
    version="1.1"
    viewBox="0 0 272.14285 272.14285"
    height="272.14285mm"
    width="272.14285mm">
+  <style
+     id="style837"></style>
   <defs
      id="defs874">
     <linearGradient
@@ -33,7 +35,7 @@
          style="stop-color:#d84763;stop-opacity:1" />
     </linearGradient>
     <linearGradient
-       gradientTransform="translate(1.5847191,-29.208741)"
+       gradientTransform="translate(-8.0332156,-38.276139)"
        gradientUnits="userSpaceOnUse"
        y2="204.10715"
        x2="229.80952"
@@ -42,12 +44,19 @@
        id="linearGradient1480"
        xlink:href="#linearGradient1474"
        inkscape:collect="always" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2015">
+      <path
+         d="M 0,7053 H 1440 V 0 H 0 Z"
+         id="path2013" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
-     inkscape:window-maximized="0"
-     inkscape:window-y="0"
-     inkscape:window-x="0"
-     inkscape:window-height="1020"
+     inkscape:window-maximized="1"
+     inkscape:window-y="-11"
+     inkscape:window-x="-11"
+     inkscape:window-height="986"
      inkscape:window-width="1920"
      fit-margin-bottom="0"
      fit-margin-right="0"
@@ -57,8 +66,8 @@
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
-     inkscape:cy="638.96667"
-     inkscape:cx="356.86768"
+     inkscape:cy="721.79372"
+     inkscape:cx="317.98794"
      inkscape:zoom="0.35"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -79,7 +88,7 @@
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(-11.412094,20.893265)"
+     transform="translate(-1.7941589,29.960663)"
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Capa 1">
@@ -87,22 +96,36 @@
        inkscape:export-ydpi="5.9733334"
        inkscape:export-xdpi="5.9733334"
        r="136.07143"
-       cy="115.17816"
-       cx="147.48352"
+       cy="106.11076"
+       cx="137.86559"
        id="path1468"
        style="fill:url(#linearGradient1480);fill-opacity:1;stroke-width:0.894409" />
-    <text
-       inkscape:export-ydpi="5.9733334"
-       inkscape:export-xdpi="5.9733334"
-       id="text1445"
-       y="190.22653"
-       x="99.31562"
-       style="font-style:normal;font-weight:normal;font-size:208.242px;line-height:1.25;font-family:sans-serif;fill:#fcfcfc;fill-opacity:1;stroke:none;stroke-width:6.48876;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.357942;paint-order:stroke fill markers"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MankSans-Medium;-inkscape-font-specification:MankSans-Medium;fill:#fcfcfc;fill-opacity:1;stroke:none;stroke-width:6.48876;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.357942;paint-order:stroke fill markers"
-         y="190.22653"
-         x="99.31562"
-         id="tspan1443"
-         sodipodi:role="line">b</tspan></text>
+    <g
+       id="g2011"
+       clip-path="url(#clipPath2015)"
+       style="fill:#ffffff;fill-opacity:1"
+       transform="matrix(2.023638,0,0,-2.023638,-161.45895,14250.678)">
+      <g
+         id="g2017"
+         transform="translate(158.7629,6996.7461)"
+         style="fill:#ffffff;fill-opacity:1" />
+      <g
+         id="g2021"
+         transform="translate(218.3353,6983.8965)"
+         style="fill:#ffffff;fill-opacity:1" />
+      <g
+         id="g2025"
+         transform="translate(133.2482,6983.8965)"
+         style="fill:#ffffff;fill-opacity:1">
+        <path
+           d="m 14.665871,-15.982415 c -12.47412,0 -20.8873949,9.136309 -20.8873949,21.759777 0,12.618727 8.4132749,21.757407 20.8873949,21.757407 8.297116,0 14.778348,-4.056104 18.201501,-10.475701 l 14.422757,7.114184 C 41.152634,35.5403 29.2522,42.910509 14.665871,42.910509 c -21.468193,0 -37.135517,-15.956538 -37.135517,-37.133147 0,-21.18135 15.667324,-37.135517 37.135517,-37.135517 21.468193,0 37.135518,15.954167 37.135518,37.135517 H 35.553266 c 0,-12.623468 -8.413274,-21.759777 -20.887395,-21.759777"
+           style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.3706"
+           id="path2027" />
+      </g>
+      <g
+         id="g2029"
+         transform="translate(202.0829,7008.3726)"
+         style="fill:#ffffff;fill-opacity:1" />
+    </g>
   </g>
 </svg>
