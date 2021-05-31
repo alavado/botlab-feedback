@@ -1,4 +1,4 @@
-import nombres from './nombres'
+import { nombresHombres, nombresMujeres } from './nombres'
 import apellidos from './apellidos'
 
 const hashearString = s => s.length > 0 ? s.split('').reduce((sum, v) => sum + v.charCodeAt(0), 0) : 0
@@ -45,12 +45,17 @@ export const scrambleUsuario = usuario => {
   return usuarios[hashearString(usuario.split(' ')[0]) % usuarios.length]
 }
 
+const obtenerNombre = nombre => {
+ return nombresHombres[hashearString(nombre) % nombresHombres.length]
+}
+
 export const scrambleNombre = nombre => {
-  const partes = nombre.split(' ')
-  return partes.slice(0, 3).map((p, i) => i < 1
-    ? nombres[hashearString(p) % nombres.length]
-    : apellidos[hashearString(p) % apellidos.length]
-  ).join(' ')
+  return 'x'
+  // const partes = nombre.split(' ')
+  // return partes.slice(0, 3).map((p, i) => i < 2
+  //   ? obtenerNombre(p)
+  //   : apellidos[hashearString(p) % apellidos.length]
+  // ).join(' ')
 }
 
 export const scrambleTelefono = telefono => {
