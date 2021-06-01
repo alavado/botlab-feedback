@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { diccionarioTags } from '../../../../../../helpers/tags'
 import classNames from 'classnames'
 import './SelectorConversacion.css'
@@ -6,6 +6,13 @@ import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 
 const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, seleccionarConversacion }) => {
+
+  useEffect(() => {
+    const botonesSeleccion = document.getElementsByClassName('SelectorConversacion__boton')
+    if (botonesSeleccion.length > 0) {
+      botonesSeleccion[conversaciones.length - 1].scrollIntoView()
+    }
+  }, [conversaciones])
 
   if (!conversaciones || conversaciones.length === 1) {
     return null

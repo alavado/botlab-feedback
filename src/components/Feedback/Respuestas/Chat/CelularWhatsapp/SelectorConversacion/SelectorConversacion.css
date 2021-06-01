@@ -1,18 +1,16 @@
 .SelectorConversacion {
   position: absolute;
   left: 1.5rem;
-  top: 2rem;
+  top: 1.5rem;
   gap: .5rem;
   flex: 1;
-  height: 70vh;
   max-height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-left: 11rem;
+  padding: .75rem 0 .75rem 11rem;
   margin-left: -10rem;
   display: grid;
   width: 1.25rem;
-  place-content: center;
 }
 
 .SelectorConversacion::-webkit-scrollbar {
