@@ -29,11 +29,8 @@ const Feedback = () => {
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
 
-  console.log('feedback aae', idEncuestaSeleccionada)
-
   useEffect(() => {
     if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino && cacheInvalido) {
-      console.log('feedback', idEncuestaSeleccionada)
       const fetchData = async () => {
         dispatch(limpiaRespuestas())
         try {

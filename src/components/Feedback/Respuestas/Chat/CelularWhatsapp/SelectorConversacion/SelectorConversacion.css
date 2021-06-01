@@ -5,9 +5,24 @@
   gap: .5rem;
   flex: 1;
   height: 70vh;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-left: 11rem;
+  margin-left: -10rem;
   display: grid;
-  width: 1rem;
+  width: 1.25rem;
   place-content: center;
+}
+
+.SelectorConversacion::-webkit-scrollbar {
+  width: .15em;
+  background-color: transparent;
+}
+
+.SelectorConversacion::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: rgba(0, 0, 0, .25);
 }
 
 .SelectorConversacion__boton {
@@ -21,7 +36,7 @@
   font-size: .5rem;
   display: flex;
   padding: 0;
-  margin: 0;
+  margin: 0 -1rem;
   justify-content: center;
   align-items: center;
   position: relative;
