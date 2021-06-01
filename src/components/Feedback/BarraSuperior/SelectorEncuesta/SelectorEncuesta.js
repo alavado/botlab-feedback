@@ -19,13 +19,16 @@ const SelectorEncuesta = () => {
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { idEncuestaGuardada } = useSelector(state => state.opciones)
   const { indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
+  const [cargandoEncuesta, setCargandoEncuesta] = useState(false)
   const [popupActivo, setPopupActivo] = useState(false)
   const { idEncuesta: idEncuestaRuta } = useParams()
   const { path } = useRouteMatch()
   const dispatch = useDispatch()
 
   const verEncuesta = useCallback(async id => {
+    setCargandoEncuesta(true)
     if (id === idEncuestaSeleccionada) {
+      setCargandoEncuesta(false)
       return
     }
     try {
@@ -34,6 +37,7 @@ const SelectorEncuesta = () => {
       const data = await headersAPI(id)
       dispatch(guardaHeadersEncuesta({id, data}))
       dispatch(actualizaRespuestas())
+      setCargandoEncuesta(false)
     } catch (e) {
       console.error('un error', e)
     }
@@ -59,8 +63,12 @@ const SelectorEncuesta = () => {
 
   const encuestaSeleccionada = tipos.find(t => t.id === idEncuestaSeleccionada)
 
-  if (!encuestaSeleccionada) {
+  if (!encuestaSeleccionada && !cargandoEncuesta) {
     verEncuesta(tipos[0].id)
+    return <Loader color="#6057f6" />
+  }
+
+  if (cargandoEncuesta) {
     return <Loader color="#6057f6" />
   }
 

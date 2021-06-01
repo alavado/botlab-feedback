@@ -54,8 +54,8 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           <button
             className="PopupMenuUsuario__boton_opcion"
             onClick={() => {
-              dispatch(cierraLaSesion())
               dispatch(limpiaEncuestas())
+              dispatch(cierraLaSesion())
             }}
           >
             <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoCerrarSesion}></InlineIcon> Cerrar sesión

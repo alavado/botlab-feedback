@@ -25,7 +25,10 @@ const encuestasSlice = createSlice({
       state.todosLosHeaders = action.payload.data.data
     },
     limpiaEncuestas(state) {
-      state = {}
+      state.idEncuestaSeleccionada = undefined
+      state.headers = undefined
+      state.todosLosHeaders = undefined
+      state.tipos = undefined
     }
   }
 })

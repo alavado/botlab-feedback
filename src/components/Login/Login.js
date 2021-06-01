@@ -34,7 +34,7 @@ const Login = () => {
       dispatch(guardaTiposEncuestas(data))
     } catch (e) {
       setCargando(false)
-      if (e.response.status === 401) {
+      if (e.response?.status === 401) {
         setError('Usuario o contraseña incorrectos.')
       }
       else {
