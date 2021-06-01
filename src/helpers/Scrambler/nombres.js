@@ -101,7 +101,6 @@ export const nombresHombres = [
 ].map(n => `${n[0].toUpperCase()}${n.substring(1)}`)
 
 export const nombresMujeres = [
-  'del carmen',
   'maria',
   'andrea',
   'alejandra',
@@ -110,7 +109,6 @@ export const nombresMujeres = [
   'patricia',
   'ana',
   'carolina',
-  'de las mercedes',
   'elizabeth',
   'angelica',
   'cecilia',
@@ -118,7 +116,6 @@ export const nombresMujeres = [
   'elena',
   'veronica',
   'claudia',
-  'del pilar',
   'paola',
   'teresa',
   'soledad',
@@ -127,7 +124,6 @@ export const nombresMujeres = [
   'francisca',
   'daniela',
   'marcela',
-  'del rosario',
   'carmen',
   'camila',
   'gloria',
@@ -157,7 +153,6 @@ export const nombresMujeres = [
   'victoria',
   'luz',
   'silvia',
-  'de lourdes',
   'belen',
   'magdalena',
   'gabriela',
@@ -184,7 +179,6 @@ export const nombresMujeres = [
   'graciela',
   'raquel',
   'irene',
-  'del transito',
   'solange',
   'evelyn',
   'loreto',

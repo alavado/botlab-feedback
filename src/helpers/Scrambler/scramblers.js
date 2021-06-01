@@ -46,16 +46,25 @@ export const scrambleUsuario = usuario => {
 }
 
 const obtenerNombre = nombre => {
- return nombresHombres[hashearString(nombre) % nombresHombres.length]
+  const i = hashearString(nombre)
+  if (nombresHombres.indexOf(nombre) >= 0) {
+    return nombresHombres[i % nombresHombres.length]
+  }
+  else if (nombresMujeres.indexOf(nombre) >= 0) {
+    return nombresMujeres[i % nombresMujeres.length]
+  }
+  else {
+    const nombresUnisex = ['Ariel', 'Alex', 'Cameron', 'Cris', 'Denis', 'Robin', 'Santana', 'Zoel']
+    return nombresUnisex[i % nombresUnisex.length]
+  }
 }
 
 export const scrambleNombre = nombre => {
-  return 'x'
-  // const partes = nombre.split(' ')
-  // return partes.slice(0, 3).map((p, i) => i < 2
-  //   ? obtenerNombre(p)
-  //   : apellidos[hashearString(p) % apellidos.length]
-  // ).join(' ')
+  const partes = nombre.split(' ').slice(0, 3)
+  return partes.slice(0, 3).map((p, i) => i < 1
+    ? obtenerNombre(p)
+    : apellidos[hashearString(p) % apellidos.length]
+  ).join(' ')
 }
 
 export const scrambleTelefono = telefono => {
@@ -66,10 +75,10 @@ export const scrambleDireccion = texto => {
   return texto.replace(/[A-Z]\S{3,} [0-9]+/g, 'Chinchillas 2021')
 }
 
-export const scrambleMulti = (texto, terminos) => {
-  return scrambleDireccion(terminos.reduce((t, termino) => {
-    return t.replace(new RegExp(termino[0], 'gi'), scramble(termino[0], termino[1]))
-  }, texto))
+export const scrambleMulti = (textoOriginal, terminos) => {
+  return scrambleDireccion(terminos.reduce((texto, termino) => {
+    return texto.replace(new RegExp(termino[0], 'gi'), scramble(termino[0], termino[1]))
+  }, textoOriginal))
 }
 
 export const scramble = (texto, tipo, terminos) => {
