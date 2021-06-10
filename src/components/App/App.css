@@ -30,7 +30,7 @@
   --color-barra-superior: #fafaff;
   --color-alternativo-fila-tabla: white;
   --color-mini-dasdhboard-1: #8b83ff;
-  --color-mini-dasdhboard-2: #958cfa;
+  --color-mini-dasdhboard-2: #8b83ff;
   --color-barras-mini-dashboard: #6057f6;
   --color-texto: #161922;
   --color-sombras: rgba(0, 0, 0, .15);
@@ -65,7 +65,7 @@
   --color-alternativo-fila-tabla: #171923;
 
   --color-mini-dasdhboard-1: #553C9A;
-  --color-mini-dasdhboard-2: #44337A;
+  --color-mini-dasdhboard-2: #553C9A;
   --color-barras-mini-dashboard: rgba(0, 0, 0, .25);
   --color-texto: #F7FAFC;
   --color-sombras: rgba(255, 255, 255, .1);
