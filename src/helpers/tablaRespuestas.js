@@ -1,8 +1,8 @@
 import { extraerTextoHeader } from "./respuestas"
 
 export const exportarTablaRespuestas = (headers, respuestas) => {
-  const headersCSV = headers.map(h => h.texto).join(',')
-  const respuestasCSV = respuestas.map(r => headers.map(h => extraerTextoHeader(h, r)).join(',')).join('\n')
+  const headersCSV = headers.map(h => h.texto).join(';')
+  const respuestasCSV = respuestas.map(r => headers.map(h => extraerTextoHeader(h, r)).join(';')).join('\n')
   const texto = `${headersCSV}\n${respuestasCSV}`
   const nombreArchivo = 'feedback.csv'
   const elemento = document.createElement('a')

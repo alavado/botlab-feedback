@@ -53,7 +53,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
             <Icon
               className="PopupEncuestas__icono_empresa"
               icon={whatsapp}
-              style={{ color: enabled ? 'rgb(49, 202, 49)' : '#9f9eae' }}
+              style={{ color: enabled ? '#48BB78' : '#9f9eae' }}
             />
             <div className="PopupEncuestas__nombre_encuesta">
               <Scrambler tipo="multi">{nombre}</Scrambler>

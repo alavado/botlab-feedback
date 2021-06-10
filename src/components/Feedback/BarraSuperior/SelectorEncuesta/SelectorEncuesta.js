@@ -96,7 +96,7 @@ const SelectorEncuesta = () => {
             <Icon
               className="SelectorEncuesta__icono_empresa"
               icon={whatsapp}
-              style={{ color: encuestaSeleccionada.enabled ? 'rgb(49, 202, 49)' : '#9f9eae' }}
+              style={{ color: encuestaSeleccionada.enabled ? '#48BB78' : '#9f9eae' }}
             />
             <div className="SelectorEncuesta__nombre_encuesta">
               <Scrambler tipo="multi">{encuestaSeleccionada.nombre}</Scrambler>
