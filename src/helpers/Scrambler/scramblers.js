@@ -35,15 +35,17 @@ export const scrambleRut = rut => {
   return `${(+millones).toLocaleString('de-DE')}-${dv}`
 }
 
+const sucursalesFalsas = comunasMenosPobladasDeChile.map(c => `Clínica ${c}`)
+
 export const scrambleSucursal = sucursal => {
-  const sucursales = comunasMenosPobladasDeChile.map(c => `Clínica ${c}`)
-  return sucursales[hashearString(sucursal) % sucursales.length]
+  return sucursalesFalsas[hashearString(sucursal) % sucursalesFalsas.length]
 }
 
+const usuariosFalsos = comunasMenosPobladasDeChile.map(c => `Salud ${c}`)
+
 export const scrambleUsuario = usuario => {
-  const usuarios = comunasMenosPobladasDeChile.map(c => `Salud ${c}`)
-  const usuarioSinEspacios = usuario.replace(/\W/g, '')
-  return usuarios[hashearString(usuarioSinEspacios) % usuarios.length]
+  const soloPrimeraParte = usuario.split(/(?=[A-Z ])/)[0]
+  return usuariosFalsos[hashearString(soloPrimeraParte) % usuariosFalsos.length]
 }
 
 const obtenerNombre = nombre => {

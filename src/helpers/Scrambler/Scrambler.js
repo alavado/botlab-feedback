@@ -23,8 +23,9 @@ const Scrambler = ({ tipo, children: texto, propagar }) => {
         agregarAScrambler([texto.split(' ')[0], tipo])
       }
       else if (tipo === 'usuario') {
-        agregarAScrambler([texto.split(' ')[0], tipo])
         agregarAScrambler([texto.split(/(?=[A-Z])/).join(' '), tipo])
+        agregarAScrambler([texto.split(' ')[0], tipo])
+        agregarAScrambler([texto, tipo])
       }
       else {
         agregarAScrambler([texto, tipo])
