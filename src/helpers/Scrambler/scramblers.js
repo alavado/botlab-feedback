@@ -42,7 +42,8 @@ export const scrambleSucursal = sucursal => {
 
 export const scrambleUsuario = usuario => {
   const usuarios = comunasMenosPobladasDeChile.map(c => `Salud ${c}`)
-  return usuarios[hashearString(usuario.split(' ')[0]) % usuarios.length]
+  const usuarioSinEspacios = usuario.replace(/\W/g, '')
+  return usuarios[hashearString(usuarioSinEspacios) % usuarios.length]
 }
 
 const obtenerNombre = nombre => {
