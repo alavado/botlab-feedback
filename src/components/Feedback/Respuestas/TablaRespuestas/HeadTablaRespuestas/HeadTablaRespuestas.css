@@ -24,10 +24,16 @@
   transition: all .25s ease-in-out;
   text-overflow: ellipsis;
   color: var(--color-texto);
+  border-radius: .15rem .15rem 0 0;
 }
 
 .HeadTablaRespuestas__header:hover {
   background-color: var(--color-fila-destacada);
+  box-shadow:
+    inset 0 .05rem 0 0 var(--color-principal),
+    inset -.05rem 0 0 0 var(--color-principal),
+    inset .05rem 0 0 0 var(--color-principal);
+  filter: contrast(115%);
 }
 
 .HeaderTablaRespuestas__icono_orden {

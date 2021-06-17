@@ -37,6 +37,13 @@
   color: var(--color-texto);
 }
 
+.BodyTablaRespuestas__celda--destacada {
+  box-shadow:
+    inset .05rem 0 0 0 var(--color-principal),
+    inset -.05rem 0 0 0 var(--color-principal);
+  background: var(--color-fila-destacada);
+}
+
 .BodyTablaRespuestas__celda--numero {
   display: none;
 }

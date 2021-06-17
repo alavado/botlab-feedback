@@ -49,7 +49,7 @@
   --whatsapp-color-brillo-celular: #fff;
 }
 
-.App__oscura, .App__oscura *, .App__oscura *::before, .App__oscura *::after {
+.App__oscura, .App__oscura *, .App__oscura *::before, .App__oscura *::after, .ModalFiltros__oscuro {
 	--color-fondo: #171923;
   --color-barra-superior: #1A202C;
 	--color-fila-destacada: #0e1016;

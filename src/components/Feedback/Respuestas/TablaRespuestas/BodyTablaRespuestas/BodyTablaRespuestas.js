@@ -13,7 +13,7 @@ import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
   const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
-  const { respuestasVisibles: respuestas, pagina } = useSelector(state => state.respuestas)
+  const { respuestasVisibles: respuestas, pagina, columnaDestacada } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -58,7 +58,10 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
               {headersOrdenados.map(({ nombre }, j) => (
                 <td
                   key={`celda-respuesta-${i}-${j}`}
-                  className="BodyTablaRespuestas__celda"
+                  className={classNames({
+                    'BodyTablaRespuestas__celda': true,
+                    'BodyTablaRespuestas__celda--destacada': columnaDestacada === j
+                  })}
                 >
                   {respuesta[nombre] && respuesta[nombre].tag !== undefined
                     ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>

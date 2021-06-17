@@ -1,16 +1,18 @@
 import React, { useMemo, useState } from 'react'
 import classNames from 'classnames'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './HeadTablaRespuestas.css'
 import { InlineIcon } from '@iconify/react'
 import triangulito from '@iconify/icons-mdi/arrow-down-drop'
 import ModalFiltros from '../ModalFiltros'
+import { destacaColumna, yaNoDestaquesColumna } from '../../../../../redux/ducks/respuestas'
 
 const HeadTablaRespuestas = () => {
 
   const { headers } = useSelector(state => state.encuestas)
   const [modalFiltroActivo, setModalFiltroActivo] = useState(false)
   const [indiceColumnaFiltrada, setIndiceColumnaFiltrada] = useState(0)
+  const dispatch = useDispatch()
 
   const headersOrdenados = useMemo(() => {
     if (!headers) {
@@ -40,6 +42,8 @@ const HeadTablaRespuestas = () => {
               'HeadTablaRespuestas__header--activo': modalFiltroActivo && i === indiceColumnaFiltrada,
             })}
             onClick={() => mostrarModalFiltros(i)}
+            onMouseEnter={() => dispatch(destacaColumna(i))}
+            onMouseLeave={() => dispatch(yaNoDestaquesColumna())}
             title={texto}
           >
             <div className="HeadTablaRespuestas__texto_header">

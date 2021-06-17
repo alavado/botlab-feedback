@@ -9,11 +9,13 @@ import iconoLimpiarFiltro from '@iconify/icons-mdi/close'
 import iconoOrdenDescendente from '@iconify/icons-mdi/sort-ascending'
 import iconoFiltro from '@iconify/icons-mdi/filter'
 import { InlineIcon } from '@iconify/react'
+import { ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
 
 const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
 
   const [ancho, setAncho] = useState(0)
   const { filtros } = useSelector(state => state.respuestas)
+  const { esquema } = useSelector(state => state.opciones)
   const filtroRef = useRef()
   const dispatch = useDispatch()
   const filtro = filtros.find(f => f.headers.length === 1 && f.headers[0] === header.nombre)
@@ -39,13 +41,17 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
         onClick={esconder}
       >
         <div
-          className="ModalFiltros"
+          className={classNames({
+            "ModalFiltros": true,
+            "ModalFiltros__oscuro": esquema === ESQUEMA_OSCURO
+          })}
           style={{
             left: anchoTotal >= window.innerWidth ? `${left - ancho}px` : (left + width),
             top
           }}
           onClick={e => e.stopPropagation()}
         >
+          <p className="ModalFiltros__titulo">Herramientas para columna</p>
           <button
             className="ModalFiltros__boton"
             onClick={() => dispatch(ordenaRespuestas(header.nombre))}
@@ -61,7 +67,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               className="ModalFiltros__input_filtro"
               ref={filtroRef}
               onChange={e => dispatch(agregaFiltro([e.target.value, header.nombre, header.texto]))}
-              placeholder="Filtrar"
+              placeholder="Escribe para filtrar"
               onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === 'Escape') {
                   esconder()
