@@ -43,7 +43,7 @@
 .ModalFiltros__boton {
   background-color: transparent;
   border: none;
-  padding: .5rem 1rem;
+  padding: .5rem .75rem;
   cursor: pointer;
   display: flex;
   justify-content: flex-start;

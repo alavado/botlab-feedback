@@ -13,7 +13,8 @@ const sliceRespuestas = createSlice({
     pagina: 1,
     filtros: [],
     cacheInvalido: true,
-    columnaDestacada: undefined
+    columnaDestacada: undefined,
+    tablaDestacada: false
   },
   reducers: {
     limpiaRespuestas(state) {
@@ -199,6 +200,9 @@ const sliceRespuestas = createSlice({
     },
     yaNoDestaquesColumna(state) {
       state.columnaDestacada = undefined
+    },
+    fijaTablaDestacada(state, action) {
+      state.tablaDestacada = action.payload
     }
   }
 })
@@ -219,7 +223,8 @@ export const {
   remueveFiltro,
   combinaFiltros,
   destacaColumna,
-  yaNoDestaquesColumna
+  yaNoDestaquesColumna,
+  fijaTablaDestacada
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer

@@ -17,7 +17,7 @@ const respuestasPorPagina = 50
 const TablaRespuestas = () => {
 
   const { headers } = useSelector(state => state.encuestas)
-  const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
+  const { respuestasVisibles: respuestas, tablaDestacada } = useSelector(state => state.respuestas)
 
   const cargando = !respuestas || !headers
   const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO'))
@@ -37,7 +37,8 @@ const TablaRespuestas = () => {
         {mostrarResumen && <ResumenRespuestas cargando={cargando} />}
         <div className={classNames({
           "TablaRespuestas__contenedor_tabla": true,
-          "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen
+          "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen,
+          "TablaRespuestas__contenedor_tabla--destacado": tablaDestacada
         })}>
           <table className="TablaRespuestas__tabla">
             <HeadTablaRespuestas />

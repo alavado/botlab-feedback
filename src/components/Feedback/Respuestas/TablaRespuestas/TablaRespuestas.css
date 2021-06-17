@@ -43,6 +43,26 @@
   overflow: auto;
   scrollbar-width: .5em;
   scrollbar-color: var(--color-principal) var(--color-fondo);
+  position: relative;
+}
+
+.TablaRespuestas__contenedor_tabla--destacado::after {
+  content: 'Presiona para exportar estos datos';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--gradiente-exportar);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--color-texto);
+  text-shadow: .05rem .05rem 0 var(--color-sombras);
+  font-size: 2rem;
 }
 
 .TablaRespuestas__contenedor_tabla--extendido {
