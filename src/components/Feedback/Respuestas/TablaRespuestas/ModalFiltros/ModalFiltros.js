@@ -6,7 +6,9 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { agregaFiltro, ordenaRespuestas } from '../../../../../redux/ducks/respuestas'
 import iconoLimpiarFiltro from '@iconify/icons-mdi/close'
+import iconoOrden from '@iconify/icons-mdi/sort'
 import iconoOrdenDescendente from '@iconify/icons-mdi/sort-ascending'
+import iconoOrdenAcendente from '@iconify/icons-mdi/sort-descending'
 import iconoFiltro from '@iconify/icons-mdi/filter'
 import { InlineIcon } from '@iconify/react'
 import { ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
@@ -14,7 +16,7 @@ import { ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
 const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
 
   const [ancho, setAncho] = useState(0)
-  const { filtros } = useSelector(state => state.respuestas)
+  const { filtros, ordenHeader, orden } = useSelector(state => state.respuestas)
   const { esquema } = useSelector(state => state.opciones)
   const filtroRef = useRef()
   const dispatch = useDispatch()
@@ -56,7 +58,15 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
             className="ModalFiltros__boton"
             onClick={() => dispatch(ordenaRespuestas(header.nombre))}
           >
-            <InlineIcon icon={iconoOrdenDescendente} /> Ordenar
+            <InlineIcon icon={
+              header.nombre === ordenHeader
+                ? (orden === 'ASC' ? iconoOrdenAcendente : iconoOrdenDescendente)
+                : iconoOrden
+            } />
+            {header.nombre === ordenHeader
+              ? (orden === 'ASC' ? 'Orden ascendente' : 'Orden descendente')
+              : 'Ordenar'
+            }
           </button>
           <button
             className="ModalFiltros__boton"

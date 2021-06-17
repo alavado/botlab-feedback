@@ -32,7 +32,7 @@
   height: 2.5rem;
   line-height: 1.15;
   white-space: nowrap;
-  transition: all .25s ease-in-out;
+  transition: all .1s ease-in-out;
   text-overflow: ellipsis;
   color: var(--color-texto);
 }
