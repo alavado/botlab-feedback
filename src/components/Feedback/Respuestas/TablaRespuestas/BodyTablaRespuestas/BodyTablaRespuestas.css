@@ -26,7 +26,7 @@
 }
 
 .BodyTablaRespuestas__celda {
-  padding: .15rem .75rem .15rem .25rem;
+  padding: .15rem .5rem .15rem .5rem;
   font-size: .75rem;
   vertical-align: middle;
   height: 2.5rem;
@@ -39,8 +39,8 @@
 
 .BodyTablaRespuestas__celda--destacada {
   box-shadow:
-    inset .05rem 0 0 0 var(--color-principal),
-    inset -.05rem 0 0 0 var(--color-principal);
+    inset .05rem 0 0 0 var(--color-bordes),
+    inset -.05rem 0 0 0 var(--color-bordes);
   background: var(--color-fila-destacada);
 }
 

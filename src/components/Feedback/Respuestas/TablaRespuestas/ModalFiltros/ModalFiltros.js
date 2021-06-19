@@ -12,6 +12,7 @@ import iconoOrdenAcendente from '@iconify/icons-mdi/sort-descending'
 import iconoFiltro from '@iconify/icons-mdi/filter'
 import { InlineIcon } from '@iconify/react'
 import { ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
+import { useMemo } from 'react'
 
 const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
 
@@ -22,7 +23,9 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   const dispatch = useDispatch()
   const filtro = filtros.find(f => f.headers.length === 1 && f.headers[0] === header.nombre)
   const container = i >= 0 && document.getElementsByClassName(containerClass)[i]
-  const { left, top, width } = (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }
+  const { left, top, width } = useMemo(() => {
+    return (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }
+  }, [container])
 
   useEffect(() => setAncho(document.getElementsByClassName('ModalFiltros')[0].clientWidth), [filtro])
   useEffect(() => {
