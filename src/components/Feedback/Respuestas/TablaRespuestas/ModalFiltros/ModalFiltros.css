@@ -43,6 +43,7 @@
 }
 
 .ModalFiltros__boton {
+  color: var(--color-texto);
   background-color: transparent;
   border: none;
   padding: .5rem .75rem;

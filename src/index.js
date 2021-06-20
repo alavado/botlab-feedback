@@ -5,6 +5,7 @@ import App from './components/App'
 import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import './colores.css'
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
