@@ -27,7 +27,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
     return (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }
   }, [container])
 
-  useEffect(() => setAncho(document.getElementsByClassName('ModalFiltros')[0].clientWidth), [filtro])
+  useEffect(() => setAncho(document.getElementsByClassName('ModalFiltros')[0]?.clientWidth), [filtro])
   useEffect(() => {
     if (activo) {
       filtroRef.current.value = filtro?.busqueda || ''
@@ -35,6 +35,10 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
     }
   }, [filtro, activo])
   const anchoTotal = left + width + ancho + 25
+
+  if (!header) {
+    return null
+  }
 
   return (
     ReactDOM.createPortal(

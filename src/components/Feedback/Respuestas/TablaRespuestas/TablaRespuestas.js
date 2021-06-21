@@ -3,7 +3,8 @@ import classNames from 'classnames'
 import { useSelector } from 'react-redux'
 import SelectorRangoFechas from '../SelectorRangoFechas'
 import BuscadorRespuestas from '../BuscadorRespuestas'
-// import LoaderRespuestas from './LoaderRespuestas'
+import iconoCSV from '@iconify/icons-mdi/download-outline'
+import Icon from '@iconify/react'
 import FooterTablaRespuestas from './FooterTablaRespuestas'
 import HeadTablaRespuestas from './HeadTablaRespuestas'
 import BodyTablaRespuestas from './BodyTablaRespuestas'
@@ -36,9 +37,16 @@ const TablaRespuestas = () => {
         <Filtros />
         {mostrarResumen && <ResumenRespuestas cargando={cargando} />}
         <div className={classNames({
+          "TablaRespuestas__overlay": true,
+          "TablaRespuestas__overlay--activo": tablaDestacada
+        })}>
+          <div className="TablaRespuestas__contenido_overlay">
+            <Icon icon={iconoCSV} />
+          </div>
+        </div>
+        <div className={classNames({
           "TablaRespuestas__contenedor_tabla": true,
-          "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen,
-          "TablaRespuestas__contenedor_tabla--destacado": tablaDestacada
+          "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen
         })}>
           <table className="TablaRespuestas__tabla">
             <HeadTablaRespuestas />

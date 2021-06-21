@@ -27,6 +27,10 @@
   filter: brightness(110%);
 }
 
+.ExportadorRespuestas__boton:active {
+  filter: brightness(130%);
+}
+
 .ExportadorRespuestas__boton:disabled {
   opacity: .5;
   cursor: not-allowed;

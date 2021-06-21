@@ -9,6 +9,7 @@
   flex-direction: column;
   gap: .5rem;
   overflow: hidden;
+  position: relative;
 }
 
 .TablaRespuestas__superior {
@@ -46,23 +47,44 @@
   position: relative;
 }
 
-.TablaRespuestas__contenedor_tabla--destacado::after {
-  content: 'Presiona para exportar estos datos';
+.TablaRespuestas__overlay {
   position: absolute;
-  top: 0;
+  top: 8.5rem;
   left: 0;
-  background: var(--gradiente-exportar);
   width: 100%;
-  height: 100%;
-  z-index: 10;
+  height: calc(100vh - calc(2.75rem + 3rem + 3.5rem + 9.5rem));
+  z-index: 5;
   pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  color: var(--color-texto);
-  text-shadow: .05rem .05rem 0 var(--color-sombras);
-  font-size: 2rem;
+  box-shadow:
+    inset 0 0 0 .075rem var(--color-principal),
+    inset 0 0 0 .15rem var(--color-fondo);
+  border-bottom: none;
+  clip-path: polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%);
+  background-color: rgba(0, 0, 0, 0);
+  transition: all .15s ease-out;
+}
+
+.TablaRespuestas__overlay--activo {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  background-color: rgba(0, 0, 0, .075);
+}
+
+.TablaRespuestas__contenido_overlay {
+  background: var(--color-principal);
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: .15rem;
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.8rem;
+  color: var(--color-texto-claro);
 }
 
 .TablaRespuestas__contenedor_tabla--extendido {
