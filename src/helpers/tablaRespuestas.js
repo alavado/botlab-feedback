@@ -13,7 +13,7 @@ export const exportarTablaRespuestas = (headers, respuestas, nombre, fechaInicio
     respuestasCSV = respuestas.map(r => headers.map(h => extraerTextoHeader(h, r)).join(';')).join('\n')
   }
   const texto = `${headersCSV}\n${respuestasCSV}`
-  const nombreArchivo = `Feedback_${nombre}_${format(fechaInicio, 'yyyy-MM-dd')}_${format(fechaTermino, 'yyyy-MM-dd')}.csv`
+  const nombreArchivo = `Feedback_${nombre}_${format(fechaInicio, 'dd-MM-yyyy')}_${format(fechaTermino, 'dd-MM-yyyy')}.csv`
   const elemento = document.createElement('a')
   elemento.setAttribute('href', `data:text/csv;charset=utf-8,%EF%BB%BF${encodeURIComponent(texto)}`)
   elemento.setAttribute('download', nombreArchivo)
