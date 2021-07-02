@@ -102,8 +102,13 @@
   background-color: var(--color-principal);
 }
 
+.TablaRespuestas__contenedor_central {
+  display: flex;
+  gap: .5rem;
+}
+
 .TablaRespuestas__tabla {
-  max-width: 100%;
+  flex: 1;
 }
 
 @keyframes aparece-tabla-respuestas {

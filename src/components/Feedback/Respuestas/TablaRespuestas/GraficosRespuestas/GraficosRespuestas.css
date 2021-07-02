@@ -1,0 +1,53 @@
+.GraficosRespuestas {
+  flex: .62;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.GraficosRespuestas__grafico {
+  display: flex;
+  align-items: flex-end;
+  flex: 1;
+  gap: 2px;
+}
+
+.GraficosRespuestas__barra {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  position: relative;
+}
+
+.GraficosRespuestas__barra:hover {
+  background: burlywood;
+}
+
+.GraficosRespuestas__etiqueta_barra {
+  position: absolute;
+  top: 0;
+  font-size: .5rem;
+  writing-mode: vertical-lr;
+}
+
+.GraficosRespuesta__subbarra--si {
+  background-color: green;
+}
+
+.GraficosRespuesta__subbarra--no {
+  background-color: red;
+}
+
+.GraficosRespuesta__subbarra--reagenda {
+  background-color: purple;
+}
+
+.GraficosRespuesta__subbarra--out {
+  background-color: orange;
+}
+
+.GraficosRespuesta__subbarra--sr {
+  background-color: lightgray;
+}

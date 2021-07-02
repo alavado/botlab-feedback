@@ -12,6 +12,7 @@ import ExportadorRespuestas from './ExportadorRespuestas'
 import ResumenRespuestas from '../ResumenRespuestas'
 import Filtros from './Filtros'
 import './TablaRespuestas.css'
+import GraficosRespuestas from './GraficosRespuestas'
 
 const respuestasPorPagina = 50
 
@@ -44,14 +45,17 @@ const TablaRespuestas = () => {
             <Icon icon={iconoCSV} />
           </div>
         </div>
-        <div className={classNames({
-          "TablaRespuestas__contenedor_tabla": true,
-          "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen
-        })}>
-          <table className="TablaRespuestas__tabla">
-            <HeadTablaRespuestas />
-            <BodyTablaRespuestas respuestasPorPagina={respuestasPorPagina} />
-          </table>
+        <div className="TablaRespuestas__contenedor_central">
+          {/* <GraficosRespuestas /> */}
+          <div className={classNames({
+            "TablaRespuestas__contenedor_tabla": true,
+            "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen
+          })}>
+            <table className="TablaRespuestas__tabla">
+              <HeadTablaRespuestas />
+              <BodyTablaRespuestas respuestasPorPagina={respuestasPorPagina} />
+            </table>
+          </div>
         </div>
         <FooterTablaRespuestas
           cargando={cargando}

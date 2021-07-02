@@ -15,7 +15,8 @@ const sliceRespuestas = createSlice({
     cacheInvalido: true,
     columnaDestacada: undefined,
     columnaDestacadaFija: false,
-    tablaDestacada: false
+    tablaDestacada: false,
+    categorias: []
   },
   reducers: {
     limpiaRespuestas(state) {
@@ -55,6 +56,17 @@ const sliceRespuestas = createSlice({
           respuestaNormalizada
         }
       }).reverse()
+      const propiedadesCategoricas = respuestas[0]
+        ? Object.keys(respuestas[0]).filter(k => {
+            const elementos = new Set(respuestas.map(r => r[k]))
+            return elementos.size < respuestas.length / 2
+          })
+        : []
+      const categorias = propiedadesCategoricas.map(propiedad => ({
+        propiedad,
+        niveles: [...new Set(respuestas.map(r => r[propiedad]))]
+      }))
+      state.categorias = categorias
       state.respuestas = respuestas
       state.respuestasVisibles = respuestas
       state.pagina = 1
