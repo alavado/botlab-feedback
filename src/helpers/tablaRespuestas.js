@@ -1,12 +1,12 @@
 import { format } from "date-fns"
-import { extraerTextoHeader } from "./respuestas"
+import { extraerTextoHeader, formatearCampoRespuestas } from "./respuestas"
 
 export const exportarTablaRespuestas = (headers, respuestas, nombre, fechaInicio, fechaTermino) => {
   let headersCSV
   let respuestasCSV
   if (respuestas[0].phone) {
     headersCSV = ['Teléfono', ...headers.map(h => h.texto)].join(';')
-    respuestasCSV = respuestas.map(r => [r.phone, ...headers.map(h => extraerTextoHeader(h, r))].join(';')).join('\n')
+    respuestasCSV = respuestas.map(r => [formatearCampoRespuestas(r.phone, 'phone'), ...headers.map(h => extraerTextoHeader(h, r))].join(';')).join('\n')
   }
   else {
     headersCSV = headers.map(h => h.texto).join(';')

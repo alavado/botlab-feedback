@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import './BodyTablaRespuestas.css'
 import Skeleton from '../../../../Skeleton'
 import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
+import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 // import { InlineIcon } from '@iconify/react'
 // import iconoVerChat from '@iconify/icons-mdi/chevron-right'
 
@@ -31,9 +32,10 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
     return [
       ...headers.filter(h => h.tipo === 'YESNO'),
       ...headers.filter(h => h.tipo === 'RANGE'),
+      ...(respuestas?.[0]?.phone ? [{ nombre: 'phone' }] : []),
       ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE')
     ]
-  }, [headers])
+  }, [respuestas, headers])
 
   if (!headersOrdenados) {
     return null
@@ -62,7 +64,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
                 >
                   {respuesta[nombre] && respuesta[nombre].tag !== undefined
                     ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
-                    : <Scrambler tipo={nombre}>{respuesta[nombre]}</Scrambler>
+                    : <Scrambler tipo={nombre}>{formatearCampoRespuestas(respuesta[nombre], nombre)}</Scrambler>
                   }
                 </td>
               ))}

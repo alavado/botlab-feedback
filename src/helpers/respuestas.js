@@ -12,3 +12,10 @@ export const extraerTextoHeader = (header, respuesta) => {
     throw Error(`${header}, ${respuesta}`)
   }
 }
+
+export const formatearCampoRespuestas = (texto, tipoCampo) => {
+  if (tipoCampo === 'phone') {
+    return `${texto.startsWith('56') ? '+' : ''}${texto.slice(-11, -9)} ${texto.slice(-9, -8)} ${texto.slice(-8, -4)} ${texto.slice(-4)}`
+  }
+  return texto
+}

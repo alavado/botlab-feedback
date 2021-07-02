@@ -9,6 +9,7 @@ import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
 import LoaderChat from '../LoaderChat'
 import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
+import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 
 const DatosChat = ({ cargando, datos, telefono }) => {
 
@@ -90,7 +91,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
                 Teléfono
               </div>
               <div className="DatosChat__valor_header">
-                <Scrambler tipo="telefono">{telefono}</Scrambler>
+                <Scrambler tipo="telefono">{formatearCampoRespuestas(telefono, 'phone')}</Scrambler>
               </div>
             </div>
             {datos.map(({ value: nombre, title: texto, target }, i) => (

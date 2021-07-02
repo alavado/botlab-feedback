@@ -12,7 +12,7 @@ const HeadTablaRespuestas = () => {
   const { headers } = useSelector(state => state.encuestas)
   const [modalFiltroActivo, setModalFiltroActivo] = useState(false)
   const [indiceColumnaFiltrada, setIndiceColumnaFiltrada] = useState(0)
-  const { columnaDestacada } = useSelector(state => state.respuestas)
+  const { columnaDestacada, respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
 
   const headersOrdenados = useMemo(() => {
@@ -22,9 +22,10 @@ const HeadTablaRespuestas = () => {
     return [
       ...headers.filter(h => h.tipo === 'YESNO'),
       ...headers.filter(h => h.tipo === 'RANGE'),
+      ...(respuestas?.[0]?.phone ? [{ nombre: 'phone', texto: 'Teléfono' } ] : []),
       ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE')
     ]
-  }, [headers])
+  }, [headers, respuestas])
 
   const mostrarModalFiltros = indiceColumna => {
     setIndiceColumnaFiltrada(indiceColumna)
