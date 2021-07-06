@@ -1,6 +1,7 @@
 import { format } from "date-fns"
 import { extraerTextoHeader, formatearCampoRespuestas } from "./respuestas"
 
+// mejora consistencia de exportacion despues
 export const exportarTablaRespuestas = (headers, respuestas, nombre, fechaInicio, fechaTermino) => {
   let headersCSV
   let respuestasCSV
@@ -21,4 +22,16 @@ export const exportarTablaRespuestas = (headers, respuestas, nombre, fechaInicio
   document.body.appendChild(elemento)
   elemento.click()
   document.body.removeChild(elemento)
+}
+
+export const obtenerHeaders = (headers, respuestas) => {
+  if (!headers) {
+    return null
+  }
+  return [
+    ...headers.filter(h => h.tipo === 'YESNO'),
+    ...headers.filter(h => h.tipo === 'RANGE'),
+    ...(respuestas?.[0]?.phone ? [{ nombre: 'phone', texto: 'Teléfono' }] : []),
+    ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE')
+  ]
 }

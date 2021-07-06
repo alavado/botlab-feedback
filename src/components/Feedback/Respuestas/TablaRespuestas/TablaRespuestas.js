@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
 import SelectorRangoFechas from '../SelectorRangoFechas'
@@ -19,10 +19,20 @@ const respuestasPorPagina = 50
 const TablaRespuestas = () => {
 
   const { headers } = useSelector(state => state.encuestas)
+  const [graficosVisibles, setGraficosVisibles] = useState(false)
   const { respuestasVisibles: respuestas, tablaDestacada } = useSelector(state => state.respuestas)
 
   const cargando = !respuestas || !headers
   const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO'))
+
+  useEffect(() => {
+    const ev = window.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.altKey && e.key === '0') {
+        setGraficosVisibles(val => !val)
+      }
+    })
+    return () => window.removeEventListener('keydown', ev)
+  }, [])
 
   return (
     <div className="TablaRespuestas">
@@ -46,7 +56,7 @@ const TablaRespuestas = () => {
           </div>
         </div>
         <div className="TablaRespuestas__contenedor_central">
-          {/* <GraficosRespuestas /> */}
+          {graficosVisibles && <GraficosRespuestas />}
           <div className={classNames({
             "TablaRespuestas__contenedor_tabla": true,
             "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen

@@ -8,7 +8,7 @@ import { fijaTablaDestacada } from '../../../../../redux/ducks/respuestas'
 
 const ExportadorRespuestas = ({ cargando }) => {
 
-  const { respuestasVisibles, fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
+  const { respuestasVisibles: respuestas, fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
   const { tipos, idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
   const encuestaSeleccionada = tipos?.find(t => t.id === idEncuestaSeleccionada)
@@ -19,7 +19,7 @@ const ExportadorRespuestas = ({ cargando }) => {
 
   const descargarCSV = () => {
     // exportarRespuestas(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-    exportarTablaRespuestas(headers, respuestasVisibles, encuestaSeleccionada.nombre, fechaInicio, fechaTermino)
+    exportarTablaRespuestas(headers, respuestas, encuestaSeleccionada.nombre, fechaInicio, fechaTermino)
   }
 
   return (

@@ -8,6 +8,7 @@ import './BodyTablaRespuestas.css'
 import Skeleton from '../../../../Skeleton'
 import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
+import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
 // import { InlineIcon } from '@iconify/react'
 // import iconoVerChat from '@iconify/icons-mdi/chevron-right'
 
@@ -25,69 +26,57 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
   const respuestasPagina = respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina)
 
-  const headersOrdenados = useMemo(() => {
-    if (!headers) {
-      return null
-    }
-    return [
-      ...headers.filter(h => h.tipo === 'YESNO'),
-      ...headers.filter(h => h.tipo === 'RANGE'),
-      ...(respuestas?.[0]?.phone ? [{ nombre: 'phone' }] : []),
-      ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE')
-    ]
-  }, [respuestas, headers])
+  const headersOrdenados = useMemo(() => obtenerHeaders(headers, respuestas), [headers, respuestas])
 
   if (!headersOrdenados) {
     return null
   }
 
   return (
-    <>
-      <tbody className="BodyTablaRespuestas">
-        {respuestasPagina ?
-          respuestasPagina.map((respuesta, i) => (
+    <tbody className="BodyTablaRespuestas">
+      {respuestasPagina ?
+        respuestasPagina.map((respuesta, i) => (
+          <tr
+            key={`fila-respuestas-${i}`}
+            className={classNames({
+              'BodyTablaRespuestas__fila': true
+            })}
+            onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
+          >
+            <td className="BodyTablaRespuestas__celda BodyTablaRespuestas__celda--numero">{respuestasPorPagina * (pagina - 1) + i + 1}</td>
+            {headersOrdenados.map(({ nombre }, j) => (
+              <td
+                key={`celda-respuesta-${i}-${j}`}
+                className={classNames({
+                  'BodyTablaRespuestas__celda': true,
+                  'BodyTablaRespuestas__celda--destacada': columnaDestacada === j
+                })}
+              >
+                {respuesta[nombre] && respuesta[nombre].tag !== undefined
+                  ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
+                  : <Scrambler tipo={nombre}>{formatearCampoRespuestas(respuesta[nombre], nombre)}</Scrambler>
+                }
+              </td>
+            ))}
+          </tr>
+        ))
+        : Array(respuestasPorPagina).fill(0).map((x, i) => (
             <tr
-              key={`fila-respuestas-${i}`}
-              className={classNames({
-                'BodyTablaRespuestas__fila': true
-              })}
-              onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
+              key={`fila-skeleton-respuestas-${i}`}
+              className="BodyTablaRespuestas__fila"
             >
-              <td className="BodyTablaRespuestas__celda BodyTablaRespuestas__celda--numero">{respuestasPorPagina * (pagina - 1) + i + 1}</td>
               {headersOrdenados.map(({ nombre }, j) => (
                 <td
-                  key={`celda-respuesta-${i}-${j}`}
-                  className={classNames({
-                    'BodyTablaRespuestas__celda': true,
-                    'BodyTablaRespuestas__celda--destacada': columnaDestacada === j
-                  })}
+                  key={`celda-skeleton-respuesta-${i}-${j}`}
+                  className="BodyTablaRespuestas__celda"
                 >
-                  {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                    ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
-                    : <Scrambler tipo={nombre}>{formatearCampoRespuestas(respuesta[nombre], nombre)}</Scrambler>
-                  }
+                  <Skeleton />
                 </td>
               ))}
             </tr>
-          ))
-          : Array(respuestasPorPagina).fill(0).map((x, i) => (
-              <tr
-                key={`fila-skeleton-respuestas-${i}`}
-                className="BodyTablaRespuestas__fila"
-              >
-                {headersOrdenados.map(({ nombre }, j) => (
-                  <td
-                    key={`celda-skeleton-respuesta-${i}-${j}`}
-                    className="BodyTablaRespuestas__celda"
-                  >
-                    <Skeleton />
-                  </td>
-                ))}
-              </tr>
-          ))
-        }
-      </tbody>
-    </>
+        ))
+      }
+    </tbody>
   )
 }
 

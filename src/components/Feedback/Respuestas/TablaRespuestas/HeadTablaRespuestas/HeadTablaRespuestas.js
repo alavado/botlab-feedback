@@ -6,6 +6,7 @@ import { InlineIcon } from '@iconify/react'
 import triangulito from '@iconify/icons-mdi/arrow-down-drop'
 import ModalFiltros from '../ModalFiltros'
 import { destacaColumna, fijaColumna, yaNoDestaquesColumna } from '../../../../../redux/ducks/respuestas'
+import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
 
 const HeadTablaRespuestas = () => {
 
@@ -15,17 +16,7 @@ const HeadTablaRespuestas = () => {
   const { columnaDestacada, respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
 
-  const headersOrdenados = useMemo(() => {
-    if (!headers) {
-      return []
-    }
-    return [
-      ...headers.filter(h => h.tipo === 'YESNO'),
-      ...headers.filter(h => h.tipo === 'RANGE'),
-      ...(respuestas?.[0]?.phone ? [{ nombre: 'phone', texto: 'Teléfono' } ] : []),
-      ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE')
-    ]
-  }, [headers, respuestas])
+  const headersOrdenados = useMemo(() => obtenerHeaders(headers, respuestas) || [], [headers, respuestas])
 
   const mostrarModalFiltros = indiceColumna => {
     setIndiceColumnaFiltrada(indiceColumna)
