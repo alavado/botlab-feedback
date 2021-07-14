@@ -107,9 +107,9 @@
   gap: .5rem;
 }
 
-.TablaRespuestas__tabla {
+/* .TablaRespuestas__tabla {
   flex: 1;
-}
+} */
 
 @keyframes aparece-tabla-respuestas {
   0% {

@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import './BarraSuperior.css'
 import MenuUsuario from './MenuUsuario'
 import SelectorEncuesta from './SelectorEncuesta'
-import inspiracion from '../../../assets/images/inspiracion-flow.jpg'
+import DiagramaGuion from './DiagramaGuion'
 
 const BarraSuperior = () => {
 
@@ -11,17 +11,19 @@ const BarraSuperior = () => {
 
   return (
     <div className="BarraSuperior">
-      <div className="BarraSuperior__modal" style={{ display: verModal ? 'flex': 'none' }} onClick={() => setVerModal(false)}>
-        <h1>Guión de esta encuesta</h1>
-        <img src={inspiracion} />
-      </div>
+      {/* <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} /> */}
       <Switch>
         <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
         <Route path="/busqueda" component={SelectorEncuesta} />
         <Route path="/uso" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
-      {/* <button onClick={() => setVerModal(true)} style={{ marginRight: 'auto', marginLeft: '.5rem' }}>Ver guión</button> */}
+      {/* <button
+        onClick={() => setVerModal(true)}
+        style={{ marginRight: 'auto', marginLeft: '.5rem' }}
+      >
+        Ver guión
+      </button> */}
       <MenuUsuario />
     </div>
   )

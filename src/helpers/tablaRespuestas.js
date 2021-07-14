@@ -30,8 +30,8 @@ export const obtenerHeaders = (headers, respuestas) => {
   }
   return [
     ...headers.filter(h => h.tipo === 'YESNO'),
+    ...headers.filter(h => h.tipo === 'OPEN'),
     ...headers.filter(h => h.tipo === 'RANGE'),
-    ...(respuestas?.[0]?.phone ? [{ nombre: 'phone', texto: 'Teléfono' }] : []),
-    ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE')
+    ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE' && h.tipo !== 'OPEN')
   ]
 }
