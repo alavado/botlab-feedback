@@ -4,6 +4,7 @@ import './BarraSuperior.css'
 import MenuUsuario from './MenuUsuario'
 import SelectorEncuesta from './SelectorEncuesta'
 import DiagramaGuion from './DiagramaGuion'
+import AlertaPilotos from './AlertaPilotos'
 
 const BarraSuperior = () => {
 
@@ -12,6 +13,7 @@ const BarraSuperior = () => {
   return (
     <div className="BarraSuperior">
       {/* <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} /> */}
+      <AlertaPilotos />
       <Switch>
         <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
         <Route path="/busqueda" component={SelectorEncuesta} />
