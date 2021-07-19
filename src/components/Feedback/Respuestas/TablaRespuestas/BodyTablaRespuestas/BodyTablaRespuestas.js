@@ -32,6 +32,8 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
     return null
   }
 
+  console.log(headersOrdenados)
+
   return (
     <tbody className="BodyTablaRespuestas">
       {respuestasPagina ?
@@ -53,7 +55,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
                 })}
               >
                 {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                  ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} /></div>
+                  ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} pregunta={headersOrdenados[j].texto} /></div>
                   : <Scrambler tipo={nombre}>{formatearCampoRespuestas(respuesta[nombre], nombre)}</Scrambler>
                 }
               </td>
