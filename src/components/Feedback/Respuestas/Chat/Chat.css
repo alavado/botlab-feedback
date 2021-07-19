@@ -1,6 +1,7 @@
 .Chat {
-  display: flex;
-  flex: 1;
+  display: grid;
+  grid-template: auto 1fr / .75fr auto .75fr;
+  gap: 2rem 0;
   animation: aparece-chat .15s ease both;
   transform: translateY(-.75rem);
 }

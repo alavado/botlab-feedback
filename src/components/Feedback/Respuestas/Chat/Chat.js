@@ -7,6 +7,7 @@ import RespuestasChat from './RespuestasChat'
 import Error403 from '../../Error403'
 import './Chat.css'
 import { useSelector } from 'react-redux'
+import AccionesChat from './AccionesChat'
 
 const expiracionCache = 60_000
 
@@ -93,6 +94,7 @@ const Chat = () => {
       <RespuestasChat
         tags={conversaciones && conversaciones[indiceConversacion]?.tags}
       />
+      <AccionesChat />
     </div>
   )
 }

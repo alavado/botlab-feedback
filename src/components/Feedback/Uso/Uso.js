@@ -30,7 +30,7 @@ const Uso = () => {
           enviadas: d.polls_sent,
           respondidas: d.effective_interactions,
           inicio: d.start
-        })).sort((d1, d2) => d1.enviadas > d2.enviadas ? -1 : 1) 
+        })).sort((d1, d2) => d1.enviadas > d2.enviadas ? -1 : 1)
         const total = datosPorEncuesta.reduce((obj, e) => ({
           ...obj,
           enviadas: obj.enviadas + e.enviadas,
@@ -42,10 +42,11 @@ const Uso = () => {
           'yyyy-MM-dd',
           new Date()
         )
+        console.log({fechaInicio})
         const meses = []
         for (let i = 0; i < mesesSelector; i++) {
           const fechaMes = subMonths(new Date(), i)
-          if (fechaInicio > fechaMes) {
+          if (startOfMonth(fechaInicio) > fechaMes) {
             break
           }
           meses.push(fechaMes)
