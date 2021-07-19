@@ -18,7 +18,7 @@ const RespuestasChat = ({ tags }) => {
               {question}
             </div>
             <div className="DatosChat__valor_header">
-              <TagRespuesta tag={tag} />
+              <TagRespuesta tag={tag} pregunta={question} />
             </div>
           </div>
         ))

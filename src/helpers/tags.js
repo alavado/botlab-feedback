@@ -47,6 +47,34 @@ export const diccionarioTags = {
     clase: 'TagRespuesta TagRespuesta--si',
     color: 'white'
   },
+  'INFO_REAGENDA': {
+    texto: 'Paciente indica fechas',
+    titulo: 'Paciente indica fechas',
+    icono: check,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  'NO_INFO_REAGENDA': {
+    texto: 'Paciente no indica fechas',
+    titulo: 'Paciente no indica fechas',
+    icono: cancel,
+    clase: 'TagRespuesta TagRespuesta--no',
+    color: ''
+  },
+  'NINGUNA': {
+    texto: 'Ninguna',
+    titulo: 'Ninguna',
+    icono: cancel,
+    clase: 'TagRespuesta TagRespuesta--no',
+    color: ''
+  },
+  'CUALQUIERA': {
+    texto: 'Cualquiera',
+    titulo: 'Cualquiera',
+    icono: check,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
   '': {
     texto: '',
     titulo: '',
