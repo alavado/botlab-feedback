@@ -42,7 +42,6 @@ const Uso = () => {
           'yyyy-MM-dd',
           new Date()
         )
-        console.log({fechaInicio})
         const meses = []
         for (let i = 0; i < mesesSelector; i++) {
           const fechaMes = subMonths(new Date(), i)
