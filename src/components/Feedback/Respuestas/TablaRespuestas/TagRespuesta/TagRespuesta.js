@@ -3,7 +3,6 @@ import { diccionarioTags } from '../../../../../helpers/tags'
 import { InlineIcon } from '@iconify/react'
 import estrella from '@iconify/icons-mdi/star'
 import './TagRespuesta.css'
-import { useSelector } from 'react-redux'
 
 const maxEstrellas = 5
 
@@ -12,7 +11,7 @@ const obtenerClaseTag = (tag, pregunta) => {
     return diccionarioTags[tag].clase
   }
   else if (pregunta === 'Opción elegida') {
-    return 'TagRespuesta'
+    return 'TagRespuesta--opcion_reagendamiento'
   }
   else if (!isNaN(tag)) {
     return 'TagRespuesta--nota'
