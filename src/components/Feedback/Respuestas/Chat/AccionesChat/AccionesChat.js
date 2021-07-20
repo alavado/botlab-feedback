@@ -60,6 +60,7 @@ const AccionesChat = () => {
               onChange={e => setTipo(e.target.value)}
               value={tipo}
               className="AccionesChat__selector"
+              required={true}
             >
               <option>Bot se equivoca</option>
               <option>Paciente se molesta</option>
@@ -73,6 +74,7 @@ const AccionesChat = () => {
               value={descripcion}
               onChange={e => setDescripcion(e.target.value)}
               className="AccionesChat__textarea"
+              required={true}
             >
             </textarea>
             <button
