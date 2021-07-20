@@ -5,44 +5,44 @@ const obtenerEmoticonTipoReporte = tipo => {
   switch (tipo) {
     case 'Bot se equivoca':
       return `🤖`
-    case 'Paciente molesto':
+    case 'Paciente se molesta':
       return `😡`
   }
-  return `❓`
+  return `👽`
 }
 
 export const reportarASlack = async (cuenta, tipo, descripcion) => {
 
   const data = {
-    "text": `Feedback: Reporte desde cuenta ${cuenta}`,
-    "blocks": [
+    'text': `Feedback: Reporte desde cuenta ${cuenta}`,
+    'blocks': [
     	{
-    		"type": "section",
-    		"text": {
-    			"type": "mrkdwn",
-    			"text": `Reporte desde cuenta *${cuenta}*`
+    		'type': 'section',
+    		'text': {
+    			'type': 'mrkdwn',
+    			'text': `Reporte desde cuenta *${cuenta}*`
     		}
     	},
     	{
-    		"type": "section",
-        "fields": [
+    		'type': 'section',
+        'fields': [
           {
-            "type": "mrkdwn",
-            "text": `*Tipo*\n ${obtenerEmoticonTipoReporte(tipo)} ${tipo}`
+            'type': 'mrkdwn',
+            'text': `*Tipo*\n ${obtenerEmoticonTipoReporte(tipo)} ${tipo}`
           },
           {
-            "type": "mrkdwn",
-            "text": `*URL de origen*\n${window.location.href}`
+            'type': 'mrkdwn',
+            'text': `*URL de origen*\n${window.location.href}`
           },
           {
-            "type": "mrkdwn",
-            "text": `*Descripción*\n${descripcion}`
+            'type': 'mrkdwn',
+            'text': `*Descripción*\n${descripcion}`
           }
         ]
     	}
     ],
   }
-  axios.post(
+  await axios.post(
     process.env.REACT_APP_SLACK_WEBHOOK_URL,
     JSON.stringify(data),
     {
@@ -53,10 +53,6 @@ export const reportarASlack = async (cuenta, tipo, descripcion) => {
       }]
     }
   )
-  
-  const formData = new FormData()
-  formData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
-  formData.append('channels', process.env.REACT_APP_SLACK_CHANNEL_ID)
   const nodoContenedorMensajes = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes')[0]
   document.querySelectorAll('.CelularWhatsapp__contenedor_conversacion:not(.CelularWhatsapp__contenedor_conversacion--seleccionada)').forEach(nodo => {
     nodo.style.display = 'none'
@@ -65,12 +61,26 @@ export const reportarASlack = async (cuenta, tipo, descripcion) => {
   nodoContenedorMensajes.style.overflow = 'visible'
   nodoContenedorMensajes.style.maxHeight = 'auto'
   const blob = await toBlob(nodoContenedorMensajes, { width: nodoContenedorMensajes.scrollWidth, height: nodoContenedorMensajes.scrollHeight })
-  formData.append('file', blob)
-  nodoContenedorMensajes.style.overflow = 'hidden'
+  nodoContenedorMensajes.style.overflow = 'auto'
   nodoContenedorMensajes.style.maxHeight = prevMaxHeight
-  document.querySelectorAll('.CelularWhatsapp__contenedor_conversacion:not(.CelularWhatsapp__contenedor_conversacion--seleccionada)').forEach(nodo => {
-    nodo.style.display = 'flex'
+  document.querySelectorAll('.CelularWhatsapp__contenedor_conversacion').forEach(nodo => {
+    nodo.style.display = 'block'
   })
+  const formData = new FormData()
+  formData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
+  formData.append('channels', process.env.REACT_APP_SLACK_CHANNEL_ID)
+  formData.append('file', blob)
+  const ssData = await axios({
+    method: 'post',
+    url: process.env.REACT_APP_SLACK_FILE_UPLOAD_URL,
+    data: formData,
+    headers: { "Content-Type": "multipart/form-data" }
+  })
+  const ssTimestamp = ssData.data.file.shares.private[process.env.REACT_APP_SLACK_CHANNEL_ID][0].ts
+  const nodoContenedor = document.getElementsByClassName('Feedback__contenedor_central')[0]
+  const blobFB = await toBlob(nodoContenedor, { width: nodoContenedor.scrollWidth, height: nodoContenedor.scrollHeight })
+  formData.append('file', blobFB)
+  formData.append('thread_ts', ssTimestamp)
   await axios({
     method: 'post',
     url: process.env.REACT_APP_SLACK_FILE_UPLOAD_URL,

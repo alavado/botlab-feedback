@@ -19,6 +19,7 @@ const AccionesChat = () => {
     <div className="AccionesChat">
       {formularioVisible
         ? <form onSubmit={enviar} className="AccionesChat__formulario">
+            <button onClick={() => setFormularioVisible(false)}>x</button>
             Reporte de problema a Cero.ai
             <label>Tipo de problema</label>
             <select onChange={e => setTipo(e.target.value)} value={tipo}>
