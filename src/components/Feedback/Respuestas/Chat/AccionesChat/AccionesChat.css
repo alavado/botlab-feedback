@@ -1,19 +1,145 @@
 .AccionesChat {
-  margin-top: auto;
+  margin-top: 1rem;
+  position: relative;
 }
 
 .AccionesChat__boton {
-  background: var(--color-principal);
-  color: var(--color-texto-claro);
   cursor: pointer;
   font-size: 1rem;
   padding: 0 1rem;
+  font-size: .75rem;
+  padding: .5rem 1rem;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  border-radius: 1in;
+  border: none;
+  box-shadow: 0 0 .1rem var(--color-sombras);
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: .35rem;
+}
+
+.AccionesChat__icono_boton {
+  font-size: 1rem;
+  color: var(--color-principal);
 }
 
 .AccionesChat__formulario {
   display: flex;
-  gap: 1rem;
   flex-direction: column;
-  padding: 1rem;
-  border: 1px solid black;
+  padding: 1.5rem;
+  border: none;
+  box-shadow: 0 0 .1rem var(--color-sombras);
+  border-radius: 1rem;
+  animation: aparece-formulario-reporte .15s ease-in-out both;
+  max-width: 40ch;
+}
+
+.AccionesChat__boton_cerrar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.AccionesChat__boton_cerrar svg {
+  font-size: .8rem;
+  color: var(--color-texto);
+}
+
+.AccionesChat__label {
+  font-size: .75rem;
+  margin-top: .75rem;
+  margin-bottom: .5rem;
+}
+
+.AccionesChat__selector {
+  padding: .5rem;
+  font-size: .8rem;
+  border-radius: .25rem;
+}
+
+.AccionesChat__textarea {
+  resize: none;
+  height: 5rem;
+  padding: .5rem;
+  font-size: .8rem;
+  border-radius: .25rem;
+}
+
+.AccionesChat__boton_enviar {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0 1rem;
+  font-size: .7rem;
+  padding: .5rem 1rem;
+  background: var(--color-principal);
+  color: var(--color-texto-claro);
+  border-radius: 1in;
+  border: none;
+  box-shadow: 0 0 .1rem var(--color-sombras);
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.AccionesChat__logo_cero {
+  height: .65rem;
+  margin-left: .25rem;
+  filter: drop-shadow(-.05rem .1rem .01rem rgba(0, 0, 0, .1));
+}
+
+.AccionesChat__gracias {
+  display: flex;
+  align-items: center;
+  font-size: .75rem;
+  animation: aparece-gracias-por-reporte .15s ease-in-out both;
+}
+
+.AccionesChat__icono_gracias {
+  font-size: 1rem;
+  color: var(--color-principal);
+  margin-right: .25rem;
+}
+
+.AccionesChat__icono_enviando {
+  font-size: 1rem;
+  color: var(--color-texto-claro);
+  margin-right: .25rem;
+  animation: gira-icono-enviando 1s ease-in-out infinite both;
+}
+
+@keyframes aparece-formulario-reporte {
+  0% {
+    opacity: 0;
+    transform: translateY(-.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aparece-gracias-por-reporte {
+  0% {
+    opacity: 0;
+    transform: translateY(-.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gira-icono-enviando {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
