@@ -1,7 +1,6 @@
 import { format } from "date-fns"
 import { extraerTextoHeader, formatearCampoRespuestas } from "./respuestas"
 
-// mejora consistencia de exportacion despues
 export const exportarTablaRespuestas = (headers, respuestas, nombre, fechaInicio, fechaTermino) => {
   let headersCSV
   let respuestasCSV

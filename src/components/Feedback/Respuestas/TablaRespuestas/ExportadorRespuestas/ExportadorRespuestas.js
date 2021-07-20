@@ -17,10 +17,7 @@ const ExportadorRespuestas = ({ cargando }) => {
     return null
   }
 
-  const descargarCSV = () => {
-    // exportarRespuestas(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-    exportarTablaRespuestas(headers, respuestas, encuestaSeleccionada.nombre, fechaInicio, fechaTermino)
-  }
+  const descargarCSV = () => exportarTablaRespuestas(headers, respuestas, encuestaSeleccionada.nombre, fechaInicio, fechaTermino)
 
   return (
     <div className="ExportadorRespuestas">

@@ -32,8 +32,6 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
     return null
   }
 
-  console.log(headersOrdenados)
-
   return (
     <tbody className="BodyTablaRespuestas">
       {respuestasPagina ?
