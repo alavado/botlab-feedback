@@ -55,8 +55,6 @@ const GraficosRespuestas = () => {
     return { conteos, maximo }
   }, [categoriaSeleccionada, respuestas])
 
-  console.log({conteos})
-
   return (
     <div className="GraficosRespuestas">
       <select onChange={e => setCategoriaSeleccionada(e.target.value)}>

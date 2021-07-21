@@ -84,7 +84,6 @@ const CuadroBusqueda = () => {
               }
             }
             const numeroChat = parseInt(bits.slice(0, -1).join(''), 2).toString()
-            console.log(numeroChat)
             ctx.putImageData(imageData, 0, 0)
             history.push(`/chat/${numeroChat.slice(0, 3)}/${numeroChat.slice(3)}`)
           }
