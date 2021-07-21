@@ -1,5 +1,5 @@
 import { InlineIcon } from '@iconify/react'
-import { useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import iconoProblema from '@iconify/icons-mdi/report-problem'
 import iconoCerrar from '@iconify/icons-mdi/close'
 import iconoGracias from '@iconify/icons-mdi/check-bold'
@@ -17,12 +17,21 @@ const AccionesChat = () => {
   const [descripcion, setDescripcion] = useState('')
   const [enviado, setEnviado] = useState(false)
   const [enviando, setEnviando] = useState(false)
+  const refDescripcion = useRef()
+
+  useEffect(() => {
+    formularioVisible && refDescripcion.current?.focus()
+  }, [formularioVisible])
 
   const enviar = e => {
     e.preventDefault()
     setEnviando(true)
     reportarASlack(nombreUsuario, tipo, descripcion)
       .then(() => {
+        setEnviado(true)
+        setEnviando(false)
+      })
+      .catch(() => {
         setEnviado(true)
         setEnviando(false)
       })
@@ -33,7 +42,7 @@ const AccionesChat = () => {
       <div className="AccionesChat">
         <p className="AccionesChat__gracias">
          <InlineIcon className="AccionesChat__icono_gracias" icon={iconoGracias} />
-          Recibimos su reporte, ¡muchas gracias!
+          Recibimos tu reporte, ¡gracias por ayudarnos a mejorar nuestro servicio!
         </p>
       </div>
     )
@@ -49,6 +58,7 @@ const AccionesChat = () => {
             <button
               className="AccionesChat__boton_cerrar"
               onClick={() => setFormularioVisible(false)}
+              title="Cancelar"
             >
               <InlineIcon icon={iconoCerrar} />
             </button>
@@ -70,6 +80,7 @@ const AccionesChat = () => {
               Descripción
             </label>
             <textarea
+              ref={refDescripcion}
               disabled={enviando}
               value={descripcion}
               onChange={e => setDescripcion(e.target.value)}
@@ -80,6 +91,7 @@ const AccionesChat = () => {
             <button
               disabled={enviando}
               className="AccionesChat__boton_enviar"
+              title="Reportar"
             >
               {enviando
                 ? <><InlineIcon className="AccionesChat__icono_enviando" icon={iconoEnviando} /> Enviando reporte...</>
@@ -92,7 +104,7 @@ const AccionesChat = () => {
             onClick={() => setFormularioVisible(true)}
           >
             <InlineIcon className="AccionesChat__icono_boton" icon={iconoProblema} />
-            ¿Nota algún problema en esta interacción?
+            ¿Notas algún problema en esta interacción?
           </button>
       }
     </div>

@@ -1,5 +1,4 @@
 .AccionesChat {
-  margin-top: 1rem;
   position: relative;
 }
 
@@ -28,7 +27,7 @@
 .AccionesChat__formulario {
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: .75rem 1.25rem;
   border: none;
   box-shadow: 0 0 .1rem var(--color-sombras);
   border-radius: 1rem;
@@ -38,8 +37,8 @@
 
 .AccionesChat__boton_cerrar {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: .75rem;
+  right: .75rem;
   cursor: pointer;
   background: none;
   border: none;
@@ -54,6 +53,7 @@
   font-size: .75rem;
   margin-top: .75rem;
   margin-bottom: .5rem;
+  font-weight: 600;
 }
 
 .AccionesChat__selector {
@@ -62,12 +62,21 @@
   border-radius: .25rem;
 }
 
+.AccionesChat__selector:focus {
+  outline-color: var(--color-principal);
+}
+
 .AccionesChat__textarea {
   resize: none;
-  height: 5rem;
+  height: 8rem;
   padding: .5rem;
   font-size: .8rem;
   border-radius: .25rem;
+  border: .1rem solid var(--color-bordes);
+}
+
+.AccionesChat__textarea:focus {
+  outline-color: var(--color-principal);
 }
 
 .AccionesChat__boton_enviar {
