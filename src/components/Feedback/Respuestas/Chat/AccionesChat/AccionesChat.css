@@ -54,12 +54,15 @@
   margin-top: .75rem;
   margin-bottom: .5rem;
   font-weight: 600;
+  color: var(--color-texto);
 }
 
 .AccionesChat__selector {
   padding: .5rem;
   font-size: .8rem;
   border-radius: .25rem;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
 }
 
 .AccionesChat__selector:focus {
@@ -73,6 +76,8 @@
   font-size: .8rem;
   border-radius: .25rem;
   border: .1rem solid var(--color-bordes);
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
 }
 
 .AccionesChat__textarea:focus {
@@ -94,6 +99,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.AccionesChat__boton_enviar:hover {
+  filter: brightness(115%);
+}
+
+.AccionesChat__boton_enviar:active {
+  filter: brightness(125%);
 }
 
 .AccionesChat__logo_cero {
