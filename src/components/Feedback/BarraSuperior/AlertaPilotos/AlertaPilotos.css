@@ -20,6 +20,10 @@
   padding: 0 .3rem;
 }
 
+.AlertaPilotos strong::first-letter {
+  text-transform: capitalize;
+}
+
 .AlertaPilotos__link {
   background: var(--color-principal);
   color: var(--color-texto-claro);

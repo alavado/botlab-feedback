@@ -50,11 +50,12 @@ const AlertaPilotos = () => {
   const cc = `contacto@cero.ai`
   const asunto = `Contacto%20Piloto%20${nombreUsuario}`
   const cuerpo = `Tu%20mensaje`
-  const dias = formatDistanceToNow(parseISO(usuario.exp), { locale: es })
+  const dias = formatDistanceToNow(parseISO(usuario.exp), { locale: es, addSuffix: true })
+  const verbo = differenceInHours(parseISO(usuario.exp), Date.now()) > 0 ? 'finaliza' : 'finalizó'
 
   return (
     <div className="AlertaPilotos">
-      En <strong>{dias}</strong> finaliza tu piloto del servicio. ¿Quieres continuar confirmando con Cero? 👉 <a className="AlertaPilotos__link" href={`mailto:${correoPrincipal}?cc=${cc}&subject=${asunto}&body=${cuerpo}`}>Contáctanos</a>
+      <strong>{dias}</strong> {verbo} tu piloto del servicio. ¿Quieres continuar confirmando con Cero? 👉 <a className="AlertaPilotos__link" href={`mailto:${correoPrincipal}?cc=${cc}&subject=${asunto}&body=${cuerpo}`}>Contáctanos</a>
     </div>
   )
 }
