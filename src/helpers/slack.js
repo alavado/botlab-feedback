@@ -11,16 +11,16 @@ const obtenerEmoticonTipoReporte = tipo => {
   return `👽`
 }
 
-export const reportarASlack = async (cuenta, tipo, descripcion) => {
+export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {
 
   const data = {
-    'text': `Feedback: Reporte desde cuenta ${cuenta}`,
+    'text': `Feedback: Reporte desde cuenta ${usuario}`,
     'blocks': [
     	{
     		'type': 'section',
     		'text': {
     			'type': 'mrkdwn',
-    			'text': `⚠ Reporte desde cuenta *${cuenta}*`
+    			'text': `⚠ Reporte desde cuenta *${usuario} (cuenta ${cuenta})*`
     		}
     	},
     	{

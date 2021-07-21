@@ -5,10 +5,11 @@ const loginSlice = createSlice({
   initialState: {},
   reducers: {
     guardaToken(state, action) {
-      const { token, client: nombreUsuario } = action.payload
+      const { token, client: nombreUsuario, cuenta } = action.payload
       state.token = token
       state.fechaToken = Date.now()
       state.nombreUsuario = nombreUsuario
+      state.cuenta = cuenta
     },
     cierraLaSesion(state) {
       state.token = undefined

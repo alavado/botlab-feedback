@@ -30,7 +30,7 @@ const Login = () => {
     try {
       setCargando(true)
       const { data } = await loginAPI(auth.username, auth.password)
-      dispatch(guardaToken(data))
+      dispatch(guardaToken({ ...data, cuenta: auth.username }))
       dispatch(guardaTiposEncuestas(data))
     } catch (e) {
       setCargando(false)

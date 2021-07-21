@@ -11,7 +11,7 @@ import './AccionesChat.css'
 
 const AccionesChat = () => {
   
-  const { nombreUsuario } = useSelector(state => state.login)
+  const { nombreUsuario, cuenta } = useSelector(state => state.login)
   const [formularioVisible, setFormularioVisible] = useState(false)
   const [tipo, setTipo] = useState('Bot se equivoca')
   const [descripcion, setDescripcion] = useState('')
@@ -26,7 +26,7 @@ const AccionesChat = () => {
   const enviar = e => {
     e.preventDefault()
     setEnviando(true)
-    reportarASlack(nombreUsuario, tipo, descripcion)
+    reportarASlack(nombreUsuario, cuenta, tipo, descripcion)
       .then(() => {
         setEnviado(true)
         setEnviando(false)
