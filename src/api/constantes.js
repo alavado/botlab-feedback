@@ -1,1 +1,0 @@
-export const tiposRespuestas = ['YESNO', 'RANGE', 'OPEN']

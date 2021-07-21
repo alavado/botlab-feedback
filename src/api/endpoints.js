@@ -1,8 +1,9 @@
 import axios from 'axios'
 import store from '../redux/store'
-import { API_ROOT } from './config'
 import { format } from 'date-fns'
 import { TIPO_EXPORTACION_RESUMEN } from '../helpers/exportar'
+
+const API_ROOT = process.env.REACT_APP_API_ROOT
 
 export const login = (username, password) => {
   const auth = { username, password }
