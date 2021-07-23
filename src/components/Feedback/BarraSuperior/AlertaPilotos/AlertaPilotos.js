@@ -17,7 +17,7 @@ const usuariosPiloto = [
   },
   {
     nombre: 'ElManio',
-    exp: '2021-08-22 00:00:00'
+    exp: '2021-08-12 00:00:00'
   }
 ]
 
