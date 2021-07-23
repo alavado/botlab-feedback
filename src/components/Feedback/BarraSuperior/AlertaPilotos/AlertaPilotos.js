@@ -24,7 +24,7 @@ const usuariosPiloto = [
 const AlertaPilotos = () => {
 
   const { nombreUsuario } = useSelector(state => state.login)
-  const usuario = usuariosPiloto.find(u => u.nombre == nombreUsuario)
+  const usuario = usuariosPiloto.find(u => u.nombre === nombreUsuario)
   const [diferencia, setDiferencia] = useState()
 
   useEffect(() => {

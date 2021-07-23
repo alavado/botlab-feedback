@@ -94,7 +94,7 @@ const Chat = () => {
       <RespuestasChat
         tags={conversaciones && conversaciones[indiceConversacion]?.tags}
       />
-      <AccionesChat />
+      <AccionesChat cargando={cargando} />
     </div>
   )
 }

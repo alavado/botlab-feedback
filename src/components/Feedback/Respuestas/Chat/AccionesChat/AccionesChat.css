@@ -6,8 +6,8 @@
   cursor: pointer;
   font-size: 1rem;
   padding: 0 1rem;
-  font-size: .75rem;
-  padding: .5rem 1rem;
+  font-size: .7rem;
+  padding: .35rem .5rem;
   background: var(--color-fondo);
   color: var(--color-texto);
   border-radius: 1in;
@@ -17,6 +17,12 @@
   grid-auto-flow: column;
   align-items: center;
   gap: .35rem;
+  transition: all .25s ease-in-out;
+  animation: aparece-boton-alerta-slack .25s ease-in-out 3s both;
+}
+
+.AccionesChat__boton:hover {
+  box-shadow: 0 .05rem .25rem var(--color-sombras);
 }
 
 .AccionesChat__icono_boton {
@@ -77,11 +83,16 @@
   border-radius: .25rem;
   border: .1rem solid var(--color-bordes);
   background-color: var(--color-fondo);
-  color: var(--color-texto);
+  color: var(--color-secundario);
 }
 
 .AccionesChat__textarea:focus {
   outline-color: var(--color-principal);
+}
+
+.AccionesChat__textarea::placeholder {
+  color: var(--color-texto);
+  opacity: .5;
 }
 
 .AccionesChat__boton_enviar {
@@ -118,14 +129,16 @@
 .AccionesChat__gracias {
   display: flex;
   align-items: center;
-  font-size: .75rem;
+  font-size: .7rem;
+  font-weight: bold;
+  color: var(--color-texto);
   animation: aparece-gracias-por-reporte .15s ease-in-out both;
 }
 
 .AccionesChat__icono_gracias {
   font-size: 1rem;
   color: var(--color-principal);
-  margin-right: .25rem;
+  margin-right: .35rem;
 }
 
 .AccionesChat__icono_enviando {
@@ -163,5 +176,16 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes aparece-boton-alerta-slack {
+  0% {
+    opacity: 0;
+    transform: translateY(.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

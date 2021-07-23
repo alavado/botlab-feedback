@@ -2,14 +2,14 @@ import { InlineIcon } from '@iconify/react'
 import { useEffect, useState, useRef } from 'react'
 import iconoProblema from '@iconify/icons-mdi/report-problem'
 import iconoCerrar from '@iconify/icons-mdi/close'
-import iconoGracias from '@iconify/icons-mdi/check-bold'
+import iconoGracias from '@iconify/icons-mdi/thumbs-up'
 import iconoEnviando from '@iconify/icons-mdi/loading'
 import { useSelector } from 'react-redux'
 import { reportarASlack } from '../../../../../helpers/slack'
 import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
 
-const AccionesChat = () => {
+const AccionesChat = ({ cargando }) => {
   
   const { nombreUsuario, cuenta } = useSelector(state => state.login)
   const [formularioVisible, setFormularioVisible] = useState(false)
@@ -37,12 +37,16 @@ const AccionesChat = () => {
       })
   }
 
+  if (cargando) {
+    return null
+  }
+
   if (enviado) {
     return (
       <div className="AccionesChat">
         <p className="AccionesChat__gracias">
          <InlineIcon className="AccionesChat__icono_gracias" icon={iconoGracias} />
-          Recibimos tu reporte, ¡gracias por ayudarnos a mejorar nuestro servicio!
+          Recibimos tu reporte, ¡gracias por ayudarnos a brindarte un mejor servicio!
         </p>
       </div>
     )
@@ -86,6 +90,7 @@ const AccionesChat = () => {
               onChange={e => setDescripcion(e.target.value)}
               className="AccionesChat__textarea"
               required={true}
+              placeholder={"No dudes en contarnos cualquier anomalía que detectes, ¡nos ayudas a brindarte un mejor servicio!"}
             >
             </textarea>
             <button
