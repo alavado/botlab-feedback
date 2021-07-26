@@ -8,7 +8,7 @@ const obtenerEmoticonTipoReporte = tipo => {
     case 'Paciente se molesta':
       return `😡`
   }
-  return `👽`
+  return `👀`
 }
 
 export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {
@@ -20,7 +20,7 @@ export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {
     		'type': 'section',
     		'text': {
     			'type': 'mrkdwn',
-    			'text': `⚠ Reporte desde *${usuario} (cuenta ${cuenta})*`
+    			'text': `Reporte desde *${usuario}*`
     		}
     	},
     	{
@@ -28,15 +28,19 @@ export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {
         'fields': [
           {
             'type': 'mrkdwn',
-            'text': `*Tipo*\n ${obtenerEmoticonTipoReporte(tipo)} ${tipo}`
+            'text': `*Tipo*\n${tipo} ${obtenerEmoticonTipoReporte(tipo)} `
           },
           {
             'type': 'mrkdwn',
-            'text': `*URL de origen*\n${window.location.href}`
+            'text': `*Cuenta*\n${cuenta}`
           },
           {
             'type': 'mrkdwn',
-            'text': `*Descripción del cliente*\n${descripcion}`
+            'text': `*URL*\n${window.location.href}`
+          },
+          {
+            'type': 'mrkdwn',
+            'text': `*Descripción*\n${descripcion}`
           }
         ]
     	}
@@ -46,6 +50,7 @@ export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {
   fieldsPostData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
   fieldsPostData.append('channel', process.env.REACT_APP_SLACK_CHANNEL_ID)
   fieldsPostData.append('text', data.text)
+  fieldsPostData.append('unfurl_links', false)
   fieldsPostData.append('blocks', JSON.stringify(data.blocks))
   const fieldsData = await axios({
     method: 'post',
