@@ -42,17 +42,17 @@ export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {
     	}
     ],
   }
-  await axios.post(
-    process.env.REACT_APP_SLACK_WEBHOOK_URL,
-    JSON.stringify(data),
-    {
-      withCredentials: false,
-      transformRequest: [(data, headers) => {
-        delete headers.post["Content-Type"]
-        return data
-      }]
-    }
-  )
+  const fieldsPostData = new FormData()
+  fieldsPostData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
+  fieldsPostData.append('channel', process.env.REACT_APP_SLACK_CHANNEL_ID)
+  fieldsPostData.append('text', data.text)
+  fieldsPostData.append('blocks', JSON.stringify(data.blocks))
+  const fieldsData = await axios({
+    method: 'post',
+    url: 'https://slack.com/api/chat.postMessage',
+    data: fieldsPostData
+  })
+  const fieldsTimestamp = fieldsData.data.message.ts
 
   const nodoContenedor = document.getElementsByClassName('Feedback__contenedor_central')[0]
   const blobFB = await toBlob(nodoContenedor, { width: nodoContenedor.scrollWidth, height: nodoContenedor.scrollHeight })
@@ -60,13 +60,13 @@ export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {
   formData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
   formData.append('channels', process.env.REACT_APP_SLACK_CHANNEL_ID)
   formData.append('file', blobFB)
-  const ssData = await axios({
+  formData.append('thread_ts', fieldsTimestamp)
+  await axios({
     method: 'post',
     url: process.env.REACT_APP_SLACK_FILE_UPLOAD_URL,
     data: formData,
     headers: { "Content-Type": "multipart/form-data" }
   })
-  const ssTimestamp = ssData.data.file.shares.private[process.env.REACT_APP_SLACK_CHANNEL_ID][0].ts
 
   const nodoContenedorMensajes = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes')[0]
   document.querySelectorAll('.CelularWhatsapp__contenedor_conversacion:not(.CelularWhatsapp__contenedor_conversacion--seleccionada)').forEach(nodo => {
@@ -82,7 +82,6 @@ export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {
     nodo.style.display = 'block'
   })
   formData.append('file', blob)
-  formData.append('thread_ts', ssTimestamp)
   await axios({
     method: 'post',
     url: process.env.REACT_APP_SLACK_FILE_UPLOAD_URL,
