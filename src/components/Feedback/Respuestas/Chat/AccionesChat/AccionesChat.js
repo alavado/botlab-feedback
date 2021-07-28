@@ -2,7 +2,7 @@ import { InlineIcon } from '@iconify/react'
 import { useEffect, useState, useRef } from 'react'
 import iconoProblema from '@iconify/icons-mdi/report-problem'
 import iconoCerrar from '@iconify/icons-mdi/close'
-import iconoGracias from '@iconify/icons-mdi/thumbs-up'
+import iconoGracias from '@iconify/icons-mdi/robot-excited'
 import iconoEnviando from '@iconify/icons-mdi/loading'
 import { useSelector } from 'react-redux'
 import { reportarASlack } from '../../../../../helpers/slack'
@@ -18,10 +18,12 @@ const AccionesChat = ({ cargando }) => {
   const [enviado, setEnviado] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const refDescripcion = useRef()
+  const refContacto = useRef()
 
   useEffect(() => {
     formularioVisible && refDescripcion.current?.focus()
-  }, [formularioVisible])
+    enviado && refContacto.current?.focus()
+  }, [formularioVisible, enviado])
 
   const enviar = e => {
     e.preventDefault()
@@ -43,11 +45,26 @@ const AccionesChat = ({ cargando }) => {
 
   if (enviado) {
     return (
-      <div className="AccionesChat">
+      <div className="AccionesChat__agradecimiento">
+        <InlineIcon className="AccionesChat__icono_gracias" icon={iconoGracias} />
         <p className="AccionesChat__gracias">
-         <InlineIcon className="AccionesChat__icono_gracias" icon={iconoGracias} />
-          Recibimos tu reporte, ¡gracias por ayudarnos a brindarte un mejor servicio!
+          <strong style={{ fontWeight: 'bold', fontSize: '1rem' }}>¡Muchas gracias, hemos recibido tu reporte!</strong><br />
+          Si lo consideras pertinente, puedes dejarnos tu contacto para que conversemos sobre este caso  
         </p>
+        <form className="AccionesChat__formulario_contacto">
+          <input
+            ref={refContacto}
+            type="text"
+            placeholder="Tu teléfono o e-mail"
+            className="AccionesChat__input_contacto"
+          />
+          <button
+            type="submit"
+            className="AccionesChat__boton_contacto"
+          >
+            Enviar
+          </button>
+        </form>
       </div>
     )
   }
