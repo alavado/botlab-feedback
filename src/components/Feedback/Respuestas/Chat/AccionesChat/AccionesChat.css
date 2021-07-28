@@ -152,7 +152,7 @@
   display: grid;
   margin-bottom: auto;
   grid-template: repeat(2, auto) / auto auto;
-  gap: .5rem .5rem;
+  gap: 0 .5rem;
   box-shadow: 0 0 .1rem var(--color-sombras);
   border: .05rem solid var(--color-bordes);
   border-radius: 1rem;

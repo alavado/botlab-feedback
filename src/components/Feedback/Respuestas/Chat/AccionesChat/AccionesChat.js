@@ -62,10 +62,10 @@ const AccionesChat = ({ cargando }) => {
       <div className="AccionesChat__agradecimiento">
         <InlineIcon className="AccionesChat__icono_gracias" icon={iconoGracias} />
         <p className="AccionesChat__gracias">
-          <strong style={{ fontWeight: 'bold', fontSize: '1rem' }}>¡Muchas gracias, hemos recibido tu reporte!</strong><br />
-          Si lo consideras pertinente, puedes dejarnos tu contacto para que conversemos sobre este caso  
+          <strong style={{ fontWeight: 'bold', fontSize: '1rem' }}>¡Hemos recibido tu reporte, gracias por ayudarnos a mejorar nuestro servicio!</strong><br />
+          {/* Si lo consideras pertinente, puedes dejarnos tu contacto para que conversemos sobre este caso   */}
         </p>
-        {contactoEnviado
+        {/* {contactoEnviado
           ? <p>¡Gracias!</p>
           : <form
               className="AccionesChat__formulario_contacto"
@@ -86,7 +86,7 @@ const AccionesChat = ({ cargando }) => {
                 Enviar
               </button>
             </form>
-        }
+        } */}
       </div>
     )
   }
