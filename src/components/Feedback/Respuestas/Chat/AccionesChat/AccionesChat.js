@@ -5,7 +5,7 @@ import iconoCerrar from '@iconify/icons-mdi/close'
 import iconoGracias from '@iconify/icons-mdi/robot-excited'
 import iconoEnviando from '@iconify/icons-mdi/loading'
 import { useSelector } from 'react-redux'
-import { reportarASlack } from '../../../../../helpers/slack'
+import { agregarMensajeAHilo, reportarASlack } from '../../../../../helpers/slack'
 import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
 
@@ -17,6 +17,9 @@ const AccionesChat = ({ cargando }) => {
   const [descripcion, setDescripcion] = useState('')
   const [enviado, setEnviado] = useState(false)
   const [enviando, setEnviando] = useState(false)
+  const [ts, setTs] = useState(0)
+  const [contacto, setContacto] = useState('')
+  const [contactoEnviado, setContactoEnviado] = useState(false)
   const refDescripcion = useRef()
   const refContacto = useRef()
 
@@ -29,14 +32,21 @@ const AccionesChat = ({ cargando }) => {
     e.preventDefault()
     setEnviando(true)
     reportarASlack(nombreUsuario, cuenta, tipo, descripcion)
-      .then(() => {
+      .then(res => {
         setEnviado(true)
         setEnviando(false)
+        setTs(res)
       })
       .catch(() => {
         setEnviado(true)
         setEnviando(false)
       })
+  }
+
+  const enviarContacto = e => {
+    e.preventDefault()
+    agregarMensajeAHilo(ts, `Usuario deja contacto: *${contacto}*`)
+    setContactoEnviado(true)
   }
 
   if (cargando) {
@@ -51,20 +61,28 @@ const AccionesChat = ({ cargando }) => {
           <strong style={{ fontWeight: 'bold', fontSize: '1rem' }}>¡Muchas gracias, hemos recibido tu reporte!</strong><br />
           Si lo consideras pertinente, puedes dejarnos tu contacto para que conversemos sobre este caso  
         </p>
-        <form className="AccionesChat__formulario_contacto">
-          <input
-            ref={refContacto}
-            type="text"
-            placeholder="Tu teléfono o e-mail"
-            className="AccionesChat__input_contacto"
-          />
-          <button
-            type="submit"
-            className="AccionesChat__boton_contacto"
-          >
-            Enviar
-          </button>
-        </form>
+        {contactoEnviado
+          ? <p>¡Gracias!</p>
+          : <form
+              className="AccionesChat__formulario_contacto"
+              onSubmit={enviarContacto}
+            >
+              <input
+                ref={refContacto}
+                type="text"
+                placeholder="Tu teléfono o e-mail"
+                className="AccionesChat__input_contacto"
+                value={contacto}
+                onChange={e => setContacto(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="AccionesChat__boton_contacto"
+              >
+                Enviar
+              </button>
+            </form>
+        }
       </div>
     )
   }

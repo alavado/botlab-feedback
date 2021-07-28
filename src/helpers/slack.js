@@ -93,4 +93,19 @@ export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {
     data: formData,
     headers: { "Content-Type": "multipart/form-data" }
   })
+  return fieldsTimestamp
+}
+
+export const agregarMensajeAHilo = async (ts, texto) => {
+  const formData = new FormData()
+  formData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
+  formData.append('channel', process.env.REACT_APP_SLACK_CHANNEL_ID)
+  formData.append('text', texto)
+  formData.append('unfurl_links', false)
+  formData.append('thread_ts', ts)
+  const fieldsData = await axios({
+    method: 'post',
+    url: 'https://slack.com/api/chat.postMessage',
+    data: formData
+  })
 }
