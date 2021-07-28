@@ -4,10 +4,11 @@ import iconoProblema from '@iconify/icons-mdi/report-problem'
 import iconoCerrar from '@iconify/icons-mdi/close'
 import iconoGracias from '@iconify/icons-mdi/robot-excited'
 import iconoEnviando from '@iconify/icons-mdi/loading'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { agregarMensajeAHilo, reportarASlack } from '../../../../../helpers/slack'
 import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
+import { guardaContacto } from '../../../../../redux/ducks/opciones'
 
 const AccionesChat = ({ cargando }) => {
   
@@ -18,10 +19,12 @@ const AccionesChat = ({ cargando }) => {
   const [enviado, setEnviado] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [ts, setTs] = useState(0)
-  const [contacto, setContacto] = useState('')
+  const { contacto: contactoGuardado } = useSelector(state => state.opciones)
+  const [contacto, setContacto] = useState(contactoGuardado || '')
   const [contactoEnviado, setContactoEnviado] = useState(false)
   const refDescripcion = useRef()
   const refContacto = useRef()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     formularioVisible && refDescripcion.current?.focus()
@@ -47,6 +50,7 @@ const AccionesChat = ({ cargando }) => {
     e.preventDefault()
     agregarMensajeAHilo(ts, `Usuario deja contacto: *${contacto}*`)
     setContactoEnviado(true)
+    dispatch(guardaContacto(contacto))
   }
 
   if (cargando) {

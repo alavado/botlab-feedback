@@ -7,7 +7,8 @@ const opcionesSlice = createSlice({
   name: 'opciones',
   esquema: ESQUEMA_CLARO,
   initialState: {
-    chatExpandido: false
+    chatExpandido: false,
+    contacto: ''
   },
   reducers: {
     guardaIdEncuesta(state, action) {
@@ -18,6 +19,9 @@ const opcionesSlice = createSlice({
     },
     cambiaEsquemaColor(state) {
       state.esquema = state.esquema === ESQUEMA_CLARO ? ESQUEMA_OSCURO : ESQUEMA_CLARO
+    },
+    guardaContacto(state, action) {
+      state.contacto = action.payload
     }
   }
 })
@@ -25,7 +29,8 @@ const opcionesSlice = createSlice({
 export const {
   guardaIdEncuesta,
   fijaChatExpandido,
-  cambiaEsquemaColor
+  cambiaEsquemaColor,
+  guardaContacto
 } = opcionesSlice.actions
 
 export default opcionesSlice.reducer
