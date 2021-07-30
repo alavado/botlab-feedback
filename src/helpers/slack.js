@@ -103,7 +103,7 @@ export const agregarMensajeAHilo = async (ts, texto) => {
   formData.append('text', texto)
   formData.append('unfurl_links', false)
   formData.append('thread_ts', ts)
-  const fieldsData = await axios({
+  await axios({
     method: 'post',
     url: 'https://slack.com/api/chat.postMessage',
     data: formData

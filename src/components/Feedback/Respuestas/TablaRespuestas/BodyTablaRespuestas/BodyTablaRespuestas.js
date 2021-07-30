@@ -24,7 +24,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
   const respuestasPagina = respuestas && respuestas.slice(respuestasPorPagina * (pagina - 1), respuestasPorPagina * pagina)
 
-  const headersOrdenados = useMemo(() => obtenerHeaders(headers, respuestas), [headers, respuestas])
+  const headersOrdenados = useMemo(() => obtenerHeaders(headers, idEncuesta), [headers, idEncuesta])
 
   if (!headersOrdenados) {
     return null
@@ -39,20 +39,23 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
               className="BodyTablaRespuestas__fila"
               onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
             >
-              {headersOrdenados.map(({ nombre }, j) => (
-                <td
-                  key={`celda-respuesta-${i}-${j}`}
-                  className={classNames({
-                    'BodyTablaRespuestas__celda': true,
-                    'BodyTablaRespuestas__celda--destacada': columnaDestacada === j
-                  })}
-                >
-                  {respuesta[nombre] && respuesta[nombre].tag !== undefined
-                    ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={respuesta[nombre].text}><TagRespuesta tag={respuesta[nombre].tag} pregunta={headersOrdenados[j].texto} /></div>
-                    : <Scrambler tipo={nombre}>{formatearCampoRespuestas(respuesta[nombre], nombre)}</Scrambler>
-                  }
-                </td>
-              ))}
+              {headersOrdenados.map(({ nombre, f, texto }, j) => {
+                let valorHeader = f ? f(respuesta) : respuesta[nombre]
+                return (
+                  <td
+                    key={`celda-respuesta-${i}-${j}`}
+                    className={classNames({
+                      'BodyTablaRespuestas__celda': true,
+                      'BodyTablaRespuestas__celda--destacada': columnaDestacada === j
+                    })}
+                  >
+                    {valorHeader && valorHeader.tag !== undefined
+                      ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={valorHeader.text}><TagRespuesta tag={valorHeader.tag} pregunta={texto} /></div>
+                      : <Scrambler tipo={nombre}>{formatearCampoRespuestas(valorHeader, nombre)}</Scrambler>
+                    }
+                  </td>
+                )
+              })}
             </tr>
           ))
         : Array(respuestasPorPagina).fill(0).map((x, i) => (

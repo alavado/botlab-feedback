@@ -10,13 +10,13 @@ import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
 
 const HeadTablaRespuestas = () => {
 
-  const { headers } = useSelector(state => state.encuestas)
+  const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
   const [modalFiltroActivo, setModalFiltroActivo] = useState(false)
   const [indiceColumnaFiltrada, setIndiceColumnaFiltrada] = useState(0)
-  const { columnaDestacada, respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
+  const { columnaDestacada } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
 
-  const headersOrdenados = useMemo(() => obtenerHeaders(headers, respuestas) || [], [headers, respuestas])
+  const headersOrdenados = useMemo(() => obtenerHeaders(headers, idEncuesta) || [], [headers, idEncuesta])
 
   const mostrarModalFiltros = indiceColumna => {
     setIndiceColumnaFiltrada(indiceColumna)

@@ -1,4 +1,5 @@
 import { format } from "date-fns"
+import { obtenerHeadersCalculados } from "./headersCalculados"
 import { extraerTextoHeader, formatearCampoRespuestas } from "./respuestas"
 
 export const exportarTablaRespuestas = (headers, respuestas, nombre, fechaInicio, fechaTermino) => {
@@ -23,14 +24,15 @@ export const exportarTablaRespuestas = (headers, respuestas, nombre, fechaInicio
   document.body.removeChild(elemento)
 }
 
-export const obtenerHeaders = (headers, respuestas) => {
+export const obtenerHeaders = (headers, idEncuesta) => {
   if (!headers) {
     return null
   }
-  return [
+  return obtenerHeadersCalculados(headers, idEncuesta) ||
+  [
     ...headers.filter(h => h.tipo === 'YESNO'),
     ...headers.filter(h => h.tipo === 'OPEN'),
     ...headers.filter(h => h.tipo === 'RANGE'),
-    ...headers.filter(h => h.tipo !== 'YESNO' && h.tipo !== 'RANGE' && h.tipo !== 'OPEN')
+    ...headers.filter(h => !['YESNO', 'RANGE', 'OPEN'].includes(h.tipo))
   ]
 }
