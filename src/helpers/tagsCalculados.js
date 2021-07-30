@@ -4,7 +4,7 @@ const actionFailure = 'action_result:FAILURE'
 const encuestas = [
   {
     idEncuesta: 213,
-    headersCalculados: [
+    tagsCalculados: [
       {
         nombre: 'hc0',
         texto: '¿Confirma?',
@@ -37,14 +37,11 @@ const encuestas = [
   }
 ]
 
-// Si hay headers calculados, solo se consideran esos tags
-export const obtenerHeadersCalculados = (headers, idEncuesta) => {
-  const encuesta = encuestas.find(e => e.idEncuesta === idEncuesta)
-  if (!encuesta) {
+export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
+  const tagsCalculados = encuestas.find(e => e.idEncuesta === idEncuesta)?.tagsCalculados
+  if (!tagsCalculados) {
     return
   }
-  return [
-    ...encuesta.headersCalculados,
-    ...headers.filter(h => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
-  ]
+  const headersSinTags = headers.filter(h => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
+  return [...tagsCalculados, ...headersSinTags]
 }
