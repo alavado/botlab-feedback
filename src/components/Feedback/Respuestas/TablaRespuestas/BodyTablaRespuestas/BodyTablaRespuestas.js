@@ -50,7 +50,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
                     })}
                   >
                     {valorHeader && valorHeader.tag !== undefined
-                      ? <div style={{ display: 'flex', justifyContent: 'flex-start' }} title={valorHeader.text}><TagRespuesta tag={valorHeader.tag} pregunta={texto} /></div>
+                      ? <div className="BodyTablaRespuestas__contenedor_tag" title={valorHeader.text}><TagRespuesta tag={valorHeader.tag} pregunta={texto} /></div>
                       : <Scrambler tipo={nombre}>{formatearCampoRespuestas(valorHeader, nombre)}</Scrambler>
                     }
                   </td>

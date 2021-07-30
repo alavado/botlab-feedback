@@ -29,10 +29,10 @@ export const obtenerHeaders = (headers, idEncuesta) => {
     return null
   }
   return obtenerHeadersCalculados(headers, idEncuesta) ||
-  [
-    ...headers.filter(h => h.tipo === 'YESNO'),
-    ...headers.filter(h => h.tipo === 'OPEN'),
-    ...headers.filter(h => h.tipo === 'RANGE'),
-    ...headers.filter(h => !['YESNO', 'RANGE', 'OPEN'].includes(h.tipo))
-  ]
+    [
+      ...headers.filter(h => h.tipo === 'YESNO'),
+      ...headers.filter(h => h.tipo === 'OPEN'),
+      ...headers.filter(h => h.tipo === 'RANGE'),
+      ...headers.filter(h => !['YESNO', 'RANGE', 'OPEN'].includes(h.tipo))
+    ]
 }
