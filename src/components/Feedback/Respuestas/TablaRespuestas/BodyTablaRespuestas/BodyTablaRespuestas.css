@@ -44,10 +44,6 @@
   background: var(--color-fila-destacada);
 }
 
-.BodyTablaRespuestas__celda--numero {
-  display: none;
-}
-
 .BodyTablaRespuestas__fila:hover .BodyTablaRespuestas__indicador_accion {
   opacity: 1;
   transform: translateX(.25rem);
