@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { diccionarioTags } from "../../helpers/tags"
+import diccionarioTags from "../../helpers/tags"
 
 const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 

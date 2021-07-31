@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { diccionarioTags } from '../../../../../../helpers/tags'
+import diccionarioTags from '../../../../../../helpers/tags'
 import classNames from 'classnames'
 import './SelectorConversacion.css'
 import { format, parseISO } from 'date-fns'

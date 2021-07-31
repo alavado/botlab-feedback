@@ -1,5 +1,5 @@
 import React from 'react'
-import { diccionarioTags } from '../../../../../helpers/tags'
+import diccionarioTags from '../../../../../helpers/tags'
 import { InlineIcon } from '@iconify/react'
 import estrella from '@iconify/icons-mdi/star'
 import './TagRespuesta.css'

@@ -4,9 +4,10 @@ const actionFailure = 'action_result:FAILURE'
 const encuestas = [
   {
     idEncuesta: 213,
+    comentario: 'Esta encuesta no existe',
     tagsCalculados: [
       {
-        nombre: 'hc0',
+        nombre: 'tc1',
         texto: '¿Confirma?',
         tipo: 'YESNO',
         f: r => {
@@ -20,7 +21,7 @@ const encuestas = [
         }
       },
       {
-        nombre: 'hc1',
+        nombre: 'tc2',
         texto: '¿Reagenda?',
         tipo: 'YESNO',
         f: r => {

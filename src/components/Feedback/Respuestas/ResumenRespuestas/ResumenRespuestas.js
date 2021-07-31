@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import Skeleton from '../../../Skeleton'
 import { useDispatch, useSelector } from 'react-redux'
-import { diccionarioTags } from '../../../../helpers/tags'
+import diccionarioTags from '../../../../helpers/tags'
 import { agregaFiltro } from '../../../../redux/ducks/respuestas'
 import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import './ResumenRespuestas.css'
