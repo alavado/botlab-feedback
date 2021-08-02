@@ -125,4 +125,19 @@
   .BarraLateral__logo, .BarraLateral__popup_link {
     display: none;
   }
+
+  .BarraLateral__link {
+    margin: 0;
+  }
+
+  .BarraLateral__link--activo::before {
+    width: 100%;
+    height: .2rem;
+    background-color: rgba(255, 255, 255, 1);
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    bottom: 0;
+    content: '';
+  }
 }

@@ -242,3 +242,9 @@
     width: 90vw;
   }
 }
+
+@media (max-width: 1360px) {
+  .CelularWhatsapp {
+    padding: 0 2rem;
+  }
+}

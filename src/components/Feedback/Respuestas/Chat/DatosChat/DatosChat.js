@@ -55,7 +55,11 @@ const DatosChat = ({ cargando, datos, telefono }) => {
   return (
     <div className="DatosChat">
       <div className="DatosChat__navegacion">
-        <button className="DatosChat__link_atras" onClick={() => history.push('/')}>
+        <button
+          className="DatosChat__link_atras"
+          onClick={() => history.push('/')}
+          title="Volver a tabla de respuestas"
+        >
           <InlineIcon className="DatosChat__icono_volver" icon={iconoVolver} />
           Respuestas
         </button>
