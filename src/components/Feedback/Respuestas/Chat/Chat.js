@@ -9,7 +9,7 @@ import './Chat.css'
 import { useSelector } from 'react-redux'
 import AccionesChat from './AccionesChat'
 
-const expiracionCache = 60_000
+const msExpiracionCache = 60_000
 
 const Chat = () => {
 
@@ -26,7 +26,7 @@ const Chat = () => {
     setConversaciones(undefined)
     setCargando(true)
     const chatCacheado = chatsCacheados[idUsuario]
-    if (chatCacheado && Date.now() - chatCacheado.t < expiracionCache) {
+    if (chatCacheado && Date.now() - chatCacheado.t < msExpiracionCache) {
       setTelefono(chatCacheado.telefono)
       setConversaciones(chatCacheado.conversaciones)
       setIndiceConversacion(chatCacheado.conversaciones.length - 1)

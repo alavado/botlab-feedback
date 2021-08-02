@@ -3,7 +3,7 @@ const actionFailure = 'action_result:FAILURE'
 
 const encuestas = [
   {
-    idEncuesta: 213,
+    idEncuesta: process.env.REACT_APP_ID_POLL_SANASALUD_CMSC,
     comentario: 'Esta encuesta no existe',
     tagsCalculados: [
       {
@@ -25,7 +25,10 @@ const encuestas = [
         texto: '¿Reagenda?',
         tipo: 'YESNO',
         f: r => {
-          if ([r[11]?.tag, r[12]?.tag, r[13]?.tag].includes(actionSuccess)) {
+          if (r[7]?.tag) {
+            return { tag: 'NO', texto: 'Usuario cancela post interacción' }
+          }
+          if ([r[3]?.tag, r[4]?.tag, r[5]?.tag].includes(actionSuccess)) {
             return { tag: 'YES', texto: 'Reagendamiento automático' }
           }
           return r[2]
