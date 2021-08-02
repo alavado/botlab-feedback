@@ -11,11 +11,11 @@ const encuestas = [
         texto: '¿Confirma?',
         tipo: 'YESNO',
         f: r => {
-          if (r[6]?.tag) {
+          if (r[7]?.tag) {
             return { tag: 'NO', texto: 'Usuario cancela post interacción' }
           }
-          if ([r[3]?.tag, r[4]?.tag, r[5]?.tag].includes(actionSuccess)) {
-            return { tag: 'YES', texto: 'Reagendamiento automático' }
+          if ([r[11]?.tag, r[12]?.tag, r[13]?.tag].includes(actionSuccess)) {
+            return { tag: 'REAGENDA', texto: 'Reagendamiento automático' }
           }
           return r[0]
         }
@@ -25,10 +25,7 @@ const encuestas = [
         texto: '¿Reagenda?',
         tipo: 'YESNO',
         f: r => {
-          if (r[6]?.tag) {
-            return { tag: 'NO', texto: 'Usuario cancela post interacción' }
-          }
-          if ([r[3]?.tag, r[4]?.tag, r[5]?.tag].includes(actionSuccess)) {
+          if ([r[11]?.tag, r[12]?.tag, r[13]?.tag].includes(actionSuccess)) {
             return { tag: 'YES', texto: 'Reagendamiento automático' }
           }
           return r[2]
