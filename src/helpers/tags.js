@@ -7,6 +7,7 @@ import time from '@iconify/icons-mdi/timer-sand'
 export const YES = 'YES'
 export const NO = 'NO'
 export const REAGENDA = 'REAGENDA'
+export const REAGENDADO = 'REAGENDADO'
 export const OUT = 'OUT'
 export const DEFAULT = 'DEFAULT'
 export const INFO_REAGENDA = 'INFO_REAGENDA'
@@ -42,6 +43,13 @@ const tags = {
     icono: question,
     clase: 'TagRespuesta TagRespuesta--out',
     color: 'var(--color-out)'
+  },
+  REAGENDADO: {
+    texto: 'Reagendado',
+    titulo: 'Reagendamientos ok',
+    icono: check,
+    clase: 'TagRespuesta TagRespuesta--reagendado',
+    color: 'var(--color-reagendado)'
   },
   'S/R': {
     texto: 'Sin respuesta',

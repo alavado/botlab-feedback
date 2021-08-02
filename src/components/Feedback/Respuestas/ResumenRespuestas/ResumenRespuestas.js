@@ -36,6 +36,8 @@ const ResumenRespuestas = ({ cargando }) => {
     porcentaje = ((100 * conRespuesta / total) || 0)
   }
 
+  const tagsAMostrar = Object.keys(diccionarioTags).slice(0, 4)
+
   return (
     <div className="ResumenRespuestas">
       <div
@@ -53,7 +55,7 @@ const ResumenRespuestas = ({ cargando }) => {
               </div>
               <table className="ResumenRespuestas__detalle_tabla">
                 <tbody>
-                  {Object.keys(diccionarioTags).slice(0, 4).map(tag => {
+                  {tagsAMostrar.map(tag => {
                     const porcentaje = ((100 * conteosTags[tag] / total) || 0)
                     return (
                       <tr
