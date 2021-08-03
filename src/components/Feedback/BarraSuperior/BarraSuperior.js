@@ -12,7 +12,7 @@ const BarraSuperior = () => {
 
   return (
     <div className="BarraSuperior">
-      {/* <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} /> */}
+      <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} />
       <AlertaPilotos />
       <Switch>
         <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
@@ -20,12 +20,12 @@ const BarraSuperior = () => {
         <Route path="/uso" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
-      {/* <button
+      <button
         onClick={() => setVerModal(true)}
         style={{ marginRight: 'auto', marginLeft: '.5rem' }}
       >
         Ver guión
-      </button> */}
+      </button>
       <MenuUsuario />
     </div>
   )
