@@ -5,10 +5,14 @@ import MenuUsuario from './MenuUsuario'
 import SelectorEncuesta from './SelectorEncuesta'
 import DiagramaGuion from './DiagramaGuion'
 import AlertaPilotos from './AlertaPilotos'
+import Icon from '@iconify/react'
+import iconoGuion from '@iconify/icons-mdi/script-text-play'
+import { useSelector } from 'react-redux'
 
 const BarraSuperior = () => {
 
   const [verModal, setVerModal] = useState(false)
+  const { respuestas } = useSelector(state => state.respuestas)
 
   return (
     <div className="BarraSuperior">
@@ -20,13 +24,15 @@ const BarraSuperior = () => {
         <Route path="/uso" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
-      <button
-        onClick={() => setVerModal(!verModal)}
-        style={{ marginRight: 'auto', marginLeft: '.5rem' }}
-        title="Ver guión de esta encuesta"
-      >
-        Ver guión
-      </button>
+      {respuestas && (
+        <button
+          onClick={() => setVerModal(!verModal)}
+          className="BarraSuperior__boton"
+          title={verModal ? 'Ocultar guión' : 'Ver guión' }
+        >
+          <Icon icon={iconoGuion} className="SelectorRangoFechas__boton_icono" />
+        </button>
+      )}
       <MenuUsuario />
     </div>
   )

@@ -4,6 +4,7 @@
   position: relative;
   opacity: 0;
   cursor: default;
+  z-index: 8;
 }
 
 .SelectorEncuesta--todas {
@@ -23,10 +24,8 @@
   width: 1.9rem;
   height: 1.9rem;
   padding: .25rem;
-  background-color: var(--color-fondo);
   border-radius: 100%;
-  box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .15);
-  margin-right: .5rem;
+  margin-right: .25rem;
   color: var(--color-texto);
 }
 

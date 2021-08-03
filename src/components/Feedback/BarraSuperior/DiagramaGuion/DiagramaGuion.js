@@ -56,7 +56,7 @@ const DiagramaGuion = ({ visible, esconder }) => {
         <button
           className="DiagramaGuion__boton_cerrar_modal"
           onClick={esconder}
-          title="Cerrar guión"
+          title="Ocultar guión"
         >
           <InlineIcon icon={iconoCerrar} />
         </button>

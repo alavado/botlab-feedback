@@ -11,7 +11,7 @@
 .DiagramaGuion__modal {
   z-index: 6;
   position: fixed;
-  top: 4rem;
+  top: 3.5rem;
   left: 4rem;
   right: 1rem;
   bottom: 1rem;
@@ -20,13 +20,15 @@
   opacity: 0;
   backdrop-filter: blur(0rem);
   transition: all .25s ease-in-out;
-  transform: translateY(-.5rem);
-  box-shadow: 0 .15rem .5rem rgba(0, 0, 0, .15);
+  transform: scale(.97);
+  box-shadow:
+    0 .15rem .5rem -.15rem rgba(0, 0, 0, .15),
+    0 .15rem .5rem 0rem rgba(0, 0, 0, .05);
 }
 
 .DiagramaGuion__modal--visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(1);
   backdrop-filter: blur(1rem);
 }
 
