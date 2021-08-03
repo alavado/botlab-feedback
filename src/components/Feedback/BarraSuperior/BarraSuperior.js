@@ -21,8 +21,9 @@ const BarraSuperior = () => {
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
       <button
-        onClick={() => setVerModal(true)}
+        onClick={() => setVerModal(!verModal)}
         style={{ marginRight: 'auto', marginLeft: '.5rem' }}
+        title="Ver guión de esta encuesta"
       >
         Ver guión
       </button>

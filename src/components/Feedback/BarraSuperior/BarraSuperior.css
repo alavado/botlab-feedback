@@ -10,16 +10,3 @@
   position: sticky;
   top: 0;
 }
-
-.BarraSuperior__modal {
-  width: calc(100vw - 2rem);
-  height: 100vh;
-  top: 0;
-  left: 0;
-  z-index: 5;
-  position: absolute;
-  border: 2rem solid rgba(0, 0, 0, .5);
-  background-color: rgba(0, 0, 0, .5);
-  flex-direction: column;
-  color: white;
-}

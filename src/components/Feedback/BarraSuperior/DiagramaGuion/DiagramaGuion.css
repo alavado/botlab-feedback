@@ -1,0 +1,41 @@
+.DiagramaGuion {
+  position: absolute;
+  top: 0;
+  left: -4rem;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  z-index: 5;
+}
+
+.DiagramaGuion__modal {
+  z-index: 6;
+  position: fixed;
+  top: 4rem;
+  left: 4rem;
+  right: 1rem;
+  bottom: 1rem;
+  flex-direction: column;
+  background-color: var(--color-vidrio);
+  opacity: 0;
+  backdrop-filter: blur(0rem);
+  transition: all .25s ease-in-out;
+  transform: translateY(-.5rem);
+  box-shadow: 0 .15rem .5rem rgba(0, 0, 0, .15);
+}
+
+.DiagramaGuion__modal--visible {
+  opacity: 1;
+  transform: translateY(0);
+  backdrop-filter: blur(1rem);
+}
+
+.DiagramaGuion__boton_cerrar_modal {
+  font-size: 1rem;
+  position: absolute;
+  right: .25rem;
+  top: .25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}

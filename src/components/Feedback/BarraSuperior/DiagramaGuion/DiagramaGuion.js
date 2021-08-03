@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import './DiagramaGuion.css'
 import { useSelector } from 'react-redux'
 import { parsearXMLDeGuion } from '../../../../helpers/guionXML'
+import classNames from 'classnames'
+import { InlineIcon } from '@iconify/react'
+import iconoCerrar from '@iconify/icons-mdi/close'
 
 const DiagramaGuion = ({ visible, esconder }) => {
 
@@ -38,13 +41,26 @@ const DiagramaGuion = ({ visible, esconder }) => {
   }, [])
 
   return (
-    <div className="DiagramaGuion">
+    <div
+      className="DiagramaGuion"
+      onClick={esconder}
+      style={{ pointerEvents: visible ? 'all': 'none' }}
+    >
       <div
-        className="BarraSuperior__modal"
-        style={{ display: visible ? 'flex': 'none' }}
-        onClick={esconder}
+        className={classNames({
+          'DiagramaGuion__modal': true,
+          'DiagramaGuion__modal--visible': visible
+        })}
+        onClick={e => e.stopPropagation()}
       >
-      {error}
+        <button
+          className="DiagramaGuion__boton_cerrar_modal"
+          onClick={esconder}
+          title="Cerrar guión"
+        >
+          <InlineIcon icon={iconoCerrar} />
+        </button>
+        {error}
         {nodos.map((nodo, i) => (
           <div key={`nodo-diagrama-guion-${i}`}>
             {nodo.texto}
