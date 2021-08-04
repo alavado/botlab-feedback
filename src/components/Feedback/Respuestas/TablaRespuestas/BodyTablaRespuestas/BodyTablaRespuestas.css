@@ -17,10 +17,6 @@
   filter: brightness(90%);
 }
 
-.BodyTablaRespuestas__fila:nth-child(odd) {
-  background-color: var(--color-alternativo-fila-tabla);
-}
-
 .BodyTablaRespuestas__fila:hover {
   background-color: var(--color-fila-destacada);
 }

@@ -64,6 +64,7 @@
   justify-content: flex-end;
   cursor: pointer;
   transition: all .15s ease-in-out;
+  padding: .1rem 0rem;
 }
 
 .ResumenRespuestas__tag:hover {
@@ -76,10 +77,6 @@
   border-bottom: 1px solid rgba(255, 255, 255, .25);
 }
 
-.ResumenRespuestas__detalle_tabla td {
-  padding: .1rem 0rem;
-}
-
 .ResumenRespuestas__porcentaje {
   font-size: 2.25rem;
   overflow: visible;
@@ -87,6 +84,7 @@
 
 .ResumenRespuestas__celda_barra {
   width: 7.5rem;
+  vertical-align: middle;
   background-image:
     linear-gradient(to right,
       var(--color-barras-mini-dashboard) 0% var(--porcentaje-lleno),
