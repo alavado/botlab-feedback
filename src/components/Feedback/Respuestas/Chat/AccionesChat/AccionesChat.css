@@ -18,7 +18,7 @@
   align-items: center;
   gap: .35rem;
   transition: all .25s ease-in-out;
-  animation: aparece-boton-alerta-slack .25s ease-in-out 3s both;
+  animation: aparece-boton-alerta-slack .25s ease-in-out 0s both;
 }
 
 .AccionesChat__boton:hover {

@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import AccionesChat from './AccionesChat'
 
 const msExpiracionCache = 60_000
+const msHabilitacionReporteSlack = 3_000
 
 const Chat = () => {
 
@@ -19,6 +20,7 @@ const Chat = () => {
   const [chatsCacheados, setChatCacheados] = useState({})
   const [cargando, setCargando] = useState(false)
   const [error403, setError403] = useState(false)
+  const [accionesHabilitadas, setAccionesHabilitadas] = useState()
   const { idEncuesta, idUsuario } = useParams()
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
 
@@ -74,6 +76,12 @@ const Chat = () => {
     actualizarMensajes()
   }, [actualizarMensajes])
 
+  useEffect(() => {
+    setAccionesHabilitadas(false)
+    const to = setTimeout(() => setAccionesHabilitadas(true), msHabilitacionReporteSlack)
+    return () => clearTimeout(to)
+  }, [indiceRespuestaSeleccionada])
+
   if (error403) {
     return <Error403 mensaje="No puedes ver este chat." />
   }
@@ -94,7 +102,7 @@ const Chat = () => {
       <RespuestasChat
         tags={conversaciones && conversaciones[indiceConversacion]?.tags}
       />
-      <AccionesChat cargando={cargando} />
+      {accionesHabilitadas && <AccionesChat />}
     </div>
   )
 }

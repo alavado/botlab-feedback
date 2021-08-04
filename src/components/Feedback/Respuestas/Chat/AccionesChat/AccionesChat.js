@@ -10,7 +10,7 @@ import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
 import { guardaContacto } from '../../../../../redux/ducks/opciones'
 
-const AccionesChat = ({ cargando }) => {
+const AccionesChat = () => {
   
   const { nombreUsuario, cuenta } = useSelector(state => state.login)
   const [formularioVisible, setFormularioVisible] = useState(false)
@@ -51,10 +51,6 @@ const AccionesChat = ({ cargando }) => {
     agregarMensajeAHilo(ts, `Usuario deja contacto: *${contacto}*`)
     setContactoEnviado(true)
     dispatch(guardaContacto(contacto))
-  }
-
-  if (cargando) {
-    return null
   }
 
   if (enviado) {
