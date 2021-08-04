@@ -3,34 +3,70 @@ import { YES, NO, REAGENDA, REAGENDADO } from './tags'
 const actionSuccess = 'action_result:SUCCESS'
 const actionFailure = 'action_result:FAILURE'
 
-const encuestas = [
-  {
-    idEncuesta: Number(process.env.REACT_APP_ID_POLL_SANASALUD_CMSC),
-    comentario: 'Encuesta piloto de reagendamiento automático con Sanasalud',
-    tagsCalculados: [
-      {
-        nombre: 'tc1',
-        texto: 'Respuesta',
-        tipo: 'YESNO',
-        f: r => {
-          if (r[7]?.tag) {
-            return { tag: NO, texto: 'Usuario cancela post interacción' }
+const obtenerTagsCalculados = idEncuesta => {
+  switch (idEncuesta) {
+    case Number(process.env.REACT_APP_ID_POLL_SANASALUD_CMSC):
+      return [
+        {
+          nombre: 'tc1',
+          texto: 'Respuesta',
+          tipo: 'YESNO',
+          f: r => {
+            if (r[7]?.tag) {
+              return { tag: NO, texto: 'Usuario cancela post interacción' }
+            }
+            if ([r[11]?.tag, r[12]?.tag, r[13]?.tag].includes(actionSuccess)) {
+              return { tag: REAGENDA, texto: 'Reagendamiento exitoso' }
+            }
+            if (r[2]?.tag === REAGENDA || r[2]?.tag === YES) {
+              return { tag: REAGENDA, texto: 'Reagendamiento en curso' }
+            }
+            return r[0]//{ tag: REAGENDADO, texto: 'Reagendamiento exitoso' }
           }
-          if ([r[11]?.tag, r[12]?.tag, r[13]?.tag].includes(actionSuccess)) {
-            return { tag: REAGENDA, texto: 'Reagendamiento exitoso' }
-          }
-          if (r[2]?.tag === REAGENDA || r[2]?.tag === YES) {
-            return { tag: REAGENDA, texto: 'Reagendamiento en curso' }
-          }
-          return r[0]//{ tag: REAGENDADO, texto: 'Reagendamiento exitoso' }
         }
-      }
-    ]
+      ]
+    case Number(process.env.REACT_APP_ID_POLL_REDSALUD_BLOQUEO_EGT2H):
+    case Number(process.env.REACT_APP_ID_POLL_REDSALUD_BLOQUEO_ELEQ2H):
+    case Number(process.env.REACT_APP_ID_POLL_REDSALUD_BLOQUEO_NE):
+      return [
+        {
+          nombre: 'tc1',
+          texto: '¿Agenda primera opción?',
+          tipo: 'YESNO',
+          f: r => r[2]
+        },
+        {
+          nombre: 'tc2',
+          texto: 'Fecha preferente',
+          tipo: 'OPEN',
+          f: r => r[3]
+        },
+        {
+          nombre: 'tc3',
+          texto: 'Opción elegida',
+          tipo: 'OPEN',
+          f: r => r[5]
+        },
+        {
+          nombre: 'tc4',
+          texto: '¿Quiere ser llamado?',
+          tipo: 'YESNO',
+          f: r => r[21].tag ? r[21] : (r[60] || r[21])
+        },
+        {
+          nombre: 'tc5',
+          texto: 'Encuesta de satisfacción',
+          tipo: 'RANGE',
+          f: r => r[-41].tag ? r[-41] : (r[-51] || r[-41])
+        }
+      ]
+    default:
+      return
   }
-]
+}
 
 export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
-  const tagsCalculados = encuestas.find(e => e.idEncuesta === idEncuesta)?.tagsCalculados
+  const tagsCalculados = obtenerTagsCalculados(idEncuesta)
   if (!tagsCalculados) {
     return
   }

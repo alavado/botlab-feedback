@@ -24,7 +24,7 @@ const BarraSuperior = () => {
         <Route path="/uso" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
-      {respuestas && (
+      {respuestas && false && (
         <button
           onClick={() => setVerModal(!verModal)}
           className="BarraSuperior__boton"
