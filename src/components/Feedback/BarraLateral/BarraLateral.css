@@ -4,7 +4,7 @@
   z-index: 3;
   position: sticky;
   height: 100vh;
-  width: 3em;
+  width: 3rem;
   top: 0;
 }
 
@@ -122,7 +122,9 @@
     align-items: center;
     justify-content: space-evenly;
   }
-  .BarraLateral__logo, .BarraLateral__popup_link {
+  
+  .BarraLateral__logo,
+  .BarraLateral__popup_link {
     display: none;
   }
 

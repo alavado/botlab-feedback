@@ -85,3 +85,9 @@
 .BarraSuperior__boton:disabled:hover::before {
   display: none;
 }
+
+@media(orientation: portrait) {
+  .BarraSuperior__boton {
+    display: none;
+  }
+}

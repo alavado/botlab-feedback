@@ -31,6 +31,7 @@ const DiagramaGuion = ({ visible, esconder }) => {
       const texto = (e.clipboardData || window.clipboardData).getData('text')
       try {
         const guion = parsearXMLDeGuion(texto)
+        console.log(guion)
         setError()
       }
       catch (e) {

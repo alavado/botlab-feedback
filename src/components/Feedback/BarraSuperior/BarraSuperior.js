@@ -6,7 +6,7 @@ import SelectorEncuesta from './SelectorEncuesta'
 import DiagramaGuion from './DiagramaGuion'
 import AlertaPilotos from './AlertaPilotos'
 import Icon from '@iconify/react'
-import iconoGuion from '@iconify/icons-mdi/script-text-play'
+import iconoGuion from '@iconify/icons-mdi/script-text'
 import { useSelector } from 'react-redux'
 
 const BarraSuperior = () => {
