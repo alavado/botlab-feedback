@@ -117,14 +117,29 @@ const sliceRespuestas = createSlice({
         : []
     },
     agregaFiltro(state, action) {
-      const [busqueda, nombreHeader, textoHeader] = action.payload
+      const [busqueda, nombreHeader, textoHeader, idEncuesta] = action.payload
       const terminoNormalizado = normalizar(busqueda)
+      const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
       const filtro = {
         headers: [nombreHeader],
         nombresHeaders: [textoHeader],
         busqueda: [busqueda],
         descripcion: `"${busqueda}" en ${textoHeader}`,
-        f: r => r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
+        f: r => {
+          if (tagCalculado) {
+            const tagEnDiccionario = diccionarioTags[tagCalculado.f(r).tag]
+            if (tagEnDiccionario) {
+              return normalizar(tagEnDiccionario.texto).indexOf(terminoNormalizado) >= 0
+            }
+            else if (!isNaN(tagCalculado.f(r).tag)) {
+              return normalizar(tagCalculado.f(r).tag).indexOf(terminoNormalizado) >= 0
+            }
+            else {
+              return normalizar(tagCalculado.f(r).text).indexOf(terminoNormalizado) >= 0
+            }
+          }
+          return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
+        }
       }
       const indiceFiltro = state.filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === nombreHeader)
       if (indiceFiltro >= 0) {

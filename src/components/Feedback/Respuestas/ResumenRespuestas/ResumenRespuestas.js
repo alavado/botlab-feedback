@@ -9,7 +9,7 @@ import LoaderRespuestas from '../TablaRespuestas/LoaderRespuestas/LoaderRespuest
 
 const ResumenRespuestas = ({ cargando }) => {
 
-  const { headers } = useSelector(state => state.encuestas)
+  const { headers, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
   const primerTag = headers?.find(h => h.tipo === 'YESNO')
@@ -65,7 +65,7 @@ const ResumenRespuestas = ({ cargando }) => {
                         <td>
                           <div
                             className="ResumenRespuestas__tag"
-                            onClick={() => dispatch(agregaFiltro([diccionarioTags[tag].texto, primerTag.nombre, primerTag.texto]))}
+                            onClick={() => dispatch(agregaFiltro([diccionarioTags[tag].texto, primerTag.nombre, primerTag.texto, idEncuestaSeleccionada]))}
                           >
                             <TagRespuesta tag={tag} />
                           </div>

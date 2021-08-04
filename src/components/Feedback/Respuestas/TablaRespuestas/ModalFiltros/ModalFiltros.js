@@ -84,7 +84,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
             <input
               className="ModalFiltros__input_filtro"
               ref={filtroRef}
-              onChange={e => dispatch(agregaFiltro([e.target.value, header.nombre, header.texto]))}
+              onChange={e => dispatch(agregaFiltro([e.target.value, header.nombre, header.texto, idEncuestaSeleccionada]))}
               placeholder="Escribe para filtrar"
               onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === 'Escape') {
@@ -95,7 +95,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
           </button>
           <button
             className="ModalFiltros__boton_limpiar_filtro"
-            onClick={() => dispatch(agregaFiltro(['', header.nombre, header.texto]))}
+            onClick={() => dispatch(agregaFiltro(['', header.nombre, header.texto, idEncuestaSeleccionada]))}
             title="Limpiar filtro"
           >
             <InlineIcon icon={iconoLimpiarFiltro} />
