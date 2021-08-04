@@ -19,6 +19,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   const [ancho, setAncho] = useState(0)
   const { filtros, ordenHeader, orden } = useSelector(state => state.respuestas)
   const { esquema } = useSelector(state => state.opciones)
+  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const filtroRef = useRef()
   const dispatch = useDispatch()
   const filtro = filtros.find(f => f.headers.length === 1 && f.headers[0] === header.nombre)
@@ -63,7 +64,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
           <p className="ModalFiltros__titulo">Herramientas para columna</p>
           <button
             className="ModalFiltros__boton"
-            onClick={() => dispatch(ordenaRespuestas(header.nombre))}
+            onClick={() => dispatch(ordenaRespuestas({ header: header.nombre, idEncuesta: idEncuestaSeleccionada } ))}
           >
             <InlineIcon icon={
               header.nombre === ordenHeader

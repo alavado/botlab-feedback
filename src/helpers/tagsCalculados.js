@@ -3,7 +3,7 @@ import { YES, NO, REAGENDA, REAGENDADO } from './tags'
 const actionSuccess = 'action_result:SUCCESS'
 const actionFailure = 'action_result:FAILURE'
 
-const obtenerTagsCalculados = idEncuesta => {
+export const obtenerTagsCalculados = idEncuesta => {
   switch (idEncuesta) {
     case Number(process.env.REACT_APP_ID_POLL_SANASALUD_CMSC):
       return [

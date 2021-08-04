@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import diccionarioTags from "../../helpers/tags"
+import { obtenerTagsCalculados } from "../../helpers/tagsCalculados"
 
 const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
@@ -185,18 +186,32 @@ const sliceRespuestas = createSlice({
       }
     },
     ordenaRespuestas(state, action) {
-      const header = action.payload
-      if (state.orden === 'ASC') {
-        state.orden = 'DESC'
-        state.ordenHeader = action.payload
-        state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
-        state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+      const { header, idEncuesta } = action.payload
+      state.ordenHeader = header
+      const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === header)
+      if (tagCalculado) {
+        if (state.orden === 'ASC') {
+          state.orden = 'DESC'
+          state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)
+          state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)
+        }
+        else {
+          state.orden = 'ASC'
+          state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2)) ? -1 : 1)
+          state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2)) ? -1 : 1)
+        }
       }
       else {
-        state.orden = 'ASC'
-        state.ordenHeader = action.payload
-        state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
-        state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
+        if (state.orden === 'ASC') {
+          state.orden = 'DESC'
+          state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+          state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+        }
+        else {
+          state.orden = 'ASC'
+          state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
+          state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
+        }
       }
     },
     avanzaPagina(state) {
