@@ -61,6 +61,7 @@ export const obtenerTagsCalculados = idEncuesta => {
         }
       ]
     case Number(process.env.REACT_APP_ID_POLL_AQUAMED):
+    case Number(process.env.REACT_APP_ID_POLL_ALTOSDELVALLE):
       return [
         {
           nombre: 'tc1',
