@@ -6,13 +6,14 @@ import { agregaFiltro } from '../../../../redux/ducks/respuestas'
 import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import './ResumenRespuestas.css'
 import LoaderRespuestas from '../TablaRespuestas/LoaderRespuestas/LoaderRespuestas'
+import { obtenerHeaders } from '../../../../helpers/tablaRespuestas'
 
 const ResumenRespuestas = ({ cargando }) => {
 
   const { headers, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
-  const primerTag = headers?.find(h => h.tipo === 'YESNO')
+  const primerTag = obtenerHeaders(headers, idEncuestaSeleccionada)?.find(h => h.tipo === 'YESNO')
 
   const conteosTags = useMemo(() => {
     if (cargando) {

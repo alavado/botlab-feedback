@@ -60,6 +60,23 @@ export const obtenerTagsCalculados = idEncuesta => {
           f: r => r[-41].tag ? r[-41] : (r[-51] || r[-41])
         }
       ]
+    case Number(process.env.REACT_APP_ID_POLL_AQUAMED):
+      return [
+        {
+          nombre: 'tc1',
+          texto: 'Respuesta',
+          tipo: 'YESNO',
+          f: r => {
+            if (r[1].tag === REAGENDA || r[1].tag === YES) {
+              return { tag: REAGENDA, text: `${r[0].text} / ${r[1].text}` }
+            }
+            if (r[1].tag) {
+              return r[1]
+            }
+            return r[0]
+          }
+        }
+      ]
     default:
       return
   }
