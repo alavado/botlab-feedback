@@ -118,7 +118,7 @@ const sliceRespuestas = createSlice({
         : []
     },
     agregaFiltro(state, action) {
-      const [busqueda, nombreHeader, textoHeader, idEncuesta, filtroImplicito] = action.payload
+      const [busqueda, nombreHeader, textoHeader, idEncuesta, filtroImplicito, titulo] = action.payload
       const terminoNormalizado = normalizar(busqueda)
       const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
       const filtro = {
@@ -156,7 +156,7 @@ const sliceRespuestas = createSlice({
         state.filtros.push(filtro)
       }
       if (filtroImplicito) {
-        state.nombreEncuestaFiltrada = busqueda
+        state.nombreEncuestaFiltrada = titulo
       }
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1

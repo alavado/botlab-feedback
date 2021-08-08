@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Icon } from '@iconify/react'
 import chevronDown from '@iconify/icons-mdi/chevron-down'
+import home from '@iconify/icons-mdi/home-outline'
 import whatsapp from '@iconify/icons-mdi/whatsapp'
 import { useDispatch, useSelector } from 'react-redux'
 import { headersRespuestas as headersAPI } from '../../../../api/endpoints'
@@ -18,10 +19,9 @@ const SelectorEncuesta = () => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { idEncuestaGuardada } = useSelector(state => state.opciones)
-  const { indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
   const [cargandoEncuesta, setCargandoEncuesta] = useState(false)
   const [popupActivo, setPopupActivo] = useState(false)
-  const { nombreEncuestaFiltrada } = useSelector(state => state.respuestas)
+  const { indiceRespuestaSeleccionada, nombreEncuestaFiltrada } = useSelector(state => state.respuestas)
   const { idEncuesta: idEncuestaRuta } = useParams()
   const { path } = useRouteMatch()
   const dispatch = useDispatch()
@@ -30,8 +30,8 @@ const SelectorEncuesta = () => {
     setCargandoEncuesta(true)
     if (`${id}`.startsWith('filtro')) {
       setCargandoEncuesta(false)
-      const [_, header, texto, idEncuesta] = id.split('|')
-      dispatch(agregaFiltro([texto, header, header, Number(idEncuesta), true]))
+      const [_, header, texto, idEncuesta, titulo] = id.split('|')
+      dispatch(agregaFiltro([texto, header, header, Number(idEncuesta), true, titulo]))
       return
     }
     if (id === idEncuestaSeleccionada) {
@@ -105,7 +105,7 @@ const SelectorEncuesta = () => {
         : <>
             <Icon
               className="SelectorEncuesta__icono_empresa"
-              icon={whatsapp}
+              icon={nombreEncuestaFiltrada ? home : whatsapp}
               style={{ color: encuestaSeleccionada.enabled ? '#48BB78' : '#9f9eae' }}
             />
             <div className="SelectorEncuesta__nombre_encuesta">

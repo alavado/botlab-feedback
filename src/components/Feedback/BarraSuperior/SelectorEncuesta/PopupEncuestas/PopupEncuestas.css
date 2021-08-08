@@ -65,6 +65,10 @@
   border-bottom-right-radius: .25rem;
 }
 
+.PopupEncuestas__opcion--indentada {
+  padding-left: 1.5rem;
+}
+
 .PopupEncuestas__icono_empresa {
   width: 1.9rem;
   height: 1.9rem;

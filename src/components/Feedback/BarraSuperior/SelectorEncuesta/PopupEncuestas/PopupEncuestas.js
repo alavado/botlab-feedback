@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { useSelector } from 'react-redux'
 import { Icon } from '@iconify/react'
 import whatsapp from '@iconify/icons-mdi/whatsapp'
+import iconoSucursal from '@iconify/icons-mdi/home-outline'
 import classNames from 'classnames'
 import './PopupEncuestas.css'
 import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
@@ -13,20 +14,22 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
   const { respuestas } = useSelector(state => state.respuestas)
 
   const tiposOrdenados = useMemo(() => {
-    const indiceEncuestaSeleccionada = tipos.findIndex(({ id }) => id === idEncuestaSeleccionada)
+    const encuestaSeleccionada = tipos.find(({ id }) => id === idEncuestaSeleccionada)
+    const encuestasFicticias = respuestas && idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA)
+      ? [...new Set(respuestas.map(r => r.sucursal_name))].map(s => {
+        const nombreEncuesta = `${encuestaSeleccionada.nombre} - ${s}`
+        return {
+          id: `filtro|sucursal_name|${s}|${idEncuestaSeleccionada}|${nombreEncuesta}`,
+          nombre: nombreEncuesta,
+          enabled: encuestaSeleccionada.enabled,
+          icono: iconoSucursal
+        }})
+      : []
     const tiposEncuestas = [
-      tipos[indiceEncuestaSeleccionada],
+      encuestaSeleccionada,
+      ...(encuestasFicticias.length > 1 ? encuestasFicticias : []),
       ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada)
     ]
-    if (respuestas && idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA)) {
-      [...new Set(respuestas.map(r => r.sucursal_name))].forEach(s => {
-        tiposEncuestas.push({
-          id: `filtro|sucursal_name|${s}|${idEncuestaSeleccionada}`,
-          nombre: s,
-          enabled: true
-        })
-      })
-    }
     return tiposEncuestas
   }, [tipos, idEncuestaSeleccionada, respuestas])
 
@@ -51,7 +54,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
           opacity: activo ? 1 : 0
         }}
       >
-        {tiposOrdenados.map(({ id, nombre, enabled }) => (
+        {tiposOrdenados.map(({ id, nombre, enabled, icono }) => (
           <div
             key={`boton-${id}`}
             onClick={e => {
@@ -59,11 +62,14 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
               esconder()
               e.stopPropagation()
             }}
-            className="PopupEncuestas__opcion"
+            className={classNames({
+              "PopupEncuestas__opcion": true,
+              "PopupEncuestas__opcion--indentada": icono
+            })}
           >
             <Icon
               className="PopupEncuestas__icono_empresa"
-              icon={whatsapp}
+              icon={icono || whatsapp}
               style={{ color: enabled ? '#48BB78' : '#9f9eae' }}
             />
             <div className="PopupEncuestas__nombre_encuesta">
