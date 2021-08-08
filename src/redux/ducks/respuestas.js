@@ -17,7 +17,8 @@ const sliceRespuestas = createSlice({
     columnaDestacada: undefined,
     columnaDestacadaFija: false,
     tablaDestacada: false,
-    categorias: []
+    categorias: [],
+    nombreEncuestaFiltrada: undefined
   },
   reducers: {
     limpiaRespuestas(state) {
@@ -117,7 +118,7 @@ const sliceRespuestas = createSlice({
         : []
     },
     agregaFiltro(state, action) {
-      const [busqueda, nombreHeader, textoHeader, idEncuesta, oculto] = action.payload
+      const [busqueda, nombreHeader, textoHeader, idEncuesta, filtroImplicito] = action.payload
       const terminoNormalizado = normalizar(busqueda)
       const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
       const filtro = {
@@ -125,7 +126,7 @@ const sliceRespuestas = createSlice({
         nombresHeaders: [textoHeader],
         busqueda: [busqueda],
         descripcion: `"${busqueda}" en ${textoHeader}`,
-        oculto,
+        oculto: filtroImplicito,
         f: r => {
           if (tagCalculado) {
             const tagEnDiccionario = diccionarioTags[tagCalculado.f(r).tag]
@@ -147,12 +148,15 @@ const sliceRespuestas = createSlice({
         if (terminoNormalizado.length > 0 && state.filtros[indiceFiltro].busqueda[0] !== busqueda) {
           state.filtros[indiceFiltro] = filtro
         }
-        else {
+        else if (!filtroImplicito) {
           state.filtros.splice(indiceFiltro, 1)
         }
       }
       else if (busqueda !== '') {
         state.filtros.push(filtro)
+      }
+      if (filtroImplicito) {
+        state.nombreEncuestaFiltrada = busqueda
       }
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1
@@ -193,6 +197,7 @@ const sliceRespuestas = createSlice({
     limpiaFiltros(state) {
       state.filtros.length = 0
       state.respuestasVisibles = state.respuestas
+      state.nombreEncuestaFiltrada = undefined
     },
     guardaEstaRespuesta(state, action) {
       if (Array.isArray(action.payload)) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
-import { guardaRespuestas, limpiaRespuestas } from '../../redux/ducks/respuestas'
+import { guardaRespuestas, limpiaFiltros, limpiaRespuestas } from '../../redux/ducks/respuestas'
 import { alertas as alertasAPI, respuestas as respuestasAPI } from '../../api/endpoints'
 import { headers as headersAPI } from '../../api/endpoints'
 import Respuestas from './Respuestas'
@@ -32,6 +32,7 @@ const Feedback = () => {
   useEffect(() => {
     if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino && cacheInvalido) {
       const fetchData = async () => {
+        dispatch(limpiaFiltros())
         dispatch(limpiaRespuestas())
         try {
           const headers = await headersAPI(token)

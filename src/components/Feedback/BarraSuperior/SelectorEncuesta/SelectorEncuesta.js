@@ -21,6 +21,7 @@ const SelectorEncuesta = () => {
   const { indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
   const [cargandoEncuesta, setCargandoEncuesta] = useState(false)
   const [popupActivo, setPopupActivo] = useState(false)
+  const { nombreEncuestaFiltrada } = useSelector(state => state.respuestas)
   const { idEncuesta: idEncuestaRuta } = useParams()
   const { path } = useRouteMatch()
   const dispatch = useDispatch()
@@ -42,6 +43,7 @@ const SelectorEncuesta = () => {
     try {
       dispatch(limpiaRespuestas())
       dispatch(guardaIdEncuesta(id))
+      dispatch(limpiaFiltros())
       const data = await headersAPI(id)
       dispatch(guardaHeadersEncuesta({ id, data }))
       dispatch(actualizaRespuestas())
@@ -107,7 +109,7 @@ const SelectorEncuesta = () => {
               style={{ color: encuestaSeleccionada.enabled ? '#48BB78' : '#9f9eae' }}
             />
             <div className="SelectorEncuesta__nombre_encuesta">
-              <Scrambler tipo="multi">{encuestaSeleccionada.nombre}</Scrambler>
+              <Scrambler tipo="multi">{nombreEncuestaFiltrada || encuestaSeleccionada.nombre}</Scrambler>
             </div>
             {path.indexOf('chat') < 0 && <Icon className="SelectorEncuesta__icono_menu" icon={chevronDown} />}
             <PopupEncuestas
