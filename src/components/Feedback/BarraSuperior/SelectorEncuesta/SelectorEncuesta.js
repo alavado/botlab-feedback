@@ -8,7 +8,7 @@ import { guardaHeadersEncuesta } from '../../../../redux/ducks/encuestas'
 import PopupEncuestas from './PopupEncuestas'
 import Loader from '../../../Loader'
 import './SelectorEncuesta.css'
-import { actualizaRespuestas, limpiaRespuestas } from '../../../../redux/ducks/respuestas'
+import { actualizaRespuestas, agregaFiltro, limpiaFiltros, limpiaRespuestas } from '../../../../redux/ducks/respuestas'
 import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
 import { useParams, useRouteMatch } from 'react-router-dom'
 import classNames from 'classnames'
@@ -27,8 +27,16 @@ const SelectorEncuesta = () => {
 
   const verEncuesta = useCallback(async id => {
     setCargandoEncuesta(true)
+    if (`${id}`.startsWith('filtro')) {
+      setCargandoEncuesta(false)
+      const [_, header, texto, idEncuesta] = id.split('|')
+      dispatch(agregaFiltro([texto, header, header, Number(idEncuesta), true]))
+      return
+    }
     if (id === idEncuestaSeleccionada) {
       setCargandoEncuesta(false)
+      dispatch(limpiaFiltros())
+      console.log('limpia')
       return
     }
     try {

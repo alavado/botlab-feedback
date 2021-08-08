@@ -117,7 +117,7 @@ const sliceRespuestas = createSlice({
         : []
     },
     agregaFiltro(state, action) {
-      const [busqueda, nombreHeader, textoHeader, idEncuesta] = action.payload
+      const [busqueda, nombreHeader, textoHeader, idEncuesta, oculto] = action.payload
       const terminoNormalizado = normalizar(busqueda)
       const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
       const filtro = {
@@ -125,6 +125,7 @@ const sliceRespuestas = createSlice({
         nombresHeaders: [textoHeader],
         busqueda: [busqueda],
         descripcion: `"${busqueda}" en ${textoHeader}`,
+        oculto,
         f: r => {
           if (tagCalculado) {
             const tagEnDiccionario = diccionarioTags[tagCalculado.f(r).tag]
@@ -188,6 +189,10 @@ const sliceRespuestas = createSlice({
       }
       state.filtros.splice(indiceFiltro, 1)
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+    },
+    limpiaFiltros(state) {
+      state.filtros.length = 0
+      state.respuestasVisibles = state.respuestas
     },
     guardaEstaRespuesta(state, action) {
       if (Array.isArray(action.payload)) {
@@ -278,7 +283,8 @@ export const {
   destacaColumna,
   yaNoDestaquesColumna,
   fijaTablaDestacada,
-  fijaColumna
+  fijaColumna,
+  limpiaFiltros
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer

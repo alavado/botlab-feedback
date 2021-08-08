@@ -98,6 +98,10 @@
   padding-left: .15rem;
 }
 
+.Filtros__tag_filtro--oculto {
+  display: none;
+}
+
 @media(orientation: portrait) {
   .Filtros {
     display: none;

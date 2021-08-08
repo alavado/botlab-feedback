@@ -10,14 +10,25 @@ import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { respuestas } = useSelector(state => state.respuestas)
 
   const tiposOrdenados = useMemo(() => {
     const indiceEncuestaSeleccionada = tipos.findIndex(({ id }) => id === idEncuestaSeleccionada)
-    return [
+    const tiposEncuestas = [
       tipos[indiceEncuestaSeleccionada],
       ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada)
     ]
-  }, [tipos, idEncuestaSeleccionada])
+    if (respuestas && idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA)) {
+      [...new Set(respuestas.map(r => r.sucursal_name))].forEach(s => {
+        tiposEncuestas.push({
+          id: `filtro|sucursal_name|${s}|${idEncuestaSeleccionada}`,
+          nombre: s,
+          enabled: true
+        })
+      })
+    }
+    return tiposEncuestas
+  }, [tipos, idEncuestaSeleccionada, respuestas])
 
   return <>
       {ReactDOM.createPortal(

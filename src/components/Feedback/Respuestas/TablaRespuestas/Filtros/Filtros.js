@@ -15,11 +15,12 @@ const Filtros = () => {
   const [indiceFiltroInicioDrag, setIndiceFiltroInicioDrag] = useState()
   const [mostrarAyuda, setMostrarAyuda] = useState(false)
   const dispatch = useDispatch()
+  const filtrosVisibles = filtros.filter(f => !f.oculto)
 
   return (
     <div className="Filtros">
       <div className="Filtros__titulo">
-        <p className="Filtros__mensaje"><InlineIcon icon={iconoFiltros} /> {filtros.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}</p> 
+        <p className="Filtros__mensaje"><InlineIcon icon={iconoFiltros} /> {filtrosVisibles.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}</p> 
       </div>
       {filtros.map((f, i) => (
         <div
@@ -33,7 +34,8 @@ const Filtros = () => {
           className={classNames({
             'Filtros__tag_filtro': true,
             'Filtros__tag_filtro--global': f.headers === '*',
-            'Filtros__tag_filtro--multiple': f.nombresHeaders?.length > 1
+            'Filtros__tag_filtro--multiple': f.nombresHeaders?.length > 1,
+            'Filtros__tag_filtro--oculto': f.oculto,
           })}
         >
           {f.headers === '*' ? f.descripcion : f.busqueda.map((b, i) => (
