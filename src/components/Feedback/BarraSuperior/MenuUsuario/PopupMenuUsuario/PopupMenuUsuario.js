@@ -13,6 +13,7 @@ import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
 import iconoIncognito from '@iconify/icons-mdi/incognito'
 import { InlineIcon } from '@iconify/react'
 import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
+import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
@@ -55,6 +56,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
             className="PopupMenuUsuario__boton_opcion"
             onClick={() => {
               dispatch(limpiaEncuestas())
+              dispatch(limpiaFiltros())
               dispatch(cierraLaSesion())
             }}
           >
