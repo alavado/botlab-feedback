@@ -5,13 +5,14 @@ import { extraerTextoHeader, formatearCampoRespuestas } from "./respuestas"
 export const exportarTablaRespuestas = (headers, respuestas, nombre, fechaInicio, fechaTermino) => {
   let headersCSV
   let respuestasCSV
+  const headersAIncluir = headers.filter(h => ['META', 'YESNO', 'RANGE', 'OPEN'].includes(h.tipo))
   if (respuestas[0].phone) {
-    headersCSV = ['Teléfono', ...headers.map(h => h.texto)].join(';')
-    respuestasCSV = respuestas.map(r => [formatearCampoRespuestas(r.phone, 'phone'), ...headers.map(h => extraerTextoHeader(h, r))].join(';')).join('\n')
+    headersCSV = ['Teléfono', ...headersAIncluir.map(h => h.texto)].join(';')
+    respuestasCSV = respuestas.map(r => [formatearCampoRespuestas(r.phone, 'phone'), ...headersAIncluir.map(h => extraerTextoHeader(h, r))].join(';')).join('\n')
   }
   else {
-    headersCSV = headers.map(h => h.texto).join(';')
-    respuestasCSV = respuestas.map(r => headers.map(h => extraerTextoHeader(h, r)).join(';')).join('\n')
+    headersCSV = headersAIncluir.map(h => h.texto).join(';')
+    respuestasCSV = respuestas.map(r => headersAIncluir.map(h => extraerTextoHeader(h, r)).join(';')).join('\n')
   }
   const texto = `${headersCSV}\n${respuestasCSV}`
   const nombreArchivo = `Feedback_${nombre}_${format(fechaInicio, 'dd-MM-yyyy')}_${format(fechaTermino, 'dd-MM-yyyy')}.csv`
