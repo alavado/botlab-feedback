@@ -3,31 +3,22 @@ import ReactDOM from 'react-dom'
 import { useSelector } from 'react-redux'
 import { Icon } from '@iconify/react'
 import whatsapp from '@iconify/icons-mdi/whatsapp'
-import iconoSucursal from '@iconify/icons-mdi/home-outline'
 import classNames from 'classnames'
 import './PopupEncuestas.css'
 import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
+import { obtenerPollsCalculadas } from '../../../../../helpers/pollsCalculadas'
 
 const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { respuestas } = useSelector(state => state.respuestas)
-
+  
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos.find(({ id }) => id === idEncuestaSeleccionada)
-    const encuestasFicticias = respuestas && idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA)
-      ? [...new Set(respuestas.map(r => r.sucursal_name))].map(s => {
-        const nombreEncuesta = `${encuestaSeleccionada.nombre} - ${s}`
-        return {
-          id: `filtro|sucursal_name|${s}|${idEncuestaSeleccionada}|${nombreEncuesta}`,
-          nombre: nombreEncuesta,
-          enabled: encuestaSeleccionada.enabled,
-          icono: iconoSucursal
-        }})
-      : []
+    const encuestasCalculadas = obtenerPollsCalculadas(encuestaSeleccionada, respuestas)
     const tiposEncuestas = [
       encuestaSeleccionada,
-      ...(encuestasFicticias.length > 1 ? encuestasFicticias : []),
+      ...encuestasCalculadas,
       ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada)
     ]
     return tiposEncuestas

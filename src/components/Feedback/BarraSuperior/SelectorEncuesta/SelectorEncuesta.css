@@ -21,11 +21,9 @@
 }
 
 .SelectorEncuesta__icono_empresa {
-  width: 1.9rem;
-  height: 1.9rem;
-  padding: .25rem;
-  border-radius: 100%;
-  margin-right: .25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: .5rem;
   color: var(--color-texto);
 }
 

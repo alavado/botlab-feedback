@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Icon } from '@iconify/react'
 import chevronDown from '@iconify/icons-mdi/chevron-down'
-import home from '@iconify/icons-mdi/home-outline'
+import home from '@iconify/icons-mdi/map-marker-radius'
 import whatsapp from '@iconify/icons-mdi/whatsapp'
 import { useDispatch, useSelector } from 'react-redux'
 import { headersRespuestas as headersAPI } from '../../../../api/endpoints'
@@ -37,7 +37,6 @@ const SelectorEncuesta = () => {
     if (id === idEncuestaSeleccionada) {
       setCargandoEncuesta(false)
       dispatch(limpiaFiltros())
-      console.log('limpia')
       return
     }
     try {
