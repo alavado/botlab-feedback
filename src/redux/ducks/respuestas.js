@@ -25,8 +25,6 @@ const sliceRespuestas = createSlice({
       state.respuestas = undefined
       state.respuestasVisibles = undefined
       state.respuestaSeleccionada = undefined
-      state.busqueda = ''
-      state.filtros.length = 0
     },
     guardaRespuestas(state, action) {
       const jsonRespuestas = action.payload
@@ -70,7 +68,7 @@ const sliceRespuestas = createSlice({
       }))
       state.categorias = categorias
       state.respuestas = respuestas
-      state.respuestasVisibles = respuestas
+      state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1
       state.cacheInvalido = false
     },
