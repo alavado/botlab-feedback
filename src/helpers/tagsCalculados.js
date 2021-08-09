@@ -78,7 +78,6 @@ export const obtenerTagsCalculados = idEncuesta => {
           }
         }
       ]
-    case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_CONFIRMACION):
     case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
       return [
         {
