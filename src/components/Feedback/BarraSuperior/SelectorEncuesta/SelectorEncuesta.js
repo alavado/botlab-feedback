@@ -61,7 +61,7 @@ const SelectorEncuesta = () => {
         verEncuesta(idEncuestaGuardada)
       }
       else {
-        verEncuesta(tipos[0].id)
+        verEncuesta(tipos.slice(-1)[0].id)
       }
     }
   }, [idEncuestaSeleccionada, idEncuestaGuardada, idEncuestaRuta, dispatch, tipos, verEncuesta])
