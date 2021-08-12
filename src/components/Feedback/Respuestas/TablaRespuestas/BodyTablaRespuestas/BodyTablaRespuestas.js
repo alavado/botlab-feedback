@@ -9,6 +9,8 @@ import Skeleton from '../../../../Skeleton'
 import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
+import iconoSmile from '@iconify/icons-mdi/dots-square'
+import Icon from '@iconify/react'
 
 const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
@@ -39,6 +41,12 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
               className="BodyTablaRespuestas__fila"
               onClick={verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
             >
+              <td className="BodyTablaRespuestas__celda BodyTablaRespuestas__celda--sin-padding">
+                <div className="x" title="Marcar esta respuesta">
+                  <Icon icon={iconoSmile} style={{ opacity: 1 }} />
+                  {/* {respuesta.reactions[0].reaction_text} */}
+                </div>
+              </td>
               {headersOrdenados.map(({ nombre, f, texto }, j) => {
                 let valorHeader = f ? f(respuesta) : respuesta[nombre]
                 return (

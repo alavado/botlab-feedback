@@ -33,7 +33,6 @@
   border: none;
   cursor: pointer;
   outline: none;
-  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
   transition: all .15s ease;
   position: relative;
 }
@@ -43,7 +42,7 @@
 }
 
 .SelectorRangoFechas__boton:hover {
-  box-shadow: .15rem .15rem .25rem rgba(0, 0, 0, .1);
+  box-shadow: 0rem .1rem .15rem var(--color-sombras);
   filter: brightness(110%);
 }
 

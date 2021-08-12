@@ -10,7 +10,7 @@
 }
 
 .HeadTablaRespuestas thead th {
-  height: 2rem;
+  height: 1.75rem;
 }
 
 .HeadTablaRespuestas__header {
@@ -19,12 +19,16 @@
   font-size: .7rem;
   text-align: left;
   white-space: nowrap;
-  padding: .75rem .5rem;
+  padding: .75rem .2rem.75rem .2rem;
   cursor: pointer;
   transition: all .1s ease-in-out;
   text-overflow: ellipsis;
   color: var(--color-texto);
   border-radius: .15rem .15rem 0 0;
+}
+
+.HeadTablaRespuestas__header--sin-padding + * {
+  padding-left: .2rem;
 }
 
 .HeadTablaRespuestas__header--destacado {

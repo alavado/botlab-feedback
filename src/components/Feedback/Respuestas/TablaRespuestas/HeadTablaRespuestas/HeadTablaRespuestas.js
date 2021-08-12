@@ -2,8 +2,9 @@ import React, { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import './HeadTablaRespuestas.css'
-import { InlineIcon } from '@iconify/react'
+import Icon, { InlineIcon } from '@iconify/react'
 import triangulito from '@iconify/icons-mdi/arrow-down-drop'
+import iconoNota from '@iconify/icons-mdi/note-edit'
 import ModalFiltros from '../ModalFiltros'
 import { destacaColumna, fijaColumna, yaNoDestaquesColumna } from '../../../../../redux/ducks/respuestas'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
@@ -27,6 +28,7 @@ const HeadTablaRespuestas = () => {
   return (
     <thead className="HeadTablaRespuestas">
       <tr className="HeadTablaRespuestas__fila">
+        <th className="HeadTablaRespuestas__header--sin-padding"></th>
         {headersOrdenados.map(({ nombre, texto }, i) => (
           <th
             key={`header-${nombre}`}
