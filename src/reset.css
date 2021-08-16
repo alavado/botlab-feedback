@@ -57,10 +57,8 @@ a {
   text-decoration: inherit;
 }
 
-@media (min-width: 1024px) {
-  html {
-    font-size: 1.15rem;
-  }
+html {
+  font-size: 1rem;
 }
 
 @media (min-width: 1500px) {

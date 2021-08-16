@@ -145,7 +145,7 @@
   }
 }
 
-@media (max-width: 1360px) {
+@media (max-width: 1240px) {
   .DatosChat__navegacion {
     flex-direction: column;
     gap: .25rem;
