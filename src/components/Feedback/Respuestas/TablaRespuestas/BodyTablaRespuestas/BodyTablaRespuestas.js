@@ -33,7 +33,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
       {respuestasPagina
         ? respuestasPagina.map((respuesta, i) => (
             <FilaTablaRespuestas
-              key={`fila-respuestas-${i}`}
+              key={`fila-respuestas-${respuesta.respuestaString}`}
               respuesta={respuesta}
               onClick={() => verChat(respuesta, respuestasPorPagina * (pagina - 1) + i)}
               headers={headersOrdenados}
