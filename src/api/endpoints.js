@@ -79,6 +79,18 @@ export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, tipo) 
     })
 }
 
+export const obtenerReacciones = (idEncuesta, idUsuario, start) => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/reactions/${idEncuesta}/${idUsuario}`
+  return axios.get(
+    url,
+    {
+      headers: { 'Api-Token': token },
+      params: { start }
+    }
+  )
+}
+
 export const agregarReaccion = (idEncuesta, idUsuario, start, emoji, texto) => {
   const token = store.getState().login.token
   const url = `${API_ROOT}/reactions/${idEncuesta}/${idUsuario}`

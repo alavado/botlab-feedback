@@ -104,10 +104,7 @@ const Chat = () => {
         tags={conversaciones?.[indiceConversacion]?.tags}
       />
       <div>
-        <ReaccionesChat
-          start={conversaciones?.[indiceConversacion]?.start}
-          reacciones={conversaciones?.[indiceConversacion]?.reactions}
-        />
+        <ReaccionesChat start={conversaciones?.[indiceConversacion]?.start} />
         {accionesHabilitadas && <AccionesChat />}
       </div>
     </div>

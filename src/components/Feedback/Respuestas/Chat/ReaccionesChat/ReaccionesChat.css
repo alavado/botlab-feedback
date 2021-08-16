@@ -9,10 +9,11 @@
   gap: 1rem;
   margin-top: .5rem;
   margin-bottom: .5rem;
+  height: 1.75rem;
 }
 
 .ReaccionesChat__contenedor_lista {
-  max-height: 45vh;
+  max-height: calc(5 * 2.75rem);
   overflow: auto;
 }
 
@@ -33,7 +34,7 @@
   font-family: 'Raleway';
 }
 
-.ReaccionesChat__boton_agregar {
+.ReaccionesChat__boton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,7 +47,6 @@
   border: none;
   cursor: pointer;
   outline: none;
-  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
   transition: all .25s ease;
   position: relative;
   filter: none;
@@ -57,19 +57,89 @@
   display: flex;
   height: 2.75rem;
   align-items: center;
-  font-size: .7rem;
+  font-size: .8rem;
   border-bottom: 1px solid var(--color-bordes);
 }
 
+.ReaccionesChat__fila_reaccion:hover {
+  background: var(--color-fila-destacada);
+}
+
 .ReaccionesChat__fecha_reaccion {
-  flex: 1;
+  opacity: 0;
+  font-size: .5rem;
+  text-align: right;
+  transition: all .1s ease;
 }
 
 .ReaccionesChat__emoji_reaccion {
-  width: 2rem;
+  width: 3rem;
   font-size: .9rem;
+  text-align: center;
 }
 
 .ReaccionesChat__texto_reaccion {
-  width: 10rem;
+  flex: 1;
+}
+
+.ReaccionesChat__fila_reaccion--formulario {
+  background: var(--color-fila-destacada);
+  border: 1px solid var(--color-bordes);
+}
+
+.ReaccionesChat__boton_emoji {
+  background: none;
+  border: none;
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+.ReaccionesChat__input_nueva_reaccion {
+  padding: .25rem;
+  outline-color: var(--color-principal);
+  width: 100%;
+  transform: translateX(-.5rem);
+  font-size: .75rem;
+  border: 1px solid var(--color-bordes);
+}
+
+.ReaccionesChat__contenedor_botones {
+  display: flex;
+  gap: .5rem;
+}
+
+.ReaccionesChat__acciones {
+  opacity: 0;
+  margin-right: .5rem;
+  transition: all .1s ease;
+}
+
+.ReaccionesChat__fila_reaccion:hover .ReaccionesChat__fecha_reaccion {
+  opacity: .75;
+}
+
+.ReaccionesChat__fila_reaccion:hover .ReaccionesChat__acciones {
+  opacity: 1;
+}
+
+.ReaccionesChat__boton_eliminar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+  color: var(--color-principal);
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all .25s ease;
+  position: relative;
+  filter: none;
+  font-size: .9rem;
+}
+
+@media (max-width: 1260px) {
+  .ReaccionesChat__fila_reaccion .ReaccionesChat__boton_agregar *:nth-child(2) {
+    display: none;
+  }
 }

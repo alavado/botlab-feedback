@@ -144,7 +144,7 @@ const AccionesChat = () => {
             onClick={() => setFormularioVisible(true)}
           >
             <InlineIcon className="AccionesChat__icono_boton" icon={iconoProblema} />
-            ¿Notas algún problema en esta interacción?
+            ¿Encontraste algún problema en esta interacción?
           </button>
       }
     </div>
