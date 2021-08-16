@@ -1,0 +1,74 @@
+.FilaTablaRespuestas {
+  border-bottom: 1px solid var(--color-bordes);
+  cursor: pointer;
+  transition: all .15s ease;
+  position: relative;
+}
+
+.FilaTablaRespuestas__celda--oculta {
+  max-width: 6ch;
+  padding-left: 0rem !important;
+  padding-right: .15rem !important;
+  overflow: hidden;
+  font-size: .4rem !important;
+}
+
+.FilaTablaRespuestas:active {
+  filter: brightness(90%);
+}
+
+.FilaTablaRespuestas:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.FilaTablaRespuestas:hover .FormularioReaccion {
+  opacity: 1;
+}
+
+.FilaTablaRespuestas__celda {
+  padding: .15rem .5rem .15rem .2rem;
+  font-size: .75rem;
+  vertical-align: middle;
+  height: 2.4rem;
+  line-height: 1.15;
+  white-space: nowrap;
+  transition: all .1s ease-in-out;
+  text-overflow: ellipsis;
+  color: var(--color-texto);
+}
+
+.FilaTablaRespuestas__celda--destacada {
+  box-shadow:
+    inset .05rem 0 0 0 var(--color-bordes),
+    inset -.05rem 0 0 0 var(--color-bordes);
+  background: var(--color-fila-destacada);
+}
+
+.FilaTablaRespuestas__celda--sin-padding {
+  padding: 0 .2rem 0 .2rem;
+}
+
+.FilaTablaRespuestas__celda--sin-padding + * {
+  padding-left: .2rem;
+}
+
+.FilaTablaRespuestas__contenedor_reaccion {
+  width: 1rem;
+  height: 1rem;
+  font-size: .7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: .05rem dashed var(--color-bordes);
+  margin: 0;
+}
+
+.FilaTablaRespuestas:hover .FilaTablaRespuestas__indicador_accion {
+  opacity: 1;
+  transform: translateX(.25rem);
+}
+
+.FilaTablaRespuestas__contenedor_tag {
+  display: flex;
+  justify-content: flex-start;
+}

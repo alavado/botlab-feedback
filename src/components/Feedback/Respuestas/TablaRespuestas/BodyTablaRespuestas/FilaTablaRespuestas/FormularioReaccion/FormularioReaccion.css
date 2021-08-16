@@ -1,0 +1,28 @@
+.FormularioReaccion {
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  background: transparent;
+  --alto-formulario-reaccion: 2rem;
+  --margen-transparente-formulario-reaccion: .5rem;
+  width: 10rem;
+  height: var(--alto-formulario-reaccion);
+  z-index: 10;
+  transform: scale(0);
+  transition: transform .2s ease;
+  transform-origin: calc(0% + var(--margen-transparente-formulario-reaccion)) calc(100% - var(--margen-transparente-formulario-reaccion));
+  cursor: pointer;
+}
+
+.FormularioReaccion--visible {
+  transform: scale(1);
+}
+
+.FormularioReaccion__contenedor {
+  background-color: green;
+  flex: 1;
+  margin-left: var(--margen-transparente-formulario-reaccion);
+  margin-bottom: var(--margen-transparente-formulario-reaccion);
+  margin-right: var(--margen-transparente-formulario-reaccion);
+}
