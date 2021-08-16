@@ -41,6 +41,11 @@
   max-width: 40ch;
   box-shadow: 0 0 .1rem var(--color-sombras);
   border: .05rem solid var(--color-bordes);
+  position: fixed;
+  top: 8rem;
+  background: var(--color-fondo);
+  z-index: 12;
+  width: 100%;
 }
 
 .AccionesChat__boton_cerrar {
@@ -79,7 +84,7 @@
 
 .AccionesChat__textarea {
   resize: none;
-  height: 5rem;
+  height: 8rem;
   padding: .5rem;
   font-size: .8rem;
   border-radius: .25rem;

@@ -125,7 +125,7 @@ const AccionesChat = () => {
               onChange={e => setDescripcion(e.target.value)}
               className="AccionesChat__textarea"
               required={true}
-              placeholder={"No dudes en contarnos cualquier anomalía que detectes, ¡nos ayudas a brindarte un mejor servicio!"}
+              placeholder={"No dudes al contarnos cualquier anomalía que detectes, ¡nos ayudas a brindarte un mejor servicio!"}
             >
             </textarea>
             <button
