@@ -1,0 +1,75 @@
+.ReaccionesChat {
+  flex: .75;
+  color: var(--color-texto);
+}
+
+.ReaccionesChat__superior {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.ReaccionesChat__contenedor_lista {
+  max-height: 45vh;
+  overflow: auto;
+}
+
+.ReaccionesChat__contenedor_lista::-webkit-scrollbar {
+  width: .6em;
+  height: .6em;
+  background-color: var(--color-fondo);
+}
+
+.ReaccionesChat__contenedor_lista::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
+}
+
+.ReaccionesChat__titulo {
+  font-weight: 600;
+  font-size: .93rem;
+  font-family: 'Raleway';
+}
+
+.ReaccionesChat__boton_agregar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+  border-radius: .5rem;
+  height: 1.5rem;
+  padding: 0 .5rem;
+  color: var(--color-texto-claro);
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
+  transition: all .25s ease;
+  position: relative;
+  filter: none;
+  font-size: .65rem;
+}
+
+.ReaccionesChat__fila_reaccion {
+  display: flex;
+  height: 2.75rem;
+  align-items: center;
+  font-size: .7rem;
+  border-bottom: 1px solid var(--color-bordes);
+}
+
+.ReaccionesChat__fecha_reaccion {
+  flex: 1;
+}
+
+.ReaccionesChat__emoji_reaccion {
+  width: 2rem;
+  font-size: .9rem;
+}
+
+.ReaccionesChat__texto_reaccion {
+  width: 10rem;
+}

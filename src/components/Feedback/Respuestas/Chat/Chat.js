@@ -8,6 +8,7 @@ import Error403 from '../../Error403'
 import './Chat.css'
 import { useSelector } from 'react-redux'
 import AccionesChat from './AccionesChat'
+import ReaccionesChat from './ReaccionesChat'
 
 const msExpiracionCache = 60_000
 const msHabilitacionReporteSlack = 3_000
@@ -89,7 +90,7 @@ const Chat = () => {
   return (
     <div className="Chat">
       <DatosChat
-        datos={conversaciones && conversaciones[indiceConversacion]?.context}
+        datos={conversaciones?.[indiceConversacion]?.context}
         telefono={telefono}
         cargando={cargando}
       />
@@ -100,9 +101,15 @@ const Chat = () => {
         seleccionarConversacion={setIndiceConversacion}
       />
       <RespuestasChat
-        tags={conversaciones && conversaciones[indiceConversacion]?.tags}
+        tags={conversaciones?.[indiceConversacion]?.tags}
       />
-      {accionesHabilitadas && <AccionesChat />}
+      <div>
+        <ReaccionesChat
+          start={conversaciones?.[indiceConversacion]?.start}
+          reacciones={conversaciones?.[indiceConversacion]?.reactions}
+        />
+        {accionesHabilitadas && <AccionesChat />}
+      </div>
     </div>
   )
 }

@@ -11,7 +11,7 @@ const RespuestasChat = ({ tags }) => {
       {tags
         ? tags.map(({ question, tag }, i) => (
           <div
-            key={`header-chat-${i}`}
+            key={`tag-chat-${i}`}
             className="DatosChat__contenedor_header"
           >
             <div className="DatosChat__nombre_header">
