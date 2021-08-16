@@ -105,7 +105,8 @@
 
 .ReaccionesChat__contenedor_botones {
   display: flex;
-  gap: .5rem;
+  gap: .25rem;
+  padding-right: .25rem;
 }
 
 .ReaccionesChat__acciones {

@@ -104,3 +104,17 @@ export const agregarReaccion = (idEncuesta, idUsuario, start, emoji, texto) => {
     { headers: { 'Api-Token': token } }
   )
 }
+
+export const eliminarReaccion = (idEncuesta, idUsuario, idReaccion) => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/reactions/${idEncuesta}/${idUsuario}`
+  return axios({
+    url,
+    method: 'delete',
+    data: { id: idReaccion },
+    headers: {
+      'Api-Token': token,
+      'Content-Type': 'application/json'
+    }
+  })
+}
