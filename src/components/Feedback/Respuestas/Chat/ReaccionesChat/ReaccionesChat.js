@@ -2,7 +2,7 @@ import { InlineIcon } from '@iconify/react'
 import { format, parseISO } from 'date-fns'
 import { formatDistanceToNow } from 'date-fns/esm'
 import { es } from 'date-fns/locale'
-import iconoAgregar from '@iconify/icons-mdi/add-box'
+import iconoAgregar from '@iconify/icons-mdi/sticky-note-add'
 import iconoEliminar from '@iconify/icons-mdi/delete'
 import { useEffect, useState } from 'react'
 import { agregarReaccion, eliminarReaccion, obtenerReacciones } from '../../../../../api/endpoints'
@@ -71,28 +71,34 @@ const ReaccionesChat = ({ start }) => {
     <div className="ReaccionesChat">
       <div className="ReaccionesChat__superior">
         <h2 className="ReaccionesChat__titulo">Notas</h2>
-        {!formularioActivo &&
+        {!formularioActivo && reacciones?.length > 0 && (
           <button
             className="ReaccionesChat__boton"
             onClick={() => setFormularioActivo(true)}
             title="Agregar nueva nota a este chat"
           >
-            <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoAgregar} /> Agregar
+            <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoAgregar} /> Agregar nota
           </button>
-        }
+        )}
       </div>
       {reacciones
         ? <div className="ReaccionesChat__contenedor_lista">
             {formularioActivo && (
               <FormularioNuevaReaccion
                 agregarNota={agregarNota}
-                visible={formularioActivo}
                 ocultar={() => setFormularioActivo(false)}
               />
             )}
             {reacciones.length === 0 && !formularioActivo
-              ? <div className="ReaccionesChat__fila_reaccion">
-                  <p className="ReaccionesChat__mensaje_sin_notas">Aún no hay notas para este chat</p>
+              ? <div className="ReaccionesChat__contenedor_mensaje_sin_reacciones">
+                  <button
+                    className="ReaccionesChat__boton"
+                    onClick={() => setFormularioActivo(true)}
+                    title="Agregar nueva nota a este chat"
+                  >
+                    <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoAgregar} /> Agregar nota
+                  </button>
+                  <p className="ReaccionesChat__mensaje_sin_notas">No hay notas para este chat</p>
                 </div>
               : reacciones.map((reaccion, i) => (
                 <div

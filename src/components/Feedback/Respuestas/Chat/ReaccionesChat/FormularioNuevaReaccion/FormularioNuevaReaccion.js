@@ -3,30 +3,40 @@ import { InlineIcon } from '@iconify/react'
 import iconoConfirmar from '@iconify/icons-mdi/check'
 import iconoCancelar from '@iconify/icons-mdi/cancel'
 import './FormularioNuevaReaccion.css'
+import SelectorEmoji from '../SelectorEmoji'
 
-const FormularioNuevaReaccion = ({ agregarNota, visible, ocultar }) => {
+const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
   
   const [emoji, setEmoji] = useState('✅')
   const [comentario, setComentario] = useState('')
+  const [seleccionandoEmoji, setSeleccionandoEmoji] = useState(false)
   const inputRef = useRef()
 
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
 
+  const agregar = agregarNota(emoji, comentario)
+
   return (
     <div className="FormularioNuevaReaccion">
+      {seleccionandoEmoji && (
+        <SelectorEmoji
+          setEmoji={setEmoji}
+          cerrar={() => setSeleccionandoEmoji(false)}
+        />
+      )}
       <div className="FormularioNuevaReaccion__emoji_reaccion">
         <button
           className="FormularioNuevaReaccion__boton_emoji"
           title="Cambiar emoji"
-          onClick={e => e.preventDefault()}
+          onClick={() => setSeleccionandoEmoji(!seleccionandoEmoji)}
         >
           {emoji}
         </button>
       </div>
       <div className="FormularioNuevaReaccion__texto_reaccion">
-        <form onSubmit={agregarNota(emoji, comentario)}>
+        <form onSubmit={agregar}>
           <input
             className="FormularioNuevaReaccion__input_nueva_reaccion"
             value={comentario}
@@ -40,7 +50,7 @@ const FormularioNuevaReaccion = ({ agregarNota, visible, ocultar }) => {
       </div>
       <div className="FormularioNuevaReaccion__contenedor_botones">
         <button
-          onClick={agregarNota}
+          onClick={agregar}
           className="FormularioNuevaReaccion__boton"
           title="Agregar nota"
         >

@@ -8,6 +8,7 @@
   border: 1px solid var(--color-bordes);
   transform-origin: 50% 0%;
   animation: aparece-formulario-reaccion .15s ease-in-out both;
+  position: relative;
 }
 
 .FormularioNuevaReaccion__emoji_reaccion {
@@ -21,7 +22,7 @@
   border: none;
   font-size: .9rem;
   cursor: pointer;
-  animation: aparece-boton-emoji .15s ease .15s both;
+  animation: aparece-boton-emoji .15s ease-in .15s both;
 }
 
 .FormularioNuevaReaccion__texto_reaccion {
@@ -30,17 +31,25 @@
 
 .FormularioNuevaReaccion__input_nueva_reaccion {
   padding: .25rem;
-  outline-color: var(--color-principal);
+  outline: none;
   width: 100%;
-  transform: translateX(-.5rem);
   font-size: .75rem;
   border: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo);
+  border-radius: .15rem;
+  color: var(--color-texto);
+  transition: all .15s ease;
+}
+
+.FormularioNuevaReaccion__input_nueva_reaccion:focus {
+  box-shadow: 0 0 0 2px var(--color-principal);
 }
 
 .FormularioNuevaReaccion__contenedor_botones {
   display: flex;
   gap: .25rem;
   padding-right: 2rem;
+  padding-left: .5rem;
 }
 
 .FormularioNuevaReaccion__boton {
@@ -48,7 +57,7 @@
   align-items: center;
   justify-content: center;
   gap: .25rem;
-  border-radius: .5rem;
+  border-radius: .35rem;
   height: 1.5rem;
   padding: 0 .5rem;
   color: var(--color-texto-claro);
@@ -65,11 +74,11 @@
 
 @keyframes aparece-formulario-reaccion {
   0% {
+    transform: translateX(-.35rem);
     opacity: 0;
-    transform: scaleY(.95);
   }
   100% {
+    transform: translateX(0);
     opacity: 1;
-    transform: scaleY(1);
   }
 }

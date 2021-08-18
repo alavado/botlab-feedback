@@ -1,0 +1,5 @@
+.SelectorEmoji {
+  position: absolute;
+  z-index: 11;
+  background-color: red;
+}

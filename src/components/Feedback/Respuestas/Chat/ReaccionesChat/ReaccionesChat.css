@@ -39,7 +39,7 @@
   align-items: center;
   justify-content: center;
   gap: .25rem;
-  border-radius: .5rem;
+  border-radius: .35rem;
   height: 1.5rem;
   padding: 0 .5rem;
   color: var(--color-texto-claro);
@@ -60,6 +60,13 @@
   align-items: center;
   font-size: .8rem;
   border-bottom: 1px solid var(--color-bordes);
+}
+
+.ReaccionesChat__contenedor_mensaje_sin_reacciones {
+  display: flex;
+  height: 2.75rem;
+  align-items: center;
+  font-size: .8rem;
 }
 
 .ReaccionesChat__fila_reaccion:hover {
@@ -117,6 +124,7 @@
   font-style: italic;
   opacity: .75;
   font-size: .7rem;
+  padding-left: .5rem;
 }
 
 @media (max-width: 1260px) {
