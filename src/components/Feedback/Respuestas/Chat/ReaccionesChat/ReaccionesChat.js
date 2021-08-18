@@ -1,23 +1,12 @@
 import { InlineIcon } from '@iconify/react'
-import { format, parseISO } from 'date-fns'
-import { formatDistanceToNow } from 'date-fns/esm'
-import { es } from 'date-fns/locale'
 import iconoAgregar from '@iconify/icons-mdi/sticky-note-add'
-import iconoEliminar from '@iconify/icons-mdi/delete'
 import { useEffect, useState } from 'react'
-import { agregarReaccion, eliminarReaccion, obtenerReacciones } from '../../../../../api/endpoints'
+import { agregarReaccion, obtenerReacciones } from '../../../../../api/endpoints'
 import { useParams } from 'react-router-dom'
 import './ReaccionesChat.css'
 import LoaderChat from '../LoaderChat'
 import FormularioNuevaReaccion from './FormularioNuevaReaccion'
-
-const obtenerEmoji = texto => {
-  switch (texto) {
-    case ':smile:': return '😊'
-    case ':sad:': return '😢'
-    default: return texto
-  }
-}
+import FilaReaccion from './FilaReaccion'
 
 const ReaccionesChat = ({ start }) => {
 
@@ -58,13 +47,6 @@ const ReaccionesChat = ({ start }) => {
       })
   }
 
-  const eliminarNota = id => {
-    eliminarReaccion(idEncuesta, idUsuario, id)
-      .then(() => {
-        setRefresh(true)
-      })
-  }
-
   reacciones?.sort((r1, r2) => r1.created_at > r2.created_at ? -1 : 1)
 
   return (
@@ -101,34 +83,14 @@ const ReaccionesChat = ({ start }) => {
                   <p className="ReaccionesChat__mensaje_sin_notas">No hay notas para este chat</p>
                 </div>
               : reacciones.map((reaccion, i) => (
-                <div
-                  key={`reaccion-chat-${i}`}
-                  className="ReaccionesChat__fila_reaccion"
-                >
-                  <div className="ReaccionesChat__emoji_reaccion">
-                    {obtenerEmoji(reaccion.reaction_emoji)}
-                  </div>
-                  <div className="ReaccionesChat__texto_reaccion">
-                    {reaccion.reaction_text}
-                  </div>
-                  <div
-                    className="ReaccionesChat__fecha_reaccion"
-                    title={format(parseISO(reaccion.created_at), `d 'de' MMMM 'de' yyyy 'a las' HH:mm`, { locale: es })}
-                  >
-                    agregada {formatDistanceToNow(parseISO(reaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}
-                  </div>
-                  <div className="ReaccionesChat__acciones">
-                    <button
-                      className="ReaccionesChat__boton_eliminar"
-                      title="Eliminar esta nota"
-                      onClick={() => eliminarNota(reaccion.id)}
-                    >
-                      <InlineIcon icon={iconoEliminar} />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+                  <FilaReaccion
+                    key={`reaccion-chat-${reaccion.id}`}
+                    reaccion={reaccion}
+                    refrescar={() => setRefresh(true)}
+                  />
+                ))
+            }
+          </div>
         : <LoaderChat />
       }
     </div>

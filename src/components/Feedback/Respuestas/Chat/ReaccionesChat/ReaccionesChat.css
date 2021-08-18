@@ -54,70 +54,11 @@
   animation: aparece-boton-reacciones .2s ease both;
 }
 
-.ReaccionesChat__fila_reaccion {
-  display: flex;
-  height: 2.75rem;
-  align-items: center;
-  font-size: .8rem;
-  border-bottom: 1px solid var(--color-bordes);
-}
-
 .ReaccionesChat__contenedor_mensaje_sin_reacciones {
   display: flex;
   height: 2.75rem;
   align-items: center;
   font-size: .8rem;
-}
-
-.ReaccionesChat__fila_reaccion:hover {
-  background: var(--color-fila-destacada);
-}
-
-.ReaccionesChat__fecha_reaccion {
-  opacity: 0;
-  font-size: .55rem;
-  text-align: right;
-  transition: all .1s ease;
-}
-
-.ReaccionesChat__emoji_reaccion {
-  width: 3rem;
-  font-size: .9rem;
-  text-align: center;
-}
-
-.ReaccionesChat__texto_reaccion {
-  flex: 1;
-}
-
-.ReaccionesChat__acciones {
-  opacity: 0;
-  margin-right: .5rem;
-  transition: all .1s ease;
-}
-
-.ReaccionesChat__fila_reaccion:hover .ReaccionesChat__fecha_reaccion {
-  opacity: .75;
-}
-
-.ReaccionesChat__fila_reaccion:hover .ReaccionesChat__acciones {
-  opacity: 1;
-}
-
-.ReaccionesChat__boton_eliminar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .25rem;
-  color: var(--color-principal);
-  background: none;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  transition: all .25s ease;
-  position: relative;
-  filter: none;
-  font-size: .9rem;
 }
 
 .ReaccionesChat__mensaje_sin_notas {
