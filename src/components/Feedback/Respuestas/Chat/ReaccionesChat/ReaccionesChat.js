@@ -37,6 +37,7 @@ const ReaccionesChat = ({ start }) => {
       obtenerReacciones(idEncuesta, idUsuario, start)
         .then(({ data })=> {
           setReacciones(data.data)
+          setFormularioActivo(false)
         })
     }
   }, [refresh])
@@ -45,10 +46,12 @@ const ReaccionesChat = ({ start }) => {
     setReacciones(undefined)
     setComentario('')
     setFormularioActivo(false)
-    obtenerReacciones(idEncuesta, idUsuario, start)
-      .then(({ data })=> {
-        setReacciones(data.data)
-      })
+    if (idEncuesta && idUsuario && start) {
+      obtenerReacciones(idEncuesta, idUsuario, start)
+        .then(({ data })=> {
+          setReacciones(data.data)
+        })
+    }
   }, [idEncuesta, idUsuario, start])
 
   useEffect(() => {
@@ -71,17 +74,12 @@ const ReaccionesChat = ({ start }) => {
   const eliminarNota = id => {
     eliminarReaccion(idEncuesta, idUsuario, id)
       .then(() => {
-        setFormularioActivo(false)
         setComentario('')
         setRefresh(true)
       })
   }
 
-  if (!reacciones) {
-    return <LoaderChat />
-  }
-
-  reacciones.sort((r1, r2) => r1.created_at > r2.created_at ? -1 : 1)
+  reacciones?.sort((r1, r2) => r1.created_at > r2.created_at ? -1 : 1)
 
   return (
     <div className="ReaccionesChat">
@@ -97,83 +95,91 @@ const ReaccionesChat = ({ start }) => {
           </button>
         }
       </div>
-      <div className="ReaccionesChat__contenedor_lista">
-        {formularioActivo &&
-          <div
-            className="ReaccionesChat__fila_reaccion ReaccionesChat__fila_reaccion--formulario"
-          >
-            <div className="ReaccionesChat__emoji_reaccion">
-              <button
-                className="ReaccionesChat__boton_emoji"
-                title="Cambiar emoji"
-                onClick={e => e.preventDefault()}
+      {reacciones
+        ? <div className="ReaccionesChat__contenedor_lista">
+            {formularioActivo &&
+              <div
+                className="ReaccionesChat__fila_reaccion ReaccionesChat__fila_reaccion--formulario"
               >
-                {emoji}
-              </button>
+                <div className="ReaccionesChat__emoji_reaccion">
+                  <button
+                    className="ReaccionesChat__boton_emoji"
+                    title="Cambiar emoji"
+                    onClick={e => e.preventDefault()}
+                  >
+                    {emoji}
+                  </button>
+                </div>
+                <div className="ReaccionesChat__texto_reaccion">
+                  <form onSubmit={agregarNota}>
+                    <input
+                      className="ReaccionesChat__input_nueva_reaccion"
+                      value={comentario}
+                      onChange={e => setComentario(e.target.value)}
+                      ref={inputRef}
+                      placeholder="Comentario (opcional)"
+                      onKeyUp={e => e.stopPropagation()}
+                      maxLength={100}
+                    />
+                  </form>
+                </div>
+                <div className="ReaccionesChat__contenedor_botones">
+                  <button
+                    onClick={agregarNota}
+                    className="ReaccionesChat__boton"
+                    title="Agregar nota"
+                  >
+                    <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoConfirmar} /> <p>Agregar</p>
+                  </button>
+                  <button
+                    type="button"
+                    className="ReaccionesChat__boton"
+                    onClick={e => {
+                      e.preventDefault()
+                      setFormularioActivo(false)
+                    }}
+                    title="Cancelar"
+                  >
+                    <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoCancelar} /> <p>Cancelar</p>
+                  </button>
+                </div>
+              </div>
+            }
+            {reacciones.length === 0 && !formularioActivo
+              ? <div className="ReaccionesChat__fila_reaccion">
+                  <p className="ReaccionesChat__mensaje_sin_notas">Aún no hay notas para este chat</p>
+                </div>
+              : reacciones.map((reaccion, i) => (
+                <div
+                  key={`reaccion-chat-${i}`}
+                  className="ReaccionesChat__fila_reaccion"
+                >
+                  <div className="ReaccionesChat__emoji_reaccion">
+                    {obtenerEmoji(reaccion.reaction_emoji)}
+                  </div>
+                  <div className="ReaccionesChat__texto_reaccion">
+                    {reaccion.reaction_text}
+                  </div>
+                  <div
+                    className="ReaccionesChat__fecha_reaccion"
+                    title={format(parseISO(reaccion.created_at), `d 'de' MMMM 'de' yyyy 'a las' HH:mm`, { locale: es })}
+                  >
+                    agregada {formatDistanceToNow(parseISO(reaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}
+                  </div>
+                  <div className="ReaccionesChat__acciones">
+                    <button
+                      className="ReaccionesChat__boton_eliminar"
+                      title="Eliminar esta nota"
+                      onClick={() => eliminarNota(reaccion.id)}
+                    >
+                      <InlineIcon icon={iconoEliminar} />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="ReaccionesChat__texto_reaccion">
-              <form onSubmit={agregarNota}>
-                <input
-                  className="ReaccionesChat__input_nueva_reaccion"
-                  value={comentario}
-                  onChange={e => setComentario(e.target.value)}
-                  ref={inputRef}
-                  placeholder="Comentario (opcional)"
-                  maxLength={100}
-                />
-              </form>
-            </div>
-            <div className="ReaccionesChat__contenedor_botones">
-              <button
-                onClick={agregarNota}
-                className="ReaccionesChat__boton"
-                title="Agregar nota"
-              >
-                <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoConfirmar} /> <p>Agregar</p>
-              </button>
-              <button
-                type="button"
-                className="ReaccionesChat__boton"
-                onClick={e => {
-                  e.preventDefault()
-                  setFormularioActivo(false)
-                }}
-                title="Cancelar"
-              >
-                <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoCancelar} /> <p>Cancelar</p>
-              </button>
-            </div>
-          </div>
-        }
-        {reacciones.map((reaccion, i) => (
-          <div
-            key={`reaccion-chat-${i}`}
-            className="ReaccionesChat__fila_reaccion"
-          >
-            <div className="ReaccionesChat__emoji_reaccion">
-              {obtenerEmoji(reaccion.reaction_emoji)}
-            </div>
-            <div className="ReaccionesChat__texto_reaccion">
-              {reaccion.reaction_text}
-            </div>
-            <div
-              className="ReaccionesChat__fecha_reaccion"
-              title={format(parseISO(reaccion.created_at), `d 'de' MMMM 'de' yyyy 'a las' HH:mm`, { locale: es })}
-            >
-              Agregada {formatDistanceToNow(parseISO(reaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}
-            </div>
-            <div className="ReaccionesChat__acciones">
-              <button
-                className="ReaccionesChat__boton_eliminar"
-                title="Eliminar esta nota"
-                onClick={() => eliminarNota(reaccion.id)}
-              >
-                <InlineIcon icon={iconoEliminar} />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+        : <LoaderChat />
+      }
     </div>
   )
 }

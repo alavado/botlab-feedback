@@ -51,6 +51,7 @@
   position: relative;
   filter: none;
   font-size: .65rem;
+  animation: aparece-boton-reacciones .2s ease both;
 }
 
 .ReaccionesChat__fila_reaccion {
@@ -67,7 +68,7 @@
 
 .ReaccionesChat__fecha_reaccion {
   opacity: 0;
-  font-size: .5rem;
+  font-size: .55rem;
   text-align: right;
   transition: all .1s ease;
 }
@@ -106,7 +107,7 @@
 .ReaccionesChat__contenedor_botones {
   display: flex;
   gap: .25rem;
-  padding-right: .25rem;
+  padding-right: 2rem;
 }
 
 .ReaccionesChat__acciones {
@@ -139,8 +140,23 @@
   font-size: .9rem;
 }
 
+.ReaccionesChat__mensaje_sin_notas {
+  font-style: italic;
+  opacity: .75;
+  font-size: .7rem;
+}
+
 @media (max-width: 1260px) {
   .ReaccionesChat__fila_reaccion .ReaccionesChat__boton_agregar *:nth-child(2) {
     display: none;
+  }
+}
+
+@keyframes aparece-boton-reacciones {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

@@ -40,7 +40,6 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
           e.stopPropagation()
           setAgregandoComentario(emoticon)
         }}
-        style={{ display: 'none' }}
       >
         <div
           className="FilaTablaRespuestas__contenedor_reaccion"
