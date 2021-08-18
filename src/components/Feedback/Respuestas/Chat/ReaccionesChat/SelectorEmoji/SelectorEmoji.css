@@ -1,5 +1,38 @@
 .SelectorEmoji {
   position: absolute;
   z-index: 11;
-  background-color: red;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  padding: .5rem;
+  filter: drop-shadow(0 .05rem .1rem var(--color-sombras));
+  border: 1px solid var(--color-bordes);
+  border-radius: .2rem;
+  animation: aparece-selector-emoji .2s ease-out both;
+}
+
+.SelectorEmoji__contenedor {
+  height: 4rem;
+  overflow: auto;
+}
+
+.SelectorEmoji__contenedor::-webkit-scrollbar {
+  width: .3rem;
+  height: .3rem;
+  background-color: var(--color-fondo);
+}
+
+.SelectorEmoji__contenedor::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
+}
+
+@keyframes aparece-selector-emoji {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

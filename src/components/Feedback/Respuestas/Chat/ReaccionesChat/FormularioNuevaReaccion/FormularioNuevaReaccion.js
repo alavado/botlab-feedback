@@ -11,6 +11,7 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
   const [comentario, setComentario] = useState('')
   const [seleccionandoEmoji, setSeleccionandoEmoji] = useState(false)
   const inputRef = useRef()
+  const botonEmojiRef = useRef()
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -24,6 +25,7 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
         <SelectorEmoji
           setEmoji={setEmoji}
           cerrar={() => setSeleccionandoEmoji(false)}
+          refPadre={botonEmojiRef}
         />
       )}
       <div className="FormularioNuevaReaccion__emoji_reaccion">
@@ -31,6 +33,7 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
           className="FormularioNuevaReaccion__boton_emoji"
           title="Cambiar emoji"
           onClick={() => setSeleccionandoEmoji(!seleccionandoEmoji)}
+          ref={botonEmojiRef}
         >
           {emoji}
         </button>
