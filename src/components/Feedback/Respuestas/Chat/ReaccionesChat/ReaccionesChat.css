@@ -83,33 +83,6 @@
   flex: 1;
 }
 
-.ReaccionesChat__fila_reaccion--formulario {
-  background: var(--color-fila-destacada);
-  border: 1px solid var(--color-bordes);
-}
-
-.ReaccionesChat__boton_emoji {
-  background: none;
-  border: none;
-  font-size: .9rem;
-  cursor: pointer;
-}
-
-.ReaccionesChat__input_nueva_reaccion {
-  padding: .25rem;
-  outline-color: var(--color-principal);
-  width: 100%;
-  transform: translateX(-.5rem);
-  font-size: .75rem;
-  border: 1px solid var(--color-bordes);
-}
-
-.ReaccionesChat__contenedor_botones {
-  display: flex;
-  gap: .25rem;
-  padding-right: 2rem;
-}
-
 .ReaccionesChat__acciones {
   opacity: 0;
   margin-right: .5rem;
@@ -158,5 +131,14 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes aparece-boton-emoji {
+  0% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
   }
 }

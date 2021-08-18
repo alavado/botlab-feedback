@@ -3,14 +3,13 @@ import { format, parseISO } from 'date-fns'
 import { formatDistanceToNow } from 'date-fns/esm'
 import { es } from 'date-fns/locale'
 import iconoAgregar from '@iconify/icons-mdi/add-box'
-import iconoConfirmar from '@iconify/icons-mdi/check'
-import iconoCancelar from '@iconify/icons-mdi/cancel'
 import iconoEliminar from '@iconify/icons-mdi/delete'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { agregarReaccion, eliminarReaccion, obtenerReacciones } from '../../../../../api/endpoints'
 import { useParams } from 'react-router-dom'
 import './ReaccionesChat.css'
 import LoaderChat from '../LoaderChat'
+import FormularioNuevaReaccion from './FormularioNuevaReaccion'
 
 const obtenerEmoji = texto => {
   switch (texto) {
@@ -25,14 +24,10 @@ const ReaccionesChat = ({ start }) => {
   const { idEncuesta, idUsuario } = useParams()
   const [reacciones, setReacciones] = useState()
   const [formularioActivo, setFormularioActivo] = useState(false)
-  const [comentario, setComentario] = useState('')
   const [refresh, setRefresh] = useState(false)
-  const [emoji, setEmoji] = useState('✅')
-  const inputRef = useRef()
 
   useEffect(() => {
     if (refresh) {
-      setComentario('')
       setRefresh(false)
       obtenerReacciones(idEncuesta, idUsuario, start)
         .then(({ data })=> {
@@ -44,7 +39,6 @@ const ReaccionesChat = ({ start }) => {
 
   useEffect(() => {
     setReacciones(undefined)
-    setComentario('')
     setFormularioActivo(false)
     if (idEncuesta && idUsuario && start) {
       obtenerReacciones(idEncuesta, idUsuario, start)
@@ -54,19 +48,12 @@ const ReaccionesChat = ({ start }) => {
     }
   }, [idEncuesta, idUsuario, start])
 
-  useEffect(() => {
-    if (formularioActivo) {
-      inputRef.current?.focus()
-    }
-  }, [formularioActivo])
-
-  const agregarNota = e => {
+  const agregarNota = (emoji, comentario) => e => {
     e.preventDefault()
     setReacciones(undefined)
     agregarReaccion(idEncuesta, idUsuario, start, emoji, comentario)
       .then(() => {
         setFormularioActivo(false)
-        setComentario('')
         setRefresh(true)
       })
   }
@@ -74,7 +61,6 @@ const ReaccionesChat = ({ start }) => {
   const eliminarNota = id => {
     eliminarReaccion(idEncuesta, idUsuario, id)
       .then(() => {
-        setComentario('')
         setRefresh(true)
       })
   }
@@ -97,54 +83,13 @@ const ReaccionesChat = ({ start }) => {
       </div>
       {reacciones
         ? <div className="ReaccionesChat__contenedor_lista">
-            {formularioActivo &&
-              <div
-                className="ReaccionesChat__fila_reaccion ReaccionesChat__fila_reaccion--formulario"
-              >
-                <div className="ReaccionesChat__emoji_reaccion">
-                  <button
-                    className="ReaccionesChat__boton_emoji"
-                    title="Cambiar emoji"
-                    onClick={e => e.preventDefault()}
-                  >
-                    {emoji}
-                  </button>
-                </div>
-                <div className="ReaccionesChat__texto_reaccion">
-                  <form onSubmit={agregarNota}>
-                    <input
-                      className="ReaccionesChat__input_nueva_reaccion"
-                      value={comentario}
-                      onChange={e => setComentario(e.target.value)}
-                      ref={inputRef}
-                      placeholder="Comentario (opcional)"
-                      onKeyUp={e => e.stopPropagation()}
-                      maxLength={100}
-                    />
-                  </form>
-                </div>
-                <div className="ReaccionesChat__contenedor_botones">
-                  <button
-                    onClick={agregarNota}
-                    className="ReaccionesChat__boton"
-                    title="Agregar nota"
-                  >
-                    <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoConfirmar} /> <p>Agregar</p>
-                  </button>
-                  <button
-                    type="button"
-                    className="ReaccionesChat__boton"
-                    onClick={e => {
-                      e.preventDefault()
-                      setFormularioActivo(false)
-                    }}
-                    title="Cancelar"
-                  >
-                    <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoCancelar} /> <p>Cancelar</p>
-                  </button>
-                </div>
-              </div>
-            }
+            {formularioActivo && (
+              <FormularioNuevaReaccion
+                agregarNota={agregarNota}
+                visible={formularioActivo}
+                ocultar={() => setFormularioActivo(false)}
+              />
+            )}
             {reacciones.length === 0 && !formularioActivo
               ? <div className="ReaccionesChat__fila_reaccion">
                   <p className="ReaccionesChat__mensaje_sin_notas">Aún no hay notas para este chat</p>

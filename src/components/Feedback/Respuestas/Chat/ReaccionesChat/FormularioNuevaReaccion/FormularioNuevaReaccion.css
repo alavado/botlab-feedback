@@ -1,0 +1,75 @@
+.FormularioNuevaReaccion {
+  display: flex;
+  height: 2.75rem;
+  align-items: center;
+  font-size: .8rem;
+  border-bottom: 1px solid var(--color-bordes);
+  background: var(--color-fila-destacada);
+  border: 1px solid var(--color-bordes);
+  transform-origin: 50% 0%;
+  animation: aparece-formulario-reaccion .15s ease-in-out both;
+}
+
+.FormularioNuevaReaccion__emoji_reaccion {
+  width: 3rem;
+  font-size: .9rem;
+  text-align: center;
+}
+
+.FormularioNuevaReaccion__boton_emoji {
+  background: none;
+  border: none;
+  font-size: .9rem;
+  cursor: pointer;
+  animation: aparece-boton-emoji .15s ease .15s both;
+}
+
+.FormularioNuevaReaccion__texto_reaccion {
+  flex: 1;
+}
+
+.FormularioNuevaReaccion__input_nueva_reaccion {
+  padding: .25rem;
+  outline-color: var(--color-principal);
+  width: 100%;
+  transform: translateX(-.5rem);
+  font-size: .75rem;
+  border: 1px solid var(--color-bordes);
+}
+
+.FormularioNuevaReaccion__contenedor_botones {
+  display: flex;
+  gap: .25rem;
+  padding-right: 2rem;
+}
+
+.FormularioNuevaReaccion__boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+  border-radius: .5rem;
+  height: 1.5rem;
+  padding: 0 .5rem;
+  color: var(--color-texto-claro);
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all .25s ease;
+  position: relative;
+  filter: none;
+  font-size: .65rem;
+  animation: aparece-boton-reacciones .2s ease both;
+}
+
+@keyframes aparece-formulario-reaccion {
+  0% {
+    opacity: 0;
+    transform: scaleY(.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
