@@ -3,13 +3,17 @@ import TagRespuesta from '../../TablaRespuestas/TagRespuesta'
 import './RespuestasChat.css'
 import LoaderChat from '../LoaderChat'
 
+const textoQuestionsActions = 'action'
+
 const RespuestasChat = ({ tags }) => {
+
+  const tagsInActions = tags?.filter(t => t.question !== textoQuestionsActions)
 
   return (
     <div className="RespuestasChat">
       <h2 className="RespuestasChat__titulo">Respuestas</h2>
-      {tags
-        ? tags.map(({ question, tag }, i) => (
+      {tagsInActions
+        ? tagsInActions.map(({ question, tag }, i) => (
           <div
             key={`tag-chat-${i}`}
             className="DatosChat__contenedor_header"
