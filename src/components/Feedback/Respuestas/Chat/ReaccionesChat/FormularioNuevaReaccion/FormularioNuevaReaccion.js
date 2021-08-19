@@ -24,7 +24,10 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
       {seleccionandoEmoji && (
         <SelectorEmoji
           setEmoji={setEmoji}
-          cerrar={() => setSeleccionandoEmoji(false)}
+          cerrar={() => {
+            setSeleccionandoEmoji(false)
+            inputRef.current.focus()
+          }}
           refPadre={botonEmojiRef}
         />
       )}
@@ -47,6 +50,7 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
             ref={inputRef}
             placeholder="Comentario (opcional)"
             onKeyUp={e => e.stopPropagation()}
+            onFocus={() => setSeleccionandoEmoji(false)}
             maxLength={100}
           />
         </form>

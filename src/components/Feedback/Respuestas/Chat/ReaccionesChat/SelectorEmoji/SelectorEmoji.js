@@ -4,12 +4,16 @@ import './SelectorEmoji.css'
 
 const categoriasEmojis = [
   {
-    nombre: 'Comunes',
-    emojis: ['✅', '😊', '👍', '💜', '👀']
+    nombre: 'Reacciones',
+    emojis: ['😊', '😟', '🤔', '😴', '😨']
   },
   {
-    nombre: 'Reacciones',
-    emojis: ['😊', '😟']
+    nombre: 'Símbolos',
+    emojis: ['✅', '❌', '⌛', '👀', '💜']
+  },
+  {
+    nombre: 'Colores',
+    emojis: ['🔴', '🟠', '🟡', '🟢', '🔵', '🟣', '🟤', '⚫', '⚪']
   }
 ]
 
@@ -39,9 +43,22 @@ const SelectorEmoji = ({ setEmoji, cerrar, refPadre }) => {
     >
       <div className="SelectorEmoji__contenedor">
         {categoriasEmojis.map(({ nombre, emojis }) => (
-          <div>
-            <h6>{nombre}</h6>
-            {emojis.map(emoji => <button onClick={() => clickEnEmoji(emoji)}>{emoji}</button>)}
+          <div
+            className="SelectorEmoji__contenedor_categoria"
+            key={`contenedor-emojis-${nombre}`}
+          >
+            <h6 className="SelectorEmoji__titulo_categoria_emojis">{nombre}</h6>
+            <div className="SelectorEmoji__contenedor_botones">
+              {emojis.map(emoji => (
+                <button
+                  key={`boton-${emoji}`}
+                  onClick={() => clickEnEmoji(emoji)}
+                  className="SelectorEmoji__boton_emoji"
+                >
+                  {emoji}
+                </button>
+              ))}
+            </div>
           </div>
         ))}
       </div>

@@ -8,11 +8,15 @@
   border: 1px solid var(--color-bordes);
   border-radius: .2rem;
   animation: aparece-selector-emoji .2s ease-out both;
+  transform: scaleY(2);
 }
 
 .SelectorEmoji__contenedor {
-  height: 4rem;
+  height: 10rem;
   overflow: auto;
+  display: grid;
+  gap: .75rem;
+  position: relative;
 }
 
 .SelectorEmoji__contenedor::-webkit-scrollbar {
@@ -26,13 +30,45 @@
   background-color: var(--color-principal);
 }
 
+.SelectorEmoji::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  border: 1rem solid transparent;
+  border-top: .75rem solid var(--color-fondo);
+  width: .5rem;
+  height: .5rem;
+  top: 100%;
+  left: calc(50% - 1rem);
+  pointer-events: none;
+}
+
+.SelectorEmoji__titulo_categoria_emojis {
+  font-weight: 600;
+  font-size: .6rem;
+  margin-bottom: .25rem;
+}
+
+.SelectorEmoji__boton_emoji {
+  background: none;
+  font-size: .9rem;
+  padding: .35rem;
+  border: none;
+  cursor: pointer;
+}
+
+.SelectorEmoji__contenedor_botones {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
 @keyframes aparece-selector-emoji {
   0% {
     opacity: 0;
-    transform: translateY(1rem);
+    transform: translateY(0rem);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-.5rem);
   }
 }
