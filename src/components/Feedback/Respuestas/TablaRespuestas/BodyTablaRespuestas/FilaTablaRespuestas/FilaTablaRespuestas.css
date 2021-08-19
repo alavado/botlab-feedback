@@ -59,7 +59,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: .05rem dashed var(--color-bordes);
   margin: 0;
 }
 

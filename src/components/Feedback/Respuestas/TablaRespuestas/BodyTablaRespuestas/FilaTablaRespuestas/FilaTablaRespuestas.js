@@ -1,61 +1,30 @@
 import classNames from 'classnames'
-import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
 import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
 import TagRespuesta from '../../TagRespuesta'
-import FormularioReaccion from './FormularioReaccion'
 import './FilaTablaRespuestas.css'
 
 const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
 
   const { columnaDestacada } = useSelector(state => state.respuestas)
-  const [agregandoComentario, setAgregandoComentario] = useState(false)
-  const [emoticon, setEmoticon] = useState('')
-  const [eliminacionBloqueada, setEliminacionBloqueada] = useState(false)
-  const refElementoCentral = useRef()
 
-  useEffect(() => {
-    if (emoticon) {
-      setEliminacionBloqueada(true)
-      setTimeout(() => setEliminacionBloqueada(false), 500)
-    }
-  }, [emoticon])
+  const emoji = respuesta.reactions.length > 0
+    ? respuesta.reactions.slice(-1)[0].reaction_emoji
+    : ''
   
   return (
     <tr
       className="FilaTablaRespuestas"
       onClick={onClick}
     >
-      {process.env.NODE_ENV === 'development' && <td
-        className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding"
-        ref={refElementoCentral}
-        onClick={e => {
-          e.stopPropagation()
-          if (!eliminacionBloqueada) {
-            setEmoticon(emoticon ? '' : '✅')
-          }
-        }}
-        onDoubleClick={e => {
-          e.stopPropagation()
-          setAgregandoComentario(emoticon)
-        }}
-      >
-        <div
-          className="FilaTablaRespuestas__contenedor_reaccion"
-          // onMouseOver={() => !agregandoReaccion && setAgregandoReaccion(true)}
-        >
-          {emoticon}
-        </div>
-        <FormularioReaccion
-          ocultar={() => setAgregandoComentario(false)}
-          emoticon={emoticon}
-          setEmoticon={setEmoticon}
-          visible={emoticon && agregandoComentario}
-          left={refElementoCentral.current?.getBoundingClientRect().left + refElementoCentral.current?.getBoundingClientRect().width / 2}
-          top={refElementoCentral.current?.getBoundingClientRect().top + refElementoCentral.current?.getBoundingClientRect().height / 2}
-        />
-      </td>}
+      {process.env.NODE_ENV === 'development' && 
+        <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
+          <div className="FilaTablaRespuestas__contenedor_reaccion">
+            {emoji}
+          </div>
+        </td>
+      }
       {headers.map(({ nombre, f, texto }, j) => {
         let valorHeader = f ? f(respuesta) : respuesta[nombre]
         return (
