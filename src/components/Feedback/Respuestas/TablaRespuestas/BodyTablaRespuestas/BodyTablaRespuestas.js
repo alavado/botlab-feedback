@@ -44,7 +44,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
               key={`fila-skeleton-respuestas-${i}`}
               className="BodyTablaRespuestas__fila"
             >
-              {process.env.NODE_ENV === 'development' && <td style={{ width: '1.45rem' }}></td>}
+              {process.env.REACT_APP_REACCIONES_HABILITADAS !== '0' && <td style={{ width: '1.45rem' }}></td>}
               {headersOrdenados.map((_, j) => (
                 <td
                   key={`celda-skeleton-respuesta-${i}-${j}`}

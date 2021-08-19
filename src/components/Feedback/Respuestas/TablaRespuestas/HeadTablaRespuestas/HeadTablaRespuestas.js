@@ -28,7 +28,7 @@ const HeadTablaRespuestas = () => {
   return (
     <thead className="HeadTablaRespuestas">
       <tr className="HeadTablaRespuestas__fila">
-        {process.env.NODE_ENV === 'development' && <th className="HeadTablaRespuestas__header--sin-padding"></th>}
+        {process.env.REACT_APP_REACCIONES_HABILITADAS !== '0' && <th className="HeadTablaRespuestas__header--sin-padding"></th>}
         {headersOrdenados.map(({ nombre, texto }, i) => (
           <th
             key={`header-${nombre}`}

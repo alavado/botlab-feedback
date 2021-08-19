@@ -9,7 +9,7 @@ const categoriasEmojis = [
   },
   {
     nombre: 'Símbolos',
-    emojis: ['✅', '❌', '⌛', '👀', '💜']
+    emojis: ['✅', '❌', '🔁', '⏳', '👀']
   },
   {
     nombre: 'Colores',

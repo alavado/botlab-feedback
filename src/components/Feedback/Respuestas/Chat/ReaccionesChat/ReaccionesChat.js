@@ -7,6 +7,8 @@ import './ReaccionesChat.css'
 import LoaderChat from '../LoaderChat'
 import FormularioNuevaReaccion from './FormularioNuevaReaccion'
 import FilaReaccion from './FilaReaccion'
+import { useDispatch } from 'react-redux'
+import { actualizaRespuestas } from '../../../../../redux/ducks/respuestas'
 
 const ReaccionesChat = ({ start }) => {
 
@@ -14,6 +16,7 @@ const ReaccionesChat = ({ start }) => {
   const [reacciones, setReacciones] = useState()
   const [formularioActivo, setFormularioActivo] = useState(false)
   const [refresh, setRefresh] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (refresh) {

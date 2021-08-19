@@ -9,7 +9,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
 
   const { columnaDestacada } = useSelector(state => state.respuestas)
 
-  const emoji = respuesta.reactions.length > 0
+  const emoji = respuesta.reactions?.length > 0
     ? respuesta.reactions.slice(-1)[0].reaction_emoji
     : ''
   
@@ -18,13 +18,11 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
       className="FilaTablaRespuestas"
       onClick={onClick}
     >
-      {process.env.NODE_ENV === 'development' && 
-        <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
-          <div className="FilaTablaRespuestas__contenedor_reaccion">
-            {emoji}
-          </div>
-        </td>
-      }
+      <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
+        <div className="FilaTablaRespuestas__contenedor_reaccion">
+          {emoji}
+        </div>
+      </td>
       {headers.map(({ nombre, f, texto }, j) => {
         let valorHeader = f ? f(respuesta) : respuesta[nombre]
         return (

@@ -104,7 +104,7 @@ const Chat = () => {
         tags={conversaciones?.[indiceConversacion]?.tags}
       />
       <div>
-        {process.env.NODE_ENV === 'development' && <ReaccionesChat start={conversaciones?.[indiceConversacion]?.start} />}
+        {process.env.REACT_APP_REACCIONES_HABILITADAS !== '0' && <ReaccionesChat start={conversaciones?.[indiceConversacion]?.start} />}
         {accionesHabilitadas && <AccionesChat />}
       </div>
     </div>
