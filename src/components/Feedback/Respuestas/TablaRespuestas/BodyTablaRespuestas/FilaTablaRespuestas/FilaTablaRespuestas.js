@@ -27,7 +27,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
       className="FilaTablaRespuestas"
       onClick={onClick}
     >
-      <td
+      {process.env.NODE_ENV === 'development' && <td
         className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding"
         ref={refElementoCentral}
         onClick={e => {
@@ -55,7 +55,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
           left={refElementoCentral.current?.getBoundingClientRect().left + refElementoCentral.current?.getBoundingClientRect().width / 2}
           top={refElementoCentral.current?.getBoundingClientRect().top + refElementoCentral.current?.getBoundingClientRect().height / 2}
         />
-      </td>
+      </td>}
       {headers.map(({ nombre, f, texto }, j) => {
         let valorHeader = f ? f(respuesta) : respuesta[nombre]
         return (

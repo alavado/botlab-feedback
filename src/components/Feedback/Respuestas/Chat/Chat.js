@@ -103,10 +103,10 @@ const Chat = () => {
       <RespuestasChat
         tags={conversaciones?.[indiceConversacion]?.tags}
       />
-      <div>
+      {process.env.NODE_ENV === 'development' && <div>
         <ReaccionesChat start={conversaciones?.[indiceConversacion]?.start} />
         {accionesHabilitadas && <AccionesChat />}
-      </div>
+      </div>}
     </div>
   )
 }
