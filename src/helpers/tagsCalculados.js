@@ -79,23 +79,8 @@ export const obtenerTagsCalculados = idEncuesta => {
         }
       ]
     case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
-      return [
-        {
-          nombre: 'tc1',
-          texto: 'Respuesta',
-          tipo: 'YESNO',
-          f: r => {
-            if (r[2].tag === REAGENDA || r[2].tag === YES) {
-              return { tag: REAGENDA, text: `${r[0].text} / ${r[2].text}` }
-            }
-            if (r[2].tag) {
-              return r[2]
-            }
-            return r[0]
-          }
-        }
-      ]
     case Number(process.env.REACT_APP_ID_POLL_VICHUQUEN):
+    case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CONCEPCION):
       return [
         {
           nombre: 'tc1',
