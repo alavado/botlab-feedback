@@ -9,6 +9,7 @@ import './Chat.css'
 import { useSelector } from 'react-redux'
 import AccionesChat from './AccionesChat'
 import ReaccionesChat from './ReaccionesChat'
+import { encuestaTieneEmojisHabilitados } from '../../../../helpers/betas'
 
 const msExpiracionCache = 60_000
 const msHabilitacionReporteSlack = 3_000
@@ -104,7 +105,7 @@ const Chat = () => {
         tags={conversaciones?.[indiceConversacion]?.tags}
       />
       <div>
-        {process.env.REACT_APP_REACCIONES_HABILITADAS !== '0' && <ReaccionesChat start={conversaciones?.[indiceConversacion]?.start} />}
+        {encuestaTieneEmojisHabilitados(idEncuesta) && <ReaccionesChat start={conversaciones?.[indiceConversacion]?.start} />}
         {accionesHabilitadas && <AccionesChat />}
       </div>
     </div>

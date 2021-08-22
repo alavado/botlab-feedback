@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
+import { encuestaTieneEmojisHabilitados } from '../../../../../../helpers/betas'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
 import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
 import TagRespuesta from '../../TagRespuesta'
@@ -7,6 +8,7 @@ import './FilaTablaRespuestas.css'
 
 const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
 
+  const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
   const { columnaDestacada } = useSelector(state => state.respuestas)
 
   const emoji = respuesta.reactions?.length > 0
@@ -18,7 +20,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
       className="FilaTablaRespuestas"
       onClick={onClick}
     >
-      {process.env.REACT_APP_REACCIONES_HABILITADAS !== '0' && (
+      {encuestaTieneEmojisHabilitados(idEncuesta) && (
         <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
           <div className="FilaTablaRespuestas__contenedor_reaccion">
             {emoji}

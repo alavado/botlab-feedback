@@ -6,6 +6,7 @@ import './BodyTablaRespuestas.css'
 import Skeleton from '../../../../Skeleton'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
 import FilaTablaRespuestas from './FilaTablaRespuestas'
+import { encuestaTieneEmojisHabilitados } from '../../../../../helpers/betas'
 
 const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
@@ -44,7 +45,7 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
               key={`fila-skeleton-respuestas-${i}`}
               className="BodyTablaRespuestas__fila"
             >
-              {process.env.REACT_APP_REACCIONES_HABILITADAS !== '0' && <td style={{ width: '1.45rem' }}></td>}
+              {encuestaTieneEmojisHabilitados(idEncuesta) && <td style={{ width: '1.45rem' }}></td>}
               {headersOrdenados.map((_, j) => (
                 <td
                   key={`celda-skeleton-respuesta-${i}-${j}`}
