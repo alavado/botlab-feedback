@@ -61,6 +61,30 @@
   align-items: center;
   justify-content: center;
   margin: 0;
+  position: relative;
+}
+
+.FilaTablaRespuestas__contenedor_reaccion_indicador_comentario {
+  position: absolute;
+  background: var(--color-principal);
+  color: var(--color-texto-claro);
+  padding: .2rem;
+  font-size: .6rem;
+  border-radius: .2rem .2rem .2rem 0;
+  left: calc(100% - .5rem);
+  top: -.75rem;
+  box-shadow: 0 .1rem .1rem var(--color-sombras);
+  max-width: 2.35rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform-origin: 0% 100%;
+  transform: scale(.65);
+  transition: all .25s ease;
+}
+
+.FilaTablaRespuestas__celda:hover .FilaTablaRespuestas__contenedor_reaccion_indicador_comentario {
+  max-width: 100rem;
+  transform: scale(1);
 }
 
 .FilaTablaRespuestas:hover .FilaTablaRespuestas__indicador_accion {

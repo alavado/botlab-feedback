@@ -1,9 +1,10 @@
 import classNames from 'classnames'
+import { formatDistanceToNow, parseISO } from 'date-fns'
+import { es } from 'date-fns/locale'
 import { useSelector } from 'react-redux'
 import { encuestaTieneEmojisHabilitados } from '../../../../../../helpers/betas'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
 import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
-import respuestas from '../../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../TagRespuesta'
 import './FilaTablaRespuestas.css'
 
@@ -26,6 +27,11 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
           {[...respuesta.reactions].reverse().slice(0, 1).map((r, i) => (
             <div className="FilaTablaRespuestas__contenedor_reaccion">
               {r.reaction_emoji}
+              {r.reaction_text && (
+                <div className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario">
+                  {r.reaction_text} - {formatDistanceToNow(parseISO(r.created_at), { locale: es, addSuffix: true, includeSeconds: false })}
+                </div>
+              )}
             </div>
           ))}
         </td>
