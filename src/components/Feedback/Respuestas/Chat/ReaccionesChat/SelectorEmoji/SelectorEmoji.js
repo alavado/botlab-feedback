@@ -5,7 +5,7 @@ import './SelectorEmoji.css'
 const categoriasEmojis = [
   {
     nombre: 'Reacciones',
-    emojis: ['😊', '🙄', '🤔', '👍', '👎']
+    emojis: ['😊', '🙄', '😴', '👍', '👎']
   },
   {
     nombre: 'Símbolos',

@@ -16,6 +16,8 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
   if (!respuesta) {
     return null
   }
+
+  const ultimaReaccion = respuesta.reactions.slice(-1)[0]
   
   return (
     <tr
@@ -24,16 +26,16 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
     >
       {encuestaTieneEmojisHabilitados(idEncuesta) && (
         <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
-          {[...respuesta.reactions].reverse().slice(0, 1).map((r, i) => (
+          {ultimaReaccion && (
             <div className="FilaTablaRespuestas__contenedor_reaccion">
-              {r.reaction_emoji}
-              {r.reaction_text && (
+              {ultimaReaccion.reaction_emoji}
+              {ultimaReaccion.reaction_text && (
                 <div className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario">
-                  {r.reaction_text} - ⌚ {formatDistanceToNow(parseISO(r.created_at), { locale: es, addSuffix: true, includeSeconds: false })}
+                  {ultimaReaccion.reaction_text} - ⌚ {formatDistanceToNow(parseISO(ultimaReaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}
                 </div>
               )}
             </div>
-          ))}
+          )}
         </td>
       )}
       {headers.map(({ nombre, f, texto }, j) => {

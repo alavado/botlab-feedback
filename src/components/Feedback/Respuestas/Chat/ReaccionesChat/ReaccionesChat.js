@@ -49,6 +49,10 @@ const ReaccionesChat = ({ start }) => {
         setFormularioActivo(false)
         setRefresh(true)
       })
+    .catch(() => {
+      setFormularioActivo(false)
+      setRefresh(true)
+    })
   }
 
   reacciones?.sort((r1, r2) => r1.created_at > r2.created_at ? -1 : 1)

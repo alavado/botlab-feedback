@@ -6,16 +6,22 @@ import { useParams } from 'react-router-dom'
 import { eliminarReaccion } from '../../../../../../api/endpoints'
 import './FilaReaccion.css'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { eliminaReaccionDeRespuesta } from '../../../../../../redux/ducks/respuestas'
 
 const FilaReaccion = ({ reaccion, refrescar }) => {
 
   const { idEncuesta, idUsuario } = useParams()
   const [eliminando, setEliminando] = useState(false)
+  const dispatch = useDispatch()
 
   const clickEnBorrar = () => {
     setEliminando(true)
     eliminarReaccion(idEncuesta, idUsuario, reaccion.id)
-      .then(refrescar)
+      .then(() => {
+        dispatch(eliminaReaccionDeRespuesta({ idUsuario, fecha: reaccion.created_at }))
+        refrescar()
+      })
       .catch(() => setEliminando(false))
   }
 

@@ -288,6 +288,31 @@ const sliceRespuestas = createSlice({
           break
         }
       }
+    },
+    eliminaReaccionDeRespuesta(state, action) {
+      const { idUsuario, fecha } = action.payload
+      for (let i = 0; i < state.respuestasVisibles.length; i++) {
+        if (state.respuestasVisibles[i].user_id === Number(idUsuario)) {
+          for (let j = 0; j < state.respuestasVisibles[i].reactions.length; j++) {
+            if (state.respuestasVisibles[i].reactions[j].created_at === fecha) {
+              state.respuestasVisibles[i].reactions.splice(j, j)
+              break
+            }
+          }
+          break
+        }
+      }
+      for (let i = 0; i < state.respuestas.length; i++) {
+        if (state.respuestas[i].user_id === Number(idUsuario)) {
+          for (let j = 0; j < state.respuestas[i].reactions.length; j++) {
+            if (state.respuestas[i].reactions[j].created_at === fecha) {
+              state.respuestas[i].reactions.splice(j, j)
+              break
+            }
+          }
+          break
+        }
+      }
     }
   }
 })
@@ -312,7 +337,8 @@ export const {
   fijaTablaDestacada,
   fijaColumna,
   limpiaFiltros,
-  agregaReaccionARespuesta
+  agregaReaccionARespuesta,
+  eliminaReaccionDeRespuesta
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer
