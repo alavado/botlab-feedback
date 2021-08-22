@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { encuestaTieneEmojisHabilitados } from '../../../../../../helpers/betas'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
 import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
+import respuestas from '../../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../TagRespuesta'
 import './FilaTablaRespuestas.css'
 
@@ -11,9 +12,9 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
   const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
   const { columnaDestacada } = useSelector(state => state.respuestas)
 
-  const emoji = respuesta.reactions?.length > 0
-    ? respuesta.reactions.slice(-1)[0].reaction_emoji
-    : ''
+  if (!respuesta) {
+    return null
+  }
   
   return (
     <tr
@@ -22,9 +23,19 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
     >
       {encuestaTieneEmojisHabilitados(idEncuesta) && (
         <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
-          <div className="FilaTablaRespuestas__contenedor_reaccion">
-            {emoji}
-          </div>
+          {[...respuesta.reactions].reverse().slice(0, 3).map((r, i) => (
+            <div
+              style={{
+                zIndex: respuesta.reactions.length - i,
+                top: `${.75 + i * .15}rem`,
+                left: `${.25 + i * .2}rem`,
+                opacity: 1 - i * .3
+              }}
+              className="FilaTablaRespuestas__contenedor_reaccion"
+            >
+              {r.reaction_emoji}
+            </div>
+          ))}
         </td>
       )}
       {headers.map(({ nombre, f, texto }, j) => {

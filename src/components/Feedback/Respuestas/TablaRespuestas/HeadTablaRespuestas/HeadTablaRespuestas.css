@@ -6,7 +6,7 @@
   position: sticky;
   top: 0;
   background-color: var(--color-fondo);
-  z-index: 2;
+  z-index: 10;
 }
 
 .HeadTablaRespuestas thead th {
