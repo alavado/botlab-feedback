@@ -23,16 +23,8 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
     >
       {encuestaTieneEmojisHabilitados(idEncuesta) && (
         <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
-          {[...respuesta.reactions].reverse().slice(0, 3).map((r, i) => (
-            <div
-              style={{
-                zIndex: respuesta.reactions.length - i,
-                top: `${.75 + i * .15}rem`,
-                left: `${.25 + i * .2}rem`,
-                opacity: 1 - i * .3
-              }}
-              className="FilaTablaRespuestas__contenedor_reaccion"
-            >
+          {[...respuesta.reactions].reverse().slice(0, 1).map((r, i) => (
+            <div className="FilaTablaRespuestas__contenedor_reaccion">
               {r.reaction_emoji}
             </div>
           ))}

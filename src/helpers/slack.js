@@ -7,8 +7,9 @@ const obtenerEmoticonTipoReporte = tipo => {
       return `🤖`
     case 'Paciente se molesta':
       return `😡`
+    default:
+      return `👀`
   }
-  return `👀`
 }
 
 export const reportarASlack = async (usuario, cuenta, tipo, descripcion) => {

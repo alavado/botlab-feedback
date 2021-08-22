@@ -61,8 +61,6 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  position: absolute;
-  top: .75rem;
 }
 
 .FilaTablaRespuestas:hover .FilaTablaRespuestas__indicador_accion {
