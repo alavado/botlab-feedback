@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { formatISO9075 } from "date-fns"
 import diccionarioTags from "../../helpers/tags"
 import { obtenerTagsCalculados } from "../../helpers/tagsCalculados"
 
@@ -264,6 +265,29 @@ const sliceRespuestas = createSlice({
     },
     fijaTablaDestacada(state, action) {
       state.tablaDestacada = action.payload
+    },
+    agregaReaccionARespuesta(state, action) {
+      if (!state.respuestasVisibles) {
+        return
+      }
+      const { idUsuario, emoji, comentario } = action.payload
+      const nuevaReaccion = {
+        created_at: formatISO9075(Date.now()),
+        reaction_emoji: emoji,
+        reaction_text: comentario
+      }
+      for (let i = 0; i < state.respuestasVisibles.length; i++) {
+        if (state.respuestasVisibles[i].user_id === Number(idUsuario)) {
+          state.respuestasVisibles[i].reactions.push(nuevaReaccion)
+          break
+        }
+      }
+      for (let i = 0; i < state.respuestas.length; i++) {
+        if (state.respuestas[i].user_id === Number(idUsuario)) {
+          state.respuestas[i].reactions.push(nuevaReaccion)
+          break
+        }
+      }
     }
   }
 })
@@ -287,7 +311,8 @@ export const {
   yaNoDestaquesColumna,
   fijaTablaDestacada,
   fijaColumna,
-  limpiaFiltros
+  limpiaFiltros,
+  agregaReaccionARespuesta
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer

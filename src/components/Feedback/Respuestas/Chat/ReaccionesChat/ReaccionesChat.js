@@ -8,7 +8,7 @@ import LoaderChat from '../LoaderChat'
 import FormularioNuevaReaccion from './FormularioNuevaReaccion'
 import FilaReaccion from './FilaReaccion'
 import { useDispatch } from 'react-redux'
-import { actualizaRespuestas } from '../../../../../redux/ducks/respuestas'
+import { agregaReaccionARespuesta } from '../../../../../redux/ducks/respuestas'
 
 const ReaccionesChat = ({ start }) => {
 
@@ -45,6 +45,7 @@ const ReaccionesChat = ({ start }) => {
     setReacciones(undefined)
     agregarReaccion(idEncuesta, idUsuario, start, emoji, comentario)
       .then(() => {
+        dispatch(agregaReaccionARespuesta({ idUsuario, emoji, comentario }))
         setFormularioActivo(false)
         setRefresh(true)
       })

@@ -29,7 +29,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
               {r.reaction_emoji}
               {r.reaction_text && (
                 <div className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario">
-                  {r.reaction_text} - {formatDistanceToNow(parseISO(r.created_at), { locale: es, addSuffix: true, includeSeconds: false })}
+                  {r.reaction_text} - ⌚ {formatDistanceToNow(parseISO(r.created_at), { locale: es, addSuffix: true, includeSeconds: false })}
                 </div>
               )}
             </div>
