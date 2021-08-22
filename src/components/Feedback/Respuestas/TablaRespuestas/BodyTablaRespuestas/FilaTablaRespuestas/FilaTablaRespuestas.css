@@ -73,13 +73,12 @@
   border-radius: .2rem .2rem .2rem 0;
   left: calc(100% - .5rem);
   top: -.75rem;
-  box-shadow: 0 .1rem .1rem var(--color-sombras);
   max-width: 2.35rem;
   overflow: hidden;
   text-overflow: ellipsis;
   transform-origin: 0% 100%;
   transform: scale(.65);
-  transition: all .25s ease;
+  transition: all .2s ease;
 }
 
 .FilaTablaRespuestas__celda:hover .FilaTablaRespuestas__contenedor_reaccion_indicador_comentario {

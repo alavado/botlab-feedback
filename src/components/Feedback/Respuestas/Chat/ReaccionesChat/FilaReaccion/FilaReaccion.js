@@ -28,7 +28,7 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
         {reaccion.reaction_emoji}
       </div>
       <div className="FilaReaccion__texto_reaccion">
-        {reaccion.reaction_text}
+        {reaccion.reaction_text || <p className="FilaReaccion__texto_reaccion_sin_comentario">Sin comentario</p>}
       </div>
       <div
         className="FilaReaccion__fecha_reaccion"

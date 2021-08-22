@@ -22,6 +22,11 @@
   line-height: 1.1;
 }
 
+.FilaReaccion__texto_reaccion_sin_comentario {
+  font-style: italic;
+  opacity: .45;
+}
+
 .FilaReaccion__fecha_reaccion {
   opacity: 0;
   font-size: .55rem;
