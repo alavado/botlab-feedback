@@ -130,11 +130,8 @@
   background-size: cover;
   scroll-behavior: smooth;
   outline: none;
-<<<<<<< HEAD
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, .25) transparent;
-=======
->>>>>>> ff42d3b9f0690e0b089d67601885afc880a8522c
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__contenedor_mensajes {
