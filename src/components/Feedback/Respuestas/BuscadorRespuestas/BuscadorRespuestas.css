@@ -1,0 +1,55 @@
+.BuscadorRespuestas {
+  display: flex;
+  align-items: center;
+  font-size: .8rem;
+  position: relative;
+}
+
+.BuscadorRespuestas__contenedor_icono {
+  position: absolute;
+  right: .5rem;
+  top: 0;
+  z-index: 2;
+  font-size: 1rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.BuscadorRespuestas__icono {
+  color: var(--color-gris);
+}
+
+.BuscadorRespuestas__input {
+  width: 10.5rem;
+  border-radius: 1rem;
+  height: calc(2rem - 2px);
+  outline: none;
+  box-shadow: 0 0 0 1px var(--color-bordes);
+  border: none;
+  font-weight: bold;
+  font-size: .75rem;
+  padding: 0 1rem;
+  transition: all .25s ease;
+  letter-spacing: 1px;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+.BuscadorRespuestas__input:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.BuscadorRespuestas__input::placeholder {
+  opacity: .75;
+  font-weight: 500;
+  letter-spacing: normal;
+  font-size: .8rem;
+}
+
+.BuscadorRespuestas__input:focus,
+.BuscadorRespuestas__input--activo {
+  box-shadow: 0 0 0 .15rem var(--color-secundario);
+}

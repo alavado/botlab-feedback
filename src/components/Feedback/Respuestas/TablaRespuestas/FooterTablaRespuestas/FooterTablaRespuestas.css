@@ -1,0 +1,54 @@
+.FooterTablaRespuestas {
+  display: flex;
+  justify-content: flex-end;
+  height: 2rem;
+  align-items: center;
+  color: var(--color-texto);
+  font-size: .7rem;
+}
+
+.FooterTablaRespuestas__numero_total {
+  font-weight: bold;
+}
+
+.FooterTablaRespuestas__boton_pagina {
+  margin-left: .45rem;
+  font-weight: 600;
+  border-radius: .35rem;
+  padding: .35rem .5rem;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  border: 2px solid var(--color-bordes);
+  cursor: pointer;
+  box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .1);
+  transition: all .25s ease;
+  font-size: .75rem;
+}
+
+.FooterTablaRespuestas__boton_pagina:disabled {
+  filter: saturate(0%);
+  opacity: .5;
+  cursor: not-allowed;
+  box-shadow: 0 0 0 1px var(--color-bordes);
+}
+
+.FooterTablaRespuestas__total {
+  font-size: .8rem;
+  padding-right: 1rem;
+}
+
+.FooterTablaRespuestas__datos_paginacion {
+  display: flex;
+  align-items: center;
+}
+
+@media (orientation: portrait) {
+  .FooterTablaRespuestas__total {
+    display: none;
+  }
+  .FooterTablaRespuestas__botones_paginas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}

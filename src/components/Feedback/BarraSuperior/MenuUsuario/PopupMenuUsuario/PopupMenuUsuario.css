@@ -1,0 +1,67 @@
+.PopupMenuUsuario {
+  position: absolute;
+  top: 2.5rem;
+  right: .75rem;
+  z-index: 1000;
+  opacity: 0;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  border: 1px solid var(--color-bordes);
+  border-radius: .25rem;
+  pointer-events: none;
+  transition: all .15s ease;
+  transform: scale(.85);
+  box-shadow: 0 .15rem .25rem var(--color-sombras);
+}
+
+.PopupMenuUsuario--visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: scale(1);
+}
+
+.PopupMenuUsuario__lamina {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 3;
+}
+
+.PopupMenuUsuario__superior {
+  padding: 1rem 3rem 1rem .75rem;
+  border-bottom: 1px solid var(--color-bordes);
+  font-weight: 600;
+  font-size: .9rem;
+}
+
+.PopupMenuUsuario__opciones {
+  padding: .5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.PopupMenuUsuario__boton_opcion {
+  background-color: var(--color-fondo);
+  border: none;
+  text-align: left;
+  padding: .4rem 5rem .4rem .75rem;
+  cursor: pointer;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--color-texto);
+  transition: all .15s ease;
+  outline: none;
+}
+
+.PopupMenuUsuario__boton_opcion:hover {
+  background-color: var(--color-fila-destacada);
+  color: var(--color-texto);
+}
+
+.PopupMenuUsuario__icono_opcion {
+  margin-right: .35rem;
+  opacity: .8;
+  color: var(--color-secundario);
+}

@@ -1,0 +1,65 @@
+.ModalAyuda {
+  position: absolute;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  left: 100%;
+  top: 0%;
+  z-index: 3;
+  border-radius: .25rem;
+  border: 1px solid var(--color-bordes);
+  animation: aparece-modal-ayuda .15s ease-in-out both;
+  box-shadow:
+    0 0 .1rem var(--color-sombras),
+    0rem .15rem .5rem var(--color-sombras);
+}
+
+.ModalAyuda__gif {
+  object-fit: contain;
+  width: 16rem;
+}
+
+.ModalAyuda__bajada {
+  padding: 1rem;
+}
+
+.ModalAyuda__titulo {
+  font-weight: bold;
+  font-size: .7rem;
+}
+
+.ModalAyuda__explicación {
+  padding-top: .5rem;
+  font-size: .7rem;
+  line-height: 1.35;
+  list-style-type: disc;
+  padding-left: 1rem;
+}
+
+.ModalAyuda__explicación li:not(:last-child) {
+  margin-bottom: .25rem;
+}
+
+.ModalAyuda__boton_cerrar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  color: var(--color-texto);
+  font-size: 1rem;
+  background-color: var(--color-fondo);
+  border-bottom-left-radius: .25rem;
+}
+
+@keyframes aparece-modal-ayuda {
+  0% {
+    opacity: 0;
+    transform: translateY(-.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

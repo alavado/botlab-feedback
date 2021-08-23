@@ -1,0 +1,122 @@
+.ResumenRespuestas {
+  display: flex;
+  gap: 1rem;
+  font-size: .8rem;
+  color: var(--color-texto-claro);
+  height: 6rem;
+}
+
+.ResumenRespuestas__tasa {
+  padding: .25rem 1rem;
+  border-radius: .15rem;
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, .15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(25deg, var(--color-mini-dasdhboard-1) 40%, var(--color-mini-dasdhboard-2) 55%);
+  color: var(--color-texto-claro);
+  width: 15rem;
+}
+
+.ResumenRespuestas__tasa,
+.ResumenRespuestas__detalle_tasa {
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  text-shadow: .1rem .1rem .1rem rgba(0, 0, 0, .15);
+  position: relative;
+}
+
+.ResumenRespuestas__detalle {
+  padding: .15rem 2rem .15rem 2rem;
+  border-radius: .15rem;
+  box-shadow: 0 0 .15rem rgba(0, 0, 0, .15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  --porcentaje-lleno: 0%;
+  background:
+    linear-gradient(to right, rgba(86, 79, 224, 0.25) 0% 100%),
+    linear-gradient(25deg, var(--color-mini-dasdhboard-1) 40%, var(--color-mini-dasdhboard-2) 55%)
+  ;
+  color: var(--color-texto-claro);
+  transition: all .25s ease;
+}
+
+.ResumenRespuestas__detalle_tasa {
+  display: flex;
+  align-items: center;
+  min-width: 15rem;
+  animation: ResumenRespuestas__anim_detalle .15s ease both;
+}
+
+.ResumenRespuestas__detalle_tabla {
+  font-size: .93rem;
+  animation: ResumenRespuestas__anim_tabla .15s .15s ease both;
+}
+
+.ResumenRespuestas__tag {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  transition: all .15s ease-in-out;
+  padding: .1rem 0rem;
+}
+
+.ResumenRespuestas__tag:hover {
+  filter: brightness(105%);
+}
+
+.ResumenRespuestas__detalle_tabla td:not(:first-child) {
+  text-align: right;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, .25);
+}
+
+.ResumenRespuestas__porcentaje {
+  font-size: 2.25rem;
+  overflow: visible;
+}
+
+.ResumenRespuestas__celda_barra {
+  width: 7.5rem;
+  vertical-align: middle;
+  background-image:
+    linear-gradient(to right,
+      var(--color-barras-mini-dashboard) 0% var(--porcentaje-lleno),
+      transparent 0
+    )
+  ;
+}
+
+@media(orientation:portrait) {
+  .ResumenRespuestas__detalle_tasa {
+    display: none;
+  }
+}
+
+@keyframes ResumenRespuestas__anim_detalle {
+  0% {
+    opacity: 0;
+    transform: translateY(-.1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ResumenRespuestas__anim_tabla {
+  0% {
+    opacity: 0;
+    transform: translateY(-.1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

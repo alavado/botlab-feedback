@@ -1,0 +1,36 @@
+.RelojSimpatico {
+  display: inline-flex;
+  width: .6rem;
+  height: .6rem;
+  background: radial-gradient(red .07rem, white 0 100%);
+  box-shadow: 0 0 0 .05rem lightgray, 0 0 0 .1rem black;
+  border-radius: 1rem;
+  margin-right: .15rem;
+  position: relative;
+  display: none;
+}
+
+.RelojSimpatico__cara {
+  width: .6rem;
+  height: .6rem;
+  transform-origin: 50% 50%;
+  position: absolute;
+}
+
+.RelojSimpatico__horario {
+  width: .1rem;
+  height: .15rem;
+  top: .15rem;
+  background: black;
+  position: absolute;
+  left: .25rem;
+}
+
+.RelojSimpatico__minutero {
+  width: .1rem;
+  height: .25rem;
+  top: .05rem;
+  background: black;
+  position: absolute;
+  left: .25rem;
+}

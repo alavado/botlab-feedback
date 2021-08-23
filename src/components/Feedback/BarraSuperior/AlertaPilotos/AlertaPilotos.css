@@ -1,0 +1,43 @@
+.AlertaPilotos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 500;
+  min-height: 1.35rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  background: var(--color-secundario);
+  font-size: .8rem;
+  box-shadow: 0 .1rem .25rem rgba(0, 0, 0, .2);
+}
+
+.AlertaPilotos strong {
+  font-weight: bolder;
+  padding: 0 .3rem;
+}
+
+.AlertaPilotos strong::first-letter {
+  text-transform: capitalize;
+}
+
+.AlertaPilotos__link {
+  background: var(--color-principal);
+  color: var(--color-texto-claro);
+  height: 1.1rem;
+  padding: 0 .65rem;
+  border-radius: 1in;
+  margin-left: .5rem;
+  display: flex;
+  align-items: center;
+  font-size: .7rem;
+  font-weight: 500;
+  transition: all .15s ease;
+}
+
+.AlertaPilotos__link:hover {
+  filter: brightness(110%);
+}

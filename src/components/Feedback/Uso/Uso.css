@@ -1,0 +1,183 @@
+.Uso {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--color-texto);
+}
+
+.Uso__superior {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Uso__titulo {
+  font-weight: bold;
+  font-size: 1.75rem;
+  font-family: 'Raleway';
+}
+
+.Uso__selector_periodo {
+  padding: 0 .75rem;
+  font-size: .8rem;
+  border-radius: 1rem;
+  height: 2rem;
+  cursor: pointer;
+  border: 1px solid var(--color-gris);
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  outline: none;
+}
+
+.Uso__selector_periodo:focus {
+  border: 1px solid var(--color-principal);
+}
+
+.Uso__encabezado {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-barra-superior);
+  height: 3.25rem;
+  padding: 0 .5rem;
+  border: 1px solid var(--color-bordes);
+  align-items: center;
+  margin-top: 1rem;
+  animation: Uso__aparece .35s .1s ease both;
+}
+
+.Uso__contenedor_tabla {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 14rem);
+  overflow: auto;
+}
+
+.Uso__contenedor_tabla::-webkit-scrollbar {
+  width: .6em;
+  height: .6em;
+  background-color: var(--color-fondo);
+}
+
+.Uso__contenedor_tabla::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
+}
+
+.Uso__tabla_uso {
+  border: 1px solid var(--color-bordes);
+  animation: Uso__aparece .35s .1s ease both;
+}
+
+.Uso__tabla_uso thead {
+  background-color: var(--color-barra-superior);
+  font-weight: 600;
+}
+
+.Uso__tabla_uso thead th {
+  background-color: var(--color-barra-superior);
+  text-transform: uppercase;
+  font-size: .7rem;
+}
+
+.Uso__tabla_uso tr {
+  border: 1px solid var(--color-bordes);
+  height: 2.75rem;
+}
+
+.Uso__tabla_uso thead tr {
+  border-top-color: transparent;
+  height: 2.25rem;
+}
+
+.Uso__tabla_uso th:first-child,
+.Uso__tabla_uso td:first-child {
+  width: 70%;
+}
+
+.Uso__tabla_uso th,
+.Uso__tabla_uso td {
+  padding: 0 .75rem;
+  text-align: right;
+  vertical-align: middle;
+  width: 15%;
+}
+
+.Uso__tabla_uso th:first-child,
+.Uso__tabla_uso td:first-child {
+  padding: 0 .5rem;
+  text-align: left;
+}
+
+.Uso__tabla_uso td {
+  font-size: .85rem;
+}
+
+.Uso__tabla_uso tbody tr:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.Uso__tabla_uso tbody tr:first-child {
+  font-weight: 600;
+}
+
+.Uso__opcion_mes, .Uso__selector_periodo {
+  text-transform: capitalize;
+}
+
+.Uso__fila_tipo_encuesta {
+  animation: Uso__aparece_fila_tabla_uso .25s ease both;
+}
+
+.Uso__boton_descargar_pdf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5rem;
+  height: 1.75rem;
+  padding: 0 .6rem;
+  margin-left: .5rem;
+  color: var(--color-texto-claro);
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
+  transition: all .25s ease;
+  position: relative;
+  filter: none;
+  font-size: .8rem;
+}
+
+.Uso__boton_descargar_pdf:hover {
+  box-shadow: .15rem .15rem .2rem rgba(0, 0, 0, .1);
+  filter: brightness(110%);
+}
+
+.Uso__boton_descargar_pdf:disabled {
+  filter: brightness(80%);
+  cursor: not-allowed;
+}
+
+.Uso__icono_descargar_pdf {
+  margin-right: .25rem;
+  font-size: 1.1rem;
+}
+
+@keyframes Uso__aparece {
+  0% {
+    transform: translateY(-.1rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes Uso__aparece_fila_tabla_uso {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

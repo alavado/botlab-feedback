@@ -1,0 +1,93 @@
+.BarraSuperior {
+  background-color: var(--color-barra-superior);
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-bordes);
+  z-index: 5;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+}
+
+.BarraSuperior__boton {
+  margin-right: auto;
+  margin-left: .5rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-principal);
+  background-color: var(--color-fondo);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
+  transition: all .15s ease;
+  position: relative;
+  z-index: 7;
+}
+
+.BarraSuperior__boton:hover {
+  box-shadow: .15rem .15rem .25rem rgba(0, 0, 0, .1);
+  filter: brightness(110%);
+}
+
+.BarraSuperior__boton:active {
+  filter: brightness(130%);
+}
+
+.BarraSuperior__boton:hover::before {
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border: .5rem solid transparent;
+  border-bottom: .5rem solid var(--color-principal-2);
+  top: calc(100% - .5rem);
+  animation: aparece-tooltip-opcion .1s ease both;
+}
+
+.BarraSuperior__boton:hover::after {
+  position: absolute;
+  content: attr(title);
+  background-color: var(--color-principal-2);
+  color: var(--color-texto-claro);
+  top: calc(100% + .5rem);
+  white-space: nowrap;
+  border-radius: .25rem;
+  padding: 0 .5rem;
+  height: 1.5rem;
+  font-size: .7rem;
+  display: flex;
+  align-items: center;
+  animation: aparece-tooltip-opcion .1s ease both;
+  z-index: 4;
+}
+
+.BarraSuperior__boton_icono {
+  font-size: 1rem;
+}
+
+.BarraSuperior__boton:disabled {
+  filter: brightness(90%);
+  animation: girar-boton-actualizando 1s ease-in-out infinite both;
+  box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+}
+
+.BarraSuperior__boton:disabled:hover::after {
+  display: none;
+}
+
+.BarraSuperior__boton:disabled:hover::before {
+  display: none;
+}
+
+@media(orientation: portrait) {
+  .BarraSuperior__boton {
+    display: none;
+  }
+}

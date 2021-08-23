@@ -1,0 +1,97 @@
+.FilaTablaRespuestas {
+  border-bottom: 1px solid var(--color-bordes);
+  cursor: pointer;
+  transition: all .15s ease;
+  position: relative;
+}
+
+.FilaTablaRespuestas__celda--oculta {
+  max-width: 6ch;
+  padding-left: 0rem !important;
+  padding-right: .15rem !important;
+  overflow: hidden;
+  font-size: .4rem !important;
+}
+
+.FilaTablaRespuestas:active {
+  filter: brightness(90%);
+}
+
+.FilaTablaRespuestas:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.FilaTablaRespuestas:hover .FormularioReaccion {
+  opacity: 1;
+}
+
+.FilaTablaRespuestas__celda {
+  padding: .15rem .5rem .15rem .2rem;
+  font-size: .75rem;
+  vertical-align: middle;
+  height: 2.4rem;
+  line-height: 1.15;
+  white-space: nowrap;
+  transition: all .1s ease-in-out;
+  text-overflow: ellipsis;
+  color: var(--color-texto);
+}
+
+.FilaTablaRespuestas__celda--destacada {
+  box-shadow:
+    inset .05rem 0 0 0 var(--color-bordes),
+    inset -.05rem 0 0 0 var(--color-bordes);
+  background: var(--color-fila-destacada);
+}
+
+.FilaTablaRespuestas__celda--sin-padding {
+  padding: 0 .2rem 0 .2rem;
+  min-width: 1.4rem;
+}
+
+.FilaTablaRespuestas__celda--sin-padding + * {
+  padding-left: .2rem;
+}
+
+.FilaTablaRespuestas__contenedor_reaccion {
+  min-width: 1rem;
+  height: 1rem;
+  font-size: .75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  position: relative;
+}
+
+.FilaTablaRespuestas__contenedor_reaccion_indicador_comentario {
+  position: absolute;
+  background: var(--color-principal);
+  color: var(--color-texto-claro);
+  padding: .2rem;
+  font-size: .7rem;
+  border-radius: .2rem .2rem .2rem 0;
+  left: calc(100% - .5rem);
+  top: -.75rem;
+  max-width: 2.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform-origin: 0% 100%;
+  transform: scale(.65);
+  transition: all .25s ease;
+}
+
+.FilaTablaRespuestas__celda:hover .FilaTablaRespuestas__contenedor_reaccion_indicador_comentario {
+  max-width: 100rem;
+  transform: scale(1);
+}
+
+.FilaTablaRespuestas:hover .FilaTablaRespuestas__indicador_accion {
+  opacity: 1;
+  transform: translateX(.25rem);
+}
+
+.FilaTablaRespuestas__contenedor_tag {
+  display: flex;
+  justify-content: flex-start;
+}

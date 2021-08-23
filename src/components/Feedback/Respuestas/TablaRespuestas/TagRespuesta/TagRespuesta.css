@@ -1,0 +1,88 @@
+.TagRespuesta {
+  padding: .25rem .75rem .25rem .5rem;
+  font-size: .7rem;
+  font-weight: 600;
+  border-radius: .25rem;
+  color: var(--color-texto-tag) !important;
+  margin-right: .5rem;
+  overflow: hidden;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  min-width: 9ch;
+  box-shadow: .1rem .1rem .1rem -.1rem rgba(0, 0, 0, .1);
+}
+
+.TagRespuesta--no {
+  background-color: var(--color-no);
+}
+
+.TagRespuesta--si {
+  background-color: var(--color-si);
+}
+
+.TagRespuesta--out {
+  background-color: var(--color-out);
+}
+
+.TagRespuesta--reagenda {
+  background-color: var(--color-reagenda);
+}
+
+.TagRespuesta--reagendado {
+  background-color: var(--color-reagendado);
+}
+
+.TagRespuesta--vacia {
+  background-color: white;
+  border: 1px dashed rgba(0, 0, 0, .25);
+  justify-content: center;
+}
+
+.TagRespuesta--opcion_reagendamiento {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1in;
+  box-shadow: .1rem .1rem .1rem -.1rem rgba(0, 0, 0, .1);
+  font-size: .7rem;
+  font-weight: 600;
+  background-color: var(--color-si);
+  color: var(--color-texto-tag) !important;
+}
+
+/* .TagRespuesta--nota {
+  border: 1px solid var(--color-secundario);
+  height: 1.25rem;
+  width: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-fondo);
+  align-self: center;
+} */
+
+.TagRespuesta__icono {
+  margin-right: .25rem;
+}
+
+.TagRespuesta--vacia .TagRespuesta__icono {
+  margin: 0;
+  opacity: .75;
+}
+
+.TagRespuesta--vacia > span {
+  display: none;
+}
+
+.TagRespuesta__icono_estrella {
+  margin-right: 0;
+  color: orange;
+}
+
+.TagRespuesta__icono_estrella--inactiva {
+  color: lightgray
+}

@@ -1,0 +1,22 @@
+.BarraEstadoCelular {
+  background-color: var(--whatsapp-fondo-barra-estado);
+  min-height: 1rem;
+  font-size: .64rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 .75rem 0 1rem;
+  color: rgba(255, 255, 255, .7);
+  cursor: default;
+}
+
+.BarraEstadoCelular__icono {
+  margin-right: .15rem;
+  font-size: .75rem;
+}
+
+.CelularWhatsapp--expandido .BarraEstadoCelular {
+  min-height: 0;
+  height: 0;
+  overflow: hidden;
+}

@@ -1,0 +1,14 @@
+.App {
+  min-height: 100vh;
+  max-height: 100vh;
+  max-width: 100vw;
+  display: flex;
+  background:
+    linear-gradient(135deg, var(--color-principal), var(--color-secundario));
+  background-size: cover;
+  overflow: hidden;
+}
+
+button:hover {
+  filter: brightness(115%);
+}

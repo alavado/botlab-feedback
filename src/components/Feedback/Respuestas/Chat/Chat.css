@@ -1,0 +1,24 @@
+.Chat {
+  display: grid;
+  grid-template: auto 1fr / 1fr auto 1.25fr;
+  gap: 1rem 0;
+  animation: aparece-chat .15s ease both;
+  transform: translateY(-.75rem);
+}
+
+@keyframes aparece-chat {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (orientation: portrait) {
+  .Chat {
+    flex-direction: column;
+    overflow: auto;
+    max-height: calc(100vh - 8rem);
+  }
+}

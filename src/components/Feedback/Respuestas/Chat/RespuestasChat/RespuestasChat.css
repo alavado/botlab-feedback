@@ -1,0 +1,21 @@
+.RespuestasChat {
+  flex: .75;
+  color: var(--color-texto);
+}
+
+.RespuestasChat__titulo {
+  font-weight: 600;
+  font-size: .93rem;
+  font-family: 'Raleway';
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+}
+
+@keyframes aparece-contenedor-datos {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

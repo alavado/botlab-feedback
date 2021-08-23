@@ -1,0 +1,123 @@
+.SelectorRangoFechas {
+  display: flex;
+  align-items: center;
+  font-size: .8rem;
+  position: relative;
+  color: var(--color-texto);
+}
+
+.SelectorRangoFechas__datepicker {
+  text-align: center;
+  width: 9rem;
+  border-radius: 1rem;
+  height: 2rem;
+  outline: none;
+  border: 1px solid var(--color-bordes);
+  margin: 0 .5rem;
+  cursor: pointer;
+  font-size: .75rem;
+  font-weight: 600;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+.SelectorRangoFechas__boton {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-claro);
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all .15s ease;
+  position: relative;
+}
+
+.SelectorRangoFechas__boton:last-child {
+  margin-left: .5rem;
+}
+
+.SelectorRangoFechas__boton:hover {
+  box-shadow: 0rem .1rem .15rem var(--color-sombras);
+  filter: brightness(110%);
+}
+
+.SelectorRangoFechas__boton:active {
+  filter: brightness(130%);
+}
+
+.SelectorRangoFechas__boton:hover::before {
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border: .5rem solid transparent;
+  border-top: .5rem solid var(--color-principal-2);
+  top: -.5rem;
+  animation: aparece-tooltip-opcion .15s ease both;
+}
+
+.SelectorRangoFechas__boton:hover::after {
+  position: absolute;
+  content: attr(title);
+  background-color: var(--color-principal-2);
+  color: var(--color-texto-claro);
+  top: -100%;
+  white-space: nowrap;
+  border-radius: .25rem;
+  padding: 0 .5rem;
+  height: 1.5rem;
+  font-size: .7rem;
+  display: flex;
+  align-items: center;
+  animation: aparece-tooltip-opcion .15s ease both;
+  z-index: 4;
+}
+
+.SelectorRangoFechas__boton_icono {
+  font-size: 1rem;
+}
+
+.SelectorRangoFechas__boton:disabled {
+  filter: brightness(90%);
+  animation: girar-boton-actualizando 1s ease-in-out infinite both;
+  box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+}
+
+.SelectorRangoFechas__boton:disabled:hover::after {
+  display: none;
+}
+
+.SelectorRangoFechas__boton:disabled:hover::before {
+  display: none;
+}
+
+@media (orientation: portrait) {
+  .SelectorRangoFechas {
+    display: none;
+  }
+}
+
+@keyframes aparece-tooltip-opcion {
+  0% {
+    opacity: 0;
+    transform: translateY(.1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes girar-boton-actualizando {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}

@@ -1,0 +1,105 @@
+.ModalFiltros__lamina {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transform: translateY(0rem);
+  transition: all .1s ease-in-out;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 2;
+}
+
+.ModalFiltros__lamina--oculta {
+  opacity: 0;
+  transform: translateY(-.5rem);
+  pointer-events: none;
+}
+
+.ModalFiltros {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-fondo);
+  box-shadow:
+    0rem 0rem .25rem rgba(0, 0, 0, .15),
+    inset 0 0 0 1px var(--color-bordes); 
+  border-radius: .25rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.ModalFiltros__titulo {
+  text-transform: uppercase;
+  font-size: .5rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  background: var(--color-principal);
+  color: var(--color-texto-claro);
+  padding: 0 .5rem;
+  border-radius: .15rem .15rem 0 0;
+}
+
+.ModalFiltros__boton {
+  color: var(--color-texto);
+  background-color: transparent;
+  border: none;
+  padding: .5rem .75rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  font-size: .7rem;
+  outline: none;
+  border-radius: .25rem;
+}
+
+.ModalFiltros__boton:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.ModalFiltros__boton:active {
+  filter: brightness(.95);
+}
+
+.ModalFiltros__input_filtro {
+  flex: 1;
+  height: 2rem;
+  padding: 0 .5rem;
+  outline: none;
+  border: none;
+  box-shadow: 0 0 0 .1rem var(--color-gris);
+  border-radius: .75rem;
+  height: 1.5rem;
+  transition: all .25s ease;
+  font-size: .7rem;
+}
+
+.ModalFiltros__input_filtro:focus {
+  box-shadow: 0 0 0 .1rem var(--color-principal-2);
+}
+
+.ModalFiltros__input_filtro::placeholder {
+  font-size: .7rem;
+  color: var(--color-gris);
+}
+
+.ModalFiltros__boton_limpiar_filtro {
+  position: absolute;
+  right: 1.5rem;
+  bottom: .7rem;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: .8rem;
+  color: var(--color-gris);
+  padding: 0;
+}
+
+.ModalFiltros__boton_limpiar_filtro:hover {
+  filter: brightness(120%);
+}
