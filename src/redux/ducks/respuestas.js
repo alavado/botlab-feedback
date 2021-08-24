@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { formatISO9075 } from "date-fns"
+import { formatISO9075, isFriday, isMonday, isSaturday, isSunday, isThursday, isTuesday, isWednesday } from "date-fns"
+import { parseISO } from "date-fns/esm"
 import diccionarioTags from "../../helpers/tags"
 import { obtenerTagsCalculados } from "../../helpers/tagsCalculados"
 
@@ -65,8 +66,71 @@ const sliceRespuestas = createSlice({
         : []
       const categorias = propiedadesCategoricas.map(propiedad => ({
         propiedad,
-        niveles: [...new Set(respuestas.map(r => r[propiedad]))]
+        niveles: [...new Set(respuestas.map(r => r[propiedad]))].map(nombre => ({
+          nombre,
+          f: r => r[propiedad] === nombre
+        }))
       }))
+      propiedadesCategoricas.push('rut')
+      categorias.push({
+        propiedad: 'Edad (según RUT)',
+        niveles: [
+          {
+            nombre: 'menos de 14 años',
+            f: r => Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) > 22_500_000
+          },
+          {
+            nombre: '14 - 27 años',
+            f: r => 18_500_000 < Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) && Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) < 22_500_000
+          },
+          {
+            nombre: '27 - 40 años',
+            f: r => 14_500_000 < Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) && Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) < 18_500_000
+          },
+          {
+            nombre: '40 - 60 años',
+            f: r => 8_500_000 < Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) && Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) < 14_500_000
+          },
+          {
+            nombre: 'más de 60 años',
+            f: r => Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) < 8_500_000
+          },
+        ]
+      })
+      propiedadesCategoricas.push('dia_confirmacion')
+      categorias.push({
+        propiedad: 'Día de conversación',
+        niveles: [
+          {
+            nombre: 'lunes',
+            f: r => isMonday(parseISO(r.start))
+          },
+          {
+            nombre: 'martes',
+            f: r => isTuesday(parseISO(r.start))
+          },
+          {
+            nombre: 'miércoles',
+            f: r => isWednesday(parseISO(r.start))
+          },
+          {
+            nombre: 'jueves',
+            f: r => isThursday(parseISO(r.start))
+          },
+          {
+            nombre: 'viernes',
+            f: r => isFriday(parseISO(r.start))
+          },
+          {
+            nombre: 'sábado',
+            f: r => isSaturday(parseISO(r.start))
+          },
+          {
+            nombre: 'domingo',
+            f: r => isSunday(parseISO(r.start))
+          },
+        ]
+      })
       state.categorias = categorias
       state.respuestas = respuestas
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
