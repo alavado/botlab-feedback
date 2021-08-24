@@ -97,6 +97,24 @@ export const obtenerTagsCalculados = idEncuesta => {
           }
         }
       ]
+    case Number(process.env.REACT_APP_ID_POLL_REDSALUD_GES_CMD_ALAMEDA):
+      return [
+        {
+          nombre: 'tc1',
+          texto: 'Respuesta',
+          tipo: 'YESNO',
+          f: r => {
+            if (r[4].tag === REAGENDA || r[4].tag === YES) {
+              return { tag: REAGENDA, text: `${r[0].text} / ${r[4].text}` }
+            }
+            let tagConfirma = r[0]
+            if (r[-5].tag) {
+              tagConfirma = r[-5]
+            }
+            return tagConfirma
+          }
+        }
+      ]
     default:
       return
   }
