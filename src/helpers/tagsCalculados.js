@@ -81,6 +81,7 @@ export const obtenerTagsCalculados = idEncuesta => {
     case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
     case Number(process.env.REACT_APP_ID_POLL_VICHUQUEN):
     case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CONCEPCION):
+    case Number(process.env.REACT_APP_ID_POLL_ROADENT):
       return [
         {
           nombre: 'tc1',
