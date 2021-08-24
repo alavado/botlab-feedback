@@ -22,6 +22,10 @@ const usuariosPiloto = [
   {
     nombre: 'OrtodonciaConcepcion',
     exp: '2021-09-11 00:00:00'
+  },
+  {
+    nombre: 'RoaDent',
+    exp: '2021-09-02 00:00:00'
   }
 ]
 
