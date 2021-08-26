@@ -3,6 +3,30 @@ import { YES, NO, REAGENDA, REAGENDADO } from './tags'
 const actionSuccess = 'action_result:SUCCESS'
 const actionFailure = 'action_result:FAILURE'
 
+const juntarTagsTipicos = (indiceConfirma, indiceReagenda) => {
+  return [
+    {
+      nombre: 'tc1',
+      texto: 'Respuesta',
+      tipo: 'YESNO',
+      f: r => {
+        const confirma = r[indiceConfirma]
+        const reagenda = r[indiceReagenda]
+        if (reagenda.tag === REAGENDA || reagenda.tag === YES) {
+          return {
+            tag: REAGENDA,
+            text: `${confirma.text} / ${reagenda.text}`
+          }
+        }
+        if (reagenda.tag) {
+          return reagenda
+        }
+        return confirma
+      }
+    }
+  ]
+}
+
 export const obtenerTagsCalculados = idEncuesta => {
   switch (idEncuesta) {
     case Number(process.env.REACT_APP_ID_POLL_SANASALUD_CMSC):
@@ -62,42 +86,12 @@ export const obtenerTagsCalculados = idEncuesta => {
       ]
     case Number(process.env.REACT_APP_ID_POLL_AQUAMED):
     case Number(process.env.REACT_APP_ID_POLL_ALTOSDELVALLE):
-      return [
-        {
-          nombre: 'tc1',
-          texto: 'Respuesta',
-          tipo: 'YESNO',
-          f: r => {
-            if (r[1].tag === REAGENDA || r[1].tag === YES) {
-              return { tag: REAGENDA, text: `${r[0].text} / ${r[1].text}` }
-            }
-            if (r[1].tag) {
-              return r[1]
-            }
-            return r[0]
-          }
-        }
-      ]
+      return juntarTagsTipicos(0, 1)
     case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
     case Number(process.env.REACT_APP_ID_POLL_VICHUQUEN):
     case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CONCEPCION):
     case Number(process.env.REACT_APP_ID_POLL_ROADENT):
-      return [
-        {
-          nombre: 'tc1',
-          texto: 'Respuesta',
-          tipo: 'YESNO',
-          f: r => {
-            if (r[2].tag === REAGENDA || r[2].tag === YES) {
-              return { tag: REAGENDA, text: `${r[0].text} / ${r[2].text}` }
-            }
-            if (r[2].tag) {
-              return r[2]
-            }
-            return r[0]
-          }
-        }
-      ]
+      return juntarTagsTipicos(0, 2)
     case Number(process.env.REACT_APP_ID_POLL_REDSALUD_GES_CMD_ALAMEDA):
       return [
         {
@@ -108,11 +102,11 @@ export const obtenerTagsCalculados = idEncuesta => {
             if (r[4].tag === REAGENDA || r[4].tag === YES) {
               return { tag: REAGENDA, text: `${r[0].text} / ${r[4].text}` }
             }
-            let tagConfirma = r[0]
+            let confirma = r[0]
             if (r[-5].tag) {
-              tagConfirma = r[-5]
+              confirma = r[-5]
             }
-            return tagConfirma
+            return confirma
           }
         }
       ]

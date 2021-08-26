@@ -92,7 +92,7 @@ const sliceRespuestas = createSlice({
             f: r => 8_500_000 < Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) && Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) < 14_500_000
           },
           {
-            nombre: 'más de 60 años y extranjeros',
+            nombre: 'más de 60 años',
             f: r => Number(r['rut']?.slice(0, r['rut'].indexOf('-')) || 0) < 8_500_000
           },
         ]
