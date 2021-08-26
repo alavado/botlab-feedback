@@ -18,10 +18,7 @@ const juntarTagsTipicos = (indiceConfirma, indiceReagenda) => {
             text: `${confirma.text} / ${reagenda.text}`
           }
         }
-        if (reagenda.tag) {
-          return reagenda
-        }
-        return confirma
+        return reagenda.tag ? reagenda : confirma
       }
     }
   ]
