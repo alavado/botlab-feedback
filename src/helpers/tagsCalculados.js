@@ -91,7 +91,6 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CONCEPCION):
       case Number(process.env.REACT_APP_ID_POLL_ROADENT):
       case Number(process.env.REACT_APP_ID_POLL_FACELAB):
-      case Number(process.env.REACT_APP_ID_POLL_FACELAB_RECONF):
         return juntarTagsTipicos(0, 2)
       
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_GES_CMD_ALAMEDA):
