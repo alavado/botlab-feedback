@@ -1,14 +1,10 @@
-import { InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useSelector } from 'react-redux'
-import { encuestaTieneEmojisHabilitados } from '../../../../../../helpers/betas'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
 import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
-import RelojSimpatico from '../../../../../RelojSimpatico'
 import TagRespuesta from '../../TagRespuesta'
-import iconoNota from '@iconify/icons-mdi/note'
 import './FilaTablaRespuestas.css'
 
 const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
@@ -27,20 +23,18 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
       className="FilaTablaRespuestas"
       onClick={onClick}
     >
-      {encuestaTieneEmojisHabilitados(idEncuesta) && (
-        <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
-          {ultimaReaccion && (
-            <div className="FilaTablaRespuestas__contenedor_reaccion">
-              {ultimaReaccion.reaction_emoji}
-              {ultimaReaccion.reaction_text && (
-                <div className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario">
-                  {ultimaReaccion.reaction_text} <RelojSimpatico horaISO={ultimaReaccion.created_at} /> <span style={{ fontStyle: 'italic', opacity: .8, paddingLeft: '.2rem' }}>{formatDistanceToNow(parseISO(ultimaReaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}</span>
-                </div>
-              )}
-            </div>
-          )}
-        </td>
-      )}
+      <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
+        {ultimaReaccion && (
+          <div className="FilaTablaRespuestas__contenedor_reaccion">
+            {ultimaReaccion.reaction_emoji}
+            {ultimaReaccion.reaction_text && (
+              <div className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario">
+                {ultimaReaccion.reaction_text} <span style={{ fontStyle: 'italic', opacity: .8, paddingLeft: '.2rem' }}>{formatDistanceToNow(parseISO(ultimaReaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}</span>
+              </div>
+            )}
+          </div>
+        )}
+      </td>
       {headers.map(({ nombre, f, texto }, j) => {
         let valorHeader = f ? f(respuesta) : respuesta[nombre]
         return (

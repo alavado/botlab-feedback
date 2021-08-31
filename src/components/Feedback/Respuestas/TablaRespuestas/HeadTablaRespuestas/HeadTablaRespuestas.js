@@ -8,7 +8,6 @@ import iconoNota from '@iconify/icons-mdi/note-edit'
 import ModalFiltros from '../ModalFiltros'
 import { destacaColumna, fijaColumna, yaNoDestaquesColumna } from '../../../../../redux/ducks/respuestas'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
-import { encuestaTieneEmojisHabilitados } from '../../../../../helpers/betas'
 
 const HeadTablaRespuestas = () => {
 
@@ -29,7 +28,7 @@ const HeadTablaRespuestas = () => {
   return (
     <thead className="HeadTablaRespuestas">
       <tr className="HeadTablaRespuestas__fila">
-        {encuestaTieneEmojisHabilitados(idEncuesta) && <th className="HeadTablaRespuestas__header--sin-padding"></th>}
+        <th className="HeadTablaRespuestas__header--sin-padding"></th>
         {headersOrdenados.map(({ nombre, texto }, i) => (
           <th
             key={`header-${nombre}`}
