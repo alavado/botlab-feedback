@@ -3,7 +3,7 @@ import { YES, NO, REAGENDA, REAGENDADO } from './tags'
 const actionSuccess = 'action_result:SUCCESS'
 const actionFailure = 'action_result:FAILURE'
 
-const juntarTagsTipicos = (indiceConfirma, indiceReagenda) => {
+const juntarConfirmaYReagenda = (indiceConfirma, indiceReagenda) => {
   return [
     {
       nombre: 'tc1',
@@ -84,16 +84,16 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_OYEDENTALVINA):
       case Number(process.env.REACT_APP_ID_POLL_AQUAMED):
       case Number(process.env.REACT_APP_ID_POLL_ALTOSDELVALLE):
-        return juntarTagsTipicos(0, 1)
+        return juntarConfirmaYReagenda(0, 1)
       
       case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
       case Number(process.env.REACT_APP_ID_POLL_VICHUQUEN):
       case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CONCEPCION):
       case Number(process.env.REACT_APP_ID_POLL_ROADENT):
-        return juntarTagsTipicos(0, 2)
+        return juntarConfirmaYReagenda(0, 2)
       
       case Number(process.env.REACT_APP_ID_POLL_FACELAB):
-        return juntarTagsTipicos(0, 4)
+        return juntarConfirmaYReagenda(0, 4)
       
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_GES_CMD_ALAMEDA):
         return [
