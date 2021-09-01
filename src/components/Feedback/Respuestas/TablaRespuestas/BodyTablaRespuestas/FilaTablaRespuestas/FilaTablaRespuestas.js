@@ -9,7 +9,6 @@ import './FilaTablaRespuestas.css'
 
 const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
 
-  const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
   const { columnaDestacada } = useSelector(state => state.respuestas)
 
   if (!respuesta) {
