@@ -11,16 +11,21 @@ import { obtenerPollsCalculadas } from '../../../../../helpers/pollsCalculadas'
 const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { cuenta } = useSelector(state => state.login)
   const { respuestas } = useSelector(state => state.respuestas)
   
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos.find(({ id }) => id === idEncuestaSeleccionada)
     const encuestasCalculadas = obtenerPollsCalculadas(encuestaSeleccionada, respuestas)
-    const tiposEncuestas = [
+    let tiposEncuestas = [
       encuestaSeleccionada,
       ...encuestasCalculadas,
       ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada)
     ]
+    // hack
+    if (cuenta !== 'sanasalud_botlab') {
+      tiposEncuestas = tiposEncuestas.filter(t => t.id !== 233)
+    }
     return tiposEncuestas
   }, [tipos, idEncuestaSeleccionada, respuestas])
 
