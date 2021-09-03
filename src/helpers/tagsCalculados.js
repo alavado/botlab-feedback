@@ -76,6 +76,8 @@ export const obtenerTagsCalculados = idEncuesta => {
             f: r => r[-41].tag ? r[-41] : (r[-51] || r[-41])
           }
         ]
+      case Number(process.env.REACT_APP_ID_POLL_OREMA):
+      case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CHILE):
       case Number(process.env.REACT_APP_ID_POLL_LAS_CRUCES):
       case Number(process.env.REACT_APP_ID_POLL_BASU):
       case Number(process.env.REACT_APP_ID_POLL_OYEDENTAL):
@@ -88,6 +90,7 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_VICHUQUEN):
       case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CONCEPCION):
       case Number(process.env.REACT_APP_ID_POLL_ROADENT):
+      case Number(process.env.REACT_APP_ID_POLL_RUBEN_ROSENBERG):
         return juntarConfirmaYReagenda(0, 2)
       
       case Number(process.env.REACT_APP_ID_POLL_FACELAB):
