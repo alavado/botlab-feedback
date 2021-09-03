@@ -3,32 +3,38 @@ import Skeleton from '../../../Skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import diccionarioTags from '../../../../helpers/tags'
 import { agregaFiltro } from '../../../../redux/ducks/respuestas'
-import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import './ResumenRespuestas.css'
+import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import LoaderRespuestas from '../TablaRespuestas/LoaderRespuestas/LoaderRespuestas'
 import { obtenerHeaders } from '../../../../helpers/tablaRespuestas'
+import { obtenerHeadersConTagsCalculados } from '../../../../helpers/tagsCalculados'
 
 const ResumenRespuestas = ({ cargando }) => {
 
   const { headers, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
-  const primerTag = obtenerHeaders(headers, idEncuestaSeleccionada)?.find(h => h.tipo === 'YESNO')
+  const headersConTagsCalculados = obtenerHeadersConTagsCalculados(headers, idEncuestaSeleccionada)
+  const headersOriginales = obtenerHeaders(headers, idEncuestaSeleccionada)
+  const primerTag = (headersConTagsCalculados || headersOriginales)?.find(h => h.tipo === 'YESNO')
 
   const conteosTags = useMemo(() => {
     if (cargando) {
       return {}
     }
     const tags = Object.keys(diccionarioTags).slice(0, 4)
-    const primerHeaderYESNO = headers.find(h => h.tipo === 'YESNO')
+    const primerHeaderYESNO = (headersConTagsCalculados || headersOriginales).find(h => h.tipo === 'YESNO')
     return primerHeaderYESNO
       ? respuestas.reduce((prev, respuesta) => {
-          const indice = tags.find(t => t === respuesta[primerHeaderYESNO.nombre].tag)
+          const tagRespuesta = headersConTagsCalculados
+            ? primerHeaderYESNO.f(respuesta).tag
+            : respuesta[primerHeaderYESNO.nombre].tag
+          const indice =  tags.find(t => t === tagRespuesta)
           indice && (prev[indice] = prev[indice] ? prev[indice] + 1 : 1)
           return prev
         }, {})
       : null
-  }, [cargando, headers, respuestas])
+  }, [cargando, headersConTagsCalculados, headersOriginales, respuestas])
 
   let total, conRespuesta, porcentaje
   if (respuestas) {
