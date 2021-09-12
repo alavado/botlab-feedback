@@ -12,13 +12,13 @@ const juntarConfirmaYReagenda = (indiceConfirma, indiceReagenda) => {
       f: r => {
         const confirma = r[indiceConfirma]
         const reagenda = r[indiceReagenda]
-        if (reagenda.tag === REAGENDA || reagenda.tag === YES) {
+        if (reagenda?.tag === REAGENDA || reagenda?.tag === YES) {
           return {
             tag: REAGENDA,
             text: `${confirma.text} / ${reagenda.text}`
           }
         }
-        return reagenda.tag ? reagenda : confirma
+        return reagenda?.tag ? reagenda : confirma
       }
     }
   ]
