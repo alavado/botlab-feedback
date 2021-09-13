@@ -8,21 +8,17 @@ import './AlertaPilotos.css'
 
 const usuariosPiloto = [
   {
-    nombre: 'Vichuquen',
-    exp: '2021-09-11 00:00:00'
-  },
-  {
     nombre: 'OrtodonciaConcepcion',
     exp: '2021-09-11 00:00:00'
   },
   {
-    nombre: 'Versalles',
+    nombre: 'Tobalaba',
     exp: '2021-09-16 00:00:00'
   },
   {
-    nombre: 'Tobalaba',
-    exp: '2021-09-16 00:00:00'
-  }
+    nombre: 'DentalSpaChile',
+    exp: '2021-09-20 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
@@ -38,7 +34,7 @@ const AlertaPilotos = () => {
     return () => clearInterval(interval)
   }, [usuario])
 
-  if (diferencia === undefined || diferencia > 7) {
+  if (diferencia === undefined || diferencia > 5) {
     return null
   }
 
