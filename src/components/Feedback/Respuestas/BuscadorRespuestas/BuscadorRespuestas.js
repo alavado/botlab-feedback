@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from '@iconify/react'
-import iconoBuscar from '@iconify/icons-mdi/filter'
+import iconoBuscar from '@iconify/icons-mdi/text-search'
 import iconoBorrarBusqueda from '@iconify/icons-mdi/close'
 import './BuscadorRespuestas.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,7 +35,7 @@ const BuscadorRespuestas = ({ cargando }) => {
         onChange={e => dispatch(buscaEsto(e.target.value))}
         spellCheck="false"
         disabled={cargando}
-        placeholder="Filtrar tabla"
+        placeholder="Buscar en tabla"
       />
     </div>
   )

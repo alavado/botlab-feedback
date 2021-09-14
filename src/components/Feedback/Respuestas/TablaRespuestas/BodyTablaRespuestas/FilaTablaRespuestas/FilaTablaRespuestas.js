@@ -1,26 +1,38 @@
 import classNames from 'classnames'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
 import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
+import { fijaFilaTablaDestacada } from '../../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../TagRespuesta'
 import './FilaTablaRespuestas.css'
 
 const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
 
-  const { columnaDestacada } = useSelector(state => state.respuestas)
+  const { columnaDestacada, filaTablaDestacada } = useSelector(state => state.respuestas)
+  const dispatch = useDispatch()
 
   if (!respuesta) {
     return null
   }
 
   const ultimaReaccion = respuesta.reactions.slice(-1)[0]
+
+  const clickEnFila = () => {
+    dispatch(fijaFilaTablaDestacada(indice))
+    onClick()
+  }
+
+  console.log(filaTablaDestacada)
   
   return (
     <tr
-      className="FilaTablaRespuestas"
-      onClick={onClick}
+      className={classNames({
+        "FilaTablaRespuestas": true,
+        "FilaTablaRespuestas--destacada": indice === filaTablaDestacada
+      })}
+      onClick={clickEnFila}
     >
       <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
         {ultimaReaccion && (

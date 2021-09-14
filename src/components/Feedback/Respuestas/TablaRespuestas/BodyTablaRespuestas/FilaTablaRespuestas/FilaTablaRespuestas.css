@@ -5,6 +5,10 @@
   position: relative;
 }
 
+.FilaTablaRespuestas--destacada {
+  background-color: var(--color-fila-destacada) !important;
+}
+
 .FilaTablaRespuestas__celda--oculta {
   max-width: 6ch;
   padding-left: 0rem !important;
@@ -14,7 +18,7 @@
 }
 
 .FilaTablaRespuestas:active {
-  filter: brightness(90%);
+  background-color: var(--color-foco-fila) !important;
 }
 
 .FilaTablaRespuestas:hover {

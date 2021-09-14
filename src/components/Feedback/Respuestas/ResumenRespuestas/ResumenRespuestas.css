@@ -35,10 +35,7 @@
   justify-content: space-between;
   flex: 1;
   --porcentaje-lleno: 0%;
-  background:
-    linear-gradient(to right, rgba(86, 79, 224, 0.25) 0% 100%),
-    linear-gradient(25deg, var(--color-mini-dasdhboard-1) 40%, var(--color-mini-dasdhboard-2) 55%)
-  ;
+  background: linear-gradient(25deg, var(--color-mini-dasdhboard-1) 40%, var(--color-mini-dasdhboard-2) 55%);
   color: var(--color-texto-claro);
   transition: all .25s ease;
 }
