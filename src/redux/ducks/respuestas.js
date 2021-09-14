@@ -20,9 +20,13 @@ const sliceRespuestas = createSlice({
     columnaDestacadaFija: false,
     tablaDestacada: false,
     categorias: [],
-    nombreEncuestaFiltrada: undefined
+    nombreEncuestaFiltrada: undefined,
+    scrollTabla: 0,
   },
   reducers: {
+    fijaScrollTabla(state, action) {
+      state.scrollTabla = action.payload
+    },
     limpiaRespuestas(state) {
       state.respuestas = undefined
       state.respuestasVisibles = undefined
@@ -402,7 +406,8 @@ export const {
   fijaColumna,
   limpiaFiltros,
   agregaReaccionARespuesta,
-  eliminaReaccionDeRespuesta
+  eliminaReaccionDeRespuesta,
+  fijaScrollTabla
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer
