@@ -10,6 +10,11 @@ import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
 import { guardaContacto } from '../../../../../redux/ducks/opciones'
 
+const obtenerSonrisa = () => {
+  const opciones = ['😀', '😊', '😄', '😁', '😃', '😉', '🙂']
+  return opciones[Math.floor(Math.random() * opciones.length)]
+}
+
 const AccionesChat = () => {
   
   const { nombreUsuario, cuenta } = useSelector(state => state.login)
@@ -57,32 +62,31 @@ const AccionesChat = () => {
     return (
       <div className="AccionesChat__agradecimiento">
         <InlineIcon className="AccionesChat__icono_gracias" icon={iconoGracias} />
-        <p className="AccionesChat__gracias">
-          <strong style={{ fontWeight: 'bold', fontSize: '1rem' }}>¡Hemos recibido tu reporte, gracias por ayudarnos a mejorar nuestro servicio!</strong><br />
-          {/* Si lo consideras pertinente, puedes dejarnos tu contacto para que conversemos sobre este caso   */}
-        </p>
-        {/* {contactoEnviado
-          ? <p>¡Gracias!</p>
+        <p className="AccionesChat__gracias">¡Hemos recibido tu reporte, gracias por ayudarnos a mejorar nuestro servicio!</p>
+        {contactoEnviado
+          ? <p className="AccionesChat__gracias AccionesChat__gracias--contacto">¡Muchas gracias! {obtenerSonrisa()}</p>
           : <form
               className="AccionesChat__formulario_contacto"
               onSubmit={enviarContacto}
             >
+              <p className="AccionesChat__mensaje_contacto">Si gustas, puedes dejarnos tu contacto para que conversemos sobre este caso:</p>
               <input
                 ref={refContacto}
                 type="text"
-                placeholder="Tu teléfono o e-mail"
+                placeholder="Tu nombre, teléfono, e-mail, etc."
                 className="AccionesChat__input_contacto"
                 value={contacto}
                 onChange={e => setContacto(e.target.value)}
+                required
               />
               <button
                 type="submit"
                 className="AccionesChat__boton_contacto"
               >
-                Enviar
+                Enviar mi contacto
               </button>
             </form>
-        } */}
+        }
       </div>
     )
   }
