@@ -312,9 +312,11 @@ const sliceRespuestas = createSlice({
     },
     avanzaPagina(state) {
       state.pagina++
+      state.filaTablaDestacada = undefined
     },
     retrocedePagina(state) {
       state.pagina--
+      state.filaTablaDestacada = undefined
     },
     actualizaRespuestas(state) {
       state.cacheInvalido = true
