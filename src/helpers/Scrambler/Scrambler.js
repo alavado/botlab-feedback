@@ -2,6 +2,17 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import useScrambler from '../../hooks/useScrambler'
 import { scramble } from './scramblers'
+import './Scrambler.css'
+
+const esURL = posibleURL => {
+  let url
+  try {
+    url = new URL(posibleURL)
+    return posibleURL.startsWith('http')
+  } catch (_) {
+    return false  
+  }
+}
 
 const Scrambler = ({ tipo, children: texto, propagar }) => {
 
@@ -33,11 +44,18 @@ const Scrambler = ({ tipo, children: texto, propagar }) => {
     }
   }, [agregarAScrambler, tipo, texto, propagar])
 
-  return (
-    <>
-      {scrambled ? scramble(texto, tipo, terminos) : texto}
-    </>
-  )
+  const componente = esURL(texto)
+    ? <a
+        className="Scrambler__link"
+        target='_blank'
+        href={scrambled ? 'https://google.com' : texto}
+        onClick={e => e.stopPropagation()}
+      >
+        {new URL(texto).hostname}
+      </a>
+    : (scrambled ? scramble(texto, tipo, terminos) : texto)
+
+  return componente
 }
 
 export default Scrambler

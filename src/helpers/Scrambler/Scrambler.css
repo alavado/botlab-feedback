@@ -1,0 +1,19 @@
+.Scrambler__link:hover {
+  color: var(--color-principal);
+  border-bottom: 1px solid var(--color-principal);
+  transition: all .15s ease;
+}
+
+.Scrambler__link::after {
+  content: '↗';
+  margin-left: .25rem;
+  background: var(--color-principal);
+  font-size: .75rem;
+  width: 1rem;
+  height: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-claro);
+  border-radius: .1rem;
+}
