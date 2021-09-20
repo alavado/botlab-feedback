@@ -79,12 +79,9 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_OREMA):
       case Number(process.env.REACT_APP_ID_POLL_LAS_CRUCES):
       case Number(process.env.REACT_APP_ID_POLL_OYEDENTAL):
-      case Number(process.env.REACT_APP_ID_POLL_SONRIE_ARICA):
       case Number(process.env.REACT_APP_ID_POLL_OYEDENTALVINA):
-      case Number(process.env.REACT_APP_ID_POLL_AQUAMED):
         return juntarConfirmaYReagenda(0, 1)
       
-      case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
       case Number(process.env.REACT_APP_ID_POLL_VICHUQUEN):
       case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CONCEPCION):
       case Number(process.env.REACT_APP_ID_POLL_ROADENT):
@@ -99,6 +96,9 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_RUBEN_ROSENBERG):
       case Number(process.env.REACT_APP_ID_POLL_BASU):
       case Number(process.env.REACT_APP_ID_POLL_DENTAL_SPA_CHILE):
+      case Number(process.env.REACT_APP_ID_POLL_AQUAMED):
+      case Number(process.env.REACT_APP_ID_POLL_SONRIE_ARICA):
+      case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
         return juntarConfirmaYReagenda(0, 4)
       
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_GES_CMD_ALAMEDA):
