@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import ReactDatePicker, { registerLocale } from 'react-datepicker'
 import es from 'date-fns/locale/es'
@@ -10,15 +10,28 @@ import Icon from '@iconify/react'
 import './SelectorRangoFechas.css'
 import './react-datepicker-overrides.css'
 import PopupRangosFechas from './PopupRangosFechas'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import classNames from 'classnames'
+import { differenceInMinutes, format } from 'date-fns'
 
 registerLocale('es', es)
 
 const SelectorRangoFechas = () => {
 
-  const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(state => state.respuestas)
+  const { fechaInicio, fechaTermino, cacheInvalido, fechaActualizacion } = useSelector(state => state.respuestas)
   const [popupActivo, setPopupActivo] = useState(false)
   const dispatch = useDispatch()
   const esconder = useCallback(() => setPopupActivo(false), [setPopupActivo])
+  const [distanciaFecha, setDistanciaFecha] = useState('')
+
+  useEffect(() => {
+    const actualizarFecha = () => setDistanciaFecha(formatDistanceToNow(fechaActualizacion, { locale: es, addSuffix: true }))
+    actualizarFecha()
+    const intervalFecha = setInterval(actualizarFecha, 10000)
+    return () => clearInterval(intervalFecha)
+  }, [])
+
+  const alertar = differenceInMinutes(Date.now(), fechaActualizacion) >= 5
 
   return (
     <div className="SelectorRangoFechas">
@@ -51,8 +64,11 @@ const SelectorRangoFechas = () => {
         esconder={esconder}
       />
       <button
-        className="SelectorRangoFechas__boton"
-        title="Refrescar datos"
+        className={classNames({
+          "SelectorRangoFechas__boton": true,
+          "SelectorRangoFechas__boton--alerta": alertar,
+        })}
+        title={`Actualizar (actualizado ${distanciaFecha})`}
         onClick={() => dispatch(actualizaRespuestas())}
         disabled={cacheInvalido}
       >

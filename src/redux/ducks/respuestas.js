@@ -23,6 +23,7 @@ const sliceRespuestas = createSlice({
     nombreEncuestaFiltrada: undefined,
     scrollTabla: 0,
     filaTablaDestacada: undefined,
+    fechaActualizacion: Date.now(),
   },
   reducers: {
     fijaScrollTabla(state, action) {
@@ -144,6 +145,7 @@ const sliceRespuestas = createSlice({
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1
       state.cacheInvalido = false
+      state.fechaActualizacion = Date.now()
     },
     guardaFechaInicio(state, action) {
       state.fechaInicio = action.payload

@@ -23,8 +23,6 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
     dispatch(fijaFilaTablaDestacada(indice))
     onClick()
   }
-
-  console.log(filaTablaDestacada)
   
   return (
     <tr

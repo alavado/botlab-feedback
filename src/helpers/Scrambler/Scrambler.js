@@ -10,7 +10,7 @@ const esURL = posibleURL => {
     url = new URL(posibleURL)
     return posibleURL.startsWith('http')
   } catch (_) {
-    return false  
+    return false
   }
 }
 
@@ -49,6 +49,7 @@ const Scrambler = ({ tipo, children: texto, propagar }) => {
         className="Scrambler__link"
         target='_blank'
         href={scrambled ? 'https://google.com' : texto}
+        rel="noreferrer noopener"
         onClick={e => e.stopPropagation()}
       >
         {new URL(texto).hostname}
