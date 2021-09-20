@@ -44,6 +44,7 @@
   scrollbar-width: thin;
   scrollbar-color: var(--color-principal) var(--color-fondo);
   position: relative;
+  max-width: calc(100vw - 6.5rem);
 }
 
 .TablaRespuestas__overlay {
