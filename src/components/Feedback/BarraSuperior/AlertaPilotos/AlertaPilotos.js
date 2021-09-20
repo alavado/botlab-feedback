@@ -8,16 +8,8 @@ import './AlertaPilotos.css'
 
 const usuariosPiloto = [
   {
-    nombre: 'OrtodonciaConcepcion',
-    exp: '2021-09-11 00:00:00'
-  },
-  {
     nombre: 'Tobalaba',
     exp: '2021-09-16 00:00:00'
-  },
-  {
-    nombre: 'DentalSpaChile',
-    exp: '2021-09-20 00:00:00'
   },
 ]
 
