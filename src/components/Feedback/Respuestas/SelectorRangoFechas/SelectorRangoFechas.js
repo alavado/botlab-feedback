@@ -25,9 +25,7 @@ const SelectorRangoFechas = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const actualizarFecha = () => setFechaActual(() => Date.now())
-    actualizarFecha()
-    const intervalFecha = setInterval(actualizarFecha, 1000)
+    const intervalFecha = setInterval(() => setFechaActual(() => Date.now()), 1000)
     return () => clearInterval(intervalFecha)
   }, [])
 
@@ -56,7 +54,7 @@ const SelectorRangoFechas = () => {
       <button
         className="SelectorRangoFechas__boton"
         onClick={() => setPopupActivo(true)}
-        title="Rangos habituales"
+        tooltip="Rangos habituales"
       >
         <Icon className="SelectorRangoFechas__boton_icono" icon={iconoOpciones} />
       </button>
@@ -69,7 +67,7 @@ const SelectorRangoFechas = () => {
           "SelectorRangoFechas__boton": true,
           "SelectorRangoFechas__boton--alerta": alertar,
         })}
-        title={`Actualizar (${mensajeActualizacion})`}
+        tooltip={`Actualizar (${mensajeActualizacion})`}
         onClick={() => dispatch(actualizaRespuestas())}
         disabled={cacheInvalido}
       >

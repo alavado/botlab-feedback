@@ -59,7 +59,7 @@
 
 .SelectorRangoFechas__boton:hover::after {
   position: absolute;
-  content: attr(title);
+  content: attr(tooltip);
   background-color: var(--color-principal-2);
   color: var(--color-texto-claro);
   top: -100%;
