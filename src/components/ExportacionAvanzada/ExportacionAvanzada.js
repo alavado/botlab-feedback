@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import classNames from 'classnames'
-import iconoExportar from '@iconify/icons-mdi/download-outline'
+import iconoExportar from '@iconify/icons-mdi/table-export'
 import Icon from '@iconify/react'
 import './ExportacionAvanzada.css'
 import { exportarRespuestas } from '../../api/endpoints'
@@ -29,7 +29,7 @@ const ExportacionAvanzada = () => {
   return (
     <div className="ExportacionAvanzada">
       <div className="ExportacionAvanzada__superior">
-        <h1 className="ExportacionAvanzada__titulo">Exportar</h1>
+        <h1 className="ExportacionAvanzada__titulo">Reporte</h1>
       </div>
       <div className="ExportacionAvanzada__contenedor">
         <div className="ExportacionAvanzada__contenedor_formulario">
@@ -52,7 +52,7 @@ const ExportacionAvanzada = () => {
               className="SelectorRangoFechas__datepicker"
             />
           </div>
-          <h2 className="ExportacionAvanzada__subtitulo">Tipo de exportación</h2>
+          <h2 className="ExportacionAvanzada__subtitulo">E-mail</h2>
           <div className="ExportacionAvanzada__botones_tipos">
             {tiposExportacion.map((tipo, i) => (
               <button
@@ -75,7 +75,7 @@ const ExportacionAvanzada = () => {
               ? <div className="ExportacionAvanzada__loader_exportando" />
               : <Icon className="ExportacionAvanzada__icono" icon={iconoExportar} />
             }
-            Exportar
+            Generar reporte
           </button>
           <p className="ExportacionAvanzada__explicacion">
             Este módulo permite exportar las respuestas para la encuesta seleccionada a un archivo en formato CSV.

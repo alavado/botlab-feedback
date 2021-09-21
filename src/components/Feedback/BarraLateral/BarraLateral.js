@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 import search from '@iconify/icons-mdi/search'
 import alertas from '@iconify/icons-mdi/bell'
-import exportar from '@iconify/icons-mdi/download-box'
+import exportar from '@iconify/icons-mdi/table-export'
 import usage from '@iconify/icons-mdi/wallet'
 import home from '@iconify/icons-mdi/home'
 import logo from '../../../assets/images/logo-cero.svg'
@@ -46,7 +46,7 @@ const BarraLateral = () => {
         activeClassName="BarraLateral__link--activo"
         to="/exportar"
       >
-        <div className="BarraLateral__popup_link">Exportar</div>
+        <div className="BarraLateral__popup_link">Reporte</div>
         <Icon icon={exportar} />
       </NavLink>
       <NavLink

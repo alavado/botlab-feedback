@@ -12,7 +12,7 @@ import './react-datepicker-overrides.css'
 import PopupRangosFechas from './PopupRangosFechas'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import classNames from 'classnames'
-import { differenceInMinutes, format } from 'date-fns'
+import { differenceInMinutes } from 'date-fns'
 
 registerLocale('es', es)
 
@@ -20,18 +20,19 @@ const SelectorRangoFechas = () => {
 
   const { fechaInicio, fechaTermino, cacheInvalido, fechaActualizacion } = useSelector(state => state.respuestas)
   const [popupActivo, setPopupActivo] = useState(false)
-  const dispatch = useDispatch()
+  const [fechaActual, setFechaActual] = useState('')
   const esconder = useCallback(() => setPopupActivo(false), [setPopupActivo])
-  const [distanciaFecha, setDistanciaFecha] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const actualizarFecha = () => setDistanciaFecha(formatDistanceToNow(fechaActualizacion, { locale: es, addSuffix: true }))
+    const actualizarFecha = () => setFechaActual(() => Date.now())
     actualizarFecha()
-    const intervalFecha = setInterval(actualizarFecha, 10000)
+    const intervalFecha = setInterval(actualizarFecha, 1000)
     return () => clearInterval(intervalFecha)
   }, [])
 
-  const alertar = differenceInMinutes(Date.now(), fechaActualizacion) >= 5
+  const alertar = differenceInMinutes(fechaActual, fechaActualizacion) >= 5
+  const mensajeActualizacion = `actualizado ${formatDistanceToNow(fechaActualizacion, { locale: es, addSuffix: true })}`
 
   return (
     <div className="SelectorRangoFechas">
@@ -68,7 +69,7 @@ const SelectorRangoFechas = () => {
           "SelectorRangoFechas__boton": true,
           "SelectorRangoFechas__boton--alerta": alertar,
         })}
-        title={`Actualizar (actualizado ${distanciaFecha})`}
+        title={`Actualizar (${mensajeActualizacion})`}
         onClick={() => dispatch(actualizaRespuestas())}
         disabled={cacheInvalido}
       >

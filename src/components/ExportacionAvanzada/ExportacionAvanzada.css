@@ -101,6 +101,7 @@
   position: relative;
   filter: none;
   font-size: .8rem;
+  gap: .3rem;
 }
 
 .ExportacionAvanzada__explicacion {
@@ -114,7 +115,6 @@
 }
 
 .ExportacionAvanzada__icono {
-  margin-right: .25rem;
   font-size: 1.1rem;
 }
 
@@ -122,7 +122,6 @@
   width: 1rem;
   height: 1rem;
   border-radius: 100%;
-  margin-right: .25rem;
   border: .15rem solid transparent;
   border-top: .15rem solid var(--color-fondo);
   animation: gira-loader-exportando 1s ease infinite both;
