@@ -11,8 +11,9 @@ import { tiposExportacion } from '../../helpers/exportar'
 
 const ExportacionAvanzada = () => {
 
-  const [inicio, setInicio] = useState(Date.now())
-  const [termino, setTermino] = useState(Date.now())
+  const { fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
+  const [inicio, setInicio] = useState(fechaInicio)
+  const [termino, setTermino] = useState(fechaTermino)
   const [exportando, setExportando] = useState(false)
   const [tipoExportacion, setTipoExportacion] = useState(tiposExportacion[0])
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
@@ -42,6 +43,7 @@ const ExportacionAvanzada = () => {
               dateFormat="d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker"
+              required
             />
             -
             <ReactDatePicker
@@ -50,9 +52,10 @@ const ExportacionAvanzada = () => {
               dateFormat="d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker"
+              required
             />
           </div>
-          <h2 className="ExportacionAvanzada__subtitulo">E-mail</h2>
+          <h2 className="ExportacionAvanzada__subtitulo">Formato</h2>
           <div className="ExportacionAvanzada__botones_tipos">
             {tiposExportacion.map((tipo, i) => (
               <button
@@ -67,6 +70,14 @@ const ExportacionAvanzada = () => {
               </button>
             ))}
           </div>
+          <h2 className="ExportacionAvanzada__subtitulo">E-mail</h2>
+          <div className="ExportacionAvanzada__contenedor_rango">
+            <input
+              className="SelectorRangoFechas__datepicker"
+              type="email"
+              required
+            />
+          </div>
           <button
             className="ExportacionAvanzada__boton_exportar"
             onClick={exportar}
@@ -78,7 +89,7 @@ const ExportacionAvanzada = () => {
             Generar reporte
           </button>
           <p className="ExportacionAvanzada__explicacion">
-            Este módulo permite exportar las respuestas para la encuesta seleccionada a un archivo en formato CSV.
+            Este módulo permite exportar todas las respuestas de la encuesta seleccionada a una planilla de datos.
           </p>
         </div>
       </div>

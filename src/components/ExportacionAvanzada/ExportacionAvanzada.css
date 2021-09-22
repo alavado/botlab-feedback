@@ -39,6 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: .25rem;
 }
 
 .ExportacionAvanzada__contenedor_formulario {
@@ -68,10 +69,9 @@
   border: none;
   cursor: pointer;
   outline: none;
-  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
+  box-shadow: 0 .1rem .15rem var(--color-sombras);
   transition: all .25s ease;
   position: relative;
-  filter: saturate(50%);
   opacity: .5;
   border: none;
   font-size: .8rem;
@@ -80,7 +80,7 @@
 .ExportacionAvanzada__boton--activo {
   filter: none;
   opacity: 1;
-  border: 1px solid var(--color-gris);
+  box-shadow: 0 0 0 .1rem var(--color-boton-alegre);
 }
 
 .ExportacionAvanzada__boton_exportar {
