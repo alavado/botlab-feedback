@@ -5,10 +5,11 @@ import MenuUsuario from './MenuUsuario'
 import SelectorEncuesta from './SelectorEncuesta'
 import DiagramaGuion from './DiagramaGuion'
 import AlertaPilotos from './AlertaPilotos'
-import Icon from '@iconify/react'
+import Icon, { InlineIcon } from '@iconify/react'
 import iconoGuion from '@iconify/icons-mdi/script-text'
 import { useDispatch, useSelector } from 'react-redux'
 import { activaEnviador } from '../../../redux/ducks/enviador'
+import iconoContacto from '@iconify/icons-mdi/send'
 
 const BarraSuperior = () => {
 
@@ -27,7 +28,7 @@ const BarraSuperior = () => {
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
       <Switch>
-        <Route exact path="/" component={() => <button onClick={() => dispatch(activaEnviador())}>CONTACTAR USUARIOS A MANO</button>} />
+        <Route exact path="/" component={() => <button className="BarraSuperior__boton_enviador" onClick={() => dispatch(activaEnviador())}><InlineIcon icon={iconoContacto} /> Contactar usuarios</button>} />
       </Switch>
       {respuestas && false && (
         <button

@@ -40,6 +40,23 @@
   filter: brightness(130%);
 }
 
+.BarraSuperior__boton_enviador {
+  cursor: pointer;
+  border: none;
+  background: var(--color-principal);
+  color: var(--color-texto-claro);
+  padding: .35rem 1rem;
+  border-radius: 9in;
+  font-size: .7rem;
+  transition: all .2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  margin-left: 3rem;
+  margin-right: auto;
+}
+
 .BarraSuperior__boton:hover::before {
   position: absolute;
   content: '';

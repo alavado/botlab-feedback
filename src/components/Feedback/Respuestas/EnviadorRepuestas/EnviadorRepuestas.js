@@ -12,7 +12,7 @@ import classNames from 'classnames'
 import { ESQUEMA_OSCURO } from '../../../../redux/ducks/opciones'
 import { parse as parseCSV } from 'papaparse'
 import { some } from 'lodash'
-import { normalizar } from '../../../../redux/ducks/respuestas'
+import { actualizaRespuestas, normalizar } from '../../../../redux/ducks/respuestas'
 import { format, parseISO } from 'date-fns'
 
 const obtenerTipoInput = header => {
@@ -51,7 +51,13 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
     consultarMapping(idEncuesta),
     { refetchOnWindowFocus: false }
   )
-  const { mutate } = useMutation(crearEncuestas)
+  const { mutate } = useMutation(crearEncuestas, {
+    onSuccess: (data) => {
+      setFilas([])
+      dispatch(actualizaRespuestas())
+      dispatch(desactivaEnviador())
+    }
+  })
 
   if (!activo) {
     return null
@@ -63,7 +69,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
     const datos = filas.map(f => headersMenosConsultaConfirmacion.reduce((obj, h, i) => (
       {
         ...obj,
-        [h.display_name]: formatearCampo(h, f[i])
+        [h.display_name]: formatearCampo(h, f.datos[i])
       }
     ), { 'Consulta confirmación': ahora }))
     console.log(datos)
@@ -85,9 +91,9 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
         setFilas(filas => [
           ...filas,
           ...data.map(fila => {
-            const valores = headersMenosConsultaConfirmacion.map(h => fila[normalizar(h.display_name)] || '')
-            return some(valores)
-              ? valores
+            const datos = headersMenosConsultaConfirmacion.map(h => fila[normalizar(h.display_name)] || '')
+            return some(datos)
+              ? { datos, estado: 'pendiente' }
               : null
           }).filter(x => x)
         ])
@@ -97,7 +103,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
   }
 
   const abrirDialogoArchivo = () => document.getElementById('csv-enviador').click()
-  const agregarFilaVacía = () => setFilas([...filas, [...headersMenosConsultaConfirmacion].fill('')])
+  const agregarFilaVacía = () => setFilas([...filas, { datos: [...headersMenosConsultaConfirmacion].fill(''), estado: 'pendiente' }])
 
   return createPortal(
     <div
@@ -143,6 +149,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                 <table className="EnviadorRespuestas__tabla">
                   <thead>
                     <tr>
+                      <th></th>
                       {headersMenosConsultaConfirmacion.map(({ display_name }) => (
                         <th key={`header-enviador-${display_name}`}>
                           {display_name}
@@ -155,25 +162,34 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                     {filas.length > 0
                       ? filas.map((fila, i) => (
                           <tr key={`fila-enviador-${i}`}>
-                            {fila.map((v, j) => (
+                            <td>{i + 1}</td>
+                            {fila.datos.map((v, j) => (
                               <td key={`campo-enviador-${i}-${j}`}>
                                 <input
                                   className="Enviador__input"
                                   type={obtenerTipoInput(headersMenosConsultaConfirmacion[j])}
                                   onChange={e => {
-                                    setFilas([...filas.slice(0, i), filas[i].map((v, k) => k === j ? e.target.value : v), ...filas.slice(i + 1)])
+                                    setFilas([...filas.slice(0, i), { ...filas[i], datos: filas[i].datos.map((v, k) => k === j ? e.target.value : v) }, ...filas.slice(i + 1)])
                                   }}
                                   required={headersMenosConsultaConfirmacion[j].required}
                                   value={v}
                                 />
                               </td>
                             ))}
-                            <td><button type="button" onClick={() => setFilas(filas => filas.filter((_, k) => k !== i))}>Borrar fila</button></td>
+                            <td>
+                              <button
+                                className="Enviador__boton_accion_fila"
+                                type="button"
+                                onClick={() => setFilas(filas => filas.filter((_, k) => k !== i))}
+                              >
+                                Borrar fila
+                              </button>
+                            </td>
                           </tr>
                         ))
                       : <tr>
-                          <td className="EnviadorRespuestas__mensaje_sin_datos" colSpan={data.data.data.length}>
-                          Puedes agregar usuarios desde un <span onClick={abrirDialogoArchivo}>archivo</span> CSV o <span onClick={agregarFilaVacía}>manualmente</span>
+                          <td className="EnviadorRespuestas__mensaje_sin_datos" colSpan={data.data.data.length + 2}>
+                          Puedes agregar usuarios desde un <span className="EnviadorRespuestas__link" onClick={abrirDialogoArchivo}>archivo CSV</span> o <span className="EnviadorRespuestas__link" onClick={agregarFilaVacía}>manualmente</span>
                           </td>
                         </tr>
                     }
