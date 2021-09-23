@@ -7,12 +7,14 @@ import DiagramaGuion from './DiagramaGuion'
 import AlertaPilotos from './AlertaPilotos'
 import Icon from '@iconify/react'
 import iconoGuion from '@iconify/icons-mdi/script-text'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { activaEnviador } from '../../../redux/ducks/enviador'
 
 const BarraSuperior = () => {
 
   const [verModal, setVerModal] = useState(false)
   const { respuestas } = useSelector(state => state.respuestas)
+  const dispatch = useDispatch()
 
   return (
     <div className="BarraSuperior">
@@ -23,6 +25,9 @@ const BarraSuperior = () => {
         <Route path="/busqueda" component={SelectorEncuesta} />
         <Route path="/uso" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
+      </Switch>
+      <Switch>
+        <Route exact path="/" component={() => <button onClick={() => dispatch(activaEnviador())}>ENVIAR ENCUESTAS A MANO</button>} />
       </Switch>
       {respuestas && false && (
         <button

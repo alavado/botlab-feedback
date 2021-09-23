@@ -67,26 +67,14 @@ html {
   }
 }
 
-@media (min-width: 2000px) {
-  html {
-    font-size: 1.7rem;
-  }
-}
-
 @media (min-width: 2500px) {
   html {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 
 @media (min-width: 3000px) {
   html {
-    font-size: 2.5rem;
-  }
-}
-
-@media (min-width: 4000px) {
-  html {
-    font-size: 3.5rem;
+    font-size: 1.7rem;
   }
 }

@@ -3,11 +3,13 @@ import { Route, Switch } from 'react-router-dom'
 import Chat from './Chat'
 import TablaRespuestas from './TablaRespuestas'
 import './Respuestas.css'
+import EnviadorRepuestas from './EnviadorRepuestas'
 
 const Respuestas = () => {
 
   return (
     <div className="Respuestas">
+      <EnviadorRepuestas />
       <Switch>
         <Route exact path="/">
           <TablaRespuestas />

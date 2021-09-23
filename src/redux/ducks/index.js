@@ -5,6 +5,7 @@ import opciones from './opciones'
 import busqueda from './busqueda'
 import alertas from './alertas'
 import scrambler from './scrambler'
+import enviador from './enviador'
 import { combineReducers } from 'redux'
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
   opciones,
   busqueda,
   alertas,
-  scrambler
+  scrambler,
+  enviador
 })
