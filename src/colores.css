@@ -44,7 +44,8 @@
 }
 
 .App__oscura, .App__oscura *, .App__oscura *::before, .App__oscura *::after,
-.ModalFiltros__oscuro, .ModalFiltros__oscuro *, .ModalFiltros__oscuro *::before, .ModalFiltros__oscuro *::after {
+.ModalFiltros__oscuro, .ModalFiltros__oscuro *, .ModalFiltros__oscuro *::before, .ModalFiltros__oscuro *::after,
+.EnviadorRespuestas__oscuro, .EnviadorRespuestas__oscuro *, .EnviadorRespuestas__oscuro *::before, .EnviadorRespuestas__oscuro *::after {
 	--color-fondo: #171923;
   --color-barra-superior: #1A202C;
 	--color-fila-destacada: #0e1016;

@@ -2,7 +2,7 @@
   position: absolute;
   z-index: 10;
   width: 100%;
-  background-color: rgba(0, 0, 0, .25);
+  background-color: rgba(0, 0, 0, .5);
   height: 100%;
   display: flex;
   align-items: flex-start;
@@ -12,11 +12,13 @@
 }
 
 .EnviadorRespuestas__contenedor {
-  background: white;
+  background: var(--color-fondo);
+  color: var(--color-texto);
   padding: 1.5rem;
   border-radius: .5rem;
   box-shadow: 0 .1rem .25rem var(--color-sombras);
-  max-width: 80vw;
+  min-width: 60vw;
+  max-width: 95vw;
   display: flex;
   flex-direction: column;
   gap: .75rem;
@@ -28,12 +30,6 @@
   justify-content: space-between;
 }
 
-.Enviador__input {
-  width: 6rem;
-  border: 1px solid var(--color-bordes);
-  padding: .2rem .25rem;
-}
-
 .EnviadorRespuestas__formulario {
   flex: 1;
   display: flex;
@@ -42,14 +38,21 @@
 }
 
 .EnviadorRespuestas__contenedor_tabla {
-  max-height: calc(100vh - 10rem);
+  max-height: calc(100vh - 16rem);
   overflow: auto;
 }
 
 .EnviadorRespuestas__tabla {
   font-size: .7rem;
-  min-width: 50vw;
+  min-width: 65vw;
   border-collapse: collapse;
+}
+
+.EnviadorRespuestas__tabla thead {
+  position: sticky;
+  top: -1px;
+  background-color: var(--color-fondo);
+  border-bottom: 2px solid var(--color-bordes);
 }
 
 .EnviadorRespuestas__tabla th {
@@ -58,7 +61,6 @@
   text-align: left;
   padding: .5rem .25rem;
   width: 6rem;
-  border: 1px solid var(--color-bordes);
   vertical-align: middle;
 }
 
@@ -69,8 +71,21 @@
   border: 1px solid var(--color-bordes);
 }
 
+.Enviador__input {
+  width: 100%;
+  border: 1px solid var(--color-bordes);
+  padding: .2rem .25rem;
+  transition: all .25s ease;
+  border-radius: .15rem;
+}
+
+.Enviador__input:focus {
+  box-shadow: 0 0 0 .1rem var(--color-principal);
+  outline: none;
+}
+
 .EnviadorRespuestas__tabla .EnviadorRespuestas__mensaje_sin_datos {
-  padding: 5rem 1rem;
+  padding: 5rem 0;
   text-align: center;
   font-size: .8rem;
   line-height: 1.5;

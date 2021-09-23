@@ -4,7 +4,7 @@ import { parseISO } from "date-fns/esm"
 import diccionarioTags from "../../helpers/tags"
 import { obtenerTagsCalculados } from "../../helpers/tagsCalculados"
 
-const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+export const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
 const sliceRespuestas = createSlice({
   name: 'respuestas',

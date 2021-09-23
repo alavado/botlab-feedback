@@ -7,6 +7,11 @@ import { useMutation, useQuery } from 'react-query'
 import './EnviadorRepuestas.css'
 import { consultarMapping, crearEncuestas } from '../../../../api/endpoints'
 import { useState } from 'react'
+import classNames from 'classnames'
+import { ESQUEMA_OSCURO } from '../../../../redux/ducks/opciones'
+import { parse as parseCSV } from 'papaparse'
+import { some } from 'lodash'
+import { normalizar } from '../../../../redux/ducks/respuestas'
 
 const obtenerTipoInput = header => {
   switch (header.type) {
@@ -25,6 +30,7 @@ const obtenerTipoInput = header => {
 const EnviadorRepuestas = ({ idEncuesta }) => {
 
   const { activo } = useSelector(state => state.enviador)
+  const { esquema } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   const [filas, setFilas] = useState([])
   const { isLoading, isError, data } = useQuery(
@@ -32,9 +38,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
     consultarMapping(idEncuesta),
     { refetchOnWindowFocus: false }
   )
-  const mutate = useMutation(crearEncuestas)
-
-  console.log(data)
+  const { mutate } = useMutation(crearEncuestas)
 
   if (!activo) {
     return null
@@ -42,14 +46,42 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
 
   const enviarEncuestas = e => {
     e.preventDefault()
-    console.log(filas)
+    mutate(idEncuesta, filas.map(f => headersMenosConsultaConfirmacion.reduce((obj, h, i) => ({ ...obj, [h.display_name]: f[i] }), {})))
   }
 
-  const headersMenosConsultaConfirmacion = data.data.data.filter(h => h.type !== 'true')
+  const headersMenosConsultaConfirmacion = [{ name: 'FONO', type: 'text', display_name: 'FONO', required: true }, ...data.data.data.filter(h => h.type !== 'true')]
+
+  const procesarArchivo = e => {
+    parseCSV(e.target.files[0], {
+      header: true,
+      transformHeader: h => {
+        if (normalizar(h) === normalizar('telefono')) {
+          return 'fono'
+        }
+        return normalizar(h)
+      },
+      complete: ({ data }) => {
+        setFilas(filas => [
+          ...filas,
+          ...data.map(fila => {
+            const valores = headersMenosConsultaConfirmacion.map(h => fila[normalizar(h.display_name)] || '')
+            return some(valores) ? valores : null
+          }).filter(x => x)
+        ])
+      }
+    })
+    document.getElementById('csv-enviador').value = ''
+  }
+
+  const abrirDialogoArchivo = () => document.getElementById('csv-enviador').click()
+  const agregarFila = () => setFilas([...filas, [...headersMenosConsultaConfirmacion].fill('')])
 
   return createPortal(
     <div
-      className="EnviadorRepuestas"
+      className={classNames({
+        "EnviadorRepuestas": true,
+        "EnviadorRespuestas__oscuro": esquema === ESQUEMA_OSCURO
+      })}
       onClick={() => dispatch(desactivaEnviador())}
     >
       {isLoading
@@ -61,8 +93,16 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
             <div className="EnviadorRespuestas__superior">
               <h1>Contacto de usuarios</h1>
               <div>
-                <button onClick={() => setFilas([...filas, [...headersMenosConsultaConfirmacion].fill('')])}>Agregar usuario</button>
-                <input id="csv-enviador" type="file" />
+                <button onClick={agregarFila}>Agregar fila</button>
+                <button onClick={abrirDialogoArchivo}>Cargar archivo</button>
+                <button onClick={() => setFilas([])}>Limpiar tabla</button>
+                <input
+                  style={{ display: 'none' }}
+                  id="csv-enviador"
+                  type="file"
+                  accept=".csv"
+                  onChange={procesarArchivo}
+                />
               </div>
             </div>
             <form
@@ -78,27 +118,32 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                           {display_name}
                         </th>
                       ))}
+                      <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filas.length > 0
                       ? filas.map((fila, i) => (
                           <tr key={`fila-enviador-${i}`}>
-                            {fila.map((_, j) => (
+                            {fila.map((v, j) => (
                               <td key={`campo-enviador-${i}-${j}`}>
                                 <input
                                   className="Enviador__input"
                                   type={obtenerTipoInput(headersMenosConsultaConfirmacion[j])}
-                                  onChange={e => setFilas(filas => { filas[i][j] = e.target.value; return filas })}
+                                  onChange={e => {
+                                    setFilas([...filas.slice(0, i), filas[i].map((v, k) => k === j ? e.target.value : v), ...filas.slice(i + 1)])
+                                  }}
                                   required={headersMenosConsultaConfirmacion[j].required}
+                                  value={v}
                                 />
                               </td>
                             ))}
+                            <td><button type="button" onClick={() => setFilas(filas => filas.filter((_, k) => k !== i))}>Borrar fila</button></td>
                           </tr>
                         ))
                       : <tr>
                           <td className="EnviadorRespuestas__mensaje_sin_datos" colSpan={data.data.data.length}>
-                          Puedes agregar usuarios desde un archivo o manualmente
+                          Puedes agregar usuarios desde un <span onClick={abrirDialogoArchivo}>archivo</span> CSV o <span onClick={agregarFila}>manualmente</span>
                           </td>
                         </tr>
                     }
@@ -106,8 +151,12 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                 </table>
               </div>
               <div className="EnviadorRespuestas__contenedor_acciones">
-                <button className="EnviadorRespuestas__boton_enviar">
-                  <InlineIcon icon={iconoContacto} /> Contactar usuarios
+                <button
+                  className="EnviadorRespuestas__boton_enviar"
+                  disabled={!filas.length}
+                  type="submit"
+                >
+                  <InlineIcon icon={iconoContacto} /> {filas.length ? <>Contactar {filas.length} usuario{filas.length > 1 ? 's' : ''}</> : <>No hay usuarios</>}
                 </button>
               </div>
             </form>
