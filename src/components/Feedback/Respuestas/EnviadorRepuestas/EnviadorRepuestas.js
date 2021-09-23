@@ -15,7 +15,7 @@ import classNames from 'classnames'
 import { ESQUEMA_OSCURO } from '../../../../redux/ducks/opciones'
 import { parse as parseCSV } from 'papaparse'
 import { some } from 'lodash'
-import { guardaFechaInicio, normalizar } from '../../../../redux/ducks/respuestas'
+import { guardaFechaInicio, guardaFechaTermino, normalizar } from '../../../../redux/ducks/respuestas'
 import { format, parseISO } from 'date-fns'
 
 const obtenerTipoInput = header => {
@@ -55,10 +55,10 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
     { refetchOnWindowFocus: false }
   )
   const { mutate } = useMutation(crearEncuestas, {
-    onSuccess: () => {
+    onSuccess: data => {
       setFilas([])
       dispatch(guardaFechaInicio(Date.now()))
-      dispatch(desactivaEnviador())
+      dispatch(guardaFechaTermino(Date.now()))
     }
   })
 
@@ -79,7 +79,6 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
         [h.display_name]: formatearCampo(h, f.datos[i])
       }
     ), { 'Consulta confirmación': ahora }))
-    console.log(datos)
     mutate({ idEncuesta, datos })
   }
 
