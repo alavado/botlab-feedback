@@ -59,6 +59,9 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
       setFilas([])
       dispatch(guardaFechaInicio(Date.now()))
       dispatch(guardaFechaTermino(Date.now()))
+    },
+    onError: error => {
+
     }
   })
 
@@ -73,7 +76,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
   const enviarEncuestas = e => {
     e.preventDefault()
     const ahora = format(Date.now(), 'yyyy-MM-dd HH:mm:ss')
-    const datos = filas.map(f => headersMenosConsultaConfirmacion.reduce((obj, h, i) => (
+    const datos = filas.filter(f => f.estado === 'pendiente').map(f => headersSinConsultaConfirmacion.reduce((obj, h, i) => (
       {
         ...obj,
         [h.display_name]: formatearCampo(h, f.datos[i])
@@ -82,7 +85,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
     mutate({ idEncuesta, datos })
   }
 
-  const headersMenosConsultaConfirmacion = [{ name: 'FONO', type: 'text', display_name: 'FONO', required: true }, ...data.data.data.filter(h => h.type !== 'true')]
+  const headersSinConsultaConfirmacion = [{ name: 'FONO', type: 'text', display_name: 'FONO', required: true }, ...data.data.data.filter(h => h.type !== 'true')]
 
   const procesarArchivo = e => {
     parseCSV(e.target.files[0], {
@@ -97,7 +100,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
         setFilas(filas => [
           ...filas,
           ...data.map(fila => {
-            const datos = headersMenosConsultaConfirmacion.map(h => fila[normalizar(h.display_name)] || '')
+            const datos = headersSinConsultaConfirmacion.map(h => fila[normalizar(h.display_name)] || '')
             return some(datos)
               ? { datos, estado: 'pendiente' }
               : null
@@ -109,7 +112,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
   }
 
   const abrirDialogoArchivo = () => document.getElementById('csv-enviador').click()
-  const agregarFilaVacía = () => setFilas([...filas, { datos: [...headersMenosConsultaConfirmacion].fill(''), estado: 'pendiente' }])
+  const agregarFilaVacía = () => setFilas([...filas, { datos: [...headersSinConsultaConfirmacion].fill(''), estado: 'pendiente' }])
 
   return createPortal(
     <div
@@ -133,7 +136,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
               <InlineIcon icon={iconoCerrar} />
             </button>
             <div className="EnviadorRespuestas__superior">
-              <h1>Contacto de usuarios</h1>
+              <h1 className="EnviadorRespuestas__titulo">Contactar usuarios</h1>
               <div className="EnviadorRespuestas__superior_acciones">
                 <button
                   className="EnviadorRespuestas__boton_accion"
@@ -171,7 +174,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                   <thead>
                     <tr>
                       <th></th>
-                      {headersMenosConsultaConfirmacion.map(({ display_name }) => (
+                      {headersSinConsultaConfirmacion.map(({ display_name }) => (
                         <th key={`header-enviador-${display_name}`}>
                           {display_name}
                         </th>
@@ -188,11 +191,11 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                               <td key={`campo-enviador-${i}-${j}`}>
                                 <input
                                   className="Enviador__input"
-                                  type={obtenerTipoInput(headersMenosConsultaConfirmacion[j])}
+                                  type={obtenerTipoInput(headersSinConsultaConfirmacion[j])}
                                   onChange={e => {
                                     setFilas([...filas.slice(0, i), { ...filas[i], datos: filas[i].datos.map((v, k) => k === j ? e.target.value : v) }, ...filas.slice(i + 1)])
                                   }}
-                                  required={headersMenosConsultaConfirmacion[j].required}
+                                  required={headersSinConsultaConfirmacion[j].required}
                                   value={v}
                                 />
                               </td>

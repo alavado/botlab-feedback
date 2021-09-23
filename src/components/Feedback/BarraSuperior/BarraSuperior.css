@@ -45,15 +45,15 @@
   border: none;
   background: var(--color-principal);
   color: var(--color-texto-claro);
-  padding: .35rem 1rem;
-  border-radius: 9in;
-  font-size: .7rem;
+  padding: .35rem .75rem;
+  border-radius: .5rem;
+  font-size: .8rem;
   transition: all .2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: .35rem;
-  margin-left: 3rem;
+  margin-left: .75rem;
   margin-right: auto;
 }
 

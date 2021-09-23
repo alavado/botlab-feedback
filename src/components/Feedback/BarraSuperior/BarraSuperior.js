@@ -27,9 +27,11 @@ const BarraSuperior = () => {
         <Route path="/uso" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
-      <Switch>
-        <Route exact path="/" component={() => <button className="BarraSuperior__boton_enviador" onClick={() => dispatch(activaEnviador())}><InlineIcon icon={iconoContacto} /> Contactar usuarios</button>} />
-      </Switch>
+      {respuestas && (
+        <Switch>
+          <Route exact path="/" component={() => <button className="BarraSuperior__boton_enviador" onClick={() => dispatch(activaEnviador())}><InlineIcon icon={iconoContacto} /> Contactar usuarios</button>} />
+        </Switch>
+      )}
       {respuestas && false && (
         <button
           onClick={() => setVerModal(!verModal)}
