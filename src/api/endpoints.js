@@ -31,10 +31,19 @@ export const consultarMapping = idEncuesta => () => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
-export const crearEncuestas = (idEncuesta, datos) => () => {
+export const crearEncuestas = ({ idEncuesta, datos }) => {
   const token = store.getState().login.token
   const url = `${API_ROOT}/poll_users/${idEncuesta}`
-  return axios.post(url, JSON.stringify(datos), { headers: { 'Api-Token': token } })
+  return axios.post(
+    url,
+    {
+      continue: 'True',
+      data: datos
+    },
+    {
+      headers: { 'Api-Token': token, 'Content-Type': 'application/json' }
+    }
+  )
 }
 
 export const headers = () => {

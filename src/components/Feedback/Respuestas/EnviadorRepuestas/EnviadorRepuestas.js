@@ -12,6 +12,7 @@ import { ESQUEMA_OSCURO } from '../../../../redux/ducks/opciones'
 import { parse as parseCSV } from 'papaparse'
 import { some } from 'lodash'
 import { normalizar } from '../../../../redux/ducks/respuestas'
+import { format } from 'date-fns'
 
 const obtenerTipoInput = header => {
   switch (header.type) {
@@ -46,7 +47,14 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
 
   const enviarEncuestas = e => {
     e.preventDefault()
-    mutate(idEncuesta, filas.map(f => headersMenosConsultaConfirmacion.reduce((obj, h, i) => ({ ...obj, [h.display_name]: f[i] }), {})))
+    const ahora = format(Date.now(), 'yyyy-MM-dd HH:ss')
+    const datos = filas.map(f => headersMenosConsultaConfirmacion.reduce((obj, h, i) => (
+      {
+        ...obj,
+        [h.display_name]: f[i]
+      }
+    ), { 'Consulta confirmación': ahora }))
+    mutate({ idEncuesta, datos })
   }
 
   const headersMenosConsultaConfirmacion = [{ name: 'FONO', type: 'text', display_name: 'FONO', required: true }, ...data.data.data.filter(h => h.type !== 'true')]
