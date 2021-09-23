@@ -4,15 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { desactivaEnviador } from '../../../../redux/ducks/enviador'
 import iconoContacto from '@iconify/icons-mdi/send'
 import iconoCerrar from '@iconify/icons-mdi/close'
+import iconoAgregarFila from '@iconify/icons-mdi/table-row-add-after'
+import iconoImportarCSV from '@iconify/icons-mdi/table-import'
+import iconoLimpiarTabla from '@iconify/icons-mdi/table-off'
 import { useMutation, useQuery } from 'react-query'
 import './EnviadorRepuestas.css'
 import { consultarMapping, crearEncuestas } from '../../../../api/endpoints'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { ESQUEMA_OSCURO } from '../../../../redux/ducks/opciones'
 import { parse as parseCSV } from 'papaparse'
 import { some } from 'lodash'
-import { actualizaRespuestas, normalizar } from '../../../../redux/ducks/respuestas'
+import { guardaFechaInicio, normalizar } from '../../../../redux/ducks/respuestas'
 import { format, parseISO } from 'date-fns'
 
 const obtenerTipoInput = header => {
@@ -52,12 +55,16 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
     { refetchOnWindowFocus: false }
   )
   const { mutate } = useMutation(crearEncuestas, {
-    onSuccess: (data) => {
+    onSuccess: () => {
       setFilas([])
-      dispatch(actualizaRespuestas())
+      dispatch(guardaFechaInicio(Date.now()))
       dispatch(desactivaEnviador())
     }
   })
+
+  useEffect(() => {
+
+  }, [filas])
 
   if (!activo) {
     return null
@@ -129,9 +136,24 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
             <div className="EnviadorRespuestas__superior">
               <h1>Contacto de usuarios</h1>
               <div className="EnviadorRespuestas__superior_acciones">
-                <button className="EnviadorRespuestas__boton_accion" onClick={agregarFilaVacía}>Agregar fila</button>
-                <button className="EnviadorRespuestas__boton_accion" onClick={abrirDialogoArchivo}>Cargar archivo</button>
-                <button className="EnviadorRespuestas__boton_accion" onClick={() => setFilas([])}>Limpiar tabla</button>
+                <button
+                  className="EnviadorRespuestas__boton_accion"
+                  onClick={agregarFilaVacía}
+                >
+                  <InlineIcon icon={iconoAgregarFila} /> Agregar fila
+                </button>
+                <button
+                  className="EnviadorRespuestas__boton_accion"
+                  onClick={abrirDialogoArchivo}
+                >
+                  <InlineIcon icon={iconoImportarCSV} /> Cargar archivo
+                </button>
+                <button
+                  className="EnviadorRespuestas__boton_accion"
+                  onClick={() => setFilas([])}
+                >
+                  <InlineIcon icon={iconoLimpiarTabla} /> Limpiar tabla
+                </button>
                 <input
                   style={{ display: 'none' }}
                   id="csv-enviador"

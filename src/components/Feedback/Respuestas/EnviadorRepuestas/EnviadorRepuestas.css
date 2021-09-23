@@ -53,10 +53,13 @@
   border: none;
   background: var(--color-principal);
   color: var(--color-texto-claro);
-  padding: .35rem 1rem;
+  padding: .35rem .75rem;
   border-radius: 9in;
-  font-size: .65rem;
+  font-size: .7rem;
   transition: all .2s ease;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
 }
 
 .Enviador__boton_accion_fila {
