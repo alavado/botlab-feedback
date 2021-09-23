@@ -4,12 +4,15 @@ import Chat from './Chat'
 import TablaRespuestas from './TablaRespuestas'
 import './Respuestas.css'
 import EnviadorRepuestas from './EnviadorRepuestas'
+import { useSelector } from 'react-redux'
 
 const Respuestas = () => {
 
+  const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
+
   return (
     <div className="Respuestas">
-      <EnviadorRepuestas />
+      {idEncuesta && <EnviadorRepuestas idEncuesta={idEncuesta} />}
       <Switch>
         <Route exact path="/">
           <TablaRespuestas />
