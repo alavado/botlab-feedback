@@ -14,32 +14,72 @@
 .EnviadorRespuestas__contenedor {
   background: var(--color-fondo);
   color: var(--color-texto);
-  padding: 1.5rem;
+  padding: 1.75rem 1.5rem;
   border-radius: .5rem;
   box-shadow: 0 .1rem .25rem var(--color-sombras);
   min-width: 60vw;
-  max-width: 95vw;
+  max-width: 90vw;
   display: flex;
   flex-direction: column;
   gap: .75rem;
   animation: aparece-contenedor-tabla-enviador .2s ease-out both;
+  position: relative;
+}
+
+.EnviadorRespuestas__boton_cerrar {
+  position: absolute;
+  right: 1rem;
+  top: .25rem;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--color-texto);
 }
 
 .EnviadorRespuestas__superior {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.EnviadorRespuestas__superior_acciones {
+  display: flex;
+  gap: .5rem;
+}
+
+.EnviadorRespuestas__boton_accion {
+  cursor: pointer;
+  border: none;
+  background: var(--color-principal);
+  color: var(--color-texto-claro);
+  padding: .35rem 1rem;
+  border-radius: 9in;
+  font-size: .7rem;
+  transition: all .2s ease;
 }
 
 .EnviadorRespuestas__formulario {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 1rem;
 }
 
 .EnviadorRespuestas__contenedor_tabla {
   max-height: calc(100vh - 16rem);
   overflow: auto;
+}
+
+.EnviadorRespuestas__contenedor_tabla::-webkit-scrollbar {
+  width: .6rem;
+  height: .6rem;
+  background-color: var(--color-fondo);
+}
+
+.EnviadorRespuestas__contenedor_tabla::-webkit-scrollbar-thumb {
+  border-radius: .25rem;
+  background-color: var(--color-principal);
 }
 
 .EnviadorRespuestas__tabla {
@@ -59,8 +99,7 @@
   font-weight: 600;
   text-transform: uppercase;
   text-align: left;
-  padding: .5rem .25rem;
-  width: 6rem;
+  padding: .5rem 2rem .5rem .25rem;
   vertical-align: middle;
 }
 
@@ -77,10 +116,12 @@
   padding: .2rem .25rem;
   transition: all .25s ease;
   border-radius: .15rem;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
 }
 
 .Enviador__input:focus {
-  box-shadow: 0 0 0 .1rem var(--color-principal);
+  box-shadow: 0 0 0 .1rem var(--color-secundario);
   outline: none;
 }
 
