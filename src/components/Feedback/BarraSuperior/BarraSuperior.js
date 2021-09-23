@@ -27,7 +27,7 @@ const BarraSuperior = () => {
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
       <Switch>
-        <Route exact path="/" component={() => <button onClick={() => dispatch(activaEnviador())}>ENVIAR ENCUESTAS A MANO</button>} />
+        <Route exact path="/" component={() => <button onClick={() => dispatch(activaEnviador())}>CONTACTAR USUARIOS A MANO</button>} />
       </Switch>
       {respuestas && false && (
         <button

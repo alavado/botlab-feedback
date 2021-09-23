@@ -25,6 +25,12 @@ export const respuestas = (idEncuesta, fechaInicio, fechaTermino) => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
+export const inputHeaders = idEncuesta => () => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/input_headers/${idEncuesta}`
+  return axios.get(url, { headers: { 'Api-Token': token } })
+}
+
 export const headers = () => {
   const token = store.getState().login.token
   const url = `${API_ROOT}/polls_headers`

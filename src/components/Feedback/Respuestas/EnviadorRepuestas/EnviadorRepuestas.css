@@ -11,6 +11,79 @@
 
 .EnviadorRespuestas__contenedor {
   background: white;
-  padding: 1rem;
+  padding: 1.5rem;
+  border-radius: .5rem;
   box-shadow: 0 .1rem .25rem var(--color-sombras);
+  max-width: 80vw;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  animation: aparece-contenedor-tabla-enviador .15s ease-in-out both;
+}
+
+.EnviadorRespuestas__superior {
+  display: flex;
+  justify-content: space-between;
+}
+
+.EnviadorRespuestas__contenedor_tabla {
+  max-height: 75vh;
+  overflow: auto;
+}
+
+.EnviadorRespuestas__tabla {
+  font-size: .7rem;
+  min-width: 50vw;
+  border-collapse: collapse;
+}
+
+.EnviadorRespuestas__tabla th {
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+  padding: .5rem .25rem;
+  width: 6rem;
+  border: 1px solid var(--color-bordes);
+  vertical-align: middle;
+}
+
+.EnviadorRespuestas__tabla td {
+  font-weight: 400;
+  text-align: left;
+  padding: .75rem .25rem;
+  border: 1px solid var(--color-bordes);
+}
+
+.EnviadorRespuestas__tabla .EnviadorRespuestas__mensaje_sin_datos {
+  padding: 5rem 1rem;
+  text-align: center;
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
+.EnviadorRespuestas__contenedor_acciones {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.EnviadorRespuestas__boton_enviar {
+  cursor: pointer;
+  border: none;
+  background: var(--color-principal);
+  color: var(--color-texto-claro);
+  padding: .35rem 1rem;
+  border-radius: 9in;
+  font-size: .7rem;
+  transition: all .2s ease;
+}
+
+@keyframes aparece-contenedor-tabla-enviador {
+  0% {
+    opacity: 0;
+    transform: translateY(-.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
