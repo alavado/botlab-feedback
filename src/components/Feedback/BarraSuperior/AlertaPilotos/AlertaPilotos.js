@@ -7,10 +7,6 @@ import { useSelector } from 'react-redux'
 import './AlertaPilotos.css'
 
 const usuariosPiloto = [
-  {
-    nombre: 'Tobalaba',
-    exp: '2021-09-16 00:00:00'
-  },
 ]
 
 const AlertaPilotos = () => {
