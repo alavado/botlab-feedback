@@ -52,7 +52,10 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
   const { isLoading, isError, data } = useQuery(
     `inputHeaders-${idEncuesta}`,
     consultarMapping(idEncuesta),
-    { refetchOnWindowFocus: false }
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: true
+    }
   )
   const { mutate } = useMutation(crearEncuestas, {
     onSuccess: data => {
@@ -64,10 +67,6 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
 
     }
   })
-
-  useEffect(() => {
-
-  }, [filas])
 
   if (!activo) {
     return null

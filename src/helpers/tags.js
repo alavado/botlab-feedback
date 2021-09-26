@@ -79,6 +79,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--no',
     color: ''
   },
+  NO_REAGENDA: {
+    texto: 'No',
+    titulo: 'Paciente no reagenda',
+    icono: cancel,
+    clase: 'TagRespuesta TagRespuesta--no',
+    color: ''
+  },
   NINGUNA: {
     texto: 'Ninguna',
     titulo: 'Ninguna',
