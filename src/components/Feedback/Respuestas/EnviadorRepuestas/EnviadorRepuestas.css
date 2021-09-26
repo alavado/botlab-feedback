@@ -196,7 +196,7 @@
 }
 
 .EnviadorRespuestas__boton_enviar:disabled {
-  filter: grayscale(90%);
+  filter: brightness(150%) grayscale(90%);
   cursor: not-allowed;
 }
 

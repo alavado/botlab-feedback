@@ -29,7 +29,7 @@ const BarraSuperior = () => {
       </Switch>
       {respuestas && (
         <Switch>
-          <Route exact path="/" component={() => <button className="BarraSuperior__boton_enviador" onClick={() => dispatch(activaEnviador())}><InlineIcon icon={iconoContacto} /> Contactar usuarios</button>} />
+          <Route exact path="/" component={() => <button className="BarraSuperior__boton_enviador" onClick={() => dispatch(activaEnviador())}><InlineIcon icon={iconoContacto} /> Contactar pacientes</button>} />
         </Switch>
       )}
       {respuestas && false && (

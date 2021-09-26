@@ -136,19 +136,19 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
               <InlineIcon icon={iconoCerrar} />
             </button>
             <div className="EnviadorRespuestas__superior">
-              <h1 className="EnviadorRespuestas__titulo">Contactar usuarios</h1>
+              <h1 className="EnviadorRespuestas__titulo">Contactar pacientes</h1>
               <div className="EnviadorRespuestas__superior_acciones">
                 <button
                   className="EnviadorRespuestas__boton_accion"
                   onClick={agregarFilaVacía}
                 >
-                  <InlineIcon icon={iconoAgregarFila} /> Agregar fila
+                  <InlineIcon icon={iconoAgregarFila} /> Agregar paciente
                 </button>
                 <button
                   className="EnviadorRespuestas__boton_accion"
                   onClick={abrirDialogoArchivo}
                 >
-                  <InlineIcon icon={iconoImportarCSV} /> Cargar archivo
+                  <InlineIcon icon={iconoImportarCSV} /> Cargar desde archivo
                 </button>
                 <button
                   className="EnviadorRespuestas__boton_accion"
@@ -213,7 +213,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                         ))
                       : <tr>
                           <td className="EnviadorRespuestas__mensaje_sin_datos" colSpan={data.data.data.length + 2}>
-                          Puedes agregar usuarios desde un <span className="EnviadorRespuestas__link" onClick={abrirDialogoArchivo}>archivo CSV</span> o <span className="EnviadorRespuestas__link" onClick={agregarFilaVacía}>manualmente</span>
+                          Puedes agregar pacientes desde un <span className="EnviadorRespuestas__link" onClick={abrirDialogoArchivo}>archivo CSV</span> o <span className="EnviadorRespuestas__link" onClick={agregarFilaVacía}>manualmente</span>
                           </td>
                         </tr>
                     }
@@ -226,7 +226,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                   disabled={!filas.length}
                   type="submit"
                 >
-                  <InlineIcon icon={iconoContacto} /> {filas.length ? <>Contactar {filas.length} usuario{filas.length > 1 ? 's' : ''}</> : <>No hay usuarios</>}
+                  <InlineIcon icon={iconoContacto} /> {filas.length ? <>Contactar {filas.length} paciente{filas.length > 1 ? 's' : ''}</> : <>No hay pacientes</>}
                 </button>
               </div>
             </form>
