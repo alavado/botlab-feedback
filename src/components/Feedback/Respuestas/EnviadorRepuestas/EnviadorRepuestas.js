@@ -68,6 +68,8 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
     }
   })
 
+  useEffect(() => setFilas([]), [idEncuesta])
+
   if (!activo) {
     return null
   }
@@ -149,12 +151,12 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                 >
                   <InlineIcon icon={iconoImportarCSV} /> Cargar desde archivo
                 </button>
-                <button
+                {/* <button
                   className="EnviadorRespuestas__boton_accion"
                   onClick={() => setFilas([])}
                 >
                   <InlineIcon icon={iconoLimpiarTabla} /> Limpiar tabla
-                </button>
+                </button> */}
                 <input
                   style={{ display: 'none' }}
                   id="csv-enviador"

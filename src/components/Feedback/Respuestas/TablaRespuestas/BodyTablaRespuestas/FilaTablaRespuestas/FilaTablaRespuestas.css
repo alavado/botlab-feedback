@@ -29,6 +29,10 @@
   opacity: 1;
 }
 
+.FilaTablaRespuestas__celda:first-child {
+  width: 2.25rem;
+}
+
 .FilaTablaRespuestas__celda {
   padding: .15rem .5rem .15rem .2rem;
   font-size: .75rem;

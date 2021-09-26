@@ -17,8 +17,8 @@
   padding: 1.75rem 1.5rem;
   border-radius: .25rem;
   box-shadow: 0 .1rem .25rem var(--color-sombras);
-  min-width: 60vw;
-  max-width: 90vw;
+  min-width: 50vw;
+  max-width: 85vw;
   display: flex;
   flex-direction: column;
   gap: .75rem;
@@ -127,6 +127,16 @@
   z-index: 2;
 }
 
+.EnviadorRespuestas__tabla th:first-child,
+.EnviadorRespuestas__tabla td:first-child {
+  width: 2rem;
+}
+
+.EnviadorRespuestas__tabla th:last-child,
+.EnviadorRespuestas__tabla td:last-child {
+  width: 6rem;
+}
+
 .EnviadorRespuestas__tabla td {
   font-weight: 400;
   text-align: left;
@@ -160,7 +170,7 @@
 .EnviadorRespuestas__tabla .EnviadorRespuestas__mensaje_sin_datos {
   padding: 5rem 0;
   text-align: center;
-  width: 90vw;
+  width: 100%;
   font-size: .8rem;
   line-height: 1.5;
 }
