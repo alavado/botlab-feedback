@@ -15,6 +15,7 @@ const BarraSuperior = () => {
 
   const [verModal, setVerModal] = useState(false)
   const { respuestas } = useSelector(state => state.respuestas)
+  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
 
   return (
@@ -27,9 +28,16 @@ const BarraSuperior = () => {
         <Route path="/uso" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
-      {respuestas && (
+      {respuestas && idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_OREMA_OUTBOUND) && (
         <Switch>
-          <Route exact path="/" component={() => <button className="BarraSuperior__boton_enviador" onClick={() => dispatch(activaEnviador())}><InlineIcon icon={iconoContacto} /> Contactar pacientes</button>} />
+          <Route exact path="/" component={() => (
+            <button
+              className="BarraSuperior__boton_enviador"
+              onClick={() => dispatch(activaEnviador())}
+            >
+              <InlineIcon icon={iconoContacto} /> Contactar pacientes
+            </button>
+          )}/>
         </Switch>
       )}
       {respuestas && false && (

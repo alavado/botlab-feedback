@@ -6,7 +6,7 @@ import iconoContacto from '@iconify/icons-mdi/send'
 import iconoCerrar from '@iconify/icons-mdi/close'
 import iconoAgregarFila from '@iconify/icons-mdi/table-row-add-after'
 import iconoImportarCSV from '@iconify/icons-mdi/table-import'
-import iconoLimpiarTabla from '@iconify/icons-mdi/table-off'
+// import iconoLimpiarTabla from '@iconify/icons-mdi/table-off'
 import { useMutation, useQuery } from 'react-query'
 import './EnviadorRepuestas.css'
 import { consultarMapping, crearEncuestas } from '../../../../api/endpoints'
@@ -14,8 +14,8 @@ import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { ESQUEMA_OSCURO } from '../../../../redux/ducks/opciones'
 import { parse as parseCSV } from 'papaparse'
-import { some } from 'lodash'
-import { guardaFechaInicio, guardaFechaTermino, normalizar } from '../../../../redux/ducks/respuestas'
+import _, { some } from 'lodash'
+import { guardaRangoFechas, normalizar } from '../../../../redux/ducks/respuestas'
 import { format, parseISO } from 'date-fns'
 
 const obtenerTipoInput = header => {
@@ -43,6 +43,9 @@ const formatearCampo = (header, valor) => {
   return valor
 }
 
+const ENVIADOR_ESTADO_PENDIENTE = 'ENVIADOR_ESTADO_PENDIENTE'
+const ENVIADOR_ESTADO_ENVIADO = 'ENVIADOR_ESTADO_ENVIADO'
+
 const EnviadorRepuestas = ({ idEncuesta }) => {
 
   const { activo } = useSelector(state => state.enviador)
@@ -57,14 +60,30 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
       refetchOnMount: true
     }
   )
-  const { mutate } = useMutation(crearEncuestas, {
+  const { mutate, isLoading: enviando } = useMutation(crearEncuestas, {
     onSuccess: data => {
-      setFilas([])
-      dispatch(guardaFechaInicio(Date.now()))
-      dispatch(guardaFechaTermino(Date.now()))
+      const logsRespuesta = data.data.data.logs
+      const conteoPacientesAContactar = filas.length
+      const conteoPacientesNoContactados = logsRespuesta.filter(r => r.logs.some(l => l.type === 'ERROR')).length
+      console.log(logsRespuesta)
+      setFilas(filas.map((f, i) => {
+        const logs = logsRespuesta.find(l => l.row_index === i)?.logs
+        if (logs) {
+          if (logs.some(l => l.type === 'ERROR')) {
+            return { ...f, logs, estado: ENVIADOR_ESTADO_PENDIENTE }
+          }
+          else {
+            return { ...f, logs, estado: ENVIADOR_ESTADO_ENVIADO }
+          }
+        }
+        return _.omit({ ...f, estado: ENVIADOR_ESTADO_ENVIADO }, ['logs'])
+      }))
+      if (conteoPacientesAContactar > conteoPacientesNoContactados) {
+        dispatch(guardaRangoFechas([Date.now(), Date.now()]))
+      }
     },
     onError: error => {
-
+      console.log(error)
     }
   })
 
@@ -77,7 +96,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
   const enviarEncuestas = e => {
     e.preventDefault()
     const ahora = format(Date.now(), 'yyyy-MM-dd HH:mm:ss')
-    const datos = filas.filter(f => f.estado === 'pendiente').map(f => headersSinConsultaConfirmacion.reduce((obj, h, i) => (
+    const datos = filas.map(f => headersSinConsultaConfirmacion.reduce((obj, h, i) => (
       {
         ...obj,
         [h.display_name]: formatearCampo(h, f.datos[i])
@@ -103,7 +122,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
           ...data.map(fila => {
             const datos = headersSinConsultaConfirmacion.map(h => fila[normalizar(h.display_name)] || '')
             return some(datos)
-              ? { datos, estado: 'pendiente' }
+              ? { datos, estado: ENVIADOR_ESTADO_PENDIENTE }
               : null
           }).filter(x => x)
         ])
@@ -113,7 +132,11 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
   }
 
   const abrirDialogoArchivo = () => document.getElementById('csv-enviador').click()
-  const agregarFilaVacía = () => setFilas([...filas, { datos: [...headersSinConsultaConfirmacion].fill(''), estado: 'pendiente' }])
+  const agregarFilaVacía = () => setFilas([...filas, { datos: [...headersSinConsultaConfirmacion].fill(''), estado: ENVIADOR_ESTADO_PENDIENTE }])
+  const filasPendientes = filas.filter(f => f.estado === ENVIADOR_ESTADO_PENDIENTE)
+  const textoBotonContactar = filasPendientes.length ? `Contactar ${filasPendientes.length} paciente${filasPendientes.length > 1 ? 's' : ''}` : `No hay pacientes por contactar`
+
+  console.log(filas)
 
   return createPortal(
     <div
@@ -186,15 +209,31 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                   <tbody>
                     {filas.length > 0
                       ? filas.map((fila, i) => (
-                          <tr key={`fila-enviador-${i}`}>
+                          <tr
+                            key={`fila-enviador-${i}`}
+                            className={classNames({
+                              "EnviadorRespuestas__fila--enviada": fila.estado === ENVIADOR_ESTADO_ENVIADO
+                            })}
+                          >
                             <td>{i + 1}</td>
                             {fila.datos.map((v, j) => (
                               <td key={`campo-enviador-${i}-${j}`}>
                                 <input
-                                  className="Enviador__input"
+                                  className={classNames({
+                                    "EnviadorRespuestas__input": true,
+                                    "EnviadorRespuestas__input--enviado": fila.estado === ENVIADOR_ESTADO_ENVIADO
+                                  })}
                                   type={obtenerTipoInput(headersSinConsultaConfirmacion[j])}
                                   onChange={e => {
-                                    setFilas([...filas.slice(0, i), { ...filas[i], datos: filas[i].datos.map((v, k) => k === j ? e.target.value : v) }, ...filas.slice(i + 1)])
+                                    setFilas([
+                                      ...filas.slice(0, i),
+                                      {
+                                        ...filas[i],
+                                        datos: filas[i].datos.map((v, k) => k === j ? e.target.value : v),
+                                        estado: ENVIADOR_ESTADO_PENDIENTE
+                                      },
+                                      ...filas.slice(i + 1)
+                                    ])
                                   }}
                                   required={headersSinConsultaConfirmacion[j].required}
                                   value={v}
@@ -224,10 +263,10 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
               <div className="EnviadorRespuestas__contenedor_acciones">
                 <button
                   className="EnviadorRespuestas__boton_enviar"
-                  disabled={!filas.length}
+                  disabled={!filasPendientes.length}
                   type="submit"
                 >
-                  <InlineIcon icon={iconoContacto} /> {filas.length ? <>Contactar {filas.length} paciente{filas.length > 1 ? 's' : ''}</> : <>No hay pacientes</>}
+                  <InlineIcon icon={iconoContacto} /> {enviando ? 'Contactando...' : textoBotonContactar}
                 </button>
               </div>
             </form>
