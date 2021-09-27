@@ -220,6 +220,31 @@
   cursor: not-allowed;
 }
 
+.EnviadorRespuestas__indice_fila {
+  position: relative;
+  cursor: pointer;
+}
+
+.EnviadorRespuestas__contenedor_logs {
+  position: absolute;
+  z-index: 10;
+  background-color: var(--color-fondo);
+  padding: .1rem .2rem;
+  white-space: nowrap;
+  left: 100%;
+  top: -.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  gap: .25rem;
+}
+
+.EnviadorRespuestas__indice_fila:hover .EnviadorRespuestas__contenedor_logs {
+  opacity: 1;
+}
+
 @keyframes aparece-fondo-enviador {
   0% {
     opacity: 0;

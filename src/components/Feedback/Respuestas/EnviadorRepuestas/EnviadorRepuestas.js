@@ -136,8 +136,6 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
   const filasPendientes = filas.filter(f => f.estado === ENVIADOR_ESTADO_PENDIENTE)
   const textoBotonContactar = filasPendientes.length ? `Contactar ${filasPendientes.length} paciente${filasPendientes.length > 1 ? 's' : ''}` : `No hay pacientes por contactar`
 
-  console.log(filas)
-
   return createPortal(
     <div
       className={classNames({
@@ -215,7 +213,19 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                               "EnviadorRespuestas__fila--enviada": fila.estado === ENVIADOR_ESTADO_ENVIADO
                             })}
                           >
-                            <td>{i + 1}</td>
+                            <td>
+                              <span className="EnviadorRespuestas__indice_fila">
+                                {fila.logs && (
+                                  <>
+                                    {fila.logs.some(l => l.type === 'ERROR') ? '🔴' : '🟢'}
+                                    <div className="EnviadorRespuestas__contenedor_logs">
+                                      {fila.logs.map(log => <div>{log.type === 'ERROR' ? '🔴' : '🟣'} {log.log}</div>)}
+                                    </div>
+                                  </>
+                                )}
+                                {i + 1}
+                              </span>
+                            </td>
                             {fila.datos.map((v, j) => (
                               <td key={`campo-enviador-${i}-${j}`}>
                                 <input
@@ -230,7 +240,8 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                                       {
                                         ...filas[i],
                                         datos: filas[i].datos.map((v, k) => k === j ? e.target.value : v),
-                                        estado: ENVIADOR_ESTADO_PENDIENTE
+                                        estado: ENVIADOR_ESTADO_PENDIENTE,
+                                        logs: undefined
                                       },
                                       ...filas.slice(i + 1)
                                     ])
