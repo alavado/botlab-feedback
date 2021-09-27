@@ -83,14 +83,14 @@ export const alertas = (idEncuesta, fechaInicio, fechaTermino) => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
-export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, email, extension) => {
+export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, email, attachment_extension) => {
   const date_start = format(fechaInicio, 'yyyy-MM-dd')
   const date_end = format(fechaTermino, 'yyyy-MM-dd')
   const token = store.getState().login.token
-  let url = `${API_ROOT}/report/${idEncuesta}`
+  let url = `${API_ROOT}/report_beta/${idEncuesta}`
   return axios.post(
     url,
-    { date_start, date_end, email, extension },
+    { date_start, date_end, email, attachment_extension },
     {
       headers: {
         'Api-Token': token,
