@@ -7,23 +7,35 @@ import Icon from '@iconify/react'
 import './ExportacionAvanzada.css'
 import { exportarRespuestas } from '../../api/endpoints'
 import { useSelector } from 'react-redux'
-import { tiposExportacion } from '../../helpers/exportar'
+
+export const tiposExportacion = [
+  {
+    nombre: 'CSV',
+    extension: 'csv'
+  },
+  {
+    nombre: 'Excel',
+    extension: 'xlsx'
+  }
+]
 
 const ExportacionAvanzada = () => {
 
   const { fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
   const [inicio, setInicio] = useState(fechaInicio)
   const [termino, setTermino] = useState(fechaTermino)
+  const [email, setEmail] = useState('')
   const [exportando, setExportando] = useState(false)
-  const [tipoExportacion, setTipoExportacion] = useState(tiposExportacion[0])
+  const [extension, setExtension] = useState(tiposExportacion[0].extension)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
 
-  const exportar = () => {
+  const exportar = e => {
+    e.preventDefault()
     if (exportando) {
       return
     }
     setExportando(true)
-    exportarRespuestas(idEncuestaSeleccionada, inicio, termino, tipoExportacion)
+    exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, extension)
       .then(() => setExportando(false))
   }
   
@@ -33,7 +45,10 @@ const ExportacionAvanzada = () => {
         <h1 className="ExportacionAvanzada__titulo">Reporte</h1>
       </div>
       <div className="ExportacionAvanzada__contenedor">
-        <div className="ExportacionAvanzada__contenedor_formulario">
+        <form
+          className="ExportacionAvanzada__contenedor_formulario"
+          onSubmit={exportar}
+        >
           <h2 className="ExportacionAvanzada__subtitulo">Período</h2>
           <div className="ExportacionAvanzada__contenedor_rango">
             <ReactDatePicker
@@ -62,25 +77,28 @@ const ExportacionAvanzada = () => {
                 key={`boton-tipo-exportacion-${i}`}
                 className={classNames({
                   "ExportacionAvanzada__boton": true,
-                  "ExportacionAvanzada__boton--activo": tipo === tipoExportacion
+                  "ExportacionAvanzada__boton--activo": tipo.extension === extension
                 })}
-                onClick={() => setTipoExportacion(tipo)}
+                type="button"
+                onClick={() => setExtension(tipo.extension)}
               >
-                {tipo}
+                {tipo.nombre}
               </button>
             ))}
           </div>
           <h2 className="ExportacionAvanzada__subtitulo">E-mail</h2>
           <div className="ExportacionAvanzada__contenedor_rango">
             <input
-              className="SelectorRangoFechas__datepicker"
+              className="ExportacionAvanzada__input"
               type="email"
               required
+              onChange={e => setEmail(e.target.value)}
+              value={email}
             />
           </div>
           <button
             className="ExportacionAvanzada__boton_exportar"
-            onClick={exportar}
+            type="submit"
           >
             {exportando
               ? <div className="ExportacionAvanzada__loader_exportando" />
@@ -89,9 +107,9 @@ const ExportacionAvanzada = () => {
             Generar reporte
           </button>
           <p className="ExportacionAvanzada__explicacion">
-            Este módulo permite exportar todas las respuestas de la encuesta seleccionada a una planilla de datos.
+            Este módulo permite exportar todas las respuestas de la encuesta seleccionada a una planilla de datos. La planilla será enviada al e-mail indicado en unos minutos.
           </p>
-        </div>
+        </form>
       </div>
     </div>
   )

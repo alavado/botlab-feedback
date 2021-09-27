@@ -12,13 +12,19 @@
   width: 9rem;
   border-radius: 1rem;
   height: 2rem;
-  outline: none;
-  border: 1px solid var(--color-bordes);
   cursor: pointer;
   font-size: .75rem;
   font-weight: 600;
   background: var(--color-fondo);
   color: var(--color-texto);
+  box-shadow: 0 0 0 1px var(--color-bordes);
+  outline: none;
+  border: none;
+  transition: all .2s ease-in-out;
+}
+
+.SelectorRangoFechas__datepicker:focus {
+  box-shadow: 0 0 0 .15rem var(--color-secundario);
 }
 
 .SelectorRangoFechas__boton {

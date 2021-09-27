@@ -1,7 +1,6 @@
 import axios from 'axios'
 import store from '../redux/store'
 import { format } from 'date-fns'
-import { TIPO_EXPORTACION_CSV } from '../helpers/exportar'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -84,20 +83,24 @@ export const alertas = (idEncuesta, fechaInicio, fechaTermino) => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
-export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, tipo) => {
-  const fi = format(fechaInicio, 'yyyy-MM-dd')
-  const ft = format(fechaTermino, 'yyyy-MM-dd')
+export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, email, extension) => {
+  const date_start = format(fechaInicio, 'yyyy-MM-dd')
+  const date_end = format(fechaTermino, 'yyyy-MM-dd')
   const token = store.getState().login.token
-  let url = `${API_ROOT}/report/${idEncuesta}?fecha_inicio=${fi}%2000%3A00&fecha_termino=${ft}%2023%3A59&type=${tipo === TIPO_EXPORTACION_CSV ? 'tag' : 'text'}`
-  return axios.get(url, { headers: { 'Api-Token': token, 'Api-UTC-Offset': -180 }, responseType: 'blob' })
-    .then((response) => {
-      const url = window.URL.createObjectURL(new Blob([response.data]))
-      const link = document.createElement('a')
-      link.href = url
-      link.setAttribute('download', 'feedback.csv')
-      document.body.appendChild(link)
-      link.click()
-    })
+  let url = `${API_ROOT}/report/${idEncuesta}`
+  return axios.post(
+    url,
+    { date_start, date_end, email, extension },
+    {
+      headers: {
+        'Api-Token': token,
+        'Api-UTC-Offset': -180
+      }
+    }
+  )
+  .then(res => {
+    console.log(res)
+  })
 }
 
 export const obtenerReacciones = (idEncuesta, idUsuario, start) => {

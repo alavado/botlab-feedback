@@ -55,6 +55,25 @@
   flex-direction: row;
 }
 
+.ExportacionAvanzada__input {
+  text-align: center;
+  width: 14rem;
+  border-radius: 1rem;
+  height: 2rem;
+  font-size: .75rem;
+  font-weight: 600;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  box-shadow: 0 0 0 1px var(--color-bordes);
+  outline: none;
+  border: none;
+  transition: all .2s ease-in-out;
+}
+
+.ExportacionAvanzada__input:focus {
+  box-shadow: 0 0 0 .15rem var(--color-secundario);
+}
+
 .ExportacionAvanzada__boton {
   margin: 0 .5rem;
   width: 5rem;
