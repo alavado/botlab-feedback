@@ -39,8 +39,8 @@ const Preparaciones = () => {
         <table className="Preparaciones__tabla">
           <thead>
             <tr>
-              <th>Centro</th>
-              <th>ID Servicio</th>
+              <th>CenterId</th>
+              <th>ServiceId</th>
               <th>URL</th>
             </tr>
           </thead>
