@@ -26,6 +26,7 @@ const BarraSuperior = () => {
         <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
         <Route path="/busqueda" component={SelectorEncuesta} />
         <Route path="/uso" component={SelectorEncuesta} />
+        <Route path="/preparaciones" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
       {respuestas && idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_OREMA_OUTBOUND) && (

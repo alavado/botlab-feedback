@@ -17,6 +17,7 @@ import ErrorBoundary from '../../helpers/ErrorBoundary'
 import Alertas from './Alertas'
 import { guardaAlertas } from '../../redux/ducks/alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
+import Preparaciones from './Preparaciones'
 
 const intervaloRefrescoAlertas = 5_000
 const alertasActivas = false
@@ -79,6 +80,9 @@ const Feedback = () => {
               </Route>
               <Route path="/respuestas">
                 <Respuestas />
+              </Route>
+              <Route path="/preparaciones">
+                <Preparaciones />
               </Route>
               <Route path="/chat">
                 <Respuestas />
