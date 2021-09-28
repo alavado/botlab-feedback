@@ -25,6 +25,7 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
   const diaMensajeAnterior = posicion > 0 && format(parseISO(mensajes[posicion - 1].timestamp), 'd')
   const mostrarFecha = posicion === 0 || diaMensaje !== diaMensajeAnterior
   const mensajeEsDeHumano = mensaje.type !== 'bot'
+  const { cuenta } = useSelector(state => state.login)
 
   return (
     <div className="MensajeWhatsapp">
@@ -32,6 +33,7 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
       <Globo esDeHumano={mensajeEsDeHumano} posicion={posicion} hora={horaFechamensaje}>
         <Texto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
         <Hora hora={horaMensaje} esDeHumano={mensajeEsDeHumano} />
+        {mensaje.tag && (cuenta.endsWith('cero') || cuenta.endsWith('botlab')) && <div className="MensajeWhatsapp__tag">🤖 {mensaje.tag}</div>}
       </Globo>
     </div>
   )

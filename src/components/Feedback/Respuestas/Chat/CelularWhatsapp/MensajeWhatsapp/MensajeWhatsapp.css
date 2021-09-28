@@ -57,6 +57,18 @@
   animation: aparece-mensaje-saliente-celular .5s ease both;
 }
 
+.MensajeWhatsapp__tag {
+  position: absolute;
+  right: .1rem;
+  top: -.35rem;
+  z-index: 300000;
+  padding: .15rem .25rem;
+  font-size: .6rem;
+  border-radius: .15rem;
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+}
+
 .CelularWhatsapp--expandido .MensajeWhatsapp__globo--saliente {
   align-self: flex-start;
 }
