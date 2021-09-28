@@ -92,7 +92,6 @@
 }
 
 .CelularWhatsapp__pantalla {
-  background-color: var(--color-fondo);
   flex: 1;
   display: flex;
   flex-direction: column;
