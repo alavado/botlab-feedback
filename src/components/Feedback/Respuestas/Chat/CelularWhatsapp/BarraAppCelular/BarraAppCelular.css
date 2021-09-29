@@ -18,6 +18,8 @@
 .BarraAppCelular__contenedor_nombre {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
 }
 
 .BarraAppCelular__izquierda {
@@ -26,22 +28,22 @@
 }
 
 .BarraAppCelular__avatar {
-  width: 1.5rem;
-  height: 1.5rem;
-  background: #7C71F4;
+  width: 1.6rem;
+  height: 1.6rem;
+  background: linear-gradient(45deg, var(--color-principal-claro), var(--color-principal-claro));
   border-radius: 100%;
   margin-right: .35rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: .9rem;
-  color: rgba(255, 255, 255, .9);
+  color: var(--color-texto-claro);
+  font-weight: 500;
 }
 
 .BarraAppCelular__nombre {
-  font-size: .85rem;
+  font-size: .8rem;
   font-weight: 500;
-  margin-bottom: .2rem;
 }
 
 .BarraAppCelular__estado {
@@ -50,7 +52,6 @@
 }
 
 .BarraAppCelular__iconos {
-  padding-right: 1rem;
   font-size: 1.1rem;
   cursor: pointer;
   display: flex;
@@ -62,10 +63,6 @@
   outline: none;
 }
 
-.BarraAppCelular__iconos:not(:last-child) {
-  padding-right: .5rem;
-}
-
 .CelularWhatsapp--expandido .BarraAppCelular {
   min-height: 0;
   height: 0;
@@ -74,6 +71,8 @@
 
 .BarraAppCelular__contenedor_iconos {
   display: flex;
+  padding-right: 1rem;
+  gap: .5rem;
 }
 
 .BarraAppCelular__cargando {

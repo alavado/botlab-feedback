@@ -27,14 +27,14 @@
   --color-sombras: rgba(0, 0, 0, .15);
   --color-boton-alegre: #0ABCEB;
 
-  --whatsapp-fondo-barra-estado: #054D44;
-  --whatsapp-fondo-barra-superior: #075E54;
-  --whatsapp-fondo: url('./assets/images/whatsapp-background.jpg');
-  --whatsapp-fondo-mensajes-salientes: #dcf8c6;
+  --whatsapp-fondo-barra-estado: #008069;
+  --whatsapp-fondo-barra-superior: #008069;
+  --whatsapp-fondo: url('./assets/images/ws_bg_2021_claro.jpg');
+  --whatsapp-fondo-mensajes-salientes: #e7ffdb;
   --whatsapp-fondo-mensajes-entrantes: white;
   --whatsapp-color-texto: black;
-  --whatsapp-fondo-fecha: #D4EAF4;
-  --whatsapp-color-texto-fecha: rgba(0, 0, 0, .7);
+  --whatsapp-fondo-fecha: #f1edea;
+  --whatsapp-color-texto-fecha: #5d6c75;
   --whatsapp-color-celular: #2B292A;
   --whatsapp-color-borde-celular: #eee;
   --whatsapp-color-brillo-celular: #fff;

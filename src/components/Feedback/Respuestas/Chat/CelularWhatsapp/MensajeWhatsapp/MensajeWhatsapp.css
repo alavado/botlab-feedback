@@ -7,15 +7,15 @@
 .MensajeWhatsapp__fecha {
   align-self: center;
   background-color: var(--whatsapp-fondo-fecha);
-  height: 1.25rem;
+  height: 1.35rem;
   display: flex;
   align-items: center;
-  font-size: .65rem;
-  text-transform: uppercase;
+  font-size: .64rem;
+  font-weight: 500;
   margin-bottom: .5rem;
-  padding: 0 .35rem;
-  border-radius: .15rem;
-  box-shadow: 0 .05rem .05rem rgba(0, 0, 0, .1);
+  padding: 0 .4rem;
+  border-radius: .35rem;
+  box-shadow: 0 .05rem 0 .05rem rgba(0, 0, 0, .075);
   color: var(--whatsapp-color-texto-fecha);
   position: sticky;
   top: 0;
@@ -25,13 +25,13 @@
 .MensajeWhatsapp__globo {
   font-size: .8rem;
   background-color: var(--whatsapp-fondo-mensajes-entrantes);
-  padding: .3rem .5rem;
+  padding: .35rem .5rem;
   max-width: 90%;
   line-height: 1.15;
   margin-bottom: .5rem;
-  border-radius: .25rem;
+  border-radius: .5rem;
   position: relative;
-  box-shadow: 0 .1rem .05em rgba(0, 0, 0, .2);
+  box-shadow: 0 .05rem 0 .05rem rgba(0, 0, 0, .075);
   animation: aparece-mensaje-entrante-celular .5s ease both;
   word-wrap: break-word;
   align-self: flex-start;
@@ -48,7 +48,7 @@
   border-left: .45rem solid transparent;
   border-bottom: .45rem solid transparent;
   top: 0;
-  left: -.45rem;
+  left: -.4rem;
 }
 
 .MensajeWhatsapp__globo--saliente {
@@ -87,7 +87,7 @@
   border-right: .45rem solid transparent;
   border-left: .45rem solid var(--whatsapp-fondo-mensajes-salientes);
   border-bottom: .45rem solid transparent;
-  right: calc(-1 * .45rem);
+  right: calc(-1 * .4rem);
   left: auto;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .MensajeWhatsapp__hora_visible {
-  font-size: .6rem;
+  font-size: .55rem;
   opacity: .7;
   position: absolute;
   right: .35rem;
