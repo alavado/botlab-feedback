@@ -25,18 +25,8 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
   const diaMensajeAnterior = posicion > 0 && format(parseISO(mensajes[posicion - 1].timestamp), 'd')
   const mostrarFecha = posicion === 0 || diaMensaje !== diaMensajeAnterior
   const mensajeEsDeHumano = mensaje.type !== 'bot'
-  const [tagsVisibles, setTagsVisibles] = useState(false)
   const { cuenta } = useSelector(state => state.login)
-
-  useEffect(() => {
-    const teclasMagicas = e => {
-      if (e.code === 'Digit0') {
-        setTagsVisibles(prev => !prev)
-      }
-    }
-    window.addEventListener('keyup', teclasMagicas)
-    return () => window.removeEventListener('keyup', teclasMagicas)
-  }, [])
+  const { debugging } = useSelector(state => state.cero)
 
   return (
     <div className="MensajeWhatsapp">
@@ -49,7 +39,7 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
           <div
             className={classNames({
               "MensajeWhatsapp__tag": true,
-              "MensajeWhatsapp__tag--visible": tagsVisibles && (cuenta.endsWith('cero') || cuenta.endsWith('botlab'))
+              "MensajeWhatsapp__tag--visible": debugging && (cuenta.endsWith('cero') || cuenta.endsWith('botlab'))
             })}>
               🤖 {mensaje.tag}
             </div>

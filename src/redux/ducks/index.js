@@ -6,6 +6,7 @@ import busqueda from './busqueda'
 import alertas from './alertas'
 import scrambler from './scrambler'
 import enviador from './enviador'
+import cero from './cero'
 import { combineReducers } from 'redux'
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   busqueda,
   alertas,
   scrambler,
-  enviador
+  enviador,
+  cero
 })

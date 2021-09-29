@@ -3,7 +3,7 @@ import { save, load } from 'redux-localstorage-simple'
 import rootReducer from './ducks/index'
 
 // los que se guardan en el localStorage
-const states = ['opciones', 'login', 'encuestas']
+const states = ['opciones', 'login', 'encuestas', 'cero']
 
 const createStoreWithMiddleware = applyMiddleware(save({ states }))(createStore)
 

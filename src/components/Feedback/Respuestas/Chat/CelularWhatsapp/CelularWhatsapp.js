@@ -11,6 +11,7 @@ import Icon from '@iconify/react'
 import iconoEncoger from '@iconify/icons-mdi/arrow-collapse'
 import SelectorConversacion from './SelectorConversacion'
 import { useHistory } from 'react-router'
+import { toggleDebugging } from '../../../../../redux/ducks/cero'
 
 const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConversacion, actualizarMensajes }) => {
 
@@ -41,6 +42,16 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
       contenedorMensajes.current.focus({ preventScroll: true })
     }
   }, [conversaciones])
+
+  useEffect(() => {
+    const teclasMagicas = e => {
+      if (e.code === 'Digit0') {
+        dispatch(toggleDebugging())
+      }
+    }
+    window.addEventListener('keyup', teclasMagicas)
+    return () => window.removeEventListener('keyup', teclasMagicas)
+  }, [])
 
   return (
     <div className={classNames({
