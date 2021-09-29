@@ -42,14 +42,14 @@ const BarraLateral = () => {
           <Icon icon={alertas} />
         </NavLink>
       }
-      <NavLink
+      {/* <NavLink
         className="BarraLateral__link"
         activeClassName="BarraLateral__link--activo"
         to="/preparaciones"
       >
         <div className="BarraLateral__popup_link">Preparaciones</div>
         <Icon icon={preparaciones} />
-      </NavLink>
+      </NavLink> */}
       <NavLink
         className="BarraLateral__link"
         activeClassName="BarraLateral__link--activo"

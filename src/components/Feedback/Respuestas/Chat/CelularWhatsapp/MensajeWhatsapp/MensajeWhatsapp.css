@@ -59,14 +59,22 @@
 
 .MensajeWhatsapp__tag {
   position: absolute;
-  right: .1rem;
-  top: -.35rem;
-  z-index: 300000;
-  padding: .15rem .25rem;
+  right: -.1rem;
+  top: -.4rem;
+  z-index: 30000;
+  padding: .15rem .25rem .15rem .45rem;
   font-size: .6rem;
-  border-radius: .15rem;
-  background-color: var(--color-principal);
+  border-radius: .25rem .05rem .05rem .25rem;
+  background: radial-gradient(100px 100px at .25rem 50%, transparent 0 .1rem, var(--color-principal) 0);
   color: var(--color-texto-claro);
+  transition: all .05s ease-out;
+  opacity: 0;
+  transform: translateX(-.1rem);
+}
+
+.MensajeWhatsapp__tag--visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .CelularWhatsapp--expandido .MensajeWhatsapp__globo--saliente {

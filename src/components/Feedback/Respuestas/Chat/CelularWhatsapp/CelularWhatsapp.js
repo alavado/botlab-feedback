@@ -56,7 +56,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
         <div className="CelularWhatsapp__datos_extra">
           {history.location.pathname.slice(6)}
         </div>
-        <div style={{
+        {/* <div style={{
           position: 'absolute',
           height: '75vh',
           width: '.5rem',
@@ -66,7 +66,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
           top: '5vh'
         }}>
           {bin.split('').map((v, i) => <div key={`pieza{${i}}`} style={{ flex: 1, background: v === '0' ? 'black' : 'transparent' }} />)}
-        </div>
+        </div> */}
         <div className="CelularWhatsapp__pantalla">
           <button
             className={classNames({

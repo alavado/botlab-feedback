@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { format, parseISO } from 'date-fns'
 import { Icon, InlineIcon } from '@iconify/react'
 import iconoVisto from '@iconify/icons-mdi/check-all'
@@ -25,7 +25,18 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
   const diaMensajeAnterior = posicion > 0 && format(parseISO(mensajes[posicion - 1].timestamp), 'd')
   const mostrarFecha = posicion === 0 || diaMensaje !== diaMensajeAnterior
   const mensajeEsDeHumano = mensaje.type !== 'bot'
+  const [tagsVisibles, setTagsVisibles] = useState(false)
   const { cuenta } = useSelector(state => state.login)
+
+  useEffect(() => {
+    const teclasMagicas = e => {
+      if (e.code === 'Digit0') {
+        setTagsVisibles(prev => !prev)
+      }
+    }
+    window.addEventListener('keyup', teclasMagicas)
+    return () => window.removeEventListener('keyup', teclasMagicas)
+  }, [])
 
   return (
     <div className="MensajeWhatsapp">
@@ -33,7 +44,16 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
       <Globo esDeHumano={mensajeEsDeHumano} posicion={posicion} hora={horaFechamensaje}>
         <Texto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
         <Hora hora={horaMensaje} esDeHumano={mensajeEsDeHumano} />
-        {mensaje.tag && (cuenta.endsWith('cero') || cuenta.endsWith('botlab')) && <div className="MensajeWhatsapp__tag">🤖 {mensaje.tag}</div>}
+        
+        {mensaje.tag && (
+          <div
+            className={classNames({
+              "MensajeWhatsapp__tag": true,
+              "MensajeWhatsapp__tag--visible": tagsVisibles && (cuenta.endsWith('cero') || cuenta.endsWith('botlab'))
+            })}>
+              🤖 {mensaje.tag}
+            </div>
+        )}
       </Globo>
     </div>
   )
