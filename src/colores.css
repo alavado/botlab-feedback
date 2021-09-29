@@ -33,11 +33,13 @@
   --whatsapp-fondo-mensajes-salientes: #e7ffdb;
   --whatsapp-fondo-mensajes-entrantes: white;
   --whatsapp-color-texto: black;
-  --whatsapp-fondo-fecha: #f1edea;
+  --whatsapp-fondo-fecha: #f7f7f5;
   --whatsapp-color-texto-fecha: #5d6c75;
   --whatsapp-color-celular: #2B292A;
   --whatsapp-color-borde-celular: #eee;
-  --whatsapp-color-brillo-celular: #fff;
+  --whatsapp-color-brillo-celular: #666;
+  --whatsapp-color-brillo-2-celular: #222;
+  --whatsapp-color-scrollbar-contenedor-mensajes: rgba(0, 0, 0, .25);
 
   --gradiente-exportar: repeating-linear-gradient(-45deg, rgba(0, 0, 0, .05) 0 .25rem, rgba(0, 0, 0, .1) .25rem .5rem);
   --color-vidrio: rgba(255, 255, 255, .5);
@@ -66,7 +68,7 @@
   --color-mini-dasdhboard-2: #553C9A;
   --color-barras-mini-dashboard: rgba(0, 0, 0, .25);
   --color-texto: #F7FAFC;
-  --color-sombras: rgba(255, 255, 255, .1);
+  --color-sombras: rgba(0, 0, 0, .15);
   --color-boton-alegre: #1A365D;
   
 	--color-si: #C6F6D5;
@@ -76,17 +78,19 @@
 	--color-reagendado: #EBF8FF;
   --color-texto-tag: #1A202C;
 
-  --whatsapp-fondo-barra-estado: #0C2027;
-  --whatsapp-fondo-barra-superior: #162D33;
-  --whatsapp-fondo: url('./assets/images/whatsapp-background-oscuro.jpg');
-  --whatsapp-fondo-mensajes-salientes: #00463F;
-  --whatsapp-fondo-mensajes-entrantes: #0E282F;
+  --whatsapp-fondo-barra-estado: #1f2c34;
+  --whatsapp-fondo-barra-superior: #1f2c34;
+  --whatsapp-fondo: url('./assets/images/ws_bg_2021_oscuro.jpg');
+  --whatsapp-fondo-mensajes-salientes: #005d4b;
+  --whatsapp-fondo-mensajes-entrantes: #1f2c34;
   --whatsapp-color-texto: rgba(255, 255, 255, 0.8);
-  --whatsapp-fondo-fecha: #0E282F;
+  --whatsapp-fondo-fecha: #212e36;
   --whatsapp-color-texto-fecha: rgba(255, 255, 255, .7);
   --whatsapp-color-celular: #010101;
   --whatsapp-color-borde-celular: #222;
-  --whatsapp-color-brillo-celular: #777;
+  --whatsapp-color-brillo-celular: #222;
+  --whatsapp-color-brillo-2-celular: #222;
+  --whatsapp-color-scrollbar-contenedor-mensajes: #4b575f;
 
   --gradiente-exportar: repeating-linear-gradient(-45deg, rgba(0, 0, 0, .4) 0 .25rem, rgba(0, 0, 0, .5) .25rem .5rem);
   --color-vidrio: rgba(0, 0, 0, .25);
