@@ -71,37 +71,37 @@ const Globo = ({ esDeHumano, posicion, hora, children }) => (
   </div>
 )
 
+const marcar = texto => {
+  return texto.map(t => {
+    const partes = t.props.children[0].split('*')
+    return {
+      ...t,
+      props: {
+        ...t.props,
+        children: [
+          React.createElement(
+            'span',
+            [],
+            partes.map((p, i) => 0 < i && i < partes.length - 1
+              ? <strong
+                  className="MensajeWhatsapp__strong"
+                  key={Date.now()}
+                >
+                  <Scrambler tipo="multi">{p}</Scrambler>
+                </strong>
+              : p
+            )
+          ),
+          ...t.props.children.slice(1)
+        ]
+      }
+    }
+  })
+}
+
 const Texto = ({ mensaje, hora, esDeHumano }) => {
 
   const { terminos, scrambled } = useSelector(state => state.scrambler)
-
-  const marcar = texto => {
-    return texto.map(t => {
-      const partes = t.props.children[0].split('*')
-      return {
-        ...t,
-        props: {
-          ...t.props,
-          children: [
-            React.createElement(
-              'span',
-              [],
-              partes.map((p, i) => 0 < i && i < partes.length - 1
-                ? <strong
-                    className="MensajeWhatsapp__strong"
-                    key={Date.now()}
-                  >
-                    <Scrambler tipo="multi">{p}</Scrambler>
-                  </strong>
-                : p
-              )
-            ),
-            ...t.props.children.slice(1)
-          ]
-        }
-      }
-    })
-  }
 
   return (
     <div className="MensajeWhatsapp__texto">
@@ -155,7 +155,7 @@ const MensajeConAdjunto = ({ mensaje }) => {
             </div>
           </a>
       }
-      {mensajeSinAdjunto.length > 0 && <Linkify>{nl2br(scrambled ? scrambleMulti(mensajeSinAdjunto, terminos) : mensajeSinAdjunto)}</Linkify>}
+      {mensajeSinAdjunto.length > 0 && <Linkify>{marcar(nl2br(scrambled ? scrambleMulti(mensajeSinAdjunto, terminos) : mensajeSinAdjunto))}</Linkify>}
     </div>
   )
 }
