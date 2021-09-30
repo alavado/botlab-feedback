@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import './assets/fonts/fonts.css'
 import './reset.css'
 import './colores.css'
 import App from './components/App'
