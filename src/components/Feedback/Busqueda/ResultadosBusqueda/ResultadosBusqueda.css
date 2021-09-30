@@ -58,7 +58,7 @@
   filter: none;
   font-size: .8rem;
   position: relative;
-  border: .1rem solid var(--color-bordes);
+  border: 1px solid var(--color-bordes);
   color: var(--color-texto);
   background: var(--color-fondo);
 }

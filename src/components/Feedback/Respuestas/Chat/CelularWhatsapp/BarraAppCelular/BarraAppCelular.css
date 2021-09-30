@@ -8,6 +8,7 @@
   justify-content: space-between;
   padding-left: .15rem;
   cursor: default;
+  box-shadow: 0 0 0 .1rem var(--whatsapp-fondo-barra-superior);
 }
 
 .BarraAppCelular__icono_volver {
