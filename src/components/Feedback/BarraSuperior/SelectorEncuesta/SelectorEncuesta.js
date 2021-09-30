@@ -81,8 +81,6 @@ const SelectorEncuesta = () => {
     return <Loader color="#6057f6" />
   }
 
-  console.log(path)
-
   return (
     <div
       className={classNames({
