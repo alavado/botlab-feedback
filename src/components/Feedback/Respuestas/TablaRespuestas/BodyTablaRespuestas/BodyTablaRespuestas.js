@@ -6,6 +6,7 @@ import './BodyTablaRespuestas.css'
 import Skeleton from '../../../../Skeleton'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
 import FilaTablaRespuestas from './FilaTablaRespuestas'
+import BodyTablaSinRespuestas from './BodyTablaSinRespuestas'
 
 const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
@@ -25,6 +26,10 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
   if (!headersOrdenados) {
     return null
+  }
+
+  if (respuestas?.length === 0) {
+    return <BodyTablaSinRespuestas />
   }
 
   return (

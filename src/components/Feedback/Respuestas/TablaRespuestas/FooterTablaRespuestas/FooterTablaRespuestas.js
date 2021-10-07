@@ -12,7 +12,7 @@ const FooterTablaRespuestas = ({ cargando, respuestasPorPagina, totalRespuestas 
   const dispatch = useDispatch()
 
   const mensaje = totalRespuestas === 0
-    ? <>No se encontraron respuestas</>
+    ? <></>
     : <>
         Mostrando {(respuestasPorPagina * (pagina - 1) + 1).toLocaleString('de-DE')} a {Math.min(respuestasPorPagina * pagina, totalRespuestas).toLocaleString('de-DE')} de <span className="FooterTablaRespuestas__numero_total">{totalRespuestas.toLocaleString('de-DE')}</span>
       </>
