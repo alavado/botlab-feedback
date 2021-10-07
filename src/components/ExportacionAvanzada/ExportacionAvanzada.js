@@ -27,7 +27,7 @@ const ExportacionAvanzada = () => {
   const [termino, setTermino] = useState(fechaTermino)
   const [email, setEmail] = useState('')
   const [exportando, setExportando] = useState(false)
-  const [modalVisible, setModalVisible] = useState(true)
+  const [modalVisible, setModalVisible] = useState(false)
   const [error, setError] = useState()
   const [extension, setExtension] = useState(tiposExportacion[0].extension)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
