@@ -12,7 +12,7 @@ const BodyTablaSinRespuestas = () => {
     <div className="BodyTablaSinRespuestas">
       <Icon className="BodyTablaSinRespuestas__icono" icon={iconoSinRepuestas} />
       <p>No se encontraron respuestas</p>
-      {isToday(fechaTermino) && <p>Las interacciones con los pacientes<br />comienzan a las <strong>8:30</strong> normalmente</p> }
+      {isToday(fechaTermino) && <p>Las interacciones con pacientes<br />comienzan a las <strong>8:30</strong></p> }
     </div>
   )
 }
