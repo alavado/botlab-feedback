@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import classNames from 'classnames'
@@ -38,7 +38,19 @@ const ExportacionAvanzada = () => {
     exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, extension)
       .then(() => setExportando(false))
   }
-  
+
+  useEffect(() => {
+    if (termino < inicio) {
+      setInicio(termino)
+    }
+  }, [termino])
+
+  useEffect(() => {
+    if (inicio > termino) {
+      setTermino(inicio)
+    }
+  }, [inicio])
+
   return (
     <div className="ExportacionAvanzada">
       <div className="ExportacionAvanzada__superior">
@@ -49,12 +61,11 @@ const ExportacionAvanzada = () => {
           className="ExportacionAvanzada__contenedor_formulario"
           onSubmit={exportar}
         >
-          <h2 className="ExportacionAvanzada__subtitulo">Período</h2>
+          <h2 className="ExportacionAvanzada__subtitulo">Periodo</h2>
           <div className="ExportacionAvanzada__contenedor_rango">
             <ReactDatePicker
               selected={inicio}
               onChange={f => setInicio(f)}
-              maxDate={termino}
               dateFormat="d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker"
