@@ -7,6 +7,7 @@ import Icon from '@iconify/react'
 import './ExportacionAvanzada.css'
 import { exportarRespuestas } from '../../api/endpoints'
 import { useSelector } from 'react-redux'
+import ModalExportacionAvanzada from './ModalExportacionAvanzada'
 
 export const tiposExportacion = [
   {
@@ -26,6 +27,8 @@ const ExportacionAvanzada = () => {
   const [termino, setTermino] = useState(fechaTermino)
   const [email, setEmail] = useState('')
   const [exportando, setExportando] = useState(false)
+  const [modalVisible, setModalVisible] = useState(true)
+  const [error, setError] = useState()
   const [extension, setExtension] = useState(tiposExportacion[0].extension)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
 
@@ -36,7 +39,11 @@ const ExportacionAvanzada = () => {
     }
     setExportando(true)
     exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, extension)
-      .then(() => setExportando(false))
+      .then(() => {
+        setExportando(false)
+        setModalVisible(true)
+      })
+      .catch(err => setError(err))
   }
 
   useEffect(() => {
@@ -53,6 +60,11 @@ const ExportacionAvanzada = () => {
 
   return (
     <div className="ExportacionAvanzada">
+      <ModalExportacionAvanzada
+        email={email}
+        visible={modalVisible}
+        ocultar={() => setModalVisible(false)}
+      />
       <div className="ExportacionAvanzada__superior">
         <h1 className="ExportacionAvanzada__titulo">Reporte</h1>
       </div>
@@ -110,17 +122,18 @@ const ExportacionAvanzada = () => {
           <button
             className="ExportacionAvanzada__boton_exportar"
             type="submit"
+            disabled={exportando}
           >
             {exportando
-              ? <div className="ExportacionAvanzada__loader_exportando" />
-              : <Icon className="ExportacionAvanzada__icono" icon={iconoExportar} />
+              ? <><div className="ExportacionAvanzada__loader_exportando" /> Generando...</>
+              : <><Icon className="ExportacionAvanzada__icono" icon={iconoExportar} /> Generar reporte</>
             }
-            Generar reporte
           </button>
           <p className="ExportacionAvanzada__explicacion">
             Este módulo permite exportar todas las respuestas de la encuesta seleccionada a una planilla de datos. La planilla será enviada al e-mail indicado en unos minutos.
           </p>
         </form>
+        {error}
       </div>
     </div>
   )
