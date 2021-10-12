@@ -21,6 +21,7 @@
 
 .BodyTablaSinRespuestas__icono {
   font-size: 3rem;
+  color: var(--color-principal);
 }
 
 @keyframes aparece-mensaje-sin-respuestas  {
