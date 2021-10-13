@@ -23,7 +23,7 @@ const BodyTablaSinRespuestas = () => {
     <div className="BodyTablaSinRespuestas">
       <Icon className="BodyTablaSinRespuestas__icono" icon={todaviaNo ? iconoTodaviaNo : iconoSinRepuestas} />
       {todaviaNo
-        ? <p>Las interacciones con pacientes<br />comienzan a las <strong>{horaInicio}</strong></p>
+        ? <p>Las interacciones con pacientes<br />comienzan a las <strong>{horaInicio.slice(0, 5)}</strong></p>
         : <p>No se encontraron respuestas</p>
       }
     </div>
