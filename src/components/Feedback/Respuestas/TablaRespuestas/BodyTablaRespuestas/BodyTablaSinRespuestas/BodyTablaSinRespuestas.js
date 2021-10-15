@@ -4,7 +4,6 @@ import iconoTodaviaNo from '@iconify/icons-mdi/robot'
 import './BodyTablaSinRespuestas.css'
 import { useSelector } from 'react-redux'
 import { isAfter, setHours, setMinutes } from 'date-fns'
-import endOfYesterday from 'date-fns/endOfYesterday'
 
 const BodyTablaSinRespuestas = () => {
 
