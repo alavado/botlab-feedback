@@ -105,6 +105,30 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_3DENTONCE16):
         return juntarConfirmaYReagenda(0, 4)
       
+      case Number(process.env.REACT_APP_ID_POLL_SANASALUD_KOPLAND_T5):
+        return [
+          {
+            texto: '¿Confirma?',
+            tipo: 'YESNO',
+            f: r => r[0]
+          },
+          {
+            texto: 'Reagenda',
+            tipo: 'YESNO',
+            f: r => r[1]
+          },
+          {
+            texto: '¿Por qué no?',
+            tipo: 'OPEN',
+            f: r => r[-15]
+          },
+          {
+            texto: '¿Por qué no?',
+            tipo: 'OPEN',
+            f: r => r[-16]
+          },
+        ]
+      
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_GES_CMD_ALAMEDA):
         return [
           {
