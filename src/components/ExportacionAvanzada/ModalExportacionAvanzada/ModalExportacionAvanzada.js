@@ -3,8 +3,6 @@ import './ModalExportacionAvanzada.css'
 
 const ModalExportacionAvanzada = ({ email, visible, ocultar }) => {
 
-  email = 'alejandro.lvd@gmail.com'
-
   return (
     <div
       className={classNames({
