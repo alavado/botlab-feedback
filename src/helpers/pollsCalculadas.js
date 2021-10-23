@@ -11,7 +11,7 @@ const crearPollPorFiltro = (encuesta, respuestas, header) => {
         icono: iconoSucursal
       }})
     .sort((s1, s2) => s1.nombre < s2.nombre ? -1 : 1)
-  return encuestasFicticias.length > 1 ? encuestasFicticias : []
+  return encuestasFicticias.length > 0 ? encuestasFicticias : []
 }
 
 export const obtenerPollsCalculadas = (encuesta, respuestas) => {
