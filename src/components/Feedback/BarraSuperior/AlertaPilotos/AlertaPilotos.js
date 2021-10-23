@@ -12,10 +12,6 @@ const usuariosPiloto = [
   //   exp: '2021-09-20 00:00:00'
   // },
   {
-    nombre: 'AyVDental',
-    exp: '2021-10-13 00:00:00'
-  },
-  {
     nombre: 'Medisis',
     exp: '2021-10-20 00:00:00'
   },
@@ -30,6 +26,10 @@ const usuariosPiloto = [
   {
     nombre: 'NaturalDent',
     exp: '2021-11-09 00:00:00'
+  },
+  {
+    nombre: 'DentalStudio',
+    exp: '2021-11-07 00:00:00'
   },
 ]
 
