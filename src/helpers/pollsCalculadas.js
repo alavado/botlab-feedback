@@ -21,6 +21,7 @@ export const obtenerPollsCalculadas = (encuesta, respuestas) => {
   switch (encuesta.id) {
     case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
     case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_CONFIRMACION):
+    case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
       return crearPollPorFiltro(encuesta, respuestas, 'sucursal_name')
     default: return []
   }
