@@ -19,6 +19,14 @@ const usuariosPiloto = [
     nombre: 'DentalStudio',
     exp: '2021-11-07 00:00:00'
   },
+  {
+    nombre: 'CDCDental',
+    exp: '2021-11-13 00:00:00'
+  },
+  {
+    nombre: 'AltoTobalaba',
+    exp: '2021-11-13 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
