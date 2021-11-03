@@ -28,7 +28,7 @@ const juntarConfirmaYReagendaAutomatico = (indiceConfirma, indiceReagenda, indic
   return [
     {
       nombre: 'tc1',
-      texto: 'Respuesta',
+      texto: '¿Confirma?',
       tipo: 'YESNO',
       f: r => {
         const confirma = r[indiceConfirma]
@@ -44,7 +44,7 @@ const juntarConfirmaYReagendaAutomatico = (indiceConfirma, indiceReagenda, indic
     },
     {
       nombre: 'tc2',
-      texto: 'Reagenda',
+      texto: '¿Reagenda?',
       tipo: 'OPEN',
       f: r => r[indiceReagendaAuto]
     }
@@ -137,7 +137,9 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_ALTOTOBALABA):
         return juntarConfirmaYReagenda(0, 4)
       
-      // case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
+      case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
+        return juntarConfirmaYReagendaAutomatico(0, 104, 204)
+
       case Number(process.env.REACT_APP_ID_POLL_EVEREST1):
       case Number(process.env.REACT_APP_ID_POLL_EVEREST2):
         return juntarConfirmaYReagendaAutomatico(50, 104, 204)
