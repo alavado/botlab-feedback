@@ -24,6 +24,33 @@ const juntarConfirmaYReagenda = (indiceConfirma, indiceReagenda) => {
   ]
 }
 
+const juntarConfirmaYReagendaAutomatico = (indiceConfirma, indiceReagenda, indiceReagendaAuto) => {
+  return [
+    {
+      nombre: 'tc1',
+      texto: 'Respuesta',
+      tipo: 'YESNO',
+      f: r => {
+        const confirma = r[indiceConfirma]
+        const reagenda = r[indiceReagenda]
+        if (reagenda?.tag === REAGENDA || reagenda?.tag === YES) {
+          return {
+            tag: REAGENDA,
+            text: `${confirma.text} / ${reagenda.text}`
+          }
+        }
+        return reagenda?.tag ? reagenda : confirma
+      },
+    },
+    {
+      nombre: 'tc2',
+      texto: 'Reagenda',
+      tipo: 'OPEN',
+      f: r => r[indiceReagendaAuto]
+    }
+  ]
+}
+
 export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     switch (idEncuesta) {
@@ -105,11 +132,15 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_DENTALONE):
       case Number(process.env.REACT_APP_ID_POLL_3DENTONCE16):
       case Number(process.env.REACT_APP_ID_POLL_NATURALDENT):
-      case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
       case Number(process.env.REACT_APP_ID_POLL_EZIOCHIAPPE):
       case Number(process.env.REACT_APP_ID_POLL_CDC):
       case Number(process.env.REACT_APP_ID_POLL_ALTOTOBALABA):
         return juntarConfirmaYReagenda(0, 4)
+      
+      // case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
+      case Number(process.env.REACT_APP_ID_POLL_EVEREST1):
+      case Number(process.env.REACT_APP_ID_POLL_EVEREST2):
+        return juntarConfirmaYReagendaAutomatico(50, 104, 204)
       
       case Number(process.env.REACT_APP_ID_POLL_SANASALUD_KOPLAND_T5):
         return [
