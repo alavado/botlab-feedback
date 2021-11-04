@@ -24,8 +24,6 @@ const ResumenRespuestas = ({ cargando }) => {
     }
     const tags = Object.keys(diccionarioTags).slice(0, 4)
     const primerHeaderYESNO = (headersConTagsCalculados || headersOriginales).find(h => h.tipo === 'YESNO')
-    console.log({headersConTagsCalculados})
-    console.log({primerHeaderYESNO})
     return primerHeaderYESNO
       ? respuestas.reduce((prev, respuesta) => {
           const tagRespuesta = headersConTagsCalculados
