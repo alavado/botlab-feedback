@@ -66,8 +66,8 @@ const tags = {
     color: 'white'
   },
   INFO_REAGENDA: {
-    texto: 'Paciente indica fechas',
-    titulo: 'Paciente indica fechas',
+    texto: 'Reagendamiento exitoso',
+    titulo: 'Reagendamiento exitoso',
     icono: check,
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
