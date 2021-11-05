@@ -60,13 +60,20 @@ const VisorGuiones = () => {
         ...(question.max_wait ? [question.max_wait] : [])
       ]
       return cases.map(c => {
-        const label = c.attr['@_option'] || `${c.attr['@_time']}`
+        let label = c.attr['@_option'] || `${c.attr['@_time']}`
+        label = label.replace('action_result:', '')
+        label = label.replace('::gt::', '>')
+        label = label.replace('::ge::', '≥')
+        label = label.replace('::lt::', '<')
+        label = label.replace('::le::', '≤')
+        label = label.replace('::eq::', '=')
+        label = label.replace('::ne::', '≠')
         return {
           data: {
             id: `${question.attr['@_id']}${c.attr['@_next']}${label}`,
             source: question.attr['@_id'],
             target: c.attr['@_next'],
-            label,
+            label: `${label}`,
             color: obtenerColorArista(label)
           }
         }
@@ -103,7 +110,7 @@ const VisorGuiones = () => {
       layout: {
         name: 'breadthfirst',
         directed: true,
-        padding: 0,
+        padding: 30,
       }
     })
   }, [xml])
