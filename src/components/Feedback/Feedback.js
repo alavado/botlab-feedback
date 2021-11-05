@@ -18,6 +18,7 @@ import Alertas from './Alertas'
 import { guardaAlertas } from '../../redux/ducks/alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import Preparaciones from './Preparaciones'
+import VisorGuiones from './VisorGuiones'
 
 const intervaloRefrescoAlertas = 5_000
 const alertasActivas = false
@@ -104,6 +105,9 @@ const Feedback = () => {
               </Route>
               <Route path="/respuestas">
                 <Respuestas />
+              </Route>
+              <Route path="/visor_guiones">
+                <VisorGuiones />
               </Route>
             </Switch>
           </div>
