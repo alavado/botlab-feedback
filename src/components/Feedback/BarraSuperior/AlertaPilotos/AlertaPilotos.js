@@ -31,6 +31,10 @@ const usuariosPiloto = [
     nombre: 'Odontos',
     exp: '2021-12-03 00:00:00'
   },
+  {
+    nombre: 'Ventus',
+    exp: '2021-12-18 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
