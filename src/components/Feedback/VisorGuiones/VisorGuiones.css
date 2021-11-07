@@ -12,6 +12,15 @@
   padding-left: 1rem;
 }
 
+.VisorGuiones__contenedor {
+  display: flex;
+  flex: 1;
+}
+
+.VisorGuiones__celular {
+  width: 20rem;
+}
+
 .VisorGuiones__grafo {
   width: 100%;
   flex: 1;

@@ -3,26 +3,32 @@ import { parsearXMLDeGuion } from '../../../helpers/guionXML'
 import cytoscape from 'cytoscape'
 import './VisorGuiones.css'
 import _, { isArray } from 'lodash'
+import coseBilkent from 'cytoscape-ngraph.forcelayout';
+
+cytoscape.use(coseBilkent)
 
 const obtenerColorArista = label => {
   const labelLC = label.toLowerCase()
   if (labelLC.includes('::')) {
-    return '#a69fa2'
+    return '#837171'
   }
-  if (labelLC.includes('yes') || labelLC.includes('success')) {
-    return '#8396c9'
+  if (labelLC.includes('yes') || labelLC.includes('succ')) {
+    return '#3994fc'
   }
   if (labelLC.includes('reagenda')) {
-    return '#a69fa2'
+    return '#0079ce'
   }
   if (labelLC.includes('out')) {
-    return '#a69fa2'
+    return '#bb8b00'
   }
-  if (labelLC.includes('no') || labelLC.includes('failure') || labelLC.includes('max_wait')) {
-    return '#c59434'
+  if (labelLC.includes('no') || labelLC.includes('fail') || labelLC.includes('max_wait')) {
+    return '#bb8b00'
   }
-  return '#a69fa2'
+  return '#837171'
 }
+
+const borderWidthVerticesInternos = 1
+const borderWidthVerticesExternos = 4
 
 const VisorGuiones = () => {
 
@@ -36,17 +42,23 @@ const VisorGuiones = () => {
     const vertices = [
       ...xml.poll.question.map(question => ({
         data: {
-          id: question.attr['@_id']
+          id: question.attr['@_id'],
+          borderWidth: question.attr['@_id'] === '0' ? borderWidthVerticesExternos : borderWidthVerticesInternos,
+          backgroundColor: question.attr['@_type'] === 'INTERNAL' ? '#ccc' : 'white'
         }
       })),
       {
         data: {
-          id: '_FINAL_NOT_OK'
+          id: '_FINAL_NOT_OK',
+          borderWidth: borderWidthVerticesExternos,
+          backgroundColor: '#ccc'
         }
       },
       {
         data: {
-          id: '_FINAL_OK'
+          id: '_FINAL_OK',
+          borderWidth: borderWidthVerticesExternos,
+          backgroundColor: '#ccc'
         }
       }
     ]
@@ -90,8 +102,11 @@ const VisorGuiones = () => {
         {
           selector: 'node',
           style: {
-            'background-color': '#666',
-            'label': `data(id)`
+            'background-color': 'data(backgroundColor)',
+            'label': `data(id)`,
+            'border-width': 'data(borderWidth)',
+            'border-color': '#333',
+            "text-background-color": 'red'
           }
         },
         {
@@ -103,6 +118,10 @@ const VisorGuiones = () => {
             'target-arrow-shape': 'triangle-tee',
             'curve-style': 'bezier',
             'label': `data(label)`,
+            'color': 'white',
+            "text-background-color": 'data(color)',
+            'text-background-opacity': 1,
+            "text-background-padding": 3
           }
         },
       ],
@@ -110,8 +129,11 @@ const VisorGuiones = () => {
       layout: {
         name: 'breadthfirst',
         directed: true,
-        padding: 30,
-      }
+        padding: 20,
+        avoidOverlap: true,
+      },
+      
+      wheelSensitivity: 0.1
     })
   }, [xml])
 
@@ -133,8 +155,15 @@ const VisorGuiones = () => {
       onPaste={parsearXML}
     >
       <p>Pega el XML de un guion para verlo {error && <span className="VisorGuiones__error">{error}</span>}</p>
-      <div className="VisorGuiones__grafo">
-
+      <div className="VisorGuiones__contenedor">
+        <div className="VisorGuiones__celular">
+          Aquí tengo que hacer un celular interactivo
+        </div>
+        <div className="VisorGuiones__grafo">
+          <div className="VisorGuiones__leyenda_grafo">
+            x
+          </div>
+        </div>
       </div>
     </div>
   )
