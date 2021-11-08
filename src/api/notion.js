@@ -1,52 +1,53 @@
 import axios from 'axios'
+import { formatISO } from 'date-fns'
 
-export const agregarIssueADBNotion = () => {
+export const agregarIssueADBNotion = (nombreUsuario, cuenta, encuesta, tipo, descripcion) => {
   const body = {
     'parent': {
       'database_id': process.env.REACT_APP_NOTION_DATABASE_ID
     },
     'properties': {
-        'Descripción': {
-            'rich_text': [{
-                'text': {
-                    'content': 'd'
-                }
-            }]
-        },
-        'Cuenta': {
-            'rich_text': [{
-                'text': {
-                    'content': 'c'
-                }
-            }]
-        },
-        'Encuesta': {
-            'rich_text': [{
-                'text': {
-                    'content': 'e'
-                }
-            }]
-        },
-        'Fecha': {
-            'date': {
-                'start': '2021-11-08T11:00:00-03'
-            }
-        },
-        'Tipo': {
-            'select': {
-                'name': 's'
-            }
-        },
-        'Feedback URL': {
-            'url': 'http://f'
-        },
-        'Cliente': {
-            'title': [{
-                'text': {
-                    'content': 'c'
-                }
-            }]
+      'Descripción': {
+        'rich_text': [{
+          'text': {
+            'content': descripcion
+          }
+        }]
+      },
+      'Cuenta': {
+        'rich_text': [{
+          'text': {
+            'content': cuenta
+          }
+        }]
+      },
+      'Encuesta': {
+        'rich_text': [{
+          'text': {
+            'content': encuesta
+          }
+        }]
+      },
+      'Fecha': {
+        'date': {
+          'start':  formatISO(Date.now())
         }
+      },
+      'Tipo': {
+        'select': {
+          'name': tipo
+        }
+      },
+      'Feedback URL': {
+        'url': window.location.href
+      },
+      'Cliente': {
+        'title': [{
+          'text': {
+            'content': nombreUsuario
+          }
+        }]
+      }
     }
   }
   return axios.post(

@@ -20,6 +20,8 @@ const AccionesChat = () => {
   
   const { nombreUsuario, cuenta } = useSelector(state => state.login)
   const [formularioVisible, setFormularioVisible] = useState(false)
+  const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)  
+  const nombreEncuestaSeleccionada = tipos.find(({ id }) => id === idEncuestaSeleccionada)?.nombre || '?'
   const [tipo, setTipo] = useState('Bot se equivoca')
   const [descripcion, setDescripcion] = useState('')
   const [enviado, setEnviado] = useState(false)
@@ -40,8 +42,13 @@ const AccionesChat = () => {
   const reportarProblema = async e => {
     e.preventDefault()
     setEnviando(true)
-    await agregarIssueADBNotion()
-    const res = await reportarASlack(nombreUsuario, cuenta, tipo, descripcion)
+    try {
+      await agregarIssueADBNotion(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
+    }
+    catch (err) {
+      console.error('Notion todavía no soporta CORS')
+    }
+    const res = await reportarASlack(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
     setTs(res)
     setEnviado(true)
     setEnviando(false)
