@@ -9,6 +9,7 @@ import { agregarMensajeAHilo, reportarASlack } from '../../../../../helpers/slac
 import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
 import { guardaContacto } from '../../../../../redux/ducks/opciones'
+import { agregarIssueADBNotion } from '../../../../../api/notion'
 
 const obtenerSonrisa = () => {
   const opciones = ['😀', '😊', '😄', '😁', '😃', '😉', '🙂']
@@ -36,19 +37,14 @@ const AccionesChat = () => {
     enviado && refContacto.current?.focus()
   }, [formularioVisible, enviado])
 
-  const enviar = e => {
+  const reportarProblema = async e => {
     e.preventDefault()
     setEnviando(true)
-    reportarASlack(nombreUsuario, cuenta, tipo, descripcion)
-      .then(res => {
-        setEnviado(true)
-        setEnviando(false)
-        setTs(res)
-      })
-      .catch(() => {
-        setEnviado(true)
-        setEnviando(false)
-      })
+    await agregarIssueADBNotion()
+    const res = await reportarASlack(nombreUsuario, cuenta, tipo, descripcion)
+    setTs(res)
+    setEnviado(true)
+    setEnviando(false)
   }
 
   const enviarContacto = e => {
@@ -95,7 +91,7 @@ const AccionesChat = () => {
     <div className="AccionesChat">
       {formularioVisible
         ? <form
-            onSubmit={enviar}
+            onSubmit={reportarProblema}
             className="AccionesChat__formulario"
           >
             <button

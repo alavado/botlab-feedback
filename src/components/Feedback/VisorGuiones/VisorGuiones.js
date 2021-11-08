@@ -3,9 +3,6 @@ import { parsearXMLDeGuion } from '../../../helpers/guionXML'
 import cytoscape from 'cytoscape'
 import './VisorGuiones.css'
 import _, { isArray } from 'lodash'
-import coseBilkent from 'cytoscape-ngraph.forcelayout';
-
-cytoscape.use(coseBilkent)
 
 const obtenerColorArista = label => {
   const labelLC = label.toLowerCase()
@@ -23,6 +20,9 @@ const obtenerColorArista = label => {
   }
   if (labelLC.includes('no') || labelLC.includes('fail') || labelLC.includes('max_wait')) {
     return '#bb8b00'
+  }
+  if (labelLC.endsWith('m') || labelLC.endsWith('h')) {
+    return '#555'
   }
   return '#837171'
 }
@@ -44,21 +44,24 @@ const VisorGuiones = () => {
         data: {
           id: question.attr['@_id'],
           borderWidth: question.attr['@_id'] === '0' ? borderWidthVerticesExternos : borderWidthVerticesInternos,
-          backgroundColor: question.attr['@_type'] === 'INTERNAL' ? '#ccc' : 'white'
+          backgroundColor: question.attr['@_type'] === 'INTERNAL' ? '#ccc' : 'white',
+          texto: `${question.attr['@_id']}`,
         }
       })),
       {
         data: {
           id: '_FINAL_NOT_OK',
           borderWidth: borderWidthVerticesExternos,
-          backgroundColor: '#ccc'
+          backgroundColor: '#ccc',
+          texto: `_FINAL_NOT_OK`,
         }
       },
       {
         data: {
           id: '_FINAL_OK',
           borderWidth: borderWidthVerticesExternos,
-          backgroundColor: '#ccc'
+          backgroundColor: '#ccc',
+          texto: `_FINAL_OK`,
         }
       }
     ]
@@ -103,10 +106,12 @@ const VisorGuiones = () => {
           selector: 'node',
           style: {
             'background-color': 'data(backgroundColor)',
-            'label': `data(id)`,
+            'label': `data(texto)`,
             'border-width': 'data(borderWidth)',
             'border-color': '#333',
-            "text-background-color": 'red'
+            "text-background-color": '#fff',
+            "text-margin-y": '-3px',
+            'text-background-opacity': 1,
           }
         },
         {
@@ -154,14 +159,14 @@ const VisorGuiones = () => {
       className="VisorGuiones"
       onPaste={parsearXML}
     >
-      <p>Pega el XML de un guion para verlo {error && <span className="VisorGuiones__error">{error}</span>}</p>
       <div className="VisorGuiones__contenedor">
         <div className="VisorGuiones__celular">
+          <p>Pega el XML de un guion para verlo {error && <span className="VisorGuiones__error">{error}</span>}</p>
           Aquí tengo que hacer un celular interactivo
         </div>
         <div className="VisorGuiones__grafo">
           <div className="VisorGuiones__leyenda_grafo">
-            x
+            Leyenda del grafo
           </div>
         </div>
       </div>
