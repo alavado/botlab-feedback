@@ -3,10 +3,10 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ReactDatePicker, { registerLocale } from 'react-datepicker'
 import es from 'date-fns/locale/es'
 import { useDispatch, useSelector } from 'react-redux'
-import { actualizaRespuestas, guardaFechaInicio, guardaFechaTermino } from '../../../../redux/ducks/respuestas'
+import { actualizaRespuestas, guardaFechaInicio, guardaFechaTermino, guardaRangoFechas } from '../../../../redux/ducks/respuestas'
 import iconoOpciones from '@iconify/icons-mdi/dots-vertical'
 import iconoRecargar from '@iconify/icons-mdi/refresh'
-import Icon from '@iconify/react'
+import Icon, { InlineIcon } from '@iconify/react'
 import './SelectorRangoFechas.css'
 import './react-datepicker-overrides.css'
 import PopupRangosFechas from './PopupRangosFechas'
@@ -19,6 +19,7 @@ registerLocale('es', es)
 const SelectorRangoFechas = () => {
 
   const { fechaInicio, fechaTermino, cacheInvalido, fechaActualizacion } = useSelector(state => state.respuestas)
+  const [usarRango, setUsarRango] = useState(false)
   const [popupActivo, setPopupActivo] = useState(false)
   const [fechaActual, setFechaActual] = useState('')
   const esconder = useCallback(() => setPopupActivo(false), [setPopupActivo])
@@ -34,23 +35,53 @@ const SelectorRangoFechas = () => {
 
   return (
     <div className="SelectorRangoFechas">
-      Rango:
-      <ReactDatePicker
-        selected={fechaInicio}
-        onChange={f => dispatch(guardaFechaInicio(f))}
-        maxDate={fechaTermino}
-        dateFormat="d MMMM yyyy"
-        locale="es"
-        className="SelectorRangoFechas__datepicker"
-      />
-      -
-      <ReactDatePicker
-        selected={fechaTermino}
-        onChange={f => dispatch(guardaFechaTermino(f))}
-        dateFormat="d MMMM yyyy"
-        locale="es"
-        className="SelectorRangoFechas__datepicker"
-      />
+      {
+        usarRango
+        ? <>
+            <button
+              className="SelectorRangoFechas__boton_toggle_rango"
+              onClick={() => {
+                setUsarRango(false)
+                if (fechaInicio !== fechaTermino) {
+                  dispatch(guardaRangoFechas([fechaInicio, fechaInicio]))
+                }
+              }}
+            >
+              Rango
+            </button>
+            <ReactDatePicker
+              selected={fechaInicio}
+              onChange={f => dispatch(guardaFechaInicio(f))}
+              maxDate={fechaTermino}
+              dateFormat="d MMMM yyyy"
+              locale="es"
+              className="SelectorRangoFechas__datepicker"
+            />
+            -
+            <ReactDatePicker
+              selected={fechaTermino}
+              onChange={f => dispatch(guardaFechaTermino(f))}
+              dateFormat="d MMMM yyyy"
+              locale="es"
+              className="SelectorRangoFechas__datepicker"
+            />
+          </>
+        : <>
+            <button
+              className="SelectorRangoFechas__boton_toggle_rango"
+              onClick={() => setUsarRango(true)}
+            >
+              Fecha
+            </button>
+            <ReactDatePicker
+              selected={fechaInicio}
+              onChange={f => dispatch(guardaRangoFechas([f, f]))}
+              dateFormat="iiii d MMMM yyyy"
+              locale="es"
+              className="SelectorRangoFechas__datepicker SelectorRangoFechas__datepicker--ancho"
+            />
+          </>
+      }
       <button
         className="SelectorRangoFechas__boton"
         onClick={() => setPopupActivo(true)}
@@ -61,6 +92,7 @@ const SelectorRangoFechas = () => {
       <PopupRangosFechas
         activo={popupActivo}
         esconder={esconder}
+        rango={usarRango}
       />
       <button
         className={classNames({

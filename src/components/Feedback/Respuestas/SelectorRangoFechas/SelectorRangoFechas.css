@@ -27,6 +27,10 @@
   box-shadow: 0 0 0 .15rem var(--color-secundario);
 }
 
+.SelectorRangoFechas__datepicker--ancho {
+  width: 12.5rem;
+}
+
 .SelectorRangoFechas__boton {
   width: 1.75rem;
   height: 1.75rem;
@@ -41,6 +45,13 @@
   outline: none;
   transition: all .15s ease;
   position: relative;
+}
+
+.SelectorRangoFechas__boton_toggle_rango {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: .8rem;
 }
 
 .SelectorRangoFechas__boton:hover {
