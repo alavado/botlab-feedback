@@ -36,7 +36,7 @@ const App = () => {
         </Route>
       </Switch>
       <div className="App__preload_imagenes">
-        {imagenes.map((img, i) => <img src={img} alt={`preload-${i}`} />)}
+        {imagenes.map((img, i) => <img key={`preload-img-${i}`} src={img} alt={`preload-${i}`} />)}
       </div>
     </div>
   )

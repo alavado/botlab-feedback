@@ -19,7 +19,7 @@ registerLocale('es', es)
 const SelectorRangoFechas = () => {
 
   const { fechaInicio, fechaTermino, cacheInvalido, fechaActualizacion } = useSelector(state => state.respuestas)
-  const [usarRango, setUsarRango] = useState(false)
+  const [usarRango, setUsarRango] = useState(true)
   const [popupActivo, setPopupActivo] = useState(false)
   const [fechaActual, setFechaActual] = useState('')
   const esconder = useCallback(() => setPopupActivo(false), [setPopupActivo])
