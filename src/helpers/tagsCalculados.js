@@ -3,7 +3,7 @@ import { YES, NO, REAGENDA, REAGENDADO } from './tags'
 const actionSuccess = 'action_result:SUCCESS'
 const actionFailure = 'action_result:FAILURE'
 
-const juntarConfirmaYReagenda = (indiceConfirma, indiceReagenda) => {
+export const juntarConfirmaYReagenda = (indiceConfirma, indiceReagenda) => {
   return [
     {
       nombre: 'tc1',
