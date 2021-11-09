@@ -43,6 +43,8 @@
 
   --gradiente-exportar: repeating-linear-gradient(-45deg, rgba(0, 0, 0, .05) 0 .25rem, rgba(0, 0, 0, .1) .25rem .5rem);
   --color-vidrio: rgba(255, 255, 255, .5);
+
+  --color-whatsapp: rgb(49, 202, 49);
 }
 
 .App__oscura, .App__oscura *, .App__oscura *::before, .App__oscura *::after,

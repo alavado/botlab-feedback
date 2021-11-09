@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import iconoVolver from '@iconify/icons-mdi/arrow-left'
 import iconoSiguiente from '@iconify/icons-mdi/play'
 import iconoAnterior from '@iconify/icons-mdi/play'
+import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import { InlineIcon } from '@iconify/react'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
@@ -96,6 +97,15 @@ const DatosChat = ({ cargando, datos, telefono }) => {
               </div>
               <div className="DatosChat__valor_header">
                 <Scrambler tipo="telefono">{formatearCampoRespuestas(telefono, 'phone')}</Scrambler>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`https://wa.me/${telefono}`}
+                  className="DatosChat__link_ws"
+                  title="Continuar a chat WhatsApp"
+                >
+                  <InlineIcon icon={iconoWhatsapp} />
+                </a>
               </div>
             </div>
             {datos.map(({ value: nombre, title: texto, target }, i) => (

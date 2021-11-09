@@ -131,6 +131,12 @@
   padding-right: 1rem;
 }
 
+.DatosChat__link_ws {
+  color: var(--color-whatsapp);
+  margin-left: .35rem;
+  font-size: .8rem;
+}
+
 @keyframes aparece-contenedor-datos {
   0% {
     opacity: 0;
