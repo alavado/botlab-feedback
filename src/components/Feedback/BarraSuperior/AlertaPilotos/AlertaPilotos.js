@@ -16,10 +16,6 @@ const usuariosPiloto = [
     exp: '2021-11-09 00:00:00'
   },
   {
-    nombre: 'CDCDental',
-    exp: '2021-11-13 00:00:00'
-  },
-  {
     nombre: 'AltoTobalaba',
     exp: '2021-11-13 00:00:00'
   },
