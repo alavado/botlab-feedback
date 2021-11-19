@@ -160,12 +160,19 @@ const MensajeConAdjunto = ({ mensaje }) => {
   )
 }
 
-const Hora = ({ hora, esDeHumano, escondida }) => (
-  <div className={escondida ? 'MensajeWhatsapp__hora' : 'MensajeWhatsapp__hora_visible' }>
-    {hora}
-    {esDeHumano && <Visto />}
-  </div>
-)
+const Hora = ({ hora, esDeHumano, escondida }) => {
+
+  const [horas, minutos] = hora.split(':')
+  const horasMenos = ((new Date().getTimezoneOffset() - 180) / 60)
+  const horaAjustada = `${horas - horasMenos}:${minutos}`
+
+  return (
+    <div className={escondida ? 'MensajeWhatsapp__hora' : 'MensajeWhatsapp__hora_visible' }>
+      {horaAjustada}
+      {esDeHumano && <Visto />}
+    </div>
+  )
+}
 
 const Visto = () => (
   <InlineIcon
