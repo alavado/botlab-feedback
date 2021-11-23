@@ -11,11 +11,12 @@ import iconoDentista from '@iconify/icons-mdi/tooth-outline'
 import iconoSucursal from '@iconify/icons-mdi/domain'
 import iconoNota from '@iconify/icons-mdi/post-it-note-edit'
 import { InlineIcon } from '@iconify/react'
+import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 
 const mapeoEstadosTags = [
   {
     estado: 'Sin respuesta',
-    tag: '',
+    tag: 'S/R',
     clase: 'TableroRespuestas__tarjeta--sr'
   },
   {
@@ -61,15 +62,16 @@ const TableroRespuestas = () => {
       }
     })
     return mapeoEstadosTags.map(({ estado, tag, clase }) => {
-      const respuestas = respuestasConDatetime.filter(r => r.tc0 === tag)
+      const respuestas = respuestasConDatetime.filter(r => r.tc0 === (tag === 'S/R' ? '' : tag))
       respuestas.sort((r1, r2) => r1.datetime > r2.datetime ? 1 : -1)
       return {
         estado,
+        tag,
         respuestas,
         conteo: respuestas.length,
         conteoConReacciones: respuestas.filter(r => r.reactions.length > 0).length,
         clase,
-        porcentaje: `${(100 * respuestas.length / respuestasConDatetime.length).toLocaleString('de-DE', { maximumFractionDigits: 1 })}%`
+        porcentaje: `${(100 * (respuestas.length / respuestasConDatetime.length || 0)).toLocaleString('de-DE', { maximumFractionDigits: 1 })}%`
       }
     })
   }, [headers, idEncuestaSeleccionada, respuestas])
@@ -88,13 +90,15 @@ const TableroRespuestas = () => {
         <BuscadorRespuestas />
       </div>
       <div className="TableroRespuestas__contenedor_tablero">
-        {respuestasPorEstado.map(({ estado, respuestas, conteo, conteoConReacciones, porcentaje, clase }, i) => (
+        {respuestasPorEstado.map(({ tag, respuestas, conteo, conteoConReacciones, porcentaje, clase }, i) => (
           <div
             key={`columna-respuestas-${i}`}
             className="TableroRespuestas__columna"
           >
             <div className="TableroRespuestas__encabezado_columna">
-              <h2 className="TableroRespuestas__titulo_columna">{estado} {conteo} <span className="TableroRespuestas__porcentaje_columna">{porcentaje}</span></h2>
+              <div className="TableroRespuestas__contenedor_tag">
+                <TagRespuesta tag={tag} /> <p>{conteo} <span className="TableroRespuestas__porcentaje_columna">{porcentaje}</span></p>
+              </div>
               <p className="TableroRespuestas__conteo_reactions" title="Número de citas con notas"><InlineIcon icon={iconoNota} /> {conteoConReacciones}</p>
             </div>
             {respuestas.map((r, j) => (

@@ -23,7 +23,7 @@
   flex: 1;
   display: flex;
   gap: .7rem;
-  max-height: calc(100vh - 10rem);
+  max-height: calc(100vh - 8.5rem);
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--color-principal) var(--color-fondo);
@@ -51,7 +51,7 @@
 .TableroRespuestas__encabezado_columna {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   position: sticky;
   z-index: 2;
   top: 0;
@@ -59,9 +59,9 @@
   padding: .5rem 0 .25rem 0;
 }
 
-.TableroRespuestas__titulo_columna {
-  font-size: .85rem;
-  font-weight: 600;
+.TableroRespuestas__contenedor_tag {
+  display: flex;
+  align-items: center;
 }
 
 .TableroRespuestas__conteo_reactions {
@@ -73,8 +73,8 @@
 }
 
 .TableroRespuestas__porcentaje_columna {
-  opacity: .65;
-  font-size: .65rem;
+  opacity: .55;
+  font-size: .7rem;
   font-weight: 600;
   display: inline-block;
   padding-left: .25rem;

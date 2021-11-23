@@ -36,7 +36,6 @@
 .TagRespuesta--vacia {
   background-color: white;
   border: 1px dashed rgba(0, 0, 0, .25);
-  justify-content: center;
 }
 
 .TagRespuesta--opcion_reagendamiento {
@@ -70,12 +69,7 @@
 }
 
 .TagRespuesta--vacia .TagRespuesta__icono {
-  margin: 0;
   opacity: .75;
-}
-
-.TagRespuesta--vacia > span {
-  display: none;
 }
 
 .TagRespuesta__icono_estrella {
