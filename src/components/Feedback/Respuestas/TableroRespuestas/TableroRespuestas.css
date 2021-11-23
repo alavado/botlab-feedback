@@ -2,48 +2,113 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  color: var(--color-texto);
 }
 
 .TableroRespuestas__superior {
   display: flex;
-  align-items: flex-start;
-  height: 2.5rem;
+  align-items: center;
+  height: 2.25rem;
   justify-content: space-between;
+  padding-bottom: 1rem;
+}
+
+.TableroRespuestas__titulo {
+  font-weight: bold;
+  font-size: 1.75rem;
+  font-family: 'Raleway';
 }
 
 .TableroRespuestas__contenedor_tablero {
   flex: 1;
   display: flex;
-  gap: 1rem;
+  gap: .7rem;
   max-height: calc(100vh - 10rem);
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-principal) var(--color-fondo);
+}
+
+.TableroRespuestas__contenedor_tablero::-webkit-scrollbar {
+  width: .6em;
+  height: .6em;
+  background-color: var(--color-fondo);
+}
+
+.TableroRespuestas__contenedor_tablero::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
 }
 
 .TableroRespuestas__columna {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: .25rem;
+  gap: .15rem;
 }
 
 .TableroRespuestas__titulo_columna {
-  font-size: .8rem;
+  font-size: .85rem;
   font-weight: 600;
   padding-top: 1rem;
   padding-bottom: .35rem;
   position: sticky;
+  z-index: 2;
   top: 0;
   background-color: var(--color-fondo);
 }
 
 .TableroRespuestas__tarjeta {
   background-color: transparent;
-  border: 1px solid lightgray;
+  border: 1px solid var(--color-bordes);
   font-size: .55rem;
-  min-height: 1.5rem;
-  border-radius: .15rem;
+  min-height: 3rem;
+  border-radius: .2rem;
   display: flex;
   align-items: center;
   padding: .25rem;
   cursor: pointer;
+}
+
+.TableroRespuestas__tarjeta--si {
+  background: linear-gradient(to right, var(--color-si) 3.75rem, var(--color-fondo) 0);
+}
+
+.TableroRespuestas__tarjeta--no {
+  background: linear-gradient(to right, var(--color-no) 3.75rem, var(--color-fondo) 0);
+}
+
+.TableroRespuestas__tarjeta--out {
+  background: linear-gradient(to right, var(--color-out) 3.75rem, var(--color-fondo) 0);
+}
+
+.TableroRespuestas__tarjeta--reagenda {
+  background: linear-gradient(to right, var(--color-reagenda) 3.75rem, var(--color-fondo) 0);
+}
+
+.TableroRespuestas__tarjeta--sr {
+  background: linear-gradient(to right, var(--color-bordes) 3.75rem, var(--color-fondo) 0);
+}
+
+.TableroRespuestas__tarjeta_hora {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 3.75rem;
+  padding-right: .5rem;
+  text-align: center;
+  gap: .15rem;
+  color: var(--color-texto-oscuro);
+  text-transform: capitalize;
+}
+
+.TableroRespuestas__tarjeta_datos {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  padding-left: .25rem;
+}
+
+.TableroRespuestas__tarjeta_dato_secundario {
+  opacity: .65;
 }
