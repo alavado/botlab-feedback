@@ -5,6 +5,7 @@ import TablaRespuestas from './TablaRespuestas'
 import './Respuestas.css'
 import EnviadorRepuestas from './EnviadorRepuestas'
 import { useSelector } from 'react-redux'
+import TableroRespuestas from './TableroRespuestas'
 
 const Respuestas = () => {
 
@@ -19,6 +20,9 @@ const Respuestas = () => {
         </Route>
         <Route exact path="/respuestas">
           <TablaRespuestas />
+        </Route>
+        <Route exact path="/tablero">
+          <TableroRespuestas />
         </Route>
         <Route path="/chat/:idEncuesta/:idUsuario">
           <Chat />

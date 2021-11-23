@@ -1,0 +1,49 @@
+.TableroRespuestas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.TableroRespuestas__superior {
+  display: flex;
+  align-items: flex-start;
+  height: 2.5rem;
+  justify-content: space-between;
+}
+
+.TableroRespuestas__contenedor_tablero {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  max-height: calc(100vh - 10rem);
+  overflow: auto;
+}
+
+.TableroRespuestas__columna {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+.TableroRespuestas__titulo_columna {
+  font-size: .8rem;
+  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: .35rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--color-fondo);
+}
+
+.TableroRespuestas__tarjeta {
+  background-color: transparent;
+  border: 1px solid lightgray;
+  font-size: .55rem;
+  min-height: 1.5rem;
+  border-radius: .15rem;
+  display: flex;
+  align-items: center;
+  padding: .25rem;
+  cursor: pointer;
+}
