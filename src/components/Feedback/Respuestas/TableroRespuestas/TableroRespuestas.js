@@ -9,6 +9,7 @@ import BuscadorRespuestas from '../BuscadorRespuestas'
 import classNames from 'classnames'
 import iconoDentista from '@iconify/icons-mdi/tooth-outline'
 import iconoSucursal from '@iconify/icons-mdi/domain'
+import iconoNota from '@iconify/icons-mdi/post-it-note-edit'
 import { InlineIcon } from '@iconify/react'
 
 const mapeoEstadosTags = [
@@ -18,24 +19,24 @@ const mapeoEstadosTags = [
     clase: 'TableroRespuestas__tarjeta--sr'
   },
   {
-    estado: 'Anula',
-    tag: 'NO',
-    clase: 'TableroRespuestas__tarjeta--no'
-  },
-  {
-    estado: 'Sistema no entiende',
-    tag: 'OUT',
-    clase: 'TableroRespuestas__tarjeta--out'
-  },
-  {
     estado: 'Confirma',
     tag: 'YES',
     clase: 'TableroRespuestas__tarjeta--si'
   },
   {
+    estado: 'No confirma',
+    tag: 'NO',
+    clase: 'TableroRespuestas__tarjeta--no'
+  },
+  {
     estado: 'Reagenda',
     tag: 'REAGENDA',
     clase: 'TableroRespuestas__tarjeta--reagenda'
+  },
+  {
+    estado: 'Sistema no entiende',
+    tag: 'OUT',
+    clase: 'TableroRespuestas__tarjeta--out'
   },
 ]
 
@@ -48,7 +49,7 @@ const TableroRespuestas = () => {
       return []
     }
     const headersConTagGeneral = obtenerHeaders(headers, idEncuestaSeleccionada)
-    const respuestasConEstado = respuestas.map(r => headersConTagGeneral.reduce((obj, h) => ({ ...obj, [h.nombre]: h.f ? h.f(r).tag : r[h.nombre] }), {}))
+    const respuestasConEstado = respuestas.map(r => headersConTagGeneral.reduce((obj, h) => ({ ...obj, [h.nombre]: h.f ? h.f(r).tag : r[h.nombre] }), { reactions: r.reactions }))
     const respuestasConDatetime = respuestasConEstado.map(r => {
       const fecha = parse(r.date, 'd \'de\' MMMM', Date.now(), { locale: es })
       const hora = parse(r.time, 'p', Date.now())
@@ -66,6 +67,7 @@ const TableroRespuestas = () => {
         estado,
         respuestas,
         conteo: respuestas.length,
+        conteoConReacciones: respuestas.filter(r => r.reactions.length > 0).length,
         clase,
         porcentaje: `${(100 * respuestas.length / respuestasConDatetime.length).toLocaleString('de-DE', { maximumFractionDigits: 1 })}%`
       }
@@ -76,6 +78,8 @@ const TableroRespuestas = () => {
     return 'Cargando...'
   }
 
+  console.log(respuestasPorEstado)
+
   return (
     <div className="TableroRespuestas">
       <div className="TableroRespuestas__superior">
@@ -84,12 +88,15 @@ const TableroRespuestas = () => {
         <BuscadorRespuestas />
       </div>
       <div className="TableroRespuestas__contenedor_tablero">
-        {respuestasPorEstado.map(({ estado, respuestas, conteo, porcentaje, clase }, i) => (
+        {respuestasPorEstado.map(({ estado, respuestas, conteo, conteoConReacciones, porcentaje, clase }, i) => (
           <div
             key={`columna-respuestas-${i}`}
             className="TableroRespuestas__columna"
           >
-            <h2 className="TableroRespuestas__titulo_columna">{estado} {conteo} ({porcentaje})</h2>
+            <div className="TableroRespuestas__encabezado_columna">
+              <h2 className="TableroRespuestas__titulo_columna">{estado} {conteo} <span className="TableroRespuestas__porcentaje_columna">{porcentaje}</span></h2>
+              <p className="TableroRespuestas__conteo_reactions" title="Número de citas con notas"><InlineIcon icon={iconoNota} /> {conteoConReacciones}</p>
+            </div>
             {respuestas.map((r, j) => (
               <div
                 key={`tarjeta-respuesta-${i}-${j}`}
@@ -108,6 +115,7 @@ const TableroRespuestas = () => {
                   <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon={iconoDentista} /> {r.dentist_name}</p>
                   <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon={iconoSucursal} /> {r.sucursal_name}</p>
                 </div>
+                {r.reactions.length > 0 && <p className="TableroRespuestas__tarjeta_reaccion">{r.reactions[0].reaction_emoji}</p>}
               </div>
             ))}
           </div>

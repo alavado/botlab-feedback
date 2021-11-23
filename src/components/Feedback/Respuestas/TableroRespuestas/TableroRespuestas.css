@@ -27,6 +27,7 @@
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--color-principal) var(--color-fondo);
+  padding-right: .7rem;
 }
 
 .TableroRespuestas__contenedor_tablero::-webkit-scrollbar {
@@ -47,15 +48,41 @@
   gap: .2rem;
 }
 
-.TableroRespuestas__titulo_columna {
-  font-size: .85rem;
-  font-weight: 600;
-  padding-top: 1rem;
-  padding-bottom: .35rem;
+.TableroRespuestas__encabezado_columna {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   position: sticky;
   z-index: 2;
   top: 0;
   background-color: var(--color-fondo);
+  padding: .5rem 0 .25rem 0;
+}
+
+.TableroRespuestas__titulo_columna {
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.TableroRespuestas__conteo_reactions {
+  font-size: .65rem;
+  color: var(--color-principal);
+  font-weight: 600;
+  opacity: 0;
+  transition: all .25s ease;
+}
+
+.TableroRespuestas__porcentaje_columna {
+  opacity: .65;
+  font-size: .65rem;
+  font-weight: 600;
+  display: inline-block;
+  padding-left: .25rem;
+  transition: all .25s ease;
+}
+
+.TableroRespuestas__columna:hover .TableroRespuestas__conteo_reactions {
+  opacity: 1;
 }
 
 .TableroRespuestas__tarjeta {
@@ -70,6 +97,7 @@
   cursor: pointer;
   transition: all .25s ease;
   box-shadow: 0 .1rem .25rem -.2rem var(--color-sombras);
+  position: relative;
 }
 
 .TableroRespuestas__tarjeta:hover {
@@ -118,4 +146,17 @@
 
 .TableroRespuestas__tarjeta_dato_secundario {
   opacity: .65;
+}
+
+.TableroRespuestas__tarjeta_reaccion {
+  position: absolute;
+  right: 0rem;
+  bottom: 0rem;
+  background: var(--color-bordes);
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 .2rem 0;
 }
