@@ -76,8 +76,6 @@ const TableroRespuestas = () => {
     return 'Cargando...'
   }
 
-  console.log(respuestasPorEstado)
-
   return (
     <div className="TableroRespuestas">
       <div className="TableroRespuestas__superior">
@@ -86,14 +84,20 @@ const TableroRespuestas = () => {
         <BuscadorRespuestas />
       </div>
       <div className="TableroRespuestas__contenedor_tablero">
-        {respuestasPorEstado.map(({ estado, respuestas, conteo, porcentaje, clase }) => (
-          <div className="TableroRespuestas__columna">
+        {respuestasPorEstado.map(({ estado, respuestas, conteo, porcentaje, clase }, i) => (
+          <div
+            key={`columna-respuestas-${i}`}
+            className="TableroRespuestas__columna"
+          >
             <h2 className="TableroRespuestas__titulo_columna">{estado} {conteo} ({porcentaje})</h2>
-            {respuestas.map(r => (
-              <div className={classNames({
-                "TableroRespuestas__tarjeta": true,
-                [clase]: true
-              })}>
+            {respuestas.map((r, j) => (
+              <div
+                key={`tarjeta-respuesta-${i}-${j}`}
+                className={classNames({
+                  "TableroRespuestas__tarjeta": true,
+                  [clase]: true
+                })}
+              >
                 <div className="TableroRespuestas__tarjeta_hora">
                   <p>{r.diaSemana}</p>
                   <p>{r.diaMes}</p>
