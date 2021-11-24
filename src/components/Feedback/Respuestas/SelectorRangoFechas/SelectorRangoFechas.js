@@ -13,13 +13,14 @@ import PopupRangosFechas from './PopupRangosFechas'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import classNames from 'classnames'
 import { differenceInMinutes } from 'date-fns'
+import { cambiaOpcionSeleccionarRangoFechas } from '../../../../redux/ducks/opciones'
 
 registerLocale('es', es)
 
 const SelectorRangoFechas = () => {
 
   const { fechaInicio, fechaTermino, cacheInvalido, fechaActualizacion } = useSelector(state => state.respuestas)
-  const [usarRango, setUsarRango] = useState(true)
+  const { seleccionarRangoFechas } = useSelector(state => state.opciones)
   const [popupActivo, setPopupActivo] = useState(false)
   const [fechaActual, setFechaActual] = useState('')
   const esconder = useCallback(() => setPopupActivo(false), [setPopupActivo])
@@ -36,12 +37,12 @@ const SelectorRangoFechas = () => {
   return (
     <div className="SelectorRangoFechas">
       {
-        usarRango
+        seleccionarRangoFechas
         ? <>
             <button
               className="SelectorRangoFechas__boton_toggle_rango"
               onClick={() => {
-                setUsarRango(false)
+                dispatch(cambiaOpcionSeleccionarRangoFechas())
                 if (fechaInicio !== fechaTermino) {
                   dispatch(guardaRangoFechas([fechaInicio, fechaInicio]))
                 }
@@ -69,7 +70,7 @@ const SelectorRangoFechas = () => {
         : <>
             <button
               className="SelectorRangoFechas__boton_toggle_rango"
-              onClick={() => setUsarRango(true)}
+              onClick={() => dispatch(cambiaOpcionSeleccionarRangoFechas())}
             >
               Fecha
             </button>
@@ -92,7 +93,7 @@ const SelectorRangoFechas = () => {
       <PopupRangosFechas
         activo={popupActivo}
         esconder={esconder}
-        rango={usarRango}
+        rango={seleccionarRangoFechas}
       />
       <button
         className={classNames({

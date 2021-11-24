@@ -12,6 +12,7 @@ import iconoSucursal from '@iconify/icons-mdi/domain'
 import iconoNota from '@iconify/icons-mdi/post-it-note-edit'
 import { InlineIcon } from '@iconify/react'
 import TagRespuesta from '../TablaRespuestas/TagRespuesta'
+import ExportadorRespuestas from '../TablaRespuestas/ExportadorRespuestas'
 
 const mapeoEstadosTags = [
   {
@@ -45,6 +46,8 @@ const TableroRespuestas = () => {
 
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const { headers, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const cargando = !respuestas || !headers
+
   const respuestasPorEstado = useMemo(() => {
     if (!respuestas || !headers) {
       return []
@@ -87,7 +90,10 @@ const TableroRespuestas = () => {
       <div className="TableroRespuestas__superior">
         <h1 className="TableroRespuestas__titulo">Respuestas</h1>
         <SelectorRangoFechas />
-        <BuscadorRespuestas />
+        <div className="TablaRespuestas__herramientas">
+          <BuscadorRespuestas cargando={cargando} />
+          <ExportadorRespuestas cargando={true} />
+        </div>
       </div>
       <div className="TableroRespuestas__contenedor_tablero">
         {respuestasPorEstado.map(({ tag, respuestas, conteo, conteoConReacciones, porcentaje, clase }, i) => (

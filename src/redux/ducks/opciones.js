@@ -8,7 +8,8 @@ const opcionesSlice = createSlice({
   esquema: ESQUEMA_CLARO,
   initialState: {
     chatExpandido: false,
-    contacto: ''
+    contacto: '',
+    seleccionarRangoFechas: true
   },
   reducers: {
     guardaIdEncuesta(state, action) {
@@ -22,6 +23,9 @@ const opcionesSlice = createSlice({
     },
     guardaContacto(state, action) {
       state.contacto = action.payload
+    },
+    cambiaOpcionSeleccionarRangoFechas(state) {
+      state.seleccionarRangoFechas = !state.seleccionarRangoFechas
     }
   }
 })
@@ -30,7 +34,8 @@ export const {
   guardaIdEncuesta,
   fijaChatExpandido,
   cambiaEsquemaColor,
-  guardaContacto
+  guardaContacto,
+  cambiaOpcionSeleccionarRangoFechas
 } = opcionesSlice.actions
 
 export default opcionesSlice.reducer
