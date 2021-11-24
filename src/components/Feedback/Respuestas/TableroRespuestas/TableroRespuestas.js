@@ -1,4 +1,4 @@
-import { format, getHours, parse, setHours } from 'date-fns'
+import { format, getHours, getMinutes, parse, setHours, setMinutes } from 'date-fns'
 import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { obtenerHeaders } from '../../../../helpers/tablaRespuestas'
@@ -75,7 +75,7 @@ const TableroRespuestas = () => {
         const hora = parse(r.respuestaOriginal.time, 'p', Date.now())
         return {
           ...r,
-          datetime: setHours(fecha, getHours(hora)),
+          datetime: setMinutes(setHours(fecha, getHours(hora)), getMinutes(hora)),
           diaSemana: format(fecha, 'EEEE', { locale: es }),
           diaMes: format(fecha, 'd MMM', { locale: es })
         }
