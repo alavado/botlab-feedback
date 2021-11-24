@@ -10,7 +10,7 @@ const obtenerClaseTag = (tag, pregunta) => {
   if (diccionarioTags[tag]) {
     return diccionarioTags[tag].clase
   }
-  else if (pregunta === 'Opción elegida' || pregunta == '¿Por qué no?') {
+  else if (pregunta === 'Opción elegida' || pregunta === '¿Por qué no?') {
     return 'TagRespuesta--opcion_reagendamiento'
   }
   else if (!isNaN(tag)) {
@@ -23,7 +23,7 @@ const obtenerTextoTag = (tag, pregunta) => {
   if (diccionarioTags[tag]) {
     return diccionarioTags[tag].texto
   }
-  else if (pregunta === 'Opción elegida' || pregunta == '¿Por qué no?') {
+  else if (pregunta === 'Opción elegida' || pregunta === '¿Por qué no?') {
     return tag
   }
   else if (!isNaN(tag)) {

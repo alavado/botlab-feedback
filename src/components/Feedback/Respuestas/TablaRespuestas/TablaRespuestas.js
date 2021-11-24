@@ -12,7 +12,6 @@ import ExportadorRespuestas from './ExportadorRespuestas'
 import ResumenRespuestas from '../ResumenRespuestas'
 import Filtros from './Filtros'
 import './TablaRespuestas.css'
-import GraficosRespuestas from './GraficosRespuestas'
 import { fijaScrollTabla } from '../../../../redux/ducks/respuestas'
 
 const respuestasPorPagina = 50
@@ -20,22 +19,12 @@ const respuestasPorPagina = 50
 const TablaRespuestas = () => {
 
   const { headers } = useSelector(state => state.encuestas)
-  const [graficosVisibles, setGraficosVisibles] = useState(false)
   const refContenedor = useRef()
   const dispatch = useDispatch()
   const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla } = useSelector(state => state.respuestas)
 
   const cargando = !respuestas || !headers
   const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO'))
-
-  useEffect(() => {
-    const ev = window.addEventListener('keydown', e => {
-      if (e.ctrlKey && e.altKey && e.key === '0') {
-        setGraficosVisibles(val => !val)
-      }
-    })
-    return () => window.removeEventListener('keydown', ev)
-  }, [])
 
   useEffect(() => {
     refContenedor.current.scrollTop = scrollTabla
@@ -64,7 +53,6 @@ const TablaRespuestas = () => {
           </div>
         </div>
         <div className="TablaRespuestas__contenedor_central">
-          {graficosVisibles && <GraficosRespuestas />}
           <div
             className={classNames({
               "TablaRespuestas__contenedor_tabla": true,
