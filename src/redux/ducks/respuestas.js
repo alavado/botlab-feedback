@@ -115,7 +115,7 @@ const sliceRespuestas = createSlice({
         : []
     },
     agregaFiltro(state, action) {
-      const [busqueda, nombreHeader, textoHeader, idEncuesta, filtroImplicito, titulo] = action.payload
+      const [busqueda, nombreHeader, textoHeader, idEncuesta, filtroImplicito, titulo, temporal] = action.payload
       const terminoNormalizado = normalizar(busqueda)
       const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
       const filtro = {
@@ -124,6 +124,7 @@ const sliceRespuestas = createSlice({
         busqueda: [busqueda],
         descripcion: `"${busqueda}" en ${textoHeader}`,
         oculto: filtroImplicito,
+        temporal,
         f: r => {
           if (tagCalculado) {
             const tagEnDiccionario = diccionarioTags[tagCalculado.f(r).tag]
@@ -190,6 +191,12 @@ const sliceRespuestas = createSlice({
       }
       state.filtros.splice(indiceFiltro, 1)
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+    },
+    remueveFiltrosTemporales(state) {
+      state.filtros = state.filtros.filter(f => !f.temporal)
+      if (state.respuestas) {
+        state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+      }
     },
     limpiaFiltros(state) {
       state.filtros.length = 0
@@ -342,6 +349,7 @@ export const {
   eliminaReaccionDeRespuesta,
   fijaScrollTabla,
   fijaFilaTablaDestacada,
+  remueveFiltrosTemporales
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer

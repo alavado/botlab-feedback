@@ -15,8 +15,9 @@ import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import ExportadorRespuestas from '../TablaRespuestas/ExportadorRespuestas'
 import { useHistory } from 'react-router'
 import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
-import { limpiaFiltros } from '../../../../redux/ducks/respuestas'
 import Filtros from '../TablaRespuestas/Filtros'
+import { agregaFiltro, guardaEstaRespuesta, remueveFiltrosTemporales } from '../../../../redux/ducks/respuestas'
+import diccionarioTags from '../../../../helpers/tags'
 
 const mapeoEstadosTags = [
   {
@@ -55,6 +56,7 @@ const TableroRespuestas = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(remueveFiltrosTemporales())
     dispatch(fijaOpcionTableroVisible(true))
   }, [])
 
@@ -67,13 +69,10 @@ const TableroRespuestas = () => {
       const respuestasConEstado = respuestas.map(r => headersConTagGeneral.reduce((obj, h) => ({
         ...obj,
         [h.nombre]: h.f ? h.f(r).tag : r[h.nombre]
-      }), {
-        reactions: r.reactions,
-        user_id: r.user_id
-      }))
+      }), { respuestaOriginal: r }))
       const respuestasConDatetime = respuestasConEstado.map(r => {
-        const fecha = parse(r.date, 'd \'de\' MMMM', Date.now(), { locale: es })
-        const hora = parse(r.time, 'p', Date.now())
+        const fecha = parse(r.respuestaOriginal.date, 'd \'de\' MMMM', Date.now(), { locale: es })
+        const hora = parse(r.respuestaOriginal.time, 'p', Date.now())
         return {
           ...r,
           datetime: setHours(fecha, getHours(hora)),
@@ -89,7 +88,7 @@ const TableroRespuestas = () => {
           tag,
           respuestas,
           conteo: respuestas.length,
-          conteoConReacciones: respuestas.filter(r => r.reactions.length > 0).length,
+          conteoConReacciones: respuestas.filter(r => r.respuestaOriginal.reactions.length > 0).length,
           clase,
           porcentaje: `${(100 * (respuestas.length / respuestasConDatetime.length || 0)).toLocaleString('de-DE', { maximumFractionDigits: 1 })}%`
         }
@@ -103,6 +102,12 @@ const TableroRespuestas = () => {
 
   if (!respuestasPorEstado) {
     return 'Cargando...'
+  }
+
+  const clickEnTarjeta = (respuesta, indice, tag) => {
+    dispatch(guardaEstaRespuesta([respuesta, indice, tag]))
+    dispatch(agregaFiltro([diccionarioTags[tag].texto, 'tc0', 'Respuesta', idEncuestaSeleccionada, false, '', true]))
+    history.push(`/chat/${idEncuestaSeleccionada}/${respuesta.user_id}`)
   }
 
   return (
@@ -139,19 +144,19 @@ const TableroRespuestas = () => {
                     "TableroRespuestas__tarjeta": true,
                     [clase]: true
                   })}
-                  onClick={() => history.push(`/chat/${idEncuestaSeleccionada}/${r.user_id}`)}
+                  onClick={() => clickEnTarjeta(r.respuestaOriginal, j, tag)}
                 >
                   <div className="TableroRespuestas__tarjeta_hora">
                     <p>{r.diaSemana}</p>
                     <p>{r.diaMes}</p>
-                    <time>{r.time}</time>
+                    <time>{r.respuestaOriginal.time}</time>
                   </div>
                   <div className="TableroRespuestas__tarjeta_datos">
-                    <p style={{ fontWeight: 600 }}>{r.name}</p>
-                    <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon={iconoDentista} /> {r.dentist_name}</p>
-                    <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon={iconoSucursal} /> {r.sucursal_name}</p>
+                    <p style={{ fontWeight: 600 }}>{r.respuestaOriginal.name}</p>
+                    <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon={iconoDentista} /> {r.respuestaOriginal.dentist_name}</p>
+                    <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon={iconoSucursal} /> {r.respuestaOriginal.sucursal_name}</p>
                   </div>
-                  {r.reactions.length > 0 && <p className="TableroRespuestas__tarjeta_reaccion">{r.reactions[0].reaction_emoji}</p>}
+                  {r.respuestaOriginal.reactions.length > 0 && <p className="TableroRespuestas__tarjeta_reaccion">{r.respuestaOriginal.reactions[0].reaction_emoji}</p>}
                 </div>
               ))}
             </div>

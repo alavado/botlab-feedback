@@ -33,7 +33,7 @@
 
 .TableroRespuestas__contenedor_columnas {
   background-color: var(--color-fondo);
-  max-height: calc(100vh - 8.5rem);
+  max-height: calc(100vh - 10rem);
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--color-principal) var(--color-fondo);
