@@ -195,6 +195,7 @@ const sliceRespuestas = createSlice({
       state.filtros.length = 0
       state.respuestasVisibles = state.respuestas
       state.nombreEncuestaFiltrada = undefined
+      state.busqueda = ''
     },
     guardaEstaRespuesta(state, action) {
       if (Array.isArray(action.payload)) {

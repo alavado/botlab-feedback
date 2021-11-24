@@ -22,21 +22,33 @@
 .TableroRespuestas__contenedor_tablero {
   flex: 1;
   display: flex;
-  gap: .7rem;
+  flex-direction: column;
+  transition: all .25s ease;
+}
+
+.TableroRespuestas__contenedor_tablero--cargando {
+  opacity: .5;
+  pointer-events: none;
+}
+
+.TableroRespuestas__contenedor_columnas {
+  background-color: var(--color-fondo);
   max-height: calc(100vh - 8.5rem);
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--color-principal) var(--color-fondo);
+  display: flex;
+  gap: .7rem;
   padding-right: .7rem;
 }
 
-.TableroRespuestas__contenedor_tablero::-webkit-scrollbar {
+.TableroRespuestas__contenedor_columnas::-webkit-scrollbar {
   width: .6rem;
   height: .6rem;
   background-color: var(--color-fondo);
 }
 
-.TableroRespuestas__contenedor_tablero::-webkit-scrollbar-thumb {
+.TableroRespuestas__contenedor_columnas::-webkit-scrollbar-thumb {
   border-radius: .25rem;
   background-color: var(--color-principal);
 }
