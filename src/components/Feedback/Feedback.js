@@ -34,7 +34,7 @@ const Feedback = () => {
   useEffect(() => {
     if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino && cacheInvalido) {
       const fetchData = async () => {
-        dispatch(limpiaRespuestas())
+        // dispatch(limpiaRespuestas())
         try {
           const headers = await headersAPI(token)
           dispatch(guardaHeaders(headers))

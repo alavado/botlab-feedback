@@ -21,7 +21,7 @@ const TablaRespuestas = () => {
   const { headers } = useSelector(state => state.encuestas)
   const refContenedor = useRef()
   const dispatch = useDispatch()
-  const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla } = useSelector(state => state.respuestas)
+  const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla, cacheInvalido } = useSelector(state => state.respuestas)
 
   const cargando = !respuestas || !headers
   const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO'))
@@ -41,7 +41,10 @@ const TablaRespuestas = () => {
           <ExportadorRespuestas cargando={cargando} />
         </div>
       </div>
-      <div className="TablaRespuestas__contenedor">
+      <div className={classNames({
+        'TablaRespuestas__contenedor': true,
+        'TablaRespuestas__contenedor--cargando': cacheInvalido,
+      })}>
         <Filtros />
         {mostrarResumen && <ResumenRespuestas cargando={cargando} />}
         <div className={classNames({
