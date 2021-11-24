@@ -6,7 +6,7 @@ import alertas from '@iconify/icons-mdi/bell'
 import exportar from '@iconify/icons-mdi/table-export'
 import usage from '@iconify/icons-mdi/wallet'
 import home from '@iconify/icons-mdi/home'
-import preparaciones from '@iconify/icons-mdi/clipboard-check'
+// import preparaciones from '@iconify/icons-mdi/clipboard-check'
 import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 

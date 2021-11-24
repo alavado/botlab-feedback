@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { format, parseISO } from 'date-fns'
 import { Icon, InlineIcon } from '@iconify/react'
 import iconoVisto from '@iconify/icons-mdi/check-all'

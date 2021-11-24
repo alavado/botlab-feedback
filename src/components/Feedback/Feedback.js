@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
-import { guardaRespuestas, limpiaFiltros, limpiaRespuestas } from '../../redux/ducks/respuestas'
+import { guardaRespuestas } from '../../redux/ducks/respuestas'
 import { alertas as alertasAPI, respuestas as respuestasAPI } from '../../api/endpoints'
 import { headers as headersAPI } from '../../api/endpoints'
 import Respuestas from './Respuestas'

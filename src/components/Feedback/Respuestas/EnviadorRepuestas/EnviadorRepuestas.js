@@ -52,7 +52,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
   const { esquema } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   const [filas, setFilas] = useState([])
-  const { isLoading, isError, data } = useQuery(
+  const { isLoading, data } = useQuery(
     `inputHeaders-${idEncuesta}`,
     consultarMapping(idEncuesta),
     {

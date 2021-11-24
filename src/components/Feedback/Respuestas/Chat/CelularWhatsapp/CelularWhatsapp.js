@@ -19,11 +19,6 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
   const contenedorMensajes = useRef()
   const dispatch = useDispatch()
   const history = useHistory()
-  let pathBinarizado = Number(history.location.pathname.replace(/[^0-9]/g, '')).toString(2)
-  while (pathBinarizado.length < 30) {
-    pathBinarizado = '0' + pathBinarizado
-  }
-  const bin = '0' + pathBinarizado + '0'
 
   const todosLosMensajes = useMemo(() => {
     return conversaciones ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], []) : []

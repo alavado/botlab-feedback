@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { formatISO9075, isFriday, isMonday, isSaturday, isSunday, isThursday, isTuesday, isWednesday } from "date-fns"
-import { parseISO } from "date-fns/esm"
+import { formatISO9075 } from "date-fns"
 import diccionarioTags from "../../helpers/tags"
 import { obtenerTagsCalculados } from "../../helpers/tagsCalculados"
 

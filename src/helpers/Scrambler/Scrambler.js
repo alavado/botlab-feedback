@@ -5,10 +5,8 @@ import { scramble } from './scramblers'
 import './Scrambler.css'
 
 const esURL = posibleURL => {
-  let url
   try {
-    url = new URL(posibleURL)
-    return posibleURL.startsWith('http')
+    return new URL(posibleURL) && posibleURL.startsWith('http')
   } catch (_) {
     return false
   }
