@@ -1,6 +1,6 @@
 import { format, getHours, parse, setHours } from 'date-fns'
-import { useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { obtenerHeaders } from '../../../../helpers/tablaRespuestas'
 import SelectorRangoFechas from '../SelectorRangoFechas'
 import es from 'date-fns/locale/es'
@@ -13,6 +13,8 @@ import iconoNota from '@iconify/icons-mdi/post-it-note-edit'
 import { InlineIcon } from '@iconify/react'
 import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import ExportadorRespuestas from '../TablaRespuestas/ExportadorRespuestas'
+import { useHistory } from 'react-router'
+import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
 
 const mapeoEstadosTags = [
   {
@@ -47,13 +49,25 @@ const TableroRespuestas = () => {
   const { respuestasVisibles: respuestas } = useSelector(state => state.respuestas)
   const { headers, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const cargando = !respuestas || !headers
+  const history = useHistory()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fijaOpcionTableroVisible(true))
+  }, [])
 
   const respuestasPorEstado = useMemo(() => {
     if (!respuestas || !headers) {
       return []
     }
     const headersConTagGeneral = obtenerHeaders(headers, idEncuestaSeleccionada)
-    const respuestasConEstado = respuestas.map(r => headersConTagGeneral.reduce((obj, h) => ({ ...obj, [h.nombre]: h.f ? h.f(r).tag : r[h.nombre] }), { reactions: r.reactions }))
+    const respuestasConEstado = respuestas.map(r => headersConTagGeneral.reduce((obj, h) => ({
+      ...obj,
+      [h.nombre]: h.f ? h.f(r).tag : r[h.nombre]
+    }), {
+      reactions: r.reactions,
+      user_id: r.user_id
+    }))
     const respuestasConDatetime = respuestasConEstado.map(r => {
       const fecha = parse(r.date, 'd \'de\' MMMM', Date.now(), { locale: es })
       const hora = parse(r.time, 'p', Date.now())
@@ -114,6 +128,7 @@ const TableroRespuestas = () => {
                   "TableroRespuestas__tarjeta": true,
                   [clase]: true
                 })}
+                onDoubleClick={() => history.push(`/chat/${idEncuestaSeleccionada}/${r.user_id}`)}
               >
                 <div className="TableroRespuestas__tarjeta_hora">
                   <p>{r.diaSemana}</p>

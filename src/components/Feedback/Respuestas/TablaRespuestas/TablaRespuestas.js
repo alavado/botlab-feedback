@@ -13,6 +13,7 @@ import ResumenRespuestas from '../ResumenRespuestas'
 import Filtros from './Filtros'
 import './TablaRespuestas.css'
 import { fijaScrollTabla } from '../../../../redux/ducks/respuestas'
+import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
 
 const respuestasPorPagina = 50
 
@@ -27,6 +28,7 @@ const TablaRespuestas = () => {
   const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO'))
 
   useEffect(() => {
+    dispatch(fijaOpcionTableroVisible(false))
     refContenedor.current.scrollTop = scrollTabla
     return () => dispatch(fijaScrollTabla(refContenedor.current.scrollTop))
   }, [])
