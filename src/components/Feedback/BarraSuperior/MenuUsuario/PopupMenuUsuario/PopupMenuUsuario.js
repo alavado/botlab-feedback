@@ -11,15 +11,18 @@ import iconoCerrarSesion from '@iconify/icons-mdi/exit-to-app'
 import iconoLuna from '@iconify/icons-mdi/weather-night'
 import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
 import iconoIncognito from '@iconify/icons-mdi/incognito'
+import iconoTablero from '@iconify/icons-mdi/developer-board'
 import { InlineIcon } from '@iconify/react'
 import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
 import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
+import { useHistory } from 'react-router-dom'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
-  const { nombreUsuario } = useSelector(state => state.login)
+  const { nombreUsuario, cuenta } = useSelector(state => state.login)
   const { esquema } = useSelector(state => state.opciones)
   const { scrambled } = useSelector(state => state.scrambler)
+  const history = useHistory()
   const dispatch = useDispatch()
 
   return <>
@@ -34,6 +37,17 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           <Scrambler tipo="usuario">{nombreUsuario}</Scrambler>
         </div>
         <div className="PopupMenuUsuario__opciones">
+          {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
+            <button
+              className="PopupMenuUsuario__boton_opcion"
+              onClick={e => {
+                e.stopPropagation()
+                history.push('/tablero')
+              }}
+            >
+              <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoTablero} /> Tablero de respuestas
+            </button>
+          }
           <button
             className="PopupMenuUsuario__boton_opcion"
             onClick={e => {
