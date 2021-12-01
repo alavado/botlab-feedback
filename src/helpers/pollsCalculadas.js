@@ -30,6 +30,7 @@ export const obtenerPollsCalculadas = (encuesta, respuestas) => {
     case Number(process.env.REACT_APP_ID_POLL_OAS):
     case Number(process.env.REACT_APP_ID_POLL_OAS_RECONFIRMACION):
     case Number(process.env.REACT_APP_ID_POLL_EDERNA):
+    case Number(process.env.REACT_APP_ID_POLL_DENT_ALL_CLEAR):
       return crearPollPorFiltro(encuesta, respuestas, 'sucursal_name')
     default: return []
   }
