@@ -27,6 +27,7 @@ export const obtenerPollsCalculadas = (encuesta, respuestas) => {
     case Number(process.env.REACT_APP_ID_POLL_EVEREST2):
     case Number(process.env.REACT_APP_ID_POLL_DENTAL_MAS):
     case Number(process.env.REACT_APP_ID_POLL_DENTAL_MAS_MXL):
+    case Number(process.env.REACT_APP_ID_POLL_DENTAL_MAS_JWARNER):
     case Number(process.env.REACT_APP_ID_POLL_OAS):
     case Number(process.env.REACT_APP_ID_POLL_OAS_RECONFIRMACION):
     case Number(process.env.REACT_APP_ID_POLL_EDERNA):
