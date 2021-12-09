@@ -39,6 +39,14 @@ const usuariosPiloto = [
     nombre: 'DentAllClear',
     exp: '2021-12-29 00:00:00'
   },
+  {
+    nombre: 'Efident',
+    exp: '2021-12-25 00:00:00'
+  },
+  {
+    nombre: 'Beladent',
+    exp: '2021-12-25 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
