@@ -8,8 +8,8 @@ import { es } from 'date-fns/locale'
 import Linkify from 'react-linkify'
 import nl2br from 'react-newline-to-break'
 import './MensajeWhatsapp.css'
-import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
-import { scrambleMulti } from '../../../../../../helpers/Scrambler/scramblers'
+import Scrambler from '../../../../../Scrambler/Scrambler'
+import { scrambleMulti } from '../../../../../Scrambler/scramblers'
 import { useSelector } from 'react-redux'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']

@@ -5,7 +5,7 @@ import iconoUsuario from '@iconify/icons-mdi/user'
 import iconoScrambled from '@iconify/icons-mdi/incognito'
 import './MenuUsuario.css'
 import { useSelector } from 'react-redux'
-import Scrambler from '../../../../helpers/Scrambler/Scrambler'
+import Scrambler from '../../../Scrambler/Scrambler'
 import classNames from 'classnames'
 
 const MenuUsuario = () => {

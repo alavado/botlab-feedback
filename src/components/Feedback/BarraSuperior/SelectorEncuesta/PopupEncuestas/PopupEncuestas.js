@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react'
 import whatsapp from '@iconify/icons-mdi/whatsapp'
 import classNames from 'classnames'
 import './PopupEncuestas.css'
-import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
+import Scrambler from '../../../../Scrambler/Scrambler'
 import { obtenerPollsCalculadas } from '../../../../../helpers/pollsCalculadas'
 
 const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {

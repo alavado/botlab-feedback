@@ -9,7 +9,7 @@ import { InlineIcon } from '@iconify/react'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
 import LoaderChat from '../LoaderChat'
-import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
+import Scrambler from '../../../../Scrambler'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 
 const DatosChat = ({ cargando, datos, telefono }) => {

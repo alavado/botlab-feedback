@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fijaChatExpandido } from '../../../../../../redux/ducks/opciones'
 import { useHistory } from 'react-router-dom'
 import classNames from 'classnames'
-import Scrambler from '../../../../../../helpers/Scrambler/Scrambler'
+import Scrambler from '../../../../../Scrambler'
 
 const BarraAppCelular = ({ mensajes, actualizarMensajes }) => {
 

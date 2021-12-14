@@ -13,7 +13,7 @@ import { actualizaRespuestas, agregaFiltro, limpiaFiltros, limpiaRespuestas } fr
 import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
 import { useParams, useRouteMatch } from 'react-router-dom'
 import classNames from 'classnames'
-import Scrambler from '../../../../helpers/Scrambler/Scrambler'
+import Scrambler from '../../../Scrambler/Scrambler'
 
 const SelectorEncuesta = () => {
 

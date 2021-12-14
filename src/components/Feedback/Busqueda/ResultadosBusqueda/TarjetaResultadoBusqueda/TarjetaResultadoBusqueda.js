@@ -6,7 +6,7 @@ import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../../Respuestas/TablaRespuestas/TagRespuesta'
 import { es } from 'date-fns/locale'
 import './TarjetaResultadoBusqueda.css'
-import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
+import Scrambler from '../../../../Scrambler'
 
 const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
 

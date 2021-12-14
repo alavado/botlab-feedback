@@ -13,7 +13,7 @@ import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
 import iconoIncognito from '@iconify/icons-mdi/incognito'
 import iconoTablero from '@iconify/icons-mdi/developer-board'
 import { InlineIcon } from '@iconify/react'
-import Scrambler from '../../../../../helpers/Scrambler/Scrambler'
+import Scrambler from '../../../../Scrambler/Scrambler'
 import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
 
