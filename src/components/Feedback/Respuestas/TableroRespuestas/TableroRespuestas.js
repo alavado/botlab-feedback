@@ -106,7 +106,17 @@ const TableroRespuestas = () => {
 
   const clickEnTarjeta = (respuesta, indice, tag) => {
     dispatch(guardaEstaRespuesta([respuesta, indice, tag]))
-    dispatch(agregaFiltro([diccionarioTags[tag].texto, 'tc0', 'Respuesta', idEncuestaSeleccionada, false, '', true]))
+    dispatch(agregaFiltro({
+      busqueda: diccionarioTags[tag].texto,
+      nombreHeader: 'tc0',
+      textoHeader: 'Respuesta',
+      idEncuesta: idEncuestaSeleccionada,
+      opciones: {
+        filtroImplicito: false,
+        titulo: '',
+        temporal: true
+      }
+    }))
     history.push(`/chat/${idEncuestaSeleccionada}/${respuesta.user_id}`)
   }
 

@@ -24,9 +24,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   const dispatch = useDispatch()
   const filtro = filtros.find(f => f.headers.length === 1 && f.headers[0] === header.nombre)
   const container = i >= 0 && document.getElementsByClassName(containerClass)[i]
-  const { left, top, width } = useMemo(() => {
-    return (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }
-  }, [container])
+  const { left, top, width } = useMemo(() => (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }, [container])
 
   useEffect(() => setAncho(document.getElementsByClassName('ModalFiltros')[0]?.clientWidth), [filtro])
   useEffect(() => {
@@ -84,7 +82,12 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
             <input
               className="ModalFiltros__input_filtro"
               ref={filtroRef}
-              onChange={e => dispatch(agregaFiltro([e.target.value, header.nombre, header.texto, idEncuestaSeleccionada]))}
+              onChange={e => dispatch(agregaFiltro({
+                busqueda: e.target.value,
+                nombreHeader: header.nombre,
+                textoHeader: header.texto,
+                idEncuesta: idEncuestaSeleccionada
+              }))}
               placeholder="Escribe para filtrar"
               onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === 'Escape') {
@@ -95,7 +98,12 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
           </button>
           <button
             className="ModalFiltros__boton_limpiar_filtro"
-            onClick={() => dispatch(agregaFiltro(['', header.nombre, header.texto, idEncuestaSeleccionada]))}
+            onClick={() => dispatch(agregaFiltro({
+              busqueda: '',
+              nombreHeader: header.nombre,
+              textoHeader: header.texto,
+              idEncuesta: idEncuestaSeleccionada
+            }))}
             title="Limpiar filtro"
           >
             <InlineIcon icon={iconoLimpiarFiltro} />

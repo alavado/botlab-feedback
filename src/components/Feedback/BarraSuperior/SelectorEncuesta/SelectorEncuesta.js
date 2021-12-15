@@ -31,7 +31,16 @@ const SelectorEncuesta = () => {
     if (`${id}`.startsWith('filtro')) {
       setCargandoEncuesta(false)
       const [_, header, texto, idEncuesta, titulo] = id.split('|')
-      dispatch(agregaFiltro([texto, header, header, Number(idEncuesta), true, titulo]))
+      dispatch(agregaFiltro({
+        busqueda: texto,
+        nombreHeader: header,
+        textoHeader: header,
+        idEncuesta: Number(idEncuesta),
+        opciones: {
+          filtroImplicito: true,
+          titulo
+        }
+      }))
       return
     }
     if (id === idEncuestaSeleccionada) {

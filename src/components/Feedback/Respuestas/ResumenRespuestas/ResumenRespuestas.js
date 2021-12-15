@@ -72,7 +72,12 @@ const ResumenRespuestas = ({ cargando }) => {
                         <td>
                           <div
                             className="ResumenRespuestas__tag"
-                            onClick={() => dispatch(agregaFiltro([diccionarioTags[tag].texto, primerTag.nombre, primerTag.texto, idEncuestaSeleccionada]))}
+                            onClick={() => dispatch(agregaFiltro({
+                              busqueda: diccionarioTags[tag].texto,
+                              nombreHeader: primerTag.nombre,
+                              textoHeader: primerTag.texto,
+                              idEncuesta: idEncuestaSeleccionada
+                            }))}
                           >
                             <TagRespuesta tag={tag} />
                           </div>

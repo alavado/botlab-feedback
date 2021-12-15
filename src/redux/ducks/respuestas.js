@@ -115,7 +115,8 @@ const sliceRespuestas = createSlice({
         : []
     },
     agregaFiltro(state, action) {
-      const [busqueda, nombreHeader, textoHeader, idEncuesta, filtroImplicito, titulo, temporal] = action.payload
+      const { busqueda, nombreHeader, textoHeader, idEncuesta, opciones } = action.payload
+      const { filtroImplicito, titulo, temporal } = opciones || {}
       const terminoNormalizado = normalizar(busqueda)
       const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
       const filtro = {
