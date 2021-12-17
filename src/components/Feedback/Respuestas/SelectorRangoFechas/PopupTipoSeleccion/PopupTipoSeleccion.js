@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import './PopupTipoSeleccion.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { cambiaOpcionSeleccionarRangoFechas } from '../../../../../redux/ducks/opciones'
+import { fijaOpcionSeleccionarRangoFechas } from '../../../../../redux/ducks/opciones'
 import { guardaRangoFechas } from '../../../../../redux/ducks/respuestas'
 
 const PopupTipoSeleccion = ({ activo, esconder }) => {
@@ -17,7 +17,7 @@ const PopupTipoSeleccion = ({ activo, esconder }) => {
         {
           texto: 'Rango',
           accion: () => {
-            dispatch(cambiaOpcionSeleccionarRangoFechas())
+            dispatch(fijaOpcionSeleccionarRangoFechas(true))
             if (fechaInicio !== fechaTermino) {
               dispatch(guardaRangoFechas([fechaInicio, fechaInicio]))
             }
@@ -27,7 +27,7 @@ const PopupTipoSeleccion = ({ activo, esconder }) => {
         {
           texto: 'Fecha',
           accion: () => {
-            dispatch(cambiaOpcionSeleccionarRangoFechas())
+            dispatch(fijaOpcionSeleccionarRangoFechas(false))
             esconder()
           }
         },
@@ -36,14 +36,14 @@ const PopupTipoSeleccion = ({ activo, esconder }) => {
         {
           texto: 'Fecha',
           accion: () => {
-            dispatch(cambiaOpcionSeleccionarRangoFechas())
+            dispatch(fijaOpcionSeleccionarRangoFechas(false))
             esconder()
           }
         },
         {
           texto: 'Rango',
           accion: () => {
-            dispatch(cambiaOpcionSeleccionarRangoFechas())
+            dispatch(fijaOpcionSeleccionarRangoFechas(true))
             if (fechaInicio !== fechaTermino) {
               dispatch(guardaRangoFechas([fechaInicio, fechaInicio]))
             }

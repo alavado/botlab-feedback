@@ -25,8 +25,8 @@ const opcionesSlice = createSlice({
     guardaContacto(state, action) {
       state.contacto = action.payload
     },
-    cambiaOpcionSeleccionarRangoFechas(state) {
-      state.seleccionarRangoFechas = !state.seleccionarRangoFechas
+    fijaOpcionSeleccionarRangoFechas(state, action) {
+      state.seleccionarRangoFechas = action.payload
     },
     fijaOpcionTableroVisible(state, action) {
       state.tableroVisible = action.payload
@@ -39,7 +39,7 @@ export const {
   fijaChatExpandido,
   cambiaEsquemaColor,
   guardaContacto,
-  cambiaOpcionSeleccionarRangoFechas,
+  fijaOpcionSeleccionarRangoFechas,
   fijaOpcionTableroVisible
 } = opcionesSlice.actions
 

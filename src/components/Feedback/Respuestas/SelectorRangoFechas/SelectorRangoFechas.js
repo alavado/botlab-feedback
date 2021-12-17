@@ -14,7 +14,6 @@ import PopupRangosFechas from './PopupRangosFechas'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import classNames from 'classnames'
 import { differenceInMinutes } from 'date-fns'
-import { cambiaOpcionSeleccionarRangoFechas } from '../../../../redux/ducks/opciones'
 import PopupTipoSeleccion from './PopupTipoSeleccion'
 
 registerLocale('es', es)
