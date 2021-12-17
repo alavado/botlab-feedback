@@ -1,0 +1,56 @@
+.PopupTipoSeleccion__lamina {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.PopupTipoSeleccion {
+  z-index: 102;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  transition: all .25s ease;
+  background-color: var(--color-fondo);
+  box-shadow: 0 .2rem .35rem var(--color-sombras);
+  pointer-events: none;
+  border-radius: .25rem;
+}
+
+.PopupTipoSeleccion--activo {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.PopupTipoSeleccion__opcion {
+  background-color: transparent;
+  padding: .5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-fondo);
+  padding: .5rem .75rem;
+  transition: all .1s ease;
+  font-weight: 600;
+  font-size: .9rem;
+  white-space: nowrap;
+}
+
+.PopupTipoSeleccion__opcion:first-child {
+  border-top-right-radius: .25rem;
+  border-top-left-radius: .25rem;
+}
+
+.PopupTipoSeleccion__opcion:last-child {
+  border-bottom-right-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.PopupTipoSeleccion__opcion:hover {
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+}

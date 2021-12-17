@@ -5,7 +5,6 @@
   position: relative;
   color: var(--color-texto);
   gap: .35rem;
-  margin-left: 12rem;
 }
 
 .SelectorRangoFechas__datepicker {
@@ -48,21 +47,6 @@
   position: relative;
 }
 
-.SelectorRangoFechas__boton_toggle_rango {
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: .8rem;
-  display: flex;
-  align-items: center;
-  gap: .25rem;
-}
-
-.SelectorRangoFechas__toggle {
-  color: var(--color-principal);
-  font-size: 1.25rem;
-}
-
 .SelectorRangoFechas__boton:hover {
   box-shadow: 0rem .1rem .15rem var(--color-sombras);
   filter: brightness(110%);
@@ -98,6 +82,15 @@
   align-items: center;
   animation: aparece-tooltip-opcion .15s ease both;
   z-index: 4;
+}
+
+.SelectorRangoFechas__boton--rango {
+  width: auto;
+  color: var(--color-texto);
+  font-size: .8rem;
+  gap: .25rem;
+  background-color: var(--color-fondo);
+  border-radius: .25rem;
 }
 
 .SelectorRangoFechas__boton_icono {

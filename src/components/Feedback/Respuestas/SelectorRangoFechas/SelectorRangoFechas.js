@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actualizaRespuestas, guardaFechaInicio, guardaFechaTermino, guardaRangoFechas } from '../../../../redux/ducks/respuestas'
 import iconoOpciones from '@iconify/icons-mdi/dots-vertical'
 import iconoRecargar from '@iconify/icons-mdi/refresh'
-import iconoToggleOn from '@iconify/icons-mdi/toggle-switch-off'
-import iconoToggleOff from '@iconify/icons-mdi/toggle-switch'
+import chevronDown from '@iconify/icons-mdi/chevron-down'
 import Icon, { InlineIcon } from '@iconify/react'
 import './SelectorRangoFechas.css'
 import './react-datepicker-overrides.css'
@@ -16,6 +15,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import classNames from 'classnames'
 import { differenceInMinutes } from 'date-fns'
 import { cambiaOpcionSeleccionarRangoFechas } from '../../../../redux/ducks/opciones'
+import PopupTipoSeleccion from './PopupTipoSeleccion'
 
 registerLocale('es', es)
 
@@ -23,9 +23,11 @@ const SelectorRangoFechas = () => {
 
   const { fechaInicio, fechaTermino, cacheInvalido, fechaActualizacion } = useSelector(state => state.respuestas)
   const { seleccionarRangoFechas } = useSelector(state => state.opciones)
-  const [popupActivo, setPopupActivo] = useState(false)
+  const [popupRangosComunesActivo, setPopupRangosComunesActivo] = useState(false)
+  const [popupTipoSeleccionActivo, setPopupTipoSeleccionActivo] = useState(false)
   const [fechaActual, setFechaActual] = useState('')
-  const esconder = useCallback(() => setPopupActivo(false), [setPopupActivo])
+  const esconderPopupRangosComunes = useCallback(() => setPopupRangosComunesActivo(false), [setPopupRangosComunesActivo])
+  const esconderPopupTipoSeleccionActivo = useCallback(() => setPopupTipoSeleccionActivo(false), [setPopupTipoSeleccionActivo])
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -38,21 +40,16 @@ const SelectorRangoFechas = () => {
 
   return (
     <div className="SelectorRangoFechas">
+    <button
+      className="SelectorRangoFechas__boton SelectorRangoFechas__boton--rango"
+      onClick={() => setPopupTipoSeleccionActivo(true)}
+      tooltip="Cambiar tipo de selección"
+    >
+      {seleccionarRangoFechas ? 'Rango' : 'Fecha'} <InlineIcon icon={chevronDown} />
+    </button>
       {
         seleccionarRangoFechas
         ? <>
-            <button
-              className="SelectorRangoFechas__boton_toggle_rango"
-              onClick={() => {
-                dispatch(cambiaOpcionSeleccionarRangoFechas())
-                if (fechaInicio !== fechaTermino) {
-                  dispatch(guardaRangoFechas([fechaInicio, fechaInicio]))
-                }
-              }}
-              title="Cambiar a selección para fecha puntual"
-            >
-              Rango <InlineIcon className="SelectorRangoFechas__toggle" icon={iconoToggleOn} />
-            </button>
             <ReactDatePicker
               selected={fechaInicio}
               onChange={f => dispatch(guardaFechaInicio(f))}
@@ -71,13 +68,6 @@ const SelectorRangoFechas = () => {
             />
           </>
         : <>
-            <button
-              className="SelectorRangoFechas__boton_toggle_rango"
-              onClick={() => dispatch(cambiaOpcionSeleccionarRangoFechas())}
-              title="Cambiar a selección por rango"
-            >
-              Fecha <InlineIcon className="SelectorRangoFechas__toggle" icon={iconoToggleOff} />
-            </button>
             <ReactDatePicker
               selected={fechaInicio}
               onChange={f => dispatch(guardaRangoFechas([f, f]))}
@@ -89,15 +79,19 @@ const SelectorRangoFechas = () => {
       }
       <button
         className="SelectorRangoFechas__boton"
-        onClick={() => setPopupActivo(true)}
+        onClick={() => setPopupRangosComunesActivo(true)}
         tooltip="Rangos habituales"
       >
         <Icon className="SelectorRangoFechas__boton_icono" icon={iconoOpciones} />
       </button>
       <PopupRangosFechas
-        activo={popupActivo}
-        esconder={esconder}
+        activo={popupRangosComunesActivo}
+        esconder={esconderPopupRangosComunes}
         rango={seleccionarRangoFechas}
+      />
+      <PopupTipoSeleccion
+        activo={popupTipoSeleccionActivo}
+        esconder={esconderPopupTipoSeleccionActivo}
       />
       <button
         className={classNames({
