@@ -42,7 +42,7 @@ const SelectorRangoFechas = () => {
     <button
       className="SelectorRangoFechas__boton SelectorRangoFechas__boton--rango"
       onClick={() => setPopupTipoSeleccionActivo(true)}
-      tooltip="Cambiar tipo de selección"
+      tooltip="Tipo de selección"
     >
       {seleccionarRangoFechas ? 'Rango' : 'Fecha'} <InlineIcon icon={chevronDown} />
     </button>
