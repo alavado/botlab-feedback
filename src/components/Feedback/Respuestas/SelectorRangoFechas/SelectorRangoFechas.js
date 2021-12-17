@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actualizaRespuestas, guardaFechaInicio, guardaFechaTermino, guardaRangoFechas } from '../../../../redux/ducks/respuestas'
 import iconoOpciones from '@iconify/icons-mdi/dots-vertical'
 import iconoRecargar from '@iconify/icons-mdi/refresh'
-import Icon from '@iconify/react'
+import iconoToggleOn from '@iconify/icons-mdi/toggle-switch-off'
+import iconoToggleOff from '@iconify/icons-mdi/toggle-switch'
+import Icon, { InlineIcon } from '@iconify/react'
 import './SelectorRangoFechas.css'
 import './react-datepicker-overrides.css'
 import PopupRangosFechas from './PopupRangosFechas'
@@ -47,8 +49,9 @@ const SelectorRangoFechas = () => {
                   dispatch(guardaRangoFechas([fechaInicio, fechaInicio]))
                 }
               }}
+              title="Cambiar a selección para fecha puntual"
             >
-              Rango
+              Rango <InlineIcon className="SelectorRangoFechas__toggle" icon={iconoToggleOn} />
             </button>
             <ReactDatePicker
               selected={fechaInicio}
@@ -71,8 +74,9 @@ const SelectorRangoFechas = () => {
             <button
               className="SelectorRangoFechas__boton_toggle_rango"
               onClick={() => dispatch(cambiaOpcionSeleccionarRangoFechas())}
+              title="Cambiar a selección por rango"
             >
-              Fecha
+              Fecha <InlineIcon className="SelectorRangoFechas__toggle" icon={iconoToggleOff} />
             </button>
             <ReactDatePicker
               selected={fechaInicio}

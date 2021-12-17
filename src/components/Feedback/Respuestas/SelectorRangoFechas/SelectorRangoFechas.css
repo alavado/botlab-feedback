@@ -5,6 +5,7 @@
   position: relative;
   color: var(--color-texto);
   gap: .35rem;
+  margin-left: 12rem;
 }
 
 .SelectorRangoFechas__datepicker {
@@ -52,6 +53,14 @@
   background: none;
   border: none;
   font-size: .8rem;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.SelectorRangoFechas__toggle {
+  color: var(--color-principal);
+  font-size: 1.25rem;
 }
 
 .SelectorRangoFechas__boton:hover {

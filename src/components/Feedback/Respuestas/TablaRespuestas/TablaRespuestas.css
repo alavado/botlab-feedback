@@ -20,15 +20,17 @@
 
 .TablaRespuestas__superior {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   height: 2.25rem;
   padding-bottom: 1rem;
+  width: 100%;
 }
 
 .TablaRespuestas__herramientas {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .TablaRespuestas__titulo {
