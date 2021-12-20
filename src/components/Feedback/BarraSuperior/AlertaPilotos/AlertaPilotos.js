@@ -51,6 +51,10 @@ const usuariosPiloto = [
     nombre: 'CRD',
     exp: '2022-01-15 00:00:00'
   },
+  {
+    nombre: 'Biodens',
+    exp: '2022-01-08 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
