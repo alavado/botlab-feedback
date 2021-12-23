@@ -17,7 +17,7 @@ const usuariosPiloto = [
   },
   {
     nombre: 'Ederna',
-    exp: '2021-12-28 00:00:00'
+    exp: '2022-01-01 00:00:00'
   },
   {
     nombre: 'DentAllClear',
