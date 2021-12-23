@@ -36,10 +36,6 @@ const usuariosPiloto = [
     exp: '2022-01-01 00:00:00'
   },
   {
-    nombre: 'CerroGrande',
-    exp: '2021-12-25 00:00:00'
-  },
-  {
     nombre: 'BeHappy',
     exp: '2022-02-03 00:00:00'
   },
