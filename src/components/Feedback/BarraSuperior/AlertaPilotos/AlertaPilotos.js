@@ -8,24 +8,12 @@ import './AlertaPilotos.css'
 
 const usuariosPiloto = [
   {
-    nombre: 'SpaDental',
-    exp: '2021-12-18 00:00:00'
-  },
-  {
     nombre: 'OAS',
     exp: '2021-12-21 00:00:00'
   },
   {
     nombre: 'Ederna',
     exp: '2021-12-28 00:00:00'
-  },
-  {
-    nombre: 'DentAllClear',
-    exp: '2021-12-29 00:00:00'
-  },
-  {
-    nombre: 'Efident',
-    exp: '2021-12-25 00:00:00'
   },
   {
     nombre: 'Beladent',
