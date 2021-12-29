@@ -8,10 +8,6 @@ import './AlertaPilotos.css'
 
 const usuariosPiloto = [
   {
-    nombre: 'OAS',
-    exp: '2021-12-21 00:00:00'
-  },
-  {
     nombre: 'Ederna',
     exp: '2022-01-01 00:00:00'
   },
