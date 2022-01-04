@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Chat from './Chat'
 import TablaRespuestas from './TablaRespuestas'
-import './Respuestas.css'
 import EnviadorRepuestas from './EnviadorRepuestas'
-import { useSelector } from 'react-redux'
 import TableroRespuestas from './TableroRespuestas'
+import './Respuestas.css'
 
 const Respuestas = () => {
 
