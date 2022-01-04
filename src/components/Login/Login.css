@@ -55,7 +55,7 @@
   border-radius: .35rem;
   width: 35ch;
   transition: all .25s ease;
-  box-shadow: 0rem 0rem 0 .075rem var(--color-gris);
+  outline: .075rem solid var(--color-gris);
   border: none;
 }
 
@@ -64,9 +64,7 @@
 }
 
 .Login__input:focus {
-  outline: none;
-  box-shadow: 0rem 0rem 0 .125rem var(--color-principal);
-  border: none;
+  outline: .1rem solid var(--color-principal);
 }
 
 .Login__label {
