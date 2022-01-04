@@ -30,14 +30,14 @@
 
 .Login__form {
   background-color: var(--color-fondo);
-  padding: 1.75rem 2.25rem;
+  padding: 1.25rem 1.75rem;
   border-radius: .25rem;
   display: flex;
   flex-direction: column;
   margin: 2rem;
   box-shadow: 
-    0rem .25rem .25rem rgba(0, 0, 0, .15),
-    0rem .25rem .75rem rgba(0, 0, 0, .15);
+    0rem 0 .25rem rgba(0, 0, 0, .15),
+    0rem 0 .75rem rgba(0, 0, 0, .15);
   transition: all .25s ease;
   animation: aparece-form-login .35s 0s ease-out both;
 }
@@ -52,9 +52,9 @@
   padding: .75rem 1rem;
   font-size: 1rem;
   border-radius: .35rem;
-  width: 20rem;
+  width: 35ch;
   transition: all .25s ease;
-  box-shadow: 0rem 0rem .15rem #363286;
+  box-shadow: 0rem 0rem 0 .075rem var(--color-gris);
   border: none;
 }
 
@@ -64,7 +64,7 @@
 
 .Login__input:focus {
   outline: none;
-  box-shadow: 0rem 0rem .25rem var(--color-principal);
+  box-shadow: 0rem 0rem 0 .125rem var(--color-principal);
   border: none;
 }
 
@@ -141,6 +141,6 @@
   }
   
   .Login__input {
-    width: 70vw;
+    width: 25ch;
   }
 }
