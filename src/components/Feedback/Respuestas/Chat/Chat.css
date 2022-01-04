@@ -19,6 +19,6 @@
   .Chat {
     flex-direction: column;
     overflow: auto;
-    max-height: calc(100vh - 8rem);
+    width: 100vw;
   }
 }

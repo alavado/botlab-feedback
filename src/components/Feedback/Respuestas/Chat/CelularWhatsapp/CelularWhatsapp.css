@@ -243,6 +243,10 @@
     padding: 0;
     width: 90vw;
   }
+
+  .CelularWhatsapp__contenedor_mensajes {
+    background: url('../../../../../assets/images/ws_bg_2021_claro.jpg');
+  }
 }
 
 @media (max-width: 1360px) {
