@@ -6,6 +6,7 @@
   justify-content: center;
   position: relative;
   color: var(--color-texto);
+  max-height: -webkit-fill-available;
 }
 
 .Login__instruccion {
@@ -122,6 +123,7 @@
 .Login__footer {
   color: rgba(255, 255, 255, .95);
   font-size: .8rem;
+  padding-bottom: 2rem;
 }
 
 @keyframes aparece-form-login {
