@@ -8,8 +8,8 @@ export const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u
 const sliceRespuestas = createSlice({
   name: 'respuestas',
   initialState: {
-    fechaInicio: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2020, 7, 1),
-    fechaTermino: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2020, 7, 7),
+    fechaInicio: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2022, 0, 3),
+    fechaTermino: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2022, 0, 3),
     busqueda: '',
     orden: 'ASC',
     pagina: 1,

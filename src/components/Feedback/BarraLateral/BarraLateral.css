@@ -111,7 +111,7 @@
 @media(orientation: portrait) {
   .BarraLateral {
     z-index: 100;
-    position: absolute;
+    position: fixed;
     height: 3rem;
     width: 100%;
     bottom: 0;
