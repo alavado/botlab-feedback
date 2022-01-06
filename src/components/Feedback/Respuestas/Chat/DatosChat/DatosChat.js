@@ -54,8 +54,6 @@ const DatosChat = ({ cargando, datos, telefono }) => {
     return () => window.removeEventListener('keyup', teclasMagicas)
   }, [irARespuestaAnterior, irASiguienteRespuesta])
 
-  console.log(tableroVisible)
-
   return (
     <div className="DatosChat">
       <div className="DatosChat__navegacion">
