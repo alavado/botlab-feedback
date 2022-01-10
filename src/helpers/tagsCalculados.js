@@ -178,6 +178,7 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_DENTISTAS_TIJUANA):
       case Number(process.env.REACT_APP_ID_POLL_KEMM):
       case Number(process.env.REACT_APP_ID_POLL_MONTE_VITAL):
+      case Number(process.env.REACT_APP_ID_POLL_PROCLINIC):
         return juntarConfirmaYReagenda(0, 104)
       
       case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
