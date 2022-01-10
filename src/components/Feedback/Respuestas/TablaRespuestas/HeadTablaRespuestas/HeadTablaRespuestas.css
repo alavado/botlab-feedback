@@ -84,3 +84,9 @@
 .HeadTablaRespuestas__header--activo .HeaderTablaRespuestas__boton_filtros {
   opacity: 1;
 }
+
+.HeadTablaRespuestas__icono_orden {
+  font-size: .75rem;
+  padding-left: .25rem;
+  color: var(--color-secundario);
+}

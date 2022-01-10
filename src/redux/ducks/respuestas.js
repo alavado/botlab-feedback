@@ -11,7 +11,7 @@ const sliceRespuestas = createSlice({
     fechaInicio: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2022, 0, 3),
     fechaTermino: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2022, 0, 3),
     busqueda: '',
-    orden: 'ASC',
+    orden: undefined,
     pagina: 1,
     filtros: [],
     cacheInvalido: true,
@@ -221,7 +221,7 @@ const sliceRespuestas = createSlice({
       state.ordenHeader = header
       const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === header)
       if (tagCalculado) {
-        if (state.orden === 'ASC') {
+        if (!state.orden) {
           state.orden = 'DESC'
           state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)
           state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)

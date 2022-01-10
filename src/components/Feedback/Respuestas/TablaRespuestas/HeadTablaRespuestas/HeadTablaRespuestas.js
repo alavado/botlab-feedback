@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import './HeadTablaRespuestas.css'
 import { InlineIcon } from '@iconify/react'
 import triangulito from '@iconify/icons-mdi/arrow-down-drop'
+import iconoOrdenDESC from '@iconify/icons-mdi/arrow-down'
+import iconoOrdenASC from '@iconify/icons-mdi/arrow-up'
 import ModalFiltros from '../ModalFiltros'
 import { destacaColumna, fijaColumna, yaNoDestaquesColumna } from '../../../../../redux/ducks/respuestas'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
@@ -13,7 +15,7 @@ const HeadTablaRespuestas = () => {
   const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
   const [modalFiltroActivo, setModalFiltroActivo] = useState(false)
   const [indiceColumnaFiltrada, setIndiceColumnaFiltrada] = useState(0)
-  const { columnaDestacada } = useSelector(state => state.respuestas)
+  const { columnaDestacada, ordenHeader, orden } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
 
   const headersOrdenados = useMemo(() => obtenerHeaders(headers, idEncuesta) || [], [headers, idEncuesta])
@@ -23,6 +25,7 @@ const HeadTablaRespuestas = () => {
     setModalFiltroActivo(true)
     dispatch(fijaColumna(true))
   }
+  console.log(ordenHeader, orden)
 
   return (
     <thead className="HeadTablaRespuestas">
@@ -41,8 +44,13 @@ const HeadTablaRespuestas = () => {
             onMouseLeave={() => dispatch(yaNoDestaquesColumna())}
             title={texto}
           >
-            <div className="HeadTablaRespuestas__texto_header">
-              {texto}
+            <span className="HeadTablaRespuestas__texto_header">
+              <span>
+                {texto}
+                <span className="HeadTablaRespuestas__icono_orden">
+                  {ordenHeader === nombre && <InlineIcon icon={orden === 'ASC' ? iconoOrdenASC : iconoOrdenDESC} />}
+                </span>
+              </span>
               <button className="HeaderTablaRespuestas__boton_filtros">
                 <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_filtros" />
               </button>
@@ -52,7 +60,7 @@ const HeadTablaRespuestas = () => {
               {ordenHeader === nombre && orden === 'DESC' &&
                 <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden HeaderTablaRespuestas__icono_orden--girado" />
               } */}
-            </div>
+            </span>
           </th>
         ))}
       </tr>
