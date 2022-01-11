@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import './PopupEncuestas.css'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import { obtenerPollsCalculadas } from '../../../../../helpers/pollsCalculadas'
+import { obtenerTiposEncuestasVisibles } from '../../../../../helpers/encuestasSecretas'
 
 const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
 
@@ -22,14 +23,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
       ...encuestasCalculadas,
       ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada)
     ]
-    // hack
-    if (cuenta !== 'sanasalud_botlab') {
-      tiposEncuestas = tiposEncuestas.filter(t => t.id !== 233)
-    }
-    if (cuenta.toLowerCase() !== 'falp_cero') {
-      tiposEncuestas = tiposEncuestas.filter(t => t.id !== 374)
-    }
-    return tiposEncuestas
+    return obtenerTiposEncuestasVisibles(cuenta, tiposEncuestas)
   }, [tipos, idEncuestaSeleccionada, respuestas])
 
   return <>

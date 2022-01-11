@@ -14,6 +14,7 @@ import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
 import { useParams, useRouteMatch } from 'react-router-dom'
 import classNames from 'classnames'
 import Scrambler from '../../../Scrambler/Scrambler'
+import { obtenerTiposEncuestasVisibles } from '../../../../helpers/encuestasSecretas'
 
 const SelectorEncuesta = () => {
 
@@ -63,13 +64,7 @@ const SelectorEncuesta = () => {
   }, [dispatch, idEncuestaSeleccionada])
 
   useEffect(() => {
-    let tiposEncuestas = tipos?.slice() || []
-    if (cuenta !== 'sanasalud_botlab') {
-      tiposEncuestas = tiposEncuestas.filter(t => t.id !== 233)
-    }
-    if (cuenta.toLowerCase() !== 'falp_cero') {
-      tiposEncuestas = tiposEncuestas.filter(t => t.id !== 374)
-    }
+    let tiposEncuestas = obtenerTiposEncuestasVisibles(cuenta, tipos)
     if (tiposEncuestas && !idEncuestaSeleccionada) {
       if (idEncuestaRuta && tiposEncuestas.find(t => t.id === Number(idEncuestaRuta))) {
         verEncuesta(Number(idEncuestaRuta))
