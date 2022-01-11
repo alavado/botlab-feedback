@@ -19,6 +19,7 @@ const SelectorEncuesta = () => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { idEncuestaGuardada } = useSelector(state => state.opciones)
+  const { cuenta } = useSelector(state => state.login)
   const [cargandoEncuesta, setCargandoEncuesta] = useState(false)
   const [popupActivo, setPopupActivo] = useState(false)
   const { indiceRespuestaSeleccionada, nombreEncuestaFiltrada } = useSelector(state => state.respuestas)
@@ -62,15 +63,22 @@ const SelectorEncuesta = () => {
   }, [dispatch, idEncuestaSeleccionada])
 
   useEffect(() => {
-    if (tipos && !idEncuestaSeleccionada) {
-      if (idEncuestaRuta && tipos.find(t => t.id === Number(idEncuestaRuta))) {
+    let tiposEncuestas = tipos?.slice() || []
+    if (cuenta !== 'sanasalud_botlab') {
+      tiposEncuestas = tiposEncuestas.filter(t => t.id !== 233)
+    }
+    if (cuenta.toLowerCase() !== 'falp_cero') {
+      tiposEncuestas = tiposEncuestas.filter(t => t.id !== 374)
+    }
+    if (tiposEncuestas && !idEncuestaSeleccionada) {
+      if (idEncuestaRuta && tiposEncuestas.find(t => t.id === Number(idEncuestaRuta))) {
         verEncuesta(Number(idEncuestaRuta))
       }
-      else if (tipos.find(t => t.id === idEncuestaGuardada)) {
+      else if (tiposEncuestas.find(t => t.id === idEncuestaGuardada)) {
         verEncuesta(idEncuestaGuardada)
       }
       else {
-        const id = tipos.slice(-1)[0]?.id
+        const id = tiposEncuestas.slice(-1)[0]?.id
         if (id) {
           verEncuesta(id)
         }
