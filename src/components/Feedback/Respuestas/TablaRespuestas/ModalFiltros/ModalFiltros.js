@@ -17,7 +17,7 @@ import { useMemo } from 'react'
 const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
 
   const [ancho, setAncho] = useState(0)
-  const { filtros, ordenHeader, orden } = useSelector(state => state.respuestas)
+  const { filtros, ordenHeader, orden, categorias } = useSelector(state => state.respuestas)
   const { esquema } = useSelector(state => state.opciones)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const filtroRef = useRef()
@@ -38,6 +38,8 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   if (!header) {
     return null
   }
+
+  // console.log(categorias.find(c => c.propiedad === header))
 
   return (
     ReactDOM.createPortal(

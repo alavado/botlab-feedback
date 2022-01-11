@@ -25,7 +25,6 @@ const HeadTablaRespuestas = () => {
     setModalFiltroActivo(true)
     dispatch(fijaColumna(true))
   }
-  console.log(ordenHeader, orden)
 
   return (
     <thead className="HeadTablaRespuestas">

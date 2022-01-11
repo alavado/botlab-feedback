@@ -26,6 +26,9 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
     if (cuenta !== 'sanasalud_botlab') {
       tiposEncuestas = tiposEncuestas.filter(t => t.id !== 233)
     }
+    if (cuenta.toLowerCase() !== 'falp_cero') {
+      tiposEncuestas = tiposEncuestas.filter(t => t.id !== 374)
+    }
     return tiposEncuestas
   }, [tipos, idEncuestaSeleccionada, respuestas])
 
