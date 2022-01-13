@@ -30,6 +30,10 @@ const usuariosPiloto = [
   {
     nombre: 'Proclinic',
     exp: '2022-02-12 00:00:00'
+  },
+  {
+    nombre: 'Smile&More',
+    exp: '2022-02-11 00:00:00'
   }
 ]
 

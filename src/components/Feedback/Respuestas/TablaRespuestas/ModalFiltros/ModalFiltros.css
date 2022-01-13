@@ -57,6 +57,39 @@
   border-radius: .25rem;
 }
 
+.ModalFiltros__contenedor_niveles {
+  border-top: 1px solid var(--color-bordes);
+  border-bottom: 1px solid var(--color-bordes);
+  max-height: 35vh;
+  overflow: auto;
+}
+
+.ModalFiltros__contenedor_niveles::-webkit-scrollbar {
+  width: .5rem;
+  height: .5rem;
+  background-color: var(--color-fondo);
+}
+
+.ModalFiltros__contenedor_niveles::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--color-principal);
+}
+
+.ModalFiltros__checkbox_nivel {
+  color: var(--color-texto);
+  background-color: transparent;
+  border: none;
+  padding: .5rem .75rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  font-size: .7rem;
+  outline: none;
+  border-radius: .25rem;
+}
+
 .ModalFiltros__boton:hover {
   background-color: var(--color-fila-destacada);
 }

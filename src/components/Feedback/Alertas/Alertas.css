@@ -19,8 +19,8 @@
 }
 
 .Alertas__contenedor_tabla::-webkit-scrollbar {
-  width: .6em;
-  height: .6em;
+  width: .5rem;
+  height: .5rem;
   background-color: var(--color-fondo);
 }
 

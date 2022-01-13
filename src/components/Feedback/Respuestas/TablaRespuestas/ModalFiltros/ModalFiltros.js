@@ -9,6 +9,8 @@ import iconoLimpiarFiltro from '@iconify/icons-mdi/close'
 import iconoOrden from '@iconify/icons-mdi/sort'
 import iconoOrdenDescendente from '@iconify/icons-mdi/sort-ascending'
 import iconoOrdenAcendente from '@iconify/icons-mdi/sort-descending'
+import iconoCheckboxActivo from '@iconify/icons-mdi/checkbox-marked'
+import iconoCheckboxInactivo from '@iconify/icons-mdi/checkbox-blank-outline'
 import iconoFiltro from '@iconify/icons-mdi/filter'
 import { InlineIcon } from '@iconify/react'
 import { ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
@@ -33,13 +35,23 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
       filtroRef.current.focus()
     }
   }, [filtro, activo])
-  const anchoTotal = left + width + ancho + 25
+  const anchoTotal = left + width + ancho
+
+  const ordenarRespuestas = () => dispatch(ordenaRespuestas({ header: header.nombre, idEncuesta: idEncuestaSeleccionada } ))
+
+  const agregarFiltroExcluyente = termino => () => dispatch(agregaFiltro({
+    busqueda: termino,
+    nombreHeader: header.nombre,
+    textoHeader: header.texto,
+    idEncuesta: idEncuestaSeleccionada,
+    funcionFiltro: r => r[header.nombre].indexOf(termino) < 0
+  }))
+
+  const nivelesHeader = categorias.find(c => c.propiedad === header.nombre)?.niveles || []
 
   if (!header) {
     return null
   }
-
-  // console.log(categorias.find(c => c.propiedad === header))
 
   return (
     ReactDOM.createPortal(
@@ -56,7 +68,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
             "ModalFiltros__oscuro": esquema === ESQUEMA_OSCURO
           })}
           style={{
-            left: anchoTotal >= window.innerWidth ? `${left - ancho}px` : (left + width),
+            left: anchoTotal >= window.innerWidth ? `${left - ancho}px` : `${(left + width)}px`,
             top
           }}
           onClick={e => e.stopPropagation()}
@@ -64,7 +76,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
           <p className="ModalFiltros__titulo">Herramientas para columna</p>
           <button
             className="ModalFiltros__boton"
-            onClick={() => dispatch(ordenaRespuestas({ header: header.nombre, idEncuesta: idEncuestaSeleccionada } ))}
+            onClick={ordenarRespuestas}
           >
             <InlineIcon icon={
               header.nombre === ordenHeader
@@ -76,6 +88,23 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               : 'Ordenar'
             }
           </button>
+          {nivelesHeader.length > 0 && (
+            <div className="ModalFiltros__contenedor_niveles">
+              {nivelesHeader.map((nivel, i) => (
+                <div
+                  key={`contenedor-filtro-categoria-${i}`}
+                  className="ModalFiltros__contenedor_checkbox_nivel"
+                >
+                  <button
+                    className="ModalFiltros__checkbox_nivel"
+                    onClick={agregarFiltroExcluyente(nivel)}
+                  >
+                    <InlineIcon icon={iconoCheckboxActivo} /> {nivel || '(Vacío)'}
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
           <button
             className="ModalFiltros__boton"
             onClick={() => filtroRef.current.focus()}
