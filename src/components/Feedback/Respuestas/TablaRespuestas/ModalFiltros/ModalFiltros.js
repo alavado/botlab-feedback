@@ -88,7 +88,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               : 'Ordenar'
             }
           </button>
-          {nivelesHeader.length > 0 && (
+          {false && nivelesHeader.length > 0 && (
             <div className="ModalFiltros__contenedor_niveles">
               {nivelesHeader.map((nivel, i) => (
                 <div

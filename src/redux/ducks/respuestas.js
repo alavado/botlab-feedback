@@ -66,10 +66,10 @@ const sliceRespuestas = createSlice({
           respuestaNormalizada
         }
       }).reverse()
-      state.categorias = Object.keys(respuestas[0]).map(k => ({
-        propiedad: k,
-        niveles: [...new Set(respuestas.map(r => r[k].tag === undefined ? r[k] : r[k].tag))].sort((x, y) => x > y ? 1 : -1)
-      }))
+      // state.categorias = Object.keys(respuestas[0]).map(k => ({
+      //   propiedad: k,
+      //   niveles: [...new Set(respuestas.map(r => r[k].tag === undefined ? r[k] : r[k].tag))].sort((x, y) => x > y ? 1 : -1)
+      // }))
       state.respuestas = respuestas
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1
