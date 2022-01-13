@@ -51,6 +51,21 @@ const juntarConfirmaYReagendaAutomatico = (indiceConfirma, indiceReagenda, indic
   ]
 }
 
+const juntaTagsEquivalentes = (indice1, indice2, texto, tipo = 'YESNO') => {
+  return [
+    {
+      nombre: 'tc0',
+      texto,
+      tipo,
+      f: r => {
+        const tag1 = r[indice1]
+        const tag2 = r[indice2]
+        return tag1?.tag ? tag1 : tag2
+      },
+    }
+  ]
+}
+
 export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     switch (idEncuesta) {
@@ -103,6 +118,10 @@ export const obtenerTagsCalculados = idEncuesta => {
             f: r => r[-41].tag ? r[-41] : (r[-51] || r[-41])
           }
         ]
+      
+      case Number(process.env.REACT_APP_ID_POLL_REDSALUD_LISTA_DE_ESPERA_2):
+        return juntaTagsEquivalentes(100, 101, '¿Agenda?')
+
       case Number(process.env.REACT_APP_ID_POLL_OREMA):
       case Number(process.env.REACT_APP_ID_POLL_LAS_CRUCES):
       case Number(process.env.REACT_APP_ID_POLL_OYEDENTAL):

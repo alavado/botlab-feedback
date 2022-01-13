@@ -1,6 +1,6 @@
 export const obtenerTiposEncuestasVisibles = (cuenta, tipos) => {
   let tiposEncuestas = tipos?.slice() || []
-  const cuentaLC = cuenta.toLowerCase()
+  const cuentaLC = cuenta?.toLowerCase() || ''
   if (cuentaLC !== 'sanasalud_botlab') {
     tiposEncuestas = tiposEncuestas.filter(t => t.id !== 233)
   }
