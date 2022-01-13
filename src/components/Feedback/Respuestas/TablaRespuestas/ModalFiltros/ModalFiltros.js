@@ -47,11 +47,11 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
     funcionFiltro: r => r[header.nombre].indexOf(termino) < 0
   }))
 
-  const nivelesHeader = categorias.find(c => c.propiedad === header.nombre)?.niveles || []
-
   if (!header) {
     return null
   }
+
+  const nivelesHeader = categorias.find(c => c.propiedad === header.nombre)?.niveles || []
 
   return (
     ReactDOM.createPortal(
