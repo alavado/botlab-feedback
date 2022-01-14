@@ -1,6 +1,6 @@
 import { InlineIcon } from '@iconify/react'
 import { useEffect, useState, useRef } from 'react'
-import iconoProblema from '@iconify/icons-mdi/report-problem'
+import iconoProblema from '@iconify/icons-mdi/report'
 import iconoCerrar from '@iconify/icons-mdi/close'
 import iconoGracias from '@iconify/icons-mdi/robot-excited'
 import iconoEnviando from '@iconify/icons-mdi/loading'
@@ -96,6 +96,7 @@ const AccionesChat = () => {
 
   return (
     <div className="AccionesChat">
+      <h2 className="AccionesChat__titulo">Acciones</h2>
       {formularioVisible
         ? <form
             onSubmit={reportarProblema}
@@ -150,8 +151,8 @@ const AccionesChat = () => {
             className="AccionesChat__boton"
             onClick={() => setFormularioVisible(true)}
           >
-            <InlineIcon className="AccionesChat__icono_boton" icon={iconoProblema} />
-            ¿Encontraste algún problema en esta interacción?
+            <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon={iconoProblema} />
+            Reportar problema
           </button>
       }
     </div>

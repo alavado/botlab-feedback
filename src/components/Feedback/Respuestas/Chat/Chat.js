@@ -11,7 +11,7 @@ import AccionesChat from './AccionesChat'
 import ReaccionesChat from './ReaccionesChat'
 
 const msExpiracionCache = 60_000
-const msHabilitacionReporteSlack = 3_000
+const msHabilitacionReporteSlack = 0
 
 const Chat = () => {
 

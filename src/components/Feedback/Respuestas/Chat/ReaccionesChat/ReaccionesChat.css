@@ -20,13 +20,13 @@
 }
 
 .ReaccionesChat__contenedor_lista::-webkit-scrollbar {
-  width: .6em;
-  height: .6em;
+  width: .6rem;
+  height: .6rem;
   background-color: var(--color-fondo);
 }
 
 .ReaccionesChat__contenedor_lista::-webkit-scrollbar-thumb {
-  border-radius: .25em;
+  border-radius: .25rem;
   background-color: var(--color-principal);
 }
 
@@ -58,7 +58,7 @@
 
 .ReaccionesChat__contenedor_mensaje_sin_reacciones {
   display: flex;
-  height: 2.75rem;
+  height: 2rem;
   align-items: center;
   font-size: .8rem;
 }
