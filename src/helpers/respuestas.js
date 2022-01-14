@@ -18,7 +18,7 @@ export const extraerTextoHeader = (header, respuesta) => {
 
 export const formatearCampoRespuestas = (texto, tipoCampo) => {
   if (tipoCampo === 'phone') {
-    const prefijos = ['56', '52', '55', '59']
+    const prefijos = ['56', '52', '55', '59', '1']
     const prefijoTelefono = prefijos.find(p => texto.startsWith(p))
     if (prefijoTelefono) {
       const telefonoSinPrefijo = texto.slice(prefijoTelefono.length)
