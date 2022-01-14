@@ -18,7 +18,13 @@ export const extraerTextoHeader = (header, respuesta) => {
 
 export const formatearCampoRespuestas = (texto, tipoCampo) => {
   if (tipoCampo === 'phone') {
-    return `${texto.startsWith('56') ? '+' : ''}${texto.slice(-11, -9)} ${texto.slice(-9, -8)} ${texto.slice(-8, -4)} ${texto.slice(-4)}`
+    const prefijos = ['56', '52', '55', '59']
+    const prefijoTelefono = prefijos.find(p => texto.startsWith(p))
+    if (prefijoTelefono) {
+      const telefonoSinPrefijo = texto.slice(prefijoTelefono.length)
+      return `+${prefijoTelefono} ${telefonoSinPrefijo}`
+    }
+    return texto
   }
   return texto
 }
