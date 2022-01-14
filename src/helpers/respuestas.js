@@ -22,9 +22,9 @@ export const formatearCampoRespuestas = (texto, tipoCampo) => {
     const prefijoTelefono = prefijos.find(p => texto.startsWith(p))
     if (prefijoTelefono) {
       const telefonoSinPrefijo = texto.slice(prefijoTelefono.length)
-      return `+${prefijoTelefono} ${telefonoSinPrefijo}`
+      return `+${prefijoTelefono} ${telefonoSinPrefijo.slice(-100, -11)} ${telefonoSinPrefijo.slice(-11, -10)} ${telefonoSinPrefijo.slice(-10, -8)} ${telefonoSinPrefijo.slice(-8, -4)} ${telefonoSinPrefijo.slice(-4)}`
     }
-    return texto
+    return `${texto.slice(-100, -11)} ${texto.slice(-11, -10)} ${texto.slice(-10, -8)} ${texto.slice(-8, -4)} ${texto.slice(-4)}`
   }
   return texto
 }
