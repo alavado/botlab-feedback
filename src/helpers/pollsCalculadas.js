@@ -33,6 +33,7 @@ export const obtenerPollsCalculadas = (encuesta, respuestas) => {
     case Number(process.env.REACT_APP_ID_POLL_EDERNA):
     case Number(process.env.REACT_APP_ID_POLL_DENT_ALL_CLEAR):
     case Number(process.env.REACT_APP_ID_POLL_SMILE_DESIGN):
+    case Number(process.env.REACT_APP_ID_POLL_ODONTOLOGIA_POR_ESPECIALISTAS):
       return crearPollPorFiltro(encuesta, respuestas, 'sucursal_name')
     default: return []
   }
