@@ -42,6 +42,10 @@ const usuariosPiloto = [
   {
     nombre: 'OdontologiaPorEspecialistas',
     exp: '2022-02-19 00:00:00'
+  },
+  {
+    nombre: 'DentalTotal',
+    exp: '2022-02-23 00:00:00'
   }
 ]
 
