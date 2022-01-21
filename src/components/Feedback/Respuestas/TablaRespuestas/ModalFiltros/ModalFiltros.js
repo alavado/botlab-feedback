@@ -39,14 +39,6 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
 
   const ordenarRespuestas = () => dispatch(ordenaRespuestas({ header: header.nombre, idEncuesta: idEncuestaSeleccionada } ))
 
-  const agregarFiltroExcluyente = termino => () => dispatch(agregaFiltro({
-    busqueda: termino,
-    nombreHeader: header.nombre,
-    textoHeader: header.texto,
-    idEncuesta: idEncuestaSeleccionada,
-    funcionFiltro: r => r[header.nombre].indexOf(termino) < 0
-  }))
-
   if (!header) {
     return null
   }
@@ -88,7 +80,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               : 'Ordenar'
             }
           </button>
-          {false && nivelesHeader.length > 0 && (
+          {nivelesHeader.length > 0 && (
             <div className="ModalFiltros__contenedor_niveles">
               {nivelesHeader.map((nivel, i) => (
                 <div
@@ -97,9 +89,14 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                 >
                   <button
                     className="ModalFiltros__checkbox_nivel"
-                    onClick={agregarFiltroExcluyente(nivel)}
+                    onClick={() => dispatch(agregaFiltro({
+                      busqueda: nivel,
+                      nombreHeader: header.nombre,
+                      textoHeader: header.texto,
+                      idEncuesta: idEncuestaSeleccionada
+                    }))}
                   >
-                    <InlineIcon icon={iconoCheckboxActivo} /> {nivel || '(Vacío)'}
+                    <InlineIcon icon={iconoCheckboxInactivo} /> {nivel || '(Vacío)'}
                   </button>
                 </div>
               ))}

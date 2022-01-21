@@ -28,13 +28,33 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
   const { cuenta } = useSelector(state => state.login)
   const { debugging } = useSelector(state => state.cero)
 
+  let componenteMensaje
+  switch (mensaje.tag) {
+    case 'MEDIA_IMAGE':
+      componenteMensaje = <MensajeImagen mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
+      break;  
+    case 'MEDIA_AUDIO':
+      componenteMensaje = <MensajeAudio mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
+      break;  
+    case 'MEDIA_FILE':
+      componenteMensaje = <MensajeArchivo mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
+      break;  
+    case 'MEDIA_VCARD':
+      componenteMensaje = <MensajeContacto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
+      break;  
+    case 'MEDIA_VIDEO':
+      componenteMensaje = <MensajeVideo mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
+      break;  
+    default:
+      componenteMensaje = <MensajeTexto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
+  }
+
   return (
     <div className="MensajeWhatsapp">
       {mostrarFecha && <Fecha fecha={fechaMensaje} />}
       <Globo esDeHumano={mensajeEsDeHumano} posicion={posicion} hora={horaFechamensaje}>
-        <Texto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
+        <MensajeTexto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
         <Hora hora={horaMensaje} esDeHumano={mensajeEsDeHumano} />
-        
         {mensaje.tag && (
           <div
             className={classNames({
@@ -99,7 +119,7 @@ const marcar = texto => {
   })
 }
 
-const Texto = ({ mensaje, hora, esDeHumano }) => {
+const MensajeTexto = ({ mensaje, hora, esDeHumano }) => {
 
   const { terminos, scrambled } = useSelector(state => state.scrambler)
 
@@ -116,6 +136,26 @@ const Texto = ({ mensaje, hora, esDeHumano }) => {
       <Hora hora={hora} escondida={true} esDeHumano={esDeHumano} />
     </div>
   )
+}
+
+const MensajeImagen = ({ mensaje, hora, esDeHumano }) => {
+  <p>Imagen</p>
+}
+
+const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
+  <p>Audio</p>
+}
+
+const MensajeVideo = ({ mensaje, hora, esDeHumano }) => {
+  <p>Video</p>
+}
+
+const MensajeArchivo = ({ mensaje, hora, esDeHumano }) => {
+  <p>Archivo</p>
+}
+
+const MensajeContacto = ({ mensaje, hora, esDeHumano }) => {
+  <p>Cotacto</p>
 }
 
 const MensajeConAdjunto = ({ mensaje }) => {

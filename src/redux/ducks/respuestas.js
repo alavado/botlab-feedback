@@ -66,10 +66,15 @@ const sliceRespuestas = createSlice({
           respuestaNormalizada
         }
       }).reverse()
-      // state.categorias = Object.keys(respuestas[0]).map(k => ({
-      //   propiedad: k,
-      //   niveles: [...new Set(respuestas.map(r => r[k].tag === undefined ? r[k] : r[k].tag))].sort((x, y) => x > y ? 1 : -1)
-      // }))
+      try {
+        state.categorias = Object.keys(respuestas[0]).map(k => ({
+          propiedad: k,
+          niveles: [...new Set(respuestas.map(r => r[k].tag === undefined ? r[k] : r[k].tag))].sort((x, y) => x > y ? 1 : -1)
+        }))
+      }
+      catch (e) {
+        state.categorias = []
+      }
       state.respuestas = respuestas
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1
@@ -120,7 +125,7 @@ const sliceRespuestas = createSlice({
         : []
     },
     agregaFiltro(state, action) {
-      const { busqueda, nombreHeader, textoHeader, idEncuesta, opciones, funcionFiltro } = action.payload
+      const { busqueda, nombreHeader, textoHeader, idEncuesta, opciones } = action.payload
       const { filtroImplicito, titulo, temporal } = opciones || {}
       const terminoNormalizado = normalizar(busqueda)
       const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
@@ -131,7 +136,7 @@ const sliceRespuestas = createSlice({
         descripcion: `"${busqueda}" en ${textoHeader}`,
         oculto: filtroImplicito,
         temporal,
-        f: funcionFiltro || (r => {
+        f: r => {
           if (tagCalculado) {
             const tagEnDiccionario = diccionarioTags[tagCalculado.f(r).tag]
             if (tagEnDiccionario) {
@@ -145,7 +150,7 @@ const sliceRespuestas = createSlice({
             }
           }
           return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
-        })
+        }
       }
       const indiceFiltro = state.filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === nombreHeader)
       if (indiceFiltro >= 0) {
