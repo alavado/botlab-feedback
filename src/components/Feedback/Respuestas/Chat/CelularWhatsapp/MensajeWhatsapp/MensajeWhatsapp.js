@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { format, parseISO } from 'date-fns'
 import { Icon, InlineIcon } from '@iconify/react'
 import iconoVisto from '@iconify/icons-mdi/check-all'
@@ -11,6 +11,7 @@ import './MensajeWhatsapp.css'
 import Scrambler from '../../../../../Scrambler/Scrambler'
 import { scrambleMulti } from '../../../../../Scrambler/scramblers'
 import { useSelector } from 'react-redux'
+import { obtenerContenidoMultimedia } from '../../../../../../api/endpoints'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 const tokenAdjunto = 'ATTACHMENT:'
@@ -29,20 +30,20 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
   const { debugging } = useSelector(state => state.cero)
 
   let componenteMensaje
-  switch (mensaje.tag) {
-    case 'MEDIA_IMAGE':
+  switch (mensaje.message) {
+    case 'MEDIAIMAGEURL':
       componenteMensaje = <MensajeImagen mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
       break;  
-    case 'MEDIA_AUDIO':
+    case 'MEDIAAUDIOURL':
       componenteMensaje = <MensajeAudio mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
       break;  
-    case 'MEDIA_FILE':
+    case 'MEDIAFILEURL':
       componenteMensaje = <MensajeArchivo mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
       break;  
-    case 'MEDIA_VCARD':
+    case 'MEDIAVCARDURL':
       componenteMensaje = <MensajeContacto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
       break;  
-    case 'MEDIA_VIDEO':
+    case 'MEDIAVIDEOURL':
       componenteMensaje = <MensajeVideo mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
       break;  
     default:
@@ -53,7 +54,7 @@ const MensajeWhatsapp = ({ mensaje, mensajes, posicion }) => {
     <div className="MensajeWhatsapp">
       {mostrarFecha && <Fecha fecha={fechaMensaje} />}
       <Globo esDeHumano={mensajeEsDeHumano} posicion={posicion} hora={horaFechamensaje}>
-        <MensajeTexto mensaje={mensaje} esDeHumano={mensajeEsDeHumano} hora={horaMensaje} />
+        {componenteMensaje}
         <Hora hora={horaMensaje} esDeHumano={mensajeEsDeHumano} />
         {mensaje.tag && (
           <div
@@ -139,23 +140,35 @@ const MensajeTexto = ({ mensaje, hora, esDeHumano }) => {
 }
 
 const MensajeImagen = ({ mensaje, hora, esDeHumano }) => {
-  <p>Imagen</p>
+  
+  const [urlImagen, setUrlImagen] = useState('')
+
+  const verImagen = async () => {
+    const data = await obtenerContenidoMultimedia(mensaje.answer_id)
+    setUrlImagen(data.data.data.url)
+  }
+
+  return (
+    urlImagen
+     ? <img className="MensajeWhatsapp__imagen" src={urlImagen} alt="imagen gato" />
+     : <button onClick={() => verImagen()}>Ver imagen</button>
+  )
 }
 
 const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
-  <p>Audio</p>
+  return <button>Reproducir audio</button>
 }
 
 const MensajeVideo = ({ mensaje, hora, esDeHumano }) => {
-  <p>Video</p>
+  return <p>Video</p>
 }
 
 const MensajeArchivo = ({ mensaje, hora, esDeHumano }) => {
-  <p>Archivo</p>
+  return <p>Archivo</p>
 }
 
 const MensajeContacto = ({ mensaje, hora, esDeHumano }) => {
-  <p>Cotacto</p>
+  return <p>Contacto</p>
 }
 
 const MensajeConAdjunto = ({ mensaje }) => {

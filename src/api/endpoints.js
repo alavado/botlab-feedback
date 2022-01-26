@@ -142,3 +142,16 @@ export const eliminarReaccion = (idEncuesta, idUsuario, idReaccion) => {
     }
   })
 }
+
+export const obtenerContenidoMultimedia = idRespuesta => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/answer_media/${idRespuesta}`
+  return axios({
+    url,
+    method: 'get',
+    headers: {
+      'Api-Token': token,
+      'Content-Type': 'application/json'
+    }
+  })
+}
