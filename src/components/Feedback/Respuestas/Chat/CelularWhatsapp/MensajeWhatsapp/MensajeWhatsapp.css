@@ -233,7 +233,37 @@
   min-height: 2rem;
 }
 
+.MensajeWhatsapp__placeholder_imagen {
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: .75rem;
+  border: none;
+  border-radius: .35rem;
+}
+
+.MensajeWhatsapp__texto_placeholder_imagen {
+  background-color: rgba(0, 0, 0, .5);
+  padding: .25rem .75rem;
+  border-radius: 9in;
+  color: white;
+}
+
 .MensajeWhatsapp__imagen {
-  width: 100%;
-  margin-bottom: .5rem;
+  width: 10rem;
+  margin-bottom: .75rem;
+  border-radius: .35rem;
+}
+
+.MensajeWhatsapp__audio {
+  width: 14rem;
+  margin-bottom: .75rem;
+}
+
+.MensajeWhatsapp__video {
+  width: 10rem;
+  margin-bottom: .75rem;
 }

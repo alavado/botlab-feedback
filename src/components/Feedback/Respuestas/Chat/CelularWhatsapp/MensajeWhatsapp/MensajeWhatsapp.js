@@ -12,6 +12,7 @@ import Scrambler from '../../../../../Scrambler/Scrambler'
 import { scrambleMulti } from '../../../../../Scrambler/scramblers'
 import { useSelector } from 'react-redux'
 import { obtenerContenidoMultimedia } from '../../../../../../api/endpoints'
+import iconoDescargar from '@iconify/icons-mdi/download'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 const tokenAdjunto = 'ATTACHMENT:'
@@ -142,6 +143,44 @@ const MensajeTexto = ({ mensaje, hora, esDeHumano }) => {
 const MensajeImagen = ({ mensaje, hora, esDeHumano }) => {
   
   const [urlImagen, setUrlImagen] = useState('')
+  const [huboError, setHuboError] = useState(false)
+
+  const verImagen = async () => {
+    try {
+      const data = await obtenerContenidoMultimedia(mensaje.answer_id)
+      setUrlImagen(data.data.data.url)
+    }
+    catch (err) {
+      setHuboError(true)
+    }
+  }
+
+  if (huboError) {
+    return <p className="MensajeWhatsapp__placeholder_error_imagen">Lo sentimos, imagen no se encuentra disponible</p>
+  }
+
+  return (
+    urlImagen
+     ? <img
+        className="MensajeWhatsapp__imagen"
+        src={urlImagen}
+        alt="imagen para descargar"
+      />
+     : <button
+        className="MensajeWhatsapp__placeholder_imagen"
+        onClick={() => verImagen()}
+        title="Ver imagen"
+      >
+        <p className="MensajeWhatsapp__texto_placeholder_imagen">
+          <InlineIcon icon={iconoDescargar} /> Ver imagen
+        </p>
+      </button>
+  )
+}
+
+const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
+  
+  const [urlImagen, setUrlImagen] = useState('')
 
   const verImagen = async () => {
     const data = await obtenerContenidoMultimedia(mensaje.answer_id)
@@ -150,17 +189,33 @@ const MensajeImagen = ({ mensaje, hora, esDeHumano }) => {
 
   return (
     urlImagen
-     ? <img className="MensajeWhatsapp__imagen" src={urlImagen} alt="imagen gato" />
-     : <button onClick={() => verImagen()}>Ver imagen</button>
+     ? <audio className="MensajeWhatsapp__audio" src={urlImagen} alt="imagen gato" autoPlay controls />
+     : <button onClick={() => verImagen()}>Reproducir audio</button>
   )
 }
 
-const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
-  return <button>Reproducir audio</button>
-}
-
 const MensajeVideo = ({ mensaje, hora, esDeHumano }) => {
-  return <p>Video</p>
+  
+  const [urlImagen, setUrlImagen] = useState('')
+
+  const verImagen = async () => {
+    const data = await obtenerContenidoMultimedia(mensaje.answer_id)
+    setUrlImagen(data.data.data.url)
+  }
+
+  return (
+    urlImagen
+     ? <video className="MensajeWhatsapp__video" src={urlImagen} alt="imagen gato" controls />
+     : <button
+        className="MensajeWhatsapp__placeholder_imagen"
+        onClick={() => verImagen()}
+        title="Ver imagen"
+      >
+        <p className="MensajeWhatsapp__texto_placeholder_imagen">
+          <InlineIcon icon={iconoDescargar} /> Ver video
+        </p>
+      </button>
+  )
 }
 
 const MensajeArchivo = ({ mensaje, hora, esDeHumano }) => {
