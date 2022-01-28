@@ -16,6 +16,7 @@ import iconoImagen from '@iconify/icons-mdi/image'
 import iconoVideo from '@iconify/icons-mdi/video'
 import iconoArchivo from '@iconify/icons-mdi/download-circle-outline'
 import iconoContacto from '@iconify/icons-mdi/contact'
+import iconoPlay from '@iconify/icons-mdi/play'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 const tokenAdjunto = 'ATTACHMENT:'
@@ -159,7 +160,7 @@ const MensajeImagen = ({ mensaje, hora, esDeHumano }) => {
   }
 
   if (huboError) {
-    return <p className="MensajeWhatsapp__placeholder_error_imagen">Imagen no disponible</p>
+    return <p className="MensajeWhatsapp__error_multimedia">Imagen no disponible</p>
   }
 
   return (
@@ -183,17 +184,35 @@ const MensajeImagen = ({ mensaje, hora, esDeHumano }) => {
 
 const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
 
-  const [urlImagen, setUrlImagen] = useState('')
+  const [urlAudio, setUrlAudio] = useState('')
+  const [huboError, setHuboError] = useState(false)
 
   const verImagen = async () => {
-    const data = await obtenerContenidoMultimedia(mensaje.answer_id)
-    setUrlImagen(data.data.data.url)
+    try {
+      const data = await obtenerContenidoMultimedia(mensaje.answer_id)
+      setUrlAudio(data.data.data.url)
+    }
+    catch (err) {
+      setHuboError(true)
+    }
+  }
+
+  if (huboError) {
+    return <p className="MensajeWhatsapp__error_multimedia">Audio no disponible</p>
   }
 
   return (
-    urlImagen
-     ? <audio className="MensajeWhatsapp__audio" src={urlImagen} alt="imagen gato" autoPlay controls />
-     : <button onClick={() => verImagen()}>Reproducir audio</button>
+    urlAudio
+     ? <audio className="MensajeWhatsapp__audio" src={urlAudio} alt="imagen gato" autoPlay controls />
+     : <button
+        onClick={() => verImagen()}
+        className="MensajeWhatsapp__placeholder_audio"
+      >
+        <InlineIcon className="MensajeWhatsapp__placeholder_icono_reproducir_audio" icon={iconoPlay} />
+        <div className="MensajeWhatsapp__trackbar">
+
+        </div>
+      </button>
   )
 }
 
@@ -213,7 +232,7 @@ const MensajeVideo = ({ mensaje, hora, esDeHumano }) => {
   }
 
   if (huboError) {
-    return <p className="MensajeWhatsapp__placeholder_error_imagen">Video no disponible</p>
+    return <p className="MensajeWhatsapp__error_multimedia">Video no disponible</p>
   }
 
   return (
@@ -252,7 +271,7 @@ const MensajeArchivo = ({ mensaje, hora, esDeHumano }) => {
   }
 
   if (huboError) {
-    return <p className="MensajeWhatsapp__placeholder_error_imagen">Archivo no disponible</p>
+    return <p className="MensajeWhatsapp__error_multimedia">Archivo no disponible</p>
   }
 
   return (
