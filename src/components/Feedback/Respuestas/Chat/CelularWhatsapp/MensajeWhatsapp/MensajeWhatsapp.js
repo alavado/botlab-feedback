@@ -12,7 +12,10 @@ import Scrambler from '../../../../../Scrambler/Scrambler'
 import { scrambleMulti } from '../../../../../Scrambler/scramblers'
 import { useSelector } from 'react-redux'
 import { obtenerContenidoMultimedia } from '../../../../../../api/endpoints'
-import iconoDescargar from '@iconify/icons-mdi/download'
+import iconoImagen from '@iconify/icons-mdi/image'
+import iconoVideo from '@iconify/icons-mdi/video'
+import iconoArchivo from '@iconify/icons-mdi/download-circle-outline'
+import iconoContacto from '@iconify/icons-mdi/contact'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 const tokenAdjunto = 'ATTACHMENT:'
@@ -156,7 +159,7 @@ const MensajeImagen = ({ mensaje, hora, esDeHumano }) => {
   }
 
   if (huboError) {
-    return <p className="MensajeWhatsapp__placeholder_error_imagen">Lo sentimos, imagen no se encuentra disponible</p>
+    return <p className="MensajeWhatsapp__placeholder_error_imagen">Imagen no disponible</p>
   }
 
   return (
@@ -172,14 +175,14 @@ const MensajeImagen = ({ mensaje, hora, esDeHumano }) => {
         title="Ver imagen"
       >
         <p className="MensajeWhatsapp__texto_placeholder_imagen">
-          <InlineIcon icon={iconoDescargar} /> Ver imagen
+          <InlineIcon icon={iconoImagen} /> Ver imagen
         </p>
       </button>
   )
 }
 
 const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
-  
+
   const [urlImagen, setUrlImagen] = useState('')
 
   const verImagen = async () => {
@@ -197,10 +200,20 @@ const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
 const MensajeVideo = ({ mensaje, hora, esDeHumano }) => {
   
   const [urlImagen, setUrlImagen] = useState('')
+  const [huboError, setHuboError] = useState(false)
 
   const verImagen = async () => {
-    const data = await obtenerContenidoMultimedia(mensaje.answer_id)
-    setUrlImagen(data.data.data.url)
+    try {
+      const data = await obtenerContenidoMultimedia(mensaje.answer_id)
+      setUrlImagen(data.data.data.url)
+    }
+    catch (err) {
+      setHuboError(true)
+    }
+  }
+
+  if (huboError) {
+    return <p className="MensajeWhatsapp__placeholder_error_imagen">Video no disponible</p>
   }
 
   return (
@@ -212,18 +225,49 @@ const MensajeVideo = ({ mensaje, hora, esDeHumano }) => {
         title="Ver imagen"
       >
         <p className="MensajeWhatsapp__texto_placeholder_imagen">
-          <InlineIcon icon={iconoDescargar} /> Ver video
+          <InlineIcon icon={iconoVideo} /> Ver video
         </p>
       </button>
   )
 }
 
 const MensajeArchivo = ({ mensaje, hora, esDeHumano }) => {
-  return <p>Archivo</p>
+  
+  const [huboError, setHuboError] = useState(false)
+
+  const descargarArchivo = async () => {
+    try {
+      const data = await obtenerContenidoMultimedia(mensaje.answer_id)
+      const elemento = document.createElement('a')
+      elemento.setAttribute('target', '_blank')
+      elemento.setAttribute('href', data.data.data.url)
+      elemento.style.display = 'none'
+      document.body.appendChild(elemento)
+      elemento.click()
+      document.body.removeChild(elemento)
+    }
+    catch (err) {
+      setHuboError(true)
+    }
+  }
+
+  if (huboError) {
+    return <p className="MensajeWhatsapp__placeholder_error_imagen">Archivo no disponible</p>
+  }
+
+  return (
+    <button
+      className="MensajeWhatsapp__boton_descargar_archivo"
+      onClick={descargarArchivo}
+    >
+      Descargar Archivo
+      <InlineIcon className="MensajeWhatsapp__icono_descargar_archivo" icon={iconoArchivo} /> 
+    </button>
+  )
 }
 
 const MensajeContacto = ({ mensaje, hora, esDeHumano }) => {
-  return <p>Contacto</p>
+  return <p><InlineIcon icon={iconoContacto} /> Contacto</p>
 }
 
 const MensajeConAdjunto = ({ mensaje }) => {

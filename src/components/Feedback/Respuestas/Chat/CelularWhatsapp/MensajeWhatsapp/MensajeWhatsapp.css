@@ -252,6 +252,12 @@
   color: white;
 }
 
+.MensajeWhatsapp__placeholder_error_imagen {
+  font-style: italic;
+  opacity: .8;
+  margin-bottom: .75rem;
+}
+
 .MensajeWhatsapp__imagen {
   width: 10rem;
   margin-bottom: .75rem;
@@ -266,4 +272,23 @@
 .MensajeWhatsapp__video {
   width: 10rem;
   margin-bottom: .75rem;
+}
+
+.MensajeWhatsapp__boton_descargar_archivo {
+  background: rgba(0, 0, 0, .05);
+  border: none;
+  margin-bottom: .75rem;
+  padding: 1rem;
+  font-size: .65rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 10rem;
+  align-items: center;
+  border-radius: 0 0 .5rem .5rem;
+}
+
+.MensajeWhatsapp__icono_descargar_archivo {
+  font-size: 1.5rem;
+  opacity: .5;
 }

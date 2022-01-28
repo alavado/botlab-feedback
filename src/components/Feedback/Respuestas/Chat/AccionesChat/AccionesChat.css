@@ -7,6 +7,7 @@
   font-weight: 600;
   font-size: .93rem;
   font-family: 'Raleway';
+  color: var(--color-texto);
 }
 
 .AccionesChat__boton {
