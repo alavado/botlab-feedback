@@ -7,8 +7,8 @@ import './TagRespuesta.css'
 const maxEstrellas = 5
 
 const obtenerClaseTag = (tag, pregunta) => {
-  if (diccionarioTags[tag]) {
-    return diccionarioTags[tag].clase
+  if (diccionarioTags(tag)) {
+    return diccionarioTags(tag).clase
   }
   else if (pregunta === 'Opción elegida' || pregunta === '¿Por qué no?') {
     return 'TagRespuesta--opcion_reagendamiento'
@@ -20,8 +20,8 @@ const obtenerClaseTag = (tag, pregunta) => {
 }
 
 const obtenerTextoTag = (tag, pregunta) => {
-  if (diccionarioTags[tag]) {
-    return diccionarioTags[tag].texto
+  if (diccionarioTags(tag)) {
+    return diccionarioTags(tag).texto
   }
   else if (pregunta === 'Opción elegida' || pregunta === '¿Por qué no?') {
     return tag
@@ -48,7 +48,7 @@ const TagRespuesta = ({ tag, pregunta, incluirSinRespuesta = false }) => {
 
   return (
     <div className={clase}>
-      {diccionarioTags[tag] && <InlineIcon className="TagRespuesta__icono" icon={diccionarioTags[tag].icono} />}
+      {diccionarioTags(tag) && <InlineIcon className="TagRespuesta__icono" icon={diccionarioTags(tag).icono} />}
       <span>{texto}</span>
     </div>
   )

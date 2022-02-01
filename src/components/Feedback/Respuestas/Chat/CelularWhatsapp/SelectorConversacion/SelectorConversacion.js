@@ -29,7 +29,7 @@ const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, 
               'SelectorConversacion__boton': true,
               'SelectorConversacion__boton--seleccionado': i === indiceConversacionSeleccionada
             })}
-            style={{ background: diccionarioTags[primerTag].color }}
+            style={{ background: diccionarioTags(primerTag).color }}
             onClick={() => seleccionarConversacion(i)}
             data-title={format(parseISO(c.start), 'dd MMM yyyy', { locale: es })}
           >

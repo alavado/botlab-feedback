@@ -101,7 +101,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                   <button
                     className="ModalFiltros__checkbox_nivel"
                     onClick={() => dispatch(agregaFiltro({
-                      busqueda: categoria.esTag ? diccionarioTags[nivel].texto : nivel,
+                      busqueda: categoria.esTag ? diccionarioTags(nivel).texto : nivel,
                       nombreHeader: header.nombre,
                       textoHeader: header.texto,
                       idEncuesta: idEncuestaSeleccionada,
@@ -112,8 +112,8 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                   >
                     {categoria.esTag
                       ? <>
-                          <InlineIcon icon={filtro?.busqueda?.includes(diccionarioTags[nivel].texto) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" />
-                          <TagRespuesta tag={nivel} pregunta={diccionarioTags[nivel].texto} incluirSinRespuesta={true} />
+                          <InlineIcon icon={filtro?.busqueda?.includes(diccionarioTags(nivel).texto) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" />
+                          <TagRespuesta tag={nivel} pregunta={diccionarioTags(nivel).texto} incluirSinRespuesta={true} />
                         </>
                       : <>
                           <InlineIcon icon={filtro?.busqueda?.includes(nivel) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</>

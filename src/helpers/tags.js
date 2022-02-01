@@ -180,4 +180,12 @@ const tags = {
   }
 }
 
-export default tags
+const diccionarioTags = tag => tags[tag] || ({
+  texto: tag,
+  titulo: tag,
+  icono: option,
+  clase: 'TagRespuesta TagRespuesta--vacia',
+  color: 'var(--color-bordes)'
+})
+
+export default diccionarioTags

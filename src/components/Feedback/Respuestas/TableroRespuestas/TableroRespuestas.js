@@ -107,7 +107,7 @@ const TableroRespuestas = () => {
   const clickEnTarjeta = (respuesta, indice, tag) => {
     dispatch(guardaEstaRespuesta([respuesta, indice, tag]))
     dispatch(agregaFiltro({
-      busqueda: diccionarioTags[tag].texto,
+      busqueda: diccionarioTags(tag).texto,
       nombreHeader: 'tc0',
       textoHeader: 'Respuesta',
       idEncuesta: idEncuestaSeleccionada,

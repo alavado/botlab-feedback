@@ -67,13 +67,13 @@ const ResumenRespuestas = ({ cargando }) => {
                     return (
                       <tr
                         key={`fila-respuestas-${tag}`}
-                        title={`${porcentaje.toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}% de respuestas "${diccionarioTags[tag].texto}"`}
+                        title={`${porcentaje.toLocaleString('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}% de respuestas "${diccionarioTags(tag).texto}"`}
                       >
                         <td>
                           <div
                             className="ResumenRespuestas__tag"
                             onClick={() => dispatch(agregaFiltro({
-                              busqueda: diccionarioTags[tag].texto,
+                              busqueda: diccionarioTags(tag).texto,
                               nombreHeader: primerTag.nombre,
                               textoHeader: primerTag.texto,
                               idEncuesta: idEncuestaSeleccionada

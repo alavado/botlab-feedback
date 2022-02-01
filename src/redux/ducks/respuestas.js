@@ -8,7 +8,7 @@ export const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u
 const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
   const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
   if (tagCalculado) {
-    const tagEnDiccionario = diccionarioTags[tagCalculado.f(r).tag]
+    const tagEnDiccionario = diccionarioTags(tagCalculado.f(r).tag)
     if (tagEnDiccionario) {
       return normalizar(tagEnDiccionario.texto).indexOf(terminoNormalizado) >= 0
     }
@@ -63,7 +63,7 @@ const sliceRespuestas = createSlice({
               slug = normalizar(r[k])
             }
             else if (r[k].tag) {
-              slug = normalizar(diccionarioTags[r[k].tag]?.texto || r[k].tag)
+              slug = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
             }
             return prev + slug
           }, '')
@@ -73,7 +73,7 @@ const sliceRespuestas = createSlice({
               prev[k] = normalizar(r[k])
             }
             else if (r[k].tag || r[k].tag === '') {
-              prev[k] = normalizar(diccionarioTags[r[k].tag]?.texto || r[k].tag)
+              prev[k] = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
             }
             return prev
           }, {})
