@@ -70,6 +70,7 @@
   justify-content: center;
   margin: 0;
   position: relative;
+  z-index: 2;
 }
 
 .FilaTablaRespuestas__contenedor_reaccion_indicador_comentario {

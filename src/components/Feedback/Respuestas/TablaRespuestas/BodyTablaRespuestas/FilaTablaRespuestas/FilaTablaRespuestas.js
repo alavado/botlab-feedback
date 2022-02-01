@@ -34,14 +34,14 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
     >
       <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
         {ultimaReaccion && (
-          <div className="FilaTablaRespuestas__contenedor_reaccion">
+          <span className="FilaTablaRespuestas__contenedor_reaccion">
             {ultimaReaccion.reaction_emoji}
             {ultimaReaccion.reaction_text && (
-              <div className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario">
+              <span className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario">
                 {ultimaReaccion.reaction_text} <span style={{ fontStyle: 'italic', opacity: .8, paddingLeft: '.2rem' }}>{formatDistanceToNow(parseISO(ultimaReaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}</span>
-              </div>
+              </span>
             )}
-          </div>
+          </span>
         )}
       </td>
       {headers.map(({ nombre, f, texto }, j) => {
@@ -55,7 +55,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
             })}
           >
             {valorHeader && valorHeader.tag !== undefined
-              ? <div className="FilaTablaRespuestas__contenedor_tag" title={valorHeader.text}><TagRespuesta tag={valorHeader.tag} pregunta={texto} /></div>
+              ? <span className="FilaTablaRespuestas__contenedor_tag" title={valorHeader.text}><TagRespuesta tag={valorHeader.tag} pregunta={texto} /></span>
               : <Scrambler tipo={nombre}>{formatearCampoRespuestas(valorHeader, nombre)}</Scrambler>
             }
           </td>
