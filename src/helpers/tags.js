@@ -1,6 +1,7 @@
 import check from '@iconify/icons-mdi/check'
 import cancel from '@iconify/icons-mdi/close'
 import refresh from '@iconify/icons-mdi/arrow-right'
+import option from '@iconify/icons-mdi/check'
 import question from '@iconify/icons-mdi/question-mark'
 import time from '@iconify/icons-mdi/timer-sand'
 
@@ -106,7 +107,42 @@ const tags = {
     icono: time,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
-  }
+  },
+  '1': {
+    texto: '1',
+    titulo: '1',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  '2': {
+    texto: '2',
+    titulo: '2',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  '3': {
+    texto: '3',
+    titulo: '3',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  '4': {
+    texto: '4',
+    titulo: '4',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  '5': {
+    texto: '5',
+    titulo: '5',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
 }
 
 export default tags

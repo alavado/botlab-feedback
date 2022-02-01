@@ -6,9 +6,7 @@ import { obtenerTagsCalculados } from "../../helpers/tagsCalculados"
 export const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
 const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
-  console.log({r,nombreHeader,terminoNormalizado, idEncuesta})
   const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
-  console.log(tagCalculado);
   if (tagCalculado) {
     const tagEnDiccionario = diccionarioTags[tagCalculado.f(r).tag]
     if (tagEnDiccionario) {
