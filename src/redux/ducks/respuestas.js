@@ -37,7 +37,7 @@ const sliceRespuestas = createSlice({
       state.respuestaSeleccionada = undefined
     },
     guardaRespuestas(state, action) {
-      const jsonRespuestas = action.payload
+      const { jsonRespuestas, idEncuesta } = action.payload
       const respuestas = jsonRespuestas.data.data.map(r => {
         const respuestaString = Object.keys(r)
           .reduce((prev, k) => {
@@ -67,10 +67,30 @@ const sliceRespuestas = createSlice({
         }
       }).reverse()
       try {
-        state.categorias = Object.keys(respuestas[0]).map(k => ({
-          propiedad: k,
-          niveles: [...new Set(respuestas.map(r => r[k].tag === undefined ? r[k] : r[k].tag))].sort((x, y) => x > y ? 1 : -1)
-        }))
+        let categorias = Object.keys(respuestas[0]).map(k => (
+          respuestas[0][k].tag !== undefined
+            ? {
+                propiedad: k,
+                esTag: true,
+                niveles: [...new Set(respuestas.map(r => r[k].tag))].sort((x, y) => x > y ? 1 : -1)
+              }
+            : {
+                propiedad: k,
+                esTag: false,
+                niveles: [...new Set(respuestas.map(r => r[k]))].sort((x, y) => x > y ? 1 : -1)
+              }
+        ))
+        const tagsCalculados = obtenerTagsCalculados(idEncuesta)
+        if (tagsCalculados) {
+          categorias = categorias.concat(tagsCalculados.map(tag => (
+            {
+              propiedad: tag.nombre,
+              esTag: true,
+              niveles: [...new Set(respuestas.map(r => tag.f(r).tag))].sort((x, y) => x > y ? 1 : -1)
+            }
+          )))
+        }
+        state.categorias = categorias
       }
       catch (e) {
         state.categorias = []

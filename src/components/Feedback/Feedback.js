@@ -39,7 +39,7 @@ const Feedback = () => {
           const headers = await headersAPI(token)
           dispatch(guardaHeaders(headers))
           const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-          dispatch(guardaRespuestas(data))
+          dispatch(guardaRespuestas({ jsonRespuestas: data, idEncuesta: idEncuestaSeleccionada }))
         }
         catch (e) {
           dispatch(cierraLaSesion())

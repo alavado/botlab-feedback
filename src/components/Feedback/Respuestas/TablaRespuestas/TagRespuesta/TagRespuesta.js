@@ -37,9 +37,9 @@ const obtenerTextoTag = (tag, pregunta) => {
   return tag
 }
 
-const TagRespuesta = ({ tag, pregunta }) => {
+const TagRespuesta = ({ tag, pregunta, incluirSinRespuesta = false }) => {
 
-  if (!tag) {
+  if (!tag && !incluirSinRespuesta) {
     return null
   }
 

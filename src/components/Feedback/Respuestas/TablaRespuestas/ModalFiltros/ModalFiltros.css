@@ -60,7 +60,7 @@
 .ModalFiltros__contenedor_niveles {
   border-top: 1px solid var(--color-bordes);
   border-bottom: 1px solid var(--color-bordes);
-  max-height: 22vh;
+  max-height: 33vh;
   overflow: auto;
 }
 
@@ -88,6 +88,10 @@
   font-size: .7rem;
   outline: none;
   border-radius: .25rem;
+}
+
+.ModalFiltros__icono_checkbox_nivel {
+  font-size: .9rem;
 }
 
 .ModalFiltros__boton:hover {

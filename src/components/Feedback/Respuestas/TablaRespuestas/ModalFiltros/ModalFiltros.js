@@ -15,6 +15,8 @@ import iconoFiltro from '@iconify/icons-mdi/filter'
 import { InlineIcon } from '@iconify/react'
 import { ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
 import { useMemo } from 'react'
+import TagRespuesta from '../TagRespuesta'
+import diccionarioTags from "../../../../../helpers/tags"
 
 const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
 
@@ -43,7 +45,9 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
     return null
   }
 
-  const nivelesHeader = categorias.find(c => c.propiedad === header.nombre)?.niveles || []
+  const categoria = categorias.find(c => c.propiedad === header.nombre)
+  const nivelesHeader = categoria?.niveles || []
+  console.log(categoria);
 
   return (
     ReactDOM.createPortal(
@@ -65,7 +69,6 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
           }}
           onClick={e => e.stopPropagation()}
         >
-          <p className="ModalFiltros__titulo">Herramientas para columna</p>
           <button
             className="ModalFiltros__boton"
             onClick={ordenarRespuestas}
@@ -80,8 +83,15 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               : 'Ordenar'
             }
           </button>
-          {false && nivelesHeader.length > 0 && nivelesHeader.length < 30 && (
+          {nivelesHeader.length > 0 && nivelesHeader.length < 30 && (
             <div className="ModalFiltros__contenedor_niveles">
+              <div className="ModalFiltros__contenedor_checkbox_nivel">
+                <button
+                  className="ModalFiltros__checkbox_nivel"
+                >
+                  <InlineIcon icon={iconoCheckboxActivo} className="ModalFiltros__icono_checkbox_nivel" /> Todo
+                </button>
+              </div>
               {nivelesHeader.map((nivel, i) => (
                 <div
                   key={`contenedor-filtro-categoria-${i}`}
@@ -90,13 +100,20 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                   <button
                     className="ModalFiltros__checkbox_nivel"
                     onClick={() => dispatch(agregaFiltro({
-                      busqueda: nivel,
+                      busqueda: categoria.esTag ? diccionarioTags[nivel].texto : nivel,
                       nombreHeader: header.nombre,
                       textoHeader: header.texto,
                       idEncuesta: idEncuestaSeleccionada
                     }))}
                   >
-                    <InlineIcon icon={iconoCheckboxInactivo} /> {nivel || '(Vacío)'}
+                    {categoria.esTag
+                      ? <>
+                          <InlineIcon icon={iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" />
+                          <TagRespuesta tag={nivel} pregunta={diccionarioTags[nivel].texto} incluirSinRespuesta={true} />
+                        </>
+                      : <><InlineIcon icon={iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</></>
+                    }
+                    
                   </button>
                 </div>
               ))}
