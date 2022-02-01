@@ -18,18 +18,19 @@ const ResumenRespuestas = ({ cargando }) => {
   const headersOriginales = obtenerHeaders(headers, idEncuestaSeleccionada)
   const primerTag = (headersConTagsCalculados || headersOriginales)?.find(h => h.tipo === 'YESNO')
 
+  const tagsAMostrar = ['YES', 'NO', 'REAGENDA', 'OUT']
+
   const conteosTags = useMemo(() => {
     if (cargando) {
       return {}
     }
-    const tags = Object.keys(diccionarioTags).slice(0, 4)
     const primerHeaderYESNO = (headersConTagsCalculados || headersOriginales).find(h => h.tipo === 'YESNO')
     return primerHeaderYESNO
       ? respuestas.reduce((prev, respuesta) => {
           const tagRespuesta = headersConTagsCalculados
             ? primerHeaderYESNO.f(respuesta).tag
             : respuesta[primerHeaderYESNO.nombre].tag
-          const indice =  tags.find(t => t === tagRespuesta)
+          const indice =  tagsAMostrar.find(t => t === tagRespuesta)
           indice && (prev[indice] = prev[indice] ? prev[indice] + 1 : 1)
           return prev
         }, {})
@@ -42,8 +43,6 @@ const ResumenRespuestas = ({ cargando }) => {
     conRespuesta = Object.keys(conteosTags).reduce((prev, k) => prev + conteosTags[k], 0)
     porcentaje = ((100 * conRespuesta / total) || 0)
   }
-
-  const tagsAMostrar = ['YES', 'NO', 'REAGENDA', 'OUT']
 
   return (
     <div className="ResumenRespuestas">
