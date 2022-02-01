@@ -34,7 +34,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   useEffect(() => setAncho(document.getElementsByClassName('ModalFiltros')[0]?.clientWidth), [filtro])
   useEffect(() => {
     if (activo) {
-      filtroRef.current.value = filtro?.busqueda || ''
+      filtroRef.current.value = (filtro?.busqueda?.length === 1 && filtro.busqueda[0]) || ''
       filtroRef.current.focus()
     }
   }, [filtro, activo])
