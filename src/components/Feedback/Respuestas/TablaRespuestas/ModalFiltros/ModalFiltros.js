@@ -28,7 +28,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   const dispatch = useDispatch()
   const filtro = filtros.find(f => f.headers.length === 1 && f.headers[0] === header.nombre)
   const container = i >= 0 && document.getElementsByClassName(containerClass)[i]
-  const { left, top, width } = useMemo(() => (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }, [container])
+  const { left, top, width } = useMemo(() => (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }, [container, i])
 
   useEffect(() => setAncho(document.getElementsByClassName('ModalFiltros')[0]?.clientWidth), [filtro])
   useEffect(() => {
@@ -46,7 +46,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   }
 
   const categoria = categorias.find(c => c.propiedad === header.nombre)
-  const nivelesHeader = categoria?.niveles.filter(x => x) || []
+  const nivelesHeader = categoria?.niveles.filter(x => categoria.esTag || x) || []
 
   return (
     ReactDOM.createPortal(
@@ -112,7 +112,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                           <TagRespuesta tag={nivel} pregunta={diccionarioTags[nivel].texto} incluirSinRespuesta={true} />
                         </>
                       : <>
-                          <InlineIcon icon={filtro?.busqueda.includes(nivel.texto) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</>
+                          <InlineIcon icon={filtro?.busqueda.includes(nivel) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</>
                         </>
                     }
                   </button>
