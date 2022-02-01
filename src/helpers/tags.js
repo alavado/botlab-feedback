@@ -143,6 +143,27 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
+  PC_PRECIO: {
+    texto: 'PC_PRECIO',
+    titulo: 'PC_PRECIO',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)'
+  },
+  PC_SEGURO: {
+    texto: 'PC_SEGURO',
+    titulo: 'PC_SEGURO',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)'
+  },
+  PC_DIRECCION: {
+    texto: 'PC_DIRECCION',
+    titulo: 'PC_DIRECCION',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)'
+  }
 }
 
 export default tags
