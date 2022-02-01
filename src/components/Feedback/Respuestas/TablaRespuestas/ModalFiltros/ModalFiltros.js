@@ -83,7 +83,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               : 'Ordenar'
             }
           </button>
-          {nivelesHeader.length > 0 && nivelesHeader.length < 30 && (
+          {nivelesHeader.length > 0 && nivelesHeader.length < 50 && (
             <div className="ModalFiltros__contenedor_niveles">
               <div className="ModalFiltros__contenedor_checkbox_nivel">
                 <button

@@ -163,6 +163,20 @@ const tags = {
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
+  },
+  CONFIRMA_DESPUES: {
+    texto: 'CONFIRMA_DESPUES',
+    titulo: 'CONFIRMA_DESPUES',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)'
+  },
+  RESPUESTA_AUTO: {
+    texto: 'RESPUESTA_AUTO',
+    titulo: 'RESPUESTA_AUTO',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)'
   }
 }
 
