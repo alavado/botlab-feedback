@@ -46,8 +46,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   }
 
   const categoria = categorias.find(c => c.propiedad === header.nombre)
-  const nivelesHeader = categoria?.niveles || []
-  console.log(categoria);
+  const nivelesHeader = categoria?.niveles.filter(x => x) || []
 
   return (
     ReactDOM.createPortal(
@@ -88,8 +87,9 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               <div className="ModalFiltros__contenedor_checkbox_nivel">
                 <button
                   className="ModalFiltros__checkbox_nivel"
+
                 >
-                  <InlineIcon icon={iconoCheckboxActivo} className="ModalFiltros__icono_checkbox_nivel" /> Todo
+                  <InlineIcon icon={filtro ? iconoCheckboxInactivo : iconoCheckboxActivo} className="ModalFiltros__icono_checkbox_nivel" /> Mostrar todo
                 </button>
               </div>
               {nivelesHeader.map((nivel, i) => (
@@ -108,12 +108,13 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                   >
                     {categoria.esTag
                       ? <>
-                          <InlineIcon icon={iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" />
+                          <InlineIcon icon={filtro?.busqueda.includes(diccionarioTags[nivel].texto) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" />
                           <TagRespuesta tag={nivel} pregunta={diccionarioTags[nivel].texto} incluirSinRespuesta={true} />
                         </>
-                      : <><InlineIcon icon={iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</></>
+                      : <>
+                          <InlineIcon icon={filtro?.busqueda.includes(nivel.texto) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</>
+                        </>
                     }
-                    
                   </button>
                 </div>
               ))}
