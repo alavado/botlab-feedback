@@ -26,7 +26,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const filtroRef = useRef()
   const dispatch = useDispatch()
-  const indiceFiltro = filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === header.nombre)
+  const indiceFiltro = filtros.findIndex(f => f.headers[0] === header.nombre)
   const filtro = indiceFiltro >= 0 && filtros[indiceFiltro]
   const container = i >= 0 && document.getElementsByClassName(containerClass)[i]
   const { left, top, width } = useMemo(() => (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }, [container, i])

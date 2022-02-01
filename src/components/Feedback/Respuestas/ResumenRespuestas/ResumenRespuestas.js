@@ -43,7 +43,7 @@ const ResumenRespuestas = ({ cargando }) => {
     porcentaje = ((100 * conRespuesta / total) || 0)
   }
 
-  const tagsAMostrar = Object.keys(diccionarioTags).slice(0, 4)
+  const tagsAMostrar = ['YES', 'NO', 'REAGENDA', 'OUT']
 
   return (
     <div className="ResumenRespuestas">
