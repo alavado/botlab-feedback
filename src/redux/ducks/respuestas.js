@@ -5,6 +5,25 @@ import { obtenerTagsCalculados } from "../../helpers/tagsCalculados"
 
 export const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
+const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
+  console.log({r,nombreHeader,terminoNormalizado, idEncuesta})
+  const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
+  console.log(tagCalculado);
+  if (tagCalculado) {
+    const tagEnDiccionario = diccionarioTags[tagCalculado.f(r).tag]
+    if (tagEnDiccionario) {
+      return normalizar(tagEnDiccionario.texto).indexOf(terminoNormalizado) >= 0
+    }
+    else if (!isNaN(tagCalculado.f(r).tag)) {
+      return normalizar(tagCalculado.f(r).tag).indexOf(terminoNormalizado) >= 0
+    }
+    else {
+      return normalizar(tagCalculado.f(r).text).indexOf(terminoNormalizado) >= 0
+    }
+  }
+  return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
+}
+
 const sliceRespuestas = createSlice({
   name: 'respuestas',
   initialState: {
@@ -146,35 +165,56 @@ const sliceRespuestas = createSlice({
     },
     agregaFiltro(state, action) {
       const { busqueda, nombreHeader, textoHeader, idEncuesta, opciones } = action.payload
-      const { filtroImplicito, titulo, temporal } = opciones || {}
+      const { filtroImplicito, titulo, temporal, mismaColumna } = opciones || {}
       const terminoNormalizado = normalizar(busqueda)
-      const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
       const filtro = {
         headers: [nombreHeader],
         nombresHeaders: [textoHeader],
         busqueda: [busqueda],
+        terminosNormalizados: [terminoNormalizado],
         descripcion: `"${busqueda}" en ${textoHeader}`,
         oculto: filtroImplicito,
         temporal,
-        f: r => {
-          if (tagCalculado) {
-            const tagEnDiccionario = diccionarioTags[tagCalculado.f(r).tag]
-            if (tagEnDiccionario) {
-              return normalizar(tagEnDiccionario.texto).indexOf(terminoNormalizado) >= 0
-            }
-            else if (!isNaN(tagCalculado.f(r).tag)) {
-              return normalizar(tagCalculado.f(r).tag).indexOf(terminoNormalizado) >= 0
-            }
-            else {
-              return normalizar(tagCalculado.f(r).text).indexOf(terminoNormalizado) >= 0
+        f: r => funcionFiltro(r, nombreHeader, terminoNormalizado, idEncuesta)
+      }
+      const indiceFiltro = state.filtros.findIndex(f => f.headers.every(h => h === nombreHeader))
+      if (indiceFiltro >= 0) {
+        const filtroExistente = state.filtros[indiceFiltro]
+        if (mismaColumna) {
+          const indiceTerminoExistente = filtroExistente.busqueda.find(t => t === busqueda)
+          if (!indiceTerminoExistente) {
+            const nombresHeaders = [...filtroExistente.nombresHeaders, textoHeader]
+            const terminosNormalizados = [...filtroExistente.terminosNormalizados, terminoNormalizado]
+            const headers = [...filtroExistente.headers, nombreHeader]
+            state.filtros[indiceFiltro] = {
+              headers: [...filtroExistente.headers, nombreHeader],
+              busqueda: [...filtroExistente.busqueda, busqueda],
+              terminosNormalizados,
+              nombresHeaders,
+              descripcion: nombresHeaders.map((h, i) => `"${busqueda[i]}" en ${h}`).join(' o '),
+              f: r => headers.some((h, i) => funcionFiltro(r, h, terminosNormalizados[i], idEncuesta))
             }
           }
-          return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
+          else {
+            if (filtroExistente.busqueda.length === 1 && filtroExistente.busqueda[0] === busqueda) {
+              state.filtros.splice(indiceFiltro, 1)
+            }
+            else {
+              const nombresHeaders = state.filtros[indiceFiltro].nombresHeaders.splice(indiceTerminoExistente, 1)
+              const terminosNormalizados = [...filtroExistente.terminosNormalizados, terminoNormalizado].splice(indiceTerminoExistente, 1)
+              const headers = [...filtroExistente.headers, nombreHeader].splice(indiceTerminoExistente, 1)
+              state.filtros[indiceFiltro] = {
+                headers,
+                busqueda: state.filtros[indiceFiltro].busqueda.splice(indiceTerminoExistente, 1),
+                terminosNormalizados,
+                nombresHeaders,
+                descripcion: nombresHeaders.map((h, i) => `"${busqueda[i]}" en ${h}`).join(' o '),
+                f: r => headers.some((h, i) => funcionFiltro(r, h, terminosNormalizados[i], idEncuesta))
+              }
+            }
+          }
         }
-      }
-      const indiceFiltro = state.filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === nombreHeader)
-      if (indiceFiltro >= 0) {
-        if (terminoNormalizado.length > 0 && state.filtros[indiceFiltro].busqueda[0] !== busqueda) {
+        else if (terminoNormalizado.length > 0 && state.filtros[indiceFiltro].busqueda[0] !== busqueda) {
           state.filtros[indiceFiltro] = filtro
         }
         else if (!filtroImplicito) {
@@ -216,6 +256,7 @@ const sliceRespuestas = createSlice({
     },
     remueveFiltro(state, action) {
       const indiceFiltro = action.payload
+      console.log(indiceFiltro);
       const indiceFiltroGlobal = state.filtros.findIndex(f => f.headers === '*')
       if (indiceFiltro === indiceFiltroGlobal) {
         state.busqueda = ''

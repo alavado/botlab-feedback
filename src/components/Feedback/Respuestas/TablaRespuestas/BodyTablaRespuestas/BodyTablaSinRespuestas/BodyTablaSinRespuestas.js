@@ -34,10 +34,10 @@ const BodyTablaSinRespuestas = () => {
 
 
   return (
-    <div className="BodyTablaSinRespuestas">
+    <span className="BodyTablaSinRespuestas">
       <Icon className="BodyTablaSinRespuestas__icono" icon={icono} />
       {mensaje}
-    </div>
+    </span>
   )
 }
 

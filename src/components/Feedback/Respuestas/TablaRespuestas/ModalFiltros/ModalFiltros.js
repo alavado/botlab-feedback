@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import './ModalFiltros.css'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { agregaFiltro, ordenaRespuestas } from '../../../../../redux/ducks/respuestas'
+import { agregaFiltro, ordenaRespuestas, remueveFiltro } from '../../../../../redux/ducks/respuestas'
 import iconoLimpiarFiltro from '@iconify/icons-mdi/close'
 import iconoOrden from '@iconify/icons-mdi/sort'
 import iconoOrdenDescendente from '@iconify/icons-mdi/sort-ascending'
@@ -26,7 +26,8 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const filtroRef = useRef()
   const dispatch = useDispatch()
-  const filtro = filtros.find(f => f.headers.length === 1 && f.headers[0] === header.nombre)
+  const indiceFiltro = filtros.findIndex(f => f.headers.length === 1 && f.headers[0] === header.nombre)
+  const filtro = indiceFiltro >= 0 && filtros[indiceFiltro]
   const container = i >= 0 && document.getElementsByClassName(containerClass)[i]
   const { left, top, width } = useMemo(() => (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }, [container, i])
 
@@ -87,7 +88,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
               <div className="ModalFiltros__contenedor_checkbox_nivel">
                 <button
                   className="ModalFiltros__checkbox_nivel"
-
+                  onClick={() => dispatch(remueveFiltro(indiceFiltro))}
                 >
                   <InlineIcon icon={filtro ? iconoCheckboxInactivo : iconoCheckboxActivo} className="ModalFiltros__icono_checkbox_nivel" /> Mostrar todo
                 </button>
@@ -103,16 +104,19 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                       busqueda: categoria.esTag ? diccionarioTags[nivel].texto : nivel,
                       nombreHeader: header.nombre,
                       textoHeader: header.texto,
-                      idEncuesta: idEncuestaSeleccionada
+                      idEncuesta: idEncuestaSeleccionada,
+                      opciones: {
+                        mismaColumna: true
+                      }
                     }))}
                   >
                     {categoria.esTag
                       ? <>
-                          <InlineIcon icon={filtro?.busqueda.includes(diccionarioTags[nivel].texto) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" />
+                          <InlineIcon icon={filtro?.busqueda?.includes(diccionarioTags[nivel].texto) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" />
                           <TagRespuesta tag={nivel} pregunta={diccionarioTags[nivel].texto} incluirSinRespuesta={true} />
                         </>
                       : <>
-                          <InlineIcon icon={filtro?.busqueda.includes(nivel) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</>
+                          <InlineIcon icon={filtro?.busqueda?.includes(nivel) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</>
                         </>
                     }
                   </button>
