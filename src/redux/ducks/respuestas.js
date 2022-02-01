@@ -179,8 +179,8 @@ const sliceRespuestas = createSlice({
       if (indiceFiltro >= 0) {
         const filtroExistente = state.filtros[indiceFiltro]
         if (mismaColumna) {
-          const indiceTerminoExistente = filtroExistente.busqueda.find(t => t === busqueda)
-          if (!indiceTerminoExistente) {
+          const indiceTerminoExistente = filtroExistente.busqueda.findIndex(t => t === busqueda)
+          if (indiceTerminoExistente < 0) {
             const nombresHeaders = [...filtroExistente.nombresHeaders, textoHeader]
             const terminosNormalizados = [...filtroExistente.terminosNormalizados, terminoNormalizado]
             const headers = [...filtroExistente.headers, nombreHeader]
@@ -198,17 +198,12 @@ const sliceRespuestas = createSlice({
               state.filtros.splice(indiceFiltro, 1)
             }
             else {
-              const nombresHeaders = state.filtros[indiceFiltro].nombresHeaders.splice(indiceTerminoExistente, 1)
-              const terminosNormalizados = [...filtroExistente.terminosNormalizados, terminoNormalizado].splice(indiceTerminoExistente, 1)
-              const headers = [...filtroExistente.headers, nombreHeader].splice(indiceTerminoExistente, 1)
-              state.filtros[indiceFiltro] = {
-                headers,
-                busqueda: state.filtros[indiceFiltro].busqueda.splice(indiceTerminoExistente, 1),
-                terminosNormalizados,
-                nombresHeaders,
-                descripcion: nombresHeaders.map((h, i) => `"${busqueda[i]}" en ${h}`).join(' o '),
-                f: r => headers.some((h, i) => funcionFiltro(r, h, terminosNormalizados[i], idEncuesta))
-              }
+              state.filtros[indiceFiltro].nombresHeaders.splice(indiceTerminoExistente, 1)
+              state.filtros[indiceFiltro].terminosNormalizados.splice(indiceTerminoExistente, 1)
+              state.filtros[indiceFiltro].headers.splice(indiceTerminoExistente, 1)
+              state.filtros[indiceFiltro].busqueda.splice(indiceTerminoExistente, 1)
+              state.filtros[indiceFiltro].descripcion = state.filtros[indiceFiltro].nombresHeaders.map((h, i) => `"${busqueda[i]}" en ${h}`).join(' o ')
+              state.filtros[indiceFiltro].f = r => state.filtros[indiceFiltro].headers.some((h, i) => funcionFiltro(r, h, state.filtros[indiceFiltro].terminosNormalizados[i], idEncuesta))
             }
           }
         }

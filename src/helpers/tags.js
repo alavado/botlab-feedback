@@ -102,7 +102,7 @@ const tags = {
     color: ''
   },
   '': {
-    texto: 'Sin respuesta',
+    texto: 'Vacío',
     titulo: '',
     icono: time,
     clase: 'TagRespuesta TagRespuesta--vacia',
