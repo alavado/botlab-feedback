@@ -145,21 +145,21 @@ const tags = {
   },
   PC_PRECIO: {
     texto: 'PC_PRECIO',
-    titulo: 'PC_PRECIO',
+    titulo: 'Consulta por precio',
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   PC_SEGURO: {
     texto: 'PC_SEGURO',
-    titulo: 'PC_SEGURO',
+    titulo: 'Consulta por seguro',
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   PC_DIRECCION: {
     texto: 'PC_DIRECCION',
-    titulo: 'PC_DIRECCION',
+    titulo: 'Consulta por dirección',
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
