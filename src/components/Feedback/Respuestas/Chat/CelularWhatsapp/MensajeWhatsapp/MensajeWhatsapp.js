@@ -15,8 +15,9 @@ import { obtenerContenidoMultimedia } from '../../../../../../api/endpoints'
 import iconoImagen from '@iconify/icons-mdi/image'
 import iconoVideo from '@iconify/icons-mdi/video'
 import iconoArchivo from '@iconify/icons-mdi/download-circle-outline'
-import iconoContacto from '@iconify/icons-mdi/contact'
+import iconoContacto from '@iconify/icons-mdi/person-circle'
 import iconoPlay from '@iconify/icons-mdi/play'
+import axios from 'axios'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 const tokenAdjunto = 'ATTACHMENT:'
@@ -250,7 +251,7 @@ const MensajeVideo = ({ mensaje, hora, esDeHumano }) => {
   )
 }
 
-const MensajeArchivo = ({ mensaje, hora, esDeHumano }) => {
+const MensajeArchivo = ({ mensaje }) => {
   
   const [huboError, setHuboError] = useState(false)
 
@@ -285,8 +286,57 @@ const MensajeArchivo = ({ mensaje, hora, esDeHumano }) => {
   )
 }
 
-const MensajeContacto = ({ mensaje, hora, esDeHumano }) => {
-  return <p><InlineIcon icon={iconoContacto} /> Contacto</p>
+const MensajeContacto = ({ mensaje }) => {
+  
+  const [huboError, setHuboError] = useState(false)
+  const [telefonoContacto, setTelefonoContacto] = useState()
+  const [nombreContacto, setNombreContacto] = useState()
+
+  const descargarArchivo = async () => {
+    try {
+      const data = await obtenerContenidoMultimedia(mensaje.answer_id)
+      const contenidoVCARD = await axios.get(data.data.data.url)
+      const partes = contenidoVCARD.data.split('\r\n').reduce((obj, linea) => {
+        const [prop, valor] = linea.split(':')
+        return { ...obj, [prop]: valor }
+      }, {})
+      Object.keys(partes).forEach(prop => {
+        if (prop.startsWith('TEL')) {
+          setTelefonoContacto(partes[prop])
+        }
+        else if (prop === 'FN') {
+          setNombreContacto(partes[prop])
+        }
+      })
+    }
+    catch (err) {
+      setHuboError(true)
+    }
+  }
+
+  if (huboError) {
+    return <p className="MensajeWhatsapp__error_multimedia">Archivo no disponible</p>
+  }
+
+  if (nombreContacto) {
+    return (
+      <div className="MensajeWhatsapp__contenedor_contacto">
+        <InlineIcon className="MensajeWhatsapp__icono_contacto" icon={iconoContacto} /> 
+        <p>{nombreContacto}</p>
+        {telefonoContacto && <a href={`https://wa.me/${telefonoContacto.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer noopener">{telefonoContacto}</a>}
+      </div>
+    )
+  }
+
+  return (
+    <button
+      className="MensajeWhatsapp__boton_contacto"
+      onClick={descargarArchivo}
+    >
+      <InlineIcon className="MensajeWhatsapp__icono_contacto" icon={iconoContacto} /> 
+      Haga click para ver contacto
+    </button>
+  )
 }
 
 const MensajeConAdjunto = ({ mensaje }) => {
