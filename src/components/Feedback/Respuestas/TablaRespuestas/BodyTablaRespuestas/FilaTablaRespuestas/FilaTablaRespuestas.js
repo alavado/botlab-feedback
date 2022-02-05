@@ -23,6 +23,15 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
     dispatch(fijaFilaTablaDestacada(indice))
     onClick()
   }
+
+  let respuestaManipulada = { ...respuesta }
+  if (respuesta.n_appointments) {
+    Object.keys(respuesta).forEach(h => {
+      if (h.match(/_[0-9]$/) && Number(h.slice(-1)) > respuesta.n_appointments) {
+        respuestaManipulada[h] = ''
+      }
+    })
+  }
   
   return (
     <tr
@@ -45,7 +54,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
         )}
       </td>
       {headers.map(({ nombre, f, texto }, j) => {
-        let valorHeader = f ? f(respuesta) : respuesta[nombre]
+        let valorHeader = f ? f(respuestaManipulada) : respuestaManipulada[nombre]
         return (
           <td
             key={`celda-respuesta-${indice}-${j}`}
