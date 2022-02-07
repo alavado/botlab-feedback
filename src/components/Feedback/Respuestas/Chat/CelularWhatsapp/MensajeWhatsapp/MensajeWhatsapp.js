@@ -204,7 +204,7 @@ const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
 
   return (
     urlAudio
-     ? <audio className="MensajeWhatsapp__audio" src={urlAudio} alt="imagen gato" autoPlay controls />
+     ? <audio className="MensajeWhatsapp__audio" src={urlAudio} alt="imagen gato" controls />
      : <button
         onClick={() => verImagen()}
         className="MensajeWhatsapp__placeholder_audio"
