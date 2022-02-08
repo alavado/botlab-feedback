@@ -1,7 +1,7 @@
-import { YES, NO, REAGENDA, REAGENDADO } from './tags'
+import { YES, NO, REAGENDA } from './tags'
 
 const actionSuccess = 'action_result:SUCCESS'
-const actionFailure = 'action_result:FAILURE'
+// const actionFailure = 'action_result:FAILURE'
 
 export const juntarConfirmaYReagenda = (indiceConfirma, indiceReagenda) => {
   return [
@@ -213,6 +213,7 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_ORREGO_LUCO):
       case Number(process.env.REACT_APP_ID_POLL_CSI):
       case Number(process.env.REACT_APP_ID_POLL_DENTAL_REAGAN):
+      case Number(process.env.REACT_APP_ID_POLL_YOHANAN_THERAPEUTES):
         return juntarConfirmaYReagenda(0, 104)
       
       case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
