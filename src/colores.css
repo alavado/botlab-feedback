@@ -18,7 +18,7 @@
 
   --color-fondo: white;
   --color-texto-claro: white;
-  --color-barra-superior: #fafaff;
+  --color-barra-superior: hsl(240, 100%, 98%);
   --color-alternativo-fila-tabla: white;
   --color-mini-dasdhboard-1: #8b83ff;
   --color-mini-dasdhboard-2: #8b83ff;

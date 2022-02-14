@@ -1,7 +1,7 @@
 .MenuUsuario__boton_mostrar_popup {
   border: none;
   background: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   color: var(--color-texto);
   transition: all .25s ease;
@@ -22,7 +22,7 @@
 }
 
 .MenuUsuario__nombre_usuario {
-  font-size: .8rem;
+  font-size: .6rem;
   font-weight: 500;
   margin-right: .5rem;
 }

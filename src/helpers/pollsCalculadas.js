@@ -7,6 +7,7 @@ const crearPollPorFiltro = (encuesta, respuestas, header) => {
       return {
         id: `filtro|${header}|${s}|${encuesta.id}|${nombreEncuesta}`,
         nombre: nombreEncuesta,
+        propiedad: s,
         enabled: encuesta.enabled,
         icono: iconoSucursal
       }})

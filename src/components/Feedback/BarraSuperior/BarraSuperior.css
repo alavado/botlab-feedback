@@ -1,6 +1,6 @@
 .BarraSuperior {
   background-color: var(--color-barra-superior);
-  min-height: 3rem;
+  min-height: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

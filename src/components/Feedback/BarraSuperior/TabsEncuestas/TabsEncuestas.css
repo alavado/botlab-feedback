@@ -1,0 +1,21 @@
+.TabsEncuestas {
+  display: flex;
+  align-items: flex-end;
+  margin-top: auto;
+}
+
+.TabsEncuestas__tab {
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  border: none;
+  height: 1.5rem;
+  padding: 0 .5rem;
+  border: 1px solid var(--color-bordes);
+  border-bottom: none;
+  margin-bottom: -1px;
+  border-radius: .35rem .35rem 0 0;
+  font-size: .6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

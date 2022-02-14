@@ -10,6 +10,7 @@ import iconoGuion from '@iconify/icons-mdi/script-text'
 import { useDispatch, useSelector } from 'react-redux'
 import { activaEnviador } from '../../../redux/ducks/enviador'
 import iconoContacto from '@iconify/icons-mdi/send'
+import TabsEncuestas from './TabsEncuestas'
 
 const BarraSuperior = () => {
 
@@ -29,6 +30,7 @@ const BarraSuperior = () => {
         <Route path="/preparaciones" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
       </Switch>
+      {/* <TabsEncuestas /> */}
       {respuestas && idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_OREMA_OUTBOUND) && (
         <Switch>
           <Route exact path="/" component={() => (

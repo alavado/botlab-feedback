@@ -34,7 +34,7 @@
 
 .TablaRespuestas__titulo {
   font-weight: bold;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-family: 'Raleway';
   color: var(--color-texto);
 }
@@ -44,7 +44,7 @@
   flex-direction: column;
   animation: aparece-tabla-respuestas .25s ease both;
   flex: 1;
-  --h: calc(100vh - calc(2.75rem + 3rem + 3.5rem + 9.5rem));
+  --h: calc(100vh - calc(2.75rem + 1.25rem + 3.5rem + 9.5rem));
   min-height: var(--h);
   max-height: var(--h);
   overflow: auto;
@@ -99,13 +99,13 @@
 }
 
 .TablaRespuestas__contenedor_tabla::-webkit-scrollbar {
-  width: .6em;
-  height: .6em;
+  width: .5rem;
+  height: .5rem;
   background-color: var(--color-fondo);
 }
 
 .TablaRespuestas__contenedor_tabla::-webkit-scrollbar-thumb {
-  border-radius: .25em;
+  border-radius: .25rem;
   background-color: var(--color-principal);
 }
 
@@ -129,7 +129,7 @@
 
 @media (orientation: portrait) {
   .TablaRespuestas__titulo {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
   }
 
   .TablaRespuestas__herramientas {
