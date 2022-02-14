@@ -48,7 +48,7 @@
 }
 
 .ResumenRespuestas__detalle_tabla {
-  font-size: .93rem;
+  font-size: .75rem;
   animation: ResumenRespuestas__anim_tabla .15s .15s ease both;
 }
 

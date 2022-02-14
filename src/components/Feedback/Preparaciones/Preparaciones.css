@@ -24,7 +24,7 @@
   outline: none;
   width: 30ch;
   transition: all .2s ease-in-out;
-  font-size: .7rem;
+  font-size: .75rem;
 }
 
 .Preparaciones__input_busqueda:focus {
@@ -43,7 +43,7 @@
   color: var(--color-texto-claro);
   padding: .35rem .75rem;
   border-radius: .5rem;
-  font-size: .7rem;
+  font-size: .75rem;
   transition: all .2s ease;
   display: flex;
   align-items: center;

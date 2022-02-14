@@ -59,7 +59,7 @@
   top: 8.5rem;
   left: 0;
   width: 100%;
-  height: calc(100vh - calc(2.75rem + 3rem + 3.5rem + 9.5rem));
+  height: calc(100vh - calc(2.75rem + .5rem + 3.5rem + 9.5rem));
   z-index: 5;
   pointer-events: none;
   display: flex;

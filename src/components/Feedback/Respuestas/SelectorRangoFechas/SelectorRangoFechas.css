@@ -1,7 +1,7 @@
 .SelectorRangoFechas {
   display: flex;
   align-items: center;
-  font-size: .8rem;
+  font-size: .75rem;
   position: relative;
   color: var(--color-texto);
   gap: .35rem;
