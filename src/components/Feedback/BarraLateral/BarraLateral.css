@@ -99,4 +99,10 @@
     margin: 0;
     box-shadow: none;
   }
+
+  .BarraLateral__contenedor_links_secciones {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+  }
 }

@@ -12,6 +12,8 @@ import iconoLuna from '@iconify/icons-mdi/weather-night'
 import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
 import iconoIncognito from '@iconify/icons-mdi/incognito'
 import iconoTablero from '@iconify/icons-mdi/developer-board'
+import iconoUsuario from '@iconify/icons-mdi/account-circle'
+import iconoScrambled from '@iconify/icons-mdi/incognito'
 import { InlineIcon } from '@iconify/react'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
@@ -34,7 +36,10 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
         })}
       >
         <div className="PopupMenuUsuario__superior">
-          <Scrambler tipo="usuario">{nombreUsuario}</Scrambler>
+          <InlineIcon icon={scrambled ? iconoScrambled : iconoUsuario} />
+          <span className="PopupMenuUsuario__nombre_usuario">
+            <Scrambler tipo="usuario">{nombreUsuario}</Scrambler>
+          </span>
         </div>
         <div className="PopupMenuUsuario__opciones">
           {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&

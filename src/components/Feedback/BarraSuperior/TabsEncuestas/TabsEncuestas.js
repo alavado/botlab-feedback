@@ -105,9 +105,6 @@ const TabsEncuestas = () => {
     return <Loader color="#6057f6" />
   }
 
-  console.log(tipos)
-  console.log(cuenta)
-
   return (
     <div
       className={classNames({

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PopupMenuUsuario from './PopupMenuUsuario'
 import { InlineIcon } from '@iconify/react'
-import iconoUsuario from '@iconify/icons-mdi/user'
+import iconoUsuario from '@iconify/icons-mdi/account-circle'
 import iconoScrambled from '@iconify/icons-mdi/incognito'
 import './MenuUsuario.css'
 import { useSelector } from 'react-redux'
@@ -23,10 +23,10 @@ const MenuUsuario = () => {
         className="MenuUsuario__boton_mostrar_popup"
         onClick={() => setMostrarMenu(true)}
       >
+        <InlineIcon icon={scrambled ? iconoScrambled : iconoUsuario} />
         {nombreUsuario && <span className="MenuUsuario__nombre_usuario">
           <Scrambler tipo="usuario" propagar={true}>{nombreUsuario}</Scrambler>
         </span>}
-        <InlineIcon icon={scrambled ? iconoScrambled : iconoUsuario} />
       </button>
       <PopupMenuUsuario
         visible={mostrarMenu}

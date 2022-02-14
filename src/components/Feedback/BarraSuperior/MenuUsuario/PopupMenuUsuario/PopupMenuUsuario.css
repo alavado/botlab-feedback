@@ -1,7 +1,7 @@
 .PopupMenuUsuario {
   position: absolute;
-  top: 2.5rem;
-  right: .75rem;
+  top: 2rem;
+  right: 1.5rem;
   z-index: 1000;
   opacity: 0;
   background-color: var(--color-fondo);
@@ -30,10 +30,17 @@
 }
 
 .PopupMenuUsuario__superior {
-  padding: 1rem 3rem 1rem .75rem;
+  padding: .6rem 0 .6rem .75rem;
   border-bottom: 1px solid var(--color-bordes);
   font-weight: 600;
-  font-size: .9rem;
+  font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.PopupMenuUsuario__nombre_usuario {
+  font-size: .75rem;
 }
 
 .PopupMenuUsuario__opciones {
