@@ -5,17 +5,37 @@
 }
 
 .TabsEncuestas__tab {
-  background: var(--color-fondo);
+  background: var(--color-barra-superior);
   color: var(--color-texto);
   border: none;
-  height: 1.5rem;
-  padding: 0 .5rem;
+  padding: 0 .75rem;
   border: 1px solid var(--color-bordes);
   border-bottom: none;
-  margin-bottom: -1px;
   border-radius: .35rem .35rem 0 0;
-  font-size: .6rem;
+  font-size: .62rem;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
+  gap: .2rem;
+  height: calc(1.5rem - 1px);
   align-items: center;
+  transition: all .15s ease;
+  opacity: .85;
+}
+
+.TabsEncuestas__tab--activo {
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  margin-bottom: -1px;
+  height: 1.5rem;
+  opacity: 1;
+}
+
+.TabsEncuestas__tab:hover {
+  filter: none;
+}
+
+.TabsEncuestas__tab_icono_empresa {
+  font-size: .75rem;
+  color: var(--color-whatsapp);
 }

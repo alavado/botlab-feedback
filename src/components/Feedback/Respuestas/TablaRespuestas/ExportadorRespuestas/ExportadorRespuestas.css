@@ -40,7 +40,7 @@
   content: attr(tooltip);
   background-color: var(--color-principal-2);
   color: var(--color-texto-claro);
-  top: -100%;
+  top: calc(100% + .35rem);
   white-space: nowrap;
   border-radius: .25rem;
   padding: 0 .5rem;
@@ -58,8 +58,8 @@
   width: 1rem;
   height: 1rem;
   border: .5rem solid transparent;
-  border-top: .5rem solid var(--color-principal-2);
-  top: -.5rem;
+  border-bottom: .5rem solid var(--color-principal-2);
+  top: calc(100% - .5rem);
   animation: aparece-tooltip-opcion .15s ease both;
 }
 

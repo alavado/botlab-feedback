@@ -17,7 +17,7 @@ const TabsEncuestas = () => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { idEncuestaGuardada } = useSelector(state => state.opciones)
-  const { cuenta } = useSelector(state => state.login)
+  const { cuenta, nombreUsuario } = useSelector(state => state.login)
   const [cargandoEncuesta, setCargandoEncuesta] = useState(false)
   const { indiceRespuestaSeleccionada, respuestas} = useSelector(state => state.respuestas)
   const { idEncuesta: idEncuestaRuta } = useParams()
@@ -30,6 +30,9 @@ const TabsEncuestas = () => {
       return tipos
     }
     const encuestasCalculadas = obtenerPollsCalculadas(encuestaSeleccionada, respuestas)
+    if (encuestasCalculadas.length === 0) {
+      return tipos
+    }
     let tiposEncuestas = [
       encuestaSeleccionada,
       ...encuestasCalculadas,
@@ -102,11 +105,8 @@ const TabsEncuestas = () => {
     return <Loader color="#6057f6" />
   }
 
-  if (cargandoEncuesta) {
-    return <Loader color="#6057f6" />
-  }
-
   console.log(tipos)
+  console.log(cuenta)
 
   return (
     <div
@@ -137,7 +137,11 @@ const TabsEncuestas = () => {
                   "TabsEncuestas__tab--activo": idEncuestaSeleccionada === tipo.id
                 })}
               >
-                {tipo.propiedad || tipo.nombre}
+                <Icon
+                  className="TabsEncuestas__tab_icono_empresa"
+                  icon={whatsapp}
+                />
+                {tipo.nombre.replace(nombreUsuario, '')}
               </button>
             ))}
           </>
