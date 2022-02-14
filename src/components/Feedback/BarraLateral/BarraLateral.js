@@ -23,57 +23,59 @@ const BarraLateral = () => {
           {window.location.href.includes('dev') && <p>DEV</p>}
         </div>
       </Link>
-      <NavLink
-        className="BarraLateral__link"
-        activeClassName="BarraLateral__link--activo"
-        to="/"
-        exact
-      >
-        <div className="BarraLateral__popup_link">Respuestas</div>
-        <Icon icon={home} />
-      </NavLink>
-      {process.env.NODE_ENV === 'development' &&
+      <div className="BarraLateral__contenedor_links_secciones">
         <NavLink
           className="BarraLateral__link"
           activeClassName="BarraLateral__link--activo"
-          to="/alertas"
+          to="/"
+          exact
         >
-          <div className="BarraLateral__popup_link">Alertas</div>
-          <Icon icon={alertas} />
+          <Icon icon={home} />
+          <div className="BarraLateral__nombre_seccion">Respuestas</div>
         </NavLink>
-      }
-      {/* <NavLink
-        className="BarraLateral__link"
-        activeClassName="BarraLateral__link--activo"
-        to="/preparaciones"
-      >
-        <div className="BarraLateral__popup_link">Preparaciones</div>
+        {process.env.NODE_ENV === 'development' &&
+          <NavLink
+            className="BarraLateral__link"
+            activeClassName="BarraLateral__link--activo"
+            to="/alertas"
+          >
+            <Icon icon={alertas} />
+            <div className="BarraLateral__nombre_seccion">Alertas</div>
+          </NavLink>
+        }
+        {/* <NavLink
+          className="BarraLateral__link"
+          activeClassName="BarraLateral__link--activo"
+          to="/preparaciones"
+        >
         <Icon icon={preparaciones} />
-      </NavLink> */}
-      <NavLink
-        className="BarraLateral__link"
-        activeClassName="BarraLateral__link--activo"
-        to="/exportar"
-      >
-        <div className="BarraLateral__popup_link">Reporte</div>
-        <Icon icon={exportar} />
-      </NavLink>
-      <NavLink
-        className="BarraLateral__link"
-        activeClassName="BarraLateral__link--activo"
-        to="/busqueda"
-      >
-        <div className="BarraLateral__popup_link">Búsqueda</div>
-        <Icon icon={search} />
-      </NavLink>
-      <NavLink
-        className="BarraLateral__link"
-        activeClassName="BarraLateral__link--activo"
-        to="/uso"
-      >
-        <div className="BarraLateral__popup_link">Uso</div>
-        <Icon icon={usage} />
-      </NavLink>
+        <div className="BarraLateral__nombre_seccion">Preparaciones</div>
+        </NavLink> */}
+        <NavLink
+          className="BarraLateral__link"
+          activeClassName="BarraLateral__link--activo"
+          to="/exportar"
+        >
+          <Icon icon={exportar} />
+          <div className="BarraLateral__nombre_seccion">Reporte</div>
+        </NavLink>
+        <NavLink
+          className="BarraLateral__link"
+          activeClassName="BarraLateral__link--activo"
+          to="/busqueda"
+        >
+          <Icon icon={search} />
+          <div className="BarraLateral__nombre_seccion">Búsqueda</div>
+        </NavLink>
+        <NavLink
+          className="BarraLateral__link"
+          activeClassName="BarraLateral__link--activo"
+          to="/uso"
+        >
+          <Icon icon={usage} />
+          <div className="BarraLateral__nombre_seccion">Uso</div>
+        </NavLink>
+      </div>
     </div>
   )
 }
