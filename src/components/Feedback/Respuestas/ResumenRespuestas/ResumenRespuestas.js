@@ -54,7 +54,7 @@ const ResumenRespuestas = ({ cargando }) => {
           ? <LoaderRespuestas />
           : <>
               <div className="ResumenRespuestas__detalle_tasa">
-                <div>Respondidas {cargando ? <Skeleton width={70} /> : conRespuesta.toLocaleString('de-DE')} / {cargando ? <Skeleton width={70} /> : total.toLocaleString('de-DE')}</div>
+                <div>Respondidas {cargando ? <Skeleton width={70} /> : conRespuesta.toLocaleString('de-DE')} de {cargando ? <Skeleton width={70} /> : total.toLocaleString('de-DE')}</div>
                 <div className="ResumenRespuestas__porcentaje">
                   {porcentaje.toLocaleString('de-DE', { maximumFractionDigits: 1 })}%
                 </div>

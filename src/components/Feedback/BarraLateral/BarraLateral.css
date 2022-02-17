@@ -11,7 +11,7 @@
 .BarraLateral__contenedor_links_secciones {
   display: flex;
   flex-direction: column;
-  padding-top: .5rem;
+  padding-top: .15rem;
 }
 
 .BarraLateral__logo {
@@ -47,7 +47,7 @@
 
 .BarraLateral__link {
   color: rgba(255, 255, 255, .5);
-  height: 3.25rem;
+  height: 3.35rem;
   font-size: 1.3rem;
   display: flex;
   align-items: center;
@@ -87,7 +87,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    background: linear-gradient(45deg, var(--color-principal), var(--color-secundario)) 100% / 200% 200%;
+    background: var(--color-principal);
   }
   
   .BarraLateral__logo,

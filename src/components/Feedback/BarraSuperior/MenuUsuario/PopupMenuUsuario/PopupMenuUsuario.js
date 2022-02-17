@@ -35,12 +35,12 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           'PopupMenuUsuario--visible': visible
         })}
       >
-        <div className="PopupMenuUsuario__superior">
+        {/* <div className="PopupMenuUsuario__superior">
           <InlineIcon icon={scrambled ? iconoScrambled : iconoUsuario} />
           <span className="PopupMenuUsuario__nombre_usuario">
             <Scrambler tipo="usuario">{nombreUsuario}</Scrambler>
           </span>
-        </div>
+        </div> */}
         <div className="PopupMenuUsuario__opciones">
           {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
             <button

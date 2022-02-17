@@ -23,14 +23,14 @@ const BarraSuperior = () => {
     <div className="BarraSuperior">
       <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} />
       <AlertaPilotos />
-      {/* <Switch>
+      <Switch>
         <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
         <Route path="/busqueda" component={SelectorEncuesta} />
         <Route path="/uso" component={SelectorEncuesta} />
         <Route path="/preparaciones" component={SelectorEncuesta} />
         <Route path="/" component={SelectorEncuesta} />
-      </Switch> */}
-      <TabsEncuestas />
+      </Switch>
+      {/* <TabsEncuestas /> */}
       {respuestas && idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_OREMA_OUTBOUND) && (
         <Switch>
           <Route exact path="/" component={() => (
