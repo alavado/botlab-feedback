@@ -44,10 +44,6 @@ const usuariosPiloto = [
     exp: '2022-02-26 00:00:00'
   },
   {
-    nombre: 'Avaria',
-    exp: '2022-02-23 00:00:00'
-  },
-  {
     nombre: 'CSI',
     exp: '2022-03-01 00:00:00'
   },
