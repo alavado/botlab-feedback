@@ -16,21 +16,23 @@ const BarraSuperior = () => {
 
   const [verModal, setVerModal] = useState(false)
   const { respuestas } = useSelector(state => state.respuestas)
-  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { idEncuestaSeleccionada, tipos } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
 
   return (
     <div className="BarraSuperior">
       <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} />
       <AlertaPilotos />
-      <Switch>
-        <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
-        <Route path="/busqueda" component={SelectorEncuesta} />
-        <Route path="/uso" component={SelectorEncuesta} />
-        <Route path="/preparaciones" component={SelectorEncuesta} />
-        <Route path="/" component={SelectorEncuesta} />
-      </Switch>
-      {/* <TabsEncuestas /> */}
+      {tipos?.length < 3
+        ? <TabsEncuestas />
+        : <Switch>
+            <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
+            <Route path="/busqueda" component={SelectorEncuesta} />
+            <Route path="/uso" component={SelectorEncuesta} />
+            <Route path="/preparaciones" component={SelectorEncuesta} />
+            <Route path="/" component={SelectorEncuesta} />
+          </Switch>
+      }
       {respuestas && idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_OREMA_OUTBOUND) && (
         <Switch>
           <Route exact path="/" component={() => (

@@ -54,6 +54,10 @@ const usuariosPiloto = [
   {
     nombre: 'YohananTherapeutes',
     exp: '2022-02-23 00:00:00'
+  },
+  {
+    nombre: '180Grados',
+    exp: '2022-03-05 00:00:00'
   }
 ]
 
