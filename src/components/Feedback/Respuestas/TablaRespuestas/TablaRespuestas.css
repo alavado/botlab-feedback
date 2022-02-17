@@ -44,7 +44,7 @@
   flex-direction: column;
   animation: aparece-tabla-respuestas .25s ease both;
   flex: 1;
-  --h: calc(100vh - calc(2.75rem + .5rem + 3rem + 9.5rem));
+  --h: calc(100vh - calc(2.75rem + .25rem + 3rem + 9.5rem));
   min-height: var(--h);
   max-height: var(--h);
   overflow: auto;
