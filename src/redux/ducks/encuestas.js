@@ -5,7 +5,8 @@ const encuestasSlice = createSlice({
   initialState: {},
   reducers: {
     guardaTiposEncuestas(state, action) {
-      state.tipos = action.payload.polls.map(({ id, name, enabled, integrations, script }) => ({
+      const tiposOrdenados = action.payload.polls.sort((x, y) => x.name.localeCompare(y.name))
+      state.tipos = tiposOrdenados.map(({ id, name, enabled, integrations, script }) => ({
         id,
         nombre: name,
         enabled,
