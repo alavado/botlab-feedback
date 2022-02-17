@@ -73,13 +73,13 @@ const SelectorEncuesta = () => {
         verEncuesta(idEncuestaGuardada)
       }
       else {
-        const id = tiposEncuestas.slice(-1)[0]?.id
+        const id = tiposEncuestas[0]?.id
         if (id) {
           verEncuesta(id)
         }
       }
     }
-  }, [idEncuestaSeleccionada, idEncuestaGuardada, idEncuestaRuta, dispatch, tipos, verEncuesta])
+  }, [idEncuestaSeleccionada, idEncuestaGuardada, idEncuestaRuta, dispatch, tipos, verEncuesta, cuenta])
 
   if (!idEncuestaSeleccionada) {
     return <Loader color="#6057f6" />

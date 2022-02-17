@@ -86,7 +86,7 @@ const TabsEncuestas = () => {
         verEncuesta(idEncuestaGuardada)
       }
       else {
-        const id = tiposEncuestas.slice(-1)[0]?.id
+        const id = tiposEncuestas[0]?.id
         if (id) {
           verEncuesta(id)
         }

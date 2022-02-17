@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import './BarraSuperior.css'
 import MenuUsuario from './MenuUsuario'
@@ -11,19 +11,39 @@ import { useDispatch, useSelector } from 'react-redux'
 import { activaEnviador } from '../../../redux/ducks/enviador'
 import iconoContacto from '@iconify/icons-mdi/send'
 import TabsEncuestas from './TabsEncuestas'
+import { obtenerPollsCalculadas } from '../../../helpers/pollsCalculadas'
+import { obtenerTiposEncuestasVisibles } from '../../../helpers/encuestasSecretas'
 
 const BarraSuperior = () => {
 
   const [verModal, setVerModal] = useState(false)
   const { respuestas } = useSelector(state => state.respuestas)
+  const { cuenta } = useSelector(state => state.login)
   const { idEncuestaSeleccionada, tipos } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
+  
+  const tiposOrdenados = useMemo(() => {
+    const encuestaSeleccionada = tipos?.find(({ id }) => id === idEncuestaSeleccionada)
+    if (!encuestaSeleccionada) {
+      return tipos
+    }
+    const encuestasCalculadas = obtenerPollsCalculadas(encuestaSeleccionada, respuestas)
+    if (encuestasCalculadas.length === 0) {
+      return tipos
+    }
+    let tiposEncuestas = [
+      encuestaSeleccionada,
+      ...encuestasCalculadas,
+      ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada)
+    ]
+    return obtenerTiposEncuestasVisibles(cuenta, tiposEncuestas)
+  }, [tipos, idEncuestaSeleccionada, respuestas, cuenta])
 
   return (
     <div className="BarraSuperior">
       <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} />
       <AlertaPilotos />
-      {tipos?.length < 3
+      {tiposOrdenados?.length < 3
         ? <TabsEncuestas />
         : <Switch>
             <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
