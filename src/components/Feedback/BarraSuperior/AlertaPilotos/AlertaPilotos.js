@@ -66,6 +66,10 @@ const usuariosPiloto = [
   {
     nombre: 'SmileAcapulco',
     exp: '2022-03-18 00:00:00'
+  },
+  {
+    nombre: 'ADICH',
+    exp: '2022-03-08 00:00:00'
   }
 ]
 
