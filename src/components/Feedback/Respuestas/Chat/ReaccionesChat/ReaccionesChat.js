@@ -1,5 +1,5 @@
 import { InlineIcon } from '@iconify/react'
-import iconoAgregar from '@iconify/icons-mdi/sticky-note-add'
+import iconoAgregar from '@iconify/icons-mdi/lead-pencil'
 import { useEffect, useState } from 'react'
 import { agregarReaccion, obtenerReacciones } from '../../../../../api/endpoints'
 import { useParams } from 'react-router-dom'
@@ -60,14 +60,14 @@ const ReaccionesChat = ({ start }) => {
   return (
     <div className="ReaccionesChat">
       <div className="ReaccionesChat__superior">
-        <h2 className="ReaccionesChat__titulo">Notas</h2>
+        <h2 className="ReaccionesChat__titulo">Comentarios</h2>
         {!formularioActivo && reacciones?.length > 0 && (
           <button
             className="ReaccionesChat__boton"
             onClick={() => setFormularioActivo(true)}
-            title="Agregar nueva nota a este chat"
+            title="Agregar un comentario a este chat"
           >
-            <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoAgregar} /> Agregar nota
+            <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoAgregar} /> Agregar comentario
           </button>
         )}
       </div>
@@ -84,11 +84,11 @@ const ReaccionesChat = ({ start }) => {
                   <button
                     className="ReaccionesChat__boton"
                     onClick={() => setFormularioActivo(true)}
-                    title="Agregar nueva nota a este chat"
+                    title="Agregar comentario a este chat"
                   >
-                    <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoAgregar} /> Agregar nota
+                    <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoAgregar} /> Agregar comentario
                   </button>
-                  <p className="ReaccionesChat__mensaje_sin_notas">No hay notas para este chat</p>
+                  <p className="ReaccionesChat__mensaje_sin_notas">Este chat aún no tiene comentarios</p>
                 </div>
               : reacciones.map((reaccion, i) => (
                   <FilaReaccion

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { InlineIcon } from '@iconify/react'
-import iconoConfirmar from '@iconify/icons-mdi/check'
+import iconoConfirmar from '@iconify/icons-mdi/sawtooth-wave'
 import iconoCancelar from '@iconify/icons-mdi/cancel'
 import './FormularioNuevaReaccion.css'
 import SelectorEmoji from '../SelectorEmoji'
@@ -52,7 +52,7 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
               setConteo(e.target.value.length)
             }}
             ref={inputRef}
-            placeholder="Comentario (opcional)"
+            placeholder="Escribe un comentario..."
             onKeyUp={e => e.stopPropagation()}
             onFocus={() => setSeleccionandoEmoji(false)}
             maxLength={100}
@@ -70,11 +70,12 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
         <button
           onClick={agregar}
           className="FormularioNuevaReaccion__boton"
-          title="Agregar nota"
+          title="Agregar comentario"
         >
-          <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoConfirmar} /> <p>Agregar</p>
+          {/* <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoConfirmar} /> */}
+          <p>Agregar</p>
         </button>
-        <button
+        {/* <button
           type="button"
           className="FormularioNuevaReaccion__boton"
           onClick={e => {
@@ -84,7 +85,7 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
           title="Cancelar"
         >
           <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoCancelar} /> <p>Cancelar</p>
-        </button>
+        </button> */}
       </div>
     </div>
   )

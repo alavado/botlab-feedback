@@ -42,7 +42,7 @@ const BarraAppCelular = ({ mensajes, actualizarMensajes }) => {
         >
           <Icon icon={iconoExpandir} />
         </button>
-        <button
+        {/* <button
           onClick={() => mensajes && actualizarMensajes(false)}
           className={classNames({
             "BarraAppCelular__iconos": true,
@@ -51,7 +51,7 @@ const BarraAppCelular = ({ mensajes, actualizarMensajes }) => {
           title="Actualizar mensajes"
         >
           <Icon icon={iconoActualizar} />
-        </button>
+        </button> */}
       </div>
     </div>
   )

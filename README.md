@@ -1,6 +1,6 @@
-Front-end de botlab
+# Feedback: front-end de CERO (ex botlab)
 
-Construido con create-react-app.
+Construido con `create-react-app`.
 
 Instalación:
 

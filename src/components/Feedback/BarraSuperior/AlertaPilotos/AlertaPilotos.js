@@ -20,10 +20,6 @@ const usuariosPiloto = [
     exp: '2022-02-12 00:00:00'
   },
   {
-    nombre: 'Odontosur',
-    exp: '2022-02-16 00:00:00'
-  },
-  {
     nombre: 'OdontologiaPorEspecialistas',
     exp: '2022-02-19 00:00:00'
   },

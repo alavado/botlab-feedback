@@ -4,6 +4,8 @@ import iconoProblema from '@iconify/icons-mdi/report'
 import iconoCerrar from '@iconify/icons-mdi/close'
 import iconoGracias from '@iconify/icons-mdi/robot-excited'
 import iconoEnviando from '@iconify/icons-mdi/loading'
+import iconoAbrirWhatsappWeb from '@iconify/icons-mdi/whatsapp'
+import iconoAbrirAgenda from '@iconify/icons-mdi/arrow-up-right'
 import { useDispatch, useSelector } from 'react-redux'
 import { agregarMensajeAHilo, reportarASlack } from '../../../../../helpers/slack'
 import logoCero from '../../../../../assets/images/logo-cero.svg'
@@ -16,7 +18,7 @@ const obtenerSonrisa = () => {
   return opciones[Math.floor(Math.random() * opciones.length)]
 }
 
-const AccionesChat = () => {
+const AccionesChat = ({ telefono, link }) => {
   
   const { nombreUsuario, cuenta } = useSelector(state => state.login)
   const [formularioVisible, setFormularioVisible] = useState(false)
@@ -59,6 +61,14 @@ const AccionesChat = () => {
     agregarMensajeAHilo(ts, `Usuario deja contacto: *${contacto}*`)
     setContactoEnviado(true)
     dispatch(guardaContacto(contacto))
+  }
+
+  const abrirWhatsappWeb = () => {
+    window.open(`https://web.whatsapp.com/send?phone=${telefono}`, '_blank').focus();
+  }
+
+  const abrirAgenda = () => {
+    window.open(link.url, '_blank').focus();
   }
 
   if (enviado) {
@@ -147,13 +157,35 @@ const AccionesChat = () => {
               }
             </button>
           </form>
-        : <button
+        : 
+        <>
+          <button
+            className="AccionesChat__boton"
+            onClick={() => abrirWhatsappWeb()}
+            title="Abrir chat en Whatsapp Web"
+          >
+            <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon={iconoAbrirWhatsappWeb} />
+            Chatear con paciente
+          </button>
+          {link &&
+            <button
+              className="AccionesChat__boton"
+              onClick={() => abrirAgenda()}
+              title={`Abrir chat en ${link.tipo}`}
+            >
+              <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon={iconoAbrirAgenda} />
+              Ver cita en {link.tipo}
+            </button>
+          }
+          <button
             className="AccionesChat__boton"
             onClick={() => setFormularioVisible(true)}
+            title="Reportar problema a CERO"
           >
             <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon={iconoProblema} />
             Reportar problema
           </button>
+        </>
       }
     </div>
   )

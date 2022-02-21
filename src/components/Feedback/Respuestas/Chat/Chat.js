@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { chat2 as chatAPI } from '../../../../api/endpoints'
 import CelularWhatsapp from './CelularWhatsapp/CelularWhatsapp'
@@ -83,6 +83,23 @@ const Chat = () => {
     return () => clearTimeout(to)
   }, [indiceRespuestaSeleccionada])
 
+  const link = useMemo(() => {
+    if (!conversaciones || conversaciones.length === 0) {
+      return null
+    }
+    const contexto = conversaciones?.[indiceConversacion]?.context
+    const tipos = ['Dentalink', 'Medilink']
+    for (const tipo of tipos) {
+      const link = contexto?.find(meta => meta.title === tipo)
+      if (link) {
+        return {
+          tipo,
+          url: link.value
+        }
+      }
+    }
+  }, [conversaciones, indiceConversacion])
+
   if (error403) {
     return <Error403 mensaje="No puedes ver este chat." />
   }
@@ -105,7 +122,12 @@ const Chat = () => {
       />
       <div>
         <ReaccionesChat start={conversaciones?.[indiceConversacion]?.start} />
-        {accionesHabilitadas && <AccionesChat />}
+        {accionesHabilitadas && 
+          <AccionesChat
+            telefono={telefono}
+            link={link}
+          />
+        }
       </div>
     </div>
   )
