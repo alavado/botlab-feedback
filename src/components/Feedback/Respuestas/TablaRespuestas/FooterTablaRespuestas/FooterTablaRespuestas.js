@@ -1,5 +1,7 @@
 import React from 'react'
 import Skeleton from '../../../../Skeleton'
+import Icon from '@iconify/react'
+import iconoSiguiente from '@iconify/icons-mdi/play'
 import { useDispatch, useSelector } from 'react-redux'
 import { avanzaPagina, retrocedePagina } from '../../../../../redux/ducks/respuestas'
 import './FooterTablaRespuestas.css'
@@ -29,18 +31,22 @@ const FooterTablaRespuestas = ({ cargando, respuestasPorPagina, totalRespuestas 
               {totalRespuestas > respuestasPorPagina &&
                 <div className="FooterTablaRespuestas__botones_paginas">
                   <button
-                    className="FooterTablaRespuestas__boton_pagina"
+                    className="FooterTablaRespuestas__boton_pagina FooterTablaRespuestas__boton_pagina--anterior"
                     onClick={() => dispatch(retrocedePagina())}
                     disabled={pagina === 1}
+                    title="Página anterior"
                   >
+                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon={iconoSiguiente} />
                     Anterior
                   </button>
                   <button
-                    className="FooterTablaRespuestas__boton_pagina"
+                    className="FooterTablaRespuestas__boton_pagina FooterTablaRespuestas__boton_pagina--siguiente"
                     onClick={() => dispatch(avanzaPagina())}
                     disabled={numeroPaginas === 1 || pagina >= numeroPaginas}
+                    title="Página siguiente"
                   >
                     Siguiente
+                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon={iconoSiguiente} />
                   </button>
                 </div>
               }

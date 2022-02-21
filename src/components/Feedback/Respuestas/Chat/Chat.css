@@ -4,6 +4,7 @@
   gap: 1rem 0;
   animation: aparece-chat .15s ease both;
   transform: translateY(-.75rem);
+  padding-top: .5rem;
 }
 
 @keyframes aparece-chat {

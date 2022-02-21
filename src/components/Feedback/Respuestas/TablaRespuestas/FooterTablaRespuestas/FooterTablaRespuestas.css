@@ -11,23 +11,43 @@
   font-weight: bold;
 }
 
+.FooterTablaRespuestas__botones_paginas {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+}
+
 .FooterTablaRespuestas__boton_pagina {
-  margin-left: .45rem;
-  font-weight: 600;
-  border-radius: .35rem;
-  padding: .35rem .5rem;
-  background-color: var(--color-fondo);
-  color: var(--color-texto);
-  border: 2px solid var(--color-bordes);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .1rem;
+  border-radius: .5rem;
+  color: var(--color-texto-claro);
+  background-color: var(--color-principal);
+  padding: .35rem .5rem .35rem .7rem;
+  border: none;
   cursor: pointer;
-  box-shadow: 0 .05rem .15rem rgba(0, 0, 0, .1);
+  outline: none;
   transition: all .25s ease;
+  position: relative;
   font-size: .75rem;
 }
 
+.FooterTablaRespuestas__boton_pagina--anterior {
+  padding: .35rem .7rem .35rem .5rem;
+}
+
+.FooterTablaRespuestas__boton_pagina_icono {
+  font-size: 1rem;
+}
+
+.FooterTablaRespuestas__boton_pagina--anterior .FooterTablaRespuestas__boton_pagina_icono {
+  transform: scaleX(-1) !important;
+}
+
 .FooterTablaRespuestas__boton_pagina:disabled {
-  filter: saturate(0%);
-  opacity: .5;
+  opacity: .33;
   cursor: not-allowed;
   box-shadow: 0 0 0 1px var(--color-bordes);
 }
