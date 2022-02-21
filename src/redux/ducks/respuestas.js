@@ -284,28 +284,29 @@ const sliceRespuestas = createSlice({
       const { header, idEncuesta } = action.payload
       state.ordenHeader = header
       const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === header)
+      console.log(header)
       if (tagCalculado) {
         if (state.orden === 'ASC') {
           state.orden = 'DESC'
-          state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)
-          state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)
+          state.respuestas.sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)
+          state.respuestasVisibles.sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)
         }
         else {
           state.orden = 'ASC'
-          state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2)) ? -1 : 1)
-          state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2)) ? -1 : 1)
+          state.respuestas.sort((r1, r2) => normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2)) ? -1 : 1)
+          state.respuestasVisibles.sort((r1, r2) => normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2)) ? -1 : 1)
         }
       }
       else {
         if (state.orden === 'ASC') {
           state.orden = 'DESC'
-          state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
-          state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+          state.respuestas.sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+          state.respuestasVisibles.sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
         }
         else {
           state.orden = 'ASC'
-          state.respuestas = state.respuestas.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
-          state.respuestasVisibles = state.respuestasVisibles.slice().sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
+          state.respuestas.sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
+          state.respuestasVisibles.sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
         }
       }
     },

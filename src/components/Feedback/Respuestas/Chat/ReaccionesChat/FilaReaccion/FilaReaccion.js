@@ -40,7 +40,7 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
         className="FilaReaccion__fecha_reaccion"
         title={tooltipFechaAgregada}
       >
-        agregada {fechaAgregada}
+        agregado {fechaAgregada}
       </div>
       <div className="FilaReaccion__acciones">
         <button

@@ -21,6 +21,8 @@ const BarraSuperior = () => {
   const { cuenta } = useSelector(state => state.login)
   const { idEncuestaSeleccionada, tipos } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
+
+  console.log(cuenta)
   
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos?.find(({ id }) => id === idEncuestaSeleccionada)
@@ -43,7 +45,7 @@ const BarraSuperior = () => {
     <div className="BarraSuperior">
       <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} />
       <AlertaPilotos />
-      {tiposOrdenados?.length < 3
+      {tiposOrdenados?.length < 3 && !cuenta.includes('redsalud')
         ? <TabsEncuestas />
         : <Switch>
             <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
