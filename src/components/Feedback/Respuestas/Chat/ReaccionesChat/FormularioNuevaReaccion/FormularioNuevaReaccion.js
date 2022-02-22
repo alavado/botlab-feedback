@@ -1,11 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
-import { InlineIcon } from '@iconify/react'
-import iconoConfirmar from '@iconify/icons-mdi/sawtooth-wave'
-import iconoCancelar from '@iconify/icons-mdi/cancel'
 import './FormularioNuevaReaccion.css'
 import SelectorEmoji from '../SelectorEmoji'
 
-const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
+const sugerencias = [
+  {
+    emoji: '✅',
+    texto: 'ya contactamos a paciente'
+  },
+  {
+    emoji: '⏳',
+    texto: 'paciente no contesta'
+  },
+  {
+    emoji: '📱',
+    texto: 'hora reagendada por teléfono'
+  }
+]
+
+const FormularioNuevaReaccion = ({ agregarNota }) => {
   
   const [emoji, setEmoji] = useState('✅')
   const [comentario, setComentario] = useState('')
@@ -21,29 +33,32 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
   const agregar = agregarNota(emoji, comentario)
 
   return (
-    <div className="FormularioNuevaReaccion">
-      {seleccionandoEmoji && (
-        <SelectorEmoji
-          setEmoji={setEmoji}
-          cerrar={() => {
-            setSeleccionandoEmoji(false)
-            inputRef.current.focus()
-          }}
-          refPadre={botonEmojiRef}
-        />
-      )}
-      <div className="FormularioNuevaReaccion__emoji_reaccion">
-        <button
-          className="FormularioNuevaReaccion__boton_emoji"
-          title="Cambiar emoji"
-          onClick={() => setSeleccionandoEmoji(!seleccionandoEmoji)}
-          ref={botonEmojiRef}
+    <>
+      <div className="FormularioNuevaReaccion">
+        {seleccionandoEmoji && (
+          <SelectorEmoji
+            setEmoji={setEmoji}
+            cerrar={() => {
+              setSeleccionandoEmoji(false)
+              inputRef.current.focus()
+            }}
+            refPadre={botonEmojiRef}
+          />
+        )}
+        <div className="FormularioNuevaReaccion__emoji_reaccion">
+          <button
+            className="FormularioNuevaReaccion__boton_emoji"
+            title="Cambiar emoji"
+            onClick={() => setSeleccionandoEmoji(!seleccionandoEmoji)}
+            ref={botonEmojiRef}
+          >
+            {emoji}
+          </button>
+        </div>
+        <form
+          onSubmit={agregar}
+          className="FormularioNuevaReaccion__formulario"
         >
-          {emoji}
-        </button>
-      </div>
-      <div className="FormularioNuevaReaccion__texto_reaccion">
-        <form onSubmit={agregar} className="FormularioNuevaReaccion__formulario">
           <input
             className="FormularioNuevaReaccion__input_nueva_reaccion"
             value={comentario}
@@ -56,38 +71,46 @@ const FormularioNuevaReaccion = ({ agregarNota, ocultar }) => {
             onKeyUp={e => e.stopPropagation()}
             onFocus={() => setSeleccionandoEmoji(false)}
             maxLength={100}
+            type="text"
+            name="comentarioNuevaReaccion"
+            id="comentarioNuevaReaccion"
+            autoComplete="on"
           />
-          {conteo > 0 && (
+          {conteo > 0 &&
             <p
               className="FormularioNuevaReaccion__conteo"
               style={{ color: conteo > 80 ? 'var(--color-secundario)' : 'inherit' }}
             >
               {conteo} / 100
-            </p>)}
+            </p>
+          }
+          <button
+            onClick={agregar}
+            className="FormularioNuevaReaccion__boton"
+            title="Agregar comentario"
+            type="submit"
+          >
+            {/* <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoConfirmar} /> */}
+            <p>Agregar</p>
+          </button>
         </form>
       </div>
-      <div className="FormularioNuevaReaccion__contenedor_botones">
-        <button
-          onClick={agregar}
-          className="FormularioNuevaReaccion__boton"
-          title="Agregar comentario"
-        >
-          {/* <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoConfirmar} /> */}
-          <p>Agregar</p>
-        </button>
-        {/* <button
-          type="button"
-          className="FormularioNuevaReaccion__boton"
-          onClick={e => {
-            e.preventDefault()
-            ocultar()
-          }}
-          title="Cancelar"
-        >
-          <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoCancelar} /> <p>Cancelar</p>
-        </button> */}
+      <div className="FormularioNuevaReaccion__contenedor_sugerencias">
+        Sugerencias: 
+        {sugerencias.map(({ emoji, texto }) => (
+          <span
+            className="FormularioNuevaReaccion__boton_sugerencia"
+            onClick={() => {
+              setEmoji(emoji)
+              setComentario(texto)
+            }}
+          >
+            <span>{emoji}</span>
+            <span>{texto}</span>
+          </span>
+        ))}
       </div>
-    </div>
+    </>
   )
 }
 

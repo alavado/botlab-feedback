@@ -1,6 +1,5 @@
 .FormularioNuevaReaccion {
   display: flex;
-  height: 2.75rem;
   align-items: center;
   font-size: .8rem;
   border-bottom: 1px solid var(--color-bordes);
@@ -30,10 +29,6 @@
   justify-content: center;
   animation: aparece-boton-emoji .15s ease-in .15s both;
   transition: all .25s ease;
-}
-
-.FormularioNuevaReaccion__texto_reaccion {
-  flex: 1;
 }
 
 .FormularioNuevaReaccion__input_nueva_reaccion {
@@ -66,7 +61,6 @@
   justify-content: center;
   gap: .25rem;
   border-radius: .35rem;
-  height: 1.5rem;
   padding: 0 1rem;
   color: var(--color-texto-claro);
   background-color: var(--color-principal);
@@ -82,13 +76,39 @@
 
 .FormularioNuevaReaccion__formulario {
   position: relative;
+  display: flex;
+  flex: 1;
+  gap: .5rem;
+  padding-right: .5rem;
 }
 
 .FormularioNuevaReaccion__conteo {
   position: absolute;
-  right: .2rem;
-  top: .1rem;
-  font-size: .4rem;
+  right: 5.75rem;
+  top: .2rem;
+  font-size: .35rem;
+}
+
+.FormularioNuevaReaccion__contenedor_sugerencias {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  font-size: .6rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  flex-wrap: wrap;
+}
+
+.FormularioNuevaReaccion__boton_sugerencia {
+  font-size: .6rem;
+  cursor: pointer;
+  display: inline-flex;
+  gap: .25rem;
+  padding: .15rem;
+}
+
+.FormularioNuevaReaccion__boton_sugerencia:hover {
+  background-color: var(--color-bordes);
 }
 
 @keyframes aparece-formulario-reaccion {
