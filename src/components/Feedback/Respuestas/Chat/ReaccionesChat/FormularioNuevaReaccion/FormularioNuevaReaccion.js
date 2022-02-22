@@ -1,21 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import './FormularioNuevaReaccion.css'
 import SelectorEmoji from '../SelectorEmoji'
-
-const sugerencias = [
-  {
-    emoji: '✅',
-    texto: 'ya contactamos a paciente'
-  },
-  {
-    emoji: '⏳',
-    texto: 'paciente no contesta'
-  },
-  {
-    emoji: '📱',
-    texto: 'hora reagendada por teléfono'
-  }
-]
+import { useDispatch, useSelector } from 'react-redux'
+import { guardaReaccion } from '../../../../../../redux/ducks/reacciones'
 
 const FormularioNuevaReaccion = ({ agregarNota }) => {
   
@@ -23,14 +10,20 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
   const [comentario, setComentario] = useState('')
   const [conteo, setConteo] = useState(0)
   const [seleccionandoEmoji, setSeleccionandoEmoji] = useState(false)
+  const { reaccionesGuardadas } = useSelector(state => state.reacciones)
   const inputRef = useRef()
   const botonEmojiRef = useRef()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
 
-  const agregar = agregarNota(emoji, comentario)
+  const agregar = e => {
+    e.preventDefault()
+    agregarNota(emoji, comentario)
+    dispatch(guardaReaccion({ emoji, comentario }))
+  }
 
   return (
     <>
@@ -97,16 +90,16 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
       </div>
       <div className="FormularioNuevaReaccion__contenedor_sugerencias">
         Sugerencias: 
-        {sugerencias.map(({ emoji, texto }) => (
+        {reaccionesGuardadas.slice(0, 3).map(({ emoji, comentario }) => (
           <span
             className="FormularioNuevaReaccion__boton_sugerencia"
             onClick={() => {
               setEmoji(emoji)
-              setComentario(texto)
+              setComentario(comentario)
             }}
           >
             <span>{emoji}</span>
-            <span>{texto}</span>
+            <span>{comentario}</span>
           </span>
         ))}
       </div>

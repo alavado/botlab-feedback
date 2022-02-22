@@ -40,8 +40,7 @@ const ReaccionesChat = ({ start }) => {
     }
   }, [idEncuesta, idUsuario, start])
 
-  const agregarNota = (emoji, comentario) => e => {
-    e.preventDefault()
+  const agregarNota = (emoji, comentario) => {
     setReacciones(undefined)
     agregarReaccion(idEncuesta, idUsuario, start, emoji, comentario)
       .then(() => {

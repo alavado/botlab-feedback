@@ -5,12 +5,12 @@ export const ESQUEMA_OSCURO = 'ESQUEMA_OSCURO'
 
 const opcionesSlice = createSlice({
   name: 'opciones',
-  esquema: ESQUEMA_CLARO,
   initialState: {
     chatExpandido: false,
     contacto: '',
     seleccionarRangoFechas: true,
-    tableroVisible: false
+    tableroVisible: false,
+    esquema: ESQUEMA_CLARO
   },
   reducers: {
     guardaIdEncuesta(state, action) {
