@@ -74,6 +74,9 @@
   .ReaccionesChat__fila_reaccion .ReaccionesChat__boton_agregar *:nth-child(2) {
     display: none;
   }
+  .ReaccionesChat__mensaje_sin_notas {
+    display: none;
+  }
 }
 
 @keyframes aparece-boton-reacciones {

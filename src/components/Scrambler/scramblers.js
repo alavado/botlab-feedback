@@ -27,6 +27,9 @@ const comunasMenosPobladasDeChile = [
 ]
 
 export const scrambleRut = rut => {
+  if (!rut) {
+    return rut
+  }
   let millones = hashearString(rut).toString()
   while (millones.length < 7) {
     millones += hashearString(millones).toString()[0]
