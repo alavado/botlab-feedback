@@ -23,7 +23,7 @@ const MenuUsuario = () => {
         className="MenuUsuario__boton_mostrar_popup"
         onClick={() => setMostrarMenu(true)}
       >
-        <InlineIcon style={{ color: 'var(--color-principal)' }} icon={scrambled ? iconoScrambled : iconoUsuario} />
+        <InlineIcon icon={scrambled ? iconoScrambled : iconoUsuario} />
         {nombreUsuario && <span className="MenuUsuario__nombre_usuario">
           <Scrambler tipo="usuario" propagar={true}>{nombreUsuario}</Scrambler>
         </span>}
