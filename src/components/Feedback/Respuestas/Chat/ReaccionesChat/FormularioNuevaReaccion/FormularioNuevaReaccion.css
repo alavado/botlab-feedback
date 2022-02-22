@@ -102,13 +102,41 @@
 .FormularioNuevaReaccion__boton_sugerencia {
   font-size: .6rem;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
+  align-items: center;
   gap: .25rem;
   padding: .15rem;
 }
 
 .FormularioNuevaReaccion__boton_sugerencia:hover {
-  background-color: var(--color-bordes);
+  background-color: var(--color-fila-destacada);
+}
+
+.FormularioNuevaReaccion__boton_sugerencia:hover .FormularioNuevaReaccion__boton_eliminar_sugerencia {
+  color: var(--color-texto);
+}
+
+.FormularioNuevaReaccion__boton_eliminar_sugerencia {
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  height: .65rem;
+  width: .65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  padding: 0;
+  font-size: .5rem;
+  color: transparent;
+}
+
+.FormularioNuevaReaccion__boton_eliminar_sugerencia:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.FormularioNuevaReaccion__boton_eliminar_sugerencia:hover {
+  background-color: var(--color-fila-destacada);
 }
 
 @keyframes aparece-formulario-reaccion {

@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import './FormularioNuevaReaccion.css'
+import iconoEliminar from '@iconify/icons-mdi/close'
 import SelectorEmoji from '../SelectorEmoji'
 import { useDispatch, useSelector } from 'react-redux'
-import { guardaReaccion } from '../../../../../../redux/ducks/reacciones'
+import { eliminaReaccion, guardaReaccion } from '../../../../../../redux/ducks/reacciones'
+import { InlineIcon } from '@iconify/react'
 
 const FormularioNuevaReaccion = ({ agregarNota }) => {
   
@@ -88,21 +90,34 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
           </button>
         </form>
       </div>
-      <div className="FormularioNuevaReaccion__contenedor_sugerencias">
-        Sugerencias: 
-        {reaccionesGuardadas.slice(0, 3).map(({ emoji, comentario }) => (
-          <span
-            className="FormularioNuevaReaccion__boton_sugerencia"
-            onClick={() => {
-              setEmoji(emoji)
-              setComentario(comentario)
-            }}
-          >
-            <span>{emoji}</span>
-            <span>{comentario}</span>
-          </span>
-        ))}
-      </div>
+      {reaccionesGuardadas.length > 0 &&
+        <div className="FormularioNuevaReaccion__contenedor_sugerencias">
+          Sugerencias: 
+          {reaccionesGuardadas.slice(0, 5).map(({ emoji, comentario }) => (
+            <span
+              className="FormularioNuevaReaccion__boton_sugerencia"
+              onClick={() => {
+                setEmoji(emoji)
+                setComentario(comentario)
+                inputRef.current.focus()
+              }}
+            >
+              <span>{emoji}</span>
+              <span>{comentario}</span>
+              <button
+                onClick={e => {
+                  e.stopPropagation()
+                  dispatch(eliminaReaccion(comentario))
+                }}
+                className="FormularioNuevaReaccion__boton_eliminar_sugerencia"
+                title="Eliminar sugerencia"
+              >
+                <InlineIcon icon={iconoEliminar} />
+              </button>
+            </span>
+          ))}
+        </div>
+      }
     </>
   )
 }

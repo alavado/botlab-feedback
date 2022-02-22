@@ -29,7 +29,6 @@
 }
 
 .FilaReaccion__fecha_reaccion {
-  opacity: 0;
   font-size: .55rem;
   text-align: right;
   transition: all .1s ease;

@@ -11,10 +11,6 @@ const reaccionesSlice = createSlice({
       {
         emoji: '⏳',
         comentario: 'paciente no contesta'
-      },
-      {
-        emoji: '📱',
-        comentario: 'hora reagendada por teléfono'
       }
     ]
   },
@@ -29,11 +25,17 @@ const reaccionesSlice = createSlice({
         state.reaccionesGuardadas[indiceReaccionConMismoComentario].emoji = emoji
       }
     },
+    eliminaReaccion(state, action) {
+      const comentario = action.payload
+      const indiceReaccionConMismoComentario = state.reaccionesGuardadas.findIndex(r => r.comentario === comentario)
+      state.reaccionesGuardadas = state.reaccionesGuardadas.filter((_, i) => i !== indiceReaccionConMismoComentario)
+    },
   }
 })
 
 export const {
-  guardaReaccion
+  guardaReaccion,
+  eliminaReaccion
 } = reaccionesSlice.actions
 
 export default reaccionesSlice.reducer
