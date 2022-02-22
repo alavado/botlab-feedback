@@ -317,6 +317,10 @@
   color: var(--color-gris);
 }
 
+.MensajeWhatsapp__placeholder_icono_reproducir_audio--cargando {
+  animation: anim-cargando-audio 1s ease-out both;
+}
+
 .MensajeWhatsapp__trackbar {
   flex: 1;
   height: .15rem;
@@ -350,4 +354,13 @@
   width: 2rem;
   grid-row: span 2;
   place-self: center;
+}
+
+@keyframes anim-cargando-audio {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
 }

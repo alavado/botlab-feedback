@@ -12,6 +12,7 @@ import Scrambler from '../../../../../Scrambler/Scrambler'
 import { scrambleMulti } from '../../../../../Scrambler/scramblers'
 import { useSelector } from 'react-redux'
 import { obtenerContenidoMultimedia } from '../../../../../../api/endpoints'
+import iconoCargando from '@iconify/icons-mdi/loading'
 import iconoImagen from '@iconify/icons-mdi/image'
 import iconoVideo from '@iconify/icons-mdi/video'
 import iconoArchivo from '@iconify/icons-mdi/download-circle-outline'
@@ -187,14 +188,18 @@ const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
 
   const [urlAudio, setUrlAudio] = useState('')
   const [huboError, setHuboError] = useState(false)
+  const [cargandoAudio, setCargandoAudio] = useState(false)
 
-  const verImagen = async () => {
+  const verAudio = async () => {
+    setCargandoAudio(true)
     try {
       const data = await obtenerContenidoMultimedia(mensaje.answer_id)
       setUrlAudio(data.data.data.url)
+      setCargandoAudio(false)
     }
     catch (err) {
       setHuboError(true)
+      setCargandoAudio(false)
     }
   }
 
@@ -206,10 +211,16 @@ const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
     urlAudio
      ? <audio className="MensajeWhatsapp__audio" src={urlAudio} alt="imagen gato" controls />
      : <button
-        onClick={() => verImagen()}
+        onClick={() => verAudio()}
         className="MensajeWhatsapp__placeholder_audio"
       >
-        <InlineIcon className="MensajeWhatsapp__placeholder_icono_reproducir_audio" icon={iconoPlay} />
+        <InlineIcon
+          className={classNames({
+            "MensajeWhatsapp__placeholder_icono_reproducir_audio": true,
+            "MensajeWhatsapp__placeholder_icono_reproducir_audio--cargando": cargandoAudio
+          })}
+          icon={cargandoAudio ? iconoCargando : iconoPlay}
+        />
         <div className="MensajeWhatsapp__trackbar">
 
         </div>
