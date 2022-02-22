@@ -37,7 +37,6 @@ const formatearCampo = (header, valor) => {
     return valor.replace(/[^0-9]/g, '')
   }
   else if (obtenerTipoInput(header) === 'date') {
-    console.log(valor)
     return format(parseISO(valor), 'yyyy-MM-dd')
   }
   return valor
@@ -65,7 +64,6 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
       const logsRespuesta = data.data.data.logs
       const conteoPacientesAContactar = filas.length
       const conteoPacientesNoContactados = logsRespuesta.filter(r => r.logs.some(l => l.type === 'ERROR')).length
-      console.log(logsRespuesta)
       setFilas(filas.map((f, i) => {
         const logs = logsRespuesta.find(l => l.row_index === i)?.logs
         if (logs) {

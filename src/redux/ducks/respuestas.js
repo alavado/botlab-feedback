@@ -249,7 +249,6 @@ const sliceRespuestas = createSlice({
     },
     remueveFiltro(state, action) {
       const indiceFiltro = action.payload
-      console.log(indiceFiltro);
       const indiceFiltroGlobal = state.filtros.findIndex(f => f.headers === '*')
       if (indiceFiltro === indiceFiltroGlobal) {
         state.busqueda = ''
@@ -284,7 +283,6 @@ const sliceRespuestas = createSlice({
       const { header, idEncuesta } = action.payload
       state.ordenHeader = header
       const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === header)
-      console.log(header)
       if (tagCalculado) {
         if (state.orden === 'ASC') {
           state.orden = 'DESC'

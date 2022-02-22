@@ -90,7 +90,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
           </button>
         </form>
       </div>
-      {reaccionesGuardadas.length > 0 &&
+      {reaccionesGuardadas?.length > 0 &&
         <div className="FormularioNuevaReaccion__contenedor_sugerencias">
           Sugerencias: 
           {reaccionesGuardadas.slice(0, 5).map(({ emoji, comentario }) => (

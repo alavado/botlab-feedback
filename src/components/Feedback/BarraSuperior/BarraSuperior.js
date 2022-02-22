@@ -22,8 +22,6 @@ const BarraSuperior = () => {
   const { idEncuestaSeleccionada, tipos } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
 
-  console.log(cuenta)
-  
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos?.find(({ id }) => id === idEncuestaSeleccionada)
     if (!encuestaSeleccionada) {
