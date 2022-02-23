@@ -116,9 +116,10 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
                 setComentario(comentario)
                 inputRef.current.focus()
               }}
+              title={comentario}
             >
               <span>{emoji}</span>
-              <span>{comentario}</span>
+              <span className="FormularioNuevaReaccion__boton_sugerencia_comentario">{comentario}</span>
               <button
                 onClick={e => {
                   e.stopPropagation()

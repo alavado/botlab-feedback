@@ -120,6 +120,13 @@
   padding: .15rem;
 }
 
+.FormularioNuevaReaccion__boton_sugerencia_comentario {
+  max-width: 25ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .FormularioNuevaReaccion__boton_sugerencia:hover {
   background-color: var(--color-fila-destacada);
 }
