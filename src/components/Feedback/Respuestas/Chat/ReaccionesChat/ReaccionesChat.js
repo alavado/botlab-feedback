@@ -14,7 +14,7 @@ const ReaccionesChat = ({ start }) => {
 
   const { idEncuesta, idUsuario } = useParams()
   const [reacciones, setReacciones] = useState()
-  const [formularioActivo, setFormularioActivo] = useState(false)
+  const [formularioActivo, setFormularioActivo] = useState(true)
   const [refresh, setRefresh] = useState(false)
   const dispatch = useDispatch()
 
@@ -24,14 +24,12 @@ const ReaccionesChat = ({ start }) => {
       obtenerReacciones(idEncuesta, idUsuario, start)
         .then(({ data })=> {
           setReacciones(data.data)
-          setFormularioActivo(false)
         })
     }
-  }, [refresh])
+  }, [refresh, idEncuesta, idUsuario, start])
 
   useEffect(() => {
     setReacciones(undefined)
-    setFormularioActivo(false)
     if (idEncuesta && idUsuario && start) {
       obtenerReacciones(idEncuesta, idUsuario, start)
         .then(({ data })=> {

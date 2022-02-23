@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import './FormularioNuevaReaccion.css'
 import iconoEliminar from '@iconify/icons-mdi/close'
 import SelectorEmoji from '../SelectorEmoji'
@@ -16,10 +16,6 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
   const inputRef = useRef()
   const botonEmojiRef = useRef()
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    inputRef.current?.focus()
-  }, [])
 
   const agregar = e => {
     e.preventDefault()

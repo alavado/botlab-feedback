@@ -177,6 +177,13 @@ const tags = {
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
+  },
+  REVERTIR: {
+    texto: 'REVERTIR',
+    titulo: 'REVERTIR',
+    icono: option,
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)'
   }
 }
 
