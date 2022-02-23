@@ -43,16 +43,14 @@ const ReaccionesChat = ({ start }) => {
     agregarReaccion(idEncuesta, idUsuario, start, emoji, comentario)
       .then(() => {
         dispatch(agregaReaccionARespuesta({ idUsuario, emoji, comentario }))
-        setFormularioActivo(false)
         setRefresh(true)
       })
     .catch(() => {
-      setFormularioActivo(false)
       setRefresh(true)
     })
   }
 
-  reacciones?.sort((r1, r2) => r1.created_at > r2.created_at ? -1 : 1)
+  reacciones?.sort((r1, r2) => r1.created_at > r2.created_at ? 1: -1)
 
   return (
     <div className="ReaccionesChat">
@@ -70,12 +68,6 @@ const ReaccionesChat = ({ start }) => {
       </div>
       {reacciones
         ? <div className="ReaccionesChat__contenedor_lista">
-            {formularioActivo && (
-              <FormularioNuevaReaccion
-                agregarNota={agregarNota}
-                ocultar={() => setFormularioActivo(false)}
-              />
-            )}
             {reacciones.length === 0 && !formularioActivo
               ? <div className="ReaccionesChat__contenedor_mensaje_sin_reacciones">
                   <button
@@ -95,6 +87,12 @@ const ReaccionesChat = ({ start }) => {
                   />
                 ))
             }
+            {formularioActivo && (
+              <FormularioNuevaReaccion
+                agregarNota={agregarNota}
+                ocultar={() => setFormularioActivo(false)}
+              />
+            )}
           </div>
         : <LoaderChat />
       }

@@ -3,12 +3,9 @@
   align-items: center;
   font-size: .8rem;
   background: var(--color-fila-destacada);
-  border: 1px solid var(--color-bordes);
-  transform-origin: 50% 0%;
   animation: aparece-formulario-reaccion .1s ease-out both;
   position: relative;
-  border-radius: 9in;
-  padding: 0 .5rem;
+  padding: 0 .25rem;
 }
 
 .FormularioNuevaReaccion__emoji_reaccion {
@@ -28,8 +25,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: aparece-boton-emoji .15s ease-in .15s both;
   transition: all .25s ease;
+  opacity: .5;
+}
+
+.FormularioNuevaReaccion__boton_emoji--visible {
+  opacity: 1;
 }
 
 .FormularioNuevaReaccion__input_nueva_reaccion {
@@ -68,11 +69,15 @@
   border: none;
   cursor: pointer;
   outline: none;
-  transition: all .25s ease;
   position: relative;
   filter: none;
   font-size: .65rem;
-  animation: aparece-boton-reacciones .2s ease both;
+  opacity: .25;
+  transition: all .25s ease;
+}
+
+.FormularioNuevaReaccion__boton--visible {
+  opacity: 1;
 }
 
 .FormularioNuevaReaccion__formulario {
@@ -93,11 +98,17 @@
 .FormularioNuevaReaccion__contenedor_sugerencias {
   display: flex;
   align-items: center;
-  gap: .25rem;
+  gap: .1rem;
   font-size: .6rem;
   padding-top: .25rem;
   padding-bottom: .25rem;
+  padding-left: 1.5rem;
   flex-wrap: wrap;
+  opacity: 0;
+}
+
+.FormularioNuevaReaccion__contenedor_sugerencias--visible {
+  opacity: 1;
 }
 
 .FormularioNuevaReaccion__boton_sugerencia {
@@ -138,15 +149,4 @@
 
 .FormularioNuevaReaccion__boton_eliminar_sugerencia:hover {
   background-color: var(--color-fila-destacada);
-}
-
-@keyframes aparece-formulario-reaccion {
-  0% {
-    transform: translateX(-.35rem);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
 }

@@ -5,6 +5,7 @@ import SelectorEmoji from '../SelectorEmoji'
 import { useDispatch, useSelector } from 'react-redux'
 import { eliminaReaccion, guardaReaccion } from '../../../../../../redux/ducks/reacciones'
 import { InlineIcon } from '@iconify/react'
+import classNames from 'classnames'
 
 const FormularioNuevaReaccion = ({ agregarNota }) => {
   
@@ -12,6 +13,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
   const [comentario, setComentario] = useState('')
   const [conteo, setConteo] = useState(0)
   const [seleccionandoEmoji, setSeleccionandoEmoji] = useState(false)
+  const [editando, setEditando] = useState(false)
   const { reaccionesGuardadas } = useSelector(state => state.reacciones)
   const inputRef = useRef()
   const botonEmojiRef = useRef()
@@ -38,7 +40,10 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
         )}
         <div className="FormularioNuevaReaccion__emoji_reaccion">
           <button
-            className="FormularioNuevaReaccion__boton_emoji"
+            className={classNames({
+              "FormularioNuevaReaccion__boton_emoji": true,
+              "FormularioNuevaReaccion__boton_emoji--visible": editando,
+            })}
             title="Cambiar emoji"
             onClick={() => setSeleccionandoEmoji(!seleccionandoEmoji)}
             ref={botonEmojiRef}
@@ -60,7 +65,15 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
             ref={inputRef}
             placeholder="Escribe un comentario..."
             onKeyUp={e => e.stopPropagation()}
-            onFocus={() => setSeleccionandoEmoji(false)}
+            onFocus={() => {
+              setSeleccionandoEmoji(false)
+              setEditando(true)
+            }}
+            onBlur={() => {
+              if (!comentario) {
+                setEditando(false)
+              }
+            }}
             maxLength={100}
             type="text"
             name="comentarioNuevaReaccion"
@@ -77,7 +90,10 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
           }
           <button
             onClick={agregar}
-            className="FormularioNuevaReaccion__boton"
+            className={classNames({
+              "FormularioNuevaReaccion__boton": true,
+              "FormularioNuevaReaccion__boton--visible": editando,
+            })}
             title="Agregar comentario"
             type="submit"
           >
@@ -87,7 +103,10 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
         </form>
       </div>
       {reaccionesGuardadas?.length > 0 &&
-        <div className="FormularioNuevaReaccion__contenedor_sugerencias">
+        <div className={classNames({
+          "FormularioNuevaReaccion__contenedor_sugerencias": true,
+          "FormularioNuevaReaccion__contenedor_sugerencias--visible": editando
+        })}>
           Sugerencias: 
           {reaccionesGuardadas.slice(0, 5).map(({ emoji, comentario }) => (
             <span

@@ -87,12 +87,3 @@
     opacity: 1;
   }
 }
-
-@keyframes aparece-boton-emoji {
-  0% {
-    transform: scale(1.35);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
