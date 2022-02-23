@@ -144,29 +144,29 @@ const tags = {
     color: ''
   },
   PC_PRECIO: {
-    texto: 'PC_PRECIO',
-    titulo: 'Consulta por precio',
+    texto: 'Consulta precio',
+    titulo: 'Paciente consulta por precio',
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   PC_SEGURO: {
-    texto: 'PC_SEGURO',
-    titulo: 'Consulta por seguro',
+    texto: 'Consulta seguro',
+    titulo: 'Paciente consulta por seguro de salud',
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   PC_DIRECCION: {
-    texto: 'PC_DIRECCION',
-    titulo: 'Consulta por dirección',
+    texto: 'Consulta dirección',
+    titulo: 'Paciente consulta por dirección',
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   CONFIRMA_DESPUES: {
-    texto: 'CONFIRMA_DESPUES',
-    titulo: 'CONFIRMA_DESPUES',
+    texto: 'Confirma después',
+    titulo: 'Paciente indica que confirmará más tarde',
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
