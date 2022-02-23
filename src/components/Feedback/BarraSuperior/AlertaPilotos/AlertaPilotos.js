@@ -8,14 +8,6 @@ import './AlertaPilotos.css'
 
 const usuariosPiloto = [
   {
-    nombre: 'OdontoClinica',
-    exp: '2022-01-29 00:00:00'
-  },
-  {
-    nombre: 'FNH',
-    exp: '2022-02-12 00:00:00'
-  },
-  {
     nombre: 'Proclinic',
     exp: '2022-02-12 00:00:00'
   },
@@ -24,16 +16,8 @@ const usuariosPiloto = [
     exp: '2022-02-19 00:00:00'
   },
   {
-    nombre: 'DentalTotal',
-    exp: '2022-02-23 00:00:00'
-  },
-  {
     nombre: 'Pehuen',
     exp: '2022-02-19 00:00:00'
-  },
-  {
-    nombre: 'FamilyDentalCare',
-    exp: '2022-02-20 00:00:00'
   },
   {
     nombre: 'SmileKidsCenter',
