@@ -55,7 +55,7 @@ const ReaccionesChat = ({ start }) => {
   return (
     <div className="ReaccionesChat">
       <div className="ReaccionesChat__superior">
-        <h2 className="ReaccionesChat__titulo">Comentarios</h2>
+        <h2 className="ReaccionesChat__titulo">Comentarios 💬</h2>
         {!formularioActivo && reacciones?.length > 0 && (
           <button
             className="ReaccionesChat__boton"

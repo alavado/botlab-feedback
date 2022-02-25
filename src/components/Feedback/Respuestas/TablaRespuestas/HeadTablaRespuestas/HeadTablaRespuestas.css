@@ -27,6 +27,11 @@
   border-radius: .15rem .15rem 0 0;
 }
 
+.HeadTablaRespuestas__header--sin-padding {
+  font-size: .65rem;
+  cursor: default;
+}
+
 .HeadTablaRespuestas__header--sin-padding + * {
   padding-left: .2rem;
 }
