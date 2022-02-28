@@ -44,7 +44,7 @@ const BarraSuperior = () => {
       <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} />
       <AlertaPilotos />
       {tiposOrdenados?.length < 3 && !cuenta.includes('redsalud')
-        ? <TabsEncuestas />
+        ? null
         : <Switch>
             <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
             <Route path="/busqueda" component={SelectorEncuesta} />
