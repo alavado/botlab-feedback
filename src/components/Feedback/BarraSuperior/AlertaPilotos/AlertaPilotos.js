@@ -12,10 +12,6 @@ const usuariosPiloto = [
     exp: '2022-03-01 00:00:00'
   },
   {
-    nombre: 'DentalReagan',
-    exp: '2022-03-03 00:00:00'
-  },
-  {
     nombre: '180Grados',
     exp: '2022-03-05 00:00:00'
   },
