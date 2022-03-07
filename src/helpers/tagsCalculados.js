@@ -163,8 +163,6 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_VENTUS_RECONFIRMACION):
       case Number(process.env.REACT_APP_ID_POLL_SANTIS_RECONFIRMACION):
       case Number(process.env.REACT_APP_ID_POLL_OAS_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_180_GRADOS_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_TU_SALUD_DENTAL_RECONFIRMACION):
         return juntarConfirmaYReagenda(50, 104)
       
       case Number(process.env.REACT_APP_ID_POLL_ODONTOS):
@@ -225,6 +223,8 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_CATH):
       case Number(process.env.REACT_APP_ID_POLL_SOULS):
       case Number(process.env.REACT_APP_ID_POLL_INMUNODENT):
+      case Number(process.env.REACT_APP_ID_POLL_180_GRADOS_RECONFIRMACION):
+      case Number(process.env.REACT_APP_ID_POLL_TU_SALUD_DENTAL_RECONFIRMACION):
         return juntarConfirmaYReagenda(0, 104)
       
       case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
