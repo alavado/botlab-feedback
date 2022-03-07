@@ -18,8 +18,8 @@ export const headersRespuestas = idEncuesta => {
 
 export const respuestas = (idEncuesta, fechaInicio, fechaTermino) => {
   const token = store.getState().login.token
-  const inicio = format(fechaInicio, 'yyyy-MM-dd')
-  const termino = format(fechaTermino, 'yyyy-MM-dd')
+  const inicio = format(fechaInicio ?? Date.now(), 'yyyy-MM-dd')
+  const termino = format(fechaTermino ?? Date.now(), 'yyyy-MM-dd')
   const url = `${API_ROOT}/answers/${idEncuesta}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`
   return axios.get(url, { headers: { 'Api-Token': token } })
 }

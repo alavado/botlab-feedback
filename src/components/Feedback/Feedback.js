@@ -42,6 +42,7 @@ const Feedback = () => {
           dispatch(guardaRespuestas({ jsonRespuestas: data, idEncuesta: idEncuestaSeleccionada }))
         }
         catch (e) {
+          console.error(e)
           dispatch(cierraLaSesion())
           dispatch(limpiaEncuestas())
         }

@@ -25,8 +25,8 @@ const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
 const sliceRespuestas = createSlice({
   name: 'respuestas',
   initialState: {
-    fechaInicio: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2022, 0, 3),
-    fechaTermino: process.env.NODE_ENV !== 'development' ? Date.now() : new Date(2022, 0, 3),
+    fechaInicio: Date.now(),
+    fechaTermino: Date.now(),
     busqueda: '',
     orden: 'ASC',
     pagina: 1,

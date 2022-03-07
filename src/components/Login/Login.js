@@ -67,6 +67,7 @@ const Login = () => {
             id="login_usuario"
             autoFocus
             required
+            autoComplete="username"
           />
         </div>
         <div className="Login__campo">
