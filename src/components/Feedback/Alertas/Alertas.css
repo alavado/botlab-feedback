@@ -1,3 +1,14 @@
 .Alertas__fila {
   display: flex;
 }
+
+.Alertas__lista_alertas {
+  display: none;
+  max-height: calc(100vh - 5rem);
+  overflow: auto;
+}
+
+.Alertas__lista_alertas--visible {
+  display: flex;
+  flex-direction: column;
+}
