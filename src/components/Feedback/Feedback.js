@@ -15,13 +15,10 @@ import ExportacionAvanzada from '../ExportacionAvanzada'
 import Uso from './Uso'
 import ErrorBoundary from '../../helpers/ErrorBoundary'
 import Alertas from './Alertas'
-import { guardaAlertas } from '../../redux/ducks/alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import Preparaciones from './Preparaciones'
 import VisorGuiones from './VisorGuiones'
-
-const intervaloRefrescoAlertas = 5_000
-const alertasActivas = false
+import { useQuery } from 'react-query'
 
 const Feedback = () => {
 
@@ -29,7 +26,14 @@ const Feedback = () => {
   const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
   const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(state => state.respuestas)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { isLoading: cargandoAlertas, data: dataAlertas, error: errorAlertas } = useQuery(
+    'alertas',
+    alertasAPI,
+    { refetchInterval: 30_000, refetchOnMount: true }
+  )
   const dispatch = useDispatch()
+
+  console.log({dataAlertas, errorAlertas})
 
   useEffect(() => {
     if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino && cacheInvalido) {
@@ -53,13 +57,6 @@ const Feedback = () => {
       } catch (e) {
         setErrorCargandoRespuestas('Ocurrió un error')
       }
-    }
-    if (process.env.NODE_ENV === 'development' && alertasActivas) {
-      const intervalAlertas = setInterval(async () => {
-        const { data } = await alertasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-        dispatch(guardaAlertas(data))
-      }, intervaloRefrescoAlertas)
-      return () => clearInterval(intervalAlertas)
     }
   }, [token, idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino, cacheInvalido])
 

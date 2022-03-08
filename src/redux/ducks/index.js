@@ -3,7 +3,6 @@ import encuestas from './encuestas'
 import respuestas from './respuestas'
 import opciones from './opciones'
 import busqueda from './busqueda'
-import alertas from './alertas'
 import scrambler from './scrambler'
 import enviador from './enviador'
 import cero from './cero'
@@ -16,7 +15,6 @@ export default combineReducers({
   respuestas,
   opciones,
   busqueda,
-  alertas,
   scrambler,
   enviador,
   cero,
