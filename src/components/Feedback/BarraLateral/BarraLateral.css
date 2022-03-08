@@ -56,6 +56,7 @@
   position: relative;
   gap: .25rem;
   transition: all .15s ease;
+  position: relative;
 }
 
 .BarraLateral__link:hover {
@@ -73,6 +74,19 @@
 
 .BarraLateral__link--activo {
   color: var(--color-texto-claro);
+}
+
+.BarraLateral__conteo_alertas {
+  position: absolute;
+  right: .35rem;
+  top: .35rem;
+  font-size: .5rem;
+  background-color: var(--color-secundario);
+  padding: .15rem .25rem;
+  z-index: 2;
+  border-radius: 9in;
+  color: var(--color-texto-claro);
+  animation: aparece-conteo-alertas .25s ease-in both;
 }
 
 @media(orientation: portrait) {
@@ -104,5 +118,14 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-evenly;
+  }
+}
+
+@keyframes aparece-conteo-alertas {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
   }
 }

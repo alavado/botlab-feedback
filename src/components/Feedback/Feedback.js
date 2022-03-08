@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { guardaRespuestas } from '../../redux/ducks/respuestas'
-import { alertas as alertasAPI, respuestas as respuestasAPI } from '../../api/endpoints'
+import { respuestas as respuestasAPI } from '../../api/endpoints'
 import { headers as headersAPI } from '../../api/endpoints'
 import Respuestas from './Respuestas'
 import './Feedback.css'
@@ -18,7 +18,6 @@ import Alertas from './Alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import Preparaciones from './Preparaciones'
 import VisorGuiones from './VisorGuiones'
-import { useQuery } from 'react-query'
 
 const Feedback = () => {
 
@@ -26,14 +25,7 @@ const Feedback = () => {
   const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
   const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(state => state.respuestas)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
-  const { isLoading: cargandoAlertas, data: dataAlertas, error: errorAlertas } = useQuery(
-    'alertas',
-    alertasAPI,
-    { refetchInterval: 30_000, refetchOnMount: true }
-  )
   const dispatch = useDispatch()
-
-  console.log({dataAlertas, errorAlertas})
 
   useEffect(() => {
     if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino && cacheInvalido) {
@@ -86,7 +78,7 @@ const Feedback = () => {
                 <Respuestas />
               </Route>
               <Route path="/alertas">
-                <Alertas />
+                <Alertas  />
               </Route>
               <Route exact path="/busqueda">
                 <Busqueda />

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Icon } from '@iconify/react'
+import { alertas as alertasAPI } from '../../../api/endpoints'
 import search from '@iconify/icons-mdi/search'
 import alertas from '@iconify/icons-mdi/bell'
 import exportar from '@iconify/icons-mdi/table-export'
@@ -9,8 +10,18 @@ import home from '@iconify/icons-mdi/home'
 // import preparaciones from '@iconify/icons-mdi/clipboard-check'
 import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
+import { useQuery } from 'react-query'
 
 const BarraLateral = () => {
+
+  const { isLoading: cargandoAlertas, data: dataAlertas, error: errorAlertas } = useQuery(
+    'alertas',
+    alertasAPI,
+    { refetchInterval: 30_000, refetchOnMount: true }
+  )
+
+  const conteoAlertas = cargandoAlertas ? 0 : dataAlertas.data.data.filter(a => !a.dismissed).length
+
   return (
     <div className="BarraLateral">
       <Link
@@ -39,6 +50,7 @@ const BarraLateral = () => {
             activeClassName="BarraLateral__link--activo"
             to="/alertas"
           >
+            {conteoAlertas > 0 && <div className="BarraLateral__conteo_alertas">{conteoAlertas}</div>}
             <Icon icon={alertas} />
             <div className="BarraLateral__nombre_seccion">Alertas</div>
           </NavLink>
