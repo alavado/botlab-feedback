@@ -81,6 +81,7 @@
   right: .35rem;
   top: .35rem;
   font-size: .5rem;
+  font-weight: bold;
   background-color: var(--color-secundario);
   padding: .15rem .25rem;
   z-index: 2;

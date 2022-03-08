@@ -5,8 +5,11 @@ import { useQuery } from 'react-query'
 import LoaderMensajes from '../Respuestas/Chat/CelularWhatsapp/LoaderMensajes'
 import classNames from 'classnames'
 import { InlineIcon } from '@iconify/react'
-import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring'
-import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check'
+import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
+import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
+import { differenceInDays, format, formatDistanceToNow, parseISO } from 'date-fns'
+import { es } from 'date-fns/locale'
+import { useHistory } from 'react-router-dom'
 
 const tiposAlertas = [
   {
@@ -31,15 +34,28 @@ const Alertas = () => {
     alertasAPI,
     { refetchInterval: 30_000, refetchOnMount: true }
   )
+  const history = useHistory()
 
   const clasificacionAlertas = useMemo(() => {
     if (!dataAlertas) {
       return [[], []]
     }
-    return tiposAlertas.map(t => ({
-      ...t,
-      alertas: dataAlertas.data.data.filter(t.filtro)
-    }))
+    return tiposAlertas.map(t => {
+      const alertas = dataAlertas.data.data
+        .filter(t.filtro)
+        .map(a => ({
+          ...a,
+          horaLegible: differenceInDays(Date.now(), parseISO(a.utc_timestamp)) > 2
+            ? format(parseISO(a.utc_timestamp), 'EEEE d \'de\' MMMM', { locale: es })
+            : formatDistanceToNow(parseISO(a.utc_timestamp), { locale: es, addSuffix: true, includeSeconds: false }),
+        }))
+      alertas.sort((a1, a2) => a1.utc_timestamp > a2.utc_timestamp ? -1 : 1)
+      return {
+        ...t,
+        alertas,
+        conteo: alertas.length,
+      }
+    })
   }, [dataAlertas])
 
   if (cargandoAlertas) {
@@ -53,10 +69,15 @@ const Alertas = () => {
         {clasificacionAlertas.map(tipoAlertas => (
           <button
             key={`boton-tipo-alertas-${tipoAlertas.id}`}
+            className={classNames({
+              "Alertas__boton_tab": true,
+              "Alertas__boton_tab--activo": idTipoAlertaSeleccionado === tipoAlertas.id
+            })}
             onClick={() => setIdTipoAlertaSeleccionado(tipoAlertas.id)}
           >
-            <InlineIcon icon={tipoAlertas.icono} />
-            {tipoAlertas.titulo}
+            <InlineIcon className="Alertas__icono_tab" icon={tipoAlertas.icono} />
+            <p className="Alertas__boton_tab_titulo">{tipoAlertas.titulo}</p>
+            <p className="Alertas__boton_tab_subtitulo">{tipoAlertas.conteo} alerta{tipoAlertas.conteo !== 1 && 's'}</p>
           </button>
         ))}
       </div>
@@ -70,11 +91,16 @@ const Alertas = () => {
           >
             {tipoAlertas.alertas.map(alerta => (
             <div className="Alertas__fila" key={`fila-alerta-${alerta.id}`}>
-              <div>{alerta.utc_timestamp}</div>
+              <div>{alerta.horaLegible}</div>
               <div>{alerta.message}</div>
-              <div>
-                <button>Ver chat</button>
-                <button>Marcar como reuelta</button>
+              <div className="Alertas__contenedor_acciones">
+                <button className="Alertas__boton_accion">Marcar como resuelta</button>
+                <button
+                  className="Alertas__boton_accion"
+                  onClick={() => history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)}
+                >
+                  Ver chat
+                </button>
               </div>
             </div>
             ))}
