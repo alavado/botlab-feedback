@@ -29,9 +29,12 @@ const TablaRespuestas = () => {
 
   useEffect(() => {
     dispatch(fijaOpcionTableroVisible(false))
-    refContenedor.current.scrollTop = scrollTabla
-    return () => dispatch(fijaScrollTabla(refContenedor.current.scrollTop))
-  }, [])
+    if (refContenedor.current) {
+      refContenedor.current.scrollTop = scrollTabla
+    }
+    const scrollFinal = refContenedor.current?.scrollTop || 0
+    return () => dispatch(fijaScrollTabla(scrollFinal))
+  }, [dispatch, scrollTabla])
   
   return (
     <div className="TablaRespuestas">

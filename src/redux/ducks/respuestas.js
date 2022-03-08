@@ -62,7 +62,7 @@ const sliceRespuestas = createSlice({
             if (typeof r[k] === 'string') {
               slug = normalizar(r[k])
             }
-            else if (r[k].tag) {
+            else if (r[k]?.tag) {
               slug = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
             }
             return prev + slug
@@ -72,7 +72,7 @@ const sliceRespuestas = createSlice({
             if (typeof r[k] === 'string') {
               prev[k] = normalizar(r[k])
             }
-            else if (r[k].tag || r[k].tag === '') {
+            else if (r[k]?.tag || r[k]?.tag === '') {
               prev[k] = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
             }
             return prev
