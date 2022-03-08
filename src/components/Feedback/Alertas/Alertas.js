@@ -32,7 +32,18 @@ const Alertas = () => {
   return (
     <div className="Alertas">
       {/* <h1>Alertas</h1> */}
-
+      <div>
+        {alertas.map((alerta, i) => (
+          <div className="Alertas__fila" key={`fila-alerta-${i}`}>
+            <div>{alerta.utc_timestamp}</div>
+            <div>{alerta.message}</div>
+            <div>
+              <button>Ver chat</button>
+              <button>Marcar como reuelta</button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

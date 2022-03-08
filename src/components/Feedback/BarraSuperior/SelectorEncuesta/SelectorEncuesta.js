@@ -96,6 +96,8 @@ const SelectorEncuesta = () => {
     return <Loader color="#6057f6" />
   }
 
+  console.log(path)
+
   return (
     <div
       className={classNames({
@@ -106,7 +108,7 @@ const SelectorEncuesta = () => {
       })}
       onClick={() => setPopupActivo(path.indexOf('chat') < 0)}
     >
-      {path.indexOf('busqueda') >= 0 || path.indexOf('uso') >= 0 || path.indexOf('preparaciones') >= 0
+      {path.indexOf('busqueda') >= 0 || path.indexOf('uso') >= 0 || path.indexOf('preparaciones') >= 0 || path.indexOf('alertas') >= 0
         ? <>
             <Icon
               className="SelectorEncuesta__icono_empresa"
