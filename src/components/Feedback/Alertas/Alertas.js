@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import './Alertas.css'
-import { alertas as alertasAPI } from '../../../api/endpoints'
-import { useQuery } from 'react-query'
+import { alertas as getAlertas, marcarAlerta } from '../../../api/endpoints'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import LoaderMensajes from '../Respuestas/Chat/CelularWhatsapp/LoaderMensajes'
 import classNames from 'classnames'
 import { InlineIcon } from '@iconify/react'
@@ -29,11 +29,39 @@ const tiposAlertas = [
 const Alertas = () => {
 
   const [idTipoAlertaSeleccionado, setIdTipoAlertaSeleccionado] = useState(tiposAlertas[0].id)
-  const { isLoading: cargandoAlertas, data: dataAlertas, error: errorAlertas } = useQuery(
+  const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
     'alertas',
-    alertasAPI,
+    getAlertas,
     { refetchInterval: 30_000, refetchOnMount: true }
   )
+  const queryClient = useQueryClient()
+  const mutation = useMutation((id, dismissed) => marcarAlerta(id, dismissed), {
+    // When mutate is called:
+    // onMutate: async idAlerta => {
+    //   // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+    //   await queryClient.cancelQueries(['alertas', newTodo.id])
+  
+    //   // Snapshot the previous value
+    //   const previousTodo = queryClient.getQueryData(['alertas', newTodo.id])
+  
+    //   // Optimistically update to the new value
+    //   queryClient.setQueryData(['alertas', newTodo.id], newTodo)
+  
+    //   // Return a context with the previous and new todo
+    //   return { previousTodo, newTodo }
+    // },
+    // // If the mutation fails, use the context we returned above
+    // onError: (err, newTodo, context) => {
+    //   queryClient.setQueryData(
+    //     ['alertas', context.newTodo.id],
+    //     context.previousTodo
+    //   )
+    // },
+    // // Always refetch after error or success:
+    // onSettled: newTodo => {
+    //   queryClient.invalidateQueries(['alertas', newTodo.id])
+    // },
+  })
   const history = useHistory()
 
   const clasificacionAlertas = useMemo(() => {
@@ -88,13 +116,19 @@ const Alertas = () => {
               "Alertas__lista_alertas": true,
               "Alertas__lista_alertas--visible": idTipoAlertaSeleccionado === tipoAlertas.id,
             })}
+            key={`lista-alertas-${tipoAlertas.id}`}
           >
             {tipoAlertas.alertas.map(alerta => (
             <div className="Alertas__fila" key={`fila-alerta-${alerta.id}`}>
               <div>{alerta.horaLegible}</div>
               <div>{alerta.message}</div>
               <div className="Alertas__contenedor_acciones">
-                <button className="Alertas__boton_accion">Marcar como resuelta</button>
+                <button
+                  className="Alertas__boton_accion"
+                  onClick={() => mutation.mutate(alerta.id, !alerta.dismissed)}
+                >
+                  Marcar como resuelta
+                </button>
                 <button
                   className="Alertas__boton_accion"
                   onClick={() => history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)}

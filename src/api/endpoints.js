@@ -81,6 +81,22 @@ export const alertas = () => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
+export const marcarAlerta = (idAlerta, dismissed = true) => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/alerts/${idAlerta}`
+  return axios.patch(
+    url,
+    {
+      dismissed
+    },
+    {
+      headers: {
+        'Api-Token': token
+      }
+    }
+  )
+}
+
 export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, email, attachment_extension) => {
   const date_start = format(fechaInicio, 'yyyy-MM-dd')
   const date_end = format(fechaTermino, 'yyyy-MM-dd')
