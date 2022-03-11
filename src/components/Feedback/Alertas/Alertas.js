@@ -7,20 +7,23 @@ import classNames from 'classnames'
 import { InlineIcon } from '@iconify/react'
 import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
 import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
-import { differenceInDays, format, formatDistanceToNow, parseISO } from 'date-fns'
+import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
+import iconoMarcar from '@iconify/icons-mdi/check'
+import iconoDesmarcar from '@iconify/icons-mdi/bell-ring'
+import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
 
 const tiposAlertas = [
   {
     id: 1,
-    titulo: 'Alertas no resueltas',
+    titulo: 'Por resolver',
     icono: iconoAlertasNoResueltas,
     filtro: a => !a.dismissed
   },
   {
     id: 2,
-    titulo: 'Alertas resueltas',
+    titulo: 'Resueltas',
     icono: iconoAlertasResueltas,
     filtro: a => a.dismissed
   }
@@ -73,9 +76,9 @@ const Alertas = () => {
         .filter(t.filtro)
         .map(a => ({
           ...a,
-          horaLegible: differenceInDays(Date.now(), parseISO(a.utc_timestamp)) > 2
-            ? format(parseISO(a.utc_timestamp), 'EEEE d \'de\' MMMM', { locale: es })
-            : formatDistanceToNow(parseISO(a.utc_timestamp), { locale: es, addSuffix: true, includeSeconds: false }),
+          horaLegible: !isToday(parseISO(a.utc_timestamp))
+            ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
+            : format(parseISO(a.utc_timestamp), 'HH:mm', { locale: es }),
         }))
       alertas.sort((a1, a2) => a1.utc_timestamp > a2.utc_timestamp ? -1 : 1)
       return {
@@ -99,7 +102,7 @@ const Alertas = () => {
             key={`boton-tipo-alertas-${tipoAlertas.id}`}
             className={classNames({
               "Alertas__boton_tab": true,
-              "Alertas__boton_tab--activo": idTipoAlertaSeleccionado === tipoAlertas.id
+              "Alertas__boton_tab--activo": idTipoAlertaSeleccionado === tipoAlertas.id,
             })}
             onClick={() => setIdTipoAlertaSeleccionado(tipoAlertas.id)}
           >
@@ -119,21 +122,37 @@ const Alertas = () => {
             key={`lista-alertas-${tipoAlertas.id}`}
           >
             {tipoAlertas.alertas.map(alerta => (
-            <div className="Alertas__fila" key={`fila-alerta-${alerta.id}`}>
+            <div
+              className="Alertas__fila"
+              key={`fila-alerta-${alerta.id}`}
+              onClick={() => history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)}
+            >
+              <div className="Alertas__contenedor_checkbox">
+                <div className={classNames({
+                  "Alertas__checkbox": true,
+                  "Alertas__checkbox--resuelto": alerta.dismissed
+                 })} />
+              </div>
               <div>{alerta.horaLegible}</div>
               <div>{alerta.message}</div>
               <div className="Alertas__contenedor_acciones">
                 <button
                   className="Alertas__boton_accion"
-                  onClick={() => mutation.mutate(alerta.id, !alerta.dismissed)}
+                  onClick={e => {
+                    e.stopPropagation()
+                    mutation.mutate(alerta.id, !alerta.dismissed)
+                  }}
                 >
-                  Marcar como resuelta
+                  <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
                 </button>
                 <button
                   className="Alertas__boton_accion"
-                  onClick={() => history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)}
+                  onClick={e => {
+                    e.stopPropagation()
+                    history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)
+                  }}
                 >
-                  Ver chat
+                  <InlineIcon icon={iconoWhatsapp} /> Ver chat
                 </button>
               </div>
             </div>
