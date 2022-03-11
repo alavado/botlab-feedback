@@ -44,7 +44,7 @@ const BarraLateral = () => {
           <Icon icon={home} />
           <div className="BarraLateral__nombre_seccion">Respuestas</div>
         </NavLink>
-        {process.env.NODE_ENV === 'development' &&
+        {(process.env.NODE_ENV === 'development' || window.location.href.includes('dev')) &&
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
