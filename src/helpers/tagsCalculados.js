@@ -237,6 +237,40 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_EVEREST2):
         return juntarConfirmaYReagendaAutomatico(50, 104, 204)
       
+      case Number(process.env.REACT_APP_ID_POLL_FALP_CONVENIOS):
+        return [
+          {
+            texto: '¿Dirección?',
+            tipo: 'YESNO',
+            f: r => r[0]
+          },
+          {
+            texto: 'Pedir dirección correcta',
+            tipo: 'OPEN',
+            f: r => r[10]
+          },
+          {
+            texto: '¿Email?',
+            tipo: 'OPEN',
+            f: r => r[1]
+          },
+          {
+            texto: 'Pedir email correcto',
+            tipo: 'OPEN',
+            f: r => r[11]
+          },
+          {
+            texto: '¿Prevision?',
+            tipo: 'YESNO',
+            f: r => r[2]
+          },
+          {
+            texto: 'Pedir previsión correcta',
+            tipo: 'OPEN',
+            f: r => r[12]
+          },
+        ]
+      
       case Number(process.env.REACT_APP_ID_POLL_SANASALUD_KOPLAND_T5):
         return [
           {
