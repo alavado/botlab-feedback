@@ -16,10 +16,6 @@ const usuariosPiloto = [
     exp: '2022-03-10 00:00:00'
   },
   {
-    nombre: 'SportsMedicinaDeportiva',
-    exp: '2022-03-11 00:00:00'
-  },
-  {
     nombre: 'Souls',
     exp: '2022-03-20 00:00:00'
   },
