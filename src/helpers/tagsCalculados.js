@@ -252,22 +252,22 @@ export const obtenerTagsCalculados = idEncuesta => {
           {
             texto: '¿Email?',
             tipo: 'OPEN',
-            f: r => r[1]
+            f: r => r[2]
           },
           {
             texto: 'Pedir email correcto',
             tipo: 'OPEN',
-            f: r => r[11]
+            f: r => r[12]
           },
           {
             texto: '¿Prevision?',
             tipo: 'YESNO',
-            f: r => r[2]
+            f: r => r[3]
           },
           {
             texto: 'Pedir previsión correcta',
             tipo: 'OPEN',
-            f: r => r[12]
+            f: r => r[13]
           },
         ]
       
