@@ -52,7 +52,7 @@ const Scrambler = ({ tipo, children: texto, propagar }) => {
       >
         {new URL(texto).hostname}
       </a>
-    : (scrambled ? scramble(texto, tipo, terminos) : texto)
+    : (scrambled ? scramble(texto, tipo, terminos) : (texto ?? ''))
 
   return componente
 }
