@@ -8,36 +8,12 @@ import './AlertaPilotos.css'
 
 const usuariosPiloto = [
   {
-    nombre: '180Grados',
-    exp: '2022-03-05 00:00:00'
-  },
-  {
-    nombre: 'TuSaludDental',
-    exp: '2022-03-05 00:00:00'
-  },
-  {
     nombre: 'SmileAcapulco',
     exp: '2022-03-18 00:00:00'
   },
   {
     nombre: 'AcademiaDeImplantes',
     exp: '2022-03-10 00:00:00'
-  },
-  {
-    nombre: 'SportsMedicinaDeportiva',
-    exp: '2022-03-11 00:00:00'
-  },
-  {
-    nombre: 'CATH',
-    exp: '2022-03-18 00:00:00'
-  },
-  {
-    nombre: 'Souls',
-    exp: '2022-03-20 00:00:00'
-  },
-  {
-    nombre: 'Inmunodent',
-    exp: '2022-04-05 00:00:00'
   },
   {
     nombre: 'Visum',

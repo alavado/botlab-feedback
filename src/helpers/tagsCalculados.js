@@ -153,7 +153,6 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_3DENTONCE16):
       case Number(process.env.REACT_APP_ID_POLL_NATURALDENT):
       case Number(process.env.REACT_APP_ID_POLL_EZIOCHIAPPE):
-      case Number(process.env.REACT_APP_ID_POLL_CDC):
       case Number(process.env.REACT_APP_ID_POLL_ALTOTOBALABA):
       case Number(process.env.REACT_APP_ID_POLL_SPORTS_MEDICINA_DEPORTIVA):
         return juntarConfirmaYReagenda(0, 4)
@@ -237,6 +236,41 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_EVEREST1):
       case Number(process.env.REACT_APP_ID_POLL_EVEREST2):
         return juntarConfirmaYReagendaAutomatico(50, 104, 204)
+      
+      case Number(process.env.REACT_APP_ID_POLL_FALP_CONVENIOS):
+        const fechaCambioMapping = '2022-03-18'
+        return [
+          {
+            texto: '¿Dirección?',
+            tipo: 'YESNO',
+            f: r => r.start < fechaCambioMapping ? r[0] : r[0]
+          },
+          {
+            texto: 'Pedir dirección correcta',
+            tipo: 'OPEN',
+            f: r => r.start < fechaCambioMapping ? r[10] : r[10]
+          },
+          {
+            texto: '¿Email?',
+            tipo: 'OPEN',
+            f: r => r.start < fechaCambioMapping ? r[1] : r[2]
+          },
+          {
+            texto: 'Pedir email correcto',
+            tipo: 'OPEN',
+            f: r => r.start < fechaCambioMapping ? r[11] : r[12]
+          },
+          {
+            texto: '¿Prevision?',
+            tipo: 'YESNO',
+            f: r => r.start < fechaCambioMapping ? r[2] : r[3]
+          },
+          {
+            texto: 'Pedir previsión correcta',
+            tipo: 'OPEN',
+            f: r => r.start < fechaCambioMapping ? r[12] : r[13]
+          },
+        ]
       
       case Number(process.env.REACT_APP_ID_POLL_SANASALUD_KOPLAND_T5):
         return [

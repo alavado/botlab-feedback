@@ -63,7 +63,7 @@ const BarraSuperior = () => {
       }
       {respuestas && (
         (idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_OREMA_OUTBOUND)) ||
-        (cuenta === 'FALP_cero')
+        cuenta.endsWith('_cero')
         ) && (
         <Switch>
           <Route exact path="/" component={() => (
