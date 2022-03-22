@@ -7,5 +7,8 @@ export const obtenerTiposEncuestasVisibles = (cuenta, tipos) => {
   if (cuentaLC !== 'falp_cero') {
     tiposEncuestas = tiposEncuestas.filter(t => t.id !== 374)
   }
+  if (cuentaLC !== 'alemana_cero') {
+    tiposEncuestas = tiposEncuestas.filter(t => t.id !== 457)
+  }
   return tiposEncuestas
 }
