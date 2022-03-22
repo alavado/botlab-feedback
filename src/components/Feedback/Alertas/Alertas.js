@@ -14,18 +14,26 @@ import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
 
+export const alertasVisibles = [
+  'Número equivocado',
+  'Paciente se arrepiente de cancelar su hora',
+  'Paciente cancela post confirmación',
+  'Paciente reagenda post confirmación',
+  'Paciente tiene pregunta o comentario'
+]
+
 const tiposAlertas = [
   {
     id: 1,
     titulo: 'Por resolver',
     icono: iconoAlertasNoResueltas,
-    filtro: a => !a.dismissed
+    filtro: a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed
   },
   {
     id: 2,
     titulo: 'Resueltas',
     icono: iconoAlertasResueltas,
-    filtro: a => a.dismissed
+    filtro: a => alertasVisibles.indexOf(a.message) >= 0 && a.dismissed
   }
 ]
 
@@ -35,10 +43,10 @@ const Alertas = () => {
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
     'alertas',
     getAlertas,
-    { refetchInterval: 30_000, refetchOnMount: true }
+    { refetchInterval: 30_000, refetchOnMount: true,  }
   )
   const queryClient = useQueryClient()
-  const mutation = useMutation((id, dismissed) => marcarAlerta(id, dismissed), {
+  const mutation = useMutation(({ id, dismissed }) => marcarAlerta(id, dismissed), {
     // When mutate is called:
     // onMutate: async idAlerta => {
     //   // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
@@ -121,7 +129,7 @@ const Alertas = () => {
             })}
             key={`lista-alertas-${tipoAlertas.id}`}
           >
-            {tipoAlertas.alertas.map(alerta => (
+            {tipoAlertas.alertas.map((alerta, i) => (
             <div
               className="Alertas__fila"
               key={`fila-alerta-${alerta.id}`}
@@ -140,7 +148,7 @@ const Alertas = () => {
                   className="Alertas__boton_accion"
                   onClick={e => {
                     e.stopPropagation()
-                    mutation.mutate(alerta.id, !alerta.dismissed)
+                    mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed })
                   }}
                 >
                   <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}

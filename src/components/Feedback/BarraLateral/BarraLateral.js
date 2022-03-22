@@ -11,6 +11,7 @@ import home from '@iconify/icons-mdi/home'
 import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 import { useQuery } from 'react-query'
+import { alertasVisibles } from '../Alertas/Alertas'
 
 const BarraLateral = () => {
 
@@ -20,7 +21,7 @@ const BarraLateral = () => {
     { refetchInterval: 30_000, refetchOnMount: true }
   )
 
-  const conteoAlertas = cargandoAlertas ? 0 : dataAlertas.data.data.filter(a => !a.dismissed).length
+  const conteoAlertas = cargandoAlertas ? 0 : dataAlertas.data.data.filter(a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed).length
 
   return (
     <div className="BarraLateral">
