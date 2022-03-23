@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 import { alertas as alertasAPI } from '../../../api/endpoints'
@@ -12,21 +12,50 @@ import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 import { useQuery } from 'react-query'
 import { alertasVisibles } from '../Alertas/Alertas'
+import logoFeedback from '../../../assets/images/logo_cuadrado_notificaciones.png'
 
 const BarraLateral = () => {
 
-  const { isLoading: cargandoAlertas, data: dataAlertas, error: errorAlertas } = useQuery(
+  const [conteoAlertas, setConteoAlertas] = useState(0)
+  const { data: dataAlertas } = useQuery(
     'alertas',
     alertasAPI,
     {
       refetchInterval: 30_000,
       refetchOnMount: true,
-      select: res => res.data
+      select: res => res.data,
     }
   )
 
-  const conteoAlertas = cargandoAlertas ? 0 : dataAlertas.filter(a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed).length
+  useEffect(() => {
+    Notification.requestPermission()
+  }, [])
 
+  useEffect(() => {
+    if (!dataAlertas) {
+      return
+    }
+    setConteoAlertas(prev => {
+      const alertas = dataAlertas?.filter(a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed) || []
+      const nuevoConteo = alertas.length
+      if (prev < nuevoConteo) {
+        if (!document.hasFocus()) {
+          let notificacion = new Notification(
+            '',
+            {
+              icon: logoFeedback,
+              body: alertas[0].message,
+              silent: true,
+              requireInteraction: true,
+            }
+          )
+          notificacion.onclick = () => window.focus()
+        }
+      }
+      return nuevoConteo
+    })
+  }, [dataAlertas])
+  
   return (
     <div className="BarraLateral">
       <Link

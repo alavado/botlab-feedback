@@ -7,13 +7,11 @@ import classNames from 'classnames'
 import { InlineIcon } from '@iconify/react'
 import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
 import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
-import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
-import iconoMarcar from '@iconify/icons-mdi/check'
-import iconoDesmarcar from '@iconify/icons-mdi/bell-ring'
+import iconoMarcar from '@iconify/icons-mdi/bell-check-outline'
+import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
-import data from '@iconify/icons-mdi/check'
 
 export const alertasVisibles = [
   'Número equivocado',
@@ -134,7 +132,7 @@ const Alertas = () => {
             <div
               className="Alertas__fila"
               key={`fila-alerta-${alerta.id}`}
-              onClick={() => history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)}
+              onClick={() => history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })}
             >
               <div className="Alertas__contenedor_checkbox">
                 <div className={classNames({
@@ -144,17 +142,17 @@ const Alertas = () => {
               </div>
               <div>{alerta.horaLegible}</div>
               <div>{alerta.message}</div>
-              <div className="Alertas__contenedor_acciones">
+              <div
+                className="Alertas__contenedor_acciones"
+                onClick={e => e.stopPropagation()}
+              >
                 <button
                   className="Alertas__boton_accion"
-                  onClick={e => {
-                    e.stopPropagation()
-                    mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed })
-                  }}
+                  onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
                 >
                   <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
                 </button>
-                <button
+                {/* <button
                   className="Alertas__boton_accion"
                   onClick={e => {
                     e.stopPropagation()
@@ -162,7 +160,7 @@ const Alertas = () => {
                   }}
                 >
                   <InlineIcon icon={iconoWhatsapp} /> Ver chat
-                </button>
+                </button> */}
               </div>
             </div>
             ))}

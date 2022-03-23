@@ -16,7 +16,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
 
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
   const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
-  const { tableroVisible } = useSelector(state => state.opciones)
+  // const { tableroVisible } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -54,16 +54,18 @@ const DatosChat = ({ cargando, datos, telefono }) => {
     return () => window.removeEventListener('keyup', teclasMagicas)
   }, [irARespuestaAnterior, irASiguienteRespuesta])
 
+  const urlAnterior = history.location.state?.from
+
   return (
     <div className="DatosChat">
       <div className="DatosChat__navegacion">
         <button
           className="DatosChat__link_atras"
-          onClick={() => history.push(tableroVisible ? '/tablero' : '/')}
+          onClick={() => history.push(urlAnterior ?? '/')}
           title="Volver a respuestas"
         >
           <InlineIcon className="DatosChat__icono_volver" icon={iconoVolver} />
-          Respuestas
+          {urlAnterior ? 'Alertas': 'Respuestas'}
         </button>
         {respuestas && respuestas.length > 0 && indiceRespuestaSeleccionada !== undefined && 
           <div className="DatosChat__botones_navegacion">

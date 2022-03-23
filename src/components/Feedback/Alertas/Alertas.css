@@ -90,6 +90,10 @@
   background-color: var(--color-fila-destacada);
 }
 
+.Alertas__fila:active {
+  background-color: var(--color-foco-fila);
+}
+
 .Alertas__contenedor_checkbox {
   display: flex;
   align-items: center;
@@ -108,11 +112,14 @@
 .Alertas__contenedor_acciones {
   display: flex;
   gap: .5rem;
+  align-items: center;
+  height: 100%;
 }
 
 .Alertas__boton_accion {
   cursor: pointer;
   border: none;
+  height: 1.6rem;
   box-shadow: 0 0 0 1px var(--color-principal);
   background: var(--color-fondo);
   color: var(--color-principal);
