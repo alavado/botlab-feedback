@@ -13,6 +13,7 @@ import iconoDesmarcar from '@iconify/icons-mdi/bell-ring'
 import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
+import data from '@iconify/icons-mdi/check'
 
 export const alertasVisibles = [
   'Número equivocado',
@@ -43,35 +44,35 @@ const Alertas = () => {
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
     'alertas',
     getAlertas,
-    { refetchInterval: 30_000, refetchOnMount: true,  }
+    {
+      refetchInterval: 30_000,
+      refetchOnMount: true,
+      select: res => res.data
+    }
   )
   const queryClient = useQueryClient()
   const mutation = useMutation(({ id, dismissed }) => marcarAlerta(id, dismissed), {
-    // When mutate is called:
-    // onMutate: async idAlerta => {
-    //   // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-    //   await queryClient.cancelQueries(['alertas', newTodo.id])
-  
-    //   // Snapshot the previous value
-    //   const previousTodo = queryClient.getQueryData(['alertas', newTodo.id])
-  
-    //   // Optimistically update to the new value
-    //   queryClient.setQueryData(['alertas', newTodo.id], newTodo)
-  
-    //   // Return a context with the previous and new todo
-    //   return { previousTodo, newTodo }
-    // },
-    // // If the mutation fails, use the context we returned above
-    // onError: (err, newTodo, context) => {
-    //   queryClient.setQueryData(
-    //     ['alertas', context.newTodo.id],
-    //     context.previousTodo
-    //   )
-    // },
-    // // Always refetch after error or success:
-    // onSettled: newTodo => {
-    //   queryClient.invalidateQueries(['alertas', newTodo.id])
-    // },
+    onMutate: async ({ id, dismissed }) => {
+      await queryClient.cancelQueries('alertas')
+      const alertasAntes = queryClient.getQueryData('alertas')
+      const nuevaAlerta = alertasAntes.data.find(a => a.id === id)
+      nuevaAlerta.dismissed = dismissed
+      const nuevasAlertas = {
+        ...alertasAntes,
+        data: [
+          ...alertasAntes.data.filter(a => a.id !== id),
+          nuevaAlerta
+        ]
+      }
+      queryClient.setQueryData('alertas', () => nuevasAlertas)
+      return { alertasAntes }
+    },
+    onError: (err, nuevaAlerta, context) => {
+      queryClient.setQueryData('alertas', context.alertasAntes)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries('alertas')
+    },
   })
   const history = useHistory()
 
@@ -80,7 +81,7 @@ const Alertas = () => {
       return [[], []]
     }
     return tiposAlertas.map(t => {
-      const alertas = dataAlertas.data.data
+      const alertas = dataAlertas
         .filter(t.filtro)
         .map(a => ({
           ...a,

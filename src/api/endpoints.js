@@ -78,7 +78,15 @@ export const uso = (fechaInicio, fechaTermino) => {
 export const alertas = () => {
   const token = store.getState().login.token
   const url = `${API_ROOT}/polls/alerts`
-  return axios.get(url, { headers: { 'Api-Token': token } })
+  return axios.get(
+    url,
+    {
+      headers: { 'Api-Token': token },
+      transformResponse: res => {
+        return JSON.parse(res).data
+      }
+    }
+  )
 }
 
 export const marcarAlerta = (idAlerta, dismissed = true) => {

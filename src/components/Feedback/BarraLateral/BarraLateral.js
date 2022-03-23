@@ -18,10 +18,14 @@ const BarraLateral = () => {
   const { isLoading: cargandoAlertas, data: dataAlertas, error: errorAlertas } = useQuery(
     'alertas',
     alertasAPI,
-    { refetchInterval: 30_000, refetchOnMount: true }
+    {
+      refetchInterval: 30_000,
+      refetchOnMount: true,
+      select: res => res.data
+    }
   )
 
-  const conteoAlertas = cargandoAlertas ? 0 : dataAlertas.data.data.filter(a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed).length
+  const conteoAlertas = cargandoAlertas ? 0 : dataAlertas.filter(a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed).length
 
   return (
     <div className="BarraLateral">
