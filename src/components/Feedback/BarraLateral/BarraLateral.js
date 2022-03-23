@@ -22,6 +22,7 @@ const BarraLateral = () => {
     alertasAPI,
     {
       refetchInterval: 30_000,
+      refetchIntervalInBackground: 30_000,
       refetchOnMount: true,
       select: res => res.data,
     }
@@ -44,7 +45,7 @@ const BarraLateral = () => {
             '',
             {
               icon: logoFeedback,
-              body: alertas[0].message,
+              body: `Feedback: ${alertas[0].message}`,
               silent: true,
               requireInteraction: true,
             }

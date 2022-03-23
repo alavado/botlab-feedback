@@ -7,6 +7,7 @@ import scrambler from './scrambler'
 import enviador from './enviador'
 import cero from './cero'
 import reacciones from './reacciones'
+import alertas from './alertas'
 import { combineReducers } from 'redux'
 
 export default combineReducers({
@@ -18,5 +19,6 @@ export default combineReducers({
   scrambler,
   enviador,
   cero,
-  reacciones
+  reacciones,
+  alertas
 })

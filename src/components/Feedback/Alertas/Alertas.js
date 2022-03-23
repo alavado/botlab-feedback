@@ -12,6 +12,8 @@ import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { destacarAlerta } from '../../../redux/ducks/alertas'
 
 export const alertasVisibles = [
   'Número equivocado',
@@ -39,6 +41,8 @@ const tiposAlertas = [
 const Alertas = () => {
 
   const [idTipoAlertaSeleccionado, setIdTipoAlertaSeleccionado] = useState(tiposAlertas[0].id)
+  const { idAlertaDestacada } = useSelector(state => state.alertas)
+  const dispatch = useDispatch()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
     'alertas',
     getAlertas,
@@ -130,9 +134,15 @@ const Alertas = () => {
           >
             {tipoAlertas.alertas.map((alerta, i) => (
             <div
-              className="Alertas__fila"
+              className={classNames({
+                "Alertas__fila": true,
+                "Alertas__fila--destacada": alerta.id === idAlertaDestacada
+              })}
               key={`fila-alerta-${alerta.id}`}
-              onClick={() => history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })}
+              onClick={() => {
+                dispatch(destacarAlerta({ id: alerta.id }))
+                history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
+              }}
             >
               <div className="Alertas__contenedor_checkbox">
                 <div className={classNames({

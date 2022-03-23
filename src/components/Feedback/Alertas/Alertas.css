@@ -84,6 +84,11 @@
   color: var(--color-texto);
   cursor: pointer;
   transition: all .15s ease;
+  animation: aparece-fila-alertas-izq .25s ease both;
+}
+
+.Alertas__fila--destacada {
+  background-color: var(--color-fila-destacada);
 }
 
 .Alertas__fila:hover {
@@ -141,10 +146,6 @@
 .Alertas__boton_accion:hover {
   color: var(--color-texto-claro);
   background: var(--color-principal);
-}
-
-.Alertas__fila {
-  animation: aparece-fila-alertas-izq .25s ease both;
 }
 
 @keyframes aparece-fila-alertas-izq {
