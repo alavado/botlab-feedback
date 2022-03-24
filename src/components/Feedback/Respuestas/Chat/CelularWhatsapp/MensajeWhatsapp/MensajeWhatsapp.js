@@ -110,7 +110,7 @@ const marcar = texto => {
           React.createElement(
             'span',
             [],
-            partes.map((p, i) => 0 < i && i < partes.length - 1
+            partes.map((p, i) => i % 2 === 1
               ? <strong
                   className="MensajeWhatsapp__strong"
                   key={Date.now()}
