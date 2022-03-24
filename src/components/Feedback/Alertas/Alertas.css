@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  color: var(--color-texto);
 }
 
 .Alertas__titulo {
@@ -20,6 +21,7 @@
   display: flex;
   width: 100%;
   gap: 1rem;
+  flex: 1;
 }
 
 .Alertas__lateral {
@@ -40,10 +42,38 @@
 
 .Alertas__contenedor_opcion {
   display: flex;
-  gap: .25rem;
-  align-items: center;
+  gap: .5rem;
   line-height: 1.25;
   cursor: pointer;
+  position: relative;
+  align-items: center;
+}
+
+.Alertas__checkbox_opcion::before {
+  cursor: pointer;
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  background: var(--color-fondo);
+  border-radius: .15rem;
+  position: absolute;
+  opacity: 1;
+  top: calc((100% - 1rem) / 2);
+  left: -.05rem;
+  box-shadow: 
+    0 0 0 1px var(--color-principal),
+    inset 0 0 0 1px var(--color-fondo),
+    inset 0 0 0 2px var(--color-bordes),
+    inset 0 0 0 9in var(--color-fondo);
+  transition: all .15s ease;
+}
+
+.Alertas__checkbox_opcion:checked::before {
+  box-shadow:
+    0 0 0 1px var(--color-principal),
+    inset 0 0 0 1px var(--color-fondo),
+    inset 0 0 0 2px var(--color-bordes),
+    inset 0 0 0 9in var(--color-principal);
 }
 
 .Alertas__contenedor_secciones_alertas {
@@ -123,7 +153,7 @@
 
 .Alertas__fila {
   display: grid;
-  grid-template: 2.25rem / 2.25rem 4rem 20rem 1fr;
+  grid-template: 2.5rem / 2.25rem 4rem 20rem 1fr;
   font-size: .65rem;
   place-items: center start;
   border-bottom: 1px solid var(--color-bordes);
@@ -173,6 +203,12 @@
   gap: .5rem;
   align-items: center;
   height: 100%;
+  opacity: 0;
+  transition: all .15s ease;
+}
+
+.Alertas__fila:hover .Alertas__contenedor_acciones {
+  opacity: 1;
 }
 
 .Alertas__boton_accion {
@@ -180,8 +216,8 @@
   border: none;
   height: 1.6rem;
   box-shadow: 0 0 0 1px var(--color-principal);
-  background: var(--color-fondo);
-  color: var(--color-principal);
+  background: var(--color-principal);
+  color: var(--color-texto-claro);
   padding: .35rem .6rem;
   border-radius: .35rem;
   font-size: .65rem;

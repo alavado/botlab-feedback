@@ -8,6 +8,7 @@ import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
 import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
 import iconoMarcar from '@iconify/icons-mdi/bell-check-outline'
 import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
+import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
@@ -117,9 +118,13 @@ const Alertas = () => {
         : <div className="Alertas__contenedor">
             <div className="Alertas__lateral">
               <h2 className="Alertas__subtitulo">Ver alertas</h2>
-              <label className="Alertas__contenedor_opcion">
+              <label
+                className="Alertas__contenedor_opcion"
+                title="Ver todas las alertas"
+              >
                 <input
                   type="checkbox"
+                  className="Alertas__checkbox_opcion"
                   checked={verAlertas?.length === 0}
                   onChange={e => e.target.checked && dispatch(limpiaAlertasVisibles()) }
                 /> Todas
@@ -128,9 +133,11 @@ const Alertas = () => {
                 <label
                   key={`checkbox-${tipo}`}
                   className="Alertas__contenedor_opcion"
+                  title={`Ver alertas con el mensaje \"${tipo}\"`}
                 >
                   <input
                     type="checkbox"
+                    className="Alertas__checkbox_opcion"
                     checked={verAlertas?.indexOf(tipo) >= 0}
                     onChange={e => {
                       if (e.target.checked) {
@@ -144,9 +151,13 @@ const Alertas = () => {
                 </label>
               ))}
               <h2 className="Alertas__subtitulo">Opciones</h2>
-              <label>
+              <label
+                className="Alertas__contenedor_opcion"
+                title="Activar o desactivar alertas de escritorio ante nuevas alertas"
+              >
                 <input
                   type="checkbox"
+                  className="Alertas__checkbox_opcion"
                   checked={recibirNotificaciones}
                   onChange={e => dispatch(activaNotificaciones(e.target.checked))}
                 /> Recibir notificaciones
@@ -210,7 +221,7 @@ const Alertas = () => {
                         >
                           <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
                         </button>
-                        {/* <button
+                        <button
                           className="Alertas__boton_accion"
                           onClick={e => {
                             e.stopPropagation()
@@ -218,7 +229,7 @@ const Alertas = () => {
                           }}
                         >
                           <InlineIcon icon={iconoWhatsapp} /> Ver chat
-                        </button> */}
+                        </button>
                       </div>
                     </div>
                     ))}
