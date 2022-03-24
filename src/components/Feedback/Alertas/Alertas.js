@@ -3,10 +3,10 @@ import './Alertas.css'
 import { alertas as getAlertas, marcarAlerta } from '../../../api/endpoints'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import classNames from 'classnames'
-import { InlineIcon } from '@iconify/react'
+import Icon, { InlineIcon } from '@iconify/react'
 import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
 import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
-import iconoMarcar from '@iconify/icons-mdi/bell-check-outline'
+import iconoMarcar from '@iconify/icons-mdi/check-bold'
 import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import { format, isToday, parseISO } from 'date-fns'
@@ -122,6 +122,10 @@ const Alertas = () => {
                 className="Alertas__contenedor_opcion"
                 title="Ver todas las alertas"
               >
+                <Icon
+                  className="Alertas__icono_checkbox"
+                  icon={iconoMarcar}
+                />
                 <input
                   type="checkbox"
                   className="Alertas__checkbox_opcion"
@@ -135,6 +139,10 @@ const Alertas = () => {
                   className="Alertas__contenedor_opcion"
                   title={`Ver alertas con el mensaje \"${tipo}\"`}
                 >
+                  <Icon
+                    className="Alertas__icono_checkbox"
+                    icon={iconoMarcar}
+                  />
                   <input
                     type="checkbox"
                     className="Alertas__checkbox_opcion"
@@ -155,6 +163,10 @@ const Alertas = () => {
                 className="Alertas__contenedor_opcion"
                 title="Activar o desactivar alertas de escritorio ante nuevas alertas"
               >
+                <Icon
+                  className="Alertas__icono_checkbox"
+                  icon={iconoMarcar}
+                />
                 <input
                   type="checkbox"
                   className="Alertas__checkbox_opcion"
@@ -219,7 +231,7 @@ const Alertas = () => {
                           className="Alertas__boton_accion"
                           onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
                         >
-                          <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
+                          <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar como {alerta.dismissed ? 'no resuelta' : 'resuelta'}
                         </button>
                         <button
                           className="Alertas__boton_accion"
