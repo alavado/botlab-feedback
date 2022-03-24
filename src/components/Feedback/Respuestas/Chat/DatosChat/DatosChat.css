@@ -22,7 +22,7 @@
   font-weight: 600;
   font-size: .7rem;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   background: none;
   border: none;
   cursor: pointer;

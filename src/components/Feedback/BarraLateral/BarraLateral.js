@@ -13,10 +13,12 @@ import './BarraLateral.css'
 import { useQuery } from 'react-query'
 import { alertasVisibles } from '../Alertas/Alertas'
 import logoFeedback from '../../../assets/images/logo_cuadrado_notificaciones.png'
+import { useSelector } from 'react-redux'
 
 const BarraLateral = () => {
 
   const [conteoAlertas, setConteoAlertas] = useState(0)
+  const { recibirNotificaciones } = useSelector(state => state.alertas)
   const { data: dataAlertas } = useQuery(
     'alertas',
     alertasAPI,
@@ -29,8 +31,10 @@ const BarraLateral = () => {
   )
 
   useEffect(() => {
-    Notification.requestPermission()
-  }, [])
+    if (recibirNotificaciones) {
+      Notification.requestPermission()
+    }
+  }, [recibirNotificaciones])
 
   useEffect(() => {
     if (!dataAlertas) {
@@ -40,7 +44,7 @@ const BarraLateral = () => {
       const alertas = dataAlertas?.filter(a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed) || []
       const nuevoConteo = alertas.length
       if (prev < nuevoConteo) {
-        if (!document.hasFocus()) {
+        if (!document.hasFocus() && recibirNotificaciones) {
           let notificacion = new Notification(
             '',
             {
@@ -55,7 +59,7 @@ const BarraLateral = () => {
       }
       return nuevoConteo
     })
-  }, [dataAlertas])
+  }, [dataAlertas, recibirNotificaciones])
   
   return (
     <div className="BarraLateral">
