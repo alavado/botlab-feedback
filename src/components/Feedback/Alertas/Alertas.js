@@ -12,7 +12,7 @@ import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { activarNotificaciones, destacarAlerta } from '../../../redux/ducks/alertas'
+import { activaNotificaciones, agregaAlertasVisibles, destacaAlerta, remueveAlertasVisibles, limpiaAlertasVisibles } from '../../../redux/ducks/alertas'
 import Loader from '../../Loader'
 
 export const alertasVisibles = [
@@ -41,8 +41,7 @@ const tiposAlertas = [
 const Alertas = () => {
 
   const [idTipoAlertaSeleccionado, setIdTipoAlertaSeleccionado] = useState(tiposAlertas[0].id)
-  const [verAlertas, setVerAlertas] = useState([])
-  const { idAlertaDestacada, recibirNotificaciones } = useSelector(state => state.alertas)
+  const { idAlertaDestacada, recibirNotificaciones, verAlertas } = useSelector(state => state.alertas)
   const dispatch = useDispatch()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
     'alertas',
@@ -112,15 +111,17 @@ const Alertas = () => {
     <div className="Alertas">
       <h1 className="Alertas__titulo">Alertas</h1>
       {cargandoAlertas
-        ? <Loader color="#6057f6" />
+        ? <div className="Alertas__loader">
+            <Loader color="#6057f6" />
+          </div>
         : <div className="Alertas__contenedor">
             <div className="Alertas__lateral">
-              <h2>Ver alertas</h2>
+              <h2 className="Alertas__subtitulo">Ver alertas</h2>
               <label className="Alertas__contenedor_opcion">
                 <input
                   type="checkbox"
-                  checked={verAlertas.length === 0}
-                  onChange={e => e.target.checked && setVerAlertas([]) }
+                  checked={verAlertas?.length === 0}
+                  onChange={e => e.target.checked && dispatch(limpiaAlertasVisibles()) }
                 /> Todas
               </label>
               {tiposMensajesAlertas.map(tipo => (
@@ -130,24 +131,24 @@ const Alertas = () => {
                 >
                   <input
                     type="checkbox"
-                    checked={verAlertas.indexOf(tipo) >= 0}
+                    checked={verAlertas?.indexOf(tipo) >= 0}
                     onChange={e => {
                       if (e.target.checked) {
-                        setVerAlertas([...verAlertas, tipo])
+                        dispatch(agregaAlertasVisibles(tipo))
                       }
                       else {
-                        setVerAlertas(verAlertas.filter(m => m !== tipo))
+                        dispatch(remueveAlertasVisibles(tipo))
                       }
                     }}
                   /> {tipo}
                 </label>
               ))}
-              <h2>Opciones</h2>
+              <h2 className="Alertas__subtitulo">Opciones</h2>
               <label>
                 <input
                   type="checkbox"
                   checked={recibirNotificaciones}
-                  onChange={e => dispatch(activarNotificaciones(e.target.checked))}
+                  onChange={e => dispatch(activaNotificaciones(e.target.checked))}
                 /> Recibir notificaciones
               </label>
             </div>
@@ -183,10 +184,11 @@ const Alertas = () => {
                         "Alertas__fila": true,
                         "Alertas__fila--destacada": alerta.id === idAlertaDestacada,
                         "Alertas__fila--derecha": indiceTipoAlerta > 0,
+                        "Alertas__fila--oculta": verAlertas?.length > 0 && verAlertas.indexOf(alerta.message) < 0
                       })}
                       key={`fila-alerta-${alerta.id}`}
                       onClick={() => {
-                        dispatch(destacarAlerta({ id: alerta.id }))
+                        dispatch(destacaAlerta({ id: alerta.id }))
                         history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
                       }}
                     >

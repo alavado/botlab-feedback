@@ -12,6 +12,10 @@
   padding-bottom: .35rem;
 }
 
+.Alertas__loader {
+  padding: 3rem 15rem;
+}
+
 .Alertas__contenedor {
   display: flex;
   width: 100%;
@@ -23,16 +27,23 @@
   flex-direction: column;
   gap: 1rem;
   padding-top: 1rem;
-  padding-right: 2rem;
+  padding-right: 1rem;
   font-size: .65rem;
   max-width: 12rem;
   border-right: 1px solid var(--color-bordes);
+}
+
+.Alertas__subtitulo {
+  font-weight: 600;
+  font-size: .7rem;
 }
 
 .Alertas__contenedor_opcion {
   display: flex;
   gap: .25rem;
   align-items: center;
+  line-height: 1.25;
+  cursor: pointer;
 }
 
 .Alertas__contenedor_secciones_alertas {
@@ -136,6 +147,10 @@
 
 .Alertas__fila:active {
   background-color: var(--color-foco-fila);
+}
+
+.Alertas__fila--oculta {
+  display: none;
 }
 
 .Alertas__contenedor_checkbox {
