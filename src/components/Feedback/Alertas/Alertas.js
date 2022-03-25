@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import './Alertas.css'
 import { alertas as getAlertas, marcarAlerta } from '../../../api/endpoints'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
@@ -9,6 +9,11 @@ import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
 import iconoMarcar from '@iconify/icons-mdi/check-bold'
 import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
+import iconoNumeroEquivocado from '@iconify/icons-mdi/cellphone-off'
+import iconoPacienteArrepentido from '@iconify/icons-mdi/account-alert'
+import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/account-cancel'
+import iconoReagendaPostConfirmacion from '@iconify/icons-mdi/account-edit'
+import iconoPregunta from '@iconify/icons-mdi/account-question'
 import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
@@ -22,6 +27,14 @@ export const alertasVisibles = [
   'Paciente cancela post confirmación',
   'Paciente reagenda post confirmación',
   'Paciente tiene pregunta o comentario'
+]
+
+export const iconosAlertasVisibles = [
+  iconoNumeroEquivocado,
+  iconoPacienteArrepentido,
+  iconoCancelaPostConfirmacion,
+  iconoReagendaPostConfirmacion,
+  iconoPregunta
 ]
 
 const tiposAlertas = [
@@ -50,7 +63,25 @@ const Alertas = () => {
     {
       refetchInterval: 30_000,
       refetchOnMount: true,
-      select: res => res.data
+      select: res => {
+        return tiposAlertas.map(t => {
+          const alertas = res.data
+            .filter(t.filtro)
+            .map(a => ({
+              ...a,
+              icono: iconosAlertasVisibles[alertasVisibles.findIndex(x => x === a.message)] || iconoWhatsapp,
+              horaLegible: !isToday(parseISO(a.utc_timestamp))
+                ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
+                : format(parseISO(a.utc_timestamp), 'HH:mm', { locale: es }),
+            }))
+          alertas.sort((a1, a2) => a1.utc_timestamp > a2.utc_timestamp ? -1 : 1)
+          return {
+            ...t,
+            alertas,
+            conteo: alertas.length,
+          }
+        })
+      }
     }
   )
   const queryClient = useQueryClient()
@@ -79,35 +110,6 @@ const Alertas = () => {
   })
   const history = useHistory()
 
-  const tiposMensajesAlertas = useMemo(() => {
-    if (!dataAlertas) {
-      return []
-    }
-    return [...new Set(dataAlertas.map(t => t.message).filter(m => alertasVisibles.indexOf(m) >= 0))]
-  }, [dataAlertas])
-
-  const clasificacionAlertas = useMemo(() => {
-    if (!dataAlertas) {
-      return [[], []]
-    }
-    return tiposAlertas.map(t => {
-      const alertas = dataAlertas
-        .filter(t.filtro)
-        .map(a => ({
-          ...a,
-          horaLegible: !isToday(parseISO(a.utc_timestamp))
-            ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
-            : format(parseISO(a.utc_timestamp), 'HH:mm', { locale: es }),
-        }))
-      alertas.sort((a1, a2) => a1.utc_timestamp > a2.utc_timestamp ? -1 : 1)
-      return {
-        ...t,
-        alertas,
-        conteo: alertas.length,
-      }
-    })
-  }, [dataAlertas])
-
   return (
     <div className="Alertas">
       <h1 className="Alertas__titulo">Alertas</h1>
@@ -133,7 +135,7 @@ const Alertas = () => {
                   onChange={e => e.target.checked && dispatch(limpiaAlertasVisibles()) }
                 /> Todas
               </label>
-              {tiposMensajesAlertas.map(tipo => (
+              {alertasVisibles.map((tipo, i) => (
                 <label
                   key={`checkbox-${tipo}`}
                   className="Alertas__contenedor_opcion"
@@ -145,7 +147,10 @@ const Alertas = () => {
                   />
                   <input
                     type="checkbox"
-                    className="Alertas__checkbox_opcion"
+                    className={classNames({
+                      "Alertas__checkbox_opcion": true,
+                      "Alertas__checkbox_opcion--activo": verAlertas?.indexOf(tipo) >= 0
+                    })}
                     checked={verAlertas?.indexOf(tipo) >= 0}
                     onChange={e => {
                       if (e.target.checked) {
@@ -155,7 +160,14 @@ const Alertas = () => {
                         dispatch(remueveAlertasVisibles(tipo))
                       }
                     }}
-                  /> {tipo}
+                  />
+                  <Icon
+                    icon={iconosAlertasVisibles[i]}
+                    className="Alertas__icono_tipo_alerta"
+                  />
+                  <span className="Alertas__etiqueta_tipo_alerta">
+                    {tipo}
+                  </span>
                 </label>
               ))}
               <h2 className="Alertas__subtitulo">Opciones</h2>
@@ -163,21 +175,23 @@ const Alertas = () => {
                 className="Alertas__contenedor_opcion"
                 title="Activar o desactivar alertas de escritorio ante nuevas alertas"
               >
-                <Icon
-                  className="Alertas__icono_checkbox"
-                  icon={iconoMarcar}
+                <div
+                  className={classNames({
+                    "Alertas__switch": true,
+                    "Alertas__switch--activo": recibirNotificaciones
+                  })}
                 />
                 <input
                   type="checkbox"
-                  className="Alertas__checkbox_opcion"
+                  className="Alertas__checkbox_oculto"
                   checked={recibirNotificaciones}
                   onChange={e => dispatch(activaNotificaciones(e.target.checked))}
-                /> Recibir notificaciones
+                /> {recibirNotificaciones ? 'Recibir notificaciones': 'No recibir notificaciones'}
               </label>
             </div>
             <div className="Alertas__contenedor_secciones_alertas">
               <div className="Alertas__contenedor_botones_seleccion_tipo">
-                {clasificacionAlertas.map(tipoAlertas => (
+                {dataAlertas.map(tipoAlertas => (
                   <button
                     key={`boton-tipo-alertas-${tipoAlertas.id}`}
                     className={classNames({
@@ -193,7 +207,7 @@ const Alertas = () => {
                 ))}
               </div>
               <div className="Alertas__contenedor_listas_alertas">
-                {clasificacionAlertas.map((tipoAlertas, indiceTipoAlerta) => (
+                {dataAlertas.map((tipoAlertas, indiceTipoAlerta) => (
                   <div
                     className={classNames({
                       "Alertas__lista_alertas": true,
@@ -202,48 +216,52 @@ const Alertas = () => {
                     key={`lista-alertas-${tipoAlertas.id}`}
                   >
                     {tipoAlertas.alertas.map(alerta => (
-                    <div
-                      className={classNames({
-                        "Alertas__fila": true,
-                        "Alertas__fila--destacada": alerta.id === idAlertaDestacada,
-                        "Alertas__fila--derecha": indiceTipoAlerta > 0,
-                        "Alertas__fila--oculta": verAlertas?.length > 0 && verAlertas.indexOf(alerta.message) < 0
-                      })}
-                      key={`fila-alerta-${alerta.id}`}
-                      onClick={() => {
-                        dispatch(destacaAlerta({ id: alerta.id }))
-                        history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
-                      }}
-                    >
-                      <div className="Alertas__contenedor_checkbox">
-                        <div className={classNames({
-                          "Alertas__checkbox": true,
-                          "Alertas__checkbox--resuelto": alerta.dismissed
-                        })} />
-                      </div>
-                      <div>{alerta.horaLegible}</div>
-                      <div>{alerta.message}</div>
                       <div
-                        className="Alertas__contenedor_acciones"
-                        onClick={e => e.stopPropagation()}
+                        className={classNames({
+                          "Alertas__fila": true,
+                          "Alertas__fila--destacada": alerta.id === idAlertaDestacada,
+                          "Alertas__fila--derecha": indiceTipoAlerta > 0,
+                          "Alertas__fila--oculta": verAlertas?.length > 0 && verAlertas.indexOf(alerta.message) < 0
+                        })}
+                        key={`fila-alerta-${alerta.id}`}
+                        onClick={() => {
+                          dispatch(destacaAlerta({ id: alerta.id }))
+                          history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
+                        }}
                       >
-                        <button
-                          className="Alertas__boton_accion"
-                          onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
+                        <Icon
+                          icon={alerta.icono}
+                          className="Alertas__fila_icono"
+                        />
+                        {/* <div className="Alertas__contenedor_checkbox">
+                          <div className={classNames({
+                            "Alertas__checkbox": true,
+                            "Alertas__checkbox--resuelto": alerta.dismissed
+                          })} />
+                        </div> */}
+                        <div style={{ paddingLeft: '.5rem' }}>{alerta.horaLegible}</div>
+                        <div>{alerta.message}</div>
+                        <div
+                          className="Alertas__contenedor_acciones"
+                          onClick={e => e.stopPropagation()}
                         >
-                          <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar como {alerta.dismissed ? 'no resuelta' : 'resuelta'}
-                        </button>
-                        <button
-                          className="Alertas__boton_accion"
-                          onClick={e => {
-                            e.stopPropagation()
-                            history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)
-                          }}
-                        >
-                          <InlineIcon icon={iconoWhatsapp} /> Ver chat
-                        </button>
+                          <button
+                            className="Alertas__boton_accion"
+                            onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
+                          >
+                            <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar como {alerta.dismissed ? 'no resuelta' : 'resuelta'}
+                          </button>
+                          <button
+                            className="Alertas__boton_accion"
+                            onClick={e => {
+                              e.stopPropagation()
+                              history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)
+                            }}
+                          >
+                            <InlineIcon icon={iconoWhatsapp} /> Ver chat
+                          </button>
+                        </div>
                       </div>
-                    </div>
                     ))}
                   </div>
                 ))}
