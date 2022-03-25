@@ -10,15 +10,15 @@ import iconoMarcar from '@iconify/icons-mdi/check-bold'
 import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import iconoNumeroEquivocado from '@iconify/icons-mdi/cellphone-off'
-import iconoPacienteArrepentido from '@iconify/icons-mdi/account-alert'
-import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/account-cancel'
-import iconoReagendaPostConfirmacion from '@iconify/icons-mdi/account-edit'
-import iconoPregunta from '@iconify/icons-mdi/account-question'
+import iconoPacienteArrepentido from '@iconify/icons-mdi/arrow-u-left-bottom-bold'
+import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/close-thick'
+import iconoReagendaPostConfirmacion from '@iconify/icons-mdi/edit'
+import iconoPregunta from '@iconify/icons-mdi/chat-question'
 import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { activaNotificaciones, agregaAlertasVisibles, destacaAlerta, remueveAlertasVisibles, limpiaAlertasVisibles } from '../../../redux/ducks/alertas'
+import { activaNotificaciones, agregaAlertasVisibles, destacaAlerta, remueveAlertasVisibles } from '../../../redux/ducks/alertas'
 import Loader from '../../Loader'
 
 export const alertasVisibles = [
@@ -120,21 +120,6 @@ const Alertas = () => {
         : <div className="Alertas__contenedor">
             <div className="Alertas__lateral">
               <h2 className="Alertas__subtitulo">Ver alertas</h2>
-              <label
-                className="Alertas__contenedor_opcion"
-                title="Ver todas las alertas"
-              >
-                <Icon
-                  className="Alertas__icono_checkbox"
-                  icon={iconoMarcar}
-                />
-                <input
-                  type="checkbox"
-                  className="Alertas__checkbox_opcion"
-                  checked={verAlertas?.length === 0}
-                  onChange={e => e.target.checked && dispatch(limpiaAlertasVisibles()) }
-                /> Todas
-              </label>
               {alertasVisibles.map((tipo, i) => (
                 <label
                   key={`checkbox-${tipo}`}
@@ -221,7 +206,7 @@ const Alertas = () => {
                           "Alertas__fila": true,
                           "Alertas__fila--destacada": alerta.id === idAlertaDestacada,
                           "Alertas__fila--derecha": indiceTipoAlerta > 0,
-                          "Alertas__fila--oculta": verAlertas?.length > 0 && verAlertas.indexOf(alerta.message) < 0
+                          "Alertas__fila--oculta": verAlertas?.indexOf(alerta.message) < 0
                         })}
                         key={`fila-alerta-${alerta.id}`}
                         onClick={() => {
