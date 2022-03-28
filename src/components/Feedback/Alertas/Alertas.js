@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import './Alertas.css'
 import { alertas as getAlertas, marcarAlerta } from '../../../api/endpoints'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
@@ -11,7 +11,7 @@ import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import iconoNumeroEquivocado from '@iconify/icons-mdi/cellphone-off'
 import iconoPacienteArrepentido from '@iconify/icons-mdi/arrow-u-left-bottom-bold'
-import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/close-thick'
+import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/cancel'
 import iconoReagendaPostConfirmacion from '@iconify/icons-mdi/edit'
 import iconoPregunta from '@iconify/icons-mdi/chat-question'
 import { format, isToday, parseISO } from 'date-fns'
@@ -37,7 +37,7 @@ export const iconosAlertasVisibles = [
   iconoPregunta
 ]
 
-const tiposAlertas = [
+const tabsAlertas = [
   {
     id: 1,
     titulo: 'Por resolver',
@@ -54,7 +54,7 @@ const tiposAlertas = [
 
 const Alertas = () => {
 
-  const [idTipoAlertaSeleccionado, setIdTipoAlertaSeleccionado] = useState(tiposAlertas[0].id)
+  const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
   const { idAlertaDestacada, recibirNotificaciones, verAlertas } = useSelector(state => state.alertas)
   const dispatch = useDispatch()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
@@ -64,7 +64,7 @@ const Alertas = () => {
       refetchInterval: 30_000,
       refetchOnMount: true,
       select: res => {
-        return tiposAlertas.map(t => {
+        return tabsAlertas.map(t => {
           const alertas = res.data
             .filter(t.filtro)
             .map(a => ({
@@ -84,6 +84,7 @@ const Alertas = () => {
       }
     }
   )
+
   const queryClient = useQueryClient()
   const mutation = useMutation(({ id, dismissed }) => marcarAlerta(id, dismissed), {
     onMutate: async ({ id, dismissed }) => {
@@ -108,7 +109,24 @@ const Alertas = () => {
       queryClient.invalidateQueries('alertas')
     },
   })
+
   const history = useHistory()
+
+  const tiposAlertasConConteos = useMemo(() => {
+    if (!dataAlertas) {
+      return []
+    }
+    return alertasVisibles.map(nombre => ({
+      nombre,
+      conteo: dataAlertas
+        .find(t => t.titulo === 'Por resolver')
+        .alertas
+        .filter(a => a.message === nombre)
+        .length
+    }))
+  }, [dataAlertas])
+
+  console.log(tiposAlertasConConteos)
 
   return (
     <div className="Alertas">
@@ -120,11 +138,11 @@ const Alertas = () => {
         : <div className="Alertas__contenedor">
             <div className="Alertas__lateral">
               <h2 className="Alertas__subtitulo">Ver alertas</h2>
-              {alertasVisibles.map((tipo, i) => (
+              {tiposAlertasConConteos.map(({ nombre, conteo }, i) => (
                 <label
-                  key={`checkbox-${tipo}`}
+                  key={`checkbox-${nombre}`}
                   className="Alertas__contenedor_opcion"
-                  title={`Ver alertas con el mensaje \"${tipo}\"`}
+                  title={`Ver alertas con el mensaje "${nombre}"`}
                 >
                   <Icon
                     className="Alertas__icono_checkbox"
@@ -134,15 +152,15 @@ const Alertas = () => {
                     type="checkbox"
                     className={classNames({
                       "Alertas__checkbox_opcion": true,
-                      "Alertas__checkbox_opcion--activo": verAlertas?.indexOf(tipo) >= 0
+                      "Alertas__checkbox_opcion--activo": verAlertas?.indexOf(nombre) >= 0
                     })}
-                    checked={verAlertas?.indexOf(tipo) >= 0}
+                    checked={verAlertas?.indexOf(nombre) >= 0}
                     onChange={e => {
                       if (e.target.checked) {
-                        dispatch(agregaAlertasVisibles(tipo))
+                        dispatch(agregaAlertasVisibles(nombre))
                       }
                       else {
-                        dispatch(remueveAlertasVisibles(tipo))
+                        dispatch(remueveAlertasVisibles(nombre))
                       }
                     }}
                   />
@@ -151,7 +169,13 @@ const Alertas = () => {
                     className="Alertas__icono_tipo_alerta"
                   />
                   <span className="Alertas__etiqueta_tipo_alerta">
-                    {tipo}
+                    {nombre}
+                  </span>
+                  <span className="Alertas__conteo_tipo_alerta">
+                    {conteo === 0
+                      ? 'Sin alertas por resolver'
+                      : <>{conteo} alerta{conteo !== 1 ? 's' : ''} por resolver</>
+                    }
                   </span>
                 </label>
               ))}
@@ -181,9 +205,9 @@ const Alertas = () => {
                     key={`boton-tipo-alertas-${tipoAlertas.id}`}
                     className={classNames({
                       "Alertas__boton_tab": true,
-                      "Alertas__boton_tab--activo": idTipoAlertaSeleccionado === tipoAlertas.id,
+                      "Alertas__boton_tab--activo": idTabAlertasActivo === tipoAlertas.id,
                     })}
-                    onClick={() => setIdTipoAlertaSeleccionado(tipoAlertas.id)}
+                    onClick={() => setIdTabAlertasActivo(tipoAlertas.id)}
                   >
                     <InlineIcon className="Alertas__icono_tab" icon={tipoAlertas.icono} />
                     <p className="Alertas__boton_tab_titulo">{tipoAlertas.titulo}</p>
@@ -196,7 +220,7 @@ const Alertas = () => {
                   <div
                     className={classNames({
                       "Alertas__lista_alertas": true,
-                      "Alertas__lista_alertas--visible": idTipoAlertaSeleccionado === tipoAlertas.id,
+                      "Alertas__lista_alertas--visible": idTabAlertasActivo === tipoAlertas.id,
                     })}
                     key={`lista-alertas-${tipoAlertas.id}`}
                   >

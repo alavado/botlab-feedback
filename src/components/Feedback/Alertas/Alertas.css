@@ -20,7 +20,7 @@
 .Alertas__contenedor {
   display: flex;
   width: 100%;
-  gap: 1rem;
+  gap: 1.5rem;
   flex: 1;
   padding-bottom: 1rem;
 }
@@ -42,12 +42,19 @@
 }
 
 .Alertas__contenedor_opcion {
-  display: flex;
-  gap: .35rem;
+  display: grid;
+  grid-template: auto auto / auto auto 1fr;
+  gap: 0 .35rem;
   line-height: 1.25;
   cursor: pointer;
   position: relative;
   align-items: center;
+  user-select: none;
+}
+
+.Alertas__contenedor_opcion:active .Alertas__etiqueta_tipo_alerta,
+.Alertas__contenedor_opcion:active .Alertas__icono_tipo_alerta {
+  color: var(--color-gris);
 }
 
 .Alertas__switch {
@@ -72,14 +79,9 @@
   display: none;
 }
 
-.Alertas__icono_tipo_alerta {
-  width: 1.5rem;
-  font-size: 1.25rem;
-  color: var(--color-texto);
-}
-
 .Alertas__checkbox_opcion {
   cursor: pointer;
+  grid-row: span 2;
   content: '';
   width: 1rem;
   height: 1rem;
@@ -111,8 +113,23 @@
   width: .8rem;
 }
 
+.Alertas__icono_tipo_alerta {
+  width: 1.5rem;
+  font-size: 1.25rem;
+  grid-row: span 2;
+  color: var(--color-texto-tag);
+  place-self: center;
+}
+
 .Alertas__etiqueta_tipo_alerta {
-  flex: 1;
+  place-self: start start;
+}
+
+.Alertas__conteo_tipo_alerta {
+  place-self: start start;
+  font-size: .5rem;
+  padding-top: .1rem;
+  color: var(--color-gris);
 }
 
 .Alertas__contenedor_secciones_alertas {
@@ -223,7 +240,7 @@
 .Alertas__fila_icono {
   font-size: 1.25rem;
   place-self: center center;
-  color: var(--color-texto);
+  color: var(--color-texto-tag);
 }
 
 .Alertas__contenedor_checkbox {

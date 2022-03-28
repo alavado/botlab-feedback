@@ -58,7 +58,7 @@ const TableroRespuestas = () => {
   useEffect(() => {
     dispatch(remueveFiltrosTemporales())
     dispatch(fijaOpcionTableroVisible(true))
-  }, [])
+  }, [dispatch])
 
   const respuestasPorEstado = useMemo(() => {
     if (!respuestas || !headers) {
@@ -98,7 +98,7 @@ const TableroRespuestas = () => {
       history.push('/')
       return []
     }
-  }, [headers, idEncuestaSeleccionada, respuestas])
+  }, [headers, idEncuestaSeleccionada, respuestas, history])
 
   if (!respuestasPorEstado) {
     return 'Cargando...'
