@@ -11,9 +11,9 @@ import home from '@iconify/icons-mdi/home'
 import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 import { useQuery } from 'react-query'
-import { alertasVisibles } from '../Alertas/Alertas'
 import logoFeedback from '../../../assets/images/logo_cuadrado_notificaciones.png'
 import { useSelector } from 'react-redux'
+import { alertasVisibles } from '../../../redux/ducks/alertas'
 
 const BarraLateral = () => {
 

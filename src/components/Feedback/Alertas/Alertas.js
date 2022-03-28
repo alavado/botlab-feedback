@@ -15,21 +15,12 @@ import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/cancel'
 import iconoReagendaPostConfirmacion from '@iconify/icons-mdi/edit'
 import iconoPregunta from '@iconify/icons-mdi/chat-question'
 import iconoSinAlertasPorResolver from '@iconify/icons-mdi/check'
-import iconoConAlertasPorResolver from '@iconify/icons-mdi/bell-outline'
 import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { activaNotificaciones, agregaAlertasVisibles, destacaAlerta, remueveAlertasVisibles } from '../../../redux/ducks/alertas'
+import { activaNotificaciones, agregaAlertasVisibles, alertasVisibles, destacaAlerta, remueveAlertasVisibles } from '../../../redux/ducks/alertas'
 import Loader from '../../Loader'
-
-export const alertasVisibles = [
-  'Número equivocado',
-  'Paciente se arrepiente de cancelar su hora',
-  'Paciente cancela post confirmación',
-  'Paciente reagenda post confirmación',
-  'Paciente tiene pregunta o comentario'
-]
 
 export const iconosAlertasVisibles = [
   iconoNumeroEquivocado,

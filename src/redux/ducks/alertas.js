@@ -1,11 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+export const alertasVisibles = [
+  'Número equivocado',
+  'Paciente se arrepiente de cancelar su hora',
+  'Paciente cancela post confirmación',
+  'Paciente reagenda post confirmación',
+  'Paciente tiene pregunta o comentario'
+]
+
 const alertasSlice = createSlice({
   name: 'alertas',
   initialState: {
     idAlertaDestacada: undefined,
     recibirNotificaciones: false,
-    verAlertas: []
+    verAlertas: alertasVisibles
   },
   reducers: {
     destacaAlerta(state, { payload: { id } }) {
