@@ -14,6 +14,8 @@ import iconoPacienteArrepentido from '@iconify/icons-mdi/arrow-u-left-bottom-bol
 import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/cancel'
 import iconoReagendaPostConfirmacion from '@iconify/icons-mdi/edit'
 import iconoPregunta from '@iconify/icons-mdi/chat-question'
+import iconoSinAlertasPorResolver from '@iconify/icons-mdi/check'
+import iconoConAlertasPorResolver from '@iconify/icons-mdi/bell-outline'
 import { format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
@@ -126,7 +128,7 @@ const Alertas = () => {
     }))
   }, [dataAlertas])
 
-  console.log(tiposAlertasConConteos)
+  console.log(verAlertas)
 
   return (
     <div className="Alertas">
@@ -142,7 +144,7 @@ const Alertas = () => {
                 <label
                   key={`checkbox-${nombre}`}
                   className="Alertas__contenedor_opcion"
-                  title={`Ver alertas con el mensaje "${nombre}"`}
+                  title={`${verAlertas?.indexOf(nombre) >= 0 ? 'Ocultar' : 'Ver'} alertas con el mensaje "${nombre}"`}
                 >
                   <Icon
                     className="Alertas__icono_checkbox"
@@ -173,8 +175,8 @@ const Alertas = () => {
                   </span>
                   <span className="Alertas__conteo_tipo_alerta">
                     {conteo === 0
-                      ? 'Sin alertas por resolver'
-                      : <>{conteo} alerta{conteo !== 1 ? 's' : ''} por resolver</>
+                      ? <><InlineIcon icon={iconoSinAlertasPorResolver} /> Sin alertas por resolver</>
+                      : <><InlineIcon icon={iconoAlertasNoResueltas} /> {conteo} alerta{conteo !== 1 ? 's' : ''} por resolver</>
                     }
                   </span>
                 </label>

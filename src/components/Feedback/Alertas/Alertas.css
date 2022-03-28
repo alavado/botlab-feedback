@@ -44,7 +44,7 @@
 .Alertas__contenedor_opcion {
   display: grid;
   grid-template: auto auto / auto auto 1fr;
-  gap: 0 .35rem;
+  gap: .05rem .35rem;
   line-height: 1.25;
   cursor: pointer;
   position: relative;
@@ -130,6 +130,10 @@
   font-size: .5rem;
   padding-top: .1rem;
   color: var(--color-gris);
+  transition: all .1s ease;
+  display: flex;
+  align-items: center;
+  gap: .2rem;
 }
 
 .Alertas__contenedor_secciones_alertas {

@@ -20,6 +20,9 @@ const alertasSlice = createSlice({
     remueveAlertasVisibles(state, { payload }) {
       state.verAlertas = state.verAlertas.filter(m => m !== payload)
     },
+    dejaSoloAlertasVisibles(state, { payload }) {
+      state.verAlertas = [payload]
+    },
     limpiaAlertasVisibles(state, { payload }) {
       state.verAlertas = []
     }
@@ -31,7 +34,8 @@ export const {
   activaNotificaciones,
   agregaAlertasVisibles,
   remueveAlertasVisibles,
-  limpiaAlertasVisibles
+  limpiaAlertasVisibles,
+  dejaSoloAlertasVisibles
 } = alertasSlice.actions
 
 export default alertasSlice.reducer
