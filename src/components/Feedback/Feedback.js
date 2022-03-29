@@ -19,6 +19,7 @@ import { guardaAlertas } from '../../redux/ducks/alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import Preparaciones from './Preparaciones'
 import VisorGuiones from './VisorGuiones'
+import Novedades from '../Novedades'
 
 const intervaloRefrescoAlertas = 5_000
 const alertasActivas = false
@@ -71,6 +72,7 @@ const Feedback = () => {
     <ErrorBoundary>
       <div className="Feedback">
         {errorCargandoRespuestas}
+        <Novedades />
         <BarraLateral />
         <div className="Feedback__contenedor">
           <BarraSuperior />

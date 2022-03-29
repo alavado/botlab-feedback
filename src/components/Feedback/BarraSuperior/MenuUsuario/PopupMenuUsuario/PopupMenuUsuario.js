@@ -18,6 +18,7 @@ import { InlineIcon } from '@iconify/react'
 import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
 import { createPortal } from 'react-dom'
+import { activaModal } from '../../../../../redux/ducks/novedades'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
@@ -64,7 +65,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
         })}
       >
         <div className="PopupMenuUsuario__controles_zoom">
-          Ajustar zoom
+          Ajustar tamaño de letra
           <button
             className="PopupMenuUsuario__boton_zoom"
             onClick={zoomOut}
@@ -79,14 +80,15 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           </button>
         </div>
         <div className="PopupMenuUsuario__opciones">
-          <button
+          {/* <button
             className="PopupMenuUsuario__boton_opcion"
             onClick={e => {
               e.stopPropagation()
+              dispatch(activaModal())
             }}
           >
             <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoNovedades} /> Novedades del servicio
-          </button>
+          </button> */}
           {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
             <button
               className="PopupMenuUsuario__boton_opcion"
