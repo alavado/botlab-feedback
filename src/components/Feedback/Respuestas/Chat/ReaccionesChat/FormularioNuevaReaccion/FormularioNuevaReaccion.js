@@ -108,7 +108,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
           "FormularioNuevaReaccion__contenedor_sugerencias--visible": editando
         })}>
           Sugerencias: 
-          {reaccionesGuardadas.slice(0, 5).map(({ emoji, comentario }) => (
+          {reaccionesGuardadas.slice(0, 5).map(({ emoji, comentario }, i) => (
             <span
               className="FormularioNuevaReaccion__boton_sugerencia"
               onClick={() => {
@@ -117,6 +117,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
                 inputRef.current.focus()
               }}
               title={comentario}
+              key={`fila-comentario-${i}`}
             >
               <span>{emoji}</span>
               <span className="FormularioNuevaReaccion__boton_sugerencia_comentario">{comentario}</span>

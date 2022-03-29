@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { guardaRespuestas } from '../../redux/ducks/respuestas'
-import { alertas as alertasAPI, respuestas as respuestasAPI } from '../../api/endpoints'
+import { respuestas as respuestasAPI } from '../../api/endpoints'
 import { headers as headersAPI } from '../../api/endpoints'
 import Respuestas from './Respuestas'
 import './Feedback.css'
@@ -15,14 +15,10 @@ import ExportacionAvanzada from '../ExportacionAvanzada'
 import Uso from './Uso'
 import ErrorBoundary from '../../helpers/ErrorBoundary'
 import Alertas from './Alertas'
-import { guardaAlertas } from '../../redux/ducks/alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import Preparaciones from './Preparaciones'
 import VisorGuiones from './VisorGuiones'
 import Novedades from '../Novedades'
-
-const intervaloRefrescoAlertas = 5_000
-const alertasActivas = false
 
 const Feedback = () => {
 
@@ -55,13 +51,6 @@ const Feedback = () => {
         setErrorCargandoRespuestas('Ocurrió un error')
       }
     }
-    if (process.env.NODE_ENV === 'development' && alertasActivas) {
-      const intervalAlertas = setInterval(async () => {
-        const { data } = await alertasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-        dispatch(guardaAlertas(data))
-      }, intervaloRefrescoAlertas)
-      return () => clearInterval(intervalAlertas)
-    }
   }, [token, idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino, cacheInvalido])
 
   if (!token) {
@@ -91,7 +80,7 @@ const Feedback = () => {
                 <Respuestas />
               </Route>
               <Route path="/alertas">
-                <Alertas />
+                <Alertas  />
               </Route>
               <Route exact path="/busqueda">
                 <Busqueda />

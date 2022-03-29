@@ -44,12 +44,20 @@ const BarraSuperior = () => {
       <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} />
       <AlertaPilotos />
       {tiposOrdenados?.length < 3 && !cuenta.includes('redsalud')
-        ? <TabsEncuestas />
+        ? <Switch>
+            <Route path="/chat/:idEncuesta/:idUsuario" component={TabsEncuestas} />
+            <Route path="/busqueda" component={TabsEncuestas} />
+            <Route path="/uso" component={TabsEncuestas} />
+            <Route path="/preparaciones" component={TabsEncuestas} />
+            <Route path="/alertas" component={TabsEncuestas} />
+            <Route path="/" component={TabsEncuestas} />
+          </Switch>
         : <Switch>
             <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
             <Route path="/busqueda" component={SelectorEncuesta} />
             <Route path="/uso" component={SelectorEncuesta} />
             <Route path="/preparaciones" component={SelectorEncuesta} />
+            <Route path="/alertas" component={SelectorEncuesta} />
             <Route path="/" component={SelectorEncuesta} />
           </Switch>
       }
