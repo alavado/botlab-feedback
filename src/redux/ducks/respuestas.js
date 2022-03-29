@@ -85,7 +85,7 @@ const sliceRespuestas = createSlice({
       }).reverse()
       try {
         let categorias = Object.keys(respuestas[0]).map(k => (
-          respuestas[0][k].tag !== undefined
+          respuestas[0][k]?.tag !== undefined
             ? {
                 propiedad: k,
                 esTag: true,
@@ -110,6 +110,7 @@ const sliceRespuestas = createSlice({
         state.categorias = categorias
       }
       catch (e) {
+        console.log(e)
         state.categorias = []
       }
       state.respuestas = respuestas
