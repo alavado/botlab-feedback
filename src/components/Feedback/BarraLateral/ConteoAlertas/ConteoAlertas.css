@@ -1,0 +1,13 @@
+.ConteoAlertas {
+  position: absolute;
+  right: .35rem;
+  top: .35rem;
+  font-size: .5rem;
+  font-weight: bold;
+  background-color: var(--color-secundario);
+  padding: .15rem .25rem;
+  z-index: 2;
+  border-radius: 9in;
+  color: var(--color-texto-claro);
+  animation: aparece-conteo-alertas .25s ease-in both;
+}

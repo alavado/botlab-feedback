@@ -119,8 +119,6 @@ const Alertas = () => {
     }))
   }, [dataAlertas])
 
-  console.log(verAlertas)
-
   return (
     <div className="Alertas">
       <h1 className="Alertas__titulo">Alertas</h1>

@@ -12,6 +12,7 @@
   transform: scale(.85);
   box-shadow: 0 .15rem .25rem var(--color-sombras);
   z-index: 10;
+  user-select: none;
 }
 
 .PopupMenuUsuario--visible {
