@@ -10,7 +10,10 @@ import iconoCerrarSesion from '@iconify/icons-mdi/exit-to-app'
 import iconoLuna from '@iconify/icons-mdi/weather-night'
 import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
 import iconoIncognito from '@iconify/icons-mdi/incognito'
+import iconoNovedades from '@iconify/icons-mdi/robot-happy-outline'
 import iconoTablero from '@iconify/icons-mdi/developer-board'
+import iconoReducirZoom from '@iconify/icons-mdi/minus'
+import iconoAumentarZoom from '@iconify/icons-mdi/plus'
 import { InlineIcon } from '@iconify/react'
 import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
@@ -35,6 +38,18 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
     }
   }, [esc, visible])
 
+  const zoomIn = () => {
+    const html = document.querySelector('html')
+    const tamañoAnterior = window.getComputedStyle(html, null).getPropertyValue('font-size').slice(0, -2)
+    html.style.fontSize = `${Number(tamañoAnterior) + 2}px`
+  }
+
+  const zoomOut = () => {
+    const html = document.querySelector('html')
+    const tamañoAnterior = window.getComputedStyle(html, null).getPropertyValue('font-size').slice(0, -2)
+    html.style.fontSize = `${Number(tamañoAnterior) - 2}px`
+  }
+
   return createPortal(
     <div
       className="PopupMenuUsuario__lamina"
@@ -48,7 +63,30 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           'PopupMenuUsuario--visible': visible
         })}
       >
+        <div className="PopupMenuUsuario__controles_zoom">
+          Ajustar zoom
+          <button
+            className="PopupMenuUsuario__boton_zoom"
+            onClick={zoomOut}
+          >
+            <InlineIcon icon={iconoReducirZoom} />
+          </button>
+          <button
+            className="PopupMenuUsuario__boton_zoom"
+            onClick={zoomIn}
+          >
+          <InlineIcon icon={iconoAumentarZoom} />
+          </button>
+        </div>
         <div className="PopupMenuUsuario__opciones">
+          <button
+            className="PopupMenuUsuario__boton_opcion"
+            onClick={e => {
+              e.stopPropagation()
+            }}
+          >
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoNovedades} /> Novedades del servicio
+          </button>
           {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
             <button
               className="PopupMenuUsuario__boton_opcion"
@@ -78,6 +116,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           >
             <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoIncognito} /> {scrambled ? 'Mostrar' : 'Ocultar'} datos sensibles
           </button>
+          <div className="PopupMenuUsuario__separador" />
           <button
             className="PopupMenuUsuario__boton_opcion"
             onClick={() => {
