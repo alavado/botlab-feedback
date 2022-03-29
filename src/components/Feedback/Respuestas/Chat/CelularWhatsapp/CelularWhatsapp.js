@@ -46,7 +46,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
     }
     window.addEventListener('keyup', teclasMagicas)
     return () => window.removeEventListener('keyup', teclasMagicas)
-  }, [])
+  }, [dispatch])
 
   return (
     <div className={classNames({

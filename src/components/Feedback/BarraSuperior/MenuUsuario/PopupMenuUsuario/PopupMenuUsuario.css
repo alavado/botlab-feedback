@@ -2,7 +2,6 @@
   position: absolute;
   top: 2rem;
   right: 1rem;
-  z-index: 1000;
   opacity: 0;
   background-color: var(--color-fondo);
   color: var(--color-texto);
@@ -12,6 +11,7 @@
   transition: all .15s ease;
   transform: scale(.85);
   box-shadow: 0 .15rem .25rem var(--color-sombras);
+  z-index: 10;
 }
 
 .PopupMenuUsuario--visible {
@@ -26,7 +26,7 @@
   left: 0;
   top: 0;
   height: 100%;
-  z-index: 3;
+  z-index: 9;
 }
 
 .PopupMenuUsuario__superior {

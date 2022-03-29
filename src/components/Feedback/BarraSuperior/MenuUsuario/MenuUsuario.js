@@ -15,24 +15,26 @@ const MenuUsuario = () => {
   const { nombreUsuario } = useSelector(state => state.login)
 
   return (
-    <div className={classNames({
-      'MenuUsuario': true,
-      'MenuUsuario--incognito': scrambled
-    })}>
-      <button
-        className="MenuUsuario__boton_mostrar_popup"
-        onClick={() => setMostrarMenu(true)}
-      >
-        <InlineIcon icon={scrambled ? iconoScrambled : iconoUsuario} />
-        {nombreUsuario && <span className="MenuUsuario__nombre_usuario">
-          <Scrambler tipo="usuario" propagar={true}>{nombreUsuario}</Scrambler>
-        </span>}
-      </button>
+    <>
+      <div className={classNames({
+        'MenuUsuario': true,
+        'MenuUsuario--incognito': scrambled
+      })}>
+        <button
+          className="MenuUsuario__boton_mostrar_popup"
+          onClick={() => setMostrarMenu(true)}
+        >
+          <InlineIcon icon={scrambled ? iconoScrambled : iconoUsuario} />
+          {nombreUsuario && <span className="MenuUsuario__nombre_usuario">
+            <Scrambler tipo="usuario" propagar={true}>{nombreUsuario}</Scrambler>
+          </span>}
+        </button>
+      </div>
       <PopupMenuUsuario
         visible={mostrarMenu}
         esconder={() => setMostrarMenu(false)}
       />
-    </div>
+    </>
   )
 }
 

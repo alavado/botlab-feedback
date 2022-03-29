@@ -1,5 +1,4 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useCallback, useEffect } from 'react'
 import classNames from 'classnames'
 import './PopupMenuUsuario.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,22 +11,36 @@ import iconoLuna from '@iconify/icons-mdi/weather-night'
 import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
 import iconoIncognito from '@iconify/icons-mdi/incognito'
 import iconoTablero from '@iconify/icons-mdi/developer-board'
-import iconoUsuario from '@iconify/icons-mdi/account-circle'
-import iconoScrambled from '@iconify/icons-mdi/incognito'
 import { InlineIcon } from '@iconify/react'
-import Scrambler from '../../../../Scrambler/Scrambler'
 import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
+import { createPortal } from 'react-dom'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
-  const { nombreUsuario, cuenta } = useSelector(state => state.login)
+  const { cuenta } = useSelector(state => state.login)
   const { esquema } = useSelector(state => state.opciones)
   const { scrambled } = useSelector(state => state.scrambler)
   const history = useHistory()
   const dispatch = useDispatch()
 
-  return <>
+  const esc = useCallback(e => e.key === 'Escape' && esconder(), [esconder])
+
+  useEffect(() => {
+    if (visible) {
+      window.addEventListener('keyup', esc)
+    }
+    else {
+      window.removeEventListener('keyup', esc)
+    }
+  }, [esc, visible])
+
+  return createPortal(
+    <div
+      className="PopupMenuUsuario__lamina"
+      onClick={esconder}
+      style={{ pointerEvents: visible ? 'all' : 'none' }}
+    >
       <div
         onClick={e => e.stopPropagation()}
         className={classNames({
@@ -35,12 +48,6 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           'PopupMenuUsuario--visible': visible
         })}
       >
-        {/* <div className="PopupMenuUsuario__superior">
-          <InlineIcon icon={scrambled ? iconoScrambled : iconoUsuario} />
-          <span className="PopupMenuUsuario__nombre_usuario">
-            <Scrambler tipo="usuario">{nombreUsuario}</Scrambler>
-          </span>
-        </div> */}
         <div className="PopupMenuUsuario__opciones">
           {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
             <button
@@ -83,16 +90,8 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           </button>
         </div>
       </div>
-      {ReactDOM.createPortal(
-        <div
-          className="PopupMenuUsuario__lamina"
-          onClick={esconder}
-          style={{ pointerEvents: visible ? 'all' : 'none' }}
-        >
-        </div>,
-        document.getElementById('popup-menu-usuario')
-      )}
-    </>
+    </div>
+  , document.getElementById('popup-menu-usuario'))
 }
 
 export default PopupMenuUsuario
