@@ -108,7 +108,7 @@
 .Alertas__icono_checkbox {
   position: absolute;
   z-index: 2;
-  color: var(--color-fondo);
+  color: var(--color-texto-claro);
   left: calc(4px + .1rem);
   width: .8rem;
 }
@@ -117,7 +117,7 @@
   width: 1.5rem;
   font-size: 1.25rem;
   grid-row: span 2;
-  color: var(--color-texto-tag);
+  color: var(--color-texto);
   place-self: center;
 }
 
@@ -244,7 +244,11 @@
 .Alertas__fila_icono {
   font-size: 1.25rem;
   place-self: center center;
-  color: var(--color-texto-tag);
+  color: var(--color-texto);
+}
+
+.Alertas__fila:hover .Alertas__fila_icono {
+  color: var(--color-texto);
 }
 
 .Alertas__contenedor_checkbox {
