@@ -18,6 +18,7 @@ import { alertasVisibles } from '../../../redux/ducks/alertas'
 const BarraLateral = () => {
 
   const [conteoAlertas, setConteoAlertas] = useState(0)
+  const { cuenta } = useSelector(state => state.login)
   const { recibirNotificaciones } = useSelector(state => state.alertas)
   const { data: dataAlertas } = useQuery(
     'alertas',
@@ -83,7 +84,7 @@ const BarraLateral = () => {
           <Icon icon={home} />
           <div className="BarraLateral__nombre_seccion">Respuestas</div>
         </NavLink>
-        {(process.env.NODE_ENV === 'development' || window.location.href.includes('dev')) &&
+        {cuenta.endsWith('_cero') &&
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"

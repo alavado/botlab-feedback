@@ -2,6 +2,7 @@
   display: flex;
   align-items: flex-end;
   margin-top: auto;
+  height: 2rem;
 }
 
 .TabsEncuestas__tab {
@@ -38,4 +39,21 @@
 .TabsEncuestas__tab_icono_empresa {
   font-size: .75rem;
   color: var(--color-whatsapp);
+}
+
+.TabsEncuestas__icono_empresa {
+  width: .75rem;
+  height: .75rem;
+  margin-left: .25rem;
+  margin-right: .25rem;
+  color: var(--color-texto);
+  align-self: center;
+}
+
+.TabsEncuestas__nombre_encuesta {
+  padding-right: .5rem;
+  font-weight: 600;
+  font-size: .7rem;
+  color: var(--color-texto);
+  align-self: center;
 }
