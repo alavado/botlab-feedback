@@ -15,7 +15,7 @@ import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/cancel'
 import iconoReagendaPostConfirmacion from '@iconify/icons-mdi/edit'
 import iconoPregunta from '@iconify/icons-mdi/chat-question'
 import iconoSinAlertasPorResolver from '@iconify/icons-mdi/check'
-import { format, isToday, parseISO } from 'date-fns'
+import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -65,7 +65,7 @@ const Alertas = () => {
               icono: iconosAlertasVisibles[alertasVisibles.findIndex(x => x === a.message)] || iconoWhatsapp,
               horaLegible: !isToday(parseISO(a.utc_timestamp))
                 ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
-                : format(parseISO(a.utc_timestamp), 'HH:mm', { locale: es }),
+                : format(addHours(parseISO(a.utc_timestamp), new Date().getTimezoneOffset() / -60), 'HH:mm', { locale: es }),
             }))
           alertas.sort((a1, a2) => a1.utc_timestamp > a2.utc_timestamp ? -1 : 1)
           return {
