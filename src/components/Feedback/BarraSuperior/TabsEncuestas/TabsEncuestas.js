@@ -114,6 +114,16 @@ const TabsEncuestas = () => {
         'TabsEncuestas--todas': path.indexOf('busqueda') >= 0
       })}
     >
+      {/* <select>
+        <option>ZOna A</option>
+        <option>ZOna A</option>
+        <option>ZOna A</option>
+      </select>
+      <select>
+        <option>ZOna A</option>
+        <option>ZOna A</option>
+        <option>ZOna A</option>
+      </select> */}
       {path.indexOf('busqueda') >= 0 || path.indexOf('uso') >= 0 || path.indexOf('preparaciones') >= 0 || path.indexOf('alertas') >= 0 || path.indexOf('chat') >= 0
         ? <>
             <Icon
