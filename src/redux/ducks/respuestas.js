@@ -257,6 +257,11 @@ const sliceRespuestas = createSlice({
       state.filtros.splice(indiceFiltro, 1)
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
     },
+    remueveFiltroPorNombre(state, action) {
+      const nombreFiltro = action.payload
+      state.filtros = state.filtros.filter(f => f.headers.indexOf(nombreFiltro) < 0)
+      state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+    },
     remueveFiltrosTemporales(state) {
       state.filtros = state.filtros.filter(f => !f.temporal)
       if (state.respuestas) {
@@ -264,7 +269,7 @@ const sliceRespuestas = createSlice({
       }
     },
     limpiaFiltros(state) {
-      state.filtros.length = 0
+      state.filtros = state.filtros.filter(f => f.oculto)
       state.respuestasVisibles = state.respuestas
       state.nombreEncuestaFiltrada = undefined
       state.busqueda = ''
@@ -404,6 +409,7 @@ export const {
   actualizaRespuestas,
   agregaFiltro,
   remueveFiltro,
+  remueveFiltroPorNombre,
   combinaFiltros,
   destacaColumna,
   yaNoDestaquesColumna,

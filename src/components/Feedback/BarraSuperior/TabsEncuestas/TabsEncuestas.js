@@ -12,6 +12,7 @@ import { useParams, useRouteMatch } from 'react-router-dom'
 import classNames from 'classnames'
 import { obtenerTiposEncuestasVisibles } from '../../../../helpers/encuestasSecretas'
 import { obtenerPollsCalculadas } from '../../../../helpers/pollsCalculadas'
+import FiltrosExtra from './FiltrosExtra'
 
 const TabsEncuestas = () => {
 
@@ -114,16 +115,7 @@ const TabsEncuestas = () => {
         'TabsEncuestas--todas': path.indexOf('busqueda') >= 0
       })}
     >
-      {/* <select>
-        <option>ZOna A</option>
-        <option>ZOna A</option>
-        <option>ZOna A</option>
-      </select>
-      <select>
-        <option>ZOna A</option>
-        <option>ZOna A</option>
-        <option>ZOna A</option>
-      </select> */}
+      <FiltrosExtra />
       {path.indexOf('busqueda') >= 0 || path.indexOf('uso') >= 0 || path.indexOf('preparaciones') >= 0 || path.indexOf('alertas') >= 0 || path.indexOf('chat') >= 0
         ? <>
             <Icon

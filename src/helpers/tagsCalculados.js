@@ -328,6 +328,8 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
   if (!tagsCalculados) {
     return
   }
-  const headersSinTags = headers.filter(h => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
+  const headersSinTags = headers
+    .filter(h => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
+    .map(h => h.texto.includes(' Externo') ?  ({ ...h, texto: h.texto.slice(0, -8) }) : h)
   return [...tagsCalculados, ...headersSinTags]
 }
