@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { agregaFiltro, remueveFiltro, remueveFiltroPorNombre } from '../../../../../redux/ducks/respuestas'
+import { agregaFiltro, remueveFiltroPorNombre } from '../../../../../redux/ducks/respuestas'
 import './FiltrosExtra.css'
 
 const FiltrosExtra = () => {
