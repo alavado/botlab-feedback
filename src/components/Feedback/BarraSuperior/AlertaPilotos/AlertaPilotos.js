@@ -19,6 +19,10 @@ const usuariosPiloto = [
     nombre: 'CORE',
     exp: '2022-04-13 00:00:00'
   },
+  {
+    nombre: 'Imaginate',
+    exp: '2022-04-21 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
