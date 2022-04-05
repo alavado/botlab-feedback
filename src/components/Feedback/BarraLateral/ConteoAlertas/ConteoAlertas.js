@@ -42,6 +42,7 @@ const ConteoAlertas = () => {
           notificacion.onclick = () => window.focus()
         }
       }
+      document.title = `(${alertas.length}) Feedback`
       return nuevoConteo
     })
   }, [dataAlertas, recibirNotificaciones])
