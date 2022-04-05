@@ -17,6 +17,7 @@ const Chat = () => {
 
   const [conversaciones, setConversaciones] = useState()
   const [telefono, setTelefono] = useState()
+  const [nombreBot, setNombreBot] = useState()
   const [indiceConversacion, setIndiceConversacion] = useState()
   const [chatsCacheados, setChatCacheados] = useState({})
   const [cargando, setCargando] = useState(false)
@@ -37,7 +38,8 @@ const Chat = () => {
     else {
       chatAPI(idEncuesta, idUsuario)
         .then(({ data }) => {
-          const { data: { conversations, user } } = data
+          const { data: { conversations, user, bot } } = data
+          setNombreBot(bot.name)
           setTelefono(user ? user.phone : '')
           setConversaciones(conversations)
           setIndiceConversacion(conversations.length - 1)
@@ -116,6 +118,7 @@ const Chat = () => {
         indiceConversacion={indiceConversacion}
         actualizarMensajes={actualizarMensajes}
         seleccionarConversacion={setIndiceConversacion}
+        nombreBot={nombreBot}
       />
       <RespuestasChat
         tags={conversaciones?.[indiceConversacion]?.tags}

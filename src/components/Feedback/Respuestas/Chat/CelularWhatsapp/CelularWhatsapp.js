@@ -13,7 +13,7 @@ import SelectorConversacion from './SelectorConversacion'
 import { useHistory } from 'react-router'
 import { toggleDebugging } from '../../../../../redux/ducks/cero'
 
-const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConversacion, actualizarMensajes }) => {
+const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConversacion, actualizarMensajes, nombreBot }) => {
 
   const { chatExpandido } = useSelector(state => state.opciones)
   const contenedorMensajes = useRef()
@@ -88,6 +88,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
           <BarraAppCelular
             mensajes={todosLosMensajes}
             actualizarMensajes={actualizarMensajes}
+            nombreBot={nombreBot}
           />
           <div
             className="CelularWhatsapp__contenedor_mensajes"
