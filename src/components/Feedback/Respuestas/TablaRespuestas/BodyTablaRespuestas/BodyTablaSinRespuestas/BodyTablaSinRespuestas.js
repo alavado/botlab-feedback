@@ -26,9 +26,8 @@ const BodyTablaSinRespuestas = () => {
     icono = iconoSinRepuestas
   }
   else if (horaInicio && !yaFue) {
-    const horasMenos = ((new Date().getTimezoneOffset() - 240) / 60)
     const [horas, minutos] = horaInicio.split(':')
-    mensaje = <p>Las interacciones con pacientes<br />comienzan a las <strong>{horas - horasMenos}:{minutos}</strong></p>
+    mensaje = <p>Las interacciones con pacientes<br />comienzan a las <strong>{horas}:{minutos}</strong></p>
     icono = iconoTodaviaNo
   }
 
