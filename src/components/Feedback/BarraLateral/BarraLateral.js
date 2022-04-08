@@ -11,6 +11,7 @@ import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 import { useSelector } from 'react-redux'
 import ConteoAlertas from './ConteoAlertas'
+import { tieneAccesoAReportes } from '../../../helpers/permisos'
 
 const BarraLateral = () => {
 
@@ -57,14 +58,16 @@ const BarraLateral = () => {
         <Icon icon={preparaciones} />
         <div className="BarraLateral__nombre_seccion">Preparaciones</div>
         </NavLink> */}
-        <NavLink
-          className="BarraLateral__link"
-          activeClassName="BarraLateral__link--activo"
-          to="/exportar"
-        >
-          <Icon icon={exportar} />
-          <div className="BarraLateral__nombre_seccion">Reporte</div>
-        </NavLink>
+        {tieneAccesoAReportes(cuenta) && (
+          <NavLink
+            className="BarraLateral__link"
+            activeClassName="BarraLateral__link--activo"
+            to="/exportar"
+          >
+            <Icon icon={exportar} />
+            <div className="BarraLateral__nombre_seccion">Reporte</div>
+          </NavLink>
+        )}
         <NavLink
           className="BarraLateral__link"
           activeClassName="BarraLateral__link--activo"
