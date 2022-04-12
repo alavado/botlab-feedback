@@ -23,6 +23,10 @@ const usuariosPiloto = [
     nombre: 'AltaEspecialidadDental',
     exp: '2022-05-01 00:00:00'
   },
+  {
+    nombre: '4EverSmile',
+    exp: '2022-04-29 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
