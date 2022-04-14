@@ -186,7 +186,7 @@ const Alertas = () => {
                   className="Alertas__checkbox_oculto"
                   checked={recibirNotificaciones}
                   onChange={e => dispatch(activaNotificaciones(e.target.checked))}
-                /> {recibirNotificaciones ? 'Recibir notificaciones': 'No recibir notificaciones'}
+                /> {recibirNotificaciones ? 'Notificaciones activas': 'Notificaciones desactivadas'}
               </label>
             </div>
             <div className="Alertas__contenedor_secciones_alertas">
