@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { formatISO9075 } from "date-fns"
+import { formatISO9075, parse } from "date-fns"
+import { es } from "date-fns/locale"
 import diccionarioTags from "../../helpers/tags"
 import { obtenerTagsCalculados } from "../../helpers/tagsCalculados"
 
@@ -20,6 +21,21 @@ const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
     }
   }
   return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
+}
+
+const ordenarPorFechaCita = (r1, r2) => {
+  try {
+    const propHora = r1.time ? 'time' : 'time_1'
+    const propFecha = r1.time ? 'date' : 'date_1'
+    const formato = r1[propHora].includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m'
+    const fecha1 = parse(`${r1[propFecha]} ${r1[propHora]}`, formato, new Date(), { locale: es })
+    const fecha2 = parse(`${r2[propFecha]} ${r2[propHora]}`, formato, new Date(), { locale: es })
+    return fecha1 > fecha2 ? 1 : -1
+  }
+  catch (e) {
+    console.log(e)
+    return 1
+  }
 }
 
 const sliceRespuestas = createSlice({
@@ -113,7 +129,7 @@ const sliceRespuestas = createSlice({
         console.log(e)
         state.categorias = []
       }
-      state.respuestas = respuestas
+      state.respuestas = respuestas.sort(ordenarPorFechaCita)
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1
       state.cacheInvalido = false
