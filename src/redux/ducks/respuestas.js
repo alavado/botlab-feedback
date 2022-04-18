@@ -23,19 +23,29 @@ const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
   return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
 }
 
-const ordenarPorFechaCita = (r1, r2) => {
+const ordenarPorFechaCita = (orden = 'ASC') => (r1, r2) => {
   try {
     const propHora = r1.time ? 'time' : 'time_1'
     const propFecha = r1.time ? 'date' : 'date_1'
     const formato = r1[propHora].includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m'
     const fecha1 = parse(`${r1[propFecha]} ${r1[propHora]}`, formato, new Date(), { locale: es })
     const fecha2 = parse(`${r2[propFecha]} ${r2[propHora]}`, formato, new Date(), { locale: es })
-    return fecha1 > fecha2 ? 1 : -1
+    return orden === 'ASC' ? (fecha1 > fecha2 ? 1 : -1) : (fecha1 < fecha2 ? 1 : -1)
   }
   catch (e) {
     console.log(e)
     return 1
   }
+}
+
+const funcionDeOrdenamiento = (header, orden = 'ASC') => {
+  console.log(header)
+  if (header.includes('time') || header.includes('date')) {
+    return ordenarPorFechaCita(orden)
+  }
+  return orden === 'ASC' 
+    ? (r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1
+    : (r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1
 }
 
 const sliceRespuestas = createSlice({
@@ -129,7 +139,7 @@ const sliceRespuestas = createSlice({
         console.log(e)
         state.categorias = []
       }
-      state.respuestas = respuestas.sort(ordenarPorFechaCita)
+      state.respuestas = respuestas.sort(ordenarPorFechaCita())
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1
       state.cacheInvalido = false
@@ -320,13 +330,13 @@ const sliceRespuestas = createSlice({
       else {
         if (state.orden === 'ASC') {
           state.orden = 'DESC'
-          state.respuestas.sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
-          state.respuestasVisibles.sort((r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+          state.respuestas.sort(funcionDeOrdenamiento(header, 'DESC'))
+          state.respuestasVisibles.sort(funcionDeOrdenamiento(header, 'DESC'))
         }
         else {
           state.orden = 'ASC'
-          state.respuestas.sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
-          state.respuestasVisibles.sort((r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
+          state.respuestas.sort(funcionDeOrdenamiento(header, 'ASC'))
+          state.respuestasVisibles.sort(funcionDeOrdenamiento(header, 'ASC'))
         }
       }
     },
