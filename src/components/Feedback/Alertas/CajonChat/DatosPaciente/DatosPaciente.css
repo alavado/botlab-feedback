@@ -1,0 +1,25 @@
+.DatosPaciente {
+  display: grid;
+  grid-template: 1fr auto / auto 1fr;
+  gap: .15rem .5rem;
+  padding-left: .25rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.DatosPaciente__avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background-color: var(--color-fondo);
+  grid-row: span 2;
+  place-self: center center;
+}
+
+.DatosPaciente__nombre {
+  place-self: end start;
+  font-size: .8rem;
+}
+
+.DatosPaciente__telefono {
+  font-size: .65rem;
+}

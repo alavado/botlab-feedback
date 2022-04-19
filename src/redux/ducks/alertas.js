@@ -12,13 +12,17 @@ const alertasSlice = createSlice({
   name: 'alertas',
   initialState: {
     idAlertaDestacada: undefined,
+    idPollAlertaDestacada: undefined,
+    idUserAlertaDestacada: undefined,
     recibirNotificaciones: false,
     verAlertas: alertasVisibles,
     cajonActivo: false
   },
   reducers: {
-    destacaAlerta(state, { payload: { id } }) {
+    destacaAlerta(state, { payload: { id, idPoll, idUser } }) {
       state.idAlertaDestacada = id
+      state.idPollAlertaDestacada = idPoll
+      state.idUserAlertaDestacada = idUser
     },
     activaNotificaciones(state, { payload }) {
       state.recibirNotificaciones = payload

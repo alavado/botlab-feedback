@@ -3,10 +3,26 @@
   opacity: 0;
   transition: all .35s ease-in-out;
   background-color: var(--color-foco-fila);
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .CajonChat--activo {
-  width: 35rem;
+  width: 38rem;
   opacity: 1;
+}
+
+.CajonChat__superior {
+  height: 2.75rem;
+  background-color: var(--whatsapp-fondo-barra-estado);
+  color: var(--color-texto-claro);
+  padding: .5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CajonChat__mensajes {
+  background: var(--whatsapp-fondo);
+  flex: 1;
 }

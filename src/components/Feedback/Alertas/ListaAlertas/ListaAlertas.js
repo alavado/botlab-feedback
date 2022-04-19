@@ -7,6 +7,8 @@ import { marcarAlerta } from '../../../../api/endpoints'
 import { destacaAlerta } from '../../../../redux/ducks/alertas'
 import iconoMarcar from '@iconify/icons-mdi/check-bold'
 import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
+import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
+import iconoMarcaChatActivo from '@iconify/icons-mdi/chevron-right'
 import './ListaAlertas.css'
 
 const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
@@ -59,8 +61,9 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 "ListaAlertas__fila--oculta": verAlertas?.indexOf(alerta.message) < 0
               })}
               key={`fila-alerta-${alerta.id}`}
-              onClick={() => {
-                dispatch(destacaAlerta({ id: alerta.id }))
+              onClick={e => {
+                e.stopPropagation()
+                dispatch(destacaAlerta({ id: alerta.id, idPoll: alerta.poll_id, idUser: alerta.user_id }))
                 // history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
                 mostrarCajon()
               }}
@@ -81,6 +84,13 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
               </div> */}
               <div style={{ paddingLeft: '.5rem' }}>{alerta.horaLegible}</div>
               <div>{alerta.message}</div>
+              <Icon
+                className={classNames({
+                  "ListaAlertas__icono_fila_activa": true,
+                  "ListaAlertas__icono_fila_activa--activa": alerta.id === idAlertaDestacada,
+                })}
+                icon={iconoMarcaChatActivo}
+              />
               <div
                 className="ListaAlertas__contenedor_acciones"
                 onClick={e => e.stopPropagation()}
@@ -91,15 +101,15 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 >
                   <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
                 </button>
-                {/* <button
+                <button
                   className="ListaAlertas__boton_accion"
                   onClick={e => {
                     e.stopPropagation()
-                    history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)
+                    history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
                   }}
                 >
                   <InlineIcon icon={iconoWhatsapp} /> Ver chat
-                </button> */}
+                </button>
               </div>
             </div>
           ))}
