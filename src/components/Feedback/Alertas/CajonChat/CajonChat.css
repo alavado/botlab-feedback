@@ -1,6 +1,7 @@
 .CajonChat {
   width: 0;
-  opacity: 0;
+  overflow: hidden;
+  display: none;
   transition: all .35s ease-in-out;
   background-color: var(--color-barra-superior);
   display: flex;
@@ -9,7 +10,6 @@
 
 .CajonChat--activo {
   width: 38rem;
-  opacity: 1;
 }
 
 .CajonChat__superior {
@@ -25,4 +25,11 @@
 .CajonChat__mensajes {
   background: var(--whatsapp-fondo);
   flex: 1;
+}
+
+.CajonChat__boton_accion {
+  border: none;
+  background: none;
+  font-size: 1.25rem;
+  cursor: pointer;
 }

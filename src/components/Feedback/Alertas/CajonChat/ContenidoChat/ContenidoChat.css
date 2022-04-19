@@ -10,9 +10,9 @@
 .ContenidoChat__mensaje {
   background-color: var(--color-fondo);
   padding: .4rem .5rem;
-  max-width: 60%;
+  max-width: 66%;
   font-size: .75rem;
-  line-height: 1.5;
+  line-height: 1.35;
   border-radius: .35rem;
   display: flex;
   box-shadow: 0 .05rem var(--color-sombras);
@@ -71,9 +71,33 @@
   background-color: var(--whatsapp-fondo-fecha);
   font-size: .75rem;
   padding: .5rem;
+  box-shadow: 0 .05rem var(--color-sombras);
 }
 
 .ContenidoChat__mensaje--dia .ContenidoChat__fecha_mensaje,
 .ContenidoChat__mensaje--cita .ContenidoChat__fecha_mensaje {
   display: none;
+}
+
+.ContenidoChat__mensaje--alerta {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  font-size: .75rem;
+  padding: .5rem .75rem;
+  border-radius: .35rem;
+  background-color: var(--color-secundario);
+  color: var(--color-texto-claro);
+  box-shadow: 0 .05rem var(--color-sombras);
+}
+
+.ContenidoChat__mensaje--alerta .ContenidoChat__fecha_mensaje {
+  display: none;
+}
+
+.ContenidoChat__contenido_alerta {
+  display: flex;
+  gap: .25rem;
+  align-items: center;
+  position: relative;
 }

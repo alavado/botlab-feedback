@@ -11,14 +11,14 @@ export const alertasVisibles = [
 const alertasSlice = createSlice({
   name: 'alertas',
   initialState: {
-    alertaDestacada: undefined,
+    idAlertaDestacada: undefined,
     recibirNotificaciones: false,
     verAlertas: alertasVisibles,
     cajonActivo: false
   },
   reducers: {
-    destacaAlerta(state, { payload: { alerta } }) {
-      state.alertaDestacada = alerta
+    destacaAlerta(state, { payload: { id } }) {
+      state.idAlertaDestacada = id
     },
     activaNotificaciones(state, { payload }) {
       state.recibirNotificaciones = payload
