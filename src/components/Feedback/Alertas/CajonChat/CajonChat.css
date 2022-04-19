@@ -26,10 +26,3 @@
   background: var(--whatsapp-fondo);
   flex: 1;
 }
-
-.CajonChat__boton_accion {
-  border: none;
-  background: none;
-  font-size: 1.25rem;
-  cursor: pointer;
-}

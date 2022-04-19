@@ -81,10 +81,18 @@ const ContenidoChat = () => {
     return eventos
   }, [data, alertaDestacada])
 
-  useEffect(() => document.querySelector('.ContenidoChat__mensaje--alerta')?.scrollIntoView(), [eventos.length])
+  useEffect(() => {
+    const elementoAlerta = document.querySelector('.ContenidoChat__mensaje--alerta')
+    elementoAlerta?.previousSibling?.previousSibling?.previousSibling?.scrollIntoView()
+  }, [eventos.length])
 
   if (isLoading) {
-    return <Loader />
+    return (
+      <div className="ContenidoChat__loader">
+        <Loader color="var(--color-principal)" />
+        <p>Cargando mensajes...</p>
+      </div>
+    )
   }
 
   return (

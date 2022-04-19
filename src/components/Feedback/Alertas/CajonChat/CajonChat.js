@@ -1,20 +1,17 @@
-import { InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
-import { useDispatch, useSelector } from 'react-redux'
-import { activaCajon } from '../../../../redux/ducks/alertas'
-import iconoCerrar from '@iconify/icons-mdi/close'
+import { useSelector } from 'react-redux'
 import './CajonChat.css'
 import ContenidoChat from './ContenidoChat'
-import DatosPaciente from './DatosPaciente'
 import { useQuery } from 'react-query'
 import { alertas as getAlertas } from '../../../../api/endpoints'
+import DatosPacienteCajon from './DatosPacienteCajon'
+import AccionesCajon from './AccionesCajon'
 
 const CajonChat = () => {
 
   const { cajonActivo, idAlertaDestacada } = useSelector(state => state.alertas)
   const { data: dataAlertas } = useQuery('alertas', getAlertas)
   const alertaDestacada = dataAlertas.data.find(a => a.id === idAlertaDestacada)
-  const dispatch = useDispatch()
 
   if (!alertaDestacada) {
     return null
@@ -26,14 +23,8 @@ const CajonChat = () => {
       'CajonChat--activo': cajonActivo
     })}>
       <div className="CajonChat__superior">
-        <DatosPaciente />
-        <button
-          className="CajonChat__boton_accion"
-          onClick={() => dispatch(activaCajon(false))}
-          title="Cerrar chat"
-        >
-          <InlineIcon icon={iconoCerrar} />
-        </button>
+        <DatosPacienteCajon />
+        <AccionesCajon />
       </div>
       <div className="CajonChat__mensajes">
         <ContenidoChat />

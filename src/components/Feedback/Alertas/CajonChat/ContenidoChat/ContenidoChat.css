@@ -1,3 +1,13 @@
+.ContenidoChat__loader {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  font-size: .65rem;
+  gap: .5rem;
+}
+
 .ContenidoChat {
   padding: .75rem 1rem 6rem .75rem;
   display: flex;
@@ -12,12 +22,13 @@
   background-color: var(--color-fondo);
   padding: .4rem .5rem;
   max-width: 66%;
-  font-size: .75rem;
+  font-size: .65rem;
   line-height: 1.35;
   border-radius: .35rem;
   display: flex;
   box-shadow: 0 .05rem var(--color-sombras);
   position: relative;
+  animation: ContenidoChat__mensaje_aparece .25s ease both;
 }
 
 .ContenidoChat__mensaje--usuario {
@@ -63,7 +74,7 @@
 .ContenidoChat__mensaje--dia {
   background-color: var(--whatsapp-fondo-fecha);
   border-radius: .35rem;
-  font-size: .75rem;
+  font-size: .65rem;
   padding: .5rem;
   text-align: center;
   box-shadow: 0 .05rem var(--color-sombras);
@@ -72,7 +83,7 @@
 .ContenidoChat__mensaje--cita {
   align-self: center;
   background-color: var(--whatsapp-fondo-fecha);
-  font-size: .75rem;
+  font-size: .65rem;
   padding: .5rem;
   border-radius: .35rem;
   box-shadow: 0 .05rem var(--color-sombras);
@@ -87,12 +98,13 @@
   align-self: center;
   display: flex;
   justify-content: center;
-  font-size: .75rem;
+  font-size: .65rem;
   padding: .5rem .75rem;
   border-radius: .35rem;
   background-color: var(--color-secundario);
   color: var(--color-texto-claro);
   box-shadow: 0 .05rem var(--color-sombras);
+  animation: ContenidoChat__alerta_aparece .25s .1s ease both;
 }
 
 .ContenidoChat__mensaje--alerta .ContenidoChat__fecha_mensaje {
@@ -115,8 +127,30 @@
   border-radius: .35rem;
   background-color: var(--color-principal);
   color: var(--color-texto-claro);
-  font-size: .75rem;
+  font-size: .65rem;
   cursor: pointer;
   display: flex;
   gap: .25rem;
+}
+
+@keyframes ContenidoChat__mensaje_aparece {
+  0% {
+    opacity: 0;
+    transform: translateY(-.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ContenidoChat__alerta_aparece {
+  0% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

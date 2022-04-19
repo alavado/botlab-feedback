@@ -1,0 +1,12 @@
+.AccionesCajon {
+  display: flex;
+  gap: .35rem;
+}
+
+.AccionesCajon__boton_accion {
+  border: none;
+  background: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--color-texto);
+}

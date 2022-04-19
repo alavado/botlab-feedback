@@ -130,9 +130,12 @@
 .ListaAlertas__icono_fila_activa {
   font-size: 1.25rem;
   opacity: 0;
+  margin-left: -.25rem;
+  transition: all .25s ease;
 }
 
 .ListaAlertas__icono_fila_activa--activa {
+  margin-left: 0;
   opacity: 1;
 }
 
