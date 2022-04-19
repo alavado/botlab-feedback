@@ -7,12 +7,6 @@ import Icon, { InlineIcon } from '@iconify/react'
 import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
 import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
 import iconoMarcar from '@iconify/icons-mdi/check-bold'
-import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
-import iconoNumeroEquivocado from '@iconify/icons-mdi/cellphone-off'
-import iconoPacienteArrepentido from '@iconify/icons-mdi/arrow-u-left-bottom-bold'
-import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/cancel'
-import iconoReagendaPostConfirmacion from '@iconify/icons-mdi/edit'
-import iconoPregunta from '@iconify/icons-mdi/chat-question'
 import iconoSinAlertasPorResolver from '@iconify/icons-mdi/check'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -21,14 +15,7 @@ import { activaCajon, activaNotificaciones, agregaAlertasVisibles, alertasVisibl
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
-
-export const iconosAlertasVisibles = [
-  iconoNumeroEquivocado,
-  iconoPacienteArrepentido,
-  iconoCancelaPostConfirmacion,
-  iconoReagendaPostConfirmacion,
-  iconoPregunta
-]
+import { obtenerIconoAlerta } from '../../../helpers/alertas'
 
 const tabsAlertas = [
   {
@@ -62,7 +49,7 @@ const Alertas = () => {
             .filter(t.filtro)
             .map(a => ({
               ...a,
-              icono: iconosAlertasVisibles[alertasVisibles.findIndex(x => x === a.message)] || iconoWhatsapp,
+              icono: obtenerIconoAlerta(a.message),
               horaLegible: !isToday(parseISO(a.utc_timestamp))
                 ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
                 : format(addHours(parseISO(a.utc_timestamp), new Date().getTimezoneOffset() / -60), 'HH:mm', { locale: es }),
@@ -129,7 +116,7 @@ const Alertas = () => {
                     }}
                   />
                   <Icon
-                    icon={iconosAlertasVisibles[i]}
+                    icon={obtenerIconoAlerta(nombre)}
                     className="Alertas__icono_tipo_alerta"
                   />
                   <span className="Alertas__etiqueta_tipo_alerta">

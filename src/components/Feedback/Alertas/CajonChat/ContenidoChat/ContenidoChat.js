@@ -12,6 +12,7 @@ import { useEffect, useMemo } from 'react'
 import Linkify from 'react-linkify'
 import nl2br from 'react-newline-to-break'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
+import { obtenerIconoAlerta } from '../../../../../helpers/alertas'
 
 const ContenidoChat = () => {
 
@@ -60,7 +61,7 @@ const ContenidoChat = () => {
       formato: 'h:mm aa',
       contenido: (
         <span className="ContenidoChat__contenido_alerta">
-          <InlineIcon style={{ fontSize: '1rem' }} icon={alertaDestacada.icono} /> {alertaDestacada.message}
+          <InlineIcon style={{ fontSize: '1rem' }} icon={obtenerIconoAlerta(alertaDestacada.message)} /> {alertaDestacada.message}
         </span>
       )
     })
@@ -72,7 +73,7 @@ const ContenidoChat = () => {
           tipo: 'dia',
           fecha: startOfDay(e.fecha),
           formato: 'hh:m aaaa',
-          contenido: (isYesterday(e.fecha) ? 'ayer, ' : '') + (isToday(e.fecha) ? 'hoy, ' : '') + (isTomorrow(e.fecha) ? 'mañana, ' : '') + format(e.fecha, 'EEEE d \'de\' MMMM', { locale: es })
+          contenido: '📅 ' + (isYesterday(e.fecha) ? 'ayer, ' : '') + (isToday(e.fecha) ? 'hoy, ' : '') + (isTomorrow(e.fecha) ? 'mañana, ' : '') + format(e.fecha, 'EEEE d \'de\' MMMM', { locale: es })
         })
       }
     })
@@ -111,6 +112,11 @@ const ContenidoChat = () => {
           </span>
         </div>
       ))}
+      {/* <button
+        className="ContenidoChat__boton_comentario"
+      >
+        <span>💬</span> Agregar comentario
+      </button> */}
     </div>
   )
 }

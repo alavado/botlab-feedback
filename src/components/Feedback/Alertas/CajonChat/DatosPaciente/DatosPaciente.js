@@ -3,11 +3,14 @@ import { useSelector } from 'react-redux'
 import { chat2 } from '../../../../../api/endpoints'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 import Loader from '../../../../Loader'
+import { alertas as getAlertas } from '../../../../../api/endpoints'
 import './DatosPaciente.css'
 
 const DatosPaciente = () => {
 
-  const { alertaDestacada } = useSelector(state => state.alertas)
+  const { idAlertaDestacada } = useSelector(state => state.alertas)
+  const { data: dataAlertas } = useQuery('alertas', getAlertas)
+  const alertaDestacada = dataAlertas.data.find(a => a.id === idAlertaDestacada)
   const { isLoading, data } = useQuery(
     ['chat', alertaDestacada.poll_id, alertaDestacada.user_id],
     () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id),

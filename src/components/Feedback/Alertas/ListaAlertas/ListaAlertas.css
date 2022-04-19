@@ -25,7 +25,7 @@
 
 .ListaAlertas__fila {
   display: grid;
-  grid-template: 2.5rem / 2.25rem 3.75rem 1fr 1rem;
+  grid-template: 2.5rem / 3rem 2.25rem 1fr 1rem;
   font-size: .65rem;
   place-items: center start;
   border-bottom: 1px solid var(--color-bordes);
@@ -44,6 +44,7 @@
 
 .ListaAlertas__fila--destacada {
   background-color: var(--color-fila-destacada);
+  box-shadow: inset .25rem 0 var(--color-secundario);
 }
 
 .ListaAlertas__fila:hover {

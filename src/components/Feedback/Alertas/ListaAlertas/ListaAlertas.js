@@ -15,7 +15,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
 
   const dispatch = useDispatch()
   const history = useHistory()
-  const { alertaDestacada, verAlertas } = useSelector(state => state.alertas)
+  const { idAlertaDestacada, verAlertas } = useSelector(state => state.alertas)
 
   const queryClient = useQueryClient()
   const mutation = useMutation(({ id, dismissed }) => marcarAlerta(id, dismissed), {
@@ -56,7 +56,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
             <div
               className={classNames({
                 "ListaAlertas__fila": true,
-                "ListaAlertas__fila--destacada": alerta.id === alertaDestacada.id,
+                "ListaAlertas__fila--destacada": alerta.id === idAlertaDestacada,
                 "ListaAlertas__fila--derecha": indiceTipoAlerta > 0,
                 "ListaAlertas__fila--oculta": verAlertas?.indexOf(alerta.message) < 0
               })}
@@ -67,6 +67,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 mostrarCajon()
               }}
             >
+              <div style={{ paddingLeft: '.5rem' }}>{alerta.horaLegible}</div>
               <Icon
                 icon={alerta.icono}
                 className="ListaAlertas__fila_icono"
@@ -77,12 +78,11 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                   "ListaAlertas__checkbox--resuelto": alerta.dismissed
                 })} />
               </div> */}
-              <div style={{ paddingLeft: '.5rem' }}>{alerta.horaLegible}</div>
               <div>{alerta.message}</div>
               <Icon
                 className={classNames({
                   "ListaAlertas__icono_fila_activa": true,
-                  "ListaAlertas__icono_fila_activa--activa": alerta.id === alertaDestacada.id,
+                  "ListaAlertas__icono_fila_activa--activa": alerta.id === idAlertaDestacada,
                 })}
                 icon={iconoMarcaChatActivo}
               />
@@ -90,13 +90,13 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 className="ListaAlertas__contenedor_acciones"
                 onClick={e => e.stopPropagation()}
               >
-                <button
+                {/* <button
                   className="ListaAlertas__boton_accion"
                   onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
                 >
                   <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
-                </button>
-                <button
+                </button> */}
+                {/* <button
                   className="ListaAlertas__boton_accion"
                   onClick={e => {
                     e.stopPropagation()
@@ -104,7 +104,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                   }}
                 >
                   <InlineIcon icon={iconoWhatsapp} /> Ver chat
-                </button>
+                </button> */}
               </div>
             </div>
           ))}

@@ -1,10 +1,11 @@
 .ContenidoChat {
-  padding: .75rem 1rem;
+  padding: .75rem 1rem 6rem .75rem;
   display: flex;
   flex-direction: column;
   gap: .5rem;
   max-height: calc(100vh - 5rem);
   overflow: auto;
+  position: relative;
 }
 
 .ContenidoChat__mensaje {
@@ -60,10 +61,12 @@
 }
 
 .ContenidoChat__mensaje--dia {
-  align-self: center;
   background-color: var(--whatsapp-fondo-fecha);
+  border-radius: .35rem;
   font-size: .75rem;
   padding: .5rem;
+  text-align: center;
+  box-shadow: 0 .05rem var(--color-sombras);
 }
 
 .ContenidoChat__mensaje--cita {
@@ -71,6 +74,7 @@
   background-color: var(--whatsapp-fondo-fecha);
   font-size: .75rem;
   padding: .5rem;
+  border-radius: .35rem;
   box-shadow: 0 .05rem var(--color-sombras);
 }
 
@@ -100,4 +104,19 @@
   gap: .25rem;
   align-items: center;
   position: relative;
+}
+
+.ContenidoChat__boton_comentario {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1rem;
+  border: none;
+  padding: .5rem .5rem;
+  border-radius: .35rem;
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+  font-size: .75rem;
+  cursor: pointer;
+  display: flex;
+  gap: .25rem;
 }
