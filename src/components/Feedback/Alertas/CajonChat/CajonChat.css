@@ -1,0 +1,11 @@
+.CajonChat {
+  width: 0;
+  opacity: 0;
+  transition: all .35s ease-in-out;
+  background-color: var(--color-foco-fila);
+}
+
+.CajonChat--activo {
+  width: 35rem;
+  opacity: 1;
+}

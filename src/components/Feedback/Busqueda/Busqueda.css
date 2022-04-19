@@ -4,6 +4,7 @@
   flex: 1;
   color: var(--color-texto);
   min-height: 75vh;
+  padding: 1rem 1rem 0rem 1rem;
 }
 
 .Busqueda__superior {

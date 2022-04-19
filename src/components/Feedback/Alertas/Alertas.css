@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   color: var(--color-texto);
+  padding: 0 0 0 1rem;
 }
 
 .Alertas__titulo {
@@ -10,7 +11,8 @@
   font-size: 1.5rem;
   font-family: 'Raleway';
   z-index: 3;
-  padding-bottom: .35rem;
+  padding-bottom: .25rem;
+  padding-top: 1rem;
 }
 
 .Alertas__loader {
@@ -20,16 +22,14 @@
 .Alertas__contenedor {
   display: flex;
   width: 100%;
-  gap: 1.5rem;
   flex: 1;
-  padding-bottom: 1rem;
 }
 
 .Alertas__lateral {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  padding-top: 1rem;
+  padding-top: .25rem;
   padding-right: 1rem;
   font-size: .65rem;
   max-width: 12.5rem;
@@ -140,15 +140,15 @@
   flex: 1;
 }
 
-.Alertas__contenedor_botones_seleccion_tipo {
+.Alertas__contenedor_tabs {
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--color-bordes);
   color: var(--color-texto);
+  padding-left: 1rem;
 }
 
 .Alertas__boton_tab {
-  height: 3rem;
   background-color: var(--color-fondo);
   color: var(--color-gris);
   border: none;
@@ -159,6 +159,9 @@
   transition: all .25s ease;
   box-shadow: inset 0 -.1rem 0 0 var(--color-fondo);
   gap: 0 .5rem;
+  height: 2.75rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 
 .Alertas__boton_tab--activo {
@@ -182,148 +185,4 @@
   place-self: start start;
   font-weight: 600;
   font-size: .5rem;
-}
-
-.Alertas__lista_alertas {
-  display: none;
-  max-height: calc(100vh - 10rem);
-  overflow-y: auto;
-  overflow-x: hidden;
-  width: 100%;
-  scrollbar-width: .6rem;
-  scrollbar-color: var(--color-principal) var(--color-fondo);
-}
-
-.Alertas__lista_alertas::-webkit-scrollbar {
-  width: .6rem;
-  background-color: var(--color-fondo);
-}
-
-.Alertas__lista_alertas::-webkit-scrollbar-thumb {
-  border-radius: .15rem;
-  background-color: var(--color-principal);
-}
-
-.Alertas__lista_alertas--visible {
-  display: flex;
-  flex-direction: column;
-}
-
-.Alertas__fila {
-  display: grid;
-  grid-template: 2.5rem / 2.25rem 4rem 20rem 1fr;
-  font-size: .65rem;
-  place-items: center start;
-  border-bottom: 1px solid var(--color-bordes);
-  color: var(--color-texto);
-  cursor: pointer;
-  transition: all .15s ease;
-  animation: aparece-fila-alertas-izq .2s ease-out both;
-}
-
-.Alertas__fila--derecha {
-  animation: aparece-fila-alertas-der .2s ease-out both;
-}
-
-.Alertas__fila--destacada {
-  background-color: var(--color-fila-destacada);
-}
-
-.Alertas__fila:hover {
-  background-color: var(--color-fila-destacada);
-}
-
-.Alertas__fila:active {
-  background-color: var(--color-foco-fila);
-}
-
-.Alertas__fila--oculta {
-  display: none;
-}
-
-.Alertas__fila_icono {
-  font-size: 1.25rem;
-  place-self: center center;
-  color: var(--color-texto);
-}
-
-.Alertas__fila:hover .Alertas__fila_icono {
-  color: var(--color-texto);
-}
-
-.Alertas__contenedor_checkbox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.Alertas__checkbox {
-  width: .6rem;
-  height: .6rem;
-  border-radius: .05rem;
-  box-shadow: 0 0 0 2px var(--color-bordes);
-  opacity: 0;
-}
-
-.Alertas__contenedor_acciones {
-  display: flex;
-  gap: .5rem;
-  align-items: center;
-  height: 100%;
-  opacity: 0;
-  transition: all .15s ease;
-}
-
-.Alertas__fila:hover .Alertas__contenedor_acciones {
-  opacity: 1;
-}
-
-.Alertas__boton_accion {
-  cursor: pointer;
-  border: none;
-  height: 1.6rem;
-  box-shadow: 0 0 0 1px var(--color-principal);
-  background: var(--color-principal);
-  color: var(--color-texto-claro);
-  padding: .35rem .6rem;
-  border-radius: .35rem;
-  font-size: .65rem;
-  transition: all .2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .35rem;
-  margin-right: auto;
-}
-
-.Alertas__boton_accion svg {
-  font-size: .9rem;
-}
-
-.Alertas__boton_accion:hover {
-  color: var(--color-texto-claro);
-  background: var(--color-principal);
-}
-
-@keyframes aparece-fila-alertas-izq {
-  0% {
-    opacity: 0;
-    transform: translateX(-.5rem);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes aparece-fila-alertas-der {
-  0% {
-    opacity: 0;
-    transform: translateX(.5rem);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }

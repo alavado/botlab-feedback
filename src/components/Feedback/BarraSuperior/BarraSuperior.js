@@ -61,10 +61,7 @@ const BarraSuperior = () => {
             <Route path="/" component={SelectorEncuesta} />
           </Switch>
       }
-      {respuestas && (
-        (idEncuestaSeleccionada === Number(process.env.REACT_APP_ID_POLL_OREMA_OUTBOUND)) ||
-        cuenta.endsWith('_cero')
-        ) && (
+      {cuenta.endsWith('_cero') && (
         <Switch>
           <Route exact path="/" component={() => (
             <button

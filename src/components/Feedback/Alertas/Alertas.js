@@ -1,13 +1,12 @@
 import React, { useMemo, useState } from 'react'
 import './Alertas.css'
-import { alertas as getAlertas, marcarAlerta } from '../../../api/endpoints'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { alertas as getAlertas } from '../../../api/endpoints'
+import { useQuery } from 'react-query'
 import classNames from 'classnames'
 import Icon, { InlineIcon } from '@iconify/react'
 import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
 import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
 import iconoMarcar from '@iconify/icons-mdi/check-bold'
-import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import iconoNumeroEquivocado from '@iconify/icons-mdi/cellphone-off'
 import iconoPacienteArrepentido from '@iconify/icons-mdi/arrow-u-left-bottom-bold'
@@ -17,10 +16,11 @@ import iconoPregunta from '@iconify/icons-mdi/chat-question'
 import iconoSinAlertasPorResolver from '@iconify/icons-mdi/check'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { activaNotificaciones, agregaAlertasVisibles, alertasVisibles, destacaAlerta, remueveAlertasVisibles } from '../../../redux/ducks/alertas'
+import { activaNotificaciones, agregaAlertasVisibles, alertasVisibles, remueveAlertasVisibles } from '../../../redux/ducks/alertas'
 import Loader from '../../Loader'
+import ListaAlertas from './ListaAlertas'
+import CajonChat from './CajonChat'
 
 export const iconosAlertasVisibles = [
   iconoNumeroEquivocado,
@@ -48,7 +48,8 @@ const tabsAlertas = [
 const Alertas = () => {
 
   const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
-  const { idAlertaDestacada, recibirNotificaciones, verAlertas } = useSelector(state => state.alertas)
+  const [cajonActivo, setCajonActivo] = useState(false)
+  const { recibirNotificaciones, verAlertas } = useSelector(state => state.alertas)
   const dispatch = useDispatch()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
     'alertas',
@@ -78,32 +79,6 @@ const Alertas = () => {
     }
   )
 
-  const queryClient = useQueryClient()
-  const mutation = useMutation(({ id, dismissed }) => marcarAlerta(id, dismissed), {
-    onMutate: async ({ id, dismissed }) => {
-      await queryClient.cancelQueries('alertas')
-      const alertasAntes = queryClient.getQueryData('alertas')
-      const nuevaAlerta = alertasAntes.data.find(a => a.id === id)
-      nuevaAlerta.dismissed = dismissed
-      const nuevasAlertas = {
-        ...alertasAntes,
-        data: [
-          ...alertasAntes.data.filter(a => a.id !== id),
-          nuevaAlerta
-        ]
-      }
-      queryClient.setQueryData('alertas', () => nuevasAlertas)
-      return { alertasAntes }
-    },
-    onError: (err, nuevaAlerta, context) => {
-      queryClient.setQueryData('alertas', context.alertasAntes)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries('alertas')
-    },
-  })
-
-  const history = useHistory()
 
   const tiposAlertasConConteos = useMemo(() => {
     if (!dataAlertas) {
@@ -121,13 +96,13 @@ const Alertas = () => {
 
   return (
     <div className="Alertas">
-      <h1 className="Alertas__titulo">Alertas</h1>
       {cargandoAlertas
         ? <div className="Alertas__loader">
             <Loader color="#6057f6" />
           </div>
         : <div className="Alertas__contenedor">
             <div className="Alertas__lateral">
+              <h1 className="Alertas__titulo">Alertas</h1>
               <h2 className="Alertas__subtitulo">Ver alertas</h2>
               {tiposAlertasConConteos.map(({ nombre, conteo }, i) => (
                 <label
@@ -190,7 +165,7 @@ const Alertas = () => {
               </label>
             </div>
             <div className="Alertas__contenedor_secciones_alertas">
-              <div className="Alertas__contenedor_botones_seleccion_tipo">
+              <div className="Alertas__contenedor_tabs">
                 {dataAlertas.map(tipoAlertas => (
                   <button
                     key={`boton-tipo-alertas-${tipoAlertas.id}`}
@@ -206,81 +181,15 @@ const Alertas = () => {
                   </button>
                 ))}
               </div>
-              <div className="Alertas__contenedor_listas_alertas">
-                {dataAlertas.map((tipoAlertas, indiceTipoAlerta) => (
-                  <div
-                    className={classNames({
-                      "Alertas__lista_alertas": true,
-                      "Alertas__lista_alertas--visible": idTabAlertasActivo === tipoAlertas.id,
-                    })}
-                    key={`lista-alertas-${tipoAlertas.id}`}
-                  >
-                    {tipoAlertas.alertas.map(alerta => (
-                      <div
-                        className={classNames({
-                          "Alertas__fila": true,
-                          "Alertas__fila--destacada": alerta.id === idAlertaDestacada,
-                          "Alertas__fila--derecha": indiceTipoAlerta > 0,
-                          "Alertas__fila--oculta": verAlertas?.indexOf(alerta.message) < 0
-                        })}
-                        key={`fila-alerta-${alerta.id}`}
-                        onClick={() => {
-                          dispatch(destacaAlerta({ id: alerta.id }))
-                          history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
-                        }}
-                      >
-                        <Icon
-                          icon={alerta.icono}
-                          className="Alertas__fila_icono"
-                        />
-                        {/* <div className="Alertas__contenedor_checkbox">
-                          <div className={classNames({
-                            "Alertas__checkbox": true,
-                            "Alertas__checkbox--resuelto": alerta.dismissed
-                          })} />
-                        </div> */}
-                        <div style={{ paddingLeft: '.5rem' }}>{alerta.horaLegible}</div>
-                        <div>{alerta.message}</div>
-                        <div
-                          className="Alertas__contenedor_acciones"
-                          onClick={e => e.stopPropagation()}
-                        >
-                          <button
-                            className="Alertas__boton_accion"
-                            onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
-                          >
-                            <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar como {alerta.dismissed ? 'no resuelta' : 'resuelta'}
-                          </button>
-                          <button
-                            className="Alertas__boton_accion"
-                            onClick={e => {
-                              e.stopPropagation()
-                              history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)
-                            }}
-                          >
-                            <InlineIcon icon={iconoWhatsapp} /> Ver chat
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
+              <ListaAlertas
+                alertas={dataAlertas}
+                idAlertasVisibles={idTabAlertasActivo}
+                mostrarCajon={() => setCajonActivo(true)}
+              />
             </div>
+            <CajonChat activo={cajonActivo} esconder={() => setCajonActivo(false)} />
           </div>
       }
-      {/* <div>
-        {alertasNoResueltas.map((alerta, i) => (
-          <div className="Alertas__fila" key={`fila-alerta-${i}`}>
-            <div>{alerta.utc_timestamp}</div>
-            <div>{alerta.message}</div>
-            <div>
-              <button>Ver chat</button>
-              <button>Marcar como reuelta</button>
-            </div>
-          </div>
-        ))}
-      </div> */}
     </div>
   )
 }

@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 100%;
   color: var(--color-texto);
+  padding: 1rem 1rem 0rem 1rem;
 }
 
 .Uso__superior {

@@ -4,6 +4,7 @@
   flex: 1;
   color: var(--color-texto);
   position: relative;
+  padding: 1rem 1rem 0rem 1rem;
 }
 
 .ExportacionAvanzada__superior {
