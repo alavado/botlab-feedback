@@ -7,7 +7,6 @@ import { marcarAlerta } from '../../../../api/endpoints'
 import { destacaAlerta } from '../../../../redux/ducks/alertas'
 import iconoMarcar from '@iconify/icons-mdi/check-bold'
 import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
-import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import './ListaAlertas.css'
 
 const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
@@ -67,7 +66,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
               }}
               onDoubleClick={e => {
                 e.stopPropagation()
-                history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`)
+                history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
               }}
             >
               <Icon

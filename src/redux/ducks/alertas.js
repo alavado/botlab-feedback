@@ -13,7 +13,8 @@ const alertasSlice = createSlice({
   initialState: {
     idAlertaDestacada: undefined,
     recibirNotificaciones: false,
-    verAlertas: alertasVisibles
+    verAlertas: alertasVisibles,
+    cajonActivo: false
   },
   reducers: {
     destacaAlerta(state, { payload: { id } }) {
@@ -33,6 +34,9 @@ const alertasSlice = createSlice({
     },
     limpiaAlertasVisibles(state, { payload }) {
       state.verAlertas = []
+    },
+    activaCajon(state, { payload }) {
+      state.cajonActivo = payload
     }
   }
 })
@@ -43,7 +47,8 @@ export const {
   agregaAlertasVisibles,
   remueveAlertasVisibles,
   limpiaAlertasVisibles,
-  dejaSoloAlertasVisibles
+  dejaSoloAlertasVisibles,
+  activaCajon
 } = alertasSlice.actions
 
 export default alertasSlice.reducer

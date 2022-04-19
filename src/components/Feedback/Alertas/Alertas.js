@@ -17,7 +17,7 @@ import iconoSinAlertasPorResolver from '@iconify/icons-mdi/check'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useDispatch, useSelector } from 'react-redux'
-import { activaNotificaciones, agregaAlertasVisibles, alertasVisibles, remueveAlertasVisibles } from '../../../redux/ducks/alertas'
+import { activaCajon, activaNotificaciones, agregaAlertasVisibles, alertasVisibles, remueveAlertasVisibles } from '../../../redux/ducks/alertas'
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
@@ -48,7 +48,6 @@ const tabsAlertas = [
 const Alertas = () => {
 
   const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
-  const [cajonActivo, setCajonActivo] = useState(false)
   const { recibirNotificaciones, verAlertas } = useSelector(state => state.alertas)
   const dispatch = useDispatch()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
@@ -78,7 +77,6 @@ const Alertas = () => {
       }
     }
   )
-
 
   const tiposAlertasConConteos = useMemo(() => {
     if (!dataAlertas) {
@@ -184,10 +182,10 @@ const Alertas = () => {
               <ListaAlertas
                 alertas={dataAlertas}
                 idAlertasVisibles={idTabAlertasActivo}
-                mostrarCajon={() => setCajonActivo(true)}
+                mostrarCajon={() => dispatch(activaCajon(true))}
               />
             </div>
-            <CajonChat activo={cajonActivo} esconder={() => setCajonActivo(false)} />
+            <CajonChat />
           </div>
       }
     </div>
