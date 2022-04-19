@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { activaCajon } from '../../../../redux/ducks/alertas'
 import './CajonChat.css'
+import ContenidoChat from './ContenidoChat'
 import DatosPaciente from './DatosPaciente'
 
 const CajonChat = () => {
@@ -19,6 +20,7 @@ const CajonChat = () => {
         <button onClick={() => dispatch(activaCajon(false))}>Cerrar</button>
       </div>
       <div className="CajonChat__mensajes">
+        <ContenidoChat />
       </div>
     </div>
   )

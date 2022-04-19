@@ -1,0 +1,79 @@
+.ContenidoChat {
+  padding: .75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  max-height: calc(100vh - 5rem);
+  overflow: auto;
+}
+
+.ContenidoChat__mensaje {
+  background-color: var(--color-fondo);
+  padding: .4rem .5rem;
+  max-width: 60%;
+  font-size: .75rem;
+  line-height: 1.5;
+  border-radius: .35rem;
+  display: flex;
+  box-shadow: 0 .05rem var(--color-sombras);
+  position: relative;
+}
+
+.ContenidoChat__mensaje--usuario {
+  align-self: flex-end;
+  background: var(--whatsapp-fondo-mensajes-salientes);
+  border-top-right-radius: 0;
+}
+
+.ContenidoChat__mensaje--usuario::before,
+.ContenidoChat__mensaje--bot::before {
+  content: '';
+  background: var(--whatsapp-fondo-mensajes-salientes);
+  position: absolute;
+  width: .75rem;
+  height: .75rem;
+  top: 0;
+  right: -.35rem;
+  clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+}
+
+.ContenidoChat__mensaje--bot::before {
+  left: -.35rem;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+  background: var(--whatsapp-fondo-mensajes-entrantes);
+}
+
+.ContenidoChat__mensaje--bot {
+  align-self: flex-start;
+  background: var(--whatsapp-fondo-mensajes-entrantes);
+  border-top-left-radius: 0;
+}
+
+.ContenidoChat__fecha_mensaje {
+  align-self: flex-end;
+  white-space: nowrap;
+  color: var(--whatsapp-color-texto-fecha);
+  font-size: .5rem;
+  padding-left: .75rem;
+  transform: translateY(.3rem) translateX(.2rem);
+  display: inline-flex;
+}
+
+.ContenidoChat__mensaje--dia {
+  align-self: center;
+  background-color: var(--whatsapp-fondo-fecha);
+  font-size: .75rem;
+  padding: .5rem;
+}
+
+.ContenidoChat__mensaje--cita {
+  align-self: center;
+  background-color: var(--whatsapp-fondo-fecha);
+  font-size: .75rem;
+  padding: .5rem;
+}
+
+.ContenidoChat__mensaje--dia .ContenidoChat__fecha_mensaje,
+.ContenidoChat__mensaje--cita .ContenidoChat__fecha_mensaje {
+  display: none;
+}

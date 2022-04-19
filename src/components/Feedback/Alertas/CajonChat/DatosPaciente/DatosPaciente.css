@@ -10,14 +10,14 @@
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 50%;
-  background-color: var(--color-fondo);
+  background-color: var(--color-texto);
   grid-row: span 2;
   place-self: center center;
 }
 
 .DatosPaciente__nombre {
   place-self: end start;
-  font-size: .8rem;
+  font-size: .75rem;
 }
 
 .DatosPaciente__telefono {
