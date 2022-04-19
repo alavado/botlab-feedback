@@ -18,6 +18,16 @@
   position: relative;
 }
 
+.ContenidoChat::-webkit-scrollbar {
+  width: .35em;
+  background-color: transparent;
+}
+
+.ContenidoChat::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--whatsapp-color-scrollbar-contenedor-mensajes);
+}
+
 .ContenidoChat__mensaje {
   background-color: var(--color-fondo);
   padding: .4rem .5rem;
@@ -69,6 +79,7 @@
   padding-left: .75rem;
   transform: translateY(.3rem) translateX(.2rem);
   display: inline-flex;
+  pointer-events: none;
 }
 
 .ContenidoChat__mensaje--dia {
@@ -99,38 +110,34 @@
   display: flex;
   justify-content: center;
   font-size: .65rem;
-  padding: .5rem .75rem;
   border-radius: .35rem;
   background-color: var(--color-secundario);
   color: var(--color-texto-claro);
   box-shadow: 0 .05rem var(--color-sombras);
   animation: ContenidoChat__alerta_aparece .25s .1s ease both;
+  transition: all .25s ease;
 }
 
 .ContenidoChat__mensaje--alerta .ContenidoChat__fecha_mensaje {
-  display: none;
+  color: var(--color-texto-claro);
+  position: absolute;
+  right: .5rem;
+  bottom: .5rem;
 }
 
 .ContenidoChat__contenido_alerta {
   display: flex;
   gap: .25rem;
   align-items: center;
+  padding: .5rem .75rem .75rem .75rem;
+  cursor: pointer;
   position: relative;
+  transition: all .25s ease;
 }
 
-.ContenidoChat__boton_comentario {
-  position: fixed;
-  right: 1.5rem;
-  bottom: 1rem;
-  border: none;
-  padding: .5rem .5rem;
-  border-radius: .35rem;
-  background-color: var(--color-principal);
-  color: var(--color-texto-claro);
-  font-size: .65rem;
-  cursor: pointer;
-  display: flex;
-  gap: .25rem;
+.ContenidoChat__mensaje--alerta:hover {
+  filter: brightness(110%);
+  box-shadow: 0 0 .25rem var(--color-sombras);
 }
 
 @keyframes ContenidoChat__mensaje_aparece {

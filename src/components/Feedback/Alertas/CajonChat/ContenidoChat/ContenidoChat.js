@@ -58,10 +58,11 @@ const ContenidoChat = () => {
     eventos.push({
       tipo: alertaDestacada.dismissed ? 'alerta-resuelta' : 'alerta',
       fecha: addMinutes(parseISO(alertaDestacada.utc_timestamp), -(new Date().getTimezoneOffset())),
-      formato: 'h:mm aa',
+      formato: 'h:mm aaaa',
       contenido: (
         <span className="ContenidoChat__contenido_alerta">
-          <InlineIcon style={{ fontSize: '1rem' }} icon={obtenerIconoAlerta(alertaDestacada.message)} /> {alertaDestacada.message}
+          <InlineIcon style={{ fontSize: '1rem' }} icon={obtenerIconoAlerta(alertaDestacada.message)} />
+          {alertaDestacada.message}
         </span>
       )
     })
@@ -106,7 +107,7 @@ const ContenidoChat = () => {
             "ContenidoChat__mensaje--cita": e.tipo === 'cita',
             "ContenidoChat__mensaje--dia": e.tipo === 'dia',
             "ContenidoChat__mensaje--alerta": e.tipo === 'alerta',
-            "ContenidoChat__mensaje--alerta-resuelta": e.tipo === 'alerta-resuelta',
+            "ContenidoChat__mensaje--alerta ContenidoChat__mensaje--alerta-resuelta": e.tipo === 'alerta-resuelta',
           })}
           key={`evento-chat-${i}`}
         >
