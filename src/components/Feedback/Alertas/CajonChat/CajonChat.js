@@ -7,8 +7,12 @@ import DatosPaciente from './DatosPaciente'
 
 const CajonChat = () => {
 
-  const { cajonActivo } = useSelector(state => state.alertas)
+  const { cajonActivo, alertaDestacada } = useSelector(state => state.alertas)
   const dispatch = useDispatch()
+
+  if (!alertaDestacada) {
+    return null
+  }
 
   return (
     <div className={classNames({

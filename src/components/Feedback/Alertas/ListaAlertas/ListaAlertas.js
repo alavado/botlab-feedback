@@ -15,7 +15,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
 
   const dispatch = useDispatch()
   const history = useHistory()
-  const { idAlertaDestacada, verAlertas } = useSelector(state => state.alertas)
+  const { alertaDestacada, verAlertas } = useSelector(state => state.alertas)
 
   const queryClient = useQueryClient()
   const mutation = useMutation(({ id, dismissed }) => marcarAlerta(id, dismissed), {
@@ -56,14 +56,14 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
             <div
               className={classNames({
                 "ListaAlertas__fila": true,
-                "ListaAlertas__fila--destacada": alerta.id === idAlertaDestacada,
+                "ListaAlertas__fila--destacada": alerta.id === alertaDestacada.id,
                 "ListaAlertas__fila--derecha": indiceTipoAlerta > 0,
                 "ListaAlertas__fila--oculta": verAlertas?.indexOf(alerta.message) < 0
               })}
               key={`fila-alerta-${alerta.id}`}
               onClick={e => {
                 e.stopPropagation()
-                dispatch(destacaAlerta({ id: alerta.id, idPoll: alerta.poll_id, idUser: alerta.user_id }))
+                dispatch(destacaAlerta({ alerta }))
                 // history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
                 mostrarCajon()
               }}
@@ -87,7 +87,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
               <Icon
                 className={classNames({
                   "ListaAlertas__icono_fila_activa": true,
-                  "ListaAlertas__icono_fila_activa--activa": alerta.id === idAlertaDestacada,
+                  "ListaAlertas__icono_fila_activa--activa": alerta.id === alertaDestacada.id,
                 })}
                 icon={iconoMarcaChatActivo}
               />

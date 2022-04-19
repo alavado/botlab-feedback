@@ -10,9 +10,13 @@
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 50%;
-  background-color: var(--color-texto);
+  background-color: hsl(var(--hue), 65%, 56%);
+  color: var(--color-texto-claro);
   grid-row: span 2;
   place-self: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .DatosPaciente__nombre {

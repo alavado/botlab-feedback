@@ -7,10 +7,10 @@ import './DatosPaciente.css'
 
 const DatosPaciente = () => {
 
-  const { idPollAlertaDestacada, idUserAlertaDestacada } = useSelector(state => state.alertas)
+  const { alertaDestacada } = useSelector(state => state.alertas)
   const { isLoading, data } = useQuery(
-    ['chat', idPollAlertaDestacada, idUserAlertaDestacada],
-    () => chat2(idPollAlertaDestacada, idUserAlertaDestacada)
+    ['chat', alertaDestacada.poll_id, alertaDestacada.user_id],
+    () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id),
   )
 
   if (isLoading) {
@@ -23,8 +23,8 @@ const DatosPaciente = () => {
 
   return (
     <div className="DatosPaciente">
-      <div className="DatosPaciente__avatar">
-
+      <div className="DatosPaciente__avatar" style={{ '--hue': 360 * ((nombrePaciente.toLowerCase().charCodeAt(0) - 97) / 25)}}>
+        {nombrePaciente[0]}
       </div>
       <div className="DatosPaciente__nombre">
         {nombrePaciente}
