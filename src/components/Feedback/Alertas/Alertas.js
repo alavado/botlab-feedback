@@ -22,13 +22,15 @@ const tabsAlertas = [
     id: 1,
     titulo: 'Por resolver',
     icono: iconoAlertasNoResueltas,
-    filtro: a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed
+    filtro: a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed,
+    color: 'var(--color-alerta-pendiente)'
   },
   {
     id: 2,
     titulo: 'Resueltas',
     icono: iconoAlertasResueltas,
-    filtro: a => alertasVisibles.indexOf(a.message) >= 0 && a.dismissed
+    filtro: a => alertasVisibles.indexOf(a.message) >= 0 && a.dismissed,
+    color: 'var(--color-alerta-resuelta)'
   }
 ]
 
@@ -159,6 +161,7 @@ const Alertas = () => {
                       "Alertas__boton_tab--activo": idTabAlertasActivo === tipoAlertas.id,
                     })}
                     onClick={() => setIdTabAlertasActivo(tipoAlertas.id)}
+                    style={{ '--color-tab-alerta': tipoAlertas.color }}
                   >
                     <InlineIcon className="Alertas__icono_tab" icon={tipoAlertas.icono} />
                     <p className="Alertas__boton_tab_titulo">{tipoAlertas.titulo}</p>

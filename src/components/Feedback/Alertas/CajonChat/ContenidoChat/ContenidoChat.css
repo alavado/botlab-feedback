@@ -116,9 +116,7 @@
   background-color: var(--color-secundario);
   color: var(--color-texto-claro);
   box-shadow: 0 .05rem var(--color-sombras);
-  animation: ContenidoChat__alerta_aparece .25s .1s ease both;
   transition: all .25s ease;
-  transform: translateY(-.75rem) !important;
 }
 
 .ContenidoChat__mensaje--alerta .ContenidoChat__fecha_mensaje {
@@ -132,7 +130,7 @@
   display: flex;
   gap: .25rem;
   align-items: center;
-  padding: .5rem .75rem .75rem .75rem;
+  padding: .5rem .75rem;
   cursor: pointer;
   position: relative;
   transition: all .25s ease;
@@ -151,16 +149,5 @@
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes ContenidoChat__alerta_aparece {
-  0% {
-    opacity: 0;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
   }
 }

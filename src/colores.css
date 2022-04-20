@@ -26,6 +26,8 @@
   --color-texto: #161922;
   --color-sombras: rgba(0, 0, 0, .15);
   --color-boton-alegre: #0ABCEB;
+  --color-alerta-pendiente: #d84763;
+  --color-alerta-resuelta: #4786d8;
 
   --whatsapp-fondo-barra-estado: #008069;
   --whatsapp-fondo-barra-superior: #008069;
@@ -72,6 +74,8 @@
   --color-texto: #E2E8F0;
   --color-sombras: rgba(0, 0, 0, .15);
   --color-boton-alegre: #1A365D;
+  --color-alerta-pendiente: #c24e4e;
+  --color-alerta-resuelta: #4ebac2;
   
 	--color-si: #C6F6D5;
 	--color-no: #FED7D7;

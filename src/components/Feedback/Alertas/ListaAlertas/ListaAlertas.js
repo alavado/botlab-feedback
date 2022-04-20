@@ -58,7 +58,8 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 "ListaAlertas__fila": true,
                 "ListaAlertas__fila--destacada": alerta.id === idAlertaDestacada,
                 "ListaAlertas__fila--derecha": indiceTipoAlerta > 0,
-                "ListaAlertas__fila--oculta": verAlertas?.indexOf(alerta.message) < 0
+                "ListaAlertas__fila--oculta": verAlertas?.indexOf(alerta.message) < 0,
+                "ListaAlertas__fila--resuelta": alerta.dismissed
               })}
               key={`fila-alerta-${alerta.id}`}
               onClick={e => {
@@ -67,7 +68,10 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 mostrarCajon()
               }}
             >
-              <div style={{ paddingLeft: '.5rem' }}>{alerta.horaLegible}</div>
+              <div className="ListaAlertas__contenedor_hora">
+                <div className="ListaAlertas__marca_alerta" />
+                {alerta.horaLegible}
+              </div>
               <Icon
                 icon={alerta.icono}
                 className="ListaAlertas__fila_icono"

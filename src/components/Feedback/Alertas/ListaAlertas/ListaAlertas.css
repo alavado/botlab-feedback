@@ -25,7 +25,7 @@
 
 .ListaAlertas__fila {
   display: grid;
-  grid-template: 2.5rem / 3rem 2.25rem 1fr 1rem;
+  grid-template: 2.5rem / 3.5rem 2.25rem 1fr 1rem;
   font-size: .65rem;
   place-items: center start;
   border-bottom: 1px solid var(--color-bordes);
@@ -44,7 +44,6 @@
 
 .ListaAlertas__fila--destacada {
   background-color: var(--color-fila-destacada);
-  box-shadow: inset .25rem 0 var(--color-secundario);
 }
 
 .ListaAlertas__fila:hover {
@@ -57,6 +56,30 @@
 
 .ListaAlertas__fila--oculta {
   display: none;
+}
+
+.ListaAlertas__contenedor_hora {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.ListaAlertas__marca_alerta {
+  width: .56rem;
+  height: .56rem;
+  border-radius: 50%;
+  background: var(--color-alerta-pendiente);
+}
+
+.ListaAlertas__fila--destacada
+.ListaAlertas__marca_alerta { 
+  animation: ListaAlertas__marca_alerta_pulso .8s ease infinite both;
+}
+
+.ListaAlertas__fila--resuelta
+.ListaAlertas__marca_alerta {
+  background: var(--color-alerta-resuelta);
+  animation: none;
 }
 
 .ListaAlertas__fila_icono {
@@ -158,5 +181,14 @@
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes ListaAlertas__marca_alerta_pulso {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-alerta-pendiente);
+  }
+  100% {
+    box-shadow: 0 0 0 .25rem transparent;
   }
 }
