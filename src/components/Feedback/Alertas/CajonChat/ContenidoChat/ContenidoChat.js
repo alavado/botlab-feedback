@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { addMinutes, format, isSameDay, isToday, isTomorrow, isYesterday, parse, parseISO, startOfDay } from 'date-fns'
+import { addMinutes, format, isFuture, isSameDay, isToday, isTomorrow, isYesterday, parse, parseISO, startOfDay } from 'date-fns'
 import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import { chat2 } from '../../../../../api/endpoints'
@@ -13,6 +13,7 @@ import Linkify from 'react-linkify'
 import nl2br from 'react-newline-to-break'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
 import { obtenerIconoAlerta } from '../../../../../helpers/alertas'
+import iconoRobot from '@iconify/icons-mdi/robot'
 
 const ContenidoChat = () => {
 
@@ -61,7 +62,7 @@ const ContenidoChat = () => {
       formato: 'h:mm aaaa',
       contenido: (
         <span className="ContenidoChat__contenido_alerta">
-          <InlineIcon style={{ fontSize: '1rem' }} icon={obtenerIconoAlerta(alertaDestacada.message)} />
+          <InlineIcon style={{ fontSize: '1rem' }} icon={iconoRobot} />
           {alertaDestacada.message}
         </span>
       )
@@ -79,7 +80,7 @@ const ContenidoChat = () => {
       }
     })
     eventos.sort((e1, e2) => e1.fecha < e2.fecha ? -1 : 1)
-    return eventos
+    return eventos.filter(e => !isFuture(e.fecha))
   }, [data, alertaDestacada])
 
   useEffect(() => {

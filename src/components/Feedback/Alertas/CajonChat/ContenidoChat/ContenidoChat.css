@@ -101,21 +101,24 @@
 }
 
 .ContenidoChat__mensaje--dia .ContenidoChat__fecha_mensaje,
-.ContenidoChat__mensaje--cita .ContenidoChat__fecha_mensaje {
+.ContenidoChat__mensaje--cita .ContenidoChat__fecha_mensaje,
+  .ContenidoChat__mensaje--alerta .ContenidoChat__fecha_mensaje {
   display: none;
 }
 
 .ContenidoChat__mensaje--alerta {
-  align-self: center;
   display: flex;
   justify-content: center;
+  align-self: flex-end;
   font-size: .65rem;
   border-radius: .35rem;
+  gap: .5rem;
   background-color: var(--color-secundario);
   color: var(--color-texto-claro);
   box-shadow: 0 .05rem var(--color-sombras);
   animation: ContenidoChat__alerta_aparece .25s .1s ease both;
   transition: all .25s ease;
+  transform: translateY(-.75rem) !important;
 }
 
 .ContenidoChat__mensaje--alerta .ContenidoChat__fecha_mensaje {
