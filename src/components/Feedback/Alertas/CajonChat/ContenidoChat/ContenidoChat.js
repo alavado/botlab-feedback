@@ -13,6 +13,7 @@ import Linkify from 'react-linkify'
 import nl2br from 'react-newline-to-break'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
 import iconoRobot from '@iconify/icons-mdi/robot'
+import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
 
 const ContenidoChat = () => {
 
@@ -65,7 +66,7 @@ const ContenidoChat = () => {
             "ContenidoChat__alarma": true,
             "ContenidoChat__alarma--resuelta": alertaDestacada.dismissed
            })} />
-          <InlineIcon style={{ fontSize: '1.25rem' }} icon={iconoRobot} />
+          <InlineIcon style={{ fontSize: '1.25rem' }} icon={alertaDestacada.dismissed ? iconoRobotFeliz : iconoRobot} />
           <div className="ContenidoChat__datos_alerta">
             <p>{alertaDestacada.message}</p>
             <p className="ContenidoChat__datos_alerta_subtitulo">
