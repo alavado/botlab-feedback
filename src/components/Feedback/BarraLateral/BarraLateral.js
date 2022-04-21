@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 import search from '@iconify/icons-mdi/search'
 import alertas from '@iconify/icons-mdi/robot'
+import iconoSinAlertas from '@iconify/icons-mdi/robot-happy'
 import exportar from '@iconify/icons-mdi/table-export'
 import usage from '@iconify/icons-mdi/wallet'
 import home from '@iconify/icons-mdi/home'
@@ -16,6 +17,7 @@ import { tieneAccesoAReportes } from '../../../helpers/permisos'
 const BarraLateral = () => {
 
   const { cuenta } = useSelector(state => state.login)
+  const [feliz, setFeliz] = useState(false)
   
   return (
     <div className="BarraLateral">
@@ -45,8 +47,8 @@ const BarraLateral = () => {
             activeClassName="BarraLateral__link--activo"
             to="/alertas"
           >
-            <ConteoAlertas />
-            <Icon icon={alertas} />
+            <ConteoAlertas setFeliz={setFeliz} />
+            <Icon icon={feliz ? iconoSinAlertas : alertas} />
             <div className="BarraLateral__nombre_seccion">Alertas</div>
           </NavLink>
         }

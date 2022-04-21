@@ -6,7 +6,7 @@ import logoFeedback from '../../../../assets/images/logo_cuadrado_notificaciones
 import { alertasVisibles } from '../../../../redux/ducks/alertas'
 import './ConteoAlertas.css'
 
-const ConteoAlertas = () => {
+const ConteoAlertas = ({ setFeliz }) => {
 
   const [conteoAlertas, setConteoAlertas] = useState(0)
   const { recibirNotificaciones } = useSelector(state => state.alertas)
@@ -43,9 +43,10 @@ const ConteoAlertas = () => {
         }
       }
       document.title = alertas.length ? `(${alertas.length}) Feedback` : 'Feedback'
+      setFeliz(alertas.length === 0)
       return nuevoConteo
     })
-  }, [dataAlertas, recibirNotificaciones])
+  }, [dataAlertas, setFeliz, recibirNotificaciones])
 
   useEffect(() => {
     if (recibirNotificaciones) {
