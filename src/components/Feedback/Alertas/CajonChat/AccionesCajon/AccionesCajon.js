@@ -32,23 +32,23 @@ const AccionesCajon = () => {
       <button
         className="AccionesCajon__boton_accion"
         onClick={() => history.push(`/chat/${alertaDestacada.poll_id}/${alertaDestacada.user_id}`, { from: '/alertas' })}
-        title="Ver chat"
       >
         <InlineIcon icon={iconoIrAChat} />
+        <span className="AccionesCajon__tooltip">Ver Chat</span>
       </button>
       <button
         className="AccionesCajon__boton_accion"
         onClick={() => window.open(`https://web.whatsapp.com/send?phone=${telefono}`, '_blank').focus()}
-        title="Contactar por Whatsapp"
       >
         <InlineIcon icon={iconoWhatsapp} />
+        <span className="AccionesCajon__tooltip">Abrir Whatsapp</span>
       </button>
       <button
         className="AccionesCajon__boton_accion"
         onClick={() => dispatch(activaCajon(false))}
-        title="Cerrar"
       >
         <InlineIcon icon={iconoCerrar} />
+        <span className="AccionesCajon__tooltip">Cerrar</span>
       </button>
     </div>
   )
