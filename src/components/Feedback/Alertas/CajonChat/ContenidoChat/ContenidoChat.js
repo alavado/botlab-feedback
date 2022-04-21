@@ -12,7 +12,6 @@ import { useEffect, useMemo } from 'react'
 import Linkify from 'react-linkify'
 import nl2br from 'react-newline-to-break'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
-import { obtenerIconoAlerta } from '../../../../../helpers/alertas'
 import iconoRobot from '@iconify/icons-mdi/robot'
 
 const ContenidoChat = () => {
@@ -56,8 +55,6 @@ const ContenidoChat = () => {
       }
     ))
     
-    console.log(alertaDestacada)
-
     eventos.push({
       tipo: alertaDestacada.dismissed ? 'alerta-resuelta' : 'alerta',
       fecha: addMinutes(parseISO(alertaDestacada.utc_timestamp), -(new Date().getTimezoneOffset())),
@@ -68,7 +65,7 @@ const ContenidoChat = () => {
             "ContenidoChat__alarma": true,
             "ContenidoChat__alarma--resuelta": alertaDestacada.dismissed
            })} />
-          <InlineIcon style={{ fontSize: '1rem' }} icon={iconoRobot} />
+          <InlineIcon style={{ fontSize: '1.25rem' }} icon={iconoRobot} />
           <div className="ContenidoChat__datos_alerta">
             <p>{alertaDestacada.message}</p>
             <p className="ContenidoChat__datos_alerta_subtitulo">
@@ -99,7 +96,7 @@ const ContenidoChat = () => {
     const elementoAlerta = document.querySelector('.ContenidoChat__mensaje--alerta')
     elementoAlerta?.scrollIntoView()
     const elementoContenido = document.querySelector('.ContenidoChat')
-    elementoContenido?.scrollBy(0, -elementoContenido?.clientHeight / 5)
+    elementoContenido?.scrollBy(0, -elementoContenido?.clientHeight / 3)
   }, [eventos.length])
 
   if (isLoading) {

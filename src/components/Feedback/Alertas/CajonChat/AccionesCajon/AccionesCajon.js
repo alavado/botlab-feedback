@@ -31,17 +31,17 @@ const AccionesCajon = () => {
     <div className="AccionesCajon">
       <button
         className="AccionesCajon__boton_accion"
-        onClick={() => window.open(`https://web.whatsapp.com/send?phone=${telefono}`, '_blank').focus()}
-        title="Contactar por Whatsapp"
-      >
-        <InlineIcon icon={iconoWhatsapp} />
-      </button>
-      <button
-        className="AccionesCajon__boton_accion"
         onClick={() => history.push(`/chat/${alertaDestacada.poll_id}/${alertaDestacada.user_id}`, { from: '/alertas' })}
         title="Ver chat"
       >
         <InlineIcon icon={iconoIrAChat} />
+      </button>
+      <button
+        className="AccionesCajon__boton_accion"
+        onClick={() => window.open(`https://web.whatsapp.com/send?phone=${telefono}`, '_blank').focus()}
+        title="Contactar por Whatsapp"
+      >
+        <InlineIcon icon={iconoWhatsapp} />
       </button>
       <button
         className="AccionesCajon__boton_accion"

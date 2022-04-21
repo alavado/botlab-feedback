@@ -9,7 +9,7 @@
 }
 
 .ContenidoChat {
-  padding: .75rem 1rem 6rem .75rem;
+  padding: .75rem 1rem calc(100vh - 10rem) .75rem;
   display: flex;
   flex-direction: column;
   gap: .5rem;
@@ -110,15 +110,15 @@
   display: flex;
   justify-content: center;
   align-self: flex-end;
-  font-size: .6rem;
+  font-size: .65rem;
   gap: .5rem;
   color: var(--color-texto-tag);
   font-weight: 600;
 }
 
 .ContenidoChat__alarma {
-  width: .5rem;
-  height: .5rem;
+  width: .6rem;
+  height: .6rem;
   border-radius: 50%;
   background-color: var(--color-alerta-pendiente);
   animation: ContenidoChat__marca_alerta_pulso .8s ease infinite both;
