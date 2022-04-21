@@ -86,6 +86,8 @@ const ContenidoChat = () => {
   useEffect(() => {
     const elementoAlerta = document.querySelector('.ContenidoChat__mensaje--alerta')
     elementoAlerta?.scrollIntoView()
+    const elementoContenido = document.querySelector('.ContenidoChat')
+    elementoContenido?.scrollBy(0, -elementoContenido?.clientHeight / 5)
   }, [eventos.length])
 
   if (isLoading) {
