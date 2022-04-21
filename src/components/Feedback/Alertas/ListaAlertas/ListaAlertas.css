@@ -112,14 +112,9 @@
   gap: .5rem;
   align-items: center;
   height: 100%;
-  opacity: 0;
   transition: all .15s ease;
   position: absolute;
   right: 2rem;
-}
-
-.ListaAlertas__fila:hover .ListaAlertas__contenedor_acciones {
-  opacity: 1;
 }
 
 .ListaAlertas__boton_accion {

@@ -83,6 +83,29 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 })} />
               </div> */}
               <div>{alerta.message}</div>
+              {alerta.id === idAlertaDestacada
+                ? <div
+                    className="ListaAlertas__contenedor_acciones"
+                    onClick={e => e.stopPropagation()}
+                  >
+                    <button
+                      className="ListaAlertas__boton_accion"
+                      onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
+                    >
+                      <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
+                    </button>
+                    {/* <button
+                      className="ListaAlertas__boton_accion"
+                      onClick={e => {
+                        e.stopPropagation()
+                        history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
+                      }}
+                    >
+                      <InlineIcon icon={iconoWhatsapp} /> Ver chat
+                    </button> */}
+                  </div>
+                : <></>
+              }
               <Icon
                 className={classNames({
                   "ListaAlertas__icono_fila_activa": true,
@@ -90,26 +113,6 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 })}
                 icon={iconoMarcaChatActivo}
               />
-              <div
-                className="ListaAlertas__contenedor_acciones"
-                onClick={e => e.stopPropagation()}
-              >
-                {/* <button
-                  className="ListaAlertas__boton_accion"
-                  onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
-                >
-                  <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
-                </button> */}
-                {/* <button
-                  className="ListaAlertas__boton_accion"
-                  onClick={e => {
-                    e.stopPropagation()
-                    history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
-                  }}
-                >
-                  <InlineIcon icon={iconoWhatsapp} /> Ver chat
-                </button> */}
-              </div>
             </div>
           ))}
         </div>

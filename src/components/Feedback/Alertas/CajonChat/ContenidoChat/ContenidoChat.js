@@ -55,15 +55,27 @@ const ContenidoChat = () => {
         ]
       }
     ))
-      
+    
+    console.log(alertaDestacada)
+
     eventos.push({
       tipo: alertaDestacada.dismissed ? 'alerta-resuelta' : 'alerta',
       fecha: addMinutes(parseISO(alertaDestacada.utc_timestamp), -(new Date().getTimezoneOffset())),
       formato: 'h:mm aaaa',
       contenido: (
         <span className="ContenidoChat__contenido_alerta">
+          <div className={classNames({
+            "ContenidoChat__alarma": true,
+            "ContenidoChat__alarma--resuelta": alertaDestacada.dismissed
+           })} />
           <InlineIcon style={{ fontSize: '1rem' }} icon={iconoRobot} />
-          {alertaDestacada.message}
+          <div className="ContenidoChat__datos_alerta">
+            <p>{alertaDestacada.message}</p>
+            <p className="ContenidoChat__datos_alerta_subtitulo">
+              {/* {alertaDestacada.dismissed ? `Alerta resuelta a las ${format(parseISO(alertaDestacada.dismissal_updated_at), 'hh:mm')}` : 'Alerta pendiente'} */}
+              {alertaDestacada.dismissed ? `Alerta resuelta` : 'Alerta sin resolver'}
+            </p>
+          </div>
         </span>
       )
     })
