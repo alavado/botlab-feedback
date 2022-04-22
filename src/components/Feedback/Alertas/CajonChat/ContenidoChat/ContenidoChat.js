@@ -14,6 +14,7 @@ import nl2br from 'react-newline-to-break'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
 import iconoRobot from '@iconify/icons-mdi/robot'
 import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
+import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
 
 const ContenidoChat = () => {
 
@@ -68,7 +69,7 @@ const ContenidoChat = () => {
            })} />
           <InlineIcon style={{ fontSize: '1.25rem' }} icon={alertaDestacada.dismissed ? iconoRobotFeliz : iconoRobot} />
           <div className="ContenidoChat__datos_alerta">
-            <p>{alertaDestacada.message}</p>
+            <p>{obtenerEtiquetaAlerta(alertaDestacada.message)}</p>
             <p className="ContenidoChat__datos_alerta_subtitulo">
               {/* {alertaDestacada.dismissed ? `Alerta resuelta a las ${format(parseISO(alertaDestacada.dismissal_updated_at), 'hh:mm')}` : 'Alerta pendiente'} */}
               {alertaDestacada.dismissed ? `Alerta resuelta` : 'Alerta sin resolver'}

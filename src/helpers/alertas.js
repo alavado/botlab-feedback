@@ -4,6 +4,7 @@ import iconoPacienteArrepentido from '@iconify/icons-mdi/arrow-u-left-bottom-bol
 import iconoCancelaPostConfirmacion from '@iconify/icons-mdi/cancel'
 import iconoReagendaPostConfirmacion from '@iconify/icons-mdi/edit'
 import iconoPregunta from '@iconify/icons-mdi/chat-question'
+import iconoPostEncuesta from '@iconify/icons-mdi/chat-processing'
 
 export const obtenerIconoAlerta = mensaje => {
   switch (mensaje) {
@@ -17,7 +18,18 @@ export const obtenerIconoAlerta = mensaje => {
       return iconoReagendaPostConfirmacion
     case 'Paciente tiene pregunta o comentario':
       return iconoPregunta
+    case 'Mensaje post encuesta':
+      return iconoPostEncuesta
     default:
       return iconoWhatsapp
+  }
+}
+
+export const obtenerEtiquetaAlerta = mensaje => {
+  switch (mensaje) {
+    case 'Mensaje post encuesta':
+      return 'Mensaje post interacción'
+    default:
+      return mensaje
   }
 }

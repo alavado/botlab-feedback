@@ -78,7 +78,7 @@ export const uso = (fechaInicio, fechaTermino) => {
 export const alertas = () => {
   const token = store.getState().login.token
   const hoy = format(new Date(), 'yyyy-MM-dd')
-  const hace7Dias = format(addMonths(new Date(), -1), 'yyyy-MM-dd')
+  const hace7Dias = format(addDays(new Date(), -7), 'yyyy-MM-dd')
   const url = `${API_ROOT}/polls/alerts?start_date=${hace7Dias}&end_date=${hoy}`
   return axios.get(
     url,

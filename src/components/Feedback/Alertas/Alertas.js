@@ -15,7 +15,7 @@ import { activaCajon, activaNotificaciones, agregaAlertasVisibles, alertasVisibl
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
-import { obtenerIconoAlerta } from '../../../helpers/alertas'
+import { obtenerEtiquetaAlerta, obtenerIconoAlerta } from '../../../helpers/alertas'
 
 const tabsAlertas = [
   {
@@ -122,7 +122,7 @@ const Alertas = () => {
                     className="Alertas__icono_tipo_alerta"
                   />
                   <span className="Alertas__etiqueta_tipo_alerta">
-                    {nombre}
+                    {obtenerEtiquetaAlerta(nombre)}
                   </span>
                   <span className="Alertas__conteo_tipo_alerta">
                     {conteo === 0

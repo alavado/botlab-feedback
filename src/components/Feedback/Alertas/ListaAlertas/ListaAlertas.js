@@ -10,6 +10,7 @@ import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import iconoWhatsapp from '@iconify/icons-mdi/arrow-expand'
 import iconoMarcaChatActivo from '@iconify/icons-mdi/chevron-right'
 import './ListaAlertas.css'
+import { obtenerEtiquetaAlerta } from '../../../../helpers/alertas'
 
 const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
 
@@ -82,7 +83,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                   "ListaAlertas__checkbox--resuelto": alerta.dismissed
                 })} />
               </div> */}
-              <div>{alerta.message}</div>
+              <div>{obtenerEtiquetaAlerta(alerta.message)}</div>
               {alerta.id === idAlertaDestacada
                 ? <div
                     className="ListaAlertas__contenedor_acciones"
