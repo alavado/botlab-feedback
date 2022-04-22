@@ -24,7 +24,7 @@ const usuariosPiloto = [
     exp: '2022-04-29 00:00:00'
   },
   {
-    nombre: 'Clinica Maitenes',
+    nombre: 'Maitenes',
     exp: '2022-05-23 00:00:00'
   },
 ]
