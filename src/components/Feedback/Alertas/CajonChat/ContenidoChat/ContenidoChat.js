@@ -91,7 +91,7 @@ const ContenidoChat = () => {
       }
     })
     eventos.sort((e1, e2) => e1.fecha < e2.fecha ? -1 : 1)
-    return eventos.filter(e => !isFuture(e.fecha))
+    return eventos.filter(e => !isFuture(startOfDay(e.fecha)))
   }, [data, alertaDestacada])
 
   useEffect(() => {
