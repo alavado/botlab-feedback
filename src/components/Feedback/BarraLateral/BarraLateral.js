@@ -41,7 +41,7 @@ const BarraLateral = () => {
           <Icon icon={home} />
           <div className="BarraLateral__nombre_seccion">Respuestas</div>
         </NavLink>
-        {(cuenta.endsWith('_cero') || cuenta.endsWith('_botlab') || ['aquamed', 'maz', 'bioreuma', 'oyedental', 'avaria', 'yohanantherapeutes', 'maitenes'].includes(cuenta.toLowerCase())) &&
+        {(cuenta.endsWith('_cero') || cuenta.endsWith('_botlab') || ['aquamed', 'maz', 'bioreuma', 'oyedental', 'avaria', 'yohanantherapeutes', 'clinica maitenes'].includes(cuenta.toLowerCase())) &&
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
