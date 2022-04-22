@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit"
 
 export const alertasVisibles = [
   'Número equivocado',
-  'Paciente se arrepiente de cancelar su hora',
-  'Paciente cancela post confirmación',
-  'Paciente reagenda post confirmación',
   'Paciente tiene pregunta o comentario',
+  'Paciente reagenda post confirmación',
+  'Paciente cancela post confirmación',
+  'Paciente se arrepiente de cancelar su hora',
   'Mensaje post encuesta'
 ]
 
