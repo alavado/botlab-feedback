@@ -14,9 +14,19 @@ import { useSelector } from 'react-redux'
 import ConteoAlertas from './ConteoAlertas'
 import { tieneAccesoAReportes } from '../../../helpers/permisos'
 
+const usuariosConAlertas = [
+  'Aquamed',
+  'MAZ',
+  'Bioreuma',
+  'OYEDental',
+  'Avaria',
+  'YohananTherapeutes',
+  'Maitenes'
+]
+
 const BarraLateral = () => {
 
-  const { cuenta } = useSelector(state => state.login)
+  const { cuenta, nombreUsuario } = useSelector(state => state.login)
   const [feliz, setFeliz] = useState(false)
   
   return (
@@ -41,15 +51,7 @@ const BarraLateral = () => {
           <Icon icon={home} />
           <div className="BarraLateral__nombre_seccion">Respuestas</div>
         </NavLink>
-        {(cuenta.endsWith('_cero') || cuenta.endsWith('_botlab') || [
-          'aquamed',
-          'maz',
-          'bioreuma',
-          'oyedental',
-          'avaria',
-          'yohanantherapeutes',
-          'maitenes'
-        ].includes(cuenta.toLowerCase())) &&
+        {(cuenta.endsWith('_cero') || cuenta.endsWith('_botlab') || usuariosConAlertas.includes(nombreUsuario)) &&
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
