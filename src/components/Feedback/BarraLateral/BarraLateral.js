@@ -21,7 +21,9 @@ const usuariosConAlertas = [
   'OYEDental',
   'Avaria',
   'YohananTherapeutes',
-  'Maitenes'
+  'Maitenes',
+  'Redental',
+  'CentroDeLaVision'
 ]
 
 const BarraLateral = () => {
