@@ -23,7 +23,8 @@ const usuariosConAlertas = [
   'YohananTherapeutes',
   'Maitenes',
   'Redental',
-  'CentroDeLaVision'
+  'CentroDeLaVision',
+  'ADICH'
 ]
 
 const BarraLateral = () => {
