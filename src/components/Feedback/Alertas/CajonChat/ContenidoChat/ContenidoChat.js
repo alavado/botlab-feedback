@@ -35,6 +35,7 @@ const ContenidoChat = () => {
       return []
     }
     const conversaciones = data.data.data.conversations
+    console.log(conversaciones)
     const eventos = _.flatten(
       conversaciones.map(conversacion => {
         const fecha = conversacion.context.find(p => p.target.includes('date') || p.target.includes('date_1')).value
