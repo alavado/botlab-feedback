@@ -31,7 +31,7 @@ const DatosPacienteCajon = () => {
   }
 
   const ultimaConversacion = data.data.data.conversations.slice(-1)[0]
-  const nombrePaciente = ultimaConversacion.context.find(d => d.target === 'name').value
+  const nombrePaciente = ultimaConversacion.context.find(d => d.target === 'name' || d.target === 'patient_name_1').value
   const telefonoPaciente = formatearCampoRespuestas(data.data.data.user.phone, 'phone')
 
   return (
