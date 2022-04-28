@@ -37,9 +37,9 @@ const ContenidoChat = () => {
     const conversaciones = data.data.data.conversations
     const eventos = _.flatten(
       conversaciones.map(conversacion => {
-        const fecha = conversacion.context.find(p => p.target.includes('date')).value
-        const hora = conversacion.context.find(p => p.target.includes('time')).value
-        const doctor = conversacion.context.find(p => p.target.includes('dentist') || p.target.includes('doctor')).value
+        const fecha = conversacion.context.find(p => p.target.includes('date') || p.target.includes('date_1')).value
+        const hora = conversacion.context.find(p => p.target.includes('time') || p.target.includes('time_1')).value
+        const doctor = conversacion.context.find(p => p.target.includes('dentist') || p.target.includes('doctor') || p.target.includes('dentist_1') || p.target.includes('doctor_1')).value
         return [
           ...conversacion.messages.map(m => ({
             tipo: m.type === 'bot' ? 'mensaje bot' : 'mensaje usuario',
