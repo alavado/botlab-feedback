@@ -38,9 +38,24 @@ const ContenidoChat = () => {
     console.log(conversaciones)
     const eventos = _.flatten(
       conversaciones.map(conversacion => {
-        const fecha = conversacion.context.find(p => p.target.includes('date') || p.target.includes('date_1')).value
-        const hora = conversacion.context.find(p => p.target.includes('time') || p.target.includes('time_1')).value
-        const doctor = conversacion.context.find(p => p.target.includes('dentist') || p.target.includes('doctor') || p.target.includes('dentist_1') || p.target.includes('doctor_1')).value
+        const fecha_target = conversacion.context.find(p => p.target.includes('date') || p.target.includes('date_1'))
+        if(!fecha_target) {
+          const fecha = ''
+        } else {
+          const fecha = fecha_target.value
+        }
+        const hora_target = conversacion.context.find(p => p.target.includes('time') || p.target.includes('time_1'))
+        if(!hora_target) {
+          const hora = ''
+        } else {
+          const hora = hora_target.value
+        }
+        const doctor_target = conversacion.context.find(p => p.target.includes('dentist') || p.target.includes('doctor') || p.target.includes('dentist_1') || p.target.includes('doctor_1'))
+        if(!doctor_target) {
+          const doctor = ''
+        } else {
+          const doctor = doctor_target.value
+        }
         return [
           ...conversacion.messages.map(m => ({
             tipo: m.type === 'bot' ? 'mensaje bot' : 'mensaje usuario',
