@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import ConteoAlertas from './ConteoAlertas'
 import { tieneAccesoAReportes } from '../../../helpers/permisos'
 
+// TODO: configurar "usuariosSinAlertas" y poner todas las cuentas de redsalud
 const usuariosConAlertas = [
   'Aquamed',
   'MAZ',
@@ -24,7 +25,8 @@ const usuariosConAlertas = [
   'Maitenes',
   'Redental',
   'CentroDeLaVision',
-  'ADICH'
+  'ADICH',
+  'CSMI'
 ]
 
 const BarraLateral = () => {
@@ -54,17 +56,16 @@ const BarraLateral = () => {
           <Icon icon={home} />
           <div className="BarraLateral__nombre_seccion">Respuestas</div>
         </NavLink>
-        {(cuenta.endsWith('_cero') || cuenta.endsWith('_botlab') || usuariosConAlertas.includes(nombreUsuario)) &&
-          <NavLink
-            className="BarraLateral__link"
-            activeClassName="BarraLateral__link--activo"
-            to="/alertas"
-          >
-            <ConteoAlertas setFeliz={setFeliz} />
-            <Icon icon={feliz ? iconoSinAlertas : alertas} />
-            <div className="BarraLateral__nombre_seccion">Alertas</div>
-          </NavLink>
-        }
+        {/* {(cuenta.endsWith('_cero') || cuenta.endsWith('_botlab') || usuariosConAlertas.includes(nombreUsuario)) && */}
+        <NavLink
+          className="BarraLateral__link"
+          activeClassName="BarraLateral__link--activo"
+          to="/alertas"
+        >
+          <ConteoAlertas setFeliz={setFeliz} />
+          <Icon icon={feliz ? iconoSinAlertas : alertas} />
+          <div className="BarraLateral__nombre_seccion">Alertas</div>
+        </NavLink>
         {/* <NavLink
           className="BarraLateral__link"
           activeClassName="BarraLateral__link--activo"
