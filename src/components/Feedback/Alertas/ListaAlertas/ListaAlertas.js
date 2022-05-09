@@ -43,9 +43,6 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
     },
   })
 
-  // lista de alertas ignora las alertas de polls multicitas (que tienen meta n_appointments)
-  // porque se rompe el chat al acceder a metas inexistentes
-  // TODO: adaptar chat para que no se rompa y quitar .filter(a => !a.meta.n_appointments)
   return (
     <>
       {alertas.map((tipoAlertas, indiceTipoAlerta) => (

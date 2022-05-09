@@ -357,7 +357,7 @@ const MensajeConAdjunto = ({ mensaje }) => {
   const substringAdjunto = mensaje.substring(inicioAdjunto)
   const finAdjunto = substringAdjunto.search(/\s/) > 0 ? substringAdjunto.search(/\s/) : substringAdjunto.length
   let urlArchivo = substringAdjunto.substring(0, finAdjunto)
-  if (!urlArchivo.startsWith('https')) {
+  if (!urlArchivo.startsWith('http')) {
     urlArchivo = `https://${urlArchivo}`
   }
   const mensajeSinAdjunto = mensaje.substring(0, mensaje.indexOf(tokenAdjunto) - 1) + substringAdjunto.substring(finAdjunto)

@@ -36,12 +36,12 @@ const ContenidoChat = () => {
     }
     const conversaciones = data.data.data.conversations
     const eventos = _.flatten(
-      conversaciones.map(conversacion => {
-        const fecha = conversacion.context.find(p => p.target.includes('date')).value
-        const hora = conversacion.context.find(p => p.target.includes('time')).value
-        const doctor = conversacion.context.find(p => p.target.includes('dentist') || p.target.includes('doctor')).value
+      conversaciones.map(({ context, messages, start }) => {
+        const fecha = context.find(p => p.target.includes('date') || p.target.includes('date_t'))?.value
+        const hora = context.find(p => p.target.includes('time') || p.target.includes('time_1'))?.value
+        const doctor = context.find(p => p.target.includes('dentist') || p.target.includes('doctor'))?.value
         return [
-          ...conversacion.messages.map(m => ({
+          ...messages.map(m => ({
             tipo: m.type === 'bot' ? 'mensaje bot' : 'mensaje usuario',
             fecha: parseISO(m.timestamp),
             formato: 'h:mm aaaa',
@@ -49,9 +49,16 @@ const ContenidoChat = () => {
           })),
           {
             tipo: 'cita',
-            fecha: parse(`${fecha} ${hora}`, hora.includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m', parseISO(conversacion.start), { locale: es }),
+            fecha: parse(
+              `${fecha} ${hora}`,
+              hora.includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m',
+              parseISO(start),
+              { locale: es }
+            ),
             formato: 'h:mm aaaa',
-            contenido: `🕑 Cita con ${doctor} a las ${hora}`
+            contenido: doctor
+              ? `🕑 Cita con ${doctor} a las ${hora}`
+              : `🕑 Cita a las ${hora}`
           }
         ]
       }

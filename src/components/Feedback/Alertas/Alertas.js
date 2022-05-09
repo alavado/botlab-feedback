@@ -34,10 +34,6 @@ const tabsAlertas = [
   }
 ]
 
-// lista de alertas ignora las alertas de polls multicitas (que tienen meta n_appointments)
-// porque se rompe el chat al acceder a metas inexistentes
-// TODO: adaptar chat para que no se rompa y quitar .filter(a => !a.meta.n_appointments)
-
 const Alertas = () => {
 
   const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
@@ -64,7 +60,7 @@ const Alertas = () => {
           return {
             ...t,
             alertas,
-            conteo: alertas.filter(a => !a.meta.n_appointments).length,
+            conteo: alertas.length,
           }
         })
       }

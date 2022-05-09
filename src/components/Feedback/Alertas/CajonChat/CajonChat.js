@@ -28,7 +28,6 @@ const CajonChat = () => {
       </div>
       <div className="CajonChat__mensajes">
         <ContenidoChat />
-        
       </div>
     </div>
   )
