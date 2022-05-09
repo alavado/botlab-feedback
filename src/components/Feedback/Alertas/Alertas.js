@@ -15,7 +15,7 @@ import { activaCajon, activaNotificaciones, agregaAlertasVisibles, alertasVisibl
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
-import { obtenerEtiquetaAlerta, obtenerIconoAlerta } from '../../../helpers/alertas'
+import { obtenerEtiquetaAlerta, obtenerIconoAlerta, obtenerNombrePaciente } from '../../../helpers/alertas'
 
 const tabsAlertas = [
   {
@@ -47,10 +47,12 @@ const Alertas = () => {
       refetchOnMount: true,
       select: res => {
         return tabsAlertas.map(t => {
+          console.log(res.data)
           const alertas = res.data
             .filter(t.filtro)
             .map(a => ({
               ...a,
+              nombrePaciente: obtenerNombrePaciente(a),
               icono: obtenerIconoAlerta(a.message),
               horaLegible: !isToday(parseISO(a.utc_timestamp))
                 ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })

@@ -88,6 +88,18 @@
   color: var(--color-texto);
 }
 
+.ListaAlertas__mensaje {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  line-height: 1.1;
+}
+
+.ListaAlertas__subtitulo {
+  font-size: .5rem;
+  color: var(--color-gris);
+}
+
 .ListaAlertas__fila:hover .Alertas__fila_icono {
   color: var(--color-texto);
 }

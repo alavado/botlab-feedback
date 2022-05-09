@@ -80,7 +80,10 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                   "ListaAlertas__checkbox--resuelto": alerta.dismissed
                 })} />
               </div> */}
-              <div>{obtenerEtiquetaAlerta(alerta.message)}</div>
+              <div className="ListaAlertas__mensaje">
+                <p>{obtenerEtiquetaAlerta(alerta.message)}</p>
+                <p className="ListaAlertas__subtitulo">{alerta.nombrePaciente}</p>
+              </div>
               {alerta.id === idAlertaDestacada
                 ? <div
                     className="ListaAlertas__contenedor_acciones"

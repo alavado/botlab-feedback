@@ -33,3 +33,7 @@ export const obtenerEtiquetaAlerta = mensaje => {
       return mensaje
   }
 }
+
+export const obtenerNombrePaciente = alerta => {
+  return alerta.meta['name'] ?? alerta.meta['patient_name_1'] ?? alerta.meta['Nombre'] ?? '-'
+}
