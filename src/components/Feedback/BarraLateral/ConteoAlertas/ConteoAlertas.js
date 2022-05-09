@@ -9,7 +9,7 @@ import './ConteoAlertas.css'
 const ConteoAlertas = ({ setFeliz }) => {
 
   const [conteoAlertas, setConteoAlertas] = useState(0)
-  const { recibirNotificaciones } = useSelector(state => state.alertas)
+  const { recibirNotificaciones, verAlertas } = useSelector(state => state.alertas)
   const { data: dataAlertas } = useQuery(
     'alertas',
     alertasAPI,
@@ -17,7 +17,7 @@ const ConteoAlertas = ({ setFeliz }) => {
       refetchInterval: 30_000,
       refetchIntervalInBackground: 30_000,
       refetchOnMount: true,
-      select: res => res.data,
+      select: res => res.data.filter(a => verAlertas.includes(a.message)),
     }
   )
 

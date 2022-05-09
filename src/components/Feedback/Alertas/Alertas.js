@@ -47,7 +47,6 @@ const Alertas = () => {
       refetchOnMount: true,
       select: res => {
         return tabsAlertas.map(t => {
-          console.log(res.data)
           const alertas = res.data
             .filter(t.filtro)
             .map(a => ({
@@ -62,7 +61,7 @@ const Alertas = () => {
           return {
             ...t,
             alertas,
-            conteo: alertas.length,
+            conteo: alertas.filter(a => verAlertas.includes(a.message)).length,
           }
         })
       }
