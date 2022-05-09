@@ -2,12 +2,10 @@ import Icon, { InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import { marcarAlerta } from '../../../../api/endpoints'
 import { destacaAlerta } from '../../../../redux/ducks/alertas'
 import iconoMarcar from '@iconify/icons-mdi/check-bold'
 import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
-import iconoWhatsapp from '@iconify/icons-mdi/arrow-expand'
 import iconoMarcaChatActivo from '@iconify/icons-mdi/chevron-right'
 import './ListaAlertas.css'
 import { obtenerEtiquetaAlerta } from '../../../../helpers/alertas'
@@ -15,7 +13,6 @@ import { obtenerEtiquetaAlerta } from '../../../../helpers/alertas'
 const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
 
   const dispatch = useDispatch()
-  const history = useHistory()
   const { idAlertaDestacada, verAlertas } = useSelector(state => state.alertas)
 
   const queryClient = useQueryClient()
