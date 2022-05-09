@@ -11,3 +11,20 @@ export const tieneAccesoAReportes = cuenta => {
     'centauro_sistemas'
   ].includes(cuenta)
 }
+
+export const tieneAccesoAAlertas = cuenta => {
+  const cuentasSinAlertas = [
+    'redsalud',
+    'redsalud_botlab',
+    'redsalud_derivaciones',
+    'redsalud_derivaciones_botlab',
+    'redsalud_derivaciones_view',
+    'redsalud_cm',
+    'redsalud_cm_botlab',
+    'redsalud_wl',
+    'redsalud_wl_botlab',
+    'redsalud_ba',
+    'redsalud_ba_botlab',
+  ]
+  return !cuentasSinAlertas.includes(cuenta)
+}
