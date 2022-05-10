@@ -76,8 +76,8 @@ export const scrambleNombre = nombre => {
   ).join(' ')
 }
 
-export const scrambleTelefono = telefono => {
-  return telefono.split('').map(n => hashearString(n) % 10).join('')
+export const scrambleTelefono = () => {
+  return '+56 9 25555 1234'
 }
 
 export const scrambleDireccion = texto => {
