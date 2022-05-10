@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { scrambleMulti } from '../../../../../Scrambler/scramblers'
 import './MensajeChat.css'
 import MensajeChatAudio from './MensajeChatAudio'
+import MensajeChatImagen from './MensajeChatImagen'
 
 const MensajeChat = ({ mensaje }) => {
 
@@ -11,6 +12,9 @@ const MensajeChat = ({ mensaje }) => {
 
   if (mensaje.message === 'MEDIAAUDIOURL') {
     return <MensajeChatAudio mensaje={mensaje} />
+  }
+  else if (mensaje.message === 'MEDIAIMAGEURL') {
+    return <MensajeChatImagen mensaje={mensaje} />
   }
 
   return (
