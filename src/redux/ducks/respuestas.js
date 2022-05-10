@@ -39,7 +39,6 @@ const ordenarPorFechaCita = (orden = 'ASC') => (r1, r2) => {
 }
 
 const funcionDeOrdenamiento = (header, orden = 'ASC') => {
-  console.log(header)
   if (header.includes('time') || header.includes('date')) {
     return ordenarPorFechaCita(orden)
   }
@@ -136,7 +135,6 @@ const sliceRespuestas = createSlice({
         state.categorias = categorias
       }
       catch (e) {
-        console.log(e)
         state.categorias = []
       }
       state.respuestas = respuestas.sort(ordenarPorFechaCita())

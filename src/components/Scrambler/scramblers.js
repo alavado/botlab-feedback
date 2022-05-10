@@ -86,7 +86,6 @@ export const scrambleDireccion = texto => {
 }
 
 export const scrambleMulti = (textoOriginal, terminos) => {
-  console.log(textoOriginal)
   const textoCompleto = _.isArray(textoOriginal)
     ? textoOriginal.reduce((acc, p) => acc + _.isString(p) ? p : p.props.children, '')
     : textoOriginal

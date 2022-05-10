@@ -9,14 +9,12 @@ import './ContenidoChat.css'
 import { es } from 'date-fns/locale'
 import { InlineIcon } from '@iconify/react'
 import { useEffect, useMemo } from 'react'
-import Linkify from 'react-linkify'
-import nl2br from 'react-newline-to-break'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
 import iconoRobot from '@iconify/icons-mdi/robot'
 import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
 import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
-import { scrambleMulti } from '../../../../Scrambler/scramblers'
 import Scrambler from '../../../../Scrambler/Scrambler'
+import MensajeChat from './MensajeChat'
 
 const ContenidoChat = () => {
 
@@ -48,7 +46,7 @@ const ContenidoChat = () => {
             tipo: m.type === 'bot' ? 'mensaje bot' : 'mensaje usuario',
             fecha: parseISO(m.timestamp),
             formato: 'h:mm aaaa',
-            contenido: nl2br(scrambled ? scrambleMulti(m.message, terminos) : m.message)
+            contenido: <MensajeChat mensaje={m} />
           }))
         if (fecha && hora) {
           eventos.push({
@@ -104,7 +102,7 @@ const ContenidoChat = () => {
     })
     eventos.sort((e1, e2) => e1.fecha < e2.fecha ? -1 : 1)
     return eventos.filter(e => !isFuture(startOfDay(e.fecha)))
-  }, [data, alertaDestacada, scrambled, terminos])
+  }, [data, alertaDestacada])
 
   useEffect(() => {
     const elementoAlerta = document.querySelector('.ContenidoChat__mensaje--alerta')
@@ -138,9 +136,7 @@ const ContenidoChat = () => {
           key={`evento-chat-${i}`}
         >
           <span>
-            <Linkify>
-              {e.contenido}
-            </Linkify>
+            {e.contenido}
           </span>
           <span className="ContenidoChat__fecha_mensaje">
             {format(e.fecha, e.formato)}
