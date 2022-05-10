@@ -15,10 +15,12 @@ import { alertas as getAlertas } from '../../../../../api/endpoints'
 import iconoRobot from '@iconify/icons-mdi/robot'
 import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
 import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
+import { scramble, scrambleMulti } from '../../../../Scrambler/scramblers'
 
 const ContenidoChat = () => {
 
   const { idAlertaDestacada } = useSelector(state => state.alertas)
+  const { terminos, scrambled } = useSelector(state => state.scrambler)
   const { data: dataAlertas } = useQuery('alertas', getAlertas)
   const alertaDestacada = dataAlertas.data.find(a => a.id === idAlertaDestacada)
   const { isLoading, data } = useQuery(
@@ -45,7 +47,7 @@ const ContenidoChat = () => {
             tipo: m.type === 'bot' ? 'mensaje bot' : 'mensaje usuario',
             fecha: parseISO(m.timestamp),
             formato: 'h:mm aaaa',
-            contenido: nl2br(m.message)
+            contenido: nl2br(scrambled ? scrambleMulti(m.message, terminos) : m.message)
           }))
         if (fecha && hora) {
           eventos.push({
@@ -58,7 +60,7 @@ const ContenidoChat = () => {
             ),
             formato: 'h:mm aaaa',
             contenido: doctor
-              ? `🕑 Cita con ${doctor} a las ${hora}`
+              ? `🕑 Cita con ${scrambled ? scramble(doctor, 'name') : doctor} a las ${hora}`
               : `🕑 Cita a las ${hora}`
           })
         }
@@ -101,7 +103,7 @@ const ContenidoChat = () => {
     })
     eventos.sort((e1, e2) => e1.fecha < e2.fecha ? -1 : 1)
     return eventos.filter(e => !isFuture(startOfDay(e.fecha)))
-  }, [data, alertaDestacada])
+  }, [data, alertaDestacada, scrambled, terminos])
 
   useEffect(() => {
     const elementoAlerta = document.querySelector('.ContenidoChat__mensaje--alerta')

@@ -9,6 +9,7 @@ import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import iconoMarcaChatActivo from '@iconify/icons-mdi/chevron-right'
 import './ListaAlertas.css'
 import { obtenerEtiquetaAlerta } from '../../../../helpers/alertas'
+import Scrambler from '../../../Scrambler/Scrambler'
 
 const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
 
@@ -82,7 +83,9 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
               </div> */}
               <div className="ListaAlertas__mensaje">
                 <p>{obtenerEtiquetaAlerta(alerta.message)}</p>
-                <p className="ListaAlertas__subtitulo">{alerta.nombrePaciente}</p>
+                <p className="ListaAlertas__subtitulo">
+                  <Scrambler tipo="nombre">{alerta.nombrePaciente}</Scrambler>
+                </p>
               </div>
               {alerta.id === idAlertaDestacada
                 ? <div

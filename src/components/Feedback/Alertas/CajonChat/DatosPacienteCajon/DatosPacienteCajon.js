@@ -5,6 +5,7 @@ import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 import Loader from '../../../../Loader'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
 import './DatosPacienteCajon.css'
+import Scrambler from '../../../../Scrambler/Scrambler'
 
 const DatosPacienteCajon = () => {
 
@@ -40,10 +41,10 @@ const DatosPacienteCajon = () => {
         {nombrePaciente[0]}
       </div>
       <div className="DatosPacienteCajon__nombre">
-        {nombrePaciente}
+        <Scrambler tipo="nombre">{nombrePaciente}</Scrambler>
       </div>
       <div className="DatosPacienteCajon__telefono">
-        {telefonoPaciente}
+        <Scrambler tipo="telefono">{telefonoPaciente}</Scrambler>
       </div>
     </div>
   )
