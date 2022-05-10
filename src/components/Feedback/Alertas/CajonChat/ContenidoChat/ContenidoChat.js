@@ -19,7 +19,6 @@ import MensajeChat from './MensajeChat'
 const ContenidoChat = () => {
 
   const { idAlertaDestacada } = useSelector(state => state.alertas)
-  const { terminos, scrambled } = useSelector(state => state.scrambler)
   const { data: dataAlertas } = useQuery('alertas', getAlertas)
   const alertaDestacada = dataAlertas.data.find(a => a.id === idAlertaDestacada)
   const { isLoading, data } = useQuery(
