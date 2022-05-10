@@ -16,6 +16,7 @@ import iconoRobot from '@iconify/icons-mdi/robot'
 import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
 import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
 import { scramble, scrambleMulti } from '../../../../Scrambler/scramblers'
+import Scrambler from '../../../../Scrambler/Scrambler'
 
 const ContenidoChat = () => {
 
@@ -60,7 +61,7 @@ const ContenidoChat = () => {
             ),
             formato: 'h:mm aaaa',
             contenido: doctor
-              ? `🕑 Cita con ${scrambled ? scramble(doctor, 'name') : doctor} a las ${hora}`
+              ? <>🕑 Cita con <Scrambler tipo="dentist_name" propagar={true}>{doctor}</Scrambler> a las {hora}</>
               : `🕑 Cita a las ${hora}`
           })
         }

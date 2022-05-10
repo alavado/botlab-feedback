@@ -41,10 +41,10 @@ const DatosPacienteCajon = () => {
         {nombrePaciente[0]}
       </div>
       <div className="DatosPacienteCajon__nombre">
-        <Scrambler tipo="nombre">{nombrePaciente}</Scrambler>
+        <Scrambler tipo="name" propagar={true}>{nombrePaciente}</Scrambler>
       </div>
       <div className="DatosPacienteCajon__telefono">
-        <Scrambler tipo="telefono">{telefonoPaciente}</Scrambler>
+        <Scrambler tipo="phone">{telefonoPaciente}</Scrambler>
       </div>
     </div>
   )
