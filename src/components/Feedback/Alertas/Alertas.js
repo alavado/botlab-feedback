@@ -68,6 +68,8 @@ const Alertas = () => {
     }
   )
 
+  console.log(dataAlertas)
+
   const tiposAlertasConConteos = useMemo(() => {
     if (!dataAlertas) {
       return []

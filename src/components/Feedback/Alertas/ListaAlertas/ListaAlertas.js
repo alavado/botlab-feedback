@@ -50,7 +50,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
           })}
           key={`lista-alertas-${tipoAlertas.id}`}
         >
-          {tipoAlertas.alertas.filter(alerta => !alerta.meta.n_appointments).map(alerta => (
+          {tipoAlertas.alertas.map(alerta => (
             <div
               className={classNames({
                 "ListaAlertas__fila": true,
