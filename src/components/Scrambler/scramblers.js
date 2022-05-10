@@ -47,6 +47,9 @@ export const scrambleSucursal = sucursal => {
 const usuariosFalsos = comunasMenosPobladasDeChile.map(c => `Salud ${c}`)
 
 export const scrambleUsuario = usuario => {
+  if (!usuario) {
+    return ''
+  }
   const soloPrimeraParte = usuario.split(/(?=[A-Z ])/)[0]
   return usuariosFalsos[hashearString(soloPrimeraParte) % usuariosFalsos.length]
 }
