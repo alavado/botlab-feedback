@@ -15,7 +15,7 @@ import { alertas as getAlertas } from '../../../../../api/endpoints'
 import iconoRobot from '@iconify/icons-mdi/robot'
 import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
 import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
-import { scramble, scrambleMulti } from '../../../../Scrambler/scramblers'
+import { scrambleMulti } from '../../../../Scrambler/scramblers'
 import Scrambler from '../../../../Scrambler/Scrambler'
 
 const ContenidoChat = () => {
