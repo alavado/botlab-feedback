@@ -68,8 +68,6 @@ const Alertas = () => {
     }
   )
 
-  console.log(dataAlertas)
-
   const tiposAlertasConConteos = useMemo(() => {
     if (!dataAlertas) {
       return []
@@ -79,7 +77,7 @@ const Alertas = () => {
       conteo: dataAlertas
         .find(t => t.titulo === 'Por resolver')
         .alertas
-        .filter(a => a.message === nombre && !a.meta.n_appointments)
+        .filter(a => a.message === nombre)
         .length
     }))
   }, [dataAlertas])
