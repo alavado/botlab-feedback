@@ -80,15 +80,16 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           </button>
         </div>
         <div className="PopupMenuUsuario__opciones">
-          {/* <button
+          <button
             className="PopupMenuUsuario__boton_opcion"
             onClick={e => {
               e.stopPropagation()
               dispatch(activaModal())
+              esconder()
             }}
           >
             <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoNovedades} /> Novedades del servicio
-          </button> */}
+          </button>
           {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
             <button
               className="PopupMenuUsuario__boton_opcion"
