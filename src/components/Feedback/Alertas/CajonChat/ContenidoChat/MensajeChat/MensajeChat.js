@@ -8,6 +8,7 @@ import MensajeChatImagen from './MensajeChatImagen'
 import MensajeChatVCard from './MensajeChatVCard'
 import MensajeChatVideo from './MensajeChatVideo'
 import './MensajeChat.css'
+import { marcarNegritas } from '../../../../../../helpers/mensajes'
 
 const MensajeChat = ({ mensaje }) => {
 
@@ -31,7 +32,7 @@ const MensajeChat = ({ mensaje }) => {
 
   return (
     <Linkify>
-      {nl2br(scrambled ? scrambleMulti(mensaje.message, terminos) : mensaje.message)}
+      {marcarNegritas(nl2br(scrambled ? scrambleMulti(mensaje.message, terminos) : mensaje.message))}
     </Linkify>
   )
 }
