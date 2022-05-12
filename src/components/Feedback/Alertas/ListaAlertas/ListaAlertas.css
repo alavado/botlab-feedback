@@ -42,10 +42,6 @@
   animation: aparece-fila-alertas-der .2s ease-out both;
 }
 
-.ListaAlertas__fila--destacada {
-  background-color: var(--color-fila-destacada);
-}
-
 .ListaAlertas__fila:hover {
   background-color: var(--color-fila-destacada);
 }
