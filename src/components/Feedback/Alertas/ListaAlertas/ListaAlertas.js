@@ -66,9 +66,13 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 dispatch(destacaAlerta({ id: alerta.id }))
                 mostrarCajon()
               }}
+              title="Ver conversación"
             >
               <div className="ListaAlertas__contenedor_hora">
-                <div className="ListaAlertas__marca_alerta" />
+                <div
+                  className="ListaAlertas__marca_alerta"
+                  title={alerta.dismissed ? 'Esta alerta ya fue resuelta' : 'Esta alerta aún no ha sido resuelta'}
+                />
                 {alerta.horaLegible}
               </div>
               <Icon
@@ -95,6 +99,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                     <button
                       className="ListaAlertas__boton_accion"
                       onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
+                      title={alerta.dismissed ? "Marcar que alerta no ha sido resuelta" : "Marcar que alerta fue resuelta"}
                     >
                       <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
                     </button>

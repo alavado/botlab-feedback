@@ -163,6 +163,7 @@ const Alertas = () => {
                     })}
                     onClick={() => setIdTabAlertasActivo(tipoAlertas.id)}
                     style={{ '--color-tab-alerta': tipoAlertas.color }}
+                    title={`Ver alertas ${tipoAlertas.titulo}`}
                   >
                     <InlineIcon className="Alertas__icono_tab" icon={tipoAlertas.icono} />
                     <p className="Alertas__boton_tab_titulo">{tipoAlertas.titulo}</p>

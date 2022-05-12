@@ -72,10 +72,13 @@ const ContenidoChat = () => {
       formato: 'h:mm aaaa',
       contenido: (
         <span className="ContenidoChat__contenido_alerta">
-          <div className={classNames({
-            "ContenidoChat__alarma": true,
-            "ContenidoChat__alarma--resuelta": alertaDestacada.dismissed
-           })} />
+          <div
+            className={classNames({
+              "ContenidoChat__alarma": true,
+              "ContenidoChat__alarma--resuelta": alertaDestacada.dismissed
+            })}
+            title={alertaDestacada.dismissed ? 'Esta alerta ya fue resuelta' : 'Esta alerta aún no ha sido resuelta'}
+          />
           <InlineIcon style={{ fontSize: '1.25rem' }} icon={alertaDestacada.dismissed ? iconoRobotFeliz : iconoRobot} />
           <div className="ContenidoChat__datos_alerta">
             <p>{obtenerEtiquetaAlerta(alertaDestacada.message)}</p>
