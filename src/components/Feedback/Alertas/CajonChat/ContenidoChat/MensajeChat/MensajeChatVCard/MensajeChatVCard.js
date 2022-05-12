@@ -1,6 +1,5 @@
-import axios from 'axios'
 import { useQuery } from 'react-query'
-import { obtenerContenidoMultimedia } from '../../../../../../../api/endpoints'
+import {  obtenerVCard } from '../../../../../../../api/endpoints'
 import Loader from '../../../../../../Loader'
 import './MensajeChatVCard.css'
 
@@ -8,13 +7,12 @@ const MensajeChatVCard = ({ mensaje }) => {
 
   const { data, isLoading } = useQuery(
     ['media', mensaje.answer_id],
-    () => obtenerContenidoMultimedia(mensaje.answer_id),
+    () => obtenerVCard(mensaje.answer_id),
     {
       refetchOnMount: false,
-      select: async data => {
-        const contenidoVCARD = await axios.get(data.data.data.url)
-        console.log(contenidoVCARD)
-        const partes = contenidoVCARD.data.split('\r\n').reduce((obj, linea) => {
+      refetchOnWindowFocus: false,
+      select: data => {
+        const partes = data.data.split('\r\n').reduce((obj, linea) => {
           const [prop, valor] = linea.split(':')
           return { ...obj, [prop]: valor }
         }, {})
@@ -32,13 +30,30 @@ const MensajeChatVCard = ({ mensaje }) => {
     }
   )
 
-  console.log(data)
-
   if (isLoading) {
     return <Loader color="var(--color-secundario)" />
   }
 
-  return <div></div>
+  const { telefono, nombre } = data
+
+  return (
+    <div className="MensajeChatVCard">
+      <div
+        className="MensajeChatVCard__avatar"
+        style={{ '--hue': 360 * ((nombre.toLowerCase().charCodeAt(0) - 97) / 25)}}
+      >
+        {nombre[0] ?? 'C'}
+      </div>
+      <p>{nombre}</p>
+      <p
+        className="MensajeChatVCard__telefono"
+        onClick={() => window.open(`https://web.whatsapp.com/send?phone=${telefono}`, '_blank').focus()}
+        title="Contactar por Whatsapp"
+      >
+        {telefono}
+      </p>
+    </div>
+  )
 }
 
 export default MensajeChatVCard

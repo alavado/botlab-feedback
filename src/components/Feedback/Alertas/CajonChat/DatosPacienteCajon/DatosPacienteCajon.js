@@ -37,7 +37,10 @@ const DatosPacienteCajon = () => {
 
   return (
     <div className="DatosPacienteCajon">
-      <div className="DatosPacienteCajon__avatar" style={{ '--hue': 360 * ((nombrePaciente.toLowerCase().charCodeAt(0) - 97) / 25)}}>
+      <div
+        className="DatosPacienteCajon__avatar"
+        style={{ '--hue': 360 * ((nombrePaciente.toLowerCase().charCodeAt(0) - 97) / 25)}}
+      >
         {nombrePaciente[0]}
       </div>
       <div className="DatosPacienteCajon__nombre">

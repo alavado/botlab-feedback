@@ -41,7 +41,7 @@ const AccionesCajon = () => {
         onClick={() => window.open(`https://web.whatsapp.com/send?phone=${telefono}`, '_blank').focus()}
       >
         <InlineIcon icon={iconoWhatsapp} />
-        <span className="AccionesCajon__tooltip">Abrir Whatsapp</span>
+        <span className="AccionesCajon__tooltip">Contactar por Whatsapp</span>
       </button>
       <button
         className="AccionesCajon__boton_accion"

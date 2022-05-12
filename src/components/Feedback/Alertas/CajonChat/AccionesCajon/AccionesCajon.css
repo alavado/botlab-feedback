@@ -15,11 +15,12 @@
 }
 
 .AccionesCajon__boton_accion:hover .AccionesCajon__tooltip {
-  display: block;
+  opacity: 1;
+  transform: translateX(-25%) scale(1);
 }
 
 .AccionesCajon__tooltip {
-  display: none;
+  opacity: 0;
   position: absolute;
   font-size: .45rem;
   white-space: nowrap;
@@ -28,7 +29,7 @@
   color: var(--color-texto-claro);
   padding: .1rem .25rem;
   border-radius: 9in;
-  transform: translateX(-50%);
-  top: -.5rem;
-  left: 0;
+  transform: translateX(-25%) scale(.85);
+  top: -.7rem;
+  transition: all .15s ease;
 }

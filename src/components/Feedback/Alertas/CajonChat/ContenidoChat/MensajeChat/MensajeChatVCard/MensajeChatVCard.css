@@ -1,0 +1,23 @@
+.MensajeChatVCard {
+  display: grid;
+  grid-template: 1fr 1fr / auto 1fr;
+  gap: 0 .5rem;
+}
+
+.MensajeChatVCard__avatar {
+  grid-row: span 3;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  background-color: hsl(var(--hue), 65%, 56%);
+  color: var(--color-texto-claro);
+  font-size: 1rem;
+}
+
+.MensajeChatVCard__telefono {
+  font-weight: 600;
+  color: var(--color-alerta-resuelta);
+  cursor: pointer;
+}

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '../redux/store'
-import { addDays, addMonths, format, formatISO } from 'date-fns'
+import { addDays, format } from 'date-fns'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -178,4 +178,9 @@ export const obtenerContenidoMultimedia = idRespuesta => {
       'Content-Type': 'application/json'
     }
   })
+}
+
+export const obtenerVCard = idRespuesta => {
+  return obtenerContenidoMultimedia(idRespuesta)
+    .then(data => axios.get(data.data.data.url))
 }
