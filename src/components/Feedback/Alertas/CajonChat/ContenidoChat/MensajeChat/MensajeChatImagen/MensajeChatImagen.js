@@ -9,7 +9,8 @@ const MensajeChatImagen = ({ mensaje }) => {
     ['media', mensaje.answer_id],
     () => obtenerContenidoMultimedia(mensaje.answer_id),
     {
-      refetchOnMount: false
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
     }
   )
 

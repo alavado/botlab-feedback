@@ -5,6 +5,7 @@ import { scrambleMulti } from '../../../../../Scrambler/scramblers'
 import './MensajeChat.css'
 import MensajeChatAudio from './MensajeChatAudio'
 import MensajeChatImagen from './MensajeChatImagen'
+import MensajeChatVCard from './MensajeChatVCard'
 import MensajeChatVideo from './MensajeChatVideo'
 
 const MensajeChat = ({ mensaje }) => {
@@ -19,6 +20,9 @@ const MensajeChat = ({ mensaje }) => {
   }
   else if (mensaje.message === 'MEDIAVIDEOURL') {
     return <MensajeChatVideo mensaje={mensaje} />
+  }
+  else if (mensaje.message === 'MEDIAVCARDURL') {
+    return <MensajeChatVCard mensaje={mensaje} />
   }
 
   return (
