@@ -17,7 +17,10 @@ const Novedades = () => {
       className="Novedades__fondo"
       onClick={() => dispatch(desactivaModal())}
     >
-      <div className="Novedades">
+      <div
+        className="Novedades"
+        onClick={e => e.stopPropagation()}
+      >
         Novedades del servicio
         <button
           onClick={() => dispatch(desactivaModal())}

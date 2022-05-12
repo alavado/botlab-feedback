@@ -12,7 +12,7 @@
 }
 
 .Novedades {
-  background-color: red;
+  background-color: var(--color-fondo);
   position: absolute;
   padding: 2rem;
   border-radius: .25rem;
