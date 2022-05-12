@@ -1,0 +1,21 @@
+.MensajeChatArchivo {
+  background: rgba(0, 0, 0, .05);
+  color: var(--color-texto);
+  border: none;
+  margin-bottom: .75rem;
+  padding: 1rem;
+  font-size: .65rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 10rem;
+  align-items: center;
+  border-radius: 0 0 .5rem .5rem;
+  gap: .5rem;
+}
+
+.MensajeChatArchivo__icono_descargar {
+  font-size: 1.5rem;
+  opacity: .5;
+  width: 2rem;
+}

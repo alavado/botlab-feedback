@@ -2,11 +2,12 @@ import Linkify from 'react-linkify/dist/components/Linkify'
 import nl2br from 'react-newline-to-break'
 import { useSelector } from 'react-redux'
 import { scrambleMulti } from '../../../../../Scrambler/scramblers'
-import './MensajeChat.css'
+import MensajeChatArchivo from './MensajeChatArchivo'
 import MensajeChatAudio from './MensajeChatAudio'
 import MensajeChatImagen from './MensajeChatImagen'
 import MensajeChatVCard from './MensajeChatVCard'
 import MensajeChatVideo from './MensajeChatVideo'
+import './MensajeChat.css'
 
 const MensajeChat = ({ mensaje }) => {
 
@@ -23,6 +24,9 @@ const MensajeChat = ({ mensaje }) => {
   }
   else if (mensaje.message === 'MEDIAVCARDURL') {
     return <MensajeChatVCard mensaje={mensaje} />
+  }
+  else if (mensaje.message === 'MEDIAFILEURL') {
+    return <MensajeChatArchivo mensaje={mensaje} />
   }
 
   return (
