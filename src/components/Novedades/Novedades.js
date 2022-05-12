@@ -6,13 +6,17 @@ import iconoCerrar from '@iconify/icons-mdi/close'
 import './Novedades.css'
 
 import iconoNovedad1 from '@iconify/icons-mdi/audio'
-import iconoNovedad2 from '@iconify/icons-mdi/audio'
-import iconoNovedad3 from '@iconify/icons-mdi/audio'
+import iconoNovedad2 from '@iconify/icons-mdi/comment-processing'
+import iconoNovedad3 from '@iconify/icons-mdi/hand-pointing-right'
 
 import imagenNovedad1 from '../../assets/images/novedades/1.gif'
 import imagenNovedad2 from '../../assets/images/novedades/2.gif'
 import imagenNovedad3 from '../../assets/images/novedades/3.gif'
 import { useState } from 'react'
+import classNames from 'classnames'
+
+const titulo = '¡Audios y videos en Feedback!'
+const subtitulo = 'Últimas novedades del servicio'
 
 const novedades = [
   {
@@ -24,13 +28,13 @@ const novedades = [
   {
     titulo: 'Simplificamos el agregar comentarios a los chats (anteriormente se llamaban “notas”)',
     icono: iconoNovedad2,
-    subtitulo: 'Revisa audios, imágenes, videos, archivos y tarjetas de contacto enviados por tus pacientes',
+    subtitulo: 'Este nuevo diseño te facilitará el proceso, y probablemente te resulte mucho más familiar',
     imagen: imagenNovedad2,
   },
   {
-    titulo: 'Mensajes multimedia',
+    titulo: 'Todas tus acciones en un solo lugar',
     icono: iconoNovedad3,
-    subtitulo: 'Revisa audios, imágenes, videos, archivos y tarjetas de contacto enviados por tus pacientes',
+    subtitulo: 'Incorporamos una sección de acceso uniforme, junto a la vista del teléfono, con botones fáciles de reconocer',
     imagen: imagenNovedad3,
   }
 ]
@@ -61,21 +65,34 @@ const Novedades = () => {
         >
           <InlineIcon icon={iconoCerrar} />
         </button>
-        <h2 className="Novedades__subtitulo">Novedades del servicio</h2>
-        <h1 className="Novedades__titulo">¡Audios y Videos en Feedback!</h1>
+        <h2 className="Novedades__subtitulo">{subtitulo}</h2>
+        <h1 className="Novedades__titulo">{titulo}</h1>
         <div className="Novedades__contenedor_tabs">
           {novedades.map((novedad, i) => (
             <button
               key={`boton-novedad-${i}`}
               onClick={() => setNovedadSeleccionada(i)}
-              className="Novedades__boton_novedad"
+              className={classNames({
+                "Novedades__boton_novedad": true,
+                "Novedades__boton_novedad--activo": i === novedadSeleccionada,
+              })}
             >
               <Icon
                 icon={novedad.icono}
-                className="Novedades__icono_novedad"
+                className={classNames({
+                  "Novedades__icono_novedad": true,
+                  "Novedades__icono_novedad--activa": i === novedadSeleccionada,
+                })}
               />
               <h4 className="Novedades__titulo_novedad">{novedad.titulo}</h4>
-              <p className="Novedades__subtitulo_novedad">{novedad.subtitulo}</p>
+              <p
+                className={classNames({
+                  "Novedades__subtitulo_novedad": true,
+                  "Novedades__subtitulo_novedad--activo": i === novedadSeleccionada,
+                })}
+              >
+                {novedad.subtitulo}
+              </p>
             </button>
           ))}
           <img
