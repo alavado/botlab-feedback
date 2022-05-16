@@ -1,15 +1,11 @@
 .CajonChat {
-  width: 0;
+  width: 38rem;
   overflow: hidden;
   display: none;
   transition: all .35s ease-in-out;
   background-color: var(--color-barra-superior);
   display: flex;
   flex-direction: column;
-}
-
-.CajonChat--activo {
-  width: 38rem;
 }
 
 .CajonChat__superior {

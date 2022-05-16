@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import { InlineIcon } from '@iconify/react'
 import iconoCerrar from '@iconify/icons-mdi/close'
 import iconoIrAChat from '@iconify/icons-mdi/smartphone'
@@ -7,12 +6,13 @@ import './AccionesCajon.css'
 import { useHistory } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { alertas as getAlertas, chat2 } from '../../../../../api/endpoints'
+import { useParams } from 'react-router-dom'
 
 const AccionesCajon = () => {
 
-  const { idAlertaDestacada } = useSelector(state => state.alertas)
+  const { id } = useParams()
   const { data: dataAlertas } = useQuery('alertas', getAlertas)
-  const alertaDestacada = dataAlertas.data.find(a => a.id === idAlertaDestacada)
+  const alertaDestacada = dataAlertas.data.find(a => a.id === Number(id))
   const { data, isLoading } = useQuery(
     ['chat', alertaDestacada.poll_id, alertaDestacada.user_id],
     () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id),

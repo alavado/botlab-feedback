@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import ContenidoChat from './ContenidoChat'
 import { useQuery } from 'react-query'
 import { alertas as getAlertas } from '../../../../api/endpoints'
@@ -18,10 +17,7 @@ const CajonChat = () => {
   }
 
   return (
-    <div className={classNames({
-      'CajonChat': true,
-      'CajonChat--activo': true
-    })}>
+    <div className="CajonChat">
       <div className="CajonChat__superior">
         <DatosPacienteCajon />
         <AccionesCajon />

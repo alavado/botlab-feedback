@@ -12,10 +12,10 @@ import Scrambler from '../../../Scrambler/Scrambler'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 
-const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
+const ListaAlertas = ({ alertas, idAlertasVisibles }) => {
 
   const { id } = useParams()
-  const { idAlertaDestacada, verAlertas } = useSelector(state => state.alertas)
+  const { verAlertas } = useSelector(state => state.alertas)
   const history = useHistory()
 
   const queryClient = useQueryClient()
@@ -57,7 +57,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
             <div
               className={classNames({
                 "ListaAlertas__fila": true,
-                "ListaAlertas__fila--destacada": alerta.id === idAlertaDestacada,
+                "ListaAlertas__fila--destacada": alerta.id === Number(id),
                 "ListaAlertas__fila--derecha": indiceTipoAlerta > 0,
                 "ListaAlertas__fila--oculta": verAlertas?.indexOf(alerta.message) < 0,
                 "ListaAlertas__fila--resuelta": alerta.dismissed

@@ -36,11 +36,11 @@
   border-right: 1px solid var(--color-bordes);
 }
 
-.Alertas__contenedor_secciones_alertas {
+.Alertas__contenedor_central {
   flex: 1;
 }
 
-.Alertas__contenedor_tabs {
+.Alertas__tabs {
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--color-bordes);

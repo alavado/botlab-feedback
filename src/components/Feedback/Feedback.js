@@ -79,6 +79,9 @@ const Feedback = () => {
               <Route path="/chat">
                 <Respuestas />
               </Route>
+              <Route path="/alertas/:id">
+                <Alertas  />
+              </Route>
               <Route path="/alertas">
                 <Alertas  />
               </Route>
