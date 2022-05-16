@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import { alertas as alertasAPI } from '../../../../api/endpoints'
 import logoFeedback from '../../../../assets/images/logo_cuadrado_notificaciones.png'
-import { alertasVisibles } from '../../../../redux/ducks/alertas'
+import { mensajesAlertasVisibles } from '../../../../redux/ducks/alertas'
 import './ConteoAlertas.css'
 
 const ConteoAlertas = ({ setFeliz }) => {
@@ -26,7 +26,7 @@ const ConteoAlertas = ({ setFeliz }) => {
       return
     }
     setConteoAlertas(prev => {
-      const alertas = dataAlertas?.filter(a => alertasVisibles.indexOf(a.message) >= 0 && !a.dismissed) || []
+      const alertas = dataAlertas?.filter(a => mensajesAlertasVisibles.indexOf(a.message) >= 0 && !a.dismissed) || []
       const nuevoConteo = alertas.length
       if (prev < nuevoConteo) {
         if (!document.hasFocus() && recibirNotificaciones) {

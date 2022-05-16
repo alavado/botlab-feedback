@@ -36,27 +36,6 @@
   border-right: 1px solid var(--color-bordes);
 }
 
-.Alertas__subtitulo {
-  font-weight: 600;
-  font-size: .7rem;
-}
-
-.Alertas__contenedor_opcion {
-  display: grid;
-  grid-template: auto auto / auto auto 1fr;
-  gap: .05rem .35rem;
-  line-height: 1.25;
-  cursor: pointer;
-  position: relative;
-  align-items: center;
-  user-select: none;
-}
-
-.Alertas__contenedor_opcion:active .Alertas__etiqueta_tipo_alerta,
-.Alertas__contenedor_opcion:active .Alertas__icono_tipo_alerta {
-  color: var(--color-gris);
-}
-
 .Alertas__switch {
   margin-left: .25rem;
   margin-right: .25rem;
@@ -73,67 +52,6 @@
   box-shadow:
     inset .75rem 0 0 0 var(--color-principal),
     0 0 0 1px var(--color-principal);
-}
-
-.Alertas__checkbox_oculto {
-  display: none;
-}
-
-.Alertas__checkbox_opcion {
-  cursor: pointer;
-  grid-row: span 2;
-  content: '';
-  width: 1rem;
-  height: 1rem;
-  background: var(--color-fondo);
-  border-radius: .15rem;
-  opacity: 1;
-  top: calc((100% - 1rem) / 2);
-  box-shadow: 
-    0 0 0 1px var(--color-principal),
-    inset 0 0 0 1px var(--color-fondo),
-    inset 0 0 0 2px var(--color-bordes),
-    inset 0 0 0 9in var(--color-fondo);
-  transition: all .15s ease;
-}
-
-.Alertas__checkbox_opcion--activo {
-  box-shadow:
-    0 0 0 1px var(--color-principal),
-    inset 0 0 0 1px var(--color-fondo),
-    inset 0 0 0 2px var(--color-bordes),
-    inset 0 0 0 9in var(--color-principal);
-}
-
-.Alertas__icono_checkbox {
-  position: absolute;
-  z-index: 2;
-  color: var(--color-texto-claro);
-  left: calc(4px + .1rem);
-  width: .8rem;
-}
-
-.Alertas__icono_tipo_alerta {
-  width: 1.5rem;
-  font-size: 1.25rem;
-  grid-row: span 2;
-  color: var(--color-texto);
-  place-self: center;
-}
-
-.Alertas__etiqueta_tipo_alerta {
-  place-self: start start;
-}
-
-.Alertas__conteo_tipo_alerta {
-  place-self: start start;
-  font-size: .5rem;
-  padding-top: .1rem;
-  color: var(--color-gris);
-  transition: all .1s ease;
-  display: flex;
-  align-items: center;
-  gap: .2rem;
 }
 
 .Alertas__contenedor_secciones_alertas {
@@ -153,12 +71,12 @@
   border: none;
   display: grid;
   grid-template: 1.25fr 1fr / auto 1fr;
-  padding: .5rem 3rem .5rem 1rem;
+  padding: 0 3rem 0 1rem;
   cursor: pointer;
   transition: all .25s ease;
   box-shadow: inset 0 -.1rem 0 0 transparent;
   gap: 0 .5rem;
-  height: 2.75rem;
+  height: 3rem;
 }
 
 .Alertas__boton_tab--activo {
