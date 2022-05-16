@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import { addMinutes, format, isFuture, isSameDay, isToday, isTomorrow, isYesterday, parse, parseISO, startOfDay } from 'date-fns'
 import { useQuery } from 'react-query'
-import { useSelector } from 'react-redux'
 import { chat2 } from '../../../../../api/endpoints'
 import Loader from '../../../../Loader'
 import _ from 'lodash'
@@ -15,12 +14,13 @@ import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
 import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import MensajeChat from './MensajeChat'
+import { useParams } from 'react-router-dom'
 
 const ContenidoChat = () => {
 
-  const { idAlertaDestacada } = useSelector(state => state.alertas)
+  const { id } = useParams()
   const { data: dataAlertas } = useQuery('alertas', getAlertas)
-  const alertaDestacada = dataAlertas.data.find(a => a.id === idAlertaDestacada)
+  const alertaDestacada = dataAlertas.data.find(a => a.id === Number(id))
   const { isLoading, data } = useQuery(
     ['chat', alertaDestacada.poll_id, alertaDestacada.user_id],
     () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id),

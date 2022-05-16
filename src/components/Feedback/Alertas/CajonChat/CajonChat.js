@@ -1,17 +1,17 @@
 import classNames from 'classnames'
-import { useSelector } from 'react-redux'
-import './CajonChat.css'
 import ContenidoChat from './ContenidoChat'
 import { useQuery } from 'react-query'
 import { alertas as getAlertas } from '../../../../api/endpoints'
 import DatosPacienteCajon from './DatosPacienteCajon'
 import AccionesCajon from './AccionesCajon'
+import { useParams } from 'react-router-dom'
+import './CajonChat.css'
 
 const CajonChat = () => {
 
-  const { cajonActivo, idAlertaDestacada } = useSelector(state => state.alertas)
   const { data: dataAlertas } = useQuery('alertas', getAlertas)
-  const alertaDestacada = dataAlertas.data.find(a => a.id === idAlertaDestacada)
+  const { id } = useParams()
+  const alertaDestacada = dataAlertas.data.find(a => a.id === Number(id))
 
   if (!alertaDestacada) {
     return null
@@ -20,7 +20,7 @@ const CajonChat = () => {
   return (
     <div className={classNames({
       'CajonChat': true,
-      'CajonChat--activo': cajonActivo
+      'CajonChat--activo': true
     })}>
       <div className="CajonChat__superior">
         <DatosPacienteCajon />

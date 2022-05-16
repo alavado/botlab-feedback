@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { activaCajon } from '../../../../../redux/ducks/alertas'
+import { useSelector } from 'react-redux'
 import { InlineIcon } from '@iconify/react'
 import iconoCerrar from '@iconify/icons-mdi/close'
 import iconoIrAChat from '@iconify/icons-mdi/smartphone'
@@ -18,7 +17,6 @@ const AccionesCajon = () => {
     ['chat', alertaDestacada.poll_id, alertaDestacada.user_id],
     () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id),
   )
-  const dispatch = useDispatch()
   const history = useHistory()
 
   if (isLoading) {
@@ -45,7 +43,7 @@ const AccionesCajon = () => {
       </button>
       <button
         className="AccionesCajon__boton_accion"
-        onClick={() => dispatch(activaCajon(false))}
+        onClick={() => history.push('/alertas')}
       >
         <InlineIcon icon={iconoCerrar} />
         <span className="AccionesCajon__tooltip">Cerrar</span>

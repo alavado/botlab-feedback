@@ -8,14 +8,16 @@ import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
 import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { useDispatch, useSelector } from 'react-redux'
-import { activaCajon, mensajesAlertasVisibles } from '../../../redux/ducks/alertas'
+import { useSelector } from 'react-redux'
+import { mensajesAlertasVisibles } from '../../../redux/ducks/alertas'
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
 import { obtenerIconoAlerta, obtenerNombrePaciente } from '../../../helpers/alertas'
 import CheckboxesTiposAlertas from './CheckboxesTiposAlertas'
 import OpcionesAlertas from './OpcionesAlertas'
+import { Switch } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 const tabsAlertas = [
   {
@@ -38,7 +40,6 @@ const Alertas = () => {
 
   const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
   const { verAlertas } = useSelector(state => state.alertas)
-  const dispatch = useDispatch()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
     'alertas',
     getAlertas,
@@ -74,39 +75,75 @@ const Alertas = () => {
         ? <div className="Alertas__loader">
             <Loader color="#6057f6" />
           </div>
-        : <div className="Alertas__contenedor">
-            <div className="Alertas__lateral">
-              <h1 className="Alertas__titulo">Alertas</h1>
-              <CheckboxesTiposAlertas alertas={dataAlertas} />
-              <OpcionesAlertas />
-            </div>
-            <div className="Alertas__contenedor_secciones_alertas">
-              <div className="Alertas__contenedor_tabs">
-                {dataAlertas.map(tipoAlertas => (
-                  <button
-                    key={`boton-tipo-alertas-${tipoAlertas.id}`}
-                    className={classNames({
-                      "Alertas__boton_tab": true,
-                      "Alertas__boton_tab--activo": idTabAlertasActivo === tipoAlertas.id,
-                    })}
-                    onClick={() => setIdTabAlertasActivo(tipoAlertas.id)}
-                    style={{ '--color-tab-alerta': tipoAlertas.color }}
-                    title={`Ver alertas ${tipoAlertas.titulo}`}
-                  >
-                    <InlineIcon className="Alertas__icono_tab" icon={tipoAlertas.icono} />
-                    <p className="Alertas__boton_tab_titulo">{tipoAlertas.titulo}</p>
-                    <p className="Alertas__boton_tab_subtitulo">{tipoAlertas.conteo} alerta{tipoAlertas.conteo !== 1 && 's'}</p>
-                  </button>
-                ))}
+        : <Switch>
+            <Route exact path="/alertas">
+              <div className="Alertas__contenedor">
+                <div className="Alertas__lateral">
+                  <h1 className="Alertas__titulo">Alertas</h1>
+                  <CheckboxesTiposAlertas alertas={dataAlertas} />
+                  <OpcionesAlertas />
+                </div>
+                <div className="Alertas__contenedor_secciones_alertas">
+                  <div className="Alertas__contenedor_tabs">
+                    {dataAlertas.map(tipoAlertas => (
+                      <button
+                        key={`boton-tipo-alertas-${tipoAlertas.id}`}
+                        className={classNames({
+                          "Alertas__boton_tab": true,
+                          "Alertas__boton_tab--activo": idTabAlertasActivo === tipoAlertas.id,
+                        })}
+                        onClick={() => setIdTabAlertasActivo(tipoAlertas.id)}
+                        style={{ '--color-tab-alerta': tipoAlertas.color }}
+                        title={`Ver alertas ${tipoAlertas.titulo}`}
+                      >
+                        <InlineIcon className="Alertas__icono_tab" icon={tipoAlertas.icono} />
+                        <p className="Alertas__boton_tab_titulo">{tipoAlertas.titulo}</p>
+                        <p className="Alertas__boton_tab_subtitulo">{tipoAlertas.conteo} alerta{tipoAlertas.conteo !== 1 && 's'}</p>
+                      </button>
+                    ))}
+                  </div>
+                  <ListaAlertas
+                    alertas={dataAlertas}
+                    idAlertasVisibles={idTabAlertasActivo}
+                  />
+                </div>
               </div>
-              <ListaAlertas
-                alertas={dataAlertas}
-                idAlertasVisibles={idTabAlertasActivo}
-                mostrarCajon={() => dispatch(activaCajon(true))}
-              />
-            </div>
-            <CajonChat />
-          </div>
+            </Route>
+            <Route path="/alertas/:id">
+              <div className="Alertas__contenedor">
+                <div className="Alertas__lateral">
+                  <h1 className="Alertas__titulo">Alertas</h1>
+                  <CheckboxesTiposAlertas alertas={dataAlertas} />
+                  <OpcionesAlertas />
+                </div>
+                <div className="Alertas__contenedor_secciones_alertas">
+                  <div className="Alertas__contenedor_tabs">
+                    {dataAlertas.map(tipoAlertas => (
+                      <button
+                        key={`boton-tipo-alertas-${tipoAlertas.id}`}
+                        className={classNames({
+                          "Alertas__boton_tab": true,
+                          "Alertas__boton_tab--activo": idTabAlertasActivo === tipoAlertas.id,
+                        })}
+                        onClick={() => setIdTabAlertasActivo(tipoAlertas.id)}
+                        style={{ '--color-tab-alerta': tipoAlertas.color }}
+                        title={`Ver alertas ${tipoAlertas.titulo}`}
+                      >
+                        <InlineIcon className="Alertas__icono_tab" icon={tipoAlertas.icono} />
+                        <p className="Alertas__boton_tab_titulo">{tipoAlertas.titulo}</p>
+                        <p className="Alertas__boton_tab_subtitulo">{tipoAlertas.conteo} alerta{tipoAlertas.conteo !== 1 && 's'}</p>
+                      </button>
+                    ))}
+                  </div>
+                  <ListaAlertas
+                    alertas={dataAlertas}
+                    idAlertasVisibles={idTabAlertasActivo}
+                  />
+                </div>
+                <CajonChat />
+              </div>
+            </Route>
+          </Switch>
       }
     </div>
   )

@@ -1,17 +1,17 @@
 import { useQuery } from 'react-query'
-import { useSelector } from 'react-redux'
 import { chat2 } from '../../../../../api/endpoints'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 import Loader from '../../../../Loader'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
 import './DatosPacienteCajon.css'
 import Scrambler from '../../../../Scrambler/Scrambler'
+import { useParams } from 'react-router-dom'
 
 const DatosPacienteCajon = () => {
 
-  const { idAlertaDestacada } = useSelector(state => state.alertas)
+  const { id } = useParams()
   const { data: dataAlertas, isLoading: loadingAlertas } = useQuery('alertas', getAlertas)
-  const alertaDestacada = dataAlertas.data.find(a => a.id === idAlertaDestacada)
+  const alertaDestacada = dataAlertas.data.find(a => a.id === Number(id))
   const { isLoading, data } = useQuery(
     ['chat', alertaDestacada.poll_id, alertaDestacada.user_id],
     () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id),

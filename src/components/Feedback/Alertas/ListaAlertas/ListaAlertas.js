@@ -1,20 +1,22 @@
 import Icon, { InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import { useMutation, useQueryClient } from 'react-query'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { marcarAlerta } from '../../../../api/endpoints'
-import { destacaAlerta } from '../../../../redux/ducks/alertas'
 import iconoMarcar from '@iconify/icons-mdi/check-bold'
 import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
 import iconoMarcaChatActivo from '@iconify/icons-mdi/chevron-right'
 import './ListaAlertas.css'
 import { obtenerEtiquetaAlerta } from '../../../../helpers/alertas'
 import Scrambler from '../../../Scrambler/Scrambler'
+import { useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
 
-  const dispatch = useDispatch()
+  const { id } = useParams()
   const { idAlertaDestacada, verAlertas } = useSelector(state => state.alertas)
+  const history = useHistory()
 
   const queryClient = useQueryClient()
   const mutation = useMutation(({ id, dismissed }) => marcarAlerta(id, dismissed), {
@@ -63,8 +65,9 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
               key={`fila-alerta-${alerta.id}`}
               onClick={e => {
                 e.stopPropagation()
-                dispatch(destacaAlerta({ id: alerta.id }))
-                mostrarCajon()
+                history.push(`/alertas/${alerta.id}`)
+                // dispatch(destacaAlerta({ id: alerta.id }))
+                // mostrarCajon()
               }}
               title="Ver conversación"
             >
@@ -79,46 +82,30 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarCajon }) => {
                 icon={alerta.icono}
                 className="ListaAlertas__fila_icono"
               />
-              {/* <div className="ListaAlertas__contenedor_checkbox">
-                <div className={classNames({
-                  "ListaAlertas__checkbox": true,
-                  "ListaAlertas__checkbox--resuelto": alerta.dismissed
-                })} />
-              </div> */}
               <div className="ListaAlertas__mensaje">
                 <p>{obtenerEtiquetaAlerta(alerta.message)}</p>
                 <p className="ListaAlertas__subtitulo">
                   <Scrambler tipo="nombre">{alerta.nombrePaciente}</Scrambler>
                 </p>
               </div>
-              {alerta.id === idAlertaDestacada
-                ? <div
-                    className="ListaAlertas__contenedor_acciones"
-                    onClick={e => e.stopPropagation()}
+              {alerta.id === Number(id) &&
+                <div
+                  className="ListaAlertas__contenedor_acciones"
+                  onClick={e => e.stopPropagation()}
+                >
+                  <button
+                    className="ListaAlertas__boton_accion"
+                    onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
+                    title={alerta.dismissed ? "Marcar que alerta no ha sido resuelta" : "Marcar que alerta fue resuelta"}
                   >
-                    <button
-                      className="ListaAlertas__boton_accion"
-                      onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
-                      title={alerta.dismissed ? "Marcar que alerta no ha sido resuelta" : "Marcar que alerta fue resuelta"}
-                    >
-                      <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
-                    </button>
-                    {/* <button
-                      className="ListaAlertas__boton_accion"
-                      onClick={e => {
-                        e.stopPropagation()
-                        history.push(`/chat/${alerta.poll_id}/${alerta.user_id}`, { from: '/alertas' })
-                      }}
-                    >
-                      <InlineIcon icon={iconoWhatsapp} /> Ver chat
-                    </button> */}
-                  </div>
-                : <></>
+                    <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
+                  </button>
+                </div>
               }
               <Icon
                 className={classNames({
                   "ListaAlertas__icono_fila_activa": true,
-                  "ListaAlertas__icono_fila_activa--activa": alerta.id === idAlertaDestacada,
+                  "ListaAlertas__icono_fila_activa--activa": alerta.id === Number(id),
                 })}
                 icon={iconoMarcaChatActivo}
               />
