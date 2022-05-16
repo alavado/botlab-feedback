@@ -36,24 +36,6 @@
   border-right: 1px solid var(--color-bordes);
 }
 
-.Alertas__switch {
-  margin-left: .25rem;
-  margin-right: .25rem;
-  width: 1.5rem;
-  height: .75rem;
-  border-radius: 1rem;
-  box-shadow:
-    inset -.75rem 0 0 0 var(--color-gris),
-    0 0 0 1px var(--color-gris);
-  transition: all .25s ease;
-}
-
-.Alertas__switch--activo {
-  box-shadow:
-    inset .75rem 0 0 0 var(--color-principal),
-    0 0 0 1px var(--color-principal);
-}
-
 .Alertas__contenedor_secciones_alertas {
   flex: 1;
 }

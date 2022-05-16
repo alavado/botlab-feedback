@@ -60,10 +60,6 @@
   color: var(--color-gris);
 }
 
-.CheckboxesTiposAlertas__checkbox_oculto {
-  display: none;
-}
-
 .CheckboxesTiposAlertas__icono_tipo_alerta {
   width: 1.5rem;
   font-size: 1.25rem;

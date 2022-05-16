@@ -9,12 +9,13 @@ import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useDispatch, useSelector } from 'react-redux'
-import { activaCajon, activaNotificaciones, mensajesAlertasVisibles } from '../../../redux/ducks/alertas'
+import { activaCajon, mensajesAlertasVisibles } from '../../../redux/ducks/alertas'
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
 import { obtenerIconoAlerta, obtenerNombrePaciente } from '../../../helpers/alertas'
 import CheckboxesTiposAlertas from './CheckboxesTiposAlertas'
+import OpcionesAlertas from './OpcionesAlertas'
 
 const tabsAlertas = [
   {
@@ -36,7 +37,7 @@ const tabsAlertas = [
 const Alertas = () => {
 
   const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
-  const { recibirNotificaciones, verAlertas } = useSelector(state => state.alertas)
+  const { verAlertas } = useSelector(state => state.alertas)
   const dispatch = useDispatch()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
     'alertas',
@@ -77,24 +78,7 @@ const Alertas = () => {
             <div className="Alertas__lateral">
               <h1 className="Alertas__titulo">Alertas</h1>
               <CheckboxesTiposAlertas alertas={dataAlertas} />
-              <h2 className="Alertas__subtitulo">Opciones</h2>
-              <label
-                className="Alertas__contenedor_opcion"
-                title="Activar o desactivar alertas de escritorio ante nuevas alertas"
-              >
-                <div
-                  className={classNames({
-                    "Alertas__switch": true,
-                    "Alertas__switch--activo": recibirNotificaciones
-                  })}
-                />
-                <input
-                  type="checkbox"
-                  className="Alertas__checkbox_oculto"
-                  checked={recibirNotificaciones}
-                  onChange={e => dispatch(activaNotificaciones(e.target.checked))}
-                /> {recibirNotificaciones ? 'Notificaciones activas': 'Notificaciones desactivadas'}
-              </label>
+              <OpcionesAlertas />
             </div>
             <div className="Alertas__contenedor_secciones_alertas">
               <div className="Alertas__contenedor_tabs">
