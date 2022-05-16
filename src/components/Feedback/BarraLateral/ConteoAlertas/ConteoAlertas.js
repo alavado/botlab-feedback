@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { alertas as alertasAPI } from '../../../../api/endpoints'
 import logoFeedback from '../../../../assets/images/logo_cuadrado_notificaciones.png'
+import { obtenerEtiquetaAlerta } from '../../../../helpers/alertas'
 import { mensajesAlertasVisibles } from '../../../../redux/ducks/alertas'
 import './ConteoAlertas.css'
 
@@ -20,6 +22,7 @@ const ConteoAlertas = ({ setFeliz }) => {
       select: res => res.data.filter(a => verAlertas.includes(a.message)),
     }
   )
+  const history = useHistory()
 
   useEffect(() => {
     if (!dataAlertas) {
@@ -34,19 +37,21 @@ const ConteoAlertas = ({ setFeliz }) => {
             '',
             {
               icon: logoFeedback,
-              body: `Feedback: ${alertas[0].message}`,
-              silent: true,
+              body: `Feedback: ${obtenerEtiquetaAlerta(alertas[0].message)}`,
               requireInteraction: true,
             }
           )
-          notificacion.onclick = () => window.focus()
+          notificacion.onclick = () => {
+            window.focus()
+            history.push(`/alertas/${alertas[0].id}`)
+          }
         }
       }
       document.title = alertas.length ? `(${alertas.length}) Feedback` : 'Feedback'
       setFeliz(alertas.length === 0)
       return nuevoConteo
     })
-  }, [dataAlertas, setFeliz, recibirNotificaciones])
+  }, [dataAlertas, setFeliz, recibirNotificaciones, history])
 
   useEffect(() => {
     if (recibirNotificaciones) {
