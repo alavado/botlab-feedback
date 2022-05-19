@@ -41,7 +41,6 @@ const tabsAlertas = [
 const Alertas = () => {
 
   const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
-  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { sucursalSeleccionada } = useSelector(state => state.alertas)
   const { verAlertas } = useSelector(state => state.alertas)
   const dispatch = useDispatch()
@@ -101,7 +100,6 @@ const Alertas = () => {
 
   const alertasEncuestaSeleccionada = dataAlertas.map(t => {
     const alertasFiltradas = t.alertas
-      .filter(a => a.idPoll === idEncuestaSeleccionada)
       .filter(a => !sucursalSeleccionada || a.sucursal === sucursalSeleccionada)
     return {
       ...t,
