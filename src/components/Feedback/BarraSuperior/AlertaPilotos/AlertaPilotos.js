@@ -23,6 +23,10 @@ const usuariosPiloto = [
     nombre: 'CentralDental',
     exp: '2022-06-07 00:00:00'
   },
+  {
+    nombre: 'OrthoClinic',
+    exp: '2022-06-04 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
