@@ -24,7 +24,7 @@ const usuariosPiloto = [
     exp: '2022-06-07 00:00:00'
   },
   {
-    nombre: 'OrthoClinic',
+    nombre: 'OrthoCenter',
     exp: '2022-06-04 00:00:00'
   },
 ]
