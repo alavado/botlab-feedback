@@ -12,7 +12,7 @@ import Scrambler from '../../../Scrambler/Scrambler'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 
-const ListaAlertas = ({ alertas, idAlertasVisibles }) => {
+const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
 
   const { id } = useParams()
   const { verAlertas } = useSelector(state => state.alertas)
@@ -85,7 +85,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles }) => {
               <div className="ListaAlertas__mensaje">
                 <p>{obtenerEtiquetaAlerta(alerta.message)}</p>
                 <p className="ListaAlertas__subtitulo">
-                  <Scrambler tipo="nombre">{alerta.nombrePaciente}</Scrambler>
+                  <Scrambler tipo="nombre">{alerta.nombrePaciente}</Scrambler> {mostrarSucursal && <span> • {alerta.sucursal}</span>}
                 </p>
               </div>
               {alerta.id === Number(id) &&

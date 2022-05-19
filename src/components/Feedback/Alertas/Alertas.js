@@ -8,8 +8,8 @@ import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
 import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { useSelector } from 'react-redux'
-import { mensajesAlertasVisibles } from '../../../redux/ducks/alertas'
+import { useDispatch, useSelector } from 'react-redux'
+import { mensajesAlertasVisibles, seleccionarSucursal } from '../../../redux/ducks/alertas'
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
@@ -19,6 +19,7 @@ import OpcionesAlertas from './OpcionesAlertas'
 import { Switch } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import _ from 'lodash'
 
 const tabsAlertas = [
   {
@@ -40,7 +41,10 @@ const tabsAlertas = [
 const Alertas = () => {
 
   const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
+  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { sucursalSeleccionada } = useSelector(state => state.alertas)
   const { verAlertas } = useSelector(state => state.alertas)
+  const dispatch = useDispatch()
   const { id } = useParams()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
     'alertas',
@@ -56,6 +60,8 @@ const Alertas = () => {
               ...a,
               nombrePaciente: obtenerNombrePaciente(a),
               icono: obtenerIconoAlerta(a.message),
+              idPoll: a.poll_id,
+              sucursal: a.meta?.sucursal_name,
               horaLegible: !isToday(parseISO(a.utc_timestamp))
                 ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
                 : format(addHours(parseISO(a.utc_timestamp), new Date().getTimezoneOffset() / -60), 'HH:mm', { locale: es }),
@@ -91,16 +97,50 @@ const Alertas = () => {
     )
   }
 
+  const sucursales = [...new Set(_.flatten(dataAlertas.map(t => (t.alertas.filter(a => a.sucursal).map(a => a.sucursal)))))]
+
+  const alertasEncuestaSeleccionada = dataAlertas.map(t => {
+    const alertasFiltradas = t.alertas
+      .filter(a => a.idPoll === idEncuestaSeleccionada)
+      .filter(a => !sucursalSeleccionada || a.sucursal === sucursalSeleccionada)
+    return {
+      ...t,
+      conteo: alertasFiltradas.length,
+      alertas: alertasFiltradas
+    }
+  })
+
   const seleccionAlerta = (
     <>
       <div className="Alertas__lateral">
         <h1 className="Alertas__titulo">Alertas</h1>
-        <CheckboxesTiposAlertas alertas={dataAlertas} />
+        {sucursales.length > 1 && (
+          <label>
+            <p className="Alertas__label_sucursal">Sucursal</p>
+            <select
+              className="Alertas__selector_sucursal"
+              onChange={e => dispatch(seleccionarSucursal(e.target.value))}
+            >
+              <option value=''>
+                Todas las sucursales
+              </option>
+              {sucursales.map((s, i) => (
+                <option
+                  key={`opcion-sucursal-${s}`}
+                  value={s}
+                >
+                  {s}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+        <CheckboxesTiposAlertas alertas={alertasEncuestaSeleccionada} />
         <OpcionesAlertas />
       </div>
       <div className="Alertas__contenedor_central">
         <div className="Alertas__tabs">
-          {dataAlertas.map(tipoAlertas => (
+          {alertasEncuestaSeleccionada.map(tipoAlertas => (
             <button
               key={`boton-tipo-alertas-${tipoAlertas.id}`}
               className={classNames({
@@ -118,8 +158,9 @@ const Alertas = () => {
           ))}
         </div>
         <ListaAlertas
-          alertas={dataAlertas}
+          alertas={alertasEncuestaSeleccionada}
           idAlertasVisibles={idTabAlertasActivo}
+          mostrarSucursal={sucursales.length > 1}
         />
       </div>
     </>

@@ -1,0 +1,11 @@
+.Respuestas2 {
+  display: grid;
+  grid-template: auto / 1fr 3fr;
+  width: 100%;
+  padding: .5rem;
+}
+
+.Respuestas2__titulo {
+  font-weight: bold;
+  padding-bottom: 1rem;
+}

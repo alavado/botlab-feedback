@@ -19,6 +19,7 @@ import { cierraLaSesion } from '../../redux/ducks/login'
 import Preparaciones from './Preparaciones'
 import VisorGuiones from './VisorGuiones'
 import Novedades from '../Novedades'
+import Respuestas2 from './Respuestas2'
 
 const Feedback = () => {
 
@@ -64,7 +65,14 @@ const Feedback = () => {
         <Novedades />
         <BarraLateral />
         <div className="Feedback__contenedor">
-          <BarraSuperior />
+          <Switch>
+            <Route exact path="/respuestas2">
+              <></>
+            </Route>
+            <Route>
+              <BarraSuperior />
+            </Route>
+          </Switch>
           <div className="Feedback__contenedor_central">
             <Switch>
               <Route exact path="/">
@@ -99,6 +107,9 @@ const Feedback = () => {
               </Route>
               <Route path="/respuestas">
                 <Respuestas />
+              </Route>
+              <Route path="/respuestas2">
+                <Respuestas2 />
               </Route>
               <Route path="/tablero">
                 <Respuestas />

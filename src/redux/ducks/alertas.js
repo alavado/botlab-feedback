@@ -14,6 +14,7 @@ const alertasSlice = createSlice({
   initialState: {
     recibirNotificaciones: false,
     verAlertas: mensajesAlertasVisibles,
+    sucursalSeleccionada: undefined
   },
   reducers: {
     activaNotificaciones(state, { payload }) {
@@ -31,6 +32,10 @@ const alertasSlice = createSlice({
     limpiaAlertasVisibles(state, { payload }) {
       state.verAlertas = []
     },
+    seleccionarSucursal(state, { payload }) {
+      console.log({payload})
+      state.sucursalSeleccionada = payload
+    },
   }
 })
 
@@ -40,6 +45,7 @@ export const {
   remueveAlertasVisibles,
   limpiaAlertasVisibles,
   dejaSoloAlertasVisibles,
+  seleccionarSucursal,
 } = alertasSlice.actions
 
 export default alertasSlice.reducer

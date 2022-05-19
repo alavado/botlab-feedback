@@ -11,8 +11,19 @@
   font-size: 1.5rem;
   font-family: 'Raleway';
   z-index: 3;
-  padding-bottom: .25rem;
   padding-top: 1rem;
+}
+
+.Alertas__label_sucursal {
+  font-weight: 600;
+  font-size: .7rem;
+  padding-bottom: .5rem;
+}
+
+.Alertas__selector_sucursal {
+  padding: .25rem;
+  font-size: .65rem;
+  max-width: 100%;
 }
 
 .Alertas__loader {
@@ -32,7 +43,7 @@
   padding-top: .25rem;
   padding-right: 1rem;
   font-size: .65rem;
-  max-width: 12.5rem;
+  max-width: 13.5rem;
   border-right: 1px solid var(--color-bordes);
 }
 

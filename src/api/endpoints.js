@@ -9,6 +9,12 @@ export const login = (username, password) => {
   return axios.get(`${API_ROOT}/token`, { auth })
 }
 
+export const headers = () => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/polls_headers`
+  return axios.get(url, { headers: { 'Api-Token': token } })
+}
+
 export const headersRespuestas = idEncuesta => {
   const token = store.getState().login.token
   return axios.get(`${API_ROOT}/answer_headers/${idEncuesta}`, {
@@ -43,12 +49,6 @@ export const crearEncuestas = ({ idEncuesta, datos }) => {
       headers: { 'Api-Token': token, 'Content-Type': 'application/json' }
     }
   )
-}
-
-export const headers = () => {
-  const token = store.getState().login.token
-  const url = `${API_ROOT}/polls_headers`
-  return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
 export const chat = (idEncuesta, idUsuario) => {
