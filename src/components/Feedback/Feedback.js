@@ -16,7 +16,6 @@ import Uso from './Uso'
 import ErrorBoundary from '../../helpers/ErrorBoundary'
 import Alertas from './Alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
-import Preparaciones from './Preparaciones'
 import VisorGuiones from './VisorGuiones'
 import Novedades from '../Novedades'
 import Respuestas2 from './Respuestas2'
@@ -80,9 +79,6 @@ const Feedback = () => {
               </Route>
               <Route path="/respuestas">
                 <Respuestas />
-              </Route>
-              <Route path="/preparaciones">
-                <Preparaciones />
               </Route>
               <Route path="/chat">
                 <Respuestas />
