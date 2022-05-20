@@ -118,6 +118,7 @@ const Alertas = () => {
             <select
               className="Alertas__selector_sucursal"
               onChange={e => dispatch(seleccionarSucursal(e.target.value))}
+              value={sucursalSeleccionada}
             >
               <option value=''>
                 Todas las sucursales
