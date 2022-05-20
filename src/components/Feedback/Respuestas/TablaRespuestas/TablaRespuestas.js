@@ -14,12 +14,14 @@ import Filtros from './Filtros'
 import './TablaRespuestas.css'
 import { fijaScrollTabla } from '../../../../redux/ducks/respuestas'
 import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
+import { tieneAccesoAReportes } from '../../../../helpers/permisos'
 
 const respuestasPorPagina = 50
 
 const TablaRespuestas = () => {
 
   const { headers } = useSelector(state => state.encuestas)
+  const { cuenta } = useSelector(state => state.login)
   const refContenedor = useRef()
   const dispatch = useDispatch()
   const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla, cacheInvalido } = useSelector(state => state.respuestas)
@@ -43,7 +45,7 @@ const TablaRespuestas = () => {
         <SelectorRangoFechas />
         <div className="TablaRespuestas__herramientas">
           <BuscadorRespuestas cargando={cargando} />
-          <ExportadorRespuestas cargando={cargando} />
+          {tieneAccesoAReportes(cuenta) && <ExportadorRespuestas cargando={cargando} />}
         </div>
       </div>
       <div className={classNames({

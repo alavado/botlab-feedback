@@ -1,5 +1,5 @@
 export const tieneAccesoAReportes = cuenta => {
-  if (!cuenta.startsWith('centauro')) {
+  if (!cuenta.startsWith('centauro') && !cuenta.startsWith('centraldental')) {
     return true
   }
   return [
@@ -8,7 +8,9 @@ export const tieneAccesoAReportes = cuenta => {
     'centauro_zona_b',
     'centauro_zona_c',
     'centauro_cat',
-    'centauro_sistemas'
+    'centauro_sistemas',
+    'centraldental',
+    'centraldental_cero',
   ].includes(cuenta)
 }
 
