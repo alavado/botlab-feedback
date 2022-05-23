@@ -1,7 +1,7 @@
 import { IconifyIcon } from '@iconify/types'
 import axios from 'axios'
 import store from '../redux/store'
-import { Interaccion, PropiedadServicio, Servicio, Cita, ResultadoInteraccion } from './types/servicio'
+import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion } from './types/servicio'
 import { parse, format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useQuery } from 'react-query'
@@ -11,11 +11,11 @@ import iconoConfirmacion from '@iconify/icons-mdi/user'
 import iconoConfirmacionMulticita from '@iconify/icons-mdi/users'
 
 // iconos para resultados de interacciones
-import iconoResultadoPendiente from '@iconify/icons-mdi/flask-empty'
-import iconoResultadoConfirma from '@iconify/icons-mdi/check'
-import iconoResultadoCancela from '@iconify/icons-mdi/cancel'
-import iconoResultadoReagenda from '@iconify/icons-mdi/arrow-decision'
-import iconoResultadoOut from '@iconify/icons-mdi/question-mark'
+import iconoEstadoPendiente from '@iconify/icons-mdi/flask-empty'
+import iconoEstadoConfirma from '@iconify/icons-mdi/check'
+import iconoEstadoCancela from '@iconify/icons-mdi/cancel'
+import iconoEstadoReagenda from '@iconify/icons-mdi/arrow-decision'
+import iconoEstadoOut from '@iconify/icons-mdi/question-mark'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -65,36 +65,36 @@ export const useServiciosQuery = () => {
   )
 }
 
-const resultadosInteracciones: ResultadoInteraccion[] = [
+const estadosInteracciones: EstadoInteraccion[] = [
   {
     id: 'PENDIENTE',
     descripcion: 'Paciente aún no responde',
-    icono: iconoResultadoPendiente
+    icono: iconoEstadoPendiente
   },
   {
     id: 'CONFIRMADA',
     descripcion: 'Paciente confirma su hora',
-    icono: iconoResultadoConfirma
+    icono: iconoEstadoConfirma
   },
   {
     id: 'CANCELADA',
     descripcion: 'Paciente anula hora',
-    icono: iconoResultadoCancela
+    icono: iconoEstadoCancela
   },
   {
     id: 'REAGENDADA',
     descripcion: 'Paciente reagenda hora',
-    icono: iconoResultadoReagenda
+    icono: iconoEstadoReagenda
   },
   {
     id: 'IMPROCESABLE',
     descripcion: 'Bot pudo entender',
-    icono: iconoResultadoOut
+    icono: iconoEstadoOut
   },
 ]
 
-const obtenerResultadoInteraccion = (): ResultadoInteraccion => {
-  return resultadosInteracciones[0]
+const obtenerEstadoInteraccion = (): EstadoInteraccion => {
+  return estadosInteracciones[0]
 }
 
 const construirInteraccionMulticita = (interaccion: any): Interaccion => {
@@ -107,7 +107,7 @@ const construirInteraccionMulticita = (interaccion: any): Interaccion => {
         id: interaccion[`id_cita_${indiceCita}`],
         rut: interaccion[`rut_${indiceCita}`],
         nombre: interaccion[`patient_name_${indiceCita}`],
-        resultadoInteraccion: obtenerResultadoInteraccion()
+        estadoInteraccion: obtenerEstadoInteraccion()
       }
     })
   }
@@ -128,7 +128,7 @@ const construirInteraccionCitaNormal = (interaccion: any): Interaccion => {
         { locale: es }
       ),
       responsable: interaccion['dentist_name'],
-      resultadoInteraccion: obtenerResultadoInteraccion()
+      estadoInteraccion: obtenerEstadoInteraccion()
     }]
   }
 }
@@ -156,15 +156,15 @@ export const useInteraccionesQuery = () => {
   )
 }
 
-const obtenerPosiblesResultadosInteracciones = async (): Promise<ResultadoInteraccion[]> => {
-  return resultadosInteracciones
+const obtenerPosiblesEstadosInteracciones = async (): Promise<EstadoInteraccion[]> => {
+  return estadosInteracciones
 }
 
-export const usePosiblesResultadosInteraccionesQuery = () => {
+export const usePosiblesEstadosInteraccionesQuery = () => {
   const { data } = useServiciosQuery()
   return useQuery(
-    'posibles_resultados_citas',
-    obtenerPosiblesResultadosInteracciones,
+    'posibles_estados_interacciones',
+    obtenerPosiblesEstadosInteracciones,
     {
       refetchOnWindowFocus: false,
       enabled: !!data

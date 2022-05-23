@@ -27,15 +27,15 @@ export interface Cita {
   id: number,
   rut: string,
   nombre: string,
-  resultadoInteraccion: ResultadoInteraccion,
+  estadoInteraccion: EstadoInteraccion,
   fecha?: Date,
   responsable?: string,
 }
 
-export type IDResultadoInteraccion = 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'REAGENDADA' | 'IMPROCESABLE'
+export type IDEstadoInteraccion = 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'REAGENDADA' | 'IMPROCESABLE'
 
-export interface ResultadoInteraccion {
-  id: IDResultadoInteraccion,
+export interface EstadoInteraccion {
+  id: IDEstadoInteraccion,
   descripcion?: string,
   icono: IconifyIcon
 }

@@ -1,12 +1,10 @@
 import Icon from '@iconify/react'
-import {  usePosiblesResultadosInteraccionesQuery } from '../../../../api/hooks'
+import {  usePosiblesEstadosInteraccionesQuery } from '../../../../api/hooks'
 import './TabsEstadosInteracciones.css'
 
 const TabsEstadosInteracciones = () => {
 
-  const { data: estados, isLoading } = usePosiblesResultadosInteraccionesQuery()
-
-  console.log({estados})
+  const { data: estados, isLoading } = usePosiblesEstadosInteraccionesQuery()
 
   if (isLoading || !estados) {
     return null
