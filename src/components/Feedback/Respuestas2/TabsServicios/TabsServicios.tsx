@@ -1,0 +1,42 @@
+import Icon from '@iconify/react'
+import { useQuery } from 'react-query'
+import { useDispatch } from 'react-redux'
+import { obtenerServicios } from '../../../../api/endpoints2'
+import { seleccionaServicio } from '../../../../redux/ducks/servicio'
+import './TabsServicios.css'
+
+const TabsServicios = () => {
+
+  const { data: servicios, isLoading } = useQuery(
+    'servicios',
+    obtenerServicios,
+    {
+      refetchOnWindowFocus: false
+    }
+  )
+  const dispatch = useDispatch()
+
+  if (isLoading) {
+    return 'Cargando...'
+  }
+
+  if (!servicios) {
+    return 'Error'
+  }
+  
+  return (
+    <div className="TabsServicios">
+      {servicios.map((servicio, i) => (
+        <button
+          key={`tab-servicio-${i}`}
+          onClick={() => dispatch(seleccionaServicio(servicio.id))}
+        >
+          <Icon icon={servicio.icono} />
+          {servicio.nombre}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+export default TabsServicios
