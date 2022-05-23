@@ -1,19 +1,12 @@
 import Icon from '@iconify/react'
-import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
-import { obtenerServicios } from '../../../../api/endpoints2'
+import { useServiciosQuery } from '../../../../api/hooks'
 import { seleccionaServicio } from '../../../../redux/ducks/servicio'
 import './TabsServicios.css'
 
 const TabsServicios = () => {
 
-  const { data: servicios, isLoading } = useQuery(
-    'servicios',
-    obtenerServicios,
-    {
-      refetchOnWindowFocus: false
-    }
-  )
+  const { data: servicios, isLoading } = useServiciosQuery()
   const dispatch = useDispatch()
 
   if (isLoading) {

@@ -12,7 +12,7 @@ import alertas from './alertas'
 import servicio from './servicio'
 import { combineReducers } from 'redux'
 
-export default combineReducers({
+const rootReducer = combineReducers({
   login,
   encuestas,
   respuestas,
@@ -26,3 +26,7 @@ export default combineReducers({
   alertas,
   servicio
 })
+
+export type RootState = ReturnType<typeof rootReducer>
+
+export default rootReducer

@@ -1,5 +1,6 @@
+import ListaInteracciones from './ListaInteracciones'
 import './Respuestas2.css'
-import TabsEstadosChats from './TabsEstadosChats'
+import TabsEstadosInteracciones from './TabsEstadosInteracciones'
 import TabsServicios from './TabsServicios'
 
 const Respuestas2 = () => {
@@ -7,7 +8,8 @@ const Respuestas2 = () => {
   return (
     <div className="Respuestas2">
       <TabsServicios />
-      <TabsEstadosChats />
+      <TabsEstadosInteracciones />
+      <ListaInteracciones />
     </div>
   )
 }
