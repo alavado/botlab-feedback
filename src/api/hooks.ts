@@ -1,7 +1,7 @@
 import { IconifyIcon } from '@iconify/types'
 import axios from 'axios'
 import store from '../redux/store'
-import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion } from './types/servicio'
+import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion } from './types/servicio'
 import { parse, format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useQuery } from 'react-query'
@@ -91,23 +91,29 @@ const estadosInteracciones: EstadoInteraccion[] = [
     descripcion: 'Bot pudo entender',
     icono: iconoEstadoOut
   },
+  {
+    id: 'CUALQUIERA',
+    descripcion: 'Todas',
+    icono: iconoEstadoPendiente
+  },
 ]
 
-const obtenerEstadoInteraccion = (): EstadoInteraccion => {
-  return estadosInteracciones[0]
+const obtenerIDEstadoInteraccion = (): IDEstadoInteraccion => {
+  return estadosInteracciones[0].id
 }
 
 const construirInteraccionMulticita = (interaccion: any): Interaccion => {
   return {
     sucursal: interaccion['sucursal_name_1'],
     idUsuario: interaccion['user_id'],
+    idEstadoInteraccion: obtenerIDEstadoInteraccion(),
     citas: Array(Number(interaccion.n_appointments)).fill(0).map((_, i): Cita => {
       const indiceCita = i + 1
       return {
         id: interaccion[`id_cita_${indiceCita}`],
         rut: interaccion[`rut_${indiceCita}`],
         nombre: interaccion[`patient_name_${indiceCita}`],
-        estadoInteraccion: obtenerEstadoInteraccion()
+        idEstadoInteraccion: obtenerIDEstadoInteraccion()
       }
     })
   }
@@ -117,6 +123,7 @@ const construirInteraccionCitaNormal = (interaccion: any): Interaccion => {
   return {
     sucursal: interaccion['sucursal_name'],
     idUsuario: interaccion['user_id'],
+    idEstadoInteraccion: obtenerIDEstadoInteraccion(),
     citas: [{
       id: interaccion['id_cita'],
       rut: interaccion['rut'],
@@ -128,7 +135,7 @@ const construirInteraccionCitaNormal = (interaccion: any): Interaccion => {
         { locale: es }
       ),
       responsable: interaccion['dentist_name'],
-      estadoInteraccion: obtenerEstadoInteraccion()
+      idEstadoInteraccion: obtenerIDEstadoInteraccion()
     }]
   }
 }
@@ -149,10 +156,14 @@ const obtenerInteracciones = async (): Promise<Interaccion[]> => {
 }
 
 export const useInteraccionesQuery = () => {
-  const { idServicioActivo } = useSelector((state: RootState) => state.servicio)
+  const { idServicioActivo, idEstadoInteraccionActivo } = useSelector((state: RootState) => state.servicio)
   return useQuery(
     ['servicio', idServicioActivo],
-    obtenerInteracciones
+    obtenerInteracciones,
+    {
+      select: data => data.filter(d => idEstadoInteraccionActivo === 'CUALQUIERA' || d.idEstadoInteraccion === idEstadoInteraccionActivo),
+      enabled: !!idServicioActivo
+    }
   )
 }
 
@@ -161,13 +172,13 @@ const obtenerPosiblesEstadosInteracciones = async (): Promise<EstadoInteraccion[
 }
 
 export const usePosiblesEstadosInteraccionesQuery = () => {
-  const { data } = useServiciosQuery()
+  const { idServicioActivo } = useSelector((state: RootState) => state.servicio)
   return useQuery(
     'posibles_estados_interacciones',
     obtenerPosiblesEstadosInteracciones,
     {
       refetchOnWindowFocus: false,
-      enabled: !!data
+      enabled: !!idServicioActivo
     }
   )
 }

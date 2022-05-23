@@ -20,6 +20,7 @@ export interface PropiedadServicio {
 export interface Interaccion {
   sucursal: string,
   idUsuario: number,
+  idEstadoInteraccion: IDEstadoInteraccion,
   citas: Cita[]
 }
 
@@ -27,12 +28,12 @@ export interface Cita {
   id: number,
   rut: string,
   nombre: string,
-  estadoInteraccion: EstadoInteraccion,
+  idEstadoInteraccion: IDEstadoInteraccion,
   fecha?: Date,
   responsable?: string,
 }
 
-export type IDEstadoInteraccion = 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'REAGENDADA' | 'IMPROCESABLE'
+export type IDEstadoInteraccion = 'CUALQUIERA' | 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'REAGENDADA' | 'IMPROCESABLE'
 
 export interface EstadoInteraccion {
   id: IDEstadoInteraccion,

@@ -19,12 +19,16 @@ const servicioSlice = createSlice({
   reducers: {
     seleccionaServicio(state, action: PayloadAction<Number>) {
       state.idServicioActivo = action.payload
-    }
+    },
+    seleccionaEstadoInteraccion(state, action: PayloadAction<IDEstadoInteraccion>) {
+      state.idEstadoInteraccionActivo = action.payload
+    },
   }
 })
 
 export const {
   seleccionaServicio,
+  seleccionaEstadoInteraccion,
 } = servicioSlice.actions
 
 export default servicioSlice.reducer
