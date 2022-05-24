@@ -11,11 +11,11 @@ import iconoConfirmacion from '@iconify/icons-mdi/user'
 import iconoConfirmacionMulticita from '@iconify/icons-mdi/users'
 
 // iconos para resultados de interacciones
-import iconoEstadoPendiente from '@iconify/icons-mdi/flask-empty'
+import iconoEstadoPendiente from '@iconify/icons-mdi/timer-sand'
 import iconoEstadoConfirma from '@iconify/icons-mdi/check'
 import iconoEstadoCancela from '@iconify/icons-mdi/cancel'
-import iconoEstadoReagenda from '@iconify/icons-mdi/arrow-decision'
-import iconoEstadoOut from '@iconify/icons-mdi/question-mark'
+import iconoEstadoReagenda from '@iconify/icons-mdi/change-history'
+import iconoEstadoOut from '@iconify/icons-mdi/robot-angry'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -68,22 +68,22 @@ export const useServiciosQuery = () => {
 const estadosInteracciones: EstadoInteraccion[] = [
   {
     id: 'PENDIENTE',
-    descripcion: 'Paciente aún no responde',
+    descripcion: 'Usuario aún no responde',
     icono: iconoEstadoPendiente
   },
   {
     id: 'CONFIRMADA',
-    descripcion: 'Paciente confirma su hora',
+    descripcion: 'Usuario confirma cita',
     icono: iconoEstadoConfirma
   },
   {
     id: 'CANCELADA',
-    descripcion: 'Paciente anula hora',
+    descripcion: 'Usuario anula cita',
     icono: iconoEstadoCancela
   },
   {
     id: 'REAGENDADA',
-    descripcion: 'Paciente reagenda hora',
+    descripcion: 'Usuario reagenda cita',
     icono: iconoEstadoReagenda
   },
   {
@@ -192,15 +192,16 @@ const obtenerInteracciones = async (servicio: Servicio, fechaInicio: Date, fecha
   const termino = format(fechaTermino, 'yyyy-MM-dd')
   const url = `${API_ROOT}/answers/${servicio.id}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`
   const answersAPIResponse: any = await axios.get(url, { headers: { 'Api-Token': token } })
-  const interacciones = answersAPIResponse.data.data.map((interaccion: any): Interaccion => {
+  const interacciones: Interaccion[] = answersAPIResponse.data.data.map((interaccion: any): Interaccion => {
     return interaccion.n_appointments !== undefined
       ? construirInteraccionMulticita(interaccion, servicio)
       : construirInteraccionCitaNormal(interaccion, servicio)
   })
+  interacciones.sort((i1, i2) => (i1.citas[0].fecha ?? -1) < (i2.citas[0].fecha ?? 1) ? -1 : 1)
   return interacciones
 }
 
-export const useInteraccionesQuery = () => {
+export const useInteraccionesServicioYEstadoActivosQuery = () => {
   const { idServicioActivo, idEstadoInteraccionActivo, fechaInicio, fechaTermino } = useSelector((state: RootState) => state.servicio)
   const queryClient = useQueryClient()
   const servicios = queryClient.getQueryData('servicios') as Servicio[]

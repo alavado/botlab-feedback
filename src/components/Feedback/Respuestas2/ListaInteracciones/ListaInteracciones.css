@@ -1,0 +1,14 @@
+.ListaInteracciones {
+  margin: 0 .75rem;
+}
+
+.ListaInteracciones__interaccion {
+  display: grid;
+  grid-template-columns: 14ch 10ch 42ch 1fr;
+  padding: .5rem .25rem;
+  font-size: .7rem;
+}
+
+.ListaInteracciones__interaccion--encabezados {
+  font-weight: bold;
+}

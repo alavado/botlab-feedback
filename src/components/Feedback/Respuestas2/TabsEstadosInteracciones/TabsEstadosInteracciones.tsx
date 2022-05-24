@@ -1,13 +1,20 @@
 import Icon from '@iconify/react'
-import { useDispatch } from 'react-redux'
+import classNames from 'classnames'
+import { useDispatch, useSelector } from 'react-redux'
 import {  usePosiblesEstadosInteraccionesQuery } from '../../../../api/hooks'
+import { RootState } from '../../../../redux/ducks'
 import { seleccionaEstadoInteraccion } from '../../../../redux/ducks/servicio'
 import './TabsEstadosInteracciones.css'
 
 const TabsEstadosInteracciones = () => {
 
   const { data: estados, isLoading } = usePosiblesEstadosInteraccionesQuery()
+  const { idEstadoInteraccionActivo } = useSelector((state: RootState) => state.servicio)
   const dispatch = useDispatch()
+
+  if (isLoading) {
+    return 'Cargando...'
+  }
 
   if (isLoading || !estados) {
     return null
@@ -17,6 +24,10 @@ const TabsEstadosInteracciones = () => {
     <div className="TabsEstadosInteracciones">
       {estados.map((estado, i) => (
         <button
+          className={classNames({
+            "TabsEstadosInteracciones__tab": true,
+            "TabsEstadosInteracciones__tab--activo": estado.id === idEstadoInteraccionActivo
+          })}
           key={`boton-estado-${i}`}
           onClick={() => dispatch(seleccionaEstadoInteraccion(estado.id))}
         >
