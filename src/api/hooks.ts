@@ -1,10 +1,10 @@
 import { IconifyIcon } from '@iconify/types'
 import axios from 'axios'
 import store from '../redux/store'
-import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion } from './types/servicio'
+import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta } from './types/servicio'
 import { parse, format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/ducks'
 import iconoConfirmacion from '@iconify/icons-mdi/user'
@@ -91,78 +91,126 @@ const estadosInteracciones: EstadoInteraccion[] = [
     descripcion: 'Bot pudo entender',
     icono: iconoEstadoOut
   },
-  {
-    id: 'CUALQUIERA',
-    descripcion: 'Todas',
-    icono: iconoEstadoPendiente
-  },
 ]
 
-const obtenerIDEstadoInteraccion = (): IDEstadoInteraccion => {
-  return estadosInteracciones[0].id
-}
-
-const construirInteraccionMulticita = (interaccion: any): Interaccion => {
-  return {
-    sucursal: interaccion['sucursal_name_1'],
-    idUsuario: interaccion['user_id'],
-    idEstadoInteraccion: obtenerIDEstadoInteraccion(),
-    citas: Array(Number(interaccion.n_appointments)).fill(0).map((_, i): Cita => {
-      const indiceCita = i + 1
-      return {
-        id: interaccion[`id_cita_${indiceCita}`],
-        rut: interaccion[`rut_${indiceCita}`],
-        nombre: interaccion[`patient_name_${indiceCita}`],
-        idEstadoInteraccion: obtenerIDEstadoInteraccion()
-      }
-    })
+const obtenerIDEstadoInteraccionGeneral = (citas: Cita[]): IDEstadoInteraccion => {
+  if (citas.some(cita => cita.idEstadoInteraccion === 'IMPROCESABLE')) {
+    return 'IMPROCESABLE'
   }
+  if (citas.some(cita => cita.idEstadoInteraccion === 'REAGENDADA')) {
+    return 'REAGENDADA'
+  }
+  if (citas.some(cita => cita.idEstadoInteraccion === 'CANCELADA')) {
+    return 'CANCELADA'
+  }
+  if (citas.some(cita => cita.idEstadoInteraccion === 'CONFIRMADA')) {
+    return 'CONFIRMADA'
+  }
+  return 'PENDIENTE'
 }
 
-const construirInteraccionCitaNormal = (interaccion: any): Interaccion => {
+const obtenerIDEstadoInteraccion = (preguntas: Pregunta[]): IDEstadoInteraccion => {
+  const preguntaConfirma = preguntas.find(p => p.texto.includes('Confirma'))
+  const preguntaReagenda = preguntas.find(p => p.texto.includes('Reagenda'))
+  if (preguntaReagenda && (preguntaReagenda.respuesta === 'YES' || preguntaReagenda.respuesta === 'REAGENDA')) {
+    return 'REAGENDADA'
+  }
+  if (preguntaConfirma) {
+    if (preguntaConfirma.respuesta === 'NO') {
+      return 'CANCELADA'
+    }
+    if (preguntaConfirma.respuesta === 'YES') {
+      return 'CONFIRMADA'
+    }
+  }
+  return 'PENDIENTE'
+}
+
+const construirInteraccionCitaNormal = (interaccion: any, servicio: Servicio): Interaccion => {
+  const preguntas: Pregunta[] = servicio.propiedades
+    .filter(p => p.tipo === 'YESNO')
+    .map(p => ({
+      id: p.id,
+      texto: p.nombre,
+      respuesta: interaccion[p.id].tag,
+    }))
+  const idEstadoInteraccion = obtenerIDEstadoInteraccion(preguntas)
+  const citas: Cita[] = [{
+    id: interaccion['id_cita'],
+    rut: interaccion['rut'],
+    nombre: interaccion['name'],
+    fecha: parse(
+      `${interaccion['date']} ${interaccion['time']}`,
+      interaccion['time'].includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m',
+      parseISO(interaccion['start']),
+      { locale: es }
+    ),
+    responsable: interaccion['dentist_name'],
+    idEstadoInteraccion,
+    preguntas
+  }]
   return {
     sucursal: interaccion['sucursal_name'],
     idUsuario: interaccion['user_id'],
-    idEstadoInteraccion: obtenerIDEstadoInteraccion(),
-    citas: [{
-      id: interaccion['id_cita'],
-      rut: interaccion['rut'],
-      nombre: interaccion['name'],
-      fecha: parse(
-        `${interaccion['date']} ${interaccion['time']}`,
-        interaccion['time'].includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m',
-        parseISO(interaccion['start']),
-        { locale: es }
-      ),
-      responsable: interaccion['dentist_name'],
-      idEstadoInteraccion: obtenerIDEstadoInteraccion()
-    }]
+    idEstadoInteraccion,
+    citas
   }
 }
 
-const obtenerInteracciones = async (): Promise<Interaccion[]> => {
-  const { login, servicio: { idServicioActivo, fechaInicio, fechaTermino } }: any = store.getState()
+const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): Interaccion => {
+  const nCitas = Number(interaccion.n_appointments)
+  const citas: Cita[] = [...Array(nCitas)].map((_, i): Cita => {
+    const indiceCita = i + 1
+    const preguntas: Pregunta[] = servicio.propiedades
+      .filter(p => p.tipo === 'YESNO' && p.id.endsWith(`${indiceCita}`))
+      .map(p => ({
+        id: p.id,
+        texto: p.nombre,
+        respuesta: interaccion[p.id].tag,
+      }))
+    const idEstadoInteraccion = obtenerIDEstadoInteraccion(preguntas)
+    return {
+      id: interaccion[`id_cita_${indiceCita}`],
+      rut: interaccion[`rut_${indiceCita}`],
+      nombre: interaccion[`patient_name_${indiceCita}`],
+      idEstadoInteraccion,
+      preguntas
+    }
+  })
+  return {
+    sucursal: interaccion['sucursal_name_1'],
+    idUsuario: interaccion['user_id'],
+    idEstadoInteraccion: obtenerIDEstadoInteraccionGeneral(citas),
+    citas
+  }
+}
+
+const obtenerInteracciones = async (servicio: Servicio, fechaInicio: Date, fechaTermino: Date): Promise<Interaccion[]> => {
+  const { login }: any = store.getState()
   const { token } = login
   const inicio = format(fechaInicio, 'yyyy-MM-dd')
   const termino = format(fechaTermino, 'yyyy-MM-dd')
-  const url = `${API_ROOT}/answers/${idServicioActivo}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`
+  const url = `${API_ROOT}/answers/${servicio.id}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`
   const answersAPIResponse: any = await axios.get(url, { headers: { 'Api-Token': token } })
   const interacciones = answersAPIResponse.data.data.map((interaccion: any): Interaccion => {
     return interaccion.n_appointments !== undefined
-      ? construirInteraccionMulticita(interaccion)
-      : construirInteraccionCitaNormal(interaccion)
+      ? construirInteraccionMulticita(interaccion, servicio)
+      : construirInteraccionCitaNormal(interaccion, servicio)
   })
   return interacciones
 }
 
 export const useInteraccionesQuery = () => {
-  const { idServicioActivo, idEstadoInteraccionActivo } = useSelector((state: RootState) => state.servicio)
+  const { idServicioActivo, idEstadoInteraccionActivo, fechaInicio, fechaTermino } = useSelector((state: RootState) => state.servicio)
+  const queryClient = useQueryClient()
+  const servicios = queryClient.getQueryData('servicios') as Servicio[]
+  const servicioActivo: Servicio = servicios?.find(s => s.id === idServicioActivo) as Servicio
   return useQuery(
     ['servicio', idServicioActivo],
-    obtenerInteracciones,
+    () => obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino),
     {
       select: data => data.filter(d => idEstadoInteraccionActivo === 'CUALQUIERA' || d.idEstadoInteraccion === idEstadoInteraccionActivo),
-      enabled: !!idServicioActivo
+      enabled: !!idServicioActivo && !!idEstadoInteraccionActivo
     }
   )
 }

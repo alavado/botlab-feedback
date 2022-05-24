@@ -3,13 +3,15 @@ import './ListaInteracciones.css'
 
 const ListaInteracciones = () => {
 
-  const { data } = useInteraccionesQuery()
+  const { data, isLoading } = useInteraccionesQuery()
 
-  console.log(data)
+  if (!data || isLoading) {
+    return null
+  }
 
   return (
     <div className="ListaInteracciones">
-      ListaInteracciones
+      {data.length}
     </div>
   )
 }

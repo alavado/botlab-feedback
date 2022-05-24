@@ -31,6 +31,13 @@ export interface Cita {
   idEstadoInteraccion: IDEstadoInteraccion,
   fecha?: Date,
   responsable?: string,
+  preguntas: Pregunta[]
+}
+
+export interface Pregunta {
+  id: string,
+  texto: string,
+  respuesta: string,
 }
 
 export type IDEstadoInteraccion = 'CUALQUIERA' | 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'REAGENDADA' | 'IMPROCESABLE'
