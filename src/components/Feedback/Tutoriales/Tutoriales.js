@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useState } from 'react'
 import './Tutoriales.css'
 
@@ -7,8 +8,8 @@ const videos = [
     link: 'https://player.vimeo.com/video/710120273?h=f88e896d46'
   },
   {
-    titulo: 'Filtros específicos',
-    link: 'https://player.vimeo.com/video/710118003?h=c24e9a7220'
+    titulo: 'Alertas',
+    link: 'https://player.vimeo.com/video/710113809?h=3a2aec83d9'
   },
   {
     titulo: 'Opciones de alertas',
@@ -27,6 +28,10 @@ const videos = [
     link: 'https://player.vimeo.com/video/707563556?h=202cf81392'
   },
   {
+    titulo: 'Filtros específicos',
+    link: 'https://player.vimeo.com/video/710118003?h=c24e9a7220'
+  },
+  {
     titulo: 'Confirmaciones por fecha',
     link: 'https://player.vimeo.com/video/707555525?h=d41f18602a'
   },
@@ -40,16 +45,22 @@ const Tutoriales = () => {
 
   return (
     <div className="Tutoriales">
-      <h1>Tutoriales</h1>
-      {videos.map((video, i) => (
-        <button
-          onClick={() => setIndiceVideoActivo(i)}
-          key={`boton-video-${i}`}
-        >
-          {video.titulo}
-        </button>
-      ))}
-      <div className="Tutoriales__videos">
+      <h1 className="Tutoriales__titulo">Tutoriales</h1>
+      <div className="Tutoriales__botones">
+        {videos.map((video, i) => (
+          <button
+            onClick={() => setIndiceVideoActivo(i)}
+            key={`boton-video-${i}`}
+            className={classNames({
+              'Tutoriales__boton': true,
+              'Tutoriales__boton--activo': indiceVideoActivo === i,
+            })}
+          >
+            {video.titulo}
+          </button>
+        ))}
+      </div>
+      <div className="Tutoriales__video">
         <iframe
           title={titulo}
           src={link}
