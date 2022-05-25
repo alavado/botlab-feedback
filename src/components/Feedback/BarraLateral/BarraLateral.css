@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   padding-top: .15rem;
+  height: 100%;
 }
 
 .BarraLateral__logo {
@@ -74,6 +75,11 @@
 
 .BarraLateral__link--activo {
   color: var(--color-texto-claro);
+}
+
+.BarraLateral__link--fondo {
+  margin-top: auto;
+  margin-bottom: .5rem;
 }
 
 @media(orientation: portrait) {

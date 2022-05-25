@@ -7,6 +7,7 @@ import iconoSinAlertas from '@iconify/icons-mdi/robot-happy'
 import exportar from '@iconify/icons-mdi/table-export'
 import usage from '@iconify/icons-mdi/wallet'
 import home from '@iconify/icons-mdi/home'
+import tutoriales from '@iconify/icons-mdi/play'
 // import preparaciones from '@iconify/icons-mdi/clipboard-check'
 import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
@@ -85,6 +86,14 @@ const BarraLateral = () => {
         >
           <Icon icon={usage} />
           <div className="BarraLateral__nombre_seccion">Uso</div>
+        </NavLink>
+        <NavLink
+          className="BarraLateral__link BarraLateral__link--fondo"
+          activeClassName="BarraLateral__link--activo"
+          to="/tutoriales"
+        >
+          <Icon icon={tutoriales} />
+          <div className="BarraLateral__nombre_seccion">Tutoriales</div>
         </NavLink>
       </div>
     </div>

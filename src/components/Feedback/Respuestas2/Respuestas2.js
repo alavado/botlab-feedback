@@ -7,6 +7,10 @@ const Respuestas2 = () => {
 
   return (
     <div className="Respuestas2">
+      <aside className="Respuestas2__lateral">
+        <h1>Interacciones</h1>
+        <p>Aquí van los filtros</p>
+      </aside>
       <TabsServicios />
       <TabsEstadosInteracciones />
       <ListaInteracciones />
