@@ -15,10 +15,6 @@ const usuariosPiloto = [
     nombre: 'CSMI',
     exp: '2022-04-23 00:00:00'
   },
-  {
-    nombre: 'Maitenes',
-    exp: '2022-05-23 00:00:00'
-  },
 ]
 
 const AlertaPilotos = () => {
