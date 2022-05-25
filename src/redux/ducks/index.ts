@@ -10,6 +10,7 @@ import reacciones from './reacciones'
 import novedades from './novedades'
 import alertas from './alertas'
 import servicio from './servicio'
+import tutoriales from './tutoriales'
 import { combineReducers } from 'redux'
 
 const rootReducer = combineReducers({
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   reacciones,
   novedades,
   alertas,
-  servicio
+  servicio,
+  tutoriales,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

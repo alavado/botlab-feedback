@@ -64,7 +64,7 @@ const Tutoriales = () => {
         <iframe
           title={titulo}
           src={link}
-          frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen></iframe>
       </div>
     </div>
   )
