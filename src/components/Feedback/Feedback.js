@@ -19,6 +19,7 @@ import { cierraLaSesion } from '../../redux/ducks/login'
 import VisorGuiones from './VisorGuiones'
 import Novedades from '../Novedades'
 import Respuestas2 from './Respuestas2'
+import Tutoriales from './Tutoriales'
 
 const Feedback = () => {
 
@@ -113,8 +114,11 @@ const Feedback = () => {
               <Route path="/visor_guiones">
                 <VisorGuiones />
               </Route>
+              <Route path="/tutoriales">
+                <Tutoriales />
+              </Route>
               <Route path="/">
-                <VisorGuiones />
+                <Respuestas />
               </Route>
             </Switch>
           </div>
