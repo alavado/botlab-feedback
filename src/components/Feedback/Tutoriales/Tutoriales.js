@@ -35,6 +35,10 @@ const videos = [
     titulo: 'Confirmaciones por fecha',
     link: 'https://player.vimeo.com/video/707555525?h=d41f18602a'
   },
+  {
+    titulo: 'Audios',
+    link: 'https://player.vimeo.com/video/707567810?h=df51a47072'
+  },
 ]
 
 const Tutoriales = () => {
