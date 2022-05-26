@@ -4,24 +4,8 @@ import './Tutoriales.css'
 
 const videos = [
   {
-    titulo: 'Búsquedas',
-    link: 'https://player.vimeo.com/video/710120273?h=f88e896d46'
-  },
-  {
-    titulo: 'Alertas',
-    link: 'https://player.vimeo.com/video/710113809?h=3a2aec83d9'
-  },
-  {
-    titulo: 'Opciones de alertas',
-    link: 'https://player.vimeo.com/video/710116476?h=5ed08da1cd'
-  },
-  {
-    titulo: 'Reportar problema',
-    link: 'https://player.vimeo.com/video/707572633?h=dbb41fa1ba'
-  },
-  {
-    titulo: 'Agregar comentarios a un chat',
-    link: 'https://player.vimeo.com/video/707569196?h=222e75a7d0'
+    titulo: 'Confirmaciones por fecha',
+    link: 'https://player.vimeo.com/video/707555525?h=d41f18602a'
   },
   {
     titulo: 'Filtros simples',
@@ -32,12 +16,28 @@ const videos = [
     link: 'https://player.vimeo.com/video/710118003?h=c24e9a7220'
   },
   {
-    titulo: 'Confirmaciones por fecha',
-    link: 'https://player.vimeo.com/video/707555525?h=d41f18602a'
-  },
-  {
     titulo: 'Audios',
     link: 'https://player.vimeo.com/video/707567810?h=df51a47072'
+  },
+  {
+    titulo: 'Agregar comentarios a un chat',
+    link: 'https://player.vimeo.com/video/707569196?h=222e75a7d0'
+  },
+  {
+    titulo: 'Reportar problema',
+    link: 'https://player.vimeo.com/video/707572633?h=dbb41fa1ba'
+  },
+  {
+    titulo: 'Alertas',
+    link: 'https://player.vimeo.com/video/710113809?h=3a2aec83d9'
+  },
+  {
+    titulo: 'Opciones de alertas',
+    link: 'https://player.vimeo.com/video/710116476?h=5ed08da1cd'
+  },
+  {
+    titulo: 'Búsquedas',
+    link: 'https://player.vimeo.com/video/710120273?h=f88e896d46'
   },
 ]
 
