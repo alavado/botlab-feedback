@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IDEstadoInteraccion } from '../../api/types/servicio'
 
 interface servicioState {
-  idServicioActivo: undefined | Number,
+  idServicioActivo: undefined | number,
   idEstadoInteraccionActivo: undefined | IDEstadoInteraccion,
   fechaInicio: Date,
   fechaTermino: Date,
@@ -17,7 +17,7 @@ const servicioSlice = createSlice({
     fechaTermino: new Date(),
   } as servicioState,
   reducers: {
-    seleccionaServicio(state, action: PayloadAction<Number>) {
+    seleccionaServicio(state, action: PayloadAction<number>) {
       state.idServicioActivo = action.payload
     },
     seleccionaEstadoInteraccion(state, action: PayloadAction<IDEstadoInteraccion>) {

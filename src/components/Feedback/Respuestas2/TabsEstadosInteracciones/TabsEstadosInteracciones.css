@@ -15,14 +15,14 @@
   gap: .35rem;
   font-weight: 600;
   margin-right: 1.5rem;
-  font-size: .7rem;
+  font-size: .65rem;
   opacity: .8;
   color: var(--color-principal);
   cursor: pointer;
 }
 
 .TabsEstadosInteracciones__tab svg {
-  font-size: .8rem;
+  font-size: .75rem;
 }
 
 .TabsEstadosInteracciones__tab--activo {

@@ -17,15 +17,15 @@ export const reportarASlack = async (usuario, cuenta, nombreEncuestaSeleccionada
   const data = {
     'text': `Feedback: Reporte desde ${usuario}`,
     'blocks': [
-    	{
-    		'type': 'section',
-    		'text': {
-    			'type': 'mrkdwn',
-    			'text': `Reporte desde *${usuario}*`
-    		}
-    	},
-    	{
-    		'type': 'section',
+      {
+        'type': 'section',
+        'text': {
+          'type': 'mrkdwn',
+          'text': `Reporte desde *${usuario}*`
+        }
+      },
+      {
+        'type': 'section',
         'fields': [
           {
             'type': 'mrkdwn',
@@ -48,7 +48,7 @@ export const reportarASlack = async (usuario, cuenta, nombreEncuestaSeleccionada
             'text': `*Descripción*\n${descripcion}`
           }
         ]
-    	}
+      }
     ],
   }
 

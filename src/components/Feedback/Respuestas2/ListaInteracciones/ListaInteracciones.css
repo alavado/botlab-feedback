@@ -4,11 +4,20 @@
 
 .ListaInteracciones__interaccion {
   display: grid;
-  grid-template-columns: 14ch 10ch 42ch 1fr;
-  padding: .5rem .25rem;
-  font-size: .7rem;
+  grid-template-columns: 20ch 42ch 10ch 15ch 1fr;
+  font-size: .65rem;
+  border-bottom: 1px solid var(--color-bordes);
+}
+
+.ListaInteracciones__interaccion div {
+  border-right: 1px solid var(--color-bordes);
+  padding: .6rem .35rem;
+}
+
+.ListaInteracciones__interaccion div:last-child {
+  border-right: 1px solid transparent;
 }
 
 .ListaInteracciones__interaccion--encabezados {
-  font-weight: bold;
+  opacity: .6;
 }

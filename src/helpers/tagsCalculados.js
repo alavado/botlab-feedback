@@ -68,6 +68,7 @@ const juntaTagsEquivalentes = (indice1, indice2, texto, tipo = 'YESNO') => {
 
 export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
+    const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
       case Number(process.env.REACT_APP_ID_POLL_SANASALUD_CMSC):
         return [
@@ -248,7 +249,6 @@ export const obtenerTagsCalculados = idEncuesta => {
         return juntarConfirmaYReagendaAutomatico(50, 104, 204)
       
       case Number(process.env.REACT_APP_ID_POLL_FALP_CONVENIOS):
-        const fechaCambioMapping = '2022-03-18'
         return [
           {
             texto: '¿Dirección?',

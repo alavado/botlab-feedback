@@ -1,4 +1,5 @@
-import { format } from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
+import es from 'date-fns/esm/locale/es/index.js'
 import { Fragment } from 'react'
 import { useInteraccionesServicioYEstadoActivosQuery } from '../../../../api/hooks'
 import './ListaInteracciones.css'
@@ -20,9 +21,10 @@ const ListaInteracciones = () => {
       <div
         className="ListaInteracciones__interaccion ListaInteracciones__interaccion--encabezados"
       >
-        <div>Fecha cita</div>
-        <div>Hora cita</div>
+        <div>Inicio interacción</div>
         <div>Paciente</div>
+        <div>Hora cita</div>
+        <div>Fecha cita</div>
         <div>Tratante</div>
       </div>
       {data.length === 0
@@ -36,9 +38,10 @@ const ListaInteracciones = () => {
                 <Fragment
                   key={`cita-${j}`}
                 >
-                  <div>{cita.fecha ? format(cita.fecha, 'dd/MM') : '-'}</div>
-                  <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>
+                  <div>{format(interaccion.inicio, "HH:mm")}</div>
                   <div>{cita.nombre}</div>
+                  <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>
+                  <div>{cita.fecha ? format(cita.fecha, 'dd/MM') : '-'}</div>
                   <div>{cita.responsable}</div>
                 </Fragment>
               ))}

@@ -21,6 +21,7 @@ export interface Interaccion {
   sucursal: string,
   idUsuario: number,
   idEstadoInteraccion: IDEstadoInteraccion,
+  inicio: Date,
   citas: Cita[]
 }
 

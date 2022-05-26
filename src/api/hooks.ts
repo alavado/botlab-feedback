@@ -2,7 +2,7 @@ import { IconifyIcon } from '@iconify/types'
 import axios from 'axios'
 import store from '../redux/store'
 import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta } from './types/servicio'
-import { parse, format, parseISO } from 'date-fns'
+import { parse, format, parseISO, addHours } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useQuery, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'
@@ -13,9 +13,9 @@ import iconoConfirmacionMulticita from '@iconify/icons-mdi/users'
 // iconos para resultados de interacciones
 import iconoEstadoPendiente from '@iconify/icons-mdi/timer-sand'
 import iconoEstadoConfirma from '@iconify/icons-mdi/check'
-import iconoEstadoCancela from '@iconify/icons-mdi/cancel'
-import iconoEstadoReagenda from '@iconify/icons-mdi/change-history'
-import iconoEstadoOut from '@iconify/icons-mdi/robot-angry'
+import iconoEstadoCancela from '@iconify/icons-mdi/close'
+import iconoEstadoReagenda from '@iconify/icons-mdi/autorenew'
+import iconoEstadoOut from '@iconify/icons-mdi/robot-confused'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -68,27 +68,27 @@ export const useServiciosQuery = () => {
 const estadosInteracciones: EstadoInteraccion[] = [
   {
     id: 'PENDIENTE',
-    descripcion: 'Usuario aún no responde',
+    descripcion: 'Aún no responde',
     icono: iconoEstadoPendiente
   },
   {
     id: 'CONFIRMADA',
-    descripcion: 'Usuario confirma cita',
+    descripcion: 'Confirma cita',
     icono: iconoEstadoConfirma
   },
   {
     id: 'CANCELADA',
-    descripcion: 'Usuario anula cita',
+    descripcion: 'Anula cita',
     icono: iconoEstadoCancela
   },
   {
     id: 'REAGENDADA',
-    descripcion: 'Usuario reagenda cita',
+    descripcion: 'Reagenda cita',
     icono: iconoEstadoReagenda
   },
   {
     id: 'IMPROCESABLE',
-    descripcion: 'Bot pudo entender',
+    descripcion: 'Bot no entendió',
     icono: iconoEstadoOut
   },
 ]
@@ -152,6 +152,7 @@ const construirInteraccionCitaNormal = (interaccion: any, servicio: Servicio): I
   return {
     sucursal: interaccion['sucursal_name'],
     idUsuario: interaccion['user_id'],
+    inicio: addHours(parseISO(interaccion['start']), new Date().getTimezoneOffset() / -60),
     idEstadoInteraccion,
     citas
   }
@@ -181,6 +182,7 @@ const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): In
     sucursal: interaccion['sucursal_name_1'],
     idUsuario: interaccion['user_id'],
     idEstadoInteraccion: obtenerIDEstadoInteraccionGeneral(citas),
+    inicio: addHours(parseISO(interaccion['start']), new Date().getTimezoneOffset() / -60),
     citas
   }
 }
@@ -210,7 +212,7 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
     ['servicio', idServicioActivo],
     () => obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino),
     {
-      select: data => data.filter(d => idEstadoInteraccionActivo === 'CUALQUIERA' || d.idEstadoInteraccion === idEstadoInteraccionActivo),
+      select: data => data.filter(d => idEstadoInteraccionActivo === 'CUALQUIERA' || idEstadoInteraccionActivo === d.idEstadoInteraccion),
       enabled: !!idServicioActivo && !!idEstadoInteraccionActivo
     }
   )
