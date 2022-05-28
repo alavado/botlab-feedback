@@ -9,10 +9,6 @@
   display: none;
 }
 
-button:hover {
-  filter: brightness(115%);
-}
-
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
