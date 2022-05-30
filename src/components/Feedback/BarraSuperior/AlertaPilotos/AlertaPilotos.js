@@ -23,6 +23,10 @@ const usuariosPiloto = [
     nombre: 'OrthoCenter',
     exp: '2022-06-04 00:00:00'
   },
+  {
+    nombre: 'FARR',
+    exp: '2022-06-02 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
