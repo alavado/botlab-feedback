@@ -1,31 +1,38 @@
 .TabsServicios {
-  height: 2rem;
-  background-color: var(--color-barra-superior);
-  border-bottom: 1px solid var(--color-bordes);
+  height: 1.75rem;
+  background-color: var(--color-principal);
   display: flex;
+  gap: .1rem;
+  padding-left: .25rem;
+}
+
+.TabsServicios__boton_menu {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 1rem;
+  padding: 0;
+  margin-right: .25rem;
+  color: var(--color-texto-claro);
 }
 
 .TabsServicios__tab {
   cursor: pointer;
   background-color: var(--color-barra-superior);
-  border-top: 1px solid var(--color-bordes);
-  border-left: 1px solid var(--color-bordes);
-  border-right: 1px solid var(--color-bordes);
-  border-bottom: 1px solid transparent;
+  border: none;
   display: flex;
   align-items: center;
-  gap: .35rem;
+  gap: .25rem;
   font-weight: 600;
-  padding: 0 .75rem;
+  padding: 0 .85rem 0 .75rem;
   font-size: .65rem;
   opacity: .8;
   color: var(--color-principal);
-  box-shadow: 0 1px 0 0 var(--color-bordes);
-  animation: aparece-tab-servicio .25s ease both;
-}
-
-.TabsServicios__tab:first-child {
-  border-left: 1px solid transparent;
+  border-radius: .15rem .15rem 0 0;
 }
 
 .TabsServicios__tab svg {
@@ -42,12 +49,14 @@
 }
 
 .TabsServicios__tab--cargando {
-  width: 10rem;
+  background-color: var(--color-barra-superior);
+  width: 8rem;
+  animation: aparece-tab-servicio .25s ease both;
 }
 
 .TabsServicios__skeleton_avatar_cargando {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
   background-color: var(--color-skeleton);
   border-radius: 50%;
 }
@@ -61,7 +70,7 @@
 
 @keyframes aparece-tab-servicio {
   0% {
-    transform: translateY(.25rem);
+    transform: translateY(.15rem);
     opacity: 0;
   }
   100% {

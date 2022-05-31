@@ -6,6 +6,7 @@
   height: 100vh;
   width: 2.75rem;
   top: 0;
+  box-shadow: .05rem 0 .05rem var(--color-sombras);
 }
 
 .BarraLateral__contenedor_links_secciones {

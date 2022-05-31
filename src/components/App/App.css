@@ -1,6 +1,6 @@
 .App {
   display: flex;
-  background: linear-gradient(var(--color-principal), var(--color-secundario) 300%);
+  background: linear-gradient(var(--color-principal), var(--color-secundario) 250%);
   background-size: cover;
   overflow: hidden;
 }

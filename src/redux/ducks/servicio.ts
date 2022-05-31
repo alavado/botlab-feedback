@@ -6,6 +6,7 @@ interface servicioState {
   idEstadoInteraccionActivo: undefined | IDEstadoInteraccion,
   fechaInicio: Date,
   fechaTermino: Date,
+  cajonFiltrosVisible: boolean,
 }
 
 const servicioSlice = createSlice({
@@ -15,6 +16,7 @@ const servicioSlice = createSlice({
     idEstadoInteraccionActivo: undefined,
     fechaInicio: new Date(),
     fechaTermino: new Date(),
+    cajonFiltrosVisible: false,
   } as servicioState,
   reducers: {
     seleccionaServicio(state, action: PayloadAction<number>) {
@@ -23,12 +25,16 @@ const servicioSlice = createSlice({
     seleccionaEstadoInteraccion(state, action: PayloadAction<IDEstadoInteraccion>) {
       state.idEstadoInteraccionActivo = action.payload
     },
+    toggleCajonFiltros(state) {
+      state.cajonFiltrosVisible = !state.cajonFiltrosVisible
+    },
   }
 })
 
 export const {
   seleccionaServicio,
   seleccionaEstadoInteraccion,
+  toggleCajonFiltros,
 } = servicioSlice.actions
 
 export default servicioSlice.reducer

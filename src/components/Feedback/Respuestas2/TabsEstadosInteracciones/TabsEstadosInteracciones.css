@@ -1,12 +1,13 @@
 .TabsEstadosInteracciones {
   display: flex;
   border-bottom: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo);
   padding-top: .25rem;
-  margin: 0 .75rem;
+  padding-left: .75rem;
 }
 
 .TabsEstadosInteracciones__tab {
-  height: 2rem;
+  height: 2.25rem;
   background: none;
   border: none;
   display: flex;
@@ -14,7 +15,7 @@
   justify-content: flex-start;
   gap: .25rem;
   font-weight: bold;
-  margin-right: 1.25rem;
+  padding: 0 .75rem 0 .75rem;
   font-size: .65rem;
   opacity: .8;
   color: var(--color-principal);

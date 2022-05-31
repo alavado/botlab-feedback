@@ -1,7 +1,7 @@
 import { InlineIcon } from '@iconify/react'
 import { useIsFetching } from 'react-query'
 import iconoActualizando from '@iconify/icons-mdi/loading'
-import iconoActualizado from '@iconify/icons-mdi/check'
+import iconoActualizado from '@iconify/icons-mdi/cloud-check'
 import './IndicadorFetchingGlobal.css'
 
 const IndicadorFetchingGlobal = () => {
@@ -12,7 +12,7 @@ const IndicadorFetchingGlobal = () => {
     <div className="IndicadorFetchingGlobal">
       {isFetching
         ? <p className="IndicadorFetchingGlobal__cargando">
-            Actualizando...
+            Cargando...
             <InlineIcon
               className="IndicadorFetchingGlobal__icono IndicadorFetchingGlobal__icono--cargando"
               icon={iconoActualizando}

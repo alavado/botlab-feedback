@@ -23,8 +23,8 @@ const ListaInteracciones = () => {
       >
         <div>Inicio interacción</div>
         <div>Paciente</div>
-        <div>Hora cita</div>
         <div>Fecha cita</div>
+        <div>Hora cita</div>
         <div>Tratante</div>
       </div>
       {data.length === 0
@@ -39,9 +39,17 @@ const ListaInteracciones = () => {
                   key={`cita-${j}`}
                 >
                   <div>{j === 0 ? format(interaccion.inicio, "HH:mm") : ''}</div>
-                  <div>{cita.nombre} <InlineIcon icon={cita.estadoInteraccion.icono} /></div>
-                  <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>
+                  <div>
+                    {/* <div
+                      style={{ background: `hsl(${360 * ((cita.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 75%, 46%)` }}
+                      className="ListaInteracciones__avatar"
+                    >
+                      {cita.nombre[0]}
+                    </div> */}
+                    {cita.nombre} <InlineIcon icon={cita.estadoInteraccion.icono} />
+                  </div>
                   <div>{cita.fecha ? format(cita.fecha, 'dd/MM') : '-'}</div>
+                  <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>
                   <div>{cita.responsable}</div>
                 </Fragment>
               ))}
