@@ -20,7 +20,7 @@ export interface PropiedadServicio {
 export interface Interaccion {
   sucursal: string,
   idUsuario: number,
-  idEstadoInteraccion: IDEstadoInteraccion,
+  estadoInteraccion: EstadoInteraccion,
   inicio: Date,
   citas: Cita[]
 }
@@ -29,7 +29,7 @@ export interface Cita {
   id: number,
   rut: string,
   nombre: string,
-  idEstadoInteraccion: IDEstadoInteraccion,
+  estadoInteraccion: EstadoInteraccion,
   fecha?: Date,
   responsable?: string,
   preguntas: Pregunta[]

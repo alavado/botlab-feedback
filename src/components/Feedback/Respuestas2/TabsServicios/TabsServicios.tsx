@@ -11,30 +11,38 @@ const TabsServicios = () => {
   const { idServicioActivo } = useSelector((state: RootState) => state.servicio)
   const { data: servicios, isLoading } = useServiciosQuery()
   const dispatch = useDispatch()
-
-  if (isLoading) {
-    return 'Cargando...'
-  }
-
-  if (!servicios) {
-    return 'Error'
-  }
   
   return (
     <div className="TabsServicios">
-      {servicios.map((servicio, i) => (
-        <button
-          className={classNames({
-            "TabsServicios__tab": true,
-            "TabsServicios__tab--activo": servicio.id === idServicioActivo,
-          })}
-          key={`tab-servicio-${i}`}
-          onClick={() => dispatch(seleccionaServicio(servicio.id))}
-        >
-          <Icon icon={servicio.icono} />
-          {servicio.nombre}
-        </button>
-      ))}
+      {isLoading || !servicios
+        ? <>
+            <button
+              className="TabsServicios__tab TabsServicios__tab--cargando"
+            >
+              <div className="TabsServicios__skeleton_avatar_cargando" />
+              <div className="TabsServicios__skeleton_texto_cargando" />
+            </button>
+            <button
+              className="TabsServicios__tab TabsServicios__tab--cargando"
+            >
+              <div className="TabsServicios__skeleton_avatar_cargando" />
+              <div className="TabsServicios__skeleton_texto_cargando" />
+            </button>
+          </>
+        : servicios.map((servicio, i) => (
+            <button
+              className={classNames({
+                "TabsServicios__tab": true,
+                "TabsServicios__tab--activo": servicio.id === idServicioActivo,
+              })}
+              key={`tab-servicio-${i}`}
+              onClick={() => dispatch(seleccionaServicio(servicio.id))}
+            >
+              <Icon icon={servicio.icono} />
+              {servicio.nombre}
+            </button>
+          ))
+      }
     </div>
   )
 }

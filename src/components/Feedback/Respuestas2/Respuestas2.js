@@ -5,8 +5,13 @@ import TabsEstadosInteracciones from './TabsEstadosInteracciones'
 import TabsServicios from './TabsServicios'
 import { DateRange } from 'react-date-range'
 import { es } from 'react-date-range/dist/locale'
+import Icon from '@iconify/react'
+import iconoMenu from '@iconify/icons-mdi/menu'
+import classNames from 'classnames'
 
 const Respuestas2 = () => {
+
+  const [ver, setVer] = useState(false)
 
   const [state, setState] = useState([
     {
@@ -19,13 +24,23 @@ const Respuestas2 = () => {
   return (
     <div className="Respuestas2">
       <div className="Respuestas2__superior">
+        <button
+          onClick={() => setVer(!ver)}
+          className="Respuestas2__boton_menu"
+        >
+          <Icon icon={iconoMenu} />
+        </button>
         <h1 className="Respuestas2__titulo">Interacciones</h1>
       </div>
-      <aside className="Respuestas2__lateral">
-        <p style={{ fontSize: '.65rem', paddingBottom: '.25rem' }}>Sucursal</p>
-        <input />
-        <div style={{ height: '1rem' }} />
-        <p style={{ fontSize: '.65rem', paddingBottom: '.25rem' }}>Inicio interacción</p>
+      <aside
+        className={classNames({
+          "Respuestas2__lateral": true,
+          "Respuestas2__lateral--visible": ver,
+        })}
+      >
+        <p style={{ fontSize: '.65rem', paddingBottom: '.25rem' }}>
+          Inicio interacción
+        </p>
         <DateRange
           editableDateInputs={true}
           onChange={item => setState([item.selection])}

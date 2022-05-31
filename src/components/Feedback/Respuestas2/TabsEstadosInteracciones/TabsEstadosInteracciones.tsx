@@ -12,10 +12,6 @@ const TabsEstadosInteracciones = () => {
   const { idEstadoInteraccionActivo } = useSelector((state: RootState) => state.servicio)
   const dispatch = useDispatch()
 
-  if (isLoading) {
-    return 'Cargando...'
-  }
-
   if (isLoading || !estados) {
     return null
   }

@@ -47,6 +47,7 @@
   --color-vidrio: rgba(255, 255, 255, .5);
 
   --color-whatsapp: rgb(49, 202, 49);
+  --color-skeleton: #E2E8F0;
 }
 
 .App__oscura, .App__oscura *, .App__oscura *::before, .App__oscura *::after,
@@ -100,4 +101,6 @@
 
   --gradiente-exportar: repeating-linear-gradient(-45deg, rgba(0, 0, 0, .4) 0 .25rem, rgba(0, 0, 0, .5) .25rem .5rem);
   --color-vidrio: rgba(0, 0, 0, .25);
+  
+  --color-skeleton: #E2E8F0;
 }

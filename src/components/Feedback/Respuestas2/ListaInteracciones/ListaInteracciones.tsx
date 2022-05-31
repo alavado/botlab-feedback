@@ -1,3 +1,4 @@
+import { InlineIcon } from '@iconify/react'
 import { format, formatDistanceToNow } from 'date-fns'
 import es from 'date-fns/esm/locale/es/index.js'
 import { Fragment } from 'react'
@@ -38,8 +39,8 @@ const ListaInteracciones = () => {
                 <Fragment
                   key={`cita-${j}`}
                 >
-                  <div>{format(interaccion.inicio, "HH:mm")}</div>
-                  <div>{cita.nombre}</div>
+                  <div>{j === 0 ? format(interaccion.inicio, "HH:mm") : ''}</div>
+                  <div>{cita.nombre} <InlineIcon icon={cita.estadoInteraccion.icono} /></div>
                   <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>
                   <div>{cita.fecha ? format(cita.fecha, 'dd/MM') : '-'}</div>
                   <div>{cita.responsable}</div>

@@ -21,6 +21,7 @@
   opacity: .8;
   color: var(--color-principal);
   box-shadow: 0 1px 0 0 var(--color-bordes);
+  animation: aparece-tab-servicio .25s ease both;
 }
 
 .TabsServicios__tab:first-child {
@@ -38,4 +39,33 @@
   opacity: 1;
   font-weight: 600;
   box-shadow: 0 1px 0 0 var(--color-fondo);
+}
+
+.TabsServicios__tab--cargando {
+  width: 10rem;
+}
+
+.TabsServicios__skeleton_avatar_cargando {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--color-skeleton);
+  border-radius: 50%;
+}
+
+.TabsServicios__skeleton_texto_cargando {
+  height: .5rem;
+  width: 6rem;
+  border-radius: .25rem;
+  background-color: var(--color-skeleton);
+}
+
+@keyframes aparece-tab-servicio {
+  0% {
+    transform: translateY(.25rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
