@@ -15,6 +15,7 @@
 
 .Respuestas2__titulo {
   font-weight: bold;
+  font-size: .75rem;
 }
 
 .Respuestas2__boton_menu {
@@ -32,11 +33,13 @@
   grid-row: span 3;
   background-color: var(--color-barra-superior);
   border-right: 1px solid var(--color-bordes);
-  padding: .75rem .75rem 0 .75rem;
+  padding: 1rem .75rem 0 .75rem;
   overflow: hidden;
   width: auto;
   opacity: 1;
   transition: all .25s ease;
+  background-color: white;
+  border-top: 1px solid var(--color-bordes);
 }
 
 .Respuestas2__lateral--visible {

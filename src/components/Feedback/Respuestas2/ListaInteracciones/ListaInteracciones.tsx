@@ -1,6 +1,5 @@
 import { InlineIcon } from '@iconify/react'
-import { format, formatDistanceToNow } from 'date-fns'
-import es from 'date-fns/esm/locale/es/index.js'
+import { format } from 'date-fns'
 import { Fragment } from 'react'
 import { useInteraccionesServicioYEstadoActivosQuery } from '../../../../api/hooks'
 import './ListaInteracciones.css'

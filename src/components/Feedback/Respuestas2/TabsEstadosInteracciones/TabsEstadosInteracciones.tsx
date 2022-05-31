@@ -18,19 +18,24 @@ const TabsEstadosInteracciones = () => {
 
   return (
     <div className="TabsEstadosInteracciones">
-      {estados.map((estado, i) => (
-        <button
-          className={classNames({
-            "TabsEstadosInteracciones__tab": true,
-            "TabsEstadosInteracciones__tab--activo": estado.id === idEstadoInteraccionActivo
-          })}
-          key={`boton-estado-${i}`}
-          onClick={() => dispatch(seleccionaEstadoInteraccion(estado.id))}
-        >
-          <Icon icon={estado.icono} />
-          {estado.descripcion}
-        </button>
-      ))}
+      {isLoading || !estados
+        ? 'Cargando...'
+        : estados.map((estado, i) => (
+            <button
+              className={classNames({
+                "TabsEstadosInteracciones__tab": true,
+                "TabsEstadosInteracciones__tab--activo": estado.id === idEstadoInteraccionActivo
+              })}
+              key={`boton-estado-${i}`}
+              onClick={() => dispatch(seleccionaEstadoInteraccion(estado.id))}
+            >
+              <Icon icon={estado.icono} />
+              <div>
+                <p>{estado.descripcion}</p>
+              </div>
+            </button>
+          ))
+      }
     </div>
   )
 }

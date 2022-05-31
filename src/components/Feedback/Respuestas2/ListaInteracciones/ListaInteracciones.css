@@ -1,5 +1,6 @@
 .ListaInteracciones {
   margin: 0 .75rem;
+  padding-top: 0rem;
 }
 
 .ListaInteracciones__interaccion {
@@ -19,5 +20,6 @@
 }
 
 .ListaInteracciones__interaccion--encabezados {
+  border-top: 1px solid var(--color-bordes);
   opacity: .6;
 }

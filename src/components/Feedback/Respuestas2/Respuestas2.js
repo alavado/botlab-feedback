@@ -3,6 +3,7 @@ import ListaInteracciones from './ListaInteracciones'
 import './Respuestas2.css'
 import TabsEstadosInteracciones from './TabsEstadosInteracciones'
 import TabsServicios from './TabsServicios'
+import IndicadorFetchingGlobal from './IndicadorFetchingGlobal'
 import { DateRange } from 'react-date-range'
 import { es } from 'react-date-range/dist/locale'
 import Icon from '@iconify/react'
@@ -31,6 +32,7 @@ const Respuestas2 = () => {
           <Icon icon={iconoMenu} />
         </button>
         <h1 className="Respuestas2__titulo">Interacciones</h1>
+        <IndicadorFetchingGlobal />
       </div>
       <aside
         className={classNames({
@@ -38,7 +40,7 @@ const Respuestas2 = () => {
           "Respuestas2__lateral--visible": ver,
         })}
       >
-        <p style={{ fontSize: '.65rem', paddingBottom: '.25rem' }}>
+        <p style={{ fontSize: '.65rem', paddingBottom: '.5rem' }}>
           Inicio interacción
         </p>
         <DateRange
