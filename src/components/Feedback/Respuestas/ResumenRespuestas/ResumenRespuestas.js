@@ -28,8 +28,8 @@ const ResumenRespuestas = ({ cargando }) => {
     return primerHeaderYESNO
       ? respuestas.reduce((prev, respuesta) => {
           const tagRespuesta = headersConTagsCalculados
-            ? primerHeaderYESNO.f(respuesta).tag
-            : respuesta[primerHeaderYESNO.nombre].tag
+            ? primerHeaderYESNO.f(respuesta)?.tag
+            : respuesta[primerHeaderYESNO.nombre]?.tag
           const indice =  tagsAMostrar.find(t => t === tagRespuesta)
           indice && (prev[indice] = prev[indice] ? prev[indice] + 1 : 1)
           return prev
