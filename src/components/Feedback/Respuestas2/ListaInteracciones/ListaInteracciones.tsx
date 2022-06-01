@@ -1,6 +1,6 @@
 import { InlineIcon } from '@iconify/react'
 import { format } from 'date-fns'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useInteraccionesServicioYEstadoActivosQuery } from '../../../../api/hooks'
 import { muestraCajonInteraccion } from '../../../../redux/ducks/servicio'
@@ -10,6 +10,7 @@ import './ListaInteracciones.css'
 import { EstadoInteraccion, IDEstadoInteraccion } from '../../../../api/types/servicio'
 import { RootState } from '../../../../redux/ducks'
 import { estadosInteracciones } from '../../../../api/estadosInteraccion'
+import classNames from 'classnames'
 
 const obtenerMensajeSinCitas = (idEstado: IDEstadoInteraccion | undefined) => {
   const estado = estadosInteracciones.find(e => e.id === idEstado) as EstadoInteraccion
@@ -30,7 +31,8 @@ const obtenerMensajeSinCitas = (idEstado: IDEstadoInteraccion | undefined) => {
 const ListaInteracciones = () => {
 
   const { data, isLoading } = useInteraccionesServicioYEstadoActivosQuery()
-  const { idEstadoInteraccionActivo } = useSelector((state: RootState) => state.servicio)
+  const { idEstadoInteraccionActivo, cajonInteraccionVisible } = useSelector((state: RootState) => state.servicio)
+  const [idInteraccionSeleccionada, setIdInteraccionSeleccionada] = useState(-1)
   const dispatch = useDispatch()
 
   if (isLoading) {
@@ -63,8 +65,15 @@ const ListaInteracciones = () => {
         : data.map((interaccion, i) => (
             <div
               key={`interaccion-${i}`}
-              className="ListaInteracciones__interaccion"
-              onClick={() => dispatch(muestraCajonInteraccion())}
+              className={classNames({
+                "ListaInteracciones__interaccion": true,
+                "ListaInteracciones__interaccion--inactiva": !cajonInteraccionVisible || (idInteraccionSeleccionada > 0 && idInteraccionSeleccionada !== interaccion.idUsuario),
+                "ListaInteracciones__interaccion--activa": cajonInteraccionVisible && idInteraccionSeleccionada === interaccion.idUsuario,
+              })}
+              onClick={() => {
+                setIdInteraccionSeleccionada(interaccion.idUsuario)
+                dispatch(muestraCajonInteraccion())
+              }}
             >
               {interaccion.citas.map((cita, j) => (
                 <Fragment

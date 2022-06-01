@@ -43,7 +43,7 @@ const videos = [
 
 const Tutoriales = () => {
 
-  const [indiceVideoActivo, setIndiceVideoActivo] = useState(0)
+  const [indiceVideoActivo, setIndiceVideoActivo] = useState(-1)
 
   const { link, titulo } = videos[indiceVideoActivo]
 
@@ -65,10 +65,16 @@ const Tutoriales = () => {
         ))}
       </div>
       <div className="Tutoriales__video">
-        <iframe
-          title={titulo}
-          src={link}
-          frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen></iframe>
+        {indiceVideoActivo >= 0 && (
+          <iframe
+            title={titulo}
+            src={link}
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+          >
+          </iframe>
+        )}
       </div>
     </div>
   )

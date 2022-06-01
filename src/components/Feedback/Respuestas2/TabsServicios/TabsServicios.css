@@ -63,7 +63,7 @@
 
 .TabsServicios__skeleton_texto_cargando {
   height: .5rem;
-  width: 6rem;
+  width: 5rem;
   border-radius: .25rem;
   background-color: var(--color-skeleton);
 }

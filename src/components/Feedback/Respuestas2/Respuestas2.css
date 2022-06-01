@@ -25,18 +25,19 @@
   padding: 1rem .75rem 0 .75rem;
   background-color: var(--color-fondo);
   overflow: hidden;
-  width: 17rem;
-  opacity: 1;
   transition: all .25s ease;
-  border-top: 1px solid var(--color-bordes);
-  border-right: 1px solid var(--color-bordes);
   border-top-right-radius: .25rem;
-}
-
-.Respuestas2__lateral--visible {
   width: 0;
   padding-left: 0;
   padding-right: 0;
   opacity: .5;
   border: none;
+}
+
+.Respuestas2__lateral--visible {
+  padding: 1rem .75rem 0 .75rem;
+  width: 17rem;
+  opacity: 1;
+  border-top: 1px solid var(--color-bordes);
+  border-right: 1px solid var(--color-bordes);
 }
