@@ -4,10 +4,24 @@
   background-color: var(--color-fondo);
   padding-top: .25rem;
   padding-left: .75rem;
+  height: 2.25rem;
+}
+
+.TabsEstadosInteracciones__mensaje_paso_previo {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  font-size: .7rem;
+  gap: .15rem;
+  padding-left: 1.5rem;
+}
+
+.TabsEstadosInteracciones__icono_paso_previo {
+  font-size: 1.35rem;
+  animation: indicador-seleccion-paso-previo .75s ease-in infinite alternate-reverse both;
 }
 
 .TabsEstadosInteracciones__tab {
-  height: 2.25rem;
   background: none;
   border: none;
   display: flex;
@@ -33,4 +47,13 @@
   box-shadow:
     inset 0 -2px 0 0 var(--color-texto),
     0 1px 0 0 var(--color-texto);
+}
+
+@keyframes indicador-seleccion-paso-previo {
+  0% {
+    transform: translateY(0rem);
+  }
+  100% {
+    transform: translateY(-.1rem);
+  }
 }

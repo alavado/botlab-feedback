@@ -69,6 +69,9 @@ const Feedback = () => {
             <Route exact path="/respuestas2">
               <></>
             </Route>
+            <Route path="/interaccion">
+              <></>
+            </Route>
             <Route>
               <BarraSuperior />
             </Route>
@@ -116,6 +119,9 @@ const Feedback = () => {
               </Route>
               <Route path="/tutoriales">
                 <Tutoriales />
+              </Route>
+              <Route path="/interaccion">
+                <Respuestas2 />
               </Route>
               <Route path="/">
                 <Respuestas />

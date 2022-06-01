@@ -8,11 +8,10 @@ import { DateRange } from 'react-date-range'
 import { es } from 'react-date-range/dist/locale'
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../../redux/ducks'
 
 const Respuestas2 = () => {
 
-  const { cajonFiltrosVisible } = useSelector((state: RootState) => state.servicio)
+  const { cajonFiltrosVisible } = useSelector(state => state.servicio)
   const [state, setState] = useState([
     {
       startDate: new Date(),

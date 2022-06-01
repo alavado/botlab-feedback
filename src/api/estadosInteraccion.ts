@@ -2,7 +2,7 @@ import { EstadoInteraccion } from "./types/servicio"
 
 import iconoEstadoPendiente from '@iconify/icons-mdi/timer-sand'
 import iconoEstadoConfirma from '@iconify/icons-mdi/check'
-import iconoEstadoCancela from '@iconify/icons-mdi/close'
+import iconoEstadoCancela from '@iconify/icons-mdi/cancel'
 import iconoEstadoReagenda from '@iconify/icons-mdi/autorenew'
 import iconoEstadoOut from '@iconify/icons-mdi/robot-confused'
 
