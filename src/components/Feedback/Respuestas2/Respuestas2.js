@@ -23,6 +23,10 @@ const Respuestas2 = () => {
     }
   ])
 
+  if (1===1) {
+    return null
+  }
+
   return (
     <div className="Respuestas2">
       <div className="Respuestas2__superior">
