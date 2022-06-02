@@ -60,6 +60,10 @@
   margin-left: .15rem;
 }
 
+.TabsEstadosInteracciones__conteo--0 {
+  opacity: .4;
+}
+
 @keyframes indicador-seleccion-paso-previo {
   0% {
     transform: translateY(0rem);

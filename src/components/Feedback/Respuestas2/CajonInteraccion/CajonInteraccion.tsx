@@ -5,13 +5,16 @@ import { RootState } from '../../../../redux/ducks'
 import iconoCerrarCajon from '@iconify/icons-mdi/chevron-double-right'
 import './CajonInteraccion.css'
 import { escondeCajonInteraccion } from '../../../../redux/ducks/servicio'
+import { useQuery, useQueryClient } from 'react-query'
+import { Interaccion } from '../../../../api/types/servicio'
 
 const CajonInteraccion = () => {
 
-  const { cajonInteraccionVisible } = useSelector((state: RootState) => state.servicio)
+  const { cajonInteraccionVisible, interaccionActiva, idServicioActivo } = useSelector((state: RootState) => state.servicio)
+  const queryClient = useQueryClient()
   const dispatch = useDispatch()
 
-  console.log(cajonInteraccionVisible)
+  const data = queryClient.getQueryData(['interaccion', idServicioActivo, interaccionActiva?.idUsuario]) as Interaccion
 
   return (
     <div className={classNames({
@@ -33,7 +36,7 @@ const CajonInteraccion = () => {
         <Icon icon={iconoCerrarCajon} />
       </button>
       <div className="CajonInteraccion__superior">
-        María de los Ángeles
+        {data.citas[0].nombre}
       </div>
     </div>
   )

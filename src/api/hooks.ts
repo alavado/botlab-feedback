@@ -183,7 +183,12 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
     ['servicio', idServicioActivo],
     () => obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino),
     {
-      select: data => data.filter(d => idEstadoInteraccionActivo === 'CUALQUIERA' || idEstadoInteraccionActivo === d.estadoInteraccion.id),
+      onSuccess: interacciones => {
+        interacciones.forEach(interaccion => {
+          queryClient.setQueryData(['interaccion', idServicioActivo, interaccion.idUsuario], interaccion)
+        })
+      },
+      select: interacciones => interacciones.filter(d => idEstadoInteraccionActivo === d.estadoInteraccion.id),
       enabled: !!idServicioActivo && !!idEstadoInteraccionActivo
     }
   )

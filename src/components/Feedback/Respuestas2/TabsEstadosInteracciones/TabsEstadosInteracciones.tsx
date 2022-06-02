@@ -41,7 +41,17 @@ const TabsEstadosInteracciones = () => {
             >
               <Icon icon={estado.icono} />
               <div>
-                <p>{estado.descripcion} <span className="TabsEstadosInteracciones__conteo">{conteo}</span></p>
+                <p>
+                  {estado.descripcion}
+                  <span
+                    className={classNames({
+                      "TabsEstadosInteracciones__conteo": true,
+                      "TabsEstadosInteracciones__conteo--0": conteo === 0,
+                    })}
+                  >
+                    {conteo}
+                  </span>
+                </p>
               </div>
             </button>
           ))

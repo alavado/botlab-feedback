@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IDEstadoInteraccion } from '../../api/types/servicio'
+import { IDEstadoInteraccion, Interaccion } from '../../api/types/servicio'
 
 interface servicioState {
-  idServicioActivo: undefined | number,
-  idEstadoInteraccionActivo: undefined | IDEstadoInteraccion,
+  idServicioActivo?: number,
+  idEstadoInteraccionActivo?: IDEstadoInteraccion,
+  interaccionActiva?: Interaccion,
   fechaInicio: Date,
   fechaTermino: Date,
   cajonFiltrosVisible: boolean,
@@ -19,6 +20,7 @@ const servicioSlice = createSlice({
     fechaTermino: new Date(),
     cajonFiltrosVisible: false,
     cajonInteraccionVisible: false,
+    interaccionActiva: undefined,
   } as servicioState,
   reducers: {
     seleccionaServicio(state, action: PayloadAction<number>) {
@@ -36,6 +38,9 @@ const servicioSlice = createSlice({
     escondeCajonInteraccion(state) {
       state.cajonInteraccionVisible = false
     },
+    seleccionaInteraccion(state, action) {
+      state.interaccionActiva = action.payload
+    }
   }
 })
 
@@ -45,6 +50,7 @@ export const {
   toggleCajonFiltros,
   muestraCajonInteraccion,
   escondeCajonInteraccion,
+  seleccionaInteraccion,
 } = servicioSlice.actions
 
 export default servicioSlice.reducer

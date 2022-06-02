@@ -1,39 +1,36 @@
 import { InlineIcon } from '@iconify/react'
 import { format } from 'date-fns'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useInteraccionesServicioYEstadoActivosQuery } from '../../../../api/hooks'
-import { muestraCajonInteraccion } from '../../../../redux/ducks/servicio'
+import { muestraCajonInteraccion, seleccionaInteraccion } from '../../../../redux/ducks/servicio'
 import CajonInteraccion from '../CajonInteraccion'
 import iconoSinCitas from '@iconify/icons-mdi/robot'
 import './ListaInteracciones.css'
-import { EstadoInteraccion, IDEstadoInteraccion } from '../../../../api/types/servicio'
+import { IDEstadoInteraccion } from '../../../../api/types/servicio'
 import { RootState } from '../../../../redux/ducks'
-import { estadosInteracciones } from '../../../../api/estadosInteraccion'
 import classNames from 'classnames'
 import { isTomorrow } from 'date-fns/esm'
 
 const obtenerMensajeSinCitas = (idEstado: IDEstadoInteraccion | undefined) => {
-  const estado = estadosInteracciones.find(e => e.id === idEstado) as EstadoInteraccion
   switch (idEstado) {
     case 'CONFIRMADA':
-      return <>No hay citas <InlineIcon icon={estado.icono} /> confirmadas</>
+      return <>No hay citas confirmadas</>
     case 'CANCELADA':
-      return <>No hay citas <InlineIcon icon={estado.icono} /> anuladas</>
+      return <>No hay citas anuladas</>
     case 'REAGENDADA':
-      return <>No hay citas <InlineIcon icon={estado.icono} /> reagendadas</>
+      return <>No hay citas reagendadas</>
     case 'IMPROCESABLE':
-      return <>No hay citas <InlineIcon icon={estado.icono} /> que no haya entendido</>
+      return <>No hay citas que no haya entendido</>
     default:
-      return <>No hay citas <InlineIcon icon={estado.icono} /> sin respuesta</>
+      return <>No hay citas sin respuesta</>
   }
 }
 
 const ListaInteracciones = () => {
 
   const { data, isLoading } = useInteraccionesServicioYEstadoActivosQuery()
-  const { idEstadoInteraccionActivo, cajonInteraccionVisible } = useSelector((state: RootState) => state.servicio)
-  const [idInteraccionSeleccionada, setIdInteraccionSeleccionada] = useState(-1)
+  const { interaccionActiva, idEstadoInteraccionActivo, cajonInteraccionVisible } = useSelector((state: RootState) => state.servicio)
   const dispatch = useDispatch()
 
   if (isLoading) {
@@ -43,8 +40,6 @@ const ListaInteracciones = () => {
   if (!data || !idEstadoInteraccionActivo) {
     return <div className="ListaInteracciones" />
   }
-
-  console.log(data)
 
   return (
     <div className="ListaInteracciones">
@@ -71,12 +66,12 @@ const ListaInteracciones = () => {
               key={`interaccion-${i}`}
               className={classNames({
                 "ListaInteracciones__interaccion": true,
-                "ListaInteracciones__interaccion--inactiva": !cajonInteraccionVisible || (idInteraccionSeleccionada > 0 && idInteraccionSeleccionada !== interaccion.idUsuario),
-                "ListaInteracciones__interaccion--activa": cajonInteraccionVisible && idInteraccionSeleccionada === interaccion.idUsuario,
+                "ListaInteracciones__interaccion--inactiva": !cajonInteraccionVisible || (interaccionActiva && interaccionActiva.idUsuario !== interaccion.idUsuario),
+                "ListaInteracciones__interaccion--activa": cajonInteraccionVisible && interaccionActiva?.idUsuario === interaccion.idUsuario,
               })}
               onClick={() => {
-                setIdInteraccionSeleccionada(interaccion.idUsuario)
                 dispatch(muestraCajonInteraccion())
+                dispatch(seleccionaInteraccion(interaccion))
               }}
             >
               {interaccion.citas.map((cita, j) => (
@@ -89,7 +84,7 @@ const ListaInteracciones = () => {
                       style={{ background: `hsl(${360 * ((cita.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)` }}
                       className={classNames({
                         "ListaInteracciones__avatar": true,
-                        "ListaInteracciones__avatar--visible": cajonInteraccionVisible && idInteraccionSeleccionada === interaccion.idUsuario,
+                        "ListaInteracciones__avatar--visible": cajonInteraccionVisible && interaccionActiva?.idUsuario === interaccion.idUsuario,
                       })}
                     >
                       {cita.nombre[0]}
