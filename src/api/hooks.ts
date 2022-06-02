@@ -1,7 +1,7 @@
 import { IconifyIcon } from '@iconify/types'
 import axios from 'axios'
 import store from '../redux/store'
-import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta } from './types/servicio'
+import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta, Conversacion, Mensaje } from './types/servicio'
 import { parse, format, parseISO, addHours } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useQuery, useQueryClient } from 'react-query'
@@ -183,12 +183,12 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
     ['servicio', idServicioActivo],
     () => obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino),
     {
-      onSuccess: interacciones => {
+      select: interacciones => {
         interacciones.forEach(interaccion => {
           queryClient.setQueryData(['interaccion', idServicioActivo, interaccion.idUsuario], interaccion)
         })
+        return interacciones.filter(d => idEstadoInteraccionActivo === d.estadoInteraccion.id)
       },
-      select: interacciones => interacciones.filter(d => idEstadoInteraccionActivo === d.estadoInteraccion.id),
       enabled: !!idServicioActivo && !!idEstadoInteraccionActivo
     }
   )
@@ -211,4 +211,45 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
       }))
     }
   )
+}
+
+const obtenerConversaciones = async (idServicio: number, idUsuario: number): Promise<Conversacion[]> => {
+  const { login }: any = store.getState()
+  const { token } = login
+  const url = `${API_ROOT}/chat/${idServicio}/${idUsuario}`
+  const chatAPIResponse: any = await axios.get(url, { headers: { 'Api-Token': token } })
+  const conversaciones: Conversacion[] = chatAPIResponse.data.data.conversations.map((c: any): Conversacion => {
+    return {
+      inicio: parseISO(c.start),
+      mensajes: c.messages.map((m: any): Mensaje => ({
+        timestamp: parseISO(m.start),
+        mensaje: m.texto,
+        emisor: 'USUARIO',
+        tipo: 'TEXTO'
+      }))
+    }
+  })
+  conversaciones.sort((c1, c2) => c1.inicio < c2.inicio ? -1 : 1)
+  return conversaciones
+}
+
+export const useInteraccionActivaQuery = () => {
+  const { idServicioActivo, idUsuarioActivo } = useSelector((state: RootState) => state.servicio)
+  const queryClient = useQueryClient()
+  return useQuery(
+    ['interaccion', idServicioActivo, idUsuarioActivo],
+    async () => {
+      const conversaciones = await obtenerConversaciones(idServicioActivo as number, idUsuarioActivo as number)
+      const interaccion = queryClient.getQueryData(['interaccion', idServicioActivo, idUsuarioActivo]) as Interaccion
+      return {
+        ...interaccion,
+        conversaciones
+      }
+    },
+    {
+      refetchOnWindowFocus: false,
+      enabled: !!idServicioActivo && !!idUsuarioActivo
+    }
+  )
+
 }

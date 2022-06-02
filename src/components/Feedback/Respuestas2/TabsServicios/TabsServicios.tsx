@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { useServiciosQuery } from '../../../../api/hooks'
 import { RootState } from '../../../../redux/ducks'
-import { toggleCajonFiltros, seleccionaServicio } from '../../../../redux/ducks/servicio'
+import { toggleCajonFiltros, seleccionaServicio, escondeCajonInteraccion } from '../../../../redux/ducks/servicio'
 import iconoMenu from '@iconify/icons-mdi/menu'
 import './TabsServicios.css'
 
@@ -43,7 +43,10 @@ const TabsServicios = () => {
                 "TabsServicios__tab--activo": servicio.id === idServicioActivo,
               })}
               key={`tab-servicio-${i}`}
-              onClick={() => dispatch(seleccionaServicio(servicio.id))}
+              onClick={() => {
+                dispatch(escondeCajonInteraccion())
+                dispatch(seleccionaServicio(servicio.id))
+              }}
             >
               <Icon icon={servicio.icono} />
               {servicio.nombre}

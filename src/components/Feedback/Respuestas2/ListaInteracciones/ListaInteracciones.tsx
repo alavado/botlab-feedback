@@ -3,7 +3,7 @@ import { format } from 'date-fns'
 import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useInteraccionesServicioYEstadoActivosQuery } from '../../../../api/hooks'
-import { muestraCajonInteraccion, seleccionaInteraccion } from '../../../../redux/ducks/servicio'
+import { muestraCajonInteraccion, seleccionaUsuario } from '../../../../redux/ducks/servicio'
 import CajonInteraccion from '../CajonInteraccion'
 import iconoSinCitas from '@iconify/icons-mdi/robot'
 import './ListaInteracciones.css'
@@ -30,7 +30,7 @@ const obtenerMensajeSinCitas = (idEstado: IDEstadoInteraccion | undefined) => {
 const ListaInteracciones = () => {
 
   const { data, isLoading } = useInteraccionesServicioYEstadoActivosQuery()
-  const { interaccionActiva, idEstadoInteraccionActivo, cajonInteraccionVisible } = useSelector((state: RootState) => state.servicio)
+  const { idUsuarioActivo, idEstadoInteraccionActivo, cajonInteraccionVisible } = useSelector((state: RootState) => state.servicio)
   const dispatch = useDispatch()
 
   if (isLoading) {
@@ -66,12 +66,12 @@ const ListaInteracciones = () => {
               key={`interaccion-${i}`}
               className={classNames({
                 "ListaInteracciones__interaccion": true,
-                "ListaInteracciones__interaccion--inactiva": !cajonInteraccionVisible || (interaccionActiva && interaccionActiva.idUsuario !== interaccion.idUsuario),
-                "ListaInteracciones__interaccion--activa": cajonInteraccionVisible && interaccionActiva?.idUsuario === interaccion.idUsuario,
+                "ListaInteracciones__interaccion--inactiva": !cajonInteraccionVisible || (idUsuarioActivo && idUsuarioActivo !== interaccion.idUsuario),
+                "ListaInteracciones__interaccion--activa": cajonInteraccionVisible && idUsuarioActivo === interaccion.idUsuario,
               })}
               onClick={() => {
                 dispatch(muestraCajonInteraccion())
-                dispatch(seleccionaInteraccion(interaccion))
+                dispatch(seleccionaUsuario(interaccion.idUsuario))
               }}
             >
               {interaccion.citas.map((cita, j) => (
@@ -84,7 +84,7 @@ const ListaInteracciones = () => {
                       style={{ background: `hsl(${360 * ((cita.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)` }}
                       className={classNames({
                         "ListaInteracciones__avatar": true,
-                        "ListaInteracciones__avatar--visible": cajonInteraccionVisible && interaccionActiva?.idUsuario === interaccion.idUsuario,
+                        "ListaInteracciones__avatar--visible": cajonInteraccionVisible && idUsuarioActivo === interaccion.idUsuario,
                       })}
                     >
                       {cita.nombre[0]}

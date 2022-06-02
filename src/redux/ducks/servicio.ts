@@ -4,7 +4,7 @@ import { IDEstadoInteraccion, Interaccion } from '../../api/types/servicio'
 interface servicioState {
   idServicioActivo?: number,
   idEstadoInteraccionActivo?: IDEstadoInteraccion,
-  interaccionActiva?: Interaccion,
+  idUsuarioActivo?: number,
   fechaInicio: Date,
   fechaTermino: Date,
   cajonFiltrosVisible: boolean,
@@ -20,7 +20,7 @@ const servicioSlice = createSlice({
     fechaTermino: new Date(),
     cajonFiltrosVisible: false,
     cajonInteraccionVisible: false,
-    interaccionActiva: undefined,
+    idUsuarioActivo: undefined,
   } as servicioState,
   reducers: {
     seleccionaServicio(state, action: PayloadAction<number>) {
@@ -38,8 +38,8 @@ const servicioSlice = createSlice({
     escondeCajonInteraccion(state) {
       state.cajonInteraccionVisible = false
     },
-    seleccionaInteraccion(state, action) {
-      state.interaccionActiva = action.payload
+    seleccionaUsuario(state, action) {
+      state.idUsuarioActivo = action.payload
     }
   }
 })
@@ -50,7 +50,7 @@ export const {
   toggleCajonFiltros,
   muestraCajonInteraccion,
   escondeCajonInteraccion,
-  seleccionaInteraccion,
+  seleccionaUsuario,
 } = servicioSlice.actions
 
 export default servicioSlice.reducer
