@@ -16,6 +16,8 @@ const CajonInteraccion = () => {
 
   const data = queryClient.getQueryData(['interaccion', idServicioActivo, interaccionActiva?.idUsuario]) as Interaccion
 
+  console.log(data)
+
   return (
     <div className={classNames({
       "CajonInteraccion": true,
@@ -36,7 +38,14 @@ const CajonInteraccion = () => {
         <Icon icon={iconoCerrarCajon} />
       </button>
       <div className="CajonInteraccion__superior">
-        {data.citas[0].nombre}
+        <div
+          className="CajonInteraccion__avatar"
+          style={{ background: `hsl(${360 * ((data?.citas[0]?.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)` }}
+        >
+          {data?.citas[0]?.nombre[0]}
+        </div>
+        <h2 className="CajonInteraccion__titulo">{data?.citas[0]?.nombre}</h2>
+        <p className="CajonInteraccion__subtitulo">+555 55 555 234</p>
       </div>
     </div>
   )

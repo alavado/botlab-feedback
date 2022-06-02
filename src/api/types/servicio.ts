@@ -22,7 +22,9 @@ export interface Interaccion {
   idUsuario: number,
   estadoInteraccion: EstadoInteraccion,
   inicio: Date,
-  citas: Cita[]
+  citas: Cita[],
+  telefono?: string,
+  conversaciones?: Conversacion[],
 }
 
 export interface Cita {
@@ -47,4 +49,16 @@ export interface EstadoInteraccion {
   id: IDEstadoInteraccion,
   descripcion?: string,
   icono: IconifyIcon
+}
+
+export interface Conversacion {
+  inicio: Date,
+  mensajes: Mensaje[],
+}
+
+export interface Mensaje {
+  timestamp: Date,
+  mensaje: String,
+  emisor: 'BOT' | 'USUARIO',
+  tipo: 'TEXTO' | 'AUDIO' | 'IMAGEN' | 'VIDEO'
 }
