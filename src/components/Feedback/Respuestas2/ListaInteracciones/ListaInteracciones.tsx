@@ -11,6 +11,7 @@ import { EstadoInteraccion, IDEstadoInteraccion } from '../../../../api/types/se
 import { RootState } from '../../../../redux/ducks'
 import { estadosInteracciones } from '../../../../api/estadosInteraccion'
 import classNames from 'classnames'
+import { isTomorrow } from 'date-fns/esm'
 
 const obtenerMensajeSinCitas = (idEstado: IDEstadoInteraccion | undefined) => {
   const estado = estadosInteracciones.find(e => e.id === idEstado) as EstadoInteraccion
@@ -43,6 +44,8 @@ const ListaInteracciones = () => {
     return <div className="ListaInteracciones" />
   }
 
+  console.log(data)
+
   return (
     <div className="ListaInteracciones">
       <CajonInteraccion />
@@ -54,6 +57,7 @@ const ListaInteracciones = () => {
         <div>Fecha cita</div>
         <div>Hora cita</div>
         <div>Tratante</div>
+        <div>Sucursal</div>
       </div>
       {data.length === 0
         ? <div className="ListaInteracciones__sin_citas">
@@ -81,17 +85,21 @@ const ListaInteracciones = () => {
                 >
                   <div>{j === 0 ? format(interaccion.inicio, "HH:mm") : ''}</div>
                   <div>
-                    {/* <div
-                      style={{ background: `hsl(${360 * ((cita.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 75%, 46%)` }}
-                      className="ListaInteracciones__avatar"
+                    <div
+                      style={{ background: `hsl(${360 * ((cita.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)` }}
+                      className={classNames({
+                        "ListaInteracciones__avatar": true,
+                        "ListaInteracciones__avatar--visible": cajonInteraccionVisible && idInteraccionSeleccionada === interaccion.idUsuario,
+                      })}
                     >
                       {cita.nombre[0]}
-                    </div> */}
-                    {cita.nombre} <InlineIcon icon={cita.estadoInteraccion.icono} />
+                    </div>
+                    {cita.nombre} <InlineIcon className="ListaInteracciones__icono_estado_interaccion" icon={cita.estadoInteraccion.icono} />
                   </div>
-                  <div>{cita.fecha ? format(cita.fecha, 'dd/MM') : '-'}</div>
+                  <div>{cita.fecha ? `${isTomorrow(cita.fecha) ? 'mañana, ' : ''}${format(cita.fecha, 'd/M')}` : '-'}</div>
                   <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>
                   <div>{cita.responsable}</div>
+                  <div>{interaccion.sucursal}</div>
                 </Fragment>
               ))}
             </div>

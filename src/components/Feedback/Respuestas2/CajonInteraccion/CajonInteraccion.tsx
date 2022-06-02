@@ -11,6 +11,8 @@ const CajonInteraccion = () => {
   const { cajonInteraccionVisible } = useSelector((state: RootState) => state.servicio)
   const dispatch = useDispatch()
 
+  console.log(cajonInteraccionVisible)
+
   return (
     <div className={classNames({
       "CajonInteraccion": true,
@@ -31,7 +33,7 @@ const CajonInteraccion = () => {
         <Icon icon={iconoCerrarCajon} />
       </button>
       <div className="CajonInteraccion__superior">
-
+        María de los Ángeles
       </div>
     </div>
   )

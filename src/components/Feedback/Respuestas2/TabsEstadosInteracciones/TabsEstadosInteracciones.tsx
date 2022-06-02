@@ -9,11 +9,11 @@ import './TabsEstadosInteracciones.css'
 
 const TabsEstadosInteracciones = () => {
 
-  const { data: estados, isLoading } = usePosiblesEstadosInteraccionesQuery()
+  const { data, isLoading } = usePosiblesEstadosInteraccionesQuery()
   const { idEstadoInteraccionActivo } = useSelector((state: RootState) => state.servicio)
   const dispatch = useDispatch()
 
-  if (!isLoading && !estados) {
+  if (!isLoading && !data) {
     return (
       <div className="TabsEstadosInteracciones">
         <p className="TabsEstadosInteracciones__mensaje_paso_previo">
@@ -28,9 +28,9 @@ const TabsEstadosInteracciones = () => {
 
   return (
     <div className="TabsEstadosInteracciones">
-      {isLoading || !estados
-        ? 'Cargando...'
-        : estados.map((estado, i) => (
+      {isLoading || !data
+        ? <div className="TabsEstadosInteracciones"></div>
+        : data.map(({ estado, conteo }, i) => (
             <button
               className={classNames({
                 "TabsEstadosInteracciones__tab": true,
@@ -41,7 +41,7 @@ const TabsEstadosInteracciones = () => {
             >
               <Icon icon={estado.icono} />
               <div>
-                <p>{estado.descripcion}</p>
+                <p>{estado.descripcion} <span className="TabsEstadosInteracciones__conteo">{conteo}</span></p>
               </div>
             </button>
           ))

@@ -13,11 +13,37 @@
   background-color: var(--color-principal);
   color: var(--color-texto-claro);
   padding: 0 .75rem;
+  justify-content: space-between;
+}
+
+.Respuestas2__contenedor_start {
+  display: flex;
+  align-items: center;
 }
 
 .Respuestas2__titulo {
   font-weight: bold;
   font-size: .75rem;
+}
+
+.Respuestas2__selector_sucursal {
+  width: 100%;
+  height: 2rem;
+  background-color: transparent;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .35rem;
+  color: var(--color-texto-claro);
+  left: 0;
+  font-size: .75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.Respuestas2__selector_sucursal svg {
+  font-size: .85rem;
 }
 
 .Respuestas2__lateral {

@@ -200,7 +200,10 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
     {
       refetchOnWindowFocus: false,
       enabled: !!idServicioActivo,
-      select: () => estadosInteracciones
+      select: data => estadosInteracciones.map(estado => ({
+        estado,
+        conteo: data.filter(d => d.estadoInteraccion.id === estado.id).length
+      }))
     }
   )
 }

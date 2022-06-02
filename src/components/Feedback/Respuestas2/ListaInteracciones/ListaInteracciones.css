@@ -2,12 +2,14 @@
   padding-top: 0rem;
   background-color: var(--color-fondo);
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: calc(100vh - 6rem);
 }
 
 .ListaInteracciones__interaccion {
   display: grid;
-  grid-template-columns: 8rem 15rem 5rem 5rem 1fr;
+  grid-template-columns: 8rem 15rem 6rem 5rem 9rem 1fr;
   font-size: .6rem;
   border-bottom: 1px solid var(--color-bordes);
   cursor: pointer;
@@ -27,7 +29,6 @@
   height: 2rem;
   display: flex;
   align-items: center;
-  gap: .35rem;
 }
 
 .ListaInteracciones__interaccion > div:first-child {
@@ -40,6 +41,9 @@
 
 .ListaInteracciones__interaccion--encabezados {
   background-color: hsl(225, 21%, 97%);
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 
 .ListaInteracciones__sin_citas {
@@ -80,7 +84,7 @@
 }
 
 .ListaInteracciones__interaccion--activa::after {
-  right: 32.5rem;
+  right: 31.75rem;
   box-shadow: 0 0 .15rem var(--color-sombras);
 }
 
@@ -88,6 +92,25 @@
   box-shadow: 0 0 .25rem var(--color-sombras);
   border-bottom: 1px solid var(--color-sombras);
   z-index: 2;
+}
+
+.ListaInteracciones__avatar {
+  width: 0;
+  height: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-claro);
+  opacity: 0;
+}
+
+.ListaInteracciones__avatar--visible {
+  animation: aparece-avatar-fila-interaccion .15s ease both;
+}
+
+.ListaInteracciones__icono_estado_interaccion {
+  margin-left: .35rem;
 }
 
 @keyframes aparece-mensaje-sin-citas {
@@ -98,5 +121,23 @@
   100% {
     opacity: 1;
     transform: translateY(-.75rem) scale(1);
+  }
+}
+
+@keyframes aparece-avatar-fila-interaccion {
+  0% {
+    width: 0;
+    transform: scale(.75);
+  }
+  50% {
+    width: 1rem;
+    opacity: 0;
+    transform: scale(.75);
+  }
+  100% {
+    width: 1rem;
+    transform: scale(1);
+    opacity: 1;
+    margin-right: .35rem;
   }
 }
