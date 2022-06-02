@@ -9,9 +9,11 @@ import cero from './cero'
 import reacciones from './reacciones'
 import novedades from './novedades'
 import alertas from './alertas'
-import servicio from './servicio'
 import tutoriales from './tutoriales'
 import { combineReducers } from 'redux'
+
+import servicio from './servicio'
+import interaccion from './interaccion'
 
 const rootReducer = combineReducers({
   login,
@@ -26,6 +28,7 @@ const rootReducer = combineReducers({
   novedades,
   alertas,
   servicio,
+  interaccion,
   tutoriales,
 })
 

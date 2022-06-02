@@ -234,13 +234,13 @@ const obtenerConversaciones = async (idServicio: number, idUsuario: number): Pro
 }
 
 export const useInteraccionActivaQuery = () => {
-  const { idServicioActivo, idUsuarioActivo } = useSelector((state: RootState) => state.servicio)
+  const { idServicioInteraccionActiva, idUsuarioInteraccionActiva } = useSelector((state: RootState) => state.interaccion)
   const queryClient = useQueryClient()
   return useQuery(
-    ['interaccion', idServicioActivo, idUsuarioActivo],
+    ['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva],
     async () => {
-      const conversaciones = await obtenerConversaciones(idServicioActivo as number, idUsuarioActivo as number)
-      const interaccion = queryClient.getQueryData(['interaccion', idServicioActivo, idUsuarioActivo]) as Interaccion
+      const conversaciones = await obtenerConversaciones(idServicioInteraccionActiva as number, idUsuarioInteraccionActiva as number)
+      const interaccion = queryClient.getQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva]) as Interaccion
       return {
         ...interaccion,
         conversaciones
@@ -248,7 +248,7 @@ export const useInteraccionActivaQuery = () => {
     },
     {
       refetchOnWindowFocus: false,
-      enabled: !!idServicioActivo && !!idUsuarioActivo
+      enabled: !!idServicioInteraccionActiva && !!idUsuarioInteraccionActiva
     }
   )
 
