@@ -1,4 +1,4 @@
-import { InlineIcon } from '@iconify/react'
+import Icon, { InlineIcon } from '@iconify/react'
 import { format } from 'date-fns'
 import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,6 +12,7 @@ import { RootState } from '../../../../redux/ducks'
 import classNames from 'classnames'
 import { isTomorrow } from 'date-fns/esm'
 import { seleccionaInteraccion } from '../../../../redux/ducks/interaccion'
+import iconoApuntandoAEstadosInteracciones from '@iconify/icons-mdi/triangle-small-up'
 
 const obtenerMensajeSinCitas = (idEstado: IDEstadoInteraccion | undefined) => {
   switch (idEstado) {
@@ -35,12 +36,23 @@ const ListaInteracciones = () => {
   const { idUsuarioInteraccionActiva } = useSelector((state: RootState) => state.interaccion)
   const dispatch = useDispatch()
 
-  if (isLoading) {
-    return <div></div>
+  if (isLoading || !data || !idServicioActivo) {
+    return (
+      <div className="ListaInteracciones" />
+    )
   }
 
-  if (!data || !idServicioActivo || !idEstadoInteraccionActivo) {
-    return <div className="ListaInteracciones" />
+  if (!idEstadoInteraccionActivo) {
+    return (
+      <div className="ListaInteracciones">
+        <p className="ListaInteracciones__mensaje_paso_previo">
+          <Icon
+            className="ListaInteracciones__icono_paso_previo"
+            icon={iconoApuntandoAEstadosInteracciones}
+          /> Selecciona un estado
+        </p>
+      </div>
+    )
   }
 
   return (

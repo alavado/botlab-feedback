@@ -10,6 +10,7 @@ import classNames from 'classnames'
 import { useSelector } from 'react-redux'
 import { InlineIcon } from '@iconify/react'
 import iconoSucursal from '@iconify/icons-mdi/place'
+import iconoCalendario from '@iconify/icons-mdi/calendar-check'
 import iconoSeleccionarSucursal from '@iconify/icons-mdi/triangle-small-down'
 
 const Respuestas2 = () => {
@@ -23,10 +24,6 @@ const Respuestas2 = () => {
     }
   ])
 
-  if (1 === 1) {
-    return null
-  }
-
   return (
     <div className="Respuestas2">
       <div className="Respuestas2__superior">
@@ -38,9 +35,16 @@ const Respuestas2 = () => {
           <button>Usuario</button>
         </div>
         <div className="Respuestas2__selector_sucursal">
-          <InlineIcon icon={iconoSucursal} />
-          Todas las sucursales
-          <InlineIcon icon={iconoSeleccionarSucursal} />
+          <div className="Respuestas2__boton_selector">
+            <InlineIcon icon={iconoCalendario} />
+            hoy, viernes 3 de junio
+            <InlineIcon icon={iconoSeleccionarSucursal} />
+          </div>
+          <div className="Respuestas2__boton_selector">
+            <InlineIcon icon={iconoSucursal} />
+            Todas las sucursales
+            <InlineIcon icon={iconoSeleccionarSucursal} />
+          </div>
         </div>
       </div>
       <aside
@@ -49,16 +53,10 @@ const Respuestas2 = () => {
           "Respuestas2__lateral--visible": cajonFiltrosVisible,
         })}
       >
-        <p style={{ fontSize: '.65rem', paddingBottom: '.5rem', width: '60ch' }}>
-          Inicio interacción
-        </p>
-        <DateRange
-          editableDateInputs={true}
-          onChange={item => setState([item.selection])}
-          moveRangeOnFirstSelection={false}
-          ranges={state}
-          locale={es}
-        />
+        <h2>Sucursal</h2>
+        <li>
+          
+        </li>
       </aside>
       <TabsServicios />
       <TabsEstadosInteracciones />

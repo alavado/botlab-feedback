@@ -23,7 +23,8 @@ export interface Interaccion {
   estadoInteraccion: EstadoInteraccion,
   inicio: Date,
   citas: Cita[],
-  telefono?: string,
+  nombreBot?: string,
+  telefonoUsuario?: string,
   conversaciones?: Conversacion[],
 }
 

@@ -13,6 +13,12 @@ const TabsEstadosInteracciones = () => {
   const { idEstadoInteraccionActivo } = useSelector((state: RootState) => state.servicio)
   const dispatch = useDispatch()
 
+  if (isLoading) {
+    return (
+      <div className="TabsEstadosInteracciones" />
+    )
+  }
+
   if (!isLoading && !data) {
     return (
       <div className="TabsEstadosInteracciones">
@@ -20,7 +26,7 @@ const TabsEstadosInteracciones = () => {
           <Icon
             className="TabsEstadosInteracciones__icono_paso_previo"
             icon={iconoApuntandoAServicioPrevio}
-          /> Seleccione un servicio
+          /> Selecciona un servicio
         </p>
       </div>
     )

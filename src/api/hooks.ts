@@ -10,6 +10,7 @@ import { RootState } from '../redux/ducks'
 import iconoConfirmacion from '@iconify/icons-mdi/user'
 import iconoConfirmacionMulticita from '@iconify/icons-mdi/users'
 import { estadosInteracciones } from './estadosInteraccion'
+import { chatAPIMessage, chatAPIResponse } from './types/responses'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -185,7 +186,9 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
     {
       select: interacciones => {
         interacciones.forEach(interaccion => {
-          queryClient.setQueryData(['interaccion', idServicioActivo, interaccion.idUsuario], interaccion)
+          if (!queryClient.getQueryData(['interaccion', idServicioActivo, interaccion.idUsuario])) {
+            queryClient.setQueryData(['interaccion', idServicioActivo, interaccion.idUsuario], interaccion)
+          }
         })
         return interacciones.filter(d => idEstadoInteraccionActivo === d.estadoInteraccion.id)
       },
@@ -213,24 +216,30 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
   )
 }
 
-const obtenerConversaciones = async (idServicio: number, idUsuario: number): Promise<Conversacion[]> => {
+const obtenerConversaciones = async (idServicio: number, idUsuario: number): Promise<{nombreBot: string, telefonoUsuario: string, conversaciones: Conversacion[]}> => {
   const { login }: any = store.getState()
   const { token } = login
   const url = `${API_ROOT}/chat/${idServicio}/${idUsuario}`
-  const chatAPIResponse: any = await axios.get(url, { headers: { 'Api-Token': token } })
-  const conversaciones: Conversacion[] = chatAPIResponse.data.data.conversations.map((c: any): Conversacion => {
+  const response: chatAPIResponse = (await axios.get(url, { headers: { 'Api-Token': token } })).data
+  const nombreBot = response.data.bot.name
+  const telefonoUsuario = response.data.user.phone
+  const conversaciones: Conversacion[] = response.data.conversations.map((c: any): Conversacion => {
     return {
       inicio: parseISO(c.start),
-      mensajes: c.messages.map((m: any): Mensaje => ({
-        timestamp: parseISO(m.start),
-        mensaje: m.texto,
-        emisor: 'USUARIO',
+      mensajes: c.messages.map((m: chatAPIMessage): Mensaje => ({
+        timestamp: parseISO(m.timestamp),
+        mensaje: m.message,
+        emisor: m.type === 'bot' ? 'BOT' : 'USUARIO',
         tipo: 'TEXTO'
       }))
     }
   })
   conversaciones.sort((c1, c2) => c1.inicio < c2.inicio ? -1 : 1)
-  return conversaciones
+  return {
+    nombreBot,
+    telefonoUsuario,
+    conversaciones
+  }
 }
 
 export const useInteraccionActivaQuery = () => {
@@ -239,12 +248,14 @@ export const useInteraccionActivaQuery = () => {
   return useQuery(
     ['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva],
     async () => {
-      const conversaciones = await obtenerConversaciones(idServicioInteraccionActiva as number, idUsuarioInteraccionActiva as number)
+      const datosExtra = await obtenerConversaciones(idServicioInteraccionActiva as number, idUsuarioInteraccionActiva as number)
       const interaccion = queryClient.getQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva]) as Interaccion
-      return {
+      const interaccionCompleta = {
         ...interaccion,
-        conversaciones
+        ...datosExtra
       }
+      queryClient.setQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva], interaccionCompleta)
+      return interaccionCompleta
     },
     {
       refetchOnWindowFocus: false,

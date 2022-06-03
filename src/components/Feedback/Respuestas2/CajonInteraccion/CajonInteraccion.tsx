@@ -14,10 +14,6 @@ const CajonInteraccion = () => {
 
   const { data } = useInteraccionActivaQuery()
 
-  if (!data) {
-    return null
-  }
-
   console.log(data)
 
   return (
@@ -42,22 +38,37 @@ const CajonInteraccion = () => {
       <div className="CajonInteraccion__superior">
         <div
           className="CajonInteraccion__avatar"
-          style={{ background: `hsl(${360 * ((data.citas[0]?.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)` }}
+          style={{ background:
+            data?.citas[0]
+              ? `hsl(${360 * ((data.citas[0]?.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)`
+              : `gray`
+          }}
         >
-          {data.citas[0].nombre[0]}
+          {data?.citas[0] ? data?.citas[0].nombre[0] : '-'}
         </div>
         <h2 className="CajonInteraccion__titulo">
-          {data.citas.length > 1
-            ? <>{data.citas.map((c, i) => <>{c.nombre.split(' ')[0]} <InlineIcon icon={c.estadoInteraccion.icono} />{i < data.citas.length - 1 && ', '} </>)}</>
-            : <>{data.citas[0].nombre} <InlineIcon icon={data.citas[0].estadoInteraccion.icono} /></>
+          {data?.citas
+            ? data.citas.length > 1
+              ? <>{data.citas.map((c, i) => <>{c.nombre.split(' ')[0]} <InlineIcon icon={c.estadoInteraccion.icono} />{i < data.citas.length - 1 && ', '} </>)}</>
+              : <>{data.citas[0].nombre} <InlineIcon icon={data.citas[0].estadoInteraccion.icono} /></>
+            : 'Cargando...'
           }
         </h2>
         <p className="CajonInteraccion__subtitulo">
-          {data.telefono}
+          {data?.telefonoUsuario || 'Cargando...'}
         </p>
       </div>
       <div className="CajonInteraccion__mensajes">
-        
+        {data?.conversaciones
+          ? data.conversaciones.map(conversacion => (
+            <div>
+              {conversacion.mensajes.map(mensaje => (
+                <div>{mensaje.mensaje}</div>
+              ))}
+            </div>
+          ))
+          : 'Cargando'
+        }
       </div>
     </div>
   )

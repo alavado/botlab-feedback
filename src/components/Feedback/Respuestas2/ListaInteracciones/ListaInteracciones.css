@@ -7,6 +7,21 @@
   max-height: calc(100vh - 6rem);
 }
 
+.ListaInteracciones__mensaje_paso_previo {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  font-size: .7rem;
+  gap: .15rem;
+  padding-left: 2.5rem;
+  padding-top: .25rem;
+}
+
+.ListaInteracciones__icono_paso_previo {
+  font-size: 1.35rem;
+  animation: indicador-seleccion-paso-previo .75s ease-in infinite alternate-reverse both;
+}
+
 .ListaInteracciones__interaccion {
   display: grid;
   grid-template-columns: 2rem 8rem 15rem 6rem 5rem 9rem 1fr;
@@ -31,7 +46,8 @@
   align-items: center;
 }
 
-.ListaInteracciones__interaccion > div:first-child {
+.ListaInteracciones__interaccion > div:first-child,
+.ListaInteracciones__interaccion > div:nth-child(8n) {
   padding-left: 1rem;
   opacity: .35;
   border-right: none;
@@ -112,7 +128,7 @@
 }
 
 .ListaInteracciones__icono_estado_interaccion {
-  margin-left: .35rem;
+  margin-left: .25rem;
 }
 
 @keyframes aparece-mensaje-sin-citas {
@@ -137,7 +153,7 @@
     transform: scale(.75);
   }
   100% {
-    width: 1rem;
+    min-width: 1rem;
     transform: scale(1);
     opacity: 1;
     margin-right: .35rem;
