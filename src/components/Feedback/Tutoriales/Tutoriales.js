@@ -53,8 +53,6 @@ const Tutoriales = () => {
 
   const [indiceVideoActivo, setIndiceVideoActivo] = useState(-1)
 
-  const { link, titulo } = videos[indiceVideoActivo]
-
   return (
     <div className="Tutoriales">
       <h1 className="Tutoriales__titulo">Tutoriales</h1>
@@ -73,16 +71,17 @@ const Tutoriales = () => {
         ))}
       </div>
       <div className="Tutoriales__video">
-        {indiceVideoActivo >= 0 && (
-          <iframe
-            title={titulo}
-            src={link}
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-          >
-          </iframe>
-        )}
+        {indiceVideoActivo >= 0 
+          ? <iframe
+              title={videos[indiceVideoActivo].titulo}
+              src={videos[indiceVideoActivo].link}
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+            >
+            </iframe>
+          : <p className="Tutoriales__indicacion">Selecciona un video</p>
+        }
       </div>
     </div>
   )

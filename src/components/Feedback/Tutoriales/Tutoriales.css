@@ -27,6 +27,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  padding: 1rem;
 }
 
 .Tutoriales__video iframe {
@@ -48,4 +49,8 @@
 .Tutoriales__boton--activo {
   font-weight: bold;
   border-bottom: 2px solid var(--color-principal);
+}
+
+.Tutoriales__indicacion {
+  padding: 3rem;
 }
