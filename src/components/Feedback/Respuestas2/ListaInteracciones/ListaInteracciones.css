@@ -9,7 +9,7 @@
 
 .ListaInteracciones__interaccion {
   display: grid;
-  grid-template-columns: 8rem 15rem 6rem 5rem 9rem 1fr;
+  grid-template-columns: 2rem 8rem 15rem 6rem 5rem 9rem 1fr;
   font-size: .6rem;
   border-bottom: 1px solid var(--color-bordes);
   cursor: pointer;
@@ -32,7 +32,9 @@
 }
 
 .ListaInteracciones__interaccion > div:first-child {
-  padding-left: 2.25rem;
+  padding-left: 1rem;
+  opacity: .35;
+  border-right: none;
 }
 
 .ListaInteracciones__interaccion > div:last-child {

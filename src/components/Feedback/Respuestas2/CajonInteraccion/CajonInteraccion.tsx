@@ -52,7 +52,9 @@ const CajonInteraccion = () => {
             : <>{data.citas[0].nombre} <InlineIcon icon={data.citas[0].estadoInteraccion.icono} /></>
           }
         </h2>
-        <p className="CajonInteraccion__subtitulo">+555 55 555 234</p>
+        <p className="CajonInteraccion__subtitulo">
+          {data.telefono}
+        </p>
       </div>
       <div className="CajonInteraccion__mensajes">
         

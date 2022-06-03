@@ -49,6 +49,7 @@ const ListaInteracciones = () => {
       <div
         className="ListaInteracciones__interaccion ListaInteracciones__interaccion--encabezados"
       >
+        <div></div>
         <div>Inicio interacción</div>
         <div>Paciente</div>
         <div>Fecha cita</div>
@@ -80,6 +81,7 @@ const ListaInteracciones = () => {
                 <Fragment
                   key={`cita-${j}`}
                 >
+                  <div>{j === 0 ? (i + 1) : ''}</div>
                   <div>{j === 0 ? format(interaccion.inicio, "HH:mm") : ''}</div>
                   <div>
                     <div
