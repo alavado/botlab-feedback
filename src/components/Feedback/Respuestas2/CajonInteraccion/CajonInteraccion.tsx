@@ -73,7 +73,7 @@ const CajonInteraccion = () => {
                 >
                   <p className="CajonInteraccion__mensaje_emisor">
                     {mensaje.emisor === 'BOT' && <InlineIcon icon={iconoBot} />}
-                    {mensaje.emisor === 'BOT' ? data.nombreBot : data.citas[0].nombre.split(' ')[0]}
+                    {mensaje.emisor === 'BOT' ? `${data.nombreBot} (Bot)` : data.citas[0].nombre.split(' ')[0]}
                   </p>
                   <p className="CajonInteraccion__mensaje_hora">{format(mensaje.timestamp, 'HH:mm')}</p>
                   <p className="CajonInteraccion__mensaje_contenido">{mensaje.mensaje}</p>

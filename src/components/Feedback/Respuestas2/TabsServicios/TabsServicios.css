@@ -14,9 +14,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 1rem;
+  width: 1.75rem;
   padding: 0;
   margin-right: .25rem;
+  padding-left: .25rem;
   color: var(--color-texto-claro);
 }
 

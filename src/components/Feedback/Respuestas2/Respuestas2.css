@@ -22,9 +22,18 @@
   align-items: center;
 }
 
+.Respuestas2__logo {
+  width: 2.5rem;
+  padding-right: .5rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  border-right: 1px solid rgba(255, 255, 255, .25);
+}
+
 .Respuestas2__titulo {
   font-weight: bold;
   font-size: .75rem;
+  padding-left: .5rem;
 }
 
 .Respuestas2__selector_sucursal {

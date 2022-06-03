@@ -9,6 +9,7 @@ import { InlineIcon } from '@iconify/react'
 import iconoSucursal from '@iconify/icons-mdi/place'
 import iconoCalendario from '@iconify/icons-mdi/calendar-check'
 import iconoSeleccionarSucursal from '@iconify/icons-mdi/triangle-small-down'
+import logoCero from '../../../assets/images/logo_blanco.png'
 
 const Respuestas2 = () => {
 
@@ -18,6 +19,11 @@ const Respuestas2 = () => {
     <div className="Respuestas2">
       <div className="Respuestas2__superior">
         <div className="Respuestas2__contenedor_start">
+          <img
+            src={logoCero}
+            alt="Logo CERO"
+            className="Respuestas2__logo"
+          />
           <h1 className="Respuestas2__titulo">Feedback</h1>
           <IndicadorFetchingGlobal />
         </div>
