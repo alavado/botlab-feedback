@@ -3,6 +3,7 @@
   grid-template: auto auto auto 1fr / auto 1fr;
   width: 100%;
   background-color: var(--color-principal);
+  height: 100vh;
 }
 
 .Respuestas2__superior {

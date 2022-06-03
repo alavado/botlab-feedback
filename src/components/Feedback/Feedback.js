@@ -63,7 +63,14 @@ const Feedback = () => {
       <div className="Feedback">
         {errorCargandoRespuestas}
         <Novedades />
-        <BarraLateral />
+        <Switch>
+          <Route path="/respuestas2">
+            <></>
+          </Route>
+          <Route>
+            <BarraLateral />
+          </Route>
+        </Switch>
         <div className="Feedback__contenedor">
           <Switch>
             <Route exact path="/respuestas2">

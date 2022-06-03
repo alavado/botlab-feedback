@@ -6,6 +6,8 @@ import iconoCerrarCajon from '@iconify/icons-mdi/chevron-double-right'
 import './CajonInteraccion.css'
 import { escondeCajonInteraccion } from '../../../../redux/ducks/servicio'
 import { useInteraccionActivaQuery } from '../../../../api/hooks'
+import { format } from 'date-fns'
+import iconoBot from '@iconify/icons-mdi/robot'
 
 const CajonInteraccion = () => {
 
@@ -61,12 +63,23 @@ const CajonInteraccion = () => {
       <div className="CajonInteraccion__mensajes">
         {data?.conversaciones
           ? data.conversaciones.map(conversacion => (
-            <div>
-              {conversacion.mensajes.map(mensaje => (
-                <div>{mensaje.mensaje}</div>
-              ))}
-            </div>
-          ))
+              conversacion.mensajes.map(mensaje => (
+                <div
+                  className={classNames({
+                    "CajonInteraccion__mensaje": true,
+                    "CajonInteraccion__mensaje--usuario": mensaje.emisor === 'USUARIO',
+                    "CajonInteraccion__mensaje--bot": mensaje.emisor === 'BOT'
+                  })}
+                >
+                  <p className="CajonInteraccion__mensaje_emisor">
+                    {mensaje.emisor === 'BOT' && <InlineIcon icon={iconoBot} />}
+                    {mensaje.emisor === 'BOT' ? data.nombreBot : data.citas[0].nombre.split(' ')[0]}
+                  </p>
+                  <p className="CajonInteraccion__mensaje_hora">{format(mensaje.timestamp, 'HH:mm')}</p>
+                  <p className="CajonInteraccion__mensaje_contenido">{mensaje.mensaje}</p>
+                </div>
+              ))
+            ))
           : 'Cargando'
         }
       </div>

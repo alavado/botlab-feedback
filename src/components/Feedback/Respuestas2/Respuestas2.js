@@ -1,11 +1,8 @@
-import { useState } from 'react'
 import ListaInteracciones from './ListaInteracciones'
 import './Respuestas2.css'
 import TabsEstadosInteracciones from './TabsEstadosInteracciones'
 import TabsServicios from './TabsServicios'
 import IndicadorFetchingGlobal from './IndicadorFetchingGlobal'
-import { DateRange } from 'react-date-range'
-import { es } from 'react-date-range/dist/locale'
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
 import { InlineIcon } from '@iconify/react'
@@ -16,13 +13,6 @@ import iconoSeleccionarSucursal from '@iconify/icons-mdi/triangle-small-down'
 const Respuestas2 = () => {
 
   const { cajonFiltrosVisible } = useSelector(state => state.servicio)
-  const [state, setState] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: 'selection'
-    }
-  ])
 
   return (
     <div className="Respuestas2">
