@@ -84,8 +84,13 @@ const obtenerEstadoInteraccionGeneral = (citas: Cita[]): EstadoInteraccion => {
 const obtenerEstadoInteraccion = (preguntas: Pregunta[]): EstadoInteraccion => {
   const preguntaConfirma = preguntas.find(p => p.texto.includes('Confirma'))
   const preguntaReagenda = preguntas.find(p => p.texto.includes('Reagenda'))
-  if (preguntaReagenda && (preguntaReagenda.respuesta === 'YES' || preguntaReagenda.respuesta === 'REAGENDA')) {
-    return estadoInteraccionPorID('REAGENDADA')
+  if (preguntaReagenda) {
+    if (preguntaReagenda.respuesta === 'YES' || preguntaReagenda.respuesta === 'REAGENDA') {
+      return estadoInteraccionPorID('REAGENDADA')
+    }
+    else if (preguntaReagenda.respuesta === 'OUT') {
+      return estadoInteraccionPorID('IMPROCESABLE')
+    }
   }
   if (preguntaConfirma) {
     if (preguntaConfirma.respuesta === 'NO') {

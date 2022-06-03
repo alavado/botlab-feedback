@@ -4,12 +4,12 @@ import iconoEstadoPendiente from '@iconify/icons-mdi/timer-sand'
 import iconoEstadoConfirma from '@iconify/icons-mdi/check'
 import iconoEstadoCancela from '@iconify/icons-mdi/cancel'
 import iconoEstadoReagenda from '@iconify/icons-mdi/autorenew'
-import iconoEstadoOut from '@iconify/icons-mdi/robot-confused'
+import iconoEstadoOut from '@iconify/icons-mdi/question-mark'
 
 export const estadosInteracciones: EstadoInteraccion[] = [
   {
     id: 'PENDIENTE',
-    descripcion: 'Aún no responde',
+    descripcion: 'Esperando respuesta',
     icono: iconoEstadoPendiente
   },
   {
