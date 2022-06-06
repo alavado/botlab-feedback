@@ -20,6 +20,7 @@ import VisorGuiones from './VisorGuiones'
 import Novedades from '../Novedades'
 import Respuestas2 from './Respuestas2'
 import Tutoriales from './Tutoriales'
+import ModalConfiguracion from './ModalConfiguracion'
 
 const Feedback = () => {
 
@@ -62,6 +63,7 @@ const Feedback = () => {
     <ErrorBoundary>
       <div className="Feedback">
         {errorCargandoRespuestas}
+        <ModalConfiguracion />
         <Novedades />
         <Switch>
           <Route path="/respuestas2">

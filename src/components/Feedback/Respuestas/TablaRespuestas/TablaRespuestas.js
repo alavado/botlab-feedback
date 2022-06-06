@@ -15,13 +15,15 @@ import './TablaRespuestas.css'
 import { fijaScrollTabla } from '../../../../redux/ducks/respuestas'
 import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
 import { tieneAccesoAReportes } from '../../../../helpers/permisos'
+import iconoConfiguracion from '@iconify/icons-mdi/cog'
+import { muestraModal } from '../../../../redux/ducks/configuracion'
 
 const respuestasPorPagina = 50
 
 const TablaRespuestas = () => {
 
-  const { headers } = useSelector(state => state.encuestas)
-  const { cuenta } = useSelector(state => state.login)
+  const { headers, tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { cuenta, nombreUsuario } = useSelector(state => state.login)
   const refContenedor = useRef()
   const dispatch = useDispatch()
   const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla, cacheInvalido } = useSelector(state => state.respuestas)
@@ -37,11 +39,25 @@ const TablaRespuestas = () => {
     const scrollFinal = refContenedor.current?.scrollTop || 0
     return () => dispatch(fijaScrollTabla(scrollFinal))
   }, [dispatch, scrollTabla])
+
+  const encuestaSeleccionada = tipos.find(t => t.id === idEncuestaSeleccionada)
   
   return (
     <div className="TablaRespuestas">
       <div className="TablaRespuestas__superior">
-        <h1 className="TablaRespuestas__titulo">Respuestas</h1>
+        <h1 className="TablaRespuestas__titulo">
+          {encuestaSeleccionada?.nombre.replace(nombreUsuario, '')}
+          <button
+            className="TablaRespuestas__boton_configuracion"
+            tooltip="Configuración"
+            onClick={() => dispatch(muestraModal())}
+          >
+            <Icon
+              className="TablaRespuestas__boton_icono"
+              icon={iconoConfiguracion}
+            />
+          </button>
+        </h1>
         <SelectorRangoFechas />
         <div className="TablaRespuestas__herramientas">
           <BuscadorRespuestas cargando={cargando} />

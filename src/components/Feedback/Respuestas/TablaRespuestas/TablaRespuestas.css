@@ -34,8 +34,11 @@
 
 .TablaRespuestas__titulo {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-family: 'Raleway';
+  width: 15ch;
+  overflow: visible;
+  white-space: nowrap;
   color: var(--color-texto);
 }
 
@@ -112,6 +115,35 @@
 .TablaRespuestas__contenedor_central {
   display: flex;
   gap: .5rem;
+}
+
+.TablaRespuestas__boton_configuracion {
+  background: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
+  margin-left: .25rem;
+  color: var(--color-principal);
+  cursor: pointer;
+  position: relative;
+}
+
+.TablaRespuestas__boton_configuracion:hover::after {
+  position: absolute;
+  content: attr(tooltip);
+  background-color: var(--color-principal-2);
+  color: var(--color-texto-claro);
+  top: calc(100% + .35rem);
+  white-space: nowrap;
+  border-radius: .25rem;
+  padding: 0 .5rem;
+  height: 1.5rem;
+  font-size: .7rem;
+  display: flex;
+  align-items: center;
+  animation: aparece-tooltip-opcion .15s ease both;
+  z-index: 4;
 }
 
 @keyframes aparece-tabla-respuestas {

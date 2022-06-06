@@ -47,7 +47,8 @@
 }
 
 .ListaInteracciones__interaccion > div:first-child,
-.ListaInteracciones__interaccion > div:nth-child(8n) {
+.ListaInteracciones__interaccion > div:nth-child(8),
+.ListaInteracciones__interaccion > div:nth-child(15) {
   padding-left: 1rem;
   opacity: .35;
   border-right: none;
