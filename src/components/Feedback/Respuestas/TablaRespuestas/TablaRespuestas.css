@@ -123,10 +123,15 @@
   display: inline-flex;
   align-items: center;
   font-size: 1rem;
-  margin-left: .25rem;
+  margin-left: .15rem;
   color: var(--color-principal);
   cursor: pointer;
   position: relative;
+  font-size: 1rem;
+  color: var(--color-principal);
+  padding: .35rem .5rem;
+  gap: .25rem;
+  border-radius: .5rem;
 }
 
 .TablaRespuestas__boton_configuracion:hover::after {

@@ -16,12 +16,12 @@ const tiposCambiosConfiguracion = [
     ejemplo: 'nuestro teléfono fijo ahora es 555-3493'
   },
   {
-    texto: 'Cambio de texto',
-    ejemplo: 'donde dice "Buenos días" que diga "Buen día"'
+    texto: 'Cambio de texto final',
+    ejemplo: 'que diga "Gracias 😊" en lugar de "Gracias."'
   },
   {
     texto: 'Inicio de interacciones',
-    ejemplo: 'que en lugar de comenzar a las 9:00 comiencen a las 9:30'
+    ejemplo: 'retrasar el inicio para las 9:30'
   },
   {
     texto: 'Día confirmación',
@@ -35,9 +35,11 @@ const tiposCambiosConfiguracion = [
 
 const ModalConfiguracion = () => {
 
+  const { cuenta } = useSelector(state => state.login)
   const { modalVisible } = useSelector(state => state.configuracion)
   const [tipo, setTipo] = useState(tiposCambiosConfiguracion[0].texto)
   const [detalle, setDetalle] = useState('')
+  const [nombre, setNombre] = useState('')
   const [contacto, setContacto] = useState('')
   const dispatch = useDispatch()
   
@@ -45,7 +47,7 @@ const ModalConfiguracion = () => {
 
   const enviar = e => {
     e.preventDefault()
-    mutate({ tipo, detalle, contacto })
+    mutate({ tipo, detalle, contacto: `Cuenta: ${cuenta} - Nombre: ${nombre} - Contacto: ${contacto}` })
   }
 
   return (
@@ -69,7 +71,14 @@ const ModalConfiguracion = () => {
         <h2 className="ModalConfiguracion__titulo">Configuración del servicio</h2>
         {isSuccess
           ? <div className="ModalConfiguracion__mensaje_feliz">
-              <p>¡Gracias! Tu solicitud quedará implementada en menos de 48 horas</p>
+              <p>¡Gracias! Tu solicitud quedará implementada a la brevedad.</p>
+              <ul className="ModalConfiguracion__lista_cambios">
+                <li>🤖 Tipo de cambio: {tipo}</li>
+                <li>📑 Detalle: {detalle}</li>
+                <li>😀 Nombre: {nombre}</li>
+                <li>✉ Contacto: {contacto}</li>
+              </ul>
+              <p>En caso de dudas, nos pondremos en contacto contigo.</p>
               <button
                 onClick={() => dispatch(escondeModal())}
                 className="ModalConfiguracion__boton_genial"
@@ -84,7 +93,6 @@ const ModalConfiguracion = () => {
               <label>
                 Tipo de cambio
                 <select
-                  value={tipo}
                   onChange={e => {
                     setTipo(e.target.value)
                   }}
@@ -102,7 +110,7 @@ const ModalConfiguracion = () => {
                 </select>
               </label>
               <label>
-                Detalle {tipo ? `(Ej.: ${tiposCambiosConfiguracion.find(t => t.texto === tipo).ejemplo})` : ''}
+                Detalle {tipo ? `(Ej.: ${tiposCambiosConfiguracion.find(t => t.texto === tipo)?.ejemplo})` : ''}
                 <input
                   value={detalle}
                   onChange={e => setDetalle(e.target.value)}
@@ -110,16 +118,25 @@ const ModalConfiguracion = () => {
                 />
               </label>
               <label>
-                Tu contacto (opcional)
+                Tu nombre
+                <input
+                  value={nombre}
+                  className="ModalConfiguracion__input"
+                  onChange={e => setNombre(e.target.value)} 
+                />
+              </label>
+              <label>
+                Tu e-mail
                 <input
                   value={contacto}
-                  onChange={e => setContacto(e.target.value)} 
                   className="ModalConfiguracion__input"
+                  onChange={e => setContacto(e.target.value)} 
+                  type="email"
                 />
               </label>
               <button
                 className="ModalConfiguracion__boton_enviar"
-                disabled={!detalle || !tipo  || isLoading}
+                disabled={!detalle || !tipo  || !contacto || isLoading}
               >
                 <InlineIcon icon={iconoEnviar} /> Actualizar configuración
               </button>

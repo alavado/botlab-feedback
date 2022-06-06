@@ -5,12 +5,14 @@ import iconoVolver from '@iconify/icons-mdi/arrow-left'
 import iconoSiguiente from '@iconify/icons-mdi/play'
 import iconoAnterior from '@iconify/icons-mdi/play'
 import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
-import { InlineIcon } from '@iconify/react'
+import Icon, { InlineIcon } from '@iconify/react'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
 import LoaderChat from '../LoaderChat'
 import Scrambler from '../../../../Scrambler'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
+import { muestraModal } from '../../../../../redux/ducks/configuracion'
+import iconoConfiguracion from '@iconify/icons-mdi/cog'
 
 const DatosChat = ({ cargando, datos, telefono }) => {
 
@@ -91,7 +93,19 @@ const DatosChat = ({ cargando, datos, telefono }) => {
           </div>
         }
       </div>
-      <h1 className="DatosChat__titulo">Datos del chat</h1>
+      <h1 className="DatosChat__titulo">
+        Datos del chat
+        <button
+          className="TablaRespuestas__boton_configuracion"
+          tooltip="Configuración"
+          onClick={() => dispatch(muestraModal())}
+        >
+          <Icon
+            className="TablaRespuestas__boton_icono"
+            icon={iconoConfiguracion}
+          />
+        </button>
+      </h1>
       {!cargando && datos !== undefined
         ? <div className="DatosChat__contenedor_datos">
             <div className="DatosChat__contenedor_header">

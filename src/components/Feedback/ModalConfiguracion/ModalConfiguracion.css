@@ -20,7 +20,7 @@
 .ModalConfiguracion__contenido {
   background-color: var(--color-fondo);
   box-shadow: 0 .15rem .15rem var(--color-sombras);
-  border-radius: .25rem;
+  border-radius: .75rem;
   padding: 1.5rem;
   position: relative;
   display: flex;
@@ -31,8 +31,8 @@
 
 .ModalConfiguracion__boton_cerrar {
   position: absolute;
-  right: .25rem;
-  top: .25rem;
+  right: .5rem;
+  top: .5rem;
   background: none;
   border: none;
   font-size: .85rem;
@@ -41,6 +41,7 @@
 
 .ModalConfiguracion__titulo {
   font-size: 1rem;
+  font-weight: 600;
 }
 
 .ModalConfiguracion__formulario {
@@ -53,8 +54,15 @@
 .ModalConfiguracion__formulario label {
   display: flex;
   flex-direction: column;
-  gap: .25rem;
-  font-size: .7rem;
+  gap: .35rem;
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.ModalConfiguracion__lista_cambios {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
 }
 
 .ModalConfiguracion__boton_enviar {
@@ -111,7 +119,7 @@
 .ModalConfiguracion__selector, .ModalConfiguracion__input {
   padding: .5rem;
   font-size: .8rem;
-  outline: 1px solid var(--color-sombras);
+  outline: 1px solid var(--color-bordes);
   border-radius: .25rem;
   border: none;
   transition: all .15s ease;
