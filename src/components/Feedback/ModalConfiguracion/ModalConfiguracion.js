@@ -33,19 +33,15 @@ const ModalConfiguracion = () => {
           <label>
             Tipo de cambio
             <select>
-              <option>teléfono general de contacto</option>
-              <option>horario de carga de una poll</option>
-              <option>fechas de carga de una poll (qué dia se confirma qué otro día)</option>
+              <option>cambiar teléfono de contacto</option>
+              <option>cambiar texto del bot</option>
+              <option>horario de inicio de interacciones</option>
+              <option>día de confirmación</option>
               <option>nueva carga de poll</option>
-              <option>texto a responder ante pregunta de precios/medios de pago</option>
             </select>
           </label>
           <label>
             Detalle
-            <input />
-          </label>
-          <label>
-            Contacto
             <input />
           </label>
           <button>Enviar</button>

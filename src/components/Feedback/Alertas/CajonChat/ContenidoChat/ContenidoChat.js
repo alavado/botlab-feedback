@@ -20,7 +20,7 @@ const ContenidoChat = () => {
 
   const { id } = useParams()
   const { data: dataAlertas } = useQuery('alertas', getAlertas)
-  const alertaDestacada = dataAlertas.data.find(a => a.id === Number(id))
+  const alertaDestacada = dataAlertas?.data.find(a => a.id === Number(id))
   const { isLoading, data } = useQuery(
     ['chat', alertaDestacada.poll_id, alertaDestacada.user_id],
     () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id),
@@ -36,7 +36,7 @@ const ContenidoChat = () => {
     }
     const conversaciones = data.data.data.conversations
     const eventos = _.flatten(
-      conversaciones.map(({ context, messages, start }) => {
+      conversaciones.filter(c => Object.keys(c.context).length > 0).map(({ context, messages, start }) => {
         const fecha = context.find(p => p.target.includes('date'))?.value
         const hora = context.find(p => p.target.includes('time'))?.value
         const doctor = context.find(p => p.target.includes('dentist') || p.target.includes('doctor'))?.value

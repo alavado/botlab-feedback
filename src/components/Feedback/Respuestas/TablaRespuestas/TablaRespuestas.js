@@ -47,7 +47,7 @@ const TablaRespuestas = () => {
       <div className="TablaRespuestas__superior">
         <h1 className="TablaRespuestas__titulo">
           {encuestaSeleccionada?.nombre.replace(nombreUsuario, '')}
-          <button
+          {/* <button
             className="TablaRespuestas__boton_configuracion"
             tooltip="Configuración"
             onClick={() => dispatch(muestraModal())}
@@ -56,7 +56,7 @@ const TablaRespuestas = () => {
               className="TablaRespuestas__boton_icono"
               icon={iconoConfiguracion}
             />
-          </button>
+          </button> */}
         </h1>
         <SelectorRangoFechas />
         <div className="TablaRespuestas__herramientas">
