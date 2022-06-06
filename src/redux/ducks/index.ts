@@ -9,7 +9,6 @@ import cero from './cero'
 import reacciones from './reacciones'
 import novedades from './novedades'
 import alertas from './alertas'
-import tutoriales from './tutoriales'
 import configuracion from './configuracion'
 import { combineReducers } from 'redux'
 
@@ -30,7 +29,6 @@ const rootReducer = combineReducers({
   alertas,
   servicio,
   interaccion,
-  tutoriales,
   configuracion,
 })
 
