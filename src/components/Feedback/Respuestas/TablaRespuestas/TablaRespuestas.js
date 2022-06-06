@@ -46,8 +46,9 @@ const TablaRespuestas = () => {
     <div className="TablaRespuestas">
       <div className="TablaRespuestas__superior">
         <h1 className="TablaRespuestas__titulo">
-          {encuestaSeleccionada?.nombre.replace(nombreUsuario, '')}
-          {/* <button
+          Respuestas
+          {/* {encuestaSeleccionada?.nombre.replace(nombreUsuario, '')}
+          <button
             className="TablaRespuestas__boton_configuracion"
             tooltip="Configuración"
             onClick={() => dispatch(muestraModal())}
