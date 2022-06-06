@@ -78,7 +78,7 @@ const ModalConfiguracion = () => {
                   <li>🤖 Tipo de cambio: {tipo}</li>
                   <li>📑 Detalle: {detalle}</li>
                   <li>😀 Nombre: {nombre}</li>
-                  <li>✉ Contacto: {contacto}</li>
+                  <li>📧 Contacto: {contacto}</li>
                 </ul>
                 <p>En caso de dudas, nos pondremos en contacto contigo.</p>
                 <button

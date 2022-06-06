@@ -39,14 +39,12 @@ const TablaRespuestas = () => {
     const scrollFinal = refContenedor.current?.scrollTop || 0
     return () => dispatch(fijaScrollTabla(scrollFinal))
   }, [dispatch, scrollTabla])
-
-  const encuestaSeleccionada = tipos.find(t => t.id === idEncuestaSeleccionada)
   
   return (
     <div className="TablaRespuestas">
       <div className="TablaRespuestas__superior">
         <h1 className="TablaRespuestas__titulo">
-          {encuestaSeleccionada?.nombre.replace(nombreUsuario, '')}
+          Respuestas
           <button
             className="TablaRespuestas__boton_configuracion"
             tooltip="Configuración"
