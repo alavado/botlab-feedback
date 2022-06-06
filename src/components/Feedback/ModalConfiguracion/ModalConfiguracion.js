@@ -9,6 +9,7 @@ import { useMutation } from 'react-query'
 import { agregarSolicitud } from '../../../api/endpoints'
 import iconoEnviar from '@iconify/icons-mdi/cog-transfer'
 import iconoGenial from '@iconify/icons-mdi/check-bold'
+import Draggable from 'react-draggable'
 
 const tiposCambiosConfiguracion = [
   {
@@ -37,7 +38,7 @@ const ModalConfiguracion = () => {
 
   const { cuenta } = useSelector(state => state.login)
   const { modalVisible } = useSelector(state => state.configuracion)
-  const [tipo, setTipo] = useState(tiposCambiosConfiguracion[0].texto)
+  const [tipo, setTipo] = useState('')
   const [detalle, setDetalle] = useState('')
   const [nombre, setNombre] = useState('')
   const [contacto, setContacto] = useState('')
@@ -58,91 +59,93 @@ const ModalConfiguracion = () => {
       })}
       onClick={() => dispatch(escondeModal())}
     >
-      <div
-        className="ModalConfiguracion__contenido"
-        onClick={e => e.stopPropagation()}
-      >
-        <button
-          className="ModalConfiguracion__boton_cerrar"
-          onClick={() => dispatch(escondeModal())}
+      <Draggable>
+        <div
+          className="ModalConfiguracion__contenido"
+          onClick={e => e.stopPropagation()}
         >
-          <Icon icon={iconoCerrar} />
-        </button>
-        <h2 className="ModalConfiguracion__titulo">Configuración del servicio</h2>
-        {isSuccess
-          ? <div className="ModalConfiguracion__mensaje_feliz">
-              <p>¡Gracias! Tu solicitud quedará implementada a la brevedad.</p>
-              <ul className="ModalConfiguracion__lista_cambios">
-                <li>🤖 Tipo de cambio: {tipo}</li>
-                <li>📑 Detalle: {detalle}</li>
-                <li>😀 Nombre: {nombre}</li>
-                <li>✉ Contacto: {contacto}</li>
-              </ul>
-              <p>En caso de dudas, nos pondremos en contacto contigo.</p>
-              <button
-                onClick={() => dispatch(escondeModal())}
-                className="ModalConfiguracion__boton_genial"
-              >
-                <InlineIcon icon={iconoGenial} /> ¡Excelente!
-              </button>
-            </div>
-          : <form
-              className="ModalConfiguracion__formulario"
-              onSubmit={enviar}
-            >
-              <label>
-                Tipo de cambio
-                <select
-                  onChange={e => {
-                    setTipo(e.target.value)
-                  }}
-                  defaultValue={tiposCambiosConfiguracion[0].texto}
-                  className="ModalConfiguracion__selector"
+          <button
+            className="ModalConfiguracion__boton_cerrar"
+            onClick={() => dispatch(escondeModal())}
+          >
+            <Icon icon={iconoCerrar} />
+          </button>
+          <h2 className="ModalConfiguracion__titulo">Configuración del servicio</h2>
+          {isSuccess
+            ? <div className="ModalConfiguracion__mensaje_feliz">
+                <p>¡Gracias! Tu solicitud quedará implementada a la brevedad.</p>
+                <ul className="ModalConfiguracion__lista_cambios">
+                  <li>🤖 Tipo de cambio: {tipo}</li>
+                  <li>📑 Detalle: {detalle}</li>
+                  <li>😀 Nombre: {nombre}</li>
+                  <li>✉ Contacto: {contacto}</li>
+                </ul>
+                <p>En caso de dudas, nos pondremos en contacto contigo.</p>
+                <button
+                  onClick={() => dispatch(escondeModal())}
+                  className="ModalConfiguracion__boton_genial"
                 >
-                  {tiposCambiosConfiguracion.map(tipo => (
-                    <option
-                      key={tipo.texto}
-                      value={tipo.texto}
-                    >
-                      {tipo.texto}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Detalle {tipo ? `(Ej.: ${tiposCambiosConfiguracion.find(t => t.texto === tipo)?.ejemplo})` : ''}
-                <input
-                  value={detalle}
-                  onChange={e => setDetalle(e.target.value)}
-                  className="ModalConfiguracion__input"
-                />
-              </label>
-              <label>
-                Tu nombre
-                <input
-                  value={nombre}
-                  className="ModalConfiguracion__input"
-                  onChange={e => setNombre(e.target.value)} 
-                />
-              </label>
-              <label>
-                Tu e-mail
-                <input
-                  value={contacto}
-                  className="ModalConfiguracion__input"
-                  onChange={e => setContacto(e.target.value)} 
-                  type="email"
-                />
-              </label>
-              <button
-                className="ModalConfiguracion__boton_enviar"
-                disabled={!detalle || !tipo  || !contacto || isLoading}
+                  <InlineIcon icon={iconoGenial} /> ¡Excelente!
+                </button>
+              </div>
+            : <form
+                className="ModalConfiguracion__formulario"
+                onSubmit={enviar}
               >
-                <InlineIcon icon={iconoEnviar} /> Actualizar configuración
-              </button>
-            </form>
-        }
-      </div>
+                <label>
+                  Tipo de cambio
+                  <select
+                    onChange={e => {
+                      setTipo(e.target.value)
+                    }}
+                    className="ModalConfiguracion__selector"
+                  >
+                    <option value="" selected disabled hidden>Selecciona uno</option>
+                    {tiposCambiosConfiguracion.map(tipo => (
+                      <option
+                        key={tipo.texto}
+                        value={tipo.texto}
+                      >
+                        {tipo.texto}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  <p>Detalle {tipo && <span className="ModalConfiguracion__ejemplo">(Ej.: {tiposCambiosConfiguracion.find(t => t.texto === tipo)?.ejemplo})</span>}</p>
+                  <input
+                    value={detalle}
+                    onChange={e => setDetalle(e.target.value)}
+                    className="ModalConfiguracion__input"
+                  />
+                </label>
+                <label>
+                  Tu nombre
+                  <input
+                    value={nombre}
+                    className="ModalConfiguracion__input"
+                    onChange={e => setNombre(e.target.value)} 
+                  />
+                </label>
+                <label>
+                  Tu e-mail
+                  <input
+                    value={contacto}
+                    className="ModalConfiguracion__input"
+                    onChange={e => setContacto(e.target.value)} 
+                    type="email"
+                  />
+                </label>
+                <button
+                  className="ModalConfiguracion__boton_enviar"
+                  disabled={!detalle || !tipo  || !contacto || isLoading}
+                >
+                  <InlineIcon icon={iconoEnviar} /> Actualizar configuración
+                </button>
+              </form>
+          }
+        </div>
+      </Draggable>
     </div>
   )
 }
