@@ -5,6 +5,7 @@ import refresh from '@iconify/icons-mdi/arrow-right'
 import option from '@iconify/icons-mdi/check'
 import question from '@iconify/icons-mdi/question-mark'
 import time from '@iconify/icons-mdi/timer-sand'
+import file from '@iconify/icons-mdi/file'
 
 export const YES = 'YES'
 export const NO = 'NO'
@@ -147,21 +148,35 @@ const tags = {
   PC_PRECIO: {
     texto: 'Consulta precio',
     titulo: 'Paciente consulta por precio',
-    icono: option,
+    icono: question,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   PC_SEGURO: {
     texto: 'Consulta seguro',
     titulo: 'Paciente consulta por seguro de salud',
-    icono: option,
+    icono: question,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   PC_DIRECCION: {
     texto: 'Consulta dirección',
     titulo: 'Paciente consulta por dirección',
-    icono: option,
+    icono: question,
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)'
+  },
+  QUIERE_HABLAR: {
+    texto: 'Quiere llamar',
+    titulo: 'Quiere llamar',
+    icono: question,
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)'
+  },
+  MEDIA_IMAGE: {
+    texto: 'Imagen',
+    titulo: 'Paciente envía imagen',
+    icono: file,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
@@ -217,6 +232,13 @@ const tags = {
   'action_result:FAILURE': {
     texto: 'Error',
     titulo: 'Error',
+    icono: cancel,
+    clase: 'TagRespuesta TagRespuesta--no',
+    color: ''
+  },
+  'action_result:NO_OPTION': {
+    texto: 'No se encuentra',
+    titulo: 'No se encuentra',
     icono: cancel,
     clase: 'TagRespuesta TagRespuesta--no',
     color: ''
