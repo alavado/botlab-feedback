@@ -17,13 +17,15 @@ import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
 import { tieneAccesoAReportes } from '../../../../helpers/permisos'
 import iconoConfiguracion from '@iconify/icons-mdi/cog'
 import { muestraModal } from '../../../../redux/ducks/configuracion'
+import { desactivaTooltip } from '../../../../redux/ducks/novedades'
 
 const respuestasPorPagina = 50
 
 const TablaRespuestas = () => {
 
-  const { headers, tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
-  const { cuenta, nombreUsuario } = useSelector(state => state.login)
+  const { headers } = useSelector(state => state.encuestas)
+  const { cuenta } = useSelector(state => state.login)
+  const { tooltipVisible } = useSelector(state => state.novedades)
   const refContenedor = useRef()
   const dispatch = useDispatch()
   const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla, cacheInvalido } = useSelector(state => state.respuestas)
@@ -48,12 +50,21 @@ const TablaRespuestas = () => {
           <button
             className="TablaRespuestas__boton_configuracion"
             tooltip="Configuración"
-            onClick={() => dispatch(muestraModal())}
+            onClick={() => {
+              dispatch(desactivaTooltip())
+              dispatch(muestraModal())
+            }}
           >
             <Icon
               className="TablaRespuestas__boton_icono"
               icon={iconoConfiguracion}
             />
+            {tooltipVisible && (
+              <div className="TablaRespuestas__tooltip_configuracion">
+                <h3>Configuración</h3>
+                <p>Aquí puedes configurar tu servicio</p>
+              </div>
+            )}
           </button>
         </h1>
         <SelectorRangoFechas />

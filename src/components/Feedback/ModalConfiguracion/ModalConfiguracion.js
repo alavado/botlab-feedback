@@ -22,11 +22,11 @@ const tiposCambiosConfiguracion = [
   },
   {
     texto: 'Inicio de interacciones',
-    ejemplo: 'retrasar el inicio para las 9:30'
+    ejemplo: 'retrasar el inicio hasta las 9:30'
   },
   {
     texto: 'Día confirmación',
-    ejemplo: 'confirmar 1 día antes de la cita en lugar de 2'
+    ejemplo: 'desde ahora confirmar 2 días antes de la cita'
   },
   {
     texto: 'Agregar carga',
