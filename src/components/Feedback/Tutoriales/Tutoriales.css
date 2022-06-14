@@ -129,7 +129,24 @@
 }
 
 .Tutoriales__indicacion {
-  padding: 3rem;
+  padding: 0 3rem 3rem 3rem;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: .35rem dashed var(--color-bordes);
+  border-radius: 1rem;
+  font-size: 1rem;
+}
+
+.Tutoriales__boton_indicacion {
+  background: none;
+  border: none;
+  font-size: 3rem;
+  cursor: pointer;
+  color: var(--color-texto);
 }
 
 .Tutoriales__titulo_miniatura {
@@ -141,4 +158,11 @@
   place-self: start start;
   opacity: .75;
   font-size: .5rem;
+}
+
+.Tutoriales__bajada_relleno {
+  width: 10rem;
+  opacity: .05;
+  align-self: center;
+  padding: 6rem 0 10rem 0;
 }

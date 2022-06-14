@@ -1,8 +1,10 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 import play from '@iconify/icons-mdi/play'
+import playlist from '@iconify/icons-mdi/playlist-play'
 import './Tutoriales.css'
-import { InlineIcon } from '@iconify/react'
+import Icon, { InlineIcon } from '@iconify/react'
+import logoCero from '../../../assets/images/logo.png'
 
 const videos = [
   {
@@ -91,7 +93,15 @@ const Tutoriales = () => {
                 allowFullScreen
               >
               </iframe>
-            : <p className="Tutoriales__indicacion">Selecciona un video</p>
+            : <div className="Tutoriales__indicacion">
+                <button
+                  className="Tutoriales__boton_indicacion"
+                  onClick={() => setIndiceVideoActivo(0)}
+                >
+                  <Icon icon={playlist} />
+                </button>
+                <p>Selecciona un video de la lista</p>
+              </div>
           }
         </div>
         <div>
@@ -122,6 +132,11 @@ const Tutoriales = () => {
                 <p className="Tutoriales__autor">Jorge Pérez</p>
               </button>
             ))}
+            <img
+              className="Tutoriales__bajada_relleno"
+              src={logoCero}
+              alt="Logo de Cero"
+            />
           </div>
         </div>
       </div>
