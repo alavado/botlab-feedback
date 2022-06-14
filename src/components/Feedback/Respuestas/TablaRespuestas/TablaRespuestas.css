@@ -98,7 +98,7 @@
 }
 
 .TablaRespuestas__contenedor_tabla--extendido {
-  --h: calc(100vh - calc(2.75rem + 9.5rem));
+  --h: calc(100vh - calc(2.75rem + 7rem));
 }
 
 .TablaRespuestas__contenedor_tabla::-webkit-scrollbar {
