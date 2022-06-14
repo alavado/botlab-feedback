@@ -1,3 +1,4 @@
+
 import check from '@iconify/icons-mdi/check'
 import cancel from '@iconify/icons-mdi/close'
 import refresh from '@iconify/icons-mdi/arrow-right'
@@ -184,6 +185,41 @@ const tags = {
     icono: option,
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
+  },
+  DATETIME: {
+    texto: 'Fecha',
+    titulo: 'Fecha',
+    icono: check,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  COMUNA: {
+    texto: 'Comuna',
+    titulo: 'Comuna',
+    icono: check,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  'COMUNA-DATETIME': {
+    texto: 'Fecha y comuna',
+    titulo: 'Fecha y comuna',
+    icono: check,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  'action_result:SUCCESS': {
+    texto: 'Éxito',
+    titulo: 'Éxito',
+    icono: check,
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  'action_result:FAILURE': {
+    texto: 'Error',
+    titulo: 'Error',
+    icono: cancel,
+    clase: 'TagRespuesta TagRespuesta--no',
+    color: ''
   }
 }
 
