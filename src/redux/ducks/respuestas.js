@@ -80,34 +80,37 @@ const sliceRespuestas = createSlice({
     },
     guardaRespuestas(state, action) {
       const { jsonRespuestas, idEncuesta } = action.payload
-      const respuestas = jsonRespuestas.data.data.map(r => {
-        const respuestaString = Object.keys(r)
-          .reduce((prev, k) => {
-            let slug = ''
-            if (typeof r[k] === 'string') {
-              slug = normalizar(r[k])
-            }
-            else if (r[k]?.tag) {
-              slug = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
-            }
-            return prev + slug
-          }, '')
-        const respuestaNormalizada = Object.keys(r)
-          .reduce((prev, k) => {
-            if (typeof r[k] === 'string') {
-              prev[k] = normalizar(r[k])
-            }
-            else if (r[k]?.tag || r[k]?.tag === '') {
-              prev[k] = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
-            }
-            return prev
-          }, {})
-        return {
-          ...r,
-          respuestaString,
-          respuestaNormalizada
-        }
-      }).reverse()
+      const respuestas = jsonRespuestas.data.data
+        .filter(r => r.started === 'True')
+        .map(r => {
+          const respuestaString = Object.keys(r)
+            .reduce((prev, k) => {
+              let slug = ''
+              if (typeof r[k] === 'string') {
+                slug = normalizar(r[k])
+              }
+              else if (r[k]?.tag) {
+                slug = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
+              }
+              return prev + slug
+            }, '')
+          const respuestaNormalizada = Object.keys(r)
+            .reduce((prev, k) => {
+              if (typeof r[k] === 'string') {
+                prev[k] = normalizar(r[k])
+              }
+              else if (r[k]?.tag || r[k]?.tag === '') {
+                prev[k] = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
+              }
+              return prev
+            }, {})
+          return {
+            ...r,
+            respuestaString,
+            respuestaNormalizada
+          }
+        })
+        .reverse()
       try {
         let categorias = Object.keys(respuestas[0]).map(k => (
           respuestas[0][k]?.tag !== undefined

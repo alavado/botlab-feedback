@@ -173,11 +173,13 @@ const obtenerInteracciones = async (servicio: Servicio, fechaInicio: Date = new 
   const termino = format(fechaTermino, 'yyyy-MM-dd')
   const url = `${API_ROOT}/answers/${servicio.id}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`
   const answersAPIResponse: any = await axios.get(url, { headers: { 'Api-Token': token } })
-  const interacciones: Interaccion[] = answersAPIResponse.data.data.map((interaccion: any): Interaccion => {
-    return interaccion.n_appointments !== undefined
-      ? construirInteraccionMulticita(interaccion, servicio)
-      : construirInteraccionCitaNormal(interaccion, servicio)
-  })
+  const interacciones: Interaccion[] = answersAPIResponse.data.data
+    .filter((interaccion: any) => interaccion.started === 'True')
+    .map((interaccion: any): Interaccion => {
+      return interaccion.n_appointments !== undefined
+        ? construirInteraccionMulticita(interaccion, servicio)
+        : construirInteraccionCitaNormal(interaccion, servicio)
+    })
   interacciones.sort((i1, i2) => (i1.citas[0].fecha ?? -1) < (i2.citas[0].fecha ?? 1) ? -1 : 1)
   return interacciones
 }
