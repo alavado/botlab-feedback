@@ -8,7 +8,7 @@
   box-shadow: 0 0 .25rem var(--color-sombras);
   transition: all .35s ease;
   background: var(--whatsapp-fondo);
-  border-left: 1px solid var(--color-bores);
+  border-left: 1px solid var(--color-bordes);
   border-top-left-radius: .15rem;
   z-index: 4;
 }
@@ -51,17 +51,10 @@
   gap: .25rem .5rem;
 }
 
-.CajonInteraccion__avatar {
+.CajonInteraccion__superior_avatar {
+  grid-row: span 2;
   width: 1.75rem;
   height: 1.75rem;
-  grid-row: span 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  place-self: center center;
-  border-radius: 50%;
-  background-color: red;
-  color: var(--color-texto-claro);
 }
 
 .CajonInteraccion__titulo {
@@ -72,6 +65,16 @@
 .CajonInteraccion__subtitulo {
   font-size: .65rem;
   place-self: start start;
+  opacity: .75;
+}
+
+.CajonInteraccion__avatar_mensaje {
+  width: .85rem;
+  height: .85rem;
+  font-size: .5rem;
+}
+
+.CajonInteraccion__nombre_emisor_mensaje {
   opacity: .75;
 }
 
@@ -88,7 +91,7 @@
 .CajonInteraccion__mensaje {
   background-color: var(--color-fondo);
   display: grid;
-  grid-template: auto 1fr / 1fr 1fr;
+  grid-template: auto 1fr / 1fr .33fr;
   gap: .35rem 1rem;
   max-width: 66%;
   padding: .5rem;
@@ -131,7 +134,6 @@
   display: flex;
   align-items: center;
   gap: .25rem;
-  opacity: .75;
 }
 
 .CajonInteraccion__mensaje_hora {

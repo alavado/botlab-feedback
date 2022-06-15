@@ -8,6 +8,7 @@ import { escondeCajonInteraccion } from '../../../../redux/ducks/servicio'
 import { useInteraccionActivaQuery } from '../../../../api/hooks'
 import { format } from 'date-fns'
 import iconoBot from '@iconify/icons-mdi/robot'
+import AvatarUsuarios from './AvatarUsuarios'
 
 const CajonInteraccion = () => {
 
@@ -36,15 +37,8 @@ const CajonInteraccion = () => {
         <Icon icon={iconoCerrarCajon} />
       </button>
       <div className="CajonInteraccion__superior">
-        <div
-          className="CajonInteraccion__avatar"
-          style={{ background:
-            data?.citas[0]
-              ? `hsl(${360 * ((data.citas[0]?.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)`
-              : `gray`
-          }}
-        >
-          {data?.citas[0] ? data?.citas[0].nombre[0] : '-'}
+        <div className="CajonInteraccion__superior_avatar">
+          <AvatarUsuarios citas={data?.citas} />
         </div>
         <h2 className="CajonInteraccion__titulo">
           {data?.citas
@@ -71,7 +65,17 @@ const CajonInteraccion = () => {
                 >
                   <p className="CajonInteraccion__mensaje_emisor">
                     {mensaje.emisor === 'BOT' && <InlineIcon icon={iconoBot} />}
-                    {mensaje.emisor === 'BOT' ? `${data.nombreBot} (Bot)` : data.citas[0].nombre.split(' ')[0]}
+                    {mensaje.emisor === 'BOT'
+                      ? `${data.nombreBot} (Bot)`
+                      : <>
+                          <div className="CajonInteraccion__avatar_mensaje" style={{ opacity: 1 }}>
+                            <AvatarUsuarios citas={data?.citas} />
+                          </div>
+                          <span className="CajonInteraccion__nombre_emisor_mensaje">
+                            {data.citas.map(cita => cita.nombre.split(' ')[0]).join(', ')}
+                          </span>
+                        </>
+                    }
                   </p>
                   <p className="CajonInteraccion__mensaje_hora">{format(mensaje.timestamp, 'HH:mm')}</p>
                   <p className="CajonInteraccion__mensaje_contenido">{mensaje.mensaje}</p>
