@@ -7,9 +7,9 @@ const AvatarUsuarios = () => {
   const { data } = useInteraccionActivaQuery()
 
   return data?.citas?.[0]
-    ? <div className="AvatarUsuarios">
+    ? <span className="AvatarUsuarios">
         {data.citas.map((cita: Cita, i: number) => (
-          <div
+          <span
             className="AvatarUsuarios__avatar"
             key={`avatar-cita-${i}`}
             style={{
@@ -19,10 +19,10 @@ const AvatarUsuarios = () => {
             }}
           >
             {cita.nombre[0]}
-          </div>
+          </span>
         ))}
-      </div>
-    : <div className="AvatarUsuarios__skeleton" />
+      </span>
+    : <span className="AvatarUsuarios__skeleton" />
 }
 
 export default AvatarUsuarios

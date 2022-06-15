@@ -7,3 +7,83 @@
   max-height: calc(100vh - 8.75rem);
   padding-bottom: 50vh;
 }
+
+.MensajesInteraccion__dia_mensajes {
+  align-self: center;
+  background-color: var(--color-fondo);
+  font-size: .65rem;
+  padding: .25rem .5rem;
+  border-radius: .25rem;
+  margin: .5rem 0 .25rem 0;
+  filter: drop-shadow(0 1px 1px var(--color-sombras));
+  background-color: var(--whatsapp-fondo-fecha);
+}
+
+.MensajesInteraccion__mensaje_avatar {
+  width: .85rem;
+  height: .85rem;
+  font-size: .5rem;
+}
+
+.MensajesInteraccion__mensaje_nombre_emisor {
+  opacity: .75;
+}
+
+.MensajesInteraccion__mensaje {
+  background-color: var(--color-fondo);
+  display: grid;
+  grid-template: auto 1fr / 1fr .33fr;
+  gap: .35rem 1rem;
+  max-width: 66%;
+  padding: .5rem;
+  font-size: .65rem;
+  border-radius: .25rem;
+  filter: drop-shadow(0 1px 1px var(--color-sombras));
+  position: relative;
+}
+
+.MensajesInteraccion__mensaje::after {
+  content: '';
+  width: .5rem;
+  height: .5rem;
+  background-color: inherit;
+  clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+  top: 0;
+  right: -.45rem;
+  position: absolute;
+}
+
+.MensajesInteraccion__mensaje--usuario {
+  align-self: flex-start;
+  border-top-left-radius: 0;
+}
+
+.MensajesInteraccion__mensaje--bot {
+  align-self: flex-end;
+  border-top-right-radius: 0;
+  background-color: var(--whatsapp-fondo-mensajes-salientes);
+}
+
+.MensajesInteraccion__mensaje--usuario::after {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+  top: 0;
+  left: -.45rem;
+}
+
+.MensajesInteraccion__mensaje_emisor {
+  font-size: .55rem;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.MensajesInteraccion__mensaje_hora {
+  place-self: center end;
+  font-size: .55rem;
+  opacity: .75;
+}
+
+.MensajesInteraccion__mensaje_contenido {
+  grid-column: span 2;
+  line-height: 1.35;
+}

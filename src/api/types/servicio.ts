@@ -9,7 +9,7 @@ export interface Servicio {
   propiedades: PropiedadServicio[]
 }
 
-type TipoPropiedadServicio = 'META' | 'YESNO'
+type TipoPropiedadServicio = 'META' | 'YESNO' | 'INTERNAL'
 
 export interface PropiedadServicio {
   id: string,
@@ -42,6 +42,7 @@ export interface Pregunta {
   id: string,
   texto: string,
   respuesta: string,
+  tipo: TipoPropiedadServicio
 }
 
 export type IDEstadoInteraccion = 'CUALQUIERA' | 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'REAGENDADA' | 'IMPROCESABLE'

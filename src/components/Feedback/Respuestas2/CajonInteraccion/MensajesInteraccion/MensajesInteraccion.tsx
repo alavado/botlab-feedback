@@ -1,47 +1,65 @@
 import { InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import AvatarUsuarios from '../AvatarUsuarios'
-import { format } from 'date-fns'
+import { format, isSameDay, isYesterday, isToday } from 'date-fns'
 import iconoBot from '@iconify/icons-mdi/robot'
 import './MensajesInteraccion.css'
 import { useInteraccionActivaQuery } from '../../../../../api/hooks'
+import React from 'react'
+import { Mensaje } from '../../../../../api/types/servicio'
+import iconoCalendario from '@iconify/icons-mdi/calendar-check'
+import es from 'date-fns/esm/locale/es/index.js'
 
 const MensajesInteraccion = () => {
 
   const { data } = useInteraccionActivaQuery()
 
-  return data?.conversaciones
-    ? <div className="MensajesInteraccion">
-        {data.conversaciones.map((conversacion: any) => (
-            conversacion.mensajes.map((mensaje: any) => (
-              <div
-                className={classNames({
-                  "CajonInteraccion__mensaje": true,
-                  "CajonInteraccion__mensaje--usuario": mensaje.emisor === 'USUARIO',
-                  "CajonInteraccion__mensaje--bot": mensaje.emisor === 'BOT'
-                })}
-              >
-                <p className="CajonInteraccion__mensaje_emisor">
-                  {mensaje.emisor === 'BOT' && <InlineIcon icon={iconoBot} />}
-                  {mensaje.emisor === 'BOT'
-                    ? `${data.nombreBot} (Bot)`
-                    : <>
-                        <div className="CajonInteraccion__avatar_mensaje" style={{ opacity: 1 }}>
-                          <AvatarUsuarios />
-                        </div>
-                        <span className="CajonInteraccion__nombre_emisor_mensaje">
-                          {data.citas.map((cita: any) => cita.nombre.split(' ')[0]).join(', ')}
-                        </span>
-                      </>
-                  }
-                </p>
-                <p className="CajonInteraccion__mensaje_hora">{format(mensaje.timestamp, 'HH:mm')}</p>
-                <p className="CajonInteraccion__mensaje_contenido">{mensaje.mensaje}</p>
+  if (!data?.conversaciones) {
+    return <div className="MensajesInteraccion__skeleton" />
+  }
+
+  const mensajes = data.conversaciones.map(c => c.mensajes).flat()
+
+  return (
+    <div className="MensajesInteraccion">
+      {mensajes.map((mensaje: Mensaje, i: number) => {
+        return (
+          <React.Fragment key={`mensaje-${i}`}>
+            {(i === 0 || !isSameDay(mensajes[i - 1].timestamp, mensaje.timestamp)) && (
+              <div className="MensajesInteraccion__dia_mensajes">
+                <InlineIcon icon={iconoCalendario} /> {(isYesterday(mensaje.timestamp) ? 'ayer, ' : '') + (isToday(mensaje.timestamp) ? 'hoy, ' : '') + format(mensaje.timestamp, 'EEEE d \'de\' MMMM', { locale: es })}
               </div>
-            ))
-          ))}
-      </div>
-    : <div className="MensajesInteraccion__skeleton" />
+            )}
+            <div
+              key={`mensaje-${i}`}
+              className={classNames({
+                "MensajesInteraccion__mensaje": true,
+                "MensajesInteraccion__mensaje--usuario": mensaje.emisor === 'USUARIO',
+                "MensajesInteraccion__mensaje--bot": mensaje.emisor === 'BOT'
+              })}
+            >
+              <p className="MensajesInteraccion__mensaje_emisor">
+                {mensaje.emisor === 'BOT' && <InlineIcon icon={iconoBot} />}
+                {mensaje.emisor === 'BOT'
+                  ? <span className="MensajesInteraccion__mensaje_nombre_emisor">{data.nombreBot} (Bot)</span>
+                  : <>
+                      <span className="MensajesInteraccion__mensaje_avatar" style={{ opacity: 1 }}>
+                        <AvatarUsuarios />
+                      </span>
+                      <span className="MensajesInteraccion__mensaje_nombre_emisor">
+                        {data.citas.map((cita: any) => cita.nombre.split(' ')[0]).join(', ')}
+                      </span>
+                    </>
+                }
+              </p>
+              <p className="MensajesInteraccion__mensaje_hora">{format(mensaje.timestamp, 'HH:mm')}</p>
+              <p className="MensajesInteraccion__mensaje_contenido">{mensaje.mensaje}</p>
+            </div>
+          </React.Fragment>
+        )
+      })}
+    </div>
+  )
 }
 
 export default MensajesInteraccion

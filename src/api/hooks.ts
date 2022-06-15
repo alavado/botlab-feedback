@@ -82,21 +82,21 @@ const obtenerEstadoInteraccionGeneral = (citas: Cita[]): EstadoInteraccion => {
 }
 
 const obtenerEstadoInteraccion = (preguntas: Pregunta[]): EstadoInteraccion => {
-  const preguntaConfirma = preguntas.find(p => p.texto.includes('Confirma'))
-  const preguntaReagenda = preguntas.find(p => p.texto.includes('Reagenda'))
-  if (preguntaReagenda) {
-    if (preguntaReagenda.respuesta === 'YES' || preguntaReagenda.respuesta === 'REAGENDA') {
+  const preguntaConfirmaYESNO = preguntas.find(p => p.tipo === 'YESNO' && p.texto.includes('Confirma'))
+  const preguntaReagendaYESNO = preguntas.find(p => p.tipo === 'YESNO' && p.texto.includes('Reagenda'))
+  if (preguntaReagendaYESNO) {
+    if (preguntaReagendaYESNO.respuesta === 'YES' || preguntaReagendaYESNO.respuesta === 'REAGENDA') {
       return estadoInteraccionPorID('REAGENDADA')
     }
-    else if (preguntaReagenda.respuesta === 'OUT') {
+    else if (preguntaReagendaYESNO.respuesta === 'OUT') {
       return estadoInteraccionPorID('IMPROCESABLE')
     }
   }
-  if (preguntaConfirma) {
-    if (preguntaConfirma.respuesta === 'NO') {
+  if (preguntaConfirmaYESNO) {
+    if (preguntaConfirmaYESNO.respuesta === 'NO') {
       return estadoInteraccionPorID('CANCELADA')
     }
-    if (preguntaConfirma.respuesta === 'YES') {
+    if (preguntaConfirmaYESNO.respuesta === 'YES') {
       return estadoInteraccionPorID('CONFIRMADA')
     }
   }
@@ -105,11 +105,12 @@ const obtenerEstadoInteraccion = (preguntas: Pregunta[]): EstadoInteraccion => {
 
 const construirInteraccionCitaNormal = (interaccion: any, servicio: Servicio): Interaccion => {
   const preguntas: Pregunta[] = servicio.propiedades
-    .filter(p => p.tipo === 'YESNO')
+    .filter(p => p.tipo !== 'META')
     .map(p => ({
       id: p.id,
       texto: p.nombre,
       respuesta: interaccion[p.id].tag,
+      tipo: p.tipo
     }))
   const estadoInteraccion: EstadoInteraccion = obtenerEstadoInteraccion(preguntas)
   const citas: Cita[] = [{
@@ -145,6 +146,7 @@ const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): In
         id: p.id,
         texto: p.nombre,
         respuesta: interaccion[p.id].tag,
+        tipo: p.tipo
       }))
     const estadoInteraccion = obtenerEstadoInteraccion(preguntas)
     return {
@@ -197,7 +199,8 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
         })
         return interacciones.filter(d => idEstadoInteraccionActivo === d.estadoInteraccion.id)
       },
-      enabled: !!idServicioActivo && !!idEstadoInteraccionActivo
+      enabled: !!idServicioActivo && !!idEstadoInteraccionActivo,
+      refetchInterval: 30_000
     }
   )
 }
