@@ -9,6 +9,7 @@ import { useInteraccionActivaQuery } from '../../../../api/hooks'
 import { format } from 'date-fns'
 import iconoBot from '@iconify/icons-mdi/robot'
 import AvatarUsuarios from './AvatarUsuarios'
+import { formatearCampoRespuestas } from '../../../../helpers/respuestas'
 
 const CajonInteraccion = () => {
 
@@ -49,7 +50,10 @@ const CajonInteraccion = () => {
           }
         </h2>
         <p className="CajonInteraccion__subtitulo">
-          {data?.telefonoUsuario || 'Cargando...'}
+          {data?.telefonoUsuario
+            ? formatearCampoRespuestas(data.telefonoUsuario, 'phone')
+            : 'Cargando...'
+          }
         </p>
       </div>
       <div className="CajonInteraccion__mensajes">
