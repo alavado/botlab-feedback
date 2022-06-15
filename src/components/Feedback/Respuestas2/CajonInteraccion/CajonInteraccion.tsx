@@ -6,10 +6,9 @@ import iconoCerrarCajon from '@iconify/icons-mdi/chevron-double-right'
 import './CajonInteraccion.css'
 import { escondeCajonInteraccion } from '../../../../redux/ducks/servicio'
 import { useInteraccionActivaQuery } from '../../../../api/hooks'
-import { format } from 'date-fns'
-import iconoBot from '@iconify/icons-mdi/robot'
 import AvatarUsuarios from './AvatarUsuarios'
 import { formatearCampoRespuestas } from '../../../../helpers/respuestas'
+import MensajesInteraccion from './MensajesInteraccion'
 
 const CajonInteraccion = () => {
 
@@ -39,7 +38,7 @@ const CajonInteraccion = () => {
       </button>
       <div className="CajonInteraccion__superior">
         <div className="CajonInteraccion__superior_avatar">
-          <AvatarUsuarios citas={data?.citas} />
+          <AvatarUsuarios />
         </div>
         <h2 className="CajonInteraccion__titulo">
           {data?.citas
@@ -58,34 +57,7 @@ const CajonInteraccion = () => {
       </div>
       <div className="CajonInteraccion__mensajes">
         {data?.conversaciones
-          ? data.conversaciones.map(conversacion => (
-              conversacion.mensajes.map(mensaje => (
-                <div
-                  className={classNames({
-                    "CajonInteraccion__mensaje": true,
-                    "CajonInteraccion__mensaje--usuario": mensaje.emisor === 'USUARIO',
-                    "CajonInteraccion__mensaje--bot": mensaje.emisor === 'BOT'
-                  })}
-                >
-                  <p className="CajonInteraccion__mensaje_emisor">
-                    {mensaje.emisor === 'BOT' && <InlineIcon icon={iconoBot} />}
-                    {mensaje.emisor === 'BOT'
-                      ? `${data.nombreBot} (Bot)`
-                      : <>
-                          <div className="CajonInteraccion__avatar_mensaje" style={{ opacity: 1 }}>
-                            <AvatarUsuarios citas={data?.citas} />
-                          </div>
-                          <span className="CajonInteraccion__nombre_emisor_mensaje">
-                            {data.citas.map(cita => cita.nombre.split(' ')[0]).join(', ')}
-                          </span>
-                        </>
-                    }
-                  </p>
-                  <p className="CajonInteraccion__mensaje_hora">{format(mensaje.timestamp, 'HH:mm')}</p>
-                  <p className="CajonInteraccion__mensaje_contenido">{mensaje.mensaje}</p>
-                </div>
-              ))
-            ))
+          ? <MensajesInteraccion />
           : 'Cargando'
         }
       </div>

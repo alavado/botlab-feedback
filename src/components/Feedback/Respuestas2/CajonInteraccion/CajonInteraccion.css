@@ -78,16 +78,6 @@
   opacity: .75;
 }
 
-.CajonInteraccion__mensajes {
-  display: flex;
-  flex-direction: column;
-  gap: .25rem;
-  padding: .5rem .75rem;
-  overflow-y: scroll;
-  max-height: calc(100vh - 9rem);
-  padding-bottom: 50vh;
-}
-
 .CajonInteraccion__mensaje {
   background-color: var(--color-fondo);
   display: grid;
