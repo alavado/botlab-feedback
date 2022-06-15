@@ -4,7 +4,7 @@
   bottom: 0;
   background-color: var(--color-fondo);
   width: 33rem;
-  height: calc(100vh - 6rem);
+  height: calc(100vh - 5.75rem);
   box-shadow: 0 0 .25rem var(--color-sombras);
   transition: all .35s ease;
   background: var(--whatsapp-fondo);
@@ -105,7 +105,7 @@
   background-color: inherit;
   clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
   top: 0;
-  right: -.5rem;
+  right: -.45rem;
   position: absolute;
 }
 
@@ -116,14 +116,14 @@
 
 .CajonInteraccion__mensaje--bot {
   align-self: flex-end;
-  background-color: var(--whatsapp-fondo-mensajes-salientes);
   border-top-right-radius: 0;
+  background-color: var(--whatsapp-fondo-mensajes-salientes);
 }
 
 .CajonInteraccion__mensaje--usuario::after {
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
   top: 0;
-  left: -.5rem;
+  left: -.45rem;
 }
 
 .CajonInteraccion__mensaje_emisor {

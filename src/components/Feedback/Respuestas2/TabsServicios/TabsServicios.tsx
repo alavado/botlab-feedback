@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useServiciosQuery } from '../../../../api/hooks'
 import { RootState } from '../../../../redux/ducks'
 import { toggleCajonFiltros, seleccionaServicio } from '../../../../redux/ducks/servicio'
-import iconoMenu from '@iconify/icons-mdi/filter-list'
+import iconoMenu from '@iconify/icons-mdi/menu'
 import './TabsServicios.css'
 
 const TabsServicios = () => {

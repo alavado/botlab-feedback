@@ -16,8 +16,6 @@ const CajonInteraccion = () => {
 
   const { data } = useInteraccionActivaQuery()
 
-  console.log(data)
-
   return (
     <div className={classNames({
       "CajonInteraccion": true,

@@ -4,7 +4,7 @@
   position: relative;
   overflow-x: hidden;
   overflow-y: scroll;
-  max-height: calc(100vh - 6rem);
+  max-height: calc(100vh - 5.75rem);
 }
 
 .ListaInteracciones__mensaje_paso_previo {
