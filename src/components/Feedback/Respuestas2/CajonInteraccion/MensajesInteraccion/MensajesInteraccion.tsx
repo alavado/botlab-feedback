@@ -5,7 +5,7 @@ import { format, isSameDay, isYesterday, isToday } from 'date-fns'
 import iconoBot from '@iconify/icons-mdi/robot'
 import './MensajesInteraccion.css'
 import { useInteraccionActivaQuery } from '../../../../../api/hooks'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Mensaje } from '../../../../../api/types/servicio'
 import iconoCalendario from '@iconify/icons-mdi/calendar-check'
 import es from 'date-fns/esm/locale/es/index.js'
@@ -13,6 +13,14 @@ import es from 'date-fns/esm/locale/es/index.js'
 const MensajesInteraccion = () => {
 
   const { data } = useInteraccionActivaQuery()
+
+  useEffect(() => {
+    const fechas = document.querySelectorAll('.MensajesInteraccion__dia_mensajes')
+    if (fechas) {
+      fechas[fechas.length - 1].scrollIntoView()
+      document.querySelector('.MensajesInteraccion')?.scrollBy({ top: -8 })
+    }
+  }, [data])
 
   if (!data?.conversaciones) {
     return <div className="MensajesInteraccion__skeleton" />

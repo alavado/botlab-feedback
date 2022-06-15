@@ -1,6 +1,7 @@
 .ListaInteracciones {
   padding-top: 0rem;
-  background-color: var(--color-fondo);
+  padding-bottom: 15vh;
+  background-color: hsl(225, 21%, 97%);
   position: relative;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -27,6 +28,7 @@
   grid-template-columns: 2rem 8rem 15rem 6rem 5rem 9rem 1fr;
   font-size: .6rem;
   border-bottom: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo);
   position: relative;
   cursor: pointer;
   transition: all .25s ease;
