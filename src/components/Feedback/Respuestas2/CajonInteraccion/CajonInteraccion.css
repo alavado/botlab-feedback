@@ -89,6 +89,7 @@
   height: .55rem;
   margin-top: .1rem;
   background-color: var(--color-skeleton);
+  display: inline-flex;
   animation: animacion-skeletons .75s linear alternate-reverse infinite both;
 }
 

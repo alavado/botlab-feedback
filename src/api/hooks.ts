@@ -219,7 +219,12 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
             queryClient.setQueryData(['interaccion', idServicioActivo, interaccion.idUsuario], interaccion)
           }
         })
-        return interacciones.filter(d => idEstadoInteraccionActivo === d.estadoInteraccion.id)
+        return interacciones
+          .filter(interaccion => idEstadoInteraccionActivo === interaccion.estadoInteraccion.id)
+          .map((interaccion): Interaccion => ({
+            ...interaccion,
+            alertas: queryClient.getQueryData(['alertas', idServicioActivo, interaccion.idUsuario]) ?? []
+          }))
       },
       enabled: !!idServicioActivo && !!idEstadoInteraccionActivo,
       refetchInterval: 30_000
@@ -351,21 +356,31 @@ const obtenerAlertas = async (diasAtras: number = 3): Promise<Alerta[]> => {
     resuelta: alertaAPI.dismissed,
     resueltaPor: alertaAPI.dismissal_by_username,
     id: alertaAPI.id,
-    poll_id: alertaAPI.poll_id,
-    user_id: alertaAPI.user_id,
+    idServicio: alertaAPI.poll_id,
+    idUsuario: alertaAPI.user_id,
   }))
 }
 
 export const useAlertasQuery = () => {
+
+  const { data } = usePosiblesEstadosInteraccionesQuery()
+  const queryClient = useQueryClient()
+
   return useQuery(
     'alertas',
     async () => {
-      const alertas: Alerta[] = await obtenerAlertas()
-      // usar query client para agregar alertas a la interaccion que corresponda
+      const alertas = await obtenerAlertas()
+      alertas.forEach(alerta => {
+        const queryKey = ['alertas', alerta.idServicio, alerta.idUsuario]
+        const alertasPrevias: Alerta[] | undefined = queryClient.getQueryData(queryKey)
+        queryClient.setQueryData(queryKey, alertasPrevias ? [...alertasPrevias, alerta] : [alerta])
+      })
+      return alertas
     },
     {
       refetchInterval: 30_000,
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      enabled: !!data
     }
   )
 }

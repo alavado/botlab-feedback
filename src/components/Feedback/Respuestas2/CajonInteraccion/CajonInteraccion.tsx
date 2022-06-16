@@ -75,7 +75,7 @@ const CajonInteraccion = () => {
         <p className="CajonInteraccion__subtitulo">
           {data?.telefonoUsuario
             ? formatearCampoRespuestas(data.telefonoUsuario, 'phone')
-            : <div className="CajonInteraccion__skeleton_telefono" />
+            : <span className="CajonInteraccion__skeleton_telefono" />
           }
         </p>
       </div>

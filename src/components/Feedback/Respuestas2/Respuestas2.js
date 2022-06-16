@@ -15,9 +15,7 @@ import { useAlertasQuery } from '../../../api/hooks'
 const Respuestas2 = () => {
 
   const { cajonFiltrosVisible } = useSelector(state => state.servicio)
-  const { data } = useAlertasQuery()
-
-  console.log(data)
+  useAlertasQuery()
 
   return (
     <div className="Respuestas2">

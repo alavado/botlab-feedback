@@ -74,8 +74,8 @@ export interface Alerta {
   resuelta: boolean,
   resueltaPor?: string,
   id: number,
-  poll_id: number,
-  user_id: number,
+  idServicio: number,
+  idUsuario: number,
 }
 
 export interface Comentario {

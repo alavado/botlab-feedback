@@ -66,6 +66,8 @@ const ListaInteracciones = () => {
       </div>
     )
   }
+  
+  console.log(data.filter(a => a.alertas.length > 0))
 
   return (
     <div className="ListaInteracciones">
@@ -105,7 +107,7 @@ const ListaInteracciones = () => {
               key={`cita-${j}`}
             >
               <div>{j === 0 ? (i + 1) : ''}</div>
-              <div>{j === 0 ? format(interaccion.inicio, "HH:mm") : ''}</div>
+              <div>{j === 0 ? format(interaccion.inicio, "HH:mm") : ''} {interaccion.alertas.length > 0 && 'x'}</div>
               <div>{interaccion.comentarios[0]?.emoji}</div>
               <div>
                 <div
