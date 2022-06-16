@@ -15,6 +15,7 @@ import { alertas as getAlertas } from '../../../../../api/endpoints'
 import iconoRobot from '@iconify/icons-mdi/robot'
 import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
 import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
+import Scrambler from '../../../../../redux/ducks/scrambler'
 
 const ContenidoChat = () => {
 
@@ -36,24 +37,33 @@ const ContenidoChat = () => {
     }
     const conversaciones = data.data.data.conversations
     const eventos = _.flatten(
-      conversaciones.map(conversacion => {
-        const fecha = conversacion.context.find(p => p.target.includes('date')).value
-        const hora = conversacion.context.find(p => p.target.includes('time')).value
-        const doctor = conversacion.context.find(p => p.target.includes('dentist') || p.target.includes('doctor')).value
-        return [
-          ...conversacion.messages.map(m => ({
+      conversaciones.filter(c => Object.keys(c.context).length > 0).map(({ context, messages, start }) => {
+        const fecha = context.find(p => p.target.includes('date'))?.value
+        const hora = context.find(p => p.target.includes('time'))?.value
+        const doctor = context.find(p => p.target.includes('dentist') || p.target.includes('doctor'))?.value
+        const eventos = messages
+          .map(m => ({
             tipo: m.type === 'bot' ? 'mensaje bot' : 'mensaje usuario',
             fecha: parseISO(m.timestamp),
             formato: 'h:mm aaaa',
             contenido: nl2br(m.message)
-          })),
-          {
+          }))
+        if (fecha && hora) {
+          eventos.push({
             tipo: 'cita',
-            fecha: parse(`${fecha} ${hora}`, hora.includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m', parseISO(conversacion.start), { locale: es }),
+            fecha: parse(
+              `${fecha} ${hora}`,
+              hora.includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m',
+              parseISO(start),
+              { locale: es }
+            ),
             formato: 'h:mm aaaa',
-            contenido: `🕑 Cita con ${doctor} a las ${hora}`
-          }
-        ]
+            contenido: doctor
+              ? <>🕑 Cita con {doctor}  a las {hora}</>
+              : `🕑 Cita a las ${hora}`
+          })
+        }
+        return eventos
       }
     ))
     
