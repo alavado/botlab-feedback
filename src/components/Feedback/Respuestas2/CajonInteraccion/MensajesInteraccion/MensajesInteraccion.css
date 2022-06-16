@@ -35,7 +35,7 @@
   display: grid;
   grid-template: auto 1fr / 1fr .33fr;
   gap: .35rem 1rem;
-  max-width: 66%;
+  max-width: 55ch;
   padding: .5rem;
   font-size: .65rem;
   border-radius: .25rem;

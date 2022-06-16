@@ -16,7 +16,7 @@ const MensajesInteraccion = () => {
 
   useEffect(() => {
     const fechas = document.querySelectorAll('.MensajesInteraccion__dia_mensajes')
-    if (fechas) {
+    if (fechas.length > 0) {
       fechas[fechas.length - 1].scrollIntoView()
       document.querySelector('.MensajesInteraccion')?.scrollBy({ top: -8 })
     }

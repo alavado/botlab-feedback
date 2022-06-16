@@ -45,20 +45,21 @@ const TabsEstadosInteracciones = () => {
               key={`boton-estado-${i}`}
               onClick={() => dispatch(seleccionaEstadoInteraccion(estado.id))}
             >
-              <Icon icon={estado.icono} />
-              <div>
-                <p>
-                  {estado.descripcion}
-                  <span
-                    className={classNames({
-                      "TabsEstadosInteracciones__conteo": true,
-                      "TabsEstadosInteracciones__conteo--0": conteo === 0,
-                    })}
-                  >
-                    {conteo}
-                  </span>
-                </p>
-              </div>
+              <span
+                className="TabsEstadosInteracciones__icono"
+                title={estado.explicacion}
+              >
+                <Icon icon={estado.icono} />
+              </span>
+              {estado.descripcion}
+              <span
+                className={classNames({
+                  "TabsEstadosInteracciones__conteo": true,
+                  "TabsEstadosInteracciones__conteo--0": conteo === 0,
+                })}
+              >
+                {conteo}
+              </span>
             </button>
           ))
       }

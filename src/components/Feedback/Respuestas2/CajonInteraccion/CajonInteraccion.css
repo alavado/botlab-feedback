@@ -60,10 +60,17 @@
 .CajonInteraccion__titulo {
   font-size: .75rem;
   place-self: end start;
+  display: flex;
 }
 
 .CajonInteraccion__subtitulo {
   font-size: .65rem;
   place-self: start start;
   opacity: .75;
+}
+
+.CajonInteraccion__icono_estado_interaccion {
+  margin-left: .15rem;
+  display: flex;
+  cursor: help;
 }

@@ -33,7 +33,7 @@ const obtenerServicios = async (): Promise<Servicio[]> => {
   const serviciosQueVienenJuntoAlToken = encuestas.tipos
   const servicios: Servicio[] = headersAPIResponse.data.data.map((headers: any): Servicio => {
     const servicio = serviciosQueVienenJuntoAlToken.find((tipo: { id: any }) => tipo.id === headers.poll_id)
-    const nombre = servicio.nombre.substring(servicio.nombre.indexOf(nombreUsuario) + nombreUsuario.length + 1)
+    const nombre = servicio.nombre.substring(servicio.nombre.replace(nombreUsuario, '').trim())
     return {
       id: servicio.id,
       nombre,

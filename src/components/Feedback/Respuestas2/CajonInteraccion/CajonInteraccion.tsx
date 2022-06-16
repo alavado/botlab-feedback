@@ -9,6 +9,7 @@ import { useInteraccionActivaQuery } from '../../../../api/hooks'
 import AvatarUsuarios from './AvatarUsuarios'
 import { formatearCampoRespuestas } from '../../../../helpers/respuestas'
 import MensajesInteraccion from './MensajesInteraccion'
+import { Fragment } from 'react'
 
 const CajonInteraccion = () => {
 
@@ -43,8 +44,29 @@ const CajonInteraccion = () => {
         <h2 className="CajonInteraccion__titulo">
           {data?.citas
             ? data.citas.length > 1
-              ? <>{data.citas.map((c, i) => <>{c.nombre.split(' ')[0]} <InlineIcon icon={c.estadoInteraccion.icono} />{i < data.citas.length - 1 && ', '} </>)}</>
-              : <>{data.citas[0].nombre} <InlineIcon icon={data.citas[0].estadoInteraccion.icono} /></>
+              ? <>
+                  {data.citas.map((cita, i) => (
+                    <Fragment key={`CajonInteraccion-icono-cita-${i}`}>
+                      {cita.nombre.split(' ')[0]}
+                      <span
+                        className="CajonInteraccion__icono_estado_interaccion"
+                        title={cita.estadoInteraccion.explicacion}
+                      >
+                        <InlineIcon icon={cita.estadoInteraccion.icono} />
+                      </span>
+                      {i < data.citas.length - 1 && ', '}
+                    </Fragment>
+                  ))}
+                </>
+              : <>
+                  {data.citas[0].nombre}
+                  <span
+                    className="CajonInteraccion__icono_estado_interaccion"
+                    title={data.citas[0].estadoInteraccion.explicacion}
+                  >
+                    <InlineIcon icon={data.citas[0].estadoInteraccion.icono} />
+                  </span>
+                </>
             : 'Cargando...'
           }
         </h2>

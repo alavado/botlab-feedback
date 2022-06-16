@@ -105,7 +105,15 @@ const ListaInteracciones = () => {
                     >
                       {cita.nombre[0]}
                     </div>
-                    {cita.nombre} <InlineIcon className="ListaInteracciones__icono_estado_interaccion" icon={cita.estadoInteraccion.icono} />
+                    {cita.nombre}
+                    <span
+                      className="ListaInteracciones__icono_estado_interaccion"
+                      title={cita.estadoInteraccion.explicacion}
+                    >
+                      <InlineIcon
+                        icon={cita.estadoInteraccion.icono}
+                      />
+                    </span>
                   </div>
                   <div>{cita.fecha ? `${isTomorrow(cita.fecha) ? 'mañana, ' : ''}${format(cita.fecha, 'd/M')}` : '-'}</div>
                   <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>

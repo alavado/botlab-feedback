@@ -10,26 +10,31 @@ export const estadosInteracciones: EstadoInteraccion[] = [
   {
     id: 'PENDIENTE',
     descripcion: 'Esperando respuesta',
-    icono: iconoEstadoPendiente
+    icono: iconoEstadoPendiente,
+    explicacion: 'Bot todavía no recibe respuesta'
   },
   {
     id: 'CONFIRMADA',
     descripcion: 'Confirma cita',
-    icono: iconoEstadoConfirma
+    icono: iconoEstadoConfirma,
+    explicacion: 'La cita ha sido confirmada'
   },
   {
     id: 'CANCELADA',
     descripcion: 'Anula cita',
-    icono: iconoEstadoCancela
+    icono: iconoEstadoCancela,
+    explicacion: 'La cita ha sido anulada'
   },
   {
     id: 'REAGENDADA',
     descripcion: 'Reagenda cita',
-    icono: iconoEstadoReagenda
+    icono: iconoEstadoReagenda,
+    explicacion: 'La cita ha sido reagendada'
   },
   {
     id: 'IMPROCESABLE',
     descripcion: 'Bot no entendió',
-    icono: iconoEstadoOut
+    icono: iconoEstadoOut,
+    explicacion: 'Bot quedó confundido con mensaje'
   },
 ]

@@ -50,6 +50,7 @@ export type IDEstadoInteraccion = 'CUALQUIERA' | 'PENDIENTE' | 'CONFIRMADA' | 'C
 export interface EstadoInteraccion {
   id: IDEstadoInteraccion,
   descripcion?: string,
+  explicacion?: string,
   icono: IconifyIcon
 }
 

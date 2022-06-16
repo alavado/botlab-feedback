@@ -129,7 +129,9 @@
 }
 
 .ListaInteracciones__icono_estado_interaccion {
-  margin-left: .25rem;
+  margin-left: .15rem;
+  display: flex;
+  cursor: help;
 }
 
 @keyframes aparece-mensaje-sin-citas {
