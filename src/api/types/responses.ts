@@ -51,3 +51,21 @@ export interface reactionsAPIResponse {
     reaction_text: string,
   }]
 }
+
+export interface alertasAPIResponse {
+  status: string,
+  data: [{
+    dismissal_by?: string,
+    dismissal_by_username?: string,
+    dismissal_updated_at?: string,
+    dismissed: boolean,
+    id: number,
+    message: string,
+    meta: any,
+    poll_id: number,
+    timestamp_first_effective_interaction: string,
+    timestamp_poll_started: string,
+    user_id: number,
+    utc_timestamp: string,
+  }]
+}

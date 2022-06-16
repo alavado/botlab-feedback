@@ -74,3 +74,29 @@
   display: flex;
   cursor: help;
 }
+
+.CajonInteraccion__loader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.CajonInteraccion__skeleton_telefono {
+  border-radius: 9in;
+  width: 15ch;
+  height: .55rem;
+  margin-top: .1rem;
+  background-color: var(--color-skeleton);
+  animation: animacion-skeletons .75s linear alternate-reverse infinite both;
+}
+
+@keyframes animacion-skeletons {
+  0% {
+    opacity: .35;
+  }
+  100% {
+    opacity: 1;
+  }
+}

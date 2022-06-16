@@ -72,7 +72,10 @@ export interface Alerta {
   timestamp: Date,
   texto: string,
   resuelta: boolean,
-  resueltaPor?: string
+  resueltaPor?: string,
+  id: number,
+  poll_id: number,
+  user_id: number,
 }
 
 export interface Comentario {

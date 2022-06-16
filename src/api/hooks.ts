@@ -1,16 +1,16 @@
 import { IconifyIcon } from '@iconify/types'
 import axios from 'axios'
 import store from '../redux/store'
-import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta, Conversacion, Mensaje, Comentario } from './types/servicio'
-import { parse, format, parseISO, addHours } from 'date-fns'
+import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta, Conversacion, Mensaje, Comentario, Alerta } from './types/servicio'
+import { parse, format, parseISO, addHours, addDays } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useQuery, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/ducks'
-import iconoConfirmacion from '@iconify/icons-mdi/user-circle'
-import iconoConfirmacionMulticita from '@iconify/icons-mdi/user-circle'
+import iconoConfirmacion from '@iconify/icons-mdi/account-check'
+import iconoConfirmacionMulticita from '@iconify/icons-mdi/account-multiple-check'
 import { estadosInteracciones } from './estadosInteraccion'
-import { chatAPIMessage, chatAPIResponse, reactionsAPIResponse } from './types/responses'
+import { alertasAPIResponse, chatAPIMessage, chatAPIResponse, reactionsAPIResponse } from './types/responses'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -334,6 +334,38 @@ export const useComentariosInteraccionActivaQuery = () => {
       refetchInterval: 60_000,
       refetchOnWindowFocus: false,
       enabled: !!idServicioInteraccionActiva && !!idUsuarioInteraccionActiva && !!inicioInteraccionActiva,
+    }
+  )
+}
+
+const obtenerAlertas = async (diasAtras: number = 3): Promise<Alerta[]> => {
+  const { login }: any = store.getState()
+  const { token } = login
+  const hoy = format(new Date(), 'yyyy-MM-dd')
+  const hace7Dias = format(addDays(new Date(), -diasAtras), 'yyyy-MM-dd')
+  const url = `${API_ROOT}/polls/alerts?start_date=${hace7Dias}&end_date=${hoy}`
+  const response: alertasAPIResponse = (await axios.get(url, { headers: { 'Api-Token': token } })).data
+  return response.data.map((alertaAPI: any): Alerta => ({
+    timestamp: parseISO(alertaAPI.utc_timestamp),
+    texto: alertaAPI.message,
+    resuelta: alertaAPI.dismissed,
+    resueltaPor: alertaAPI.dismissal_by_username,
+    id: alertaAPI.id,
+    poll_id: alertaAPI.poll_id,
+    user_id: alertaAPI.user_id,
+  }))
+}
+
+export const useAlertasQuery = () => {
+  return useQuery(
+    'alertas',
+    async () => {
+      const alertas: Alerta[] = await obtenerAlertas()
+      // usar query client para agregar alertas a la interaccion que corresponda
+    },
+    {
+      refetchInterval: 30_000,
+      refetchOnWindowFocus: false
     }
   )
 }

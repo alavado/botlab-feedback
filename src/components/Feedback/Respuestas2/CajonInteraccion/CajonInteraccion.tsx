@@ -10,6 +10,7 @@ import AvatarUsuarios from './AvatarUsuarios'
 import { formatearCampoRespuestas } from '../../../../helpers/respuestas'
 import MensajesInteraccion from './MensajesInteraccion'
 import { Fragment } from 'react'
+import Loader from '../../../Loader'
 
 const CajonInteraccion = () => {
 
@@ -74,14 +75,16 @@ const CajonInteraccion = () => {
         <p className="CajonInteraccion__subtitulo">
           {data?.telefonoUsuario
             ? formatearCampoRespuestas(data.telefonoUsuario, 'phone')
-            : 'Cargando...'
+            : <div className="CajonInteraccion__skeleton_telefono" />
           }
         </p>
       </div>
       <div className="CajonInteraccion__mensajes">
         {data?.conversaciones && !cargandoComentarios
           ? <MensajesInteraccion />
-          : 'Cargando'
+          : <div className="CajonInteraccion__loader">
+              <Loader color="var(--color-texto)" />
+            </div>
         }
       </div>
     </div>

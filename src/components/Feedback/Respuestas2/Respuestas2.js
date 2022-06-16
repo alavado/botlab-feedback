@@ -10,10 +10,14 @@ import iconoSucursal from '@iconify/icons-mdi/place'
 import iconoCalendario from '@iconify/icons-mdi/calendar-check'
 import iconoSeleccionarSucursal from '@iconify/icons-mdi/triangle-small-down'
 import logoCero from '../../../assets/images/logo_blanco.png'
+import { useAlertasQuery } from '../../../api/hooks'
 
 const Respuestas2 = () => {
 
   const { cajonFiltrosVisible } = useSelector(state => state.servicio)
+  const { data } = useAlertasQuery()
+
+  console.log(data)
 
   return (
     <div className="Respuestas2">
@@ -49,10 +53,17 @@ const Respuestas2 = () => {
           "Respuestas2__lateral--visible": cajonFiltrosVisible,
         })}
       >
-        <h2>Sucursal</h2>
-        <li>
-          
-        </li>
+        <h2>Global</h2>
+        <div style={{
+          width: '10rem',
+          height: '10rem',
+          background: 'red',
+          borderRadius: '50%'
+        }}>
+
+        </div>
+        <h2>Filtros</h2>
+        <h2>Config</h2>
       </aside>
       <TabsServicios />
       <TabsEstadosInteracciones />
