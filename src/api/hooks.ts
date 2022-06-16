@@ -1,7 +1,7 @@
 import { IconifyIcon } from '@iconify/types'
 import axios from 'axios'
 import store from '../redux/store'
-import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta, Conversacion, Mensaje } from './types/servicio'
+import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta, Conversacion, Mensaje, Comentario } from './types/servicio'
 import { parse, format, parseISO, addHours } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useQuery, useQueryClient } from 'react-query'
@@ -33,7 +33,7 @@ const obtenerServicios = async (): Promise<Servicio[]> => {
   const serviciosQueVienenJuntoAlToken = encuestas.tipos
   const servicios: Servicio[] = headersAPIResponse.data.data.map((headers: any): Servicio => {
     const servicio = serviciosQueVienenJuntoAlToken.find((tipo: { id: any }) => tipo.id === headers.poll_id)
-    const nombre = servicio.nombre.substring(servicio.nombre.replace(nombreUsuario, '').trim())
+    const nombre = servicio.nombre.replace(nombreUsuario, '').trim()
     return {
       id: servicio.id,
       nombre,
@@ -114,25 +114,31 @@ const construirInteraccionCitaNormal = (interaccion: any, servicio: Servicio): I
     }))
   const estadoInteraccion: EstadoInteraccion = obtenerEstadoInteraccion(preguntas)
   const citas: Cita[] = [{
-    id: interaccion['id_cita'],
-    rut: interaccion['rut'],
-    nombre: interaccion['name'],
+    id: interaccion.id_cita,
+    rut: interaccion.rut,
+    nombre: interaccion.name,
     fecha: parse(
-      `${interaccion['date']} ${interaccion['time']}`,
-      interaccion['time'].includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m',
-      parseISO(interaccion['start']),
+      `${interaccion.date} ${interaccion.time}`,
+      interaccion.time.includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m',
+      parseISO(interaccion.start),
       { locale: es }
     ),
-    responsable: interaccion['dentist_name'],
+    responsable: interaccion.dentist_name,
     estadoInteraccion,
     preguntas
   }]
   return {
-    sucursal: interaccion['sucursal_name'],
-    idUsuario: interaccion['user_id'],
-    inicio: addHours(parseISO(interaccion['start']), new Date().getTimezoneOffset() / -60),
+    sucursal: interaccion.sucursal_name,
+    idUsuario: interaccion.user_id,
+    inicio: addHours(parseISO(interaccion.start), new Date().getTimezoneOffset() / -60),
     estadoInteraccion,
-    citas
+    citas,
+    alertas: [],
+    comentarios: interaccion.reactions.map((reaction: any): Comentario => ({
+      timestamp: parseISO(reaction.created_at),
+      texto: reaction.reaction_text,
+      emoji: reaction.reaction_emoji
+    }))
   }
 }
 
@@ -162,7 +168,13 @@ const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): In
     idUsuario: interaccion['user_id'],
     estadoInteraccion: obtenerEstadoInteraccionGeneral(citas),
     inicio: addHours(parseISO(interaccion['start']), new Date().getTimezoneOffset() / -60),
-    citas
+    citas,
+    alertas: [],
+    comentarios: interaccion.reactions.map((reaction: any): Comentario => ({
+      timestamp: parseISO(reaction.created_at),
+      texto: reaction.reaction_text,
+      emoji: reaction.reaction_emoji
+    }))
   }
 }
 

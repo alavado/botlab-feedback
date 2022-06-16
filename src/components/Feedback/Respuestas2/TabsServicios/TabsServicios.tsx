@@ -5,6 +5,7 @@ import { useServiciosQuery } from '../../../../api/hooks'
 import { RootState } from '../../../../redux/ducks'
 import { toggleCajonFiltros, seleccionaServicio } from '../../../../redux/ducks/servicio'
 import iconoMenu from '@iconify/icons-mdi/menu'
+import iconoServicio from '@iconify/icons-mdi/user-circle'
 import './TabsServicios.css'
 
 const TabsServicios = () => {
@@ -26,14 +27,22 @@ const TabsServicios = () => {
             <button
               className="TabsServicios__tab TabsServicios__tab--cargando"
             >
-              <div className="TabsServicios__skeleton_avatar_cargando" />
-              <div className="TabsServicios__skeleton_texto_cargando" />
+              <div className="TabsServicios__skeleton">
+                <Icon icon={iconoServicio} />
+              </div>
+              <div className="TabsServicios__skeleton">
+                Confirmación
+              </div>
             </button>
             <button
               className="TabsServicios__tab TabsServicios__tab--cargando"
             >
-              <div className="TabsServicios__skeleton_avatar_cargando" />
-              <div className="TabsServicios__skeleton_texto_cargando" />
+              <div className="TabsServicios__skeleton">
+                <Icon icon={iconoServicio} />
+              </div>
+              <div className="TabsServicios__skeleton">
+                Confirmación Multicita
+              </div>
             </button>
           </>
         : servicios.map((servicio, i) => (

@@ -47,7 +47,7 @@
   --color-vidrio: rgba(255, 255, 255, .5);
 
   --color-whatsapp: rgb(49, 202, 49);
-  --color-skeleton: #E2E8F0;
+  --color-skeleton: hsl(214, 32%, 85%);
 }
 
 .App__oscura, .App__oscura *, .App__oscura *::before, .App__oscura *::after,

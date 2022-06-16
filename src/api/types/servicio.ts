@@ -26,6 +26,8 @@ export interface Interaccion {
   nombreBot?: string,
   telefonoUsuario?: string,
   conversaciones?: Conversacion[],
+  alertas: Alerta[],
+  comentarios: Comentario[]
 }
 
 export interface Cita {
@@ -56,7 +58,7 @@ export interface EstadoInteraccion {
 
 export interface Conversacion {
   inicio: Date,
-  mensajes: Mensaje[],
+  mensajes: Mensaje[]
 }
 
 export interface Mensaje {
@@ -64,4 +66,17 @@ export interface Mensaje {
   mensaje: String,
   emisor: 'BOT' | 'USUARIO',
   tipo: 'TEXTO' | 'AUDIO' | 'IMAGEN' | 'VIDEO'
+}
+
+export interface Alerta {
+  timestamp: Date,
+  texto: string,
+  resuelta: boolean,
+  resueltaPor?: string
+}
+
+export interface Comentario {
+  timestamp: Date,
+  texto: string,
+  emoji: string
 }
