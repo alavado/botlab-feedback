@@ -70,11 +70,13 @@
   padding-left: 4rem;
   height: 4rem;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
+  padding-top: 2rem;
   padding-bottom: 1rem;
   gap: .25rem;
   border-bottom: 1px solid var(--color-bordes);
   background-color: var(--color-fondo);
+  height: 100%;
 }
 
 .ListaInteracciones__icono_sin_citas {

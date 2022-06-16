@@ -99,6 +99,12 @@ const obtenerEstadoInteraccion = (preguntas: Pregunta[]): EstadoInteraccion => {
     if (preguntaConfirmaYESNO.respuesta === 'YES') {
       return estadoInteraccionPorID('CONFIRMADA')
     }
+    if (preguntaConfirmaYESNO.respuesta === 'REAGENDA') {
+      return estadoInteraccionPorID('REAGENDADA')
+    }
+    if (preguntaConfirmaYESNO.respuesta === 'OUT') {
+      return estadoInteraccionPorID('IMPROCESABLE')
+    }
   }
   return estadoInteraccionPorID('PENDIENTE')
 }
@@ -296,7 +302,7 @@ const obtenerComentarios = async (idServicio: number, idUsuario: number, inicio:
   const comentarios: Comentario[] = response.data.map((c: any): Comentario => {
     return {
       id: c.id,
-      timestamp: parseISO(c.timestamp),
+      timestamp: parseISO(c.created_at),
       texto: c.reaction_text,
       emoji: c.reaction_emoji,
     }

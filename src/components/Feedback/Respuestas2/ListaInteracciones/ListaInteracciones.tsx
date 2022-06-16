@@ -75,7 +75,10 @@ const ListaInteracciones = () => {
       >
         <div></div>
         <div>Inicio interacción</div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div
+          title="Último comentario"
+          style={{ display: 'flex', justifyContent: 'center' }}
+        >
           <InlineIcon style={{ fontSize: '.7rem', opacity: .75 }} icon={iconoComentario} />
         </div>
         <div>Paciente</div>
