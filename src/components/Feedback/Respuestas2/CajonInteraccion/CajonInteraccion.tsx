@@ -5,7 +5,7 @@ import { RootState } from '../../../../redux/ducks'
 import iconoCerrarCajon from '@iconify/icons-mdi/chevron-double-right'
 import './CajonInteraccion.css'
 import { escondeCajonInteraccion } from '../../../../redux/ducks/servicio'
-import { useInteraccionActivaQuery } from '../../../../api/hooks'
+import { useComentariosInteraccionActivaQuery, useInteraccionActivaQuery } from '../../../../api/hooks'
 import AvatarUsuarios from './AvatarUsuarios'
 import { formatearCampoRespuestas } from '../../../../helpers/respuestas'
 import MensajesInteraccion from './MensajesInteraccion'
@@ -17,6 +17,7 @@ const CajonInteraccion = () => {
   const dispatch = useDispatch()
 
   const { data } = useInteraccionActivaQuery()
+  const { isLoading: cargandoComentarios } = useComentariosInteraccionActivaQuery()
 
   return (
     <div className={classNames({
@@ -78,7 +79,7 @@ const CajonInteraccion = () => {
         </p>
       </div>
       <div className="CajonInteraccion__mensajes">
-        {data?.conversaciones
+        {data?.conversaciones && !cargandoComentarios
           ? <MensajesInteraccion />
           : 'Cargando'
         }

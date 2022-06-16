@@ -4,6 +4,7 @@
   gap: .25rem;
   padding: 0 .75rem 0 .75rem;
   overflow-y: scroll;
+  overflow-x: hidden;
   min-height: calc(100vh - 8.75rem);
   max-height: calc(100vh - 8.75rem);
   padding-bottom: 50vh;
@@ -41,6 +42,7 @@
   border-radius: .25rem;
   filter: drop-shadow(0 1px 1px var(--color-sombras));
   position: relative;
+  transition: all .15s ease;
 }
 
 .MensajesInteraccion__mensaje::after {
@@ -57,12 +59,14 @@
 .MensajesInteraccion__mensaje--usuario {
   align-self: flex-start;
   border-top-left-radius: 0;
+  animation: aparece-mensaje-interaccion-usuario .5s ease both;
 }
 
 .MensajesInteraccion__mensaje--bot {
   align-self: flex-end;
   border-top-right-radius: 0;
   background-color: var(--whatsapp-fondo-mensajes-salientes);
+  animation: aparece-mensaje-interaccion-bot .5s ease both;
 }
 
 .MensajesInteraccion__mensaje--usuario::after {
@@ -87,4 +91,71 @@
 .MensajesInteraccion__mensaje_contenido {
   grid-column: span 2;
   line-height: 1.35;
+}
+
+.MensajesInteraccion__comentario {
+  display: grid;
+  grid-template: auto 1fr / 1fr .33fr;
+  gap: .35rem 1rem;
+  width: 66%;
+  padding: .5rem;
+  font-size: .65rem;
+  border-radius: .25rem;
+  position: relative;
+  place-self: center center;
+  background-color: hsl(40, 100%, 95%);
+  box-shadow: 0 1px 1px var(--color-sombras);
+  animation: aparece-comentario-interaccion .5s ease both;
+}
+
+.MensajesInteraccion__comentario_emisor {
+  font-size: .55rem;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  opacity: .75;
+}
+
+.MensajesInteraccion__comentario_hora {
+  place-self: center end;
+  font-size: .55rem;
+  opacity: .75;
+}
+
+.MensajesInteraccion__comentario_contenido {
+  grid-column: span 2;
+  line-height: 1.35;
+}
+
+@keyframes aparece-mensaje-interaccion-usuario {
+  0% {
+    opacity: 0.1;
+    transform: translateY(-.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aparece-mensaje-interaccion-bot {
+  0% {
+    opacity: 0.1;
+    transform: translateY(-.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aparece-comentario-interaccion {
+  0% {
+    opacity: 0.1;
+    transform: translateY(-.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
