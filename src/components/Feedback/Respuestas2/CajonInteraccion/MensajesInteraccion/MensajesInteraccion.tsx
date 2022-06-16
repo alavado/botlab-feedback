@@ -4,7 +4,7 @@ import AvatarUsuarios from '../AvatarUsuarios'
 import { format, isSameDay, isYesterday, isToday } from 'date-fns'
 import iconoBot from '@iconify/icons-mdi/robot'
 import './MensajesInteraccion.css'
-import { useInteraccionActivaQuery } from '../../../../../api/hooks'
+import { useComentariosInteraccionActivaQuery, useInteraccionActivaQuery } from '../../../../../api/hooks'
 import React, { useEffect } from 'react'
 import { Mensaje } from '../../../../../api/types/servicio'
 import iconoCalendario from '@iconify/icons-mdi/calendar-check'
@@ -12,7 +12,8 @@ import es from 'date-fns/esm/locale/es/index.js'
 
 const MensajesInteraccion = () => {
 
-  const { data } = useInteraccionActivaQuery()
+  const { data: dataInteraccionActiva } = useInteraccionActivaQuery()
+  useComentariosInteraccionActivaQuery()
 
   useEffect(() => {
     const fechas = document.querySelectorAll('.MensajesInteraccion__dia_mensajes')
@@ -20,13 +21,13 @@ const MensajesInteraccion = () => {
       fechas[fechas.length - 1].scrollIntoView()
       document.querySelector('.MensajesInteraccion')?.scrollBy({ top: -8 })
     }
-  }, [data])
+  }, [dataInteraccionActiva])
 
-  if (!data?.conversaciones) {
+  if (!dataInteraccionActiva?.conversaciones) {
     return <div className="MensajesInteraccion__skeleton" />
   }
 
-  const mensajes = data.conversaciones.map(c => c.mensajes).flat()
+  const mensajes = dataInteraccionActiva.conversaciones.map(c => c.mensajes).flat()
 
   return (
     <div className="MensajesInteraccion">
@@ -49,13 +50,13 @@ const MensajesInteraccion = () => {
               <p className="MensajesInteraccion__mensaje_emisor">
                 {mensaje.emisor === 'BOT' && <InlineIcon icon={iconoBot} />}
                 {mensaje.emisor === 'BOT'
-                  ? <span className="MensajesInteraccion__mensaje_nombre_emisor">{data.nombreBot} (Bot)</span>
+                  ? <span className="MensajesInteraccion__mensaje_nombre_emisor">{dataInteraccionActiva.nombreBot} (Bot)</span>
                   : <>
                       <span className="MensajesInteraccion__mensaje_avatar" style={{ opacity: 1 }}>
                         <AvatarUsuarios />
                       </span>
                       <span className="MensajesInteraccion__mensaje_nombre_emisor">
-                        {data.citas.map((cita: any) => cita.nombre.split(' ')[0]).join(', ')}
+                        {dataInteraccionActiva.citas.map((cita: any) => cita.nombre.split(' ')[0]).join(', ')}
                       </span>
                     </>
                 }

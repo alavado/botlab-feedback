@@ -41,3 +41,13 @@ export interface chatAPIResponse {
     }
   }
 }
+
+export interface reactionsAPIResponse {
+  status: string,
+  data: [{
+    created_at: string,
+    id: number,
+    reaction_emoji: string,
+    reaction_text: string,
+  }]
+}

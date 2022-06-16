@@ -10,7 +10,7 @@ import { RootState } from '../redux/ducks'
 import iconoConfirmacion from '@iconify/icons-mdi/user-circle'
 import iconoConfirmacionMulticita from '@iconify/icons-mdi/user-circle'
 import { estadosInteracciones } from './estadosInteraccion'
-import { chatAPIMessage, chatAPIResponse } from './types/responses'
+import { chatAPIMessage, chatAPIResponse, reactionsAPIResponse } from './types/responses'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -135,6 +135,7 @@ const construirInteraccionCitaNormal = (interaccion: any, servicio: Servicio): I
     citas,
     alertas: [],
     comentarios: interaccion.reactions.map((reaction: any): Comentario => ({
+      id: reaction.id,
       timestamp: parseISO(reaction.created_at),
       texto: reaction.reaction_text,
       emoji: reaction.reaction_emoji
@@ -171,6 +172,7 @@ const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): In
     citas,
     alertas: [],
     comentarios: interaccion.reactions.map((reaction: any): Comentario => ({
+      id: reaction.id,
       timestamp: parseISO(reaction.created_at),
       texto: reaction.reaction_text,
       emoji: reaction.reaction_emoji
@@ -284,5 +286,48 @@ export const useInteraccionActivaQuery = () => {
       enabled: !!idServicioInteraccionActiva && !!idUsuarioInteraccionActiva
     }
   )
+}
 
+const obtenerComentarios = async (idServicio: number, idUsuario: number, inicio: Date): Promise<Comentario[]> => {
+  const { login }: any = store.getState()
+  const { token } = login
+  const url = `${API_ROOT}/reactions/${idServicio}/${idUsuario}`
+  const response: reactionsAPIResponse = (await axios.get(url, { headers: { 'Api-Token': token } })).data
+  const comentarios: Comentario[] = response.data.map((c: any): Comentario => {
+    return {
+      id: c.id,
+      timestamp: parseISO(c.timestamp),
+      texto: c.reaction_text,
+      emoji: c.reaction_emoji,
+    }
+  })
+  comentarios.sort((c1, c2) => c1.timestamp < c2.timestamp ? -1 : 1)
+  return comentarios
+}
+
+export const useComentariosInteraccionActivaQuery = () => {
+  const { idServicioInteraccionActiva, idUsuarioInteraccionActiva, inicioInteraccionActiva } = useSelector((state: RootState) => state.interaccion)
+  const queryClient = useQueryClient()
+  return useQuery(
+    ['comentarios', idServicioInteraccionActiva, idUsuarioInteraccionActiva, inicioInteraccionActiva],
+    async () => {
+      const comentarios = await obtenerComentarios(
+        idServicioInteraccionActiva as number, 
+        idUsuarioInteraccionActiva as number,
+        inicioInteraccionActiva as Date
+      )
+      const interaccion = queryClient.getQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva]) as Interaccion
+      const interaccionCompleta: Interaccion = {
+        ...interaccion,
+        comentarios
+      }
+      queryClient.setQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva], interaccionCompleta)
+      return interaccionCompleta
+    },
+    {
+      refetchInterval: 60_000,
+      refetchOnWindowFocus: false,
+      enabled: !!idServicioInteraccionActiva && !!idUsuarioInteraccionActiva && !!inicioInteraccionActiva,
+    }
+  )
 }

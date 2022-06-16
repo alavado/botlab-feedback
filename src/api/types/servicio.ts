@@ -76,6 +76,7 @@ export interface Alerta {
 }
 
 export interface Comentario {
+  id: number,
   timestamp: Date,
   texto: string,
   emoji: string
