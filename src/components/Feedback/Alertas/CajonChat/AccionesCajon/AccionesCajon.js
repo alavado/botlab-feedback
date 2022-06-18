@@ -1,7 +1,4 @@
 import { InlineIcon } from '@iconify/react'
-import iconoCerrar from '@iconify/icons-mdi/close'
-import iconoIrAChat from '@iconify/icons-mdi/smartphone'
-import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
 import './AccionesCajon.css'
 import { useHistory } from 'react-router-dom'
 import { useQuery } from 'react-query'
@@ -31,21 +28,21 @@ const AccionesCajon = () => {
         className="AccionesCajon__boton_accion"
         onClick={() => history.push(`/chat/${alertaDestacada.poll_id}/${alertaDestacada.user_id}`, { from: '/alertas' })}
       >
-        <InlineIcon icon={iconoIrAChat} />
+        <InlineIcon icon="mdi:smartphone" />
         <span className="AccionesCajon__tooltip">Ver Chat</span>
       </button>
       <button
         className="AccionesCajon__boton_accion"
         onClick={() => window.open(`https://web.whatsapp.com/send?phone=${telefono}`, '_blank').focus()}
       >
-        <InlineIcon icon={iconoWhatsapp} />
+        <InlineIcon icon="mdi:whatsapp" />
         <span className="AccionesCajon__tooltip">Contactar por Whatsapp</span>
       </button>
       <button
         className="AccionesCajon__boton_accion"
         onClick={() => history.push('/alertas')}
       >
-        <InlineIcon icon={iconoCerrar} />
+        <InlineIcon icon="mdi:close" />
         <span className="AccionesCajon__tooltip">Cerrar</span>
       </button>
     </div>

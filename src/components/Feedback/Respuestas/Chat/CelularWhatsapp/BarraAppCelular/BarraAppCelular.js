@@ -1,7 +1,4 @@
-import React from 'react'
 import { Icon } from '@iconify/react'
-import iconoVolver from '@iconify/icons-mdi/arrow-back'
-import iconoExpandir from '@iconify/icons-mdi/arrow-expand'
 import './BarraAppCelular.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fijaChatExpandido } from '../../../../../../redux/ducks/opciones'
@@ -18,7 +15,7 @@ const BarraAppCelular = ({ nombreBot }) => {
     <div className="BarraAppCelular">
       <div className="BarraAppCelular__izquierda">
         <Icon
-          icon={iconoVolver}
+          icon="mdi:arrow-back"
           className="BarraAppCelular__icono_volver"
           onClick={() => history.goBack()}
         />
@@ -38,7 +35,7 @@ const BarraAppCelular = ({ nombreBot }) => {
           className="BarraAppCelular__iconos"
           title="Vista expandida"
         >
-          <Icon icon={iconoExpandir} />
+          <Icon icon="mdi:arrow-expand" />
         </button>
         {/* <button
           onClick={() => mensajes && actualizarMensajes(false)}

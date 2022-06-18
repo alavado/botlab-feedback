@@ -1,11 +1,5 @@
 import { InlineIcon } from '@iconify/react'
 import { useEffect, useState, useRef } from 'react'
-import iconoProblema from '@iconify/icons-mdi/report'
-import iconoCerrar from '@iconify/icons-mdi/close'
-import iconoGracias from '@iconify/icons-mdi/robot-excited'
-import iconoEnviando from '@iconify/icons-mdi/loading'
-import iconoAbrirWhatsappWeb from '@iconify/icons-mdi/whatsapp'
-import iconoAbrirAgenda from '@iconify/icons-mdi/arrow-up-right'
 import { useDispatch, useSelector } from 'react-redux'
 import { agregarMensajeAHilo, reportarASlack } from '../../../../../helpers/slack'
 import logoCero from '../../../../../assets/images/logo-cero.svg'
@@ -74,7 +68,7 @@ const AccionesChat = ({ telefono, link }) => {
   if (enviado) {
     return (
       <div className="AccionesChat__agradecimiento">
-        <InlineIcon className="AccionesChat__icono_gracias" icon={iconoGracias} />
+        <InlineIcon className="AccionesChat__icono_gracias" icon="mdi:robot-excited" />
         <p className="AccionesChat__gracias">¡Hemos recibido tu reporte, gracias por ayudarnos a mejorar nuestro servicio!</p>
         {contactoEnviado
           ? <p className="AccionesChat__gracias AccionesChat__gracias--contacto">¡Muchas gracias! {obtenerSonrisa()}</p>
@@ -117,7 +111,7 @@ const AccionesChat = ({ telefono, link }) => {
               onClick={() => setFormularioVisible(false)}
               title="Cancelar"
             >
-              <InlineIcon icon={iconoCerrar} />
+              <InlineIcon icon="mdi:close" />
             </button>
             <label className="AccionesChat__label">
               Tipo de problema
@@ -152,7 +146,7 @@ const AccionesChat = ({ telefono, link }) => {
               title="Reportar"
             >
               {enviando
-                ? <><InlineIcon className="AccionesChat__icono_enviando" icon={iconoEnviando} /> Enviando reporte...</>
+                ? <><InlineIcon className="AccionesChat__icono_enviando" icon="mdi:loading" /> Enviando reporte...</>
                 : <>Reportar problema a <img className="AccionesChat__logo_cero" src={logoCero} alt="logo Cero" /></>
               }
             </button>
@@ -164,7 +158,7 @@ const AccionesChat = ({ telefono, link }) => {
             onClick={() => abrirWhatsappWeb()}
             title="Abrir chat en Whatsapp Web"
           >
-            <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon={iconoAbrirWhatsappWeb} />
+            <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon="mdi:whatsapp" />
             Chatear con paciente
           </button>
           {link &&
@@ -173,7 +167,7 @@ const AccionesChat = ({ telefono, link }) => {
               onClick={() => abrirAgenda()}
               title={`Abrir chat en ${link.tipo}`}
             >
-              <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon={iconoAbrirAgenda} />
+              <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon="mdi:arrow-up-right" />
               Ver cita en {link.tipo}
             </button>
           }
@@ -182,7 +176,7 @@ const AccionesChat = ({ telefono, link }) => {
             onClick={() => setFormularioVisible(true)}
             title="Reportar problema a CERO"
           >
-            <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon={iconoProblema} />
+            <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon="mdi:report" />
             Reportar problema
           </button>
         </>

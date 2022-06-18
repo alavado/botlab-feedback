@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import './FormularioNuevaReaccion.css'
-import iconoEliminar from '@iconify/icons-mdi/close'
 import SelectorEmoji from '../SelectorEmoji'
 import { useDispatch, useSelector } from 'react-redux'
 import { eliminaReaccion, guardaReaccion } from '../../../../../../redux/ducks/reacciones'
@@ -129,7 +128,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
                 className="FormularioNuevaReaccion__boton_eliminar_sugerencia"
                 title="Eliminar sugerencia"
               >
-                <InlineIcon icon={iconoEliminar} />
+                <InlineIcon icon="mdi:close" />
               </button>
             </span>
           ))}

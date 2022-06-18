@@ -1,6 +1,4 @@
 import { Icon } from '@iconify/react'
-import iconoBuscar from '@iconify/icons-mdi/text-search'
-import iconoBorrarBusqueda from '@iconify/icons-mdi/close'
 import './BuscadorRespuestas.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { buscaEsto } from '../../../../redux/ducks/respuestas'
@@ -20,7 +18,7 @@ const BuscadorRespuestas = ({ cargando }) => {
         title="Limpiar filtro"
       >
         <Icon
-          icon={busqueda ? iconoBorrarBusqueda : iconoBuscar}
+          icon={busqueda ? "mdi:close" : "mdi:text-search"}
           className="BuscadorRespuestas__icono"
         />
       </div>

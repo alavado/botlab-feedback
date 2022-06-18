@@ -1,5 +1,4 @@
 import React from 'react'
-import iconoRecargar from '@iconify/icons-mdi/refresh'
 import './ErrorBoundary.css'
 import { InlineIcon } from '@iconify/react'
 
@@ -28,7 +27,7 @@ class ErrorBoundary extends React.Component {
               className="ErrorBoundary__boton_recargar"
               onClick={() => window.location.reload()}
             >
-              <InlineIcon icon={iconoRecargar} />
+              <InlineIcon icon="mdi:refresh" />
             </button>
             <p>Si el problema persiste, contáctate con CERO para que te brindemos asistencia</p>
           </div>

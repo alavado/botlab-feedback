@@ -1,4 +1,3 @@
-import { IconifyIcon } from '@iconify/types'
 import axios from 'axios'
 import store from '../redux/store'
 import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta, Conversacion, Mensaje, Comentario, Alerta } from './types/servicio'
@@ -7,21 +6,19 @@ import { es } from 'date-fns/locale'
 import { useQuery, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/ducks'
-import iconoConfirmacion from '@iconify/icons-mdi/account-check'
-import iconoConfirmacionMulticita from '@iconify/icons-mdi/account-multiple-check'
 import { estadosInteracciones } from './estadosInteraccion'
 import { alertasAPIResponse, chatAPIMessage, chatAPIResponse, reactionsAPIResponse } from './types/responses'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
-const obtenerIconoServicio = (nombre: string): IconifyIcon => {
+const obtenerIconoServicio = (nombre: string): string => {
   switch (nombre) {
     case 'Confirmación':
-      return iconoConfirmacion
+      return 'mdi:account-check'
     case 'Confirmación Multicita':
-      return iconoConfirmacionMulticita
+      return 'mdi:account-multiple-check'
     default:
-      return iconoConfirmacion
+      return 'mdi:account-check'
   }
 }
 

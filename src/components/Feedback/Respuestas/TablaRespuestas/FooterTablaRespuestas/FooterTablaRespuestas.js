@@ -1,6 +1,5 @@
 import Skeleton from '../../../../Skeleton'
 import { Icon } from '@iconify/react'
-import iconoSiguiente from '@iconify/icons-mdi/play'
 import { useDispatch, useSelector } from 'react-redux'
 import { avanzaPagina, retrocedePagina } from '../../../../../redux/ducks/respuestas'
 import './FooterTablaRespuestas.css'
@@ -35,7 +34,7 @@ const FooterTablaRespuestas = ({ cargando, respuestasPorPagina, totalRespuestas 
                     disabled={pagina === 1}
                     title="Página anterior"
                   >
-                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon={iconoSiguiente} />
+                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon="mdi:play" />
                     Anterior
                   </button>
                   <button
@@ -45,7 +44,7 @@ const FooterTablaRespuestas = ({ cargando, respuestasPorPagina, totalRespuestas 
                     title="Página siguiente"
                   >
                     Siguiente
-                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon={iconoSiguiente} />
+                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon="mdi:play" />
                   </button>
                 </div>
               }

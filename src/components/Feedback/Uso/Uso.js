@@ -4,7 +4,6 @@ import { subMonths, format, startOfMonth, endOfMonth, parse } from 'date-fns'
 import { es } from 'date-fns/locale'
 import Skeleton from '../../Skeleton'
 import { Icon } from '@iconify/react'
-import iconoDescargarPDF from '@iconify/icons-mdi/file-download'
 import { useSelector } from 'react-redux'
 import { generarPDFUso } from '../../../helpers/generacionPDF'
 import './Uso.css'
@@ -63,7 +62,7 @@ const Uso = () => {
           className="Uso__boton_descargar_pdf"
           disabled={!filas}
         >
-          <Icon className="Uso__icono_descargar_pdf" icon={iconoDescargarPDF} />
+          <Icon className="Uso__icono_descargar_pdf" icon="mdi:file-download" />
           Descargar PDF
         </button>
       </div>

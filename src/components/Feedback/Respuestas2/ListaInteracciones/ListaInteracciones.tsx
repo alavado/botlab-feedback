@@ -5,15 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useInteraccionesServicioYEstadoActivosQuery } from '../../../../api/hooks'
 import { muestraCajonInteraccion } from '../../../../redux/ducks/servicio'
 import CajonInteraccion from '../CajonInteraccion'
-import iconoSinCitas from '@iconify/icons-mdi/robot'
 import './ListaInteracciones.css'
 import { IDEstadoInteraccion } from '../../../../api/types/servicio'
 import { RootState } from '../../../../redux/ducks'
 import classNames from 'classnames'
 import { isTomorrow } from 'date-fns/esm'
 import { seleccionaInteraccion } from '../../../../redux/ducks/interaccion'
-import iconoApuntandoAEstadosInteracciones from '@iconify/icons-mdi/triangle-small-up'
-import iconoComentario from '@iconify/icons-mdi/comment-check'
 
 const obtenerMensajeSinCitas = (idEstado: IDEstadoInteraccion | undefined) => {
   switch (idEstado) {
@@ -49,7 +46,7 @@ const ListaInteracciones = () => {
         <p className="ListaInteracciones__mensaje_paso_previo">
           <Icon
             className="ListaInteracciones__icono_paso_previo"
-            icon={iconoApuntandoAEstadosInteracciones}
+            icon="mdi:triangle-small-up"
           /> Selecciona un estado
         </p>
       </div>
@@ -59,7 +56,7 @@ const ListaInteracciones = () => {
   if (data.length === 0) {
     return (
       <div className="ListaInteracciones__sin_citas">
-        <InlineIcon className="ListaInteracciones__icono_sin_citas" icon={iconoSinCitas} />
+        <InlineIcon className="ListaInteracciones__icono_sin_citas" icon="mdi:robot" />
         <p className="ListaInteracciones__mensaje_sin_citas">
           {obtenerMensajeSinCitas(idEstadoInteraccionActivo)}
         </p>
@@ -79,7 +76,7 @@ const ListaInteracciones = () => {
           title="Último comentario"
           style={{ display: 'flex', justifyContent: 'center' }}
         >
-          <InlineIcon style={{ fontSize: '.7rem', opacity: .75 }} icon={iconoComentario} />
+          <InlineIcon style={{ fontSize: '.7rem', opacity: .75 }} icon="mdi:comment-check" />
         </div>
         <div>Paciente</div>
         <div>Fecha cita</div>

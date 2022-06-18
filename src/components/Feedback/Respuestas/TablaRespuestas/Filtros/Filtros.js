@@ -1,8 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { InlineIcon } from '@iconify/react'
-import iconoRemoverFiltro from '@iconify/icons-mdi/close'
-import iconoFiltros from '@iconify/icons-mdi/filter'
-import iconoAyuda from '@iconify/icons-mdi/help-circle'
 import { useDispatch, useSelector } from 'react-redux'
 import { remueveFiltro, combinaFiltros } from '../../../../../redux/ducks/respuestas'
 import ModalAyuda from '../../../../ModalAyuda'
@@ -20,7 +17,7 @@ const Filtros = () => {
   return (
     <div className="Filtros">
       <div className="Filtros__titulo">
-        <p className="Filtros__mensaje"><InlineIcon icon={iconoFiltros} /> {filtrosVisibles.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}</p> 
+        <p className="Filtros__mensaje"><InlineIcon icon="mdi:filter" /> {filtrosVisibles.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}</p> 
       </div>
       {filtros.map((f, i) => (
         <div
@@ -48,12 +45,12 @@ const Filtros = () => {
             title="Remover este filtro"
             onClick={() => dispatch(remueveFiltro(i))}
           >
-            <InlineIcon icon={iconoRemoverFiltro} />
+            <InlineIcon icon="mdi:close" />
           </button>
         </div>
       ))}
       <button className="Filtros__boton_ayuda">
-        <InlineIcon icon={iconoAyuda} onClick={() => setMostrarAyuda(!mostrarAyuda)} />
+        <InlineIcon icon="mdi:help-circle" onClick={() => setMostrarAyuda(!mostrarAyuda)} />
       </button>
       {mostrarAyuda && <ModalAyuda cerrar={() => setMostrarAyuda(false)} />}
     </div>

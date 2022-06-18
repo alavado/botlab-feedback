@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import SelectorRangoFechas from '../SelectorRangoFechas'
 import BuscadorRespuestas from '../BuscadorRespuestas'
-import iconoCSV from '@iconify/icons-mdi/download-outline'
 import { Icon } from '@iconify/react'
 import FooterTablaRespuestas from './FooterTablaRespuestas'
 import HeadTablaRespuestas from './HeadTablaRespuestas'
@@ -15,7 +14,6 @@ import './TablaRespuestas.css'
 import { fijaScrollTabla } from '../../../../redux/ducks/respuestas'
 import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
 import { tieneAccesoAReportes } from '../../../../helpers/permisos'
-import iconoConfiguracion from '@iconify/icons-mdi/cog'
 import { muestraModal } from '../../../../redux/ducks/configuracion'
 import { desactivaTooltip } from '../../../../redux/ducks/novedades'
 
@@ -57,7 +55,7 @@ const TablaRespuestas = () => {
           >
             <Icon
               className="TablaRespuestas__boton_icono"
-              icon={iconoConfiguracion}
+              icon="mdi:cog"
             />
             {tooltipVisible && (
               <div className="TablaRespuestas__tooltip_configuracion">
@@ -84,7 +82,7 @@ const TablaRespuestas = () => {
           "TablaRespuestas__overlay--activo": tablaDestacada
         })}>
           <div className="TablaRespuestas__contenido_overlay">
-            <Icon icon={iconoCSV} />
+            <Icon icon="mdi:download-outline" />
           </div>
         </div>
         <div className="TablaRespuestas__contenedor_central">

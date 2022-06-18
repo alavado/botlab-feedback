@@ -1,7 +1,5 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import play from '@iconify/icons-mdi/play'
-import playlist from '@iconify/icons-mdi/playlist-play'
 import './Tutoriales.css'
 import { Icon, InlineIcon } from '@iconify/react'
 import logoCero from '../../../assets/images/logo.png'
@@ -98,7 +96,7 @@ const Tutoriales = () => {
                   className="Tutoriales__boton_indicacion"
                   onClick={() => setIndiceVideoActivo(0)}
                 >
-                  <Icon icon={playlist} />
+                  <Icon icon="mdi:playlist-play" />
                 </button>
                 <p>Selecciona un video de la lista</p>
               </div>
@@ -120,7 +118,7 @@ const Tutoriales = () => {
                 })}
               >
                 <p className="Tutoriales__miniatura_numero">
-                  {i === indiceVideoActivo ? <InlineIcon icon={play} /> : (i + 1)}
+                  {i === indiceVideoActivo ? <InlineIcon icon="mdi:play" /> : (i + 1)}
                 </p>
                 <div
                   className="Tutoriales__miniatura"

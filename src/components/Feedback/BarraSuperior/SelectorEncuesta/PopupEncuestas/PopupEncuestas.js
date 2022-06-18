@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import { useSelector } from 'react-redux'
 import { Icon } from '@iconify/react'
-import whatsapp from '@iconify/icons-mdi/whatsapp'
 import classNames from 'classnames'
 import './PopupEncuestas.css'
 import Scrambler from '../../../../Scrambler/Scrambler'
@@ -62,7 +61,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
           >
             <Icon
               className="PopupEncuestas__icono_empresa"
-              icon={icono || whatsapp}
+              icon={icono || 'mdi/whatsapp'}
               style={{ color: enabled ? '#48BB78' : '#9f9eae' }}
             />
             <div className="PopupEncuestas__nombre_encuesta">

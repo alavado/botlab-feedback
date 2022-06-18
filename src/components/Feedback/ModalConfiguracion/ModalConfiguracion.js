@@ -2,13 +2,10 @@ import { Icon, InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { escondeModal } from '../../../redux/ducks/configuracion'
-import iconoCerrar from '@iconify/icons-mdi/close'
 import './ModalConfiguracion.css'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { agregarSolicitud } from '../../../api/endpoints'
-import iconoEnviar from '@iconify/icons-mdi/cog-transfer'
-import iconoGenial from '@iconify/icons-mdi/check-bold'
 import Draggable from 'react-draggable'
 
 const tiposCambiosConfiguracion = [
@@ -68,7 +65,7 @@ const ModalConfiguracion = () => {
             className="ModalConfiguracion__boton_cerrar"
             onClick={() => dispatch(escondeModal())}
           >
-            <Icon icon={iconoCerrar} />
+            <Icon icon="mdi:check-bold" />
           </button>
           <h2 className="ModalConfiguracion__titulo">Configuración del servicio</h2>
           {isSuccess
@@ -85,7 +82,7 @@ const ModalConfiguracion = () => {
                   onClick={() => dispatch(escondeModal())}
                   className="ModalConfiguracion__boton_genial"
                 >
-                  <InlineIcon icon={iconoGenial} /> ¡Excelente!
+                  <InlineIcon icon="mdi:check-bold" /> ¡Excelente!
                 </button>
               </div>
             : <form
@@ -140,7 +137,7 @@ const ModalConfiguracion = () => {
                   className="ModalConfiguracion__boton_enviar"
                   disabled={!detalle || !tipo  || !contacto || isLoading}
                 >
-                  <InlineIcon icon={iconoEnviar} /> Actualizar configuración
+                  <InlineIcon icon="mdi:cog-transfer" /> Actualizar configuración
                 </button>
               </form>
           }

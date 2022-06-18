@@ -4,8 +4,6 @@ import { alertas as getAlertas } from '../../../api/endpoints'
 import { useQuery } from 'react-query'
 import classNames from 'classnames'
 import { InlineIcon } from '@iconify/react'
-import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
-import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,14 +23,14 @@ const tabsAlertas = [
   {
     id: 1,
     titulo: 'Por resolver',
-    icono: iconoAlertasNoResueltas,
+    icono: 'mdi:bell-ring-outline',
     filtro: a => mensajesAlertasVisibles.indexOf(a.message) >= 0 && !a.dismissed,
     color: 'var(--color-alerta-pendiente)'
   },
   {
     id: 2,
     titulo: 'Resueltas',
-    icono: iconoAlertasResueltas,
+    icono: 'mdi:bell-check-outline',
     filtro: a => mensajesAlertasVisibles.indexOf(a.message) >= 0 && a.dismissed,
     color: 'var(--color-alerta-resuelta)'
   }

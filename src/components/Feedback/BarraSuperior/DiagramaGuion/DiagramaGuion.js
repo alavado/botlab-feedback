@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './DiagramaGuion.css'
 import { useSelector } from 'react-redux'
 import { parsearXMLDeGuion } from '../../../../helpers/guionXML'
 import classNames from 'classnames'
 import { InlineIcon } from '@iconify/react'
-import iconoCerrar from '@iconify/icons-mdi/close'
 
 const DiagramaGuion = ({ visible, esconder }) => {
 
@@ -59,7 +58,7 @@ const DiagramaGuion = ({ visible, esconder }) => {
           onClick={esconder}
           title="Ocultar guión"
         >
-          <InlineIcon icon={iconoCerrar} />
+          <InlineIcon icon="mdi:close" />
         </button>
         {error}
         {nodos.map((nodo, i) => (

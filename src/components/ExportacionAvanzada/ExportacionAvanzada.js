@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import classNames from 'classnames'
-import iconoExportar from '@iconify/icons-mdi/table-export'
 import { Icon } from '@iconify/react'
 import './ExportacionAvanzada.css'
 import { exportarRespuestas } from '../../api/endpoints'
@@ -126,7 +125,7 @@ const ExportacionAvanzada = () => {
           >
             {exportando
               ? <><div className="ExportacionAvanzada__loader_exportando" /> Generando...</>
-              : <><Icon className="ExportacionAvanzada__icono" icon={iconoExportar} /> Generar reporte</>
+              : <><Icon className="ExportacionAvanzada__icono" icon="mdi:table-export" /> Generar reporte</>
             }
           </button>
           <p className="ExportacionAvanzada__explicacion">

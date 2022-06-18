@@ -2,13 +2,10 @@ import { InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import AvatarUsuarios from '../AvatarUsuarios'
 import { format, isSameDay, isYesterday, isToday } from 'date-fns'
-import iconoBot from '@iconify/icons-mdi/robot'
 import './MensajesInteraccion.css'
 import { useComentariosInteraccionActivaQuery, useInteraccionActivaQuery } from '../../../../../api/hooks'
 import React, { useEffect } from 'react'
 import { Comentario, Mensaje } from '../../../../../api/types/servicio'
-import iconoCalendario from '@iconify/icons-mdi/calendar-check'
-import iconoComentario from '@iconify/icons-mdi/comment-check'
 import es from 'date-fns/esm/locale/es/index.js'
 
 const esMensaje = (elemento: Mensaje | Comentario): elemento is Mensaje => {
@@ -52,7 +49,7 @@ const MensajesInteraccion = () => {
             <React.Fragment key={`mensaje-${i}-${timestamp}`}>
               {(i === 0 || !isSameDay(mensajesYComentarios[i - 1].timestamp, timestamp)) && (
                 <div className="MensajesInteraccion__dia_mensajes">
-                  <InlineIcon icon={iconoCalendario} /> {(isYesterday(timestamp) ? 'ayer, ' : '') + (isToday(timestamp) ? 'hoy, ' : '') + format(timestamp, 'EEEE d \'de\' MMMM', { locale: es })}
+                  <InlineIcon icon="mdi:calendar-check" /> {(isYesterday(timestamp) ? 'ayer, ' : '') + (isToday(timestamp) ? 'hoy, ' : '') + format(timestamp, 'EEEE d \'de\' MMMM', { locale: es })}
                 </div>
               )}
               <div
@@ -64,7 +61,7 @@ const MensajesInteraccion = () => {
                 style={{ animationDelay: `${Math.max(0, i - indicePrimerMensajeUltimaConversacion) * .05}s` }}
               >
                 <p className="MensajesInteraccion__mensaje_emisor">
-                  {emisor === 'BOT' && <InlineIcon icon={iconoBot} />}
+                  {emisor === 'BOT' && <InlineIcon icon="mdi:robot" />}
                   {emisor === 'BOT'
                     ? <span className="MensajesInteraccion__mensaje_nombre_emisor">{dataInteraccionActiva.nombreBot} (Bot)</span>
                     : <>
@@ -92,7 +89,7 @@ const MensajesInteraccion = () => {
               style={{ animationDelay: `${Math.max(0, i - indicePrimerMensajeUltimaConversacion) * .05}s` }}
             >
               <p className="MensajesInteraccion__comentario_emisor">
-                <InlineIcon icon={iconoComentario} /> Comentario (visible solo en Feedback)
+                <InlineIcon icon="mdi:comment-check" /> Comentario (visible solo en Feedback)
               </p>
               <p className="MensajesInteraccion__comentario_hora">{format(timestamp, 'HH:mm')}</p>
               <p className="MensajesInteraccion__comentario_contenido">{emoji} {texto}</p>

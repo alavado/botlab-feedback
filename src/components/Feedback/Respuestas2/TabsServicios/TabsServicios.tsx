@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useServiciosQuery } from '../../../../api/hooks'
 import { RootState } from '../../../../redux/ducks'
 import { toggleCajonFiltros, seleccionaServicio } from '../../../../redux/ducks/servicio'
-import iconoMenu from '@iconify/icons-mdi/menu'
-import iconoServicio from '@iconify/icons-mdi/user-circle'
 import './TabsServicios.css'
 
 const TabsServicios = () => {
@@ -20,7 +18,7 @@ const TabsServicios = () => {
         className="TabsServicios__boton_menu"
         onClick={() => dispatch(toggleCajonFiltros())}
       >
-        <Icon icon={iconoMenu} />
+        <Icon icon="mdi:menu" />
       </button>
       {isLoading || !servicios
         ? <>
@@ -28,7 +26,7 @@ const TabsServicios = () => {
               className="TabsServicios__tab TabsServicios__tab--cargando"
             >
               <div className="TabsServicios__skeleton">
-                <Icon icon={iconoServicio} />
+                <Icon icon="mdi:user-circle" />
               </div>
               <div className="TabsServicios__skeleton">
                 Confirmación
@@ -38,7 +36,7 @@ const TabsServicios = () => {
               className="TabsServicios__tab TabsServicios__tab--cargando"
             >
               <div className="TabsServicios__skeleton">
-                <Icon icon={iconoServicio} />
+                <Icon icon="mdi:user-circle" />
               </div>
               <div className="TabsServicios__skeleton">
                 Confirmación Multicita

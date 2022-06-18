@@ -1,5 +1,3 @@
-import iconoSucursal from '@iconify/icons-mdi/map-marker-radius'
-
 const crearPollPorFiltro = (encuesta, respuestas, header) => {
   const encuestasFicticias = [...new Set(respuestas.map(r => r[header]))]
     .map(s => {
@@ -9,7 +7,7 @@ const crearPollPorFiltro = (encuesta, respuestas, header) => {
         nombre: nombreEncuesta,
         propiedad: s,
         enabled: encuesta.enabled,
-        icono: iconoSucursal
+        icono: "mdi:map-marker-radius"
       }})
     .sort((s1, s2) => s1.nombre < s2.nombre ? -1 : 1)
   return encuestasFicticias.length > 0 ? encuestasFicticias : []

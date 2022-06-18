@@ -6,9 +6,6 @@ import IndicadorFetchingGlobal from './IndicadorFetchingGlobal'
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
 import { InlineIcon } from '@iconify/react'
-import iconoSucursal from '@iconify/icons-mdi/place'
-import iconoCalendario from '@iconify/icons-mdi/calendar-check'
-import iconoSeleccionarSucursal from '@iconify/icons-mdi/triangle-small-down'
 import logoCero from '../../../assets/images/logo_blanco.png'
 import { useAlertasQuery } from '../../../api/hooks'
 
@@ -34,14 +31,14 @@ const Respuestas2 = () => {
         </div>
         <div className="Respuestas2__selector_sucursal">
           <div className="Respuestas2__boton_selector">
-            <InlineIcon icon={iconoCalendario} />
+            <InlineIcon icon="mdi:calendar-check" />
             hoy, viernes 3 de junio
-            <InlineIcon icon={iconoSeleccionarSucursal} />
+            <InlineIcon icon="mdi:triangle-small-down" />
           </div>
           <div className="Respuestas2__boton_selector">
-            <InlineIcon icon={iconoSucursal} />
+            <InlineIcon icon="mdi:place" />
             Todas las sucursales
-            <InlineIcon icon={iconoSeleccionarSucursal} />
+            <InlineIcon icon="mdi:triangle-small-down" />
           </div>
         </div>
       </div>

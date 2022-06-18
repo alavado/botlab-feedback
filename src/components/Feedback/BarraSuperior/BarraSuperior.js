@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import './BarraSuperior.css'
 import MenuUsuario from './MenuUsuario'
@@ -6,10 +6,8 @@ import SelectorEncuesta from './SelectorEncuesta'
 import DiagramaGuion from './DiagramaGuion'
 import AlertaPilotos from './AlertaPilotos'
 import { Icon, InlineIcon } from '@iconify/react'
-import iconoGuion from '@iconify/icons-mdi/script-text'
 import { useDispatch, useSelector } from 'react-redux'
 import { activaEnviador } from '../../../redux/ducks/enviador'
-import iconoContacto from '@iconify/icons-mdi/send'
 import TabsEncuestas from './TabsEncuestas'
 import { obtenerPollsCalculadas } from '../../../helpers/pollsCalculadas'
 import { obtenerTiposEncuestasVisibles } from '../../../helpers/encuestasSecretas'
@@ -70,7 +68,7 @@ const BarraSuperior = () => {
               className="BarraSuperior__boton_enviador"
               onClick={() => dispatch(activaEnviador())}
             >
-              <InlineIcon icon={iconoContacto} /> Contactar pacientes
+              <InlineIcon icon="mdi:send" /> Contactar pacientes
             </button>
           )}/>
         </Switch>
@@ -81,7 +79,7 @@ const BarraSuperior = () => {
           className="BarraSuperior__boton"
           title={verModal ? 'Ocultar guión' : 'Ver guión' }
         >
-          <Icon icon={iconoGuion} className="SelectorRangoFechas__boton_icono" />
+          <Icon icon="mdi:script-text" className="SelectorRangoFechas__boton_icono" />
         </button>
       )}
       <MenuUsuario />

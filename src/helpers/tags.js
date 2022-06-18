@@ -1,12 +1,3 @@
-
-import check from '@iconify/icons-mdi/check'
-import cancel from '@iconify/icons-mdi/close'
-import refresh from '@iconify/icons-mdi/arrow-right'
-import option from '@iconify/icons-mdi/check'
-import question from '@iconify/icons-mdi/question-mark'
-import time from '@iconify/icons-mdi/timer-sand'
-import file from '@iconify/icons-mdi/file'
-
 export const YES = 'YES'
 export const NO = 'NO'
 export const REAGENDA = 'REAGENDA'
@@ -22,224 +13,224 @@ const tags = {
   YES: {
     texto: 'Sí',
     titulo: 'Confirmaciones',
-    icono: check,
+    icono: "mdi:check",
     clase: 'TagRespuesta TagRespuesta--si',
     color: 'var(--color-si)'
   },
   NO: {
     texto: 'No',
     titulo: 'Cancelaciones',
-    icono: cancel,
+    icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--no',
     color: 'var(--color-no)'
   },
   REAGENDA: {
     texto: 'Reagenda',
     titulo: 'Reagendamientos',
-    icono: refresh,
+    icono: 'mdi:arrow-right',
     clase: 'TagRespuesta TagRespuesta--reagenda',
     color: 'var(--color-reagenda)'
   },
   OUT: {
     texto: 'Out',
     titulo: 'Out',
-    icono: question,
+    icono: 'mdi:question-mark',
     clase: 'TagRespuesta TagRespuesta--out',
     color: 'var(--color-out)'
   },
   REAGENDADO: {
     texto: 'Reagendado',
     titulo: 'Reagendamientos ok',
-    icono: check,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--reagendado',
     color: 'var(--color-reagendado)'
   },
   'S/R': {
     texto: 'Sin respuesta',
     titulo: 'Sin respuesta',
-    icono: time,
+    icono: 'mdi:timer-sand',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'white'
   },
   DEFAULT: {
     texto: 'Sí',
     titulo: 'Respuestas',
-    icono: check,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: 'white'
   },
   INFO_REAGENDA: {
     texto: 'Paciente indica fechas',
     titulo: 'Paciente indica fechas',
-    icono: check,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   NO_INFO_REAGENDA: {
     texto: 'Paciente no indica fechas',
     titulo: 'Paciente no indica fechas',
-    icono: cancel,
+    icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--no',
     color: ''
   },
   NO_REAGENDA: {
     texto: 'No',
     titulo: 'Paciente no reagenda',
-    icono: cancel,
+    icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--no',
     color: ''
   },
   NINGUNA: {
     texto: 'Ninguna',
     titulo: 'Ninguna',
-    icono: cancel,
+    icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--no',
     color: ''
   },
   CUALQUIERA: {
     texto: 'Cualquiera',
     titulo: 'Cualquiera',
-    icono: check,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   '': {
     texto: 'Vacío',
     titulo: '',
-    icono: time,
+    icono: 'mdi:timer-sand',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   '1': {
     texto: '1',
     titulo: '1',
-    icono: option,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   '2': {
     texto: '2',
     titulo: '2',
-    icono: option,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   '3': {
     texto: '3',
     titulo: '3',
-    icono: option,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   '4': {
     texto: '4',
     titulo: '4',
-    icono: option,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   '5': {
     texto: '5',
     titulo: '5',
-    icono: option,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   PC_PRECIO: {
     texto: 'Consulta precio',
     titulo: 'Paciente consulta por precio',
-    icono: question,
+    icono: 'mdi:question-mark',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   PC_SEGURO: {
     texto: 'Consulta seguro',
     titulo: 'Paciente consulta por seguro de salud',
-    icono: question,
+    icono: 'mdi:question-mark',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   PC_DIRECCION: {
     texto: 'Consulta dirección',
     titulo: 'Paciente consulta por dirección',
-    icono: question,
+    icono: 'mdi:question-mark',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   QUIERE_HABLAR: {
     texto: 'Quiere llamar',
     titulo: 'Quiere llamar',
-    icono: question,
+    icono: 'mdi:question-mark',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   MEDIA_IMAGE: {
     texto: 'Imagen',
     titulo: 'Paciente envía imagen',
-    icono: file,
+    icono: 'mdi:file',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   CONFIRMA_DESPUES: {
     texto: 'Confirma después',
     titulo: 'Paciente indica que confirmará más tarde',
-    icono: option,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   RESPUESTA_AUTO: {
     texto: 'RESPUESTA_AUTO',
     titulo: 'RESPUESTA_AUTO',
-    icono: option,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   REVERTIR: {
     texto: 'REVERTIR',
     titulo: 'REVERTIR',
-    icono: option,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
   DATETIME: {
     texto: 'Fecha',
     titulo: 'Fecha',
-    icono: check,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   COMUNA: {
     texto: 'Comuna',
     titulo: 'Comuna',
-    icono: check,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   'COMUNA-DATETIME': {
     texto: 'Fecha y comuna',
     titulo: 'Fecha y comuna',
-    icono: check,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   'action_result:SUCCESS': {
     texto: 'Éxito',
     titulo: 'Éxito',
-    icono: check,
+    icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
   'action_result:FAILURE': {
     texto: 'Error',
     titulo: 'Error',
-    icono: cancel,
+    icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--no',
     color: ''
   },
   'action_result:NO_OPTION': {
     texto: 'No se encuentra',
     titulo: 'No se encuentra',
-    icono: cancel,
+    icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--no',
     color: ''
   }
@@ -248,7 +239,7 @@ const tags = {
 const diccionarioTags = tag => tags[tag] || ({
   texto: tag,
   titulo: tag,
-  icono: option,
+  icono: 'mdi:check',
   clase: 'TagRespuesta TagRespuesta--vacia',
   color: 'var(--color-bordes)'
 })

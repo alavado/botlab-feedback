@@ -1,7 +1,5 @@
-import React from 'react'
 import diccionarioTags from '../../../../../helpers/tags'
 import { InlineIcon } from '@iconify/react'
-import estrella from '@iconify/icons-mdi/star'
 import './TagRespuesta.css'
 
 const maxEstrellas = 5
@@ -29,8 +27,8 @@ const obtenerTextoTag = (tag, pregunta) => {
   else if (!isNaN(tag)) {
     return (
       <>
-        {Array(+tag).fill(0).map((_, i) => <InlineIcon key={`estrella-activa-${i}`} className="TagRespuesta__icono_estrella" icon={estrella} />)}
-        {Array(Math.max(0, maxEstrellas - (+tag))).fill(0).map((_, i) => <InlineIcon key={`estrella-inactiva-${i}`} className="TagRespuesta__icono_estrella TagRespuesta__icono_estrella--inactiva" icon={estrella} />)}
+        {Array(+tag).fill(0).map((_, i) => <InlineIcon key={`estrella-activa-${i}`} className="TagRespuesta__icono_estrella" icon="mdi:star" />)}
+        {Array(Math.max(0, maxEstrellas - (+tag))).fill(0).map((_, i) => <InlineIcon key={`estrella-inactiva-${i}`} className="TagRespuesta__icono_estrella TagRespuesta__icono_estrella--inactiva" icon="mdi:star" />)}
       </>
     )
   }

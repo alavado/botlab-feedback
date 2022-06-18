@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { usePosiblesEstadosInteraccionesQuery } from '../../../../api/hooks'
 import { RootState } from '../../../../redux/ducks'
 import { seleccionaEstadoInteraccion } from '../../../../redux/ducks/servicio'
-import iconoApuntandoAServicioPrevio from '@iconify/icons-mdi/triangle-small-up'
 import './TabsEstadosInteracciones.css'
 
 const TabsEstadosInteracciones = () => {
@@ -25,7 +24,7 @@ const TabsEstadosInteracciones = () => {
         <p className="TabsEstadosInteracciones__mensaje_paso_previo">
           <Icon
             className="TabsEstadosInteracciones__icono_paso_previo"
-            icon={iconoApuntandoAServicioPrevio}
+            icon="mdi:triangle-small-up"
           /> Selecciona un servicio
         </p>
       </div>

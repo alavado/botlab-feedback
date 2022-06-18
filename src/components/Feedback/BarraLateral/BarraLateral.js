@@ -1,13 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Icon } from '@iconify/react'
-import search from '@iconify/icons-mdi/search'
-import alertas from '@iconify/icons-mdi/robot'
-import iconoSinAlertas from '@iconify/icons-mdi/robot-happy'
-import exportar from '@iconify/icons-mdi/table-export'
-import usage from '@iconify/icons-mdi/wallet'
-import home from '@iconify/icons-mdi/home'
-import tutoriales from '@iconify/icons-mdi/play-box-multiple'
 import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 import { useSelector } from 'react-redux'
@@ -38,7 +31,7 @@ const BarraLateral = () => {
           to="/"
           exact
         >
-          <Icon icon={home} />
+          <Icon icon="mdi:home" />
           <div className="BarraLateral__nombre_seccion">Respuestas</div>
         </NavLink>
         {tieneAccesoAAlertas(cuenta) &&
@@ -48,7 +41,7 @@ const BarraLateral = () => {
             to="/alertas"
           >
             <ConteoAlertas setFeliz={setFeliz} />
-            <Icon icon={feliz ? iconoSinAlertas : alertas} />
+            <Icon icon={feliz ? 'mdi:robot-happy' : 'mdi:robot'} />
             <div className="BarraLateral__nombre_seccion">Alertas</div>
           </NavLink>
         }
@@ -66,7 +59,7 @@ const BarraLateral = () => {
             activeClassName="BarraLateral__link--activo"
             to="/exportar"
           >
-            <Icon icon={exportar} />
+            <Icon icon="mdi:table-export" />
             <div className="BarraLateral__nombre_seccion">Reporte</div>
           </NavLink>
         )}
@@ -75,7 +68,7 @@ const BarraLateral = () => {
           activeClassName="BarraLateral__link--activo"
           to="/busqueda"
         >
-          <Icon icon={search} />
+          <Icon icon="mdi:search" />
           <div className="BarraLateral__nombre_seccion">Búsqueda</div>
         </NavLink>
         <NavLink
@@ -83,7 +76,7 @@ const BarraLateral = () => {
           activeClassName="BarraLateral__link--activo"
           to="/uso"
         >
-          <Icon icon={usage} />
+          <Icon icon="mdi:wallet" />
           <div className="BarraLateral__nombre_seccion">Uso</div>
         </NavLink>
         <div className="BarraLateral__fondo">
@@ -92,7 +85,7 @@ const BarraLateral = () => {
             activeClassName="BarraLateral__link--activo"
             to="/tutoriales"
           >
-            <Icon icon={tutoriales} />
+            <Icon icon="mdi:play-box-multiple" />
             <div className="BarraLateral__nombre_seccion">Tutoriales</div>
           </NavLink>
         </div>

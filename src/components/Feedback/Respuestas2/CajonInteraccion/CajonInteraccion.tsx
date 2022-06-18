@@ -2,7 +2,6 @@ import { Icon, InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../redux/ducks'
-import iconoCerrarCajon from '@iconify/icons-mdi/chevron-double-right'
 import './CajonInteraccion.css'
 import { escondeCajonInteraccion } from '../../../../redux/ducks/servicio'
 import { useComentariosInteraccionActivaQuery, useInteraccionActivaQuery } from '../../../../api/hooks'
@@ -37,7 +36,7 @@ const CajonInteraccion = () => {
           dispatch(escondeCajonInteraccion())
         }}
       >
-        <Icon icon={iconoCerrarCajon} />
+        <Icon icon="mdi:chevron-double-right" />
       </button>
       <div className="CajonInteraccion__superior">
         <div className="CajonInteraccion__superior_avatar">

@@ -9,8 +9,6 @@ import { es } from 'date-fns/locale'
 import { InlineIcon } from '@iconify/react'
 import { useEffect, useMemo } from 'react'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
-import iconoRobot from '@iconify/icons-mdi/robot'
-import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
 import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import MensajeChat from './MensajeChat'
@@ -79,7 +77,7 @@ const ContenidoChat = () => {
             })}
             title={alertaDestacada.dismissed ? 'Esta alerta ya fue resuelta' : 'Esta alerta aún no ha sido resuelta'}
           />
-          <InlineIcon style={{ fontSize: '1.25rem' }} icon={alertaDestacada.dismissed ? iconoRobotFeliz : iconoRobot} />
+          <InlineIcon style={{ fontSize: '1.25rem' }} icon={alertaDestacada.dismissed ? 'mdi:robot-happy' : 'mdi:robot'} />
           <div className="ContenidoChat__datos_alerta">
             <p>{obtenerEtiquetaAlerta(alertaDestacada.message)}</p>
             <p className="ContenidoChat__datos_alerta_subtitulo">

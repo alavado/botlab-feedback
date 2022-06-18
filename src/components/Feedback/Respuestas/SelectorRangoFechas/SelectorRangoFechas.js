@@ -4,9 +4,6 @@ import ReactDatePicker, { registerLocale } from 'react-datepicker'
 import es from 'date-fns/locale/es'
 import { useDispatch, useSelector } from 'react-redux'
 import { actualizaRespuestas, guardaFechaInicio, guardaFechaTermino, guardaRangoFechas } from '../../../../redux/ducks/respuestas'
-import iconoOpciones from '@iconify/icons-mdi/dots-vertical'
-import iconoRecargar from '@iconify/icons-mdi/refresh'
-import chevronDown from '@iconify/icons-mdi/chevron-down'
 import { Icon, InlineIcon } from '@iconify/react'
 import './SelectorRangoFechas.css'
 import './react-datepicker-overrides.css'
@@ -44,7 +41,7 @@ const SelectorRangoFechas = () => {
       onClick={() => setPopupTipoSeleccionActivo(true)}
       tooltip="Tipo de selección"
     >
-      {seleccionarRangoFechas ? 'Rango' : 'Fecha'} <InlineIcon icon={chevronDown} />
+      {seleccionarRangoFechas ? 'Rango' : 'Fecha'} <InlineIcon icon="mdi:chevron-down" />
     </button>
       {
         seleccionarRangoFechas
@@ -81,7 +78,7 @@ const SelectorRangoFechas = () => {
         onClick={() => setPopupRangosComunesActivo(true)}
         tooltip="Rangos habituales"
       >
-        <Icon className="SelectorRangoFechas__boton_icono" icon={iconoOpciones} />
+        <Icon className="SelectorRangoFechas__boton_icono" icon="mdi:dots-vertical" />
       </button>
       <PopupRangosFechas
         activo={popupRangosComunesActivo}
@@ -101,7 +98,7 @@ const SelectorRangoFechas = () => {
         onClick={() => dispatch(actualizaRespuestas())}
         disabled={cacheInvalido}
       >
-        <Icon className="SelectorRangoFechas__boton_icono" icon={iconoRecargar} />
+        <Icon className="SelectorRangoFechas__boton_icono" icon="mdi:refresh" />
       </button>
     </div>
   )

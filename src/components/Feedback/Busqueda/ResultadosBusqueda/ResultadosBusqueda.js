@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { comienzaBusqueda, guardaResultadosBusqueda } from '../../../../redux/ducks/busqueda'
 import TarjetaResultadoBusqueda from './TarjetaResultadoBusqueda'
 import { Icon } from '@iconify/react'
-import iconoBuscar from '@iconify/icons-mdi/search'
 import './ResultadosBusqueda.css'
 import LoaderResultadosBusqueda from './LoaderResultadosBusqueda'
 import { useHistory, useParams } from 'react-router-dom'
@@ -67,7 +66,7 @@ const ResultadosBusqueda = () => {
             ref={inputBusquedaRef}
           />
           <button className="ResultadosBusqueda__boton_nueva_busqueda" type="submit">
-            <Icon icon={iconoBuscar} />
+            <Icon icon="mdi:search" />
           </button>
         </form>
       </div>

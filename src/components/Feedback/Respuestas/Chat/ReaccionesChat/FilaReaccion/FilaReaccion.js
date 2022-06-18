@@ -1,5 +1,4 @@
 import { InlineIcon } from '@iconify/react'
-import iconoEliminar from '@iconify/icons-mdi/delete'
 import { format, formatDistanceToNow, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useParams } from 'react-router-dom'
@@ -49,7 +48,7 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
           onClick={clickEnBorrar}
           disabled={eliminando}
         >
-          <InlineIcon icon={iconoEliminar} />
+          <InlineIcon icon="mdi:delete" />
         </button>
       </div>
     </div>

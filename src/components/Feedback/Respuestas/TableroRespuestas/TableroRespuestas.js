@@ -7,9 +7,6 @@ import es from 'date-fns/locale/es'
 import './TableroRespuestas.css'
 import BuscadorRespuestas from '../BuscadorRespuestas'
 import classNames from 'classnames'
-import iconoDentista from '@iconify/icons-mdi/tooth-outline'
-import iconoSucursal from '@iconify/icons-mdi/domain'
-import iconoNota from '@iconify/icons-mdi/post-it-note-edit'
 import { InlineIcon } from '@iconify/react'
 import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import ExportadorRespuestas from '../TablaRespuestas/ExportadorRespuestas'
@@ -145,7 +142,7 @@ const TableroRespuestas = () => {
                 <div className="TableroRespuestas__contenedor_tag">
                   <TagRespuesta tag={tag} /> <p>{conteo} <span className="TableroRespuestas__porcentaje_columna">{porcentaje}</span></p>
                 </div>
-                <p className="TableroRespuestas__conteo_reactions" title="Número de citas con notas"><InlineIcon icon={iconoNota} /> {conteoConReacciones}</p>
+                <p className="TableroRespuestas__conteo_reactions" title="Número de citas con notas"><InlineIcon icon="mdi:post-it-note-edit" /> {conteoConReacciones}</p>
               </div>
               {respuestas.map((r, j) => (
                 <div
@@ -163,8 +160,8 @@ const TableroRespuestas = () => {
                   </div>
                   <div className="TableroRespuestas__tarjeta_datos">
                     <p style={{ fontWeight: 600 }}>{r.respuestaOriginal.name}</p>
-                    <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon={iconoDentista} /> {r.respuestaOriginal.dentist_name}</p>
-                    <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon={iconoSucursal} /> {r.respuestaOriginal.sucursal_name}</p>
+                    <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon="mdi:tooth-outline" /> {r.respuestaOriginal.dentist_name}</p>
+                    <p className="TableroRespuestas__tarjeta_dato_secundario"><InlineIcon icon="mdi:domain" /> {r.respuestaOriginal.sucursal_name}</p>
                   </div>
                   {r.respuestaOriginal.reactions.length > 0 && <p className="TableroRespuestas__tarjeta_reaccion">{r.respuestaOriginal.reactions[0].reaction_emoji}</p>}
                 </div>

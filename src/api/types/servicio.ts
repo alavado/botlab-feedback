@@ -1,11 +1,9 @@
-import { IconifyIcon } from '@iconify/types'
-
 export interface Servicio {
   id: number,
   nombre: string,
   horaInicio: string,
   habilitado: boolean,
-  icono: IconifyIcon,
+  icono: string,
   propiedades: PropiedadServicio[]
 }
 
@@ -53,7 +51,7 @@ export interface EstadoInteraccion {
   id: IDEstadoInteraccion,
   descripcion?: string,
   explicacion?: string,
-  icono: IconifyIcon
+  icono: string
 }
 
 export interface Conversacion {

@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-import iconoBuscar from '@iconify/icons-mdi/search'
 import './CuadroBusqueda.css'
 import { Icon } from '@iconify/react'
 import { useDispatch } from 'react-redux'
@@ -40,7 +39,7 @@ const CuadroBusqueda = () => {
           placeholder="RUT, nombre, teléfono..."
         />
         <Icon
-          icon={iconoBuscar}
+          icon="mdi:search"
           className="CuadroBusqueda__icono_buscar"
         />
         <button

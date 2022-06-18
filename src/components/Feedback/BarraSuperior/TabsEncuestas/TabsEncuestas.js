@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Icon } from '@iconify/react'
-import whatsapp from '@iconify/icons-mdi/whatsapp'
 import { useDispatch, useSelector } from 'react-redux'
 import { headersRespuestas as headersAPI } from '../../../../api/endpoints'
 import { guardaHeadersEncuesta } from '../../../../redux/ducks/encuestas'
@@ -118,7 +117,7 @@ const TabsEncuestas = () => {
         ? <>
             <Icon
               className="TabsEncuestas__icono_empresa"
-              icon={whatsapp}
+              icon="mdi:whatsapp"
             />
             <div className="TabsEncuestas__nombre_encuesta">
               Todas las encuestas
@@ -136,7 +135,7 @@ const TabsEncuestas = () => {
               >
                 <Icon
                   className="TabsEncuestas__tab_icono_empresa"
-                  icon={whatsapp}
+                  icon="mdi:whatsapp"
                 />
                 {tipo.nombre.replace(nombreUsuario, '')}
               </button>
