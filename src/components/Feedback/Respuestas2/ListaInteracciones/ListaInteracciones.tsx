@@ -67,8 +67,6 @@ const ListaInteracciones = () => {
     )
   }
   
-  console.log(data.filter(a => a.alertas.length > 0))
-
   return (
     <div className="ListaInteracciones">
       <CajonInteraccion />

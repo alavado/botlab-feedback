@@ -27,7 +27,7 @@ const MensajesInteraccion = () => {
     const fechas = document.querySelectorAll('.MensajesInteraccion__dia_mensajes')
     if (fechas.length > 0) {
       fechas[fechas.length - 1].scrollIntoView()
-      document.querySelector('.MensajesInteraccion')?.scrollBy({ top: -8 })
+      document.querySelector('.MensajesInteraccion')?.scrollBy({ top: -18 })
     }
   }, [dataInteraccionActiva, isLoading])
 
@@ -40,6 +40,8 @@ const MensajesInteraccion = () => {
   mensajesYComentarios.sort((m1, m2) => m1.timestamp < m2.timestamp ? -1 : 1)
   const ultimaConversacion = dataInteraccionActiva.conversaciones.slice(-1)[0]
   const indicePrimerMensajeUltimaConversacion = mensajesYComentarios.findIndex(c => isSameDay(c.timestamp, ultimaConversacion.inicio))
+
+  console.log({dataInteraccionActiva})
 
   return (
     <div className="MensajesInteraccion">

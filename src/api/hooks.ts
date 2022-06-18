@@ -37,7 +37,7 @@ const obtenerServicios = async (): Promise<Servicio[]> => {
     return {
       id: servicio.id,
       nombre,
-      horaInicio: servicio.integrations[0].start_time,
+      horaInicio: servicio.integrations[0]?.start_time || '0:00',
       habilitado: servicio.enabled,
       icono: obtenerIconoServicio(nombre),
       propiedades: headers.headers.map((header: any): PropiedadServicio => ({
@@ -211,20 +211,20 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
   const servicioActivo: Servicio = servicios?.find(s => s.id === idServicioActivo) as Servicio
   return useQuery(
     ['servicio', idServicioActivo],
-    () => obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino),
+    async () => {
+      const interacciones = await obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino)
+      interacciones.forEach(interaccion => {
+        const interaccionCacheada: Interaccion | undefined = queryClient.getQueryData(['interaccion', idServicioActivo, interaccion.idUsuario])
+        if (!interaccionCacheada) {
+          queryClient.setQueryData(['interaccion', idServicioActivo, interaccion.idUsuario], interaccion)
+        }
+      })
+      return interacciones
+    },
     {
       select: interacciones => {
-        interacciones.forEach(interaccion => {
-          if (!queryClient.getQueryData(['interaccion', idServicioActivo, interaccion.idUsuario])) {
-            queryClient.setQueryData(['interaccion', idServicioActivo, interaccion.idUsuario], interaccion)
-          }
-        })
         return interacciones
           .filter(interaccion => idEstadoInteraccionActivo === interaccion.estadoInteraccion.id)
-          .map((interaccion): Interaccion => ({
-            ...interaccion,
-            alertas: queryClient.getQueryData(['alertas', idServicioActivo, interaccion.idUsuario]) ?? []
-          }))
       },
       enabled: !!idServicioActivo && !!idEstadoInteraccionActivo,
       refetchInterval: 30_000
@@ -233,13 +233,25 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
 }
 
 export const usePosiblesEstadosInteraccionesQuery = () => {
-  const { idServicioActivo } = useSelector((state: RootState) => state.servicio)
+  const { idServicioActivo , fechaInicio, fechaTermino } = useSelector((state: RootState) => state.servicio)
   const queryClient = useQueryClient()
   const servicios = queryClient.getQueryData('servicios') as Servicio[]
   const servicioActivo: Servicio = servicios?.find(s => s.id === idServicioActivo) as Servicio
   return useQuery(
     ['servicio', idServicioActivo],
-    () => obtenerInteracciones(servicioActivo),
+    async () => {
+      const interacciones = await obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino)
+      interacciones.forEach(interaccion => {
+        const interaccionCacheada: Interaccion | undefined = queryClient.getQueryData(['interaccion', idServicioActivo, interaccion.idUsuario])
+        queryClient.setQueryData(
+          ['interaccion', idServicioActivo, interaccion.idUsuario],
+          interaccionCacheada
+            ? { ...interaccionCacheada, ...interaccion }
+            : interaccion
+        )
+      })
+      return interacciones
+    },
     {
       refetchOnWindowFocus: false,
       enabled: !!idServicioActivo,
