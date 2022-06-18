@@ -252,10 +252,15 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
     {
       refetchOnWindowFocus: false,
       enabled: !!idServicioActivo,
-      select: data => estadosInteracciones.map(estado => ({
-        estado,
-        conteo: data.filter(d => d.estadoInteraccion.id === estado.id).length
-      }))
+      select: interacciones => estadosInteracciones.map(estado => {
+        const interaccionesEstado = interacciones.filter(d => d.estadoInteraccion.id === estado.id)
+        const interaccionesConComentarios = interaccionesEstado.filter(i => i.comentarios.length > 0)
+        return {
+          estado,
+          conteo: interaccionesEstado.length,
+          conteoComentarios: interaccionesConComentarios.length
+        }
+      })
     }
   )
 }
@@ -302,7 +307,7 @@ export const useInteraccionActivaQuery = () => {
       return interaccionCompleta
     },
     {
-      refetchOnWindowFocus: false,
+      refetchInterval: 30_000,
       enabled: !!idServicioInteraccionActiva && !!idUsuarioInteraccionActiva
     }
   )
@@ -345,8 +350,7 @@ export const useComentariosInteraccionActivaQuery = () => {
       return interaccionCompleta
     },
     {
-      refetchInterval: 60_000,
-      refetchOnWindowFocus: false,
+      refetchInterval: 30_000,
       enabled: !!idServicioInteraccionActiva && !!idUsuarioInteraccionActiva && !!inicioInteraccionActiva,
     }
   )

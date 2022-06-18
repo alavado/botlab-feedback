@@ -44,6 +44,10 @@
   transition: all .15s ease;
 }
 
+.MensajesInteraccion__mensaje a {
+  color: var(--whatsapp-color-links);
+}
+
 .MensajesInteraccion__mensaje::after {
   content: '';
   width: .5rem;

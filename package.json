@@ -16,10 +16,10 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^0.21.2",
     "classnames": "^2.2.6",
-    "cytoscape": "^3.20.0",
     "date-fns": "^2.16.1",
-    "fast-xml-parser": "^3.19.0",
     "html-to-image": "^1.6.2",
+    "linkify-react": "^3.0.4",
+    "linkifyjs": "^3.0.5",
     "lodash": "^4.17.20",
     "papaparse": "^5.3.1",
     "pdf-lib": "^1.16.0",
@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-linkify": "^1.0.1",
     "react-error-overlay": "6.0.9"
   },
   "resolutions": {

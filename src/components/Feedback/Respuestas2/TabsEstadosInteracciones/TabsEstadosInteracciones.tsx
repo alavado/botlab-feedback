@@ -35,7 +35,7 @@ const TabsEstadosInteracciones = () => {
     <div className="TabsEstadosInteracciones">
       {isLoading || !data
         ? <div className="TabsEstadosInteracciones"></div>
-        : data.map(({ estado, conteo }, i) => (
+        : data.map(({ estado, conteo, conteoComentarios }, i) => (
             <button
               className={classNames({
                 "TabsEstadosInteracciones__tab": true,
@@ -57,7 +57,7 @@ const TabsEstadosInteracciones = () => {
                   "TabsEstadosInteracciones__conteo--0": conteo === 0,
                 })}
               >
-                {conteo}
+                {conteo} {conteoComentarios > 0 && <span style={{ fontWeight: 400, marginLeft: '.35rem' }}>✅ {conteoComentarios}</span>}
               </span>
             </button>
           ))

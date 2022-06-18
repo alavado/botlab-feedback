@@ -61,7 +61,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
           >
             <Icon
               className="PopupEncuestas__icono_empresa"
-              icon={icono || 'mdi/whatsapp'}
+              icon={icono || 'mdi:whatsapp'}
               style={{ color: enabled ? '#48BB78' : '#9f9eae' }}
             />
             <div className="PopupEncuestas__nombre_encuesta">
