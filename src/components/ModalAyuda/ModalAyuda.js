@@ -1,7 +1,6 @@
-import React from 'react'
 import video from '../../assets/images/demo_filtros.gif'
 import videoDark from '../../assets/images/demo_filtros_dark.gif'
-import Icon from '@iconify/react'
+import { Icon } from '@iconify/react'
 import iconoCerrar from '@iconify/icons-mdi/close'
 import './ModalAyuda.css'
 import { useSelector } from 'react-redux'

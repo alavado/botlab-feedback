@@ -1,4 +1,4 @@
-import Icon, { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import { format } from 'date-fns'
 import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'

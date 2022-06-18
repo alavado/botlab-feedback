@@ -1,5 +1,4 @@
-import React from 'react'
-import Icon from '@iconify/react'
+import { Icon } from '@iconify/react'
 import iconoExportar from '@iconify/icons-mdi/download-outline'
 import './ExportadorRespuestas.css'
 import { useDispatch, useSelector } from 'react-redux'

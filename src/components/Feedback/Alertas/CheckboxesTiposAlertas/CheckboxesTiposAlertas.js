@@ -1,6 +1,5 @@
-import Icon from '@iconify/react'
 import { useMemo } from 'react'
-import { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import iconoMarcar from '@iconify/icons-mdi/check-bold'
 import iconoSinAlertasPorResolver from '@iconify/icons-mdi/check'
 import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'

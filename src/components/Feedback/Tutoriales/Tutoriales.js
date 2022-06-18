@@ -3,7 +3,7 @@ import { useState } from 'react'
 import play from '@iconify/icons-mdi/play'
 import playlist from '@iconify/icons-mdi/playlist-play'
 import './Tutoriales.css'
-import Icon, { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import logoCero from '../../../assets/images/logo.png'
 
 const videos = [

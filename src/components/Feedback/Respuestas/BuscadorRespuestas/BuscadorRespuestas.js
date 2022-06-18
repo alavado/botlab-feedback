@@ -1,5 +1,4 @@
-import React from 'react'
-import Icon from '@iconify/react'
+import { Icon } from '@iconify/react'
 import iconoBuscar from '@iconify/icons-mdi/text-search'
 import iconoBorrarBusqueda from '@iconify/icons-mdi/close'
 import './BuscadorRespuestas.css'

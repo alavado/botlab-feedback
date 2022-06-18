@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import iconoBuscar from '@iconify/icons-mdi/search'
 import './CuadroBusqueda.css'
-import Icon from '@iconify/react'
+import { Icon } from '@iconify/react'
 import { useDispatch } from 'react-redux'
 import { limpiaBusqueda } from '../../../../redux/ducks/busqueda'
 

@@ -1,4 +1,4 @@
-import Icon, { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import { useMutation, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'

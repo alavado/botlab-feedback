@@ -1,5 +1,4 @@
-import React from 'react'
-import Icon from '@iconify/react'
+import { Icon } from '@iconify/react'
 import icono from '@iconify/icons-mdi/chat-remove-outline'
 import './Error403.css'
 import { useDispatch } from 'react-redux'

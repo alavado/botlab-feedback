@@ -1,4 +1,4 @@
-import Icon from '@iconify/react'
+import { Icon } from '@iconify/react'
 import iconoSinRepuestas from '@iconify/icons-mdi/robot-confused'
 import iconoTodaviaNo from '@iconify/icons-mdi/robot'
 import './BodyTablaSinRespuestas.css'

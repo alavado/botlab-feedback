@@ -1,4 +1,4 @@
-import Icon, { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../redux/ducks'

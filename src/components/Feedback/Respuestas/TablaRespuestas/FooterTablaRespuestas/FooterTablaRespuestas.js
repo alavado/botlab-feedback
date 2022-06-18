@@ -1,6 +1,5 @@
-import React from 'react'
 import Skeleton from '../../../../Skeleton'
-import Icon from '@iconify/react'
+import { Icon } from '@iconify/react'
 import iconoSiguiente from '@iconify/icons-mdi/play'
 import { useDispatch, useSelector } from 'react-redux'
 import { avanzaPagina, retrocedePagina } from '../../../../../redux/ducks/respuestas'

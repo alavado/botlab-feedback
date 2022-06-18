@@ -1,4 +1,4 @@
-import Icon from '@iconify/react'
+import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { useServiciosQuery } from '../../../../api/hooks'
