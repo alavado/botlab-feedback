@@ -8,14 +8,22 @@ import { useSelector } from 'react-redux'
 import { InlineIcon } from '@iconify/react'
 import logoCero from '../../../assets/images/logo_blanco.png'
 import { useAlertasQuery } from '../../../api/hooks'
+import { useState } from 'react'
+import ModalMenuUsuario from './ModalMenuUsuario'
 
 const Respuestas2 = () => {
 
   const { cajonFiltrosVisible } = useSelector(state => state.servicio)
+  const { nombreUsuario } = useSelector(state => state.login)
+  const [menuUsuarioActivo, setMenuUsuarioActivo] = useState(false)
   useAlertasQuery()
 
   return (
     <div className="Respuestas2">
+      <ModalMenuUsuario
+        activo={menuUsuarioActivo}
+        cerrar={() => setMenuUsuarioActivo(false)}
+      />
       <div className="Respuestas2__superior">
         <div className="Respuestas2__contenedor_start">
           <img
@@ -25,9 +33,6 @@ const Respuestas2 = () => {
           />
           <h1 className="Respuestas2__titulo">Feedback</h1>
           <IndicadorFetchingGlobal />
-        </div>
-        <div>
-          <button>Usuario</button>
         </div>
         <div className="Respuestas2__selector_sucursal">
           <div className="Respuestas2__boton_selector">
@@ -40,6 +45,19 @@ const Respuestas2 = () => {
             Todas las sucursales
             <InlineIcon icon="mdi:triangle-small-down" />
           </div>
+        </div>
+        <div className="Respuestas2__usuario">
+          <button
+            className="Respuestas2__boton_usuario"
+            onClick={() => {
+              console.log('x')
+              setMenuUsuarioActivo(!menuUsuarioActivo)
+            }}
+          >
+            <InlineIcon icon="mdi:account-box" />
+            {nombreUsuario}
+            <InlineIcon icon="mdi:triangle-small-down" />
+          </button>
         </div>
       </div>
       <aside
