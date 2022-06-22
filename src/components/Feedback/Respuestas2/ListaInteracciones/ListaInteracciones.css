@@ -108,7 +108,7 @@
 }
 
 .ListaInteracciones__interaccion--activa::after {
-  right: 31.75rem;
+  right: 28.75rem;
   box-shadow: 0 0 .15rem var(--color-sombras);
 }
 

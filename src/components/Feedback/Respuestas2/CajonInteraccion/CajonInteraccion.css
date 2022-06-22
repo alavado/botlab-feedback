@@ -1,9 +1,10 @@
 .CajonInteraccion {
   position: fixed;
-  right: -33rem;
+  --ancho-cajon-interaccion: 30rem;
+  right: calc(-1 * var(--ancho-cajon-interaccion));
   bottom: 0;
   background-color: var(--color-fondo);
-  width: 33rem;
+  width: var(--ancho-cajon-interaccion);
   height: calc(100vh - 5.75rem);
   box-shadow: 0 0 .25rem var(--color-sombras);
   transition: all .35s ease;

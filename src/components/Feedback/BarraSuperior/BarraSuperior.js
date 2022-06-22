@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom'
 import './BarraSuperior.css'
 import MenuUsuario from './MenuUsuario'
 import SelectorEncuesta from './SelectorEncuesta'
-import DiagramaGuion from './DiagramaGuion'
 import AlertaPilotos from './AlertaPilotos'
 import { Icon, InlineIcon } from '@iconify/react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -39,7 +38,6 @@ const BarraSuperior = () => {
 
   return (
     <div className="BarraSuperior">
-      <DiagramaGuion visible={verModal} esconder={() => setVerModal(false)} />
       <AlertaPilotos />
       {cuenta.includes('centauro') || (tiposOrdenados?.length < 4 && !cuenta.includes('redsalud'))
         ? <Switch>

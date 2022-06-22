@@ -124,7 +124,7 @@ const ListaInteracciones = () => {
                   />
                 </span>
               </div>
-              <div>{cita.fecha ? `${isTomorrow(cita.fecha) ? 'mañana, ' : ''}${format(cita.fecha, 'd/M')}` : '-'}</div>
+              <div>{cita.fecha ? `${isTomorrow(cita.fecha) ? 'mañana, ' : ''}${format(cita.fecha, 'dd/MM')}` : '-'}</div>
               <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>
               <div>{cita.responsable}</div>
               <div>{interaccion.sucursal}</div>
