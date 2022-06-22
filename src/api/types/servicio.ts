@@ -4,7 +4,8 @@ export interface Servicio {
   horaInicio: string,
   habilitado: boolean,
   icono: string,
-  propiedades: PropiedadServicio[]
+  propiedades: PropiedadServicio[],
+  sucursales: string[]
 }
 
 type TipoPropiedadServicio = 'META' | 'YESNO' | 'INTERNAL'

@@ -12,6 +12,7 @@ import { useState } from 'react'
 import ModalMenuUsuario from './ModalMenuUsuario'
 import { isToday, isTomorrow, isYesterday } from 'date-fns'
 import SelectorFechaInteraccion from './SelectorFechaInteraccion'
+import SelectorSucursalInteraccion from './SelectorSucursalInteraccion'
 
 const Respuestas2 = () => {
 
@@ -38,11 +39,7 @@ const Respuestas2 = () => {
         </div>
         <div className="Respuestas2__selectores">
           <SelectorFechaInteraccion />
-          <div className="Respuestas2__boton_selector">
-            <InlineIcon icon="mdi:place" />
-            Todas las sucursales
-            <InlineIcon icon="mdi:triangle-small-down" />
-          </div>
+          <SelectorSucursalInteraccion />
         </div>
         <div className="Respuestas2__usuario">
           <button

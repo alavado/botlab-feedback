@@ -41,7 +41,8 @@ const obtenerServicios = async (): Promise<Servicio[]> => {
         id: header.name,
         nombre: header.display_name,
         tipo: header.type,
-      }))
+      })),
+      sucursales: servicio.sucursales
     }
   })
   servicios.sort((s1, s2) => s1.nombre < s2.nombre ? -1 : 1)
@@ -203,6 +204,7 @@ const obtenerInteracciones = async (servicio: Servicio, fechaInicio: Date = new 
 
 export const useInteraccionesServicioYEstadoActivosQuery = () => {
   const { idServicioActivo, idEstadoInteraccionActivo, fechaInicio, fechaTermino } = useSelector((state: RootState) => state.servicio)
+  const { nombreSucursalActiva } = useSelector((state: RootState) => state.sucursal)
   const queryClient = useQueryClient()
   const servicios = queryClient.getQueryData('servicios') as Servicio[]
   const servicioActivo: Servicio = servicios?.find(s => s.id === idServicioActivo) as Servicio
@@ -222,6 +224,7 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
       select: interacciones => {
         return interacciones
           .filter(interaccion => idEstadoInteraccionActivo === interaccion.estadoInteraccion.id)
+          .filter(interaccion => !nombreSucursalActiva || nombreSucursalActiva === interaccion.sucursal)
       },
       enabled: !!idServicioActivo && !!idEstadoInteraccionActivo,
       refetchInterval: 30_000
@@ -231,6 +234,7 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
 
 export const usePosiblesEstadosInteraccionesQuery = () => {
   const { idServicioActivo , fechaInicio, fechaTermino } = useSelector((state: RootState) => state.servicio)
+  const { nombreSucursalActiva } = useSelector((state: RootState) => state.sucursal)
   const queryClient = useQueryClient()
   const servicios = queryClient.getQueryData('servicios') as Servicio[]
   const servicioActivo: Servicio = servicios?.find(s => s.id === idServicioActivo) as Servicio
@@ -253,7 +257,9 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
       refetchOnWindowFocus: false,
       enabled: !!idServicioActivo,
       select: interacciones => estadosInteracciones.map(estado => {
-        const interaccionesEstado = interacciones.filter(d => d.estadoInteraccion.id === estado.id)
+        const interaccionesEstado = interacciones
+          .filter(d => d.estadoInteraccion.id === estado.id)
+          .filter(interaccion => !nombreSucursalActiva || nombreSucursalActiva === interaccion.sucursal)
         const interaccionesConComentarios = interaccionesEstado.filter(i => i.comentarios.length > 0)
         return {
           estado,

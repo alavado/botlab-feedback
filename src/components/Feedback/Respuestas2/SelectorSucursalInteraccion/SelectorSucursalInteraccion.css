@@ -1,0 +1,24 @@
+.SelectorSucursalInteraccion {
+  position: relative;
+}
+
+.SelectorSucursalInteraccion__boton {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  gap: .25rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 2rem;
+}
+
+.SelectorSucursalInteraccion__lista {
+  position: absolute;
+  top: 2rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}

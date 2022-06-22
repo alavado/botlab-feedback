@@ -14,6 +14,7 @@ import { combineReducers } from 'redux'
 
 import servicio from './servicio'
 import interaccion from './interaccion'
+import sucursal from './sucursal'
 
 const rootReducer = combineReducers({
   login,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   servicio,
   interaccion,
   configuracion,
+  sucursal
 })
 
 export type RootState = ReturnType<typeof rootReducer>
