@@ -14,7 +14,7 @@ const servicioSlice = createSlice({
   name: 'servicio',
   initialState: {
     idServicioActivo: undefined,
-    idEstadoInteraccionActivo: undefined,
+    idEstadoInteraccionActivo: 'CUALQUIERA',
     fechaInicio: new Date(),
     fechaTermino: new Date(),
     cajonFiltrosVisible: false,

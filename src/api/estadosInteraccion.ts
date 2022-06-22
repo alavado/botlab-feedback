@@ -2,6 +2,12 @@ import { EstadoInteraccion } from "./types/servicio"
 
 export const estadosInteracciones: EstadoInteraccion[] = [
   {
+    id: 'CUALQUIERA',
+    descripcion: 'Todos',
+    icono: 'mdi:home',
+    explicacion: 'Todas las interacciones'
+  },
+  {
     id: 'PENDIENTE',
     descripcion: 'Esperando respuesta',
     icono: 'mdi:timer-sand',

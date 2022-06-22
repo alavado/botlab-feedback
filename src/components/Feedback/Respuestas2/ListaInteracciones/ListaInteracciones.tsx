@@ -90,13 +90,13 @@ const ListaInteracciones = () => {
         className="ListaInteracciones__interaccion ListaInteracciones__interaccion--encabezados"
       >
         <div></div>
-        <div>Estado</div>
         <div
           title="Último comentario"
           style={{ display: 'flex', justifyContent: 'center' }}
         >
           <InlineIcon style={{ fontSize: '.7rem', opacity: .75 }} icon="mdi:comment-check" />
         </div>
+        <div>Estado</div>
         <div>Paciente</div>
         <div>Fecha cita</div>
         <div>Hora cita</div>
@@ -121,6 +121,7 @@ const ListaInteracciones = () => {
               key={`cita-${j}`}
             >
               <div>{j === 0 ? (i + 1) : ''}</div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>{j === 0 ? interaccion.comentarios[0]?.emoji : ''}</div>
               <div>
                 <div className="ListaInteracciones__estado_interaccion">
                   <InlineIcon
@@ -129,7 +130,6 @@ const ListaInteracciones = () => {
                   {interaccion.estadoInteraccion.descripcion}
                 </div>
               </div>
-              <div>{interaccion.comentarios[0]?.emoji}</div>
               <div>
                 {/* <div
                   style={{ background: `hsl(${360 * ((cita.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)` }}
