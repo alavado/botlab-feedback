@@ -5,7 +5,8 @@ export interface Servicio {
   habilitado: boolean,
   icono: string,
   propiedades: PropiedadServicio[],
-  sucursales: string[]
+  sucursales: string[],
+  descripcion: string
 }
 
 type TipoPropiedadServicio = 'META' | 'YESNO' | 'INTERNAL'
@@ -46,7 +47,7 @@ export interface Pregunta {
   tipo: TipoPropiedadServicio
 }
 
-export type IDEstadoInteraccion = 'CUALQUIERA' | 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'REAGENDADA' | 'IMPROCESABLE'
+export type IDEstadoInteraccion = 'CUALQUIERA' | 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'REAGENDADA'
 
 export interface EstadoInteraccion {
   id: IDEstadoInteraccion,

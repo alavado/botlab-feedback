@@ -25,7 +25,7 @@
 
 .ListaInteracciones__interaccion {
   display: grid;
-  grid-template-columns: 2.25rem 6rem 2rem 15rem 6rem 5rem 9rem 1fr;
+  grid-template-columns: 1.5rem 10rem 2rem 15rem 6rem 5rem 9rem 1fr;
   font-size: .6rem;
   border-bottom: 1px solid var(--color-bordes);
   background-color: var(--color-fondo);
@@ -34,12 +34,19 @@
   transition: all .25s ease;
 }
 
+.ListaInteracciones__estado_interaccion {
+  background-color: var(--color-si);
+  padding: .25rem .5rem;
+  border-radius: 9in;
+  display: flex;
+  gap: .25rem;
+}
+
 .ListaInteracciones__interaccion:not(.ListaInteracciones__interaccion--encabezados):hover {
   background-color: var(--color-fila-destacada);
 }
 
 .ListaInteracciones__interaccion > div {
-  border-right: 1px solid var(--color-bordes);
   padding: 0 .5rem;
   height: 2rem;
   display: flex;
@@ -137,6 +144,41 @@
   margin-left: .15rem;
   display: flex;
   cursor: help;
+}
+
+.ListaInteracciones__lista_servicios {
+  width: 100%;
+  place-content: center;
+  height: 100%;
+  display: grid;
+  gap: .5rem;
+}
+
+.ListaInteracciones__titulo_servicios {
+  font-weight: bold;
+}
+
+.ListaInteracciones__boton_servicio {
+  display: grid;
+  grid-template: auto auto / 3rem 15rem 8rem;
+  place-items: start;
+  font-size: .75rem;
+  padding: .75rem .75rem;
+  cursor: pointer;
+  border: none;
+  background: var(--color-bordes);
+  border-radius: .5rem;
+  place-items: center start;
+}
+
+.ListaInteracciones__descripcion_servicio {
+  font-size: .75rem;
+  text-align: left;
+  place-self: start start;
+}
+
+.ListaInteracciones__boton_servicio svg {
+  font-size: 2rem;
 }
 
 @keyframes aparece-mensaje-sin-citas {

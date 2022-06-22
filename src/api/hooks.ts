@@ -17,8 +17,27 @@ const obtenerIconoServicio = (nombre: string): string => {
       return 'mdi:account-check'
     case 'Confirmación Multicita':
       return 'mdi:account-multiple-check'
+    case 'Recaptura':
+      return 'mdi:account-convert'
+    case 'Control N Meses':
+      return 'mdi:account-arrow-right'
     default:
       return 'mdi:account-check'
+  }
+}
+
+const obtenerDescripcionServicio = (nombre: string): string => {
+  switch (nombre) {
+    case 'Confirmación':
+      return 'Confirmación de una cita con un contacto'
+    case 'Confirmación Multicita':
+      return 'Confirmación de varias citas con el mismo contacto'
+    case 'Recaptura':
+      return 'Recaptura de pacientes que no se presentan a su cita'
+    case 'Control N Meses':
+      return 'Sugerencia de hora para control meses después de la última cita'
+    default:
+      return 'Servicio activo'
   }
 }
 
@@ -42,10 +61,11 @@ const obtenerServicios = async (): Promise<Servicio[]> => {
         nombre: header.display_name,
         tipo: header.type,
       })),
-      sucursales: servicio.sucursales
+      sucursales: servicio.sucursales,
+      descripcion: obtenerDescripcionServicio(nombre)
     }
   })
-  servicios.sort((s1, s2) => s1.nombre < s2.nombre ? -1 : 1)
+  servicios.sort((s1, s2) => s1.horaInicio < s2.horaInicio ? -1 : (s1.horaInicio === s2.horaInicio && s1.nombre < s2.nombre ? -1 : 1))
   return servicios
 }
 
@@ -64,9 +84,6 @@ const estadoInteraccionPorID = (id: IDEstadoInteraccion): EstadoInteraccion => {
 }
 
 const obtenerEstadoInteraccionGeneral = (citas: Cita[]): EstadoInteraccion => {
-  if (citas.some(cita => cita.estadoInteraccion.id === 'IMPROCESABLE')) {
-    return estadoInteraccionPorID('IMPROCESABLE')
-  }
   if (citas.some(cita => cita.estadoInteraccion.id === 'REAGENDADA')) {
     return estadoInteraccionPorID('REAGENDADA')
   }
@@ -86,9 +103,6 @@ const obtenerEstadoInteraccion = (preguntas: Pregunta[]): EstadoInteraccion => {
     if (preguntaReagendaYESNO.respuesta === 'YES' || preguntaReagendaYESNO.respuesta === 'REAGENDA') {
       return estadoInteraccionPorID('REAGENDADA')
     }
-    else if (preguntaReagendaYESNO.respuesta === 'OUT') {
-      return estadoInteraccionPorID('IMPROCESABLE')
-    }
   }
   if (preguntaConfirmaYESNO) {
     if (preguntaConfirmaYESNO.respuesta === 'NO') {
@@ -99,9 +113,6 @@ const obtenerEstadoInteraccion = (preguntas: Pregunta[]): EstadoInteraccion => {
     }
     if (preguntaConfirmaYESNO.respuesta === 'REAGENDA') {
       return estadoInteraccionPorID('REAGENDADA')
-    }
-    if (preguntaConfirmaYESNO.respuesta === 'OUT') {
-      return estadoInteraccionPorID('IMPROCESABLE')
     }
   }
   return estadoInteraccionPorID('PENDIENTE')

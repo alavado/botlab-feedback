@@ -9,26 +9,20 @@ export const estadosInteracciones: EstadoInteraccion[] = [
   },
   {
     id: 'CONFIRMADA',
-    descripcion: 'Confirma cita',
+    descripcion: 'Confirma',
     icono: 'mdi:check',
     explicacion: 'La cita ha sido confirmada'
   },
   {
     id: 'CANCELADA',
-    descripcion: 'Anula cita',
-    icono: 'mdi:cancel',
+    descripcion: 'Cancela',
+    icono: 'mdi:close',
     explicacion: 'La cita ha sido anulada'
   },
   {
     id: 'REAGENDADA',
-    descripcion: 'Reagenda cita',
+    descripcion: 'Reagenda',
     icono: 'mdi:autorenew',
     explicacion: 'La cita ha sido reagendada'
-  },
-  {
-    id: 'IMPROCESABLE',
-    descripcion: 'Bot no entendió',
-    icono: 'mdi:question-mark',
-    explicacion: 'Bot quedó confundido con mensaje'
   },
 ]

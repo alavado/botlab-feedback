@@ -10,7 +10,6 @@ import logoCero from '../../../assets/images/logo_blanco.png'
 import { useAlertasQuery } from '../../../api/hooks'
 import { useState } from 'react'
 import ModalMenuUsuario from './ModalMenuUsuario'
-import { isToday, isTomorrow, isYesterday } from 'date-fns'
 import SelectorFechaInteraccion from './SelectorFechaInteraccion'
 import SelectorSucursalInteraccion from './SelectorSucursalInteraccion'
 
@@ -44,10 +43,7 @@ const Respuestas2 = () => {
         <div className="Respuestas2__usuario">
           <button
             className="Respuestas2__boton_usuario"
-            onClick={() => {
-              console.log('x')
-              setMenuUsuarioActivo(!menuUsuarioActivo)
-            }}
+            onClick={() => setMenuUsuarioActivo(!menuUsuarioActivo)}
           >
             <InlineIcon icon="mdi:account-box" />
             {nombreUsuario}
@@ -68,9 +64,9 @@ const Respuestas2 = () => {
           background: 'red',
           borderRadius: '50%'
         }}>
-
+          Esto es relleno
         </div>
-        <h2>Filtros</h2>
+        <h2>Filtros??</h2>
         <h2>Config</h2>
       </aside>
       <TabsServicios />

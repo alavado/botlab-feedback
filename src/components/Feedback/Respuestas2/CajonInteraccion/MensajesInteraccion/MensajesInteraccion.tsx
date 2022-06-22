@@ -1,6 +1,5 @@
 import { InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
-import AvatarUsuarios from '../AvatarUsuarios'
 import { format, isSameDay, isYesterday, isToday } from 'date-fns'
 import './MensajesInteraccion.css'
 import { useComentariosInteraccionActivaQuery, useInteraccionActivaQuery } from '../../../../../api/hooks'
@@ -119,22 +118,8 @@ const MensajesInteraccion = () => {
                 })}
                 style={{ animationDelay: `${Math.max(0, i - indicePrimerMensajeUltimaConversacion) * .05}s` }}
               >
-                <p className="MensajesInteraccion__mensaje_emisor">
-                  {emisor === 'BOT' && <InlineIcon icon="mdi:robot" />}
-                  {emisor === 'BOT'
-                    ? <span className="MensajesInteraccion__mensaje_nombre_emisor">{dataInteraccionActiva.nombreBot} (Bot)</span>
-                    : <>
-                        <span className="MensajesInteraccion__mensaje_avatar" style={{ opacity: 1 }}>
-                          <AvatarUsuarios />
-                        </span>
-                        <span className="MensajesInteraccion__mensaje_nombre_emisor">
-                          {dataInteraccionActiva.citas?.map((cita: any) => cita.nombre.split(' ')[0]).join(', ')}
-                        </span>
-                      </>
-                  }
-                </p>
-                <p className="MensajesInteraccion__mensaje_hora">{format(timestamp, 'HH:mm')}</p>
                 <p className="MensajesInteraccion__mensaje_contenido">{formatearMensaje(mensaje, i)}</p>
+                <p className="MensajesInteraccion__mensaje_hora">{format(timestamp, 'HH:mm')}</p>
               </div>
             </React.Fragment>
           )

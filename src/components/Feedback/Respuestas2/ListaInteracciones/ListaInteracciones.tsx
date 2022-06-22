@@ -2,8 +2,8 @@ import { Icon, InlineIcon } from '@iconify/react'
 import { format } from 'date-fns'
 import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useInteraccionesServicioYEstadoActivosQuery } from '../../../../api/hooks'
-import { muestraCajonInteraccion } from '../../../../redux/ducks/servicio'
+import { useInteraccionesServicioYEstadoActivosQuery, useServiciosQuery } from '../../../../api/hooks'
+import { muestraCajonInteraccion, seleccionaServicio } from '../../../../redux/ducks/servicio'
 import CajonInteraccion from '../CajonInteraccion'
 import './ListaInteracciones.css'
 import { IDEstadoInteraccion } from '../../../../api/types/servicio'
@@ -20,8 +20,6 @@ const obtenerMensajeSinCitas = (idEstado: IDEstadoInteraccion | undefined) => {
       return <>No hay citas anuladas</>
     case 'REAGENDADA':
       return <>No hay citas reagendadas</>
-    case 'IMPROCESABLE':
-      return <>No hay citas que no haya entendido</>
     default:
       return <>No hay citas sin respuesta</>
   }
@@ -29,6 +27,7 @@ const obtenerMensajeSinCitas = (idEstado: IDEstadoInteraccion | undefined) => {
 
 const ListaInteracciones = () => {
 
+  const { data: dataServicios } = useServiciosQuery()
   const { data, isLoading } = useInteraccionesServicioYEstadoActivosQuery()
   const { idServicioActivo, idEstadoInteraccionActivo, cajonInteraccionVisible } = useSelector((state: RootState) => state.servicio)
   const { idUsuarioInteraccionActiva } = useSelector((state: RootState) => state.interaccion)
@@ -36,7 +35,27 @@ const ListaInteracciones = () => {
 
   if (isLoading || !data || !idServicioActivo) {
     return (
-      <div className="ListaInteracciones" />
+      <div className="ListaInteracciones">
+        {!idServicioActivo && dataServicios && (
+          <div className="ListaInteracciones__lista_servicios">
+            <h2 className="ListaInteracciones__titulo_servicios">
+              Servicios activos
+            </h2>
+            {dataServicios.filter(s => s.habilitado).map((servicio, i) => (
+              <button
+                className="ListaInteracciones__boton_servicio"
+                key={`datos-servicio-${i}`}
+                onClick={() => dispatch(seleccionaServicio(servicio.id))}
+              >
+                <div style={{ fontWeight: 'bold', gridRow: 'span 2' }}><InlineIcon icon={servicio.icono} /></div>
+                <div style={{ fontWeight: 'bold' }}>{servicio.nombre}</div>
+                <p style={{ gridRow: 'span 2', fontSize: '.8rem', placeSelf: 'center end' }}><InlineIcon icon="mdi:clock" /> {servicio.horaInicio.substring(0, 5)}</p>
+                <p className="ListaInteracciones__descripcion_servicio">{servicio.descripcion}</p>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     )
   }
 
@@ -71,7 +90,7 @@ const ListaInteracciones = () => {
         className="ListaInteracciones__interaccion ListaInteracciones__interaccion--encabezados"
       >
         <div></div>
-        <div>Inicio interacción</div>
+        <div>Estado</div>
         <div
           title="Último comentario"
           style={{ display: 'flex', justifyContent: 'center' }}
@@ -102,10 +121,17 @@ const ListaInteracciones = () => {
               key={`cita-${j}`}
             >
               <div>{j === 0 ? (i + 1) : ''}</div>
-              <div>{j === 0 ? format(interaccion.inicio, "HH:mm") : ''} {interaccion.alertas.length > 0 && 'x'}</div>
+              <div>
+                <div className="ListaInteracciones__estado_interaccion">
+                  <InlineIcon
+                    icon={interaccion.estadoInteraccion.icono}
+                  />
+                  {interaccion.estadoInteraccion.descripcion}
+                </div>
+              </div>
               <div>{interaccion.comentarios[0]?.emoji}</div>
               <div>
-                <div
+                {/* <div
                   style={{ background: `hsl(${360 * ((cita.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)` }}
                   className={classNames({
                     "ListaInteracciones__avatar": true,
@@ -113,16 +139,8 @@ const ListaInteracciones = () => {
                   })}
                 >
                   {cita.nombre[0]}
-                </div>
+                </div> */}
                 {cita.nombre}
-                <span
-                  className="ListaInteracciones__icono_estado_interaccion"
-                  title={cita.estadoInteraccion.explicacion}
-                >
-                  <InlineIcon
-                    icon={cita.estadoInteraccion.icono}
-                  />
-                </span>
               </div>
               <div>{cita.fecha ? `${isTomorrow(cita.fecha) ? 'mañana, ' : ''}${format(cita.fecha, 'dd/MM')}` : '-'}</div>
               <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>

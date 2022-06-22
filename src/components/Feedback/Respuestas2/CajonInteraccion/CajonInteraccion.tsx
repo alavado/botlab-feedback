@@ -71,6 +71,14 @@ const CajonInteraccion = () => {
             : 'Cargando...'
           }
         </h2>
+        <div className="CajonInteraccion__botones_acciones">
+          <button className="CajonInteraccion__boton_accion">
+            <InlineIcon icon="mdi:whatsapp" />
+          </button>
+          <button className="CajonInteraccion__boton_accion">
+            <InlineIcon icon="mdi:open-in-new" />
+          </button>
+        </div>
         <p className="CajonInteraccion__subtitulo">
           {data?.telefonoUsuario
             ? formatearCampoRespuestas(data.telefonoUsuario, 'phone')
