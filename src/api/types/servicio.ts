@@ -53,7 +53,8 @@ export interface EstadoInteraccion {
   id: IDEstadoInteraccion,
   descripcion?: string,
   explicacion?: string,
-  icono: string
+  icono: string,
+  color: string
 }
 
 export interface Conversacion {
