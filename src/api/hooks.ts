@@ -207,7 +207,7 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
   const servicios = queryClient.getQueryData('servicios') as Servicio[]
   const servicioActivo: Servicio = servicios?.find(s => s.id === idServicioActivo) as Servicio
   return useQuery(
-    ['servicio', idServicioActivo],
+    ['servicio', idServicioActivo, fechaInicio, fechaTermino],
     async () => {
       const interacciones = await obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino)
       interacciones.forEach(interaccion => {
@@ -235,7 +235,7 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
   const servicios = queryClient.getQueryData('servicios') as Servicio[]
   const servicioActivo: Servicio = servicios?.find(s => s.id === idServicioActivo) as Servicio
   return useQuery(
-    ['servicio', idServicioActivo],
+    ['servicio', idServicioActivo, fechaInicio, fechaTermino],
     async () => {
       const interacciones = await obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino)
       interacciones.forEach(interaccion => {

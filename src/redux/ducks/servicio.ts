@@ -36,6 +36,10 @@ const servicioSlice = createSlice({
     escondeCajonInteraccion(state) {
       state.cajonInteraccionVisible = false
     },
+    seleccionaFechaInicio(state, action) {
+      state.fechaInicio = action.payload
+      state.fechaTermino = action.payload
+    }
   }
 })
 
@@ -45,6 +49,7 @@ export const {
   toggleCajonFiltros,
   muestraCajonInteraccion,
   escondeCajonInteraccion,
+  seleccionaFechaInicio,
 } = servicioSlice.actions
 
 export default servicioSlice.reducer

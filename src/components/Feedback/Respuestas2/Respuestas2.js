@@ -10,6 +10,8 @@ import logoCero from '../../../assets/images/logo_blanco.png'
 import { useAlertasQuery } from '../../../api/hooks'
 import { useState } from 'react'
 import ModalMenuUsuario from './ModalMenuUsuario'
+import { isToday, isTomorrow, isYesterday } from 'date-fns'
+import SelectorFechaInteraccion from './SelectorFechaInteraccion'
 
 const Respuestas2 = () => {
 
@@ -34,12 +36,8 @@ const Respuestas2 = () => {
           <h1 className="Respuestas2__titulo">Feedback</h1>
           <IndicadorFetchingGlobal />
         </div>
-        <div className="Respuestas2__selector_sucursal">
-          <div className="Respuestas2__boton_selector">
-            <InlineIcon icon="mdi:calendar-check" />
-            hoy, viernes 3 de junio
-            <InlineIcon icon="mdi:triangle-small-down" />
-          </div>
+        <div className="Respuestas2__selectores">
+          <SelectorFechaInteraccion />
           <div className="Respuestas2__boton_selector">
             <InlineIcon icon="mdi:place" />
             Todas las sucursales

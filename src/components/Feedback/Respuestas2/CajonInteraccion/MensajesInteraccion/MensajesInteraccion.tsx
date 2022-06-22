@@ -14,6 +14,33 @@ const esMensaje = (elemento: Mensaje | Comentario): elemento is Mensaje => {
 }
 
 const formatearMensaje = (mensaje: String, id: number) => {
+  const tokenAdjunto = 'ATTACHMENT'
+  if (mensaje.startsWith('ATTACHMENT')) {
+    const inicioAdjunto = mensaje.indexOf(tokenAdjunto) + tokenAdjunto.length
+    const substringAdjunto = mensaje.substring(inicioAdjunto)
+    const finAdjunto = substringAdjunto.search(/\s/) > 0 ? substringAdjunto.search(/\s/) : substringAdjunto.length
+    let urlArchivo = substringAdjunto.substring(0, finAdjunto)
+    if (!urlArchivo.startsWith('http')) {
+      urlArchivo = `https://${urlArchivo}`
+    }
+    const nombreArchivo = urlArchivo.substring(urlArchivo.lastIndexOf('/') + 1).toLowerCase()
+    const extensionArchivo = nombreArchivo.substring(nombreArchivo.lastIndexOf('.') + 1)
+    return (
+      <a
+        className="MensajesInteraccion__archivo"
+        target="_blank"
+        rel="noreferrer noopener"
+        href={urlArchivo}
+      >
+        {extensionArchivo === 'pdf' && <div className="MensajesInteraccion__icono_pdf">PDF</div>}
+        {nombreArchivo}
+        <InlineIcon
+          icon="mdi:arrow-down-bold-circle-outline"
+          className="MensajesInteraccion__icono_descarga_archivo"
+        />
+      </a>
+    )
+  }
   const mensajeConNegritas = mensaje
     .split('*')
     .map((m, i) => (
