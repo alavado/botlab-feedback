@@ -20,20 +20,20 @@ export const estadosInteracciones: EstadoInteraccion[] = [
     descripcion: 'Confirma',
     icono: 'mdi:check',
     explicacion: 'La cita ha sido confirmada',
-    color: '#cfc',
+    color: 'var(--color-si)',
   },
   {
     id: 'CANCELADA',
     descripcion: 'Cancela',
     icono: 'mdi:close',
     explicacion: 'La cita ha sido anulada',
-    color: '#fcc',
+    color: 'var(--color-no)',
   },
   {
     id: 'REAGENDADA',
     descripcion: 'Reagenda',
     icono: 'mdi:autorenew',
     explicacion: 'La cita ha sido reagendada',
-    color: '#ccf',
+    color: 'var(--color-reagenda)',
   },
 ]

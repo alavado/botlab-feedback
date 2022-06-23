@@ -4,6 +4,7 @@ import './CuadroBusqueda.css'
 import { Icon } from '@iconify/react'
 import { useDispatch } from 'react-redux'
 import { limpiaBusqueda } from '../../../../redux/ducks/busqueda'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const CuadroBusqueda = () => {
 
@@ -11,6 +12,7 @@ const CuadroBusqueda = () => {
   const [termino, setTermino] = useState('')
   const history = useHistory()
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   useEffect(() => {
     inputRef.current.focus()
@@ -19,6 +21,7 @@ const CuadroBusqueda = () => {
 
   const buscar = e => {
     e.preventDefault()
+    track('Feedback', 'Busqueda', 'buscar', { termino })
     history.push(`/busqueda/${termino}`)
   }
 

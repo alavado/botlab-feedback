@@ -7,6 +7,7 @@ import TagRespuesta from '../../../Respuestas/TablaRespuestas/TagRespuesta'
 import { es } from 'date-fns/locale'
 import './TarjetaResultadoBusqueda.css'
 import Scrambler from '../../../../Scrambler'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
 
@@ -14,8 +15,10 @@ const TarjetaResultadoBusqueda = ({ resultado, posicion }) => {
   const dispatch = useDispatch()
   const { tipos, todosLosHeaders } = useSelector(state => state.encuestas)
   const headersEncuesta = todosLosHeaders?.find(h => h.poll_id === resultado.poll_id)?.headers
+  const track = useAnalytics()
 
   const verChat = resultado => {
+    track('Feedback', 'Busqueda', 'verChat', { idEncuesta: resultado.poll_id, idUsuario: resultado.user_id, posicion })
     dispatch(guardaEstaRespuesta(resultado))
     history.push(`/chat/${resultado.poll_id}/${resultado.user_id}`)
   }
