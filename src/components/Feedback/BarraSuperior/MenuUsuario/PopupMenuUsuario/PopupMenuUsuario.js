@@ -11,6 +11,7 @@ import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
 import { createPortal } from 'react-dom'
 import { activaModal } from '../../../../../redux/ducks/novedades'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
@@ -19,6 +20,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
   const { scrambled } = useSelector(state => state.scrambler)
   const history = useHistory()
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   const esc = useCallback(e => e.key === 'Escape' && esconder(), [esconder])
 
@@ -115,6 +117,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           <button
             className="PopupMenuUsuario__boton_opcion"
             onClick={() => {
+              track('Feedback', 'MenuUsuario', 'cerrarSesion')
               dispatch(limpiaEncuestas())
               dispatch(limpiaFiltros())
               dispatch(cierraLaSesion())

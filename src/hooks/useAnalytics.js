@@ -24,6 +24,7 @@ function useAnalytics() {
       {
         usuario,
         cuenta,
+        url: window.location.href,
         ...parametros
       }
     )
