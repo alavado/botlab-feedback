@@ -12,6 +12,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import classNames from 'classnames'
 import { differenceInMinutes } from 'date-fns'
 import PopupTipoSeleccion from './PopupTipoSeleccion'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 registerLocale('es', es)
 
@@ -25,14 +26,20 @@ const SelectorRangoFechas = () => {
   const esconderPopupRangosComunes = useCallback(() => setPopupRangosComunesActivo(false), [setPopupRangosComunesActivo])
   const esconderPopupTipoSeleccionActivo = useCallback(() => setPopupTipoSeleccionActivo(false), [setPopupTipoSeleccionActivo])
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   useEffect(() => {
-    const intervalFecha = setInterval(() => setFechaActual(() => Date.now()), 1000)
+    const intervalFecha = setInterval(() => setFechaActual(() => Date.now()), 10_000)
     return () => clearInterval(intervalFecha)
   }, [])
 
   const alertar = differenceInMinutes(fechaActual, fechaActualizacion) >= 5
   const mensajeActualizacion = `actualizado ${formatDistanceToNow(fechaActualizacion, { locale: es, addSuffix: true })}`
+
+  const actualizar = () => {
+    track('Feedback-Respuestas-actualizar')
+    dispatch(actualizaRespuestas())
+  }
 
   return (
     <div className="SelectorRangoFechas">
@@ -95,7 +102,7 @@ const SelectorRangoFechas = () => {
           "SelectorRangoFechas__boton--alerta": alertar,
         })}
         tooltip={`Actualizar (${mensajeActualizacion})`}
-        onClick={() => dispatch(actualizaRespuestas())}
+        onClick={actualizar}
         disabled={cacheInvalido}
       >
         <Icon className="SelectorRangoFechas__boton_icono" icon="mdi:refresh" />

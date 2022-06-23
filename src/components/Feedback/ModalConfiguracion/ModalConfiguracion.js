@@ -65,7 +65,7 @@ const ModalConfiguracion = () => {
             className="ModalConfiguracion__boton_cerrar"
             onClick={() => dispatch(escondeModal())}
           >
-            <Icon icon="mdi:check-bold" />
+            <Icon icon="mdi:close" />
           </button>
           <h2 className="ModalConfiguracion__titulo">Configuración del servicio</h2>
           {isSuccess

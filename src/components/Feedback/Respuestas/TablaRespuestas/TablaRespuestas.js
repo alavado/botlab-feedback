@@ -16,6 +16,7 @@ import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
 import { tieneAccesoAReportes } from '../../../../helpers/permisos'
 import { muestraModal } from '../../../../redux/ducks/configuracion'
 import { desactivaTooltip } from '../../../../redux/ducks/novedades'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const respuestasPorPagina = 50
 
@@ -27,6 +28,7 @@ const TablaRespuestas = () => {
   const refContenedor = useRef()
   const dispatch = useDispatch()
   const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla, cacheInvalido } = useSelector(state => state.respuestas)
+  const track = useAnalytics()
 
   const cargando = !respuestas || !headers
   const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO'))
@@ -39,6 +41,11 @@ const TablaRespuestas = () => {
     const scrollFinal = refContenedor.current?.scrollTop || 0
     return () => dispatch(fijaScrollTabla(scrollFinal))
   }, [dispatch, scrollTabla])
+
+  const mostrarModalConfiguracion = () => {
+    track('Feedback-Respuestas-abrirConfiguracion')
+    dispatch(muestraModal())
+  }
   
   return (
     <div className="TablaRespuestas">
@@ -50,7 +57,7 @@ const TablaRespuestas = () => {
             tooltip="Configuración"
             onClick={() => {
               dispatch(desactivaTooltip())
-              dispatch(muestraModal())
+              mostrarModalConfiguracion()
             }}
           >
             <Icon

@@ -8,6 +8,7 @@ import LoaderChat from '../LoaderChat'
 import Scrambler from '../../../../Scrambler'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 import { muestraModal } from '../../../../../redux/ducks/configuracion'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const DatosChat = ({ cargando, datos, telefono }) => {
 
@@ -16,6 +17,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
   // const { tableroVisible } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   const history = useHistory()
+  const track = useAnalytics()
 
   const haySiguienteChat = respuestas && indiceRespuestaSeleccionada < respuestas.length - 1
   const hayChatAnterior = indiceRespuestaSeleccionada > 0
@@ -50,6 +52,11 @@ const DatosChat = ({ cargando, datos, telefono }) => {
     window.addEventListener('keyup', teclasMagicas)
     return () => window.removeEventListener('keyup', teclasMagicas)
   }, [irARespuestaAnterior, irASiguienteRespuesta])
+
+  const mostrarModalConfiguracion = () => {
+    track('Feedback-Chat-abrirConfiguracion')
+    dispatch(muestraModal())
+  }
 
   const urlAnterior = history.location.state?.from
 
@@ -93,7 +100,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
         <button
           className="TablaRespuestas__boton_configuracion"
           tooltip="Configuración"
-          onClick={() => dispatch(muestraModal())}
+          onClick={mostrarModalConfiguracion}
         >
           <Icon
             className="TablaRespuestas__boton_icono"
