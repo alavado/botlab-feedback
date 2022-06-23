@@ -23,22 +23,24 @@ const DatosChat = ({ cargando, datos, telefono }) => {
   const hayChatAnterior = indiceRespuestaSeleccionada > 0
 
   const irARespuestaAnterior = useCallback(() => {
+    track('Feedback', 'Chat', 'anterior', { idEncuesta })
     if (!datos || !hayChatAnterior) {
       return
     }
     const respuestaAnterior = respuestas[indiceRespuestaSeleccionada - 1]
     dispatch(guardaEstaRespuesta([respuestaAnterior, indiceRespuestaSeleccionada - 1]))
     history.push(`/chat/${idEncuesta}/${respuestaAnterior.user_id}`)
-  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, hayChatAnterior])
+  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, hayChatAnterior, track])
 
   const irASiguienteRespuesta = useCallback(() => {
+    track('Feedback', 'Chat', 'siguiente', { idEncuesta })
     if (!datos || !haySiguienteChat) {
       return
     }
     const siguienteRespuesta = respuestas[indiceRespuestaSeleccionada + 1]
     dispatch(guardaEstaRespuesta([siguienteRespuesta, indiceRespuestaSeleccionada + 1]))
     history.push(`/chat/${idEncuesta}/${siguienteRespuesta.user_id}`)
-  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, haySiguienteChat])
+  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, haySiguienteChat, track])
 
   useEffect(() => {
     const teclasMagicas = e => {
@@ -54,7 +56,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
   }, [irARespuestaAnterior, irASiguienteRespuesta])
 
   const mostrarModalConfiguracion = () => {
-    track('Feedback-Chat-abrirConfiguracion')
+    track('Feedback', 'Chat', 'abrirConfiguracion')
     dispatch(muestraModal())
   }
 

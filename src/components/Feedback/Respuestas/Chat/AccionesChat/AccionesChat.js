@@ -6,6 +6,7 @@ import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
 import { guardaContacto } from '../../../../../redux/ducks/opciones'
 import { agregarIssueADBNotion } from '../../../../../api/notion'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const obtenerSonrisa = () => {
   const opciones = ['😀', '😊', '😄', '😁', '😃', '😉', '🙂']
@@ -29,6 +30,7 @@ const AccionesChat = ({ telefono, link }) => {
   const refDescripcion = useRef()
   const refContacto = useRef()
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   useEffect(() => {
     formularioVisible && refDescripcion.current?.focus()
@@ -62,6 +64,7 @@ const AccionesChat = ({ telefono, link }) => {
   }
 
   const abrirAgenda = () => {
+    track('Feedback', 'Chat', 'abrirAgenda', { link: link.url })
     window.open(link.url, '_blank').focus();
   }
 

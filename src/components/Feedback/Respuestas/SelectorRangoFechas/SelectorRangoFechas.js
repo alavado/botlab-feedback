@@ -37,7 +37,7 @@ const SelectorRangoFechas = () => {
   const mensajeActualizacion = `actualizado ${formatDistanceToNow(fechaActualizacion, { locale: es, addSuffix: true })}`
 
   const actualizar = () => {
-    track('Feedback-Respuestas-actualizar')
+    track('Feedback', 'Respuestas', 'actualizar')
     dispatch(actualizaRespuestas())
   }
 

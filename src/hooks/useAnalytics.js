@@ -18,9 +18,9 @@ if (cuenta) {
 
 function useAnalytics() {
   const { nombreUsuario: usuario, cuenta } = useSelector(state => state.login)
-  return (evento, parametros = {}) => {
+  return (app, seccion, evento, parametros = {}) => {
     analytics.track(
-      evento,
+      [app, seccion, evento].join('-'),
       {
         usuario,
         cuenta,

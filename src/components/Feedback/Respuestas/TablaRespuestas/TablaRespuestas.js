@@ -43,7 +43,7 @@ const TablaRespuestas = () => {
   }, [dispatch, scrollTabla])
 
   const mostrarModalConfiguracion = () => {
-    track('Feedback-Respuestas-abrirConfiguracion')
+    track('Feedback', 'Respuestas', 'abrirConfiguracion')
     dispatch(muestraModal())
   }
   
