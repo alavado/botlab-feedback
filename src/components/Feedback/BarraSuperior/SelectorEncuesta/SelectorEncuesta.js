@@ -61,7 +61,7 @@ const SelectorEncuesta = () => {
     } catch (e) {
       console.error('un error', e)
     }
-  }, [dispatch, idEncuestaSeleccionada, track])
+  }, [dispatch, idEncuestaSeleccionada])
 
   useEffect(() => {
     let tiposEncuestas = obtenerTiposEncuestasVisibles(cuenta, tipos)

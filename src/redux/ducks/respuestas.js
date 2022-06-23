@@ -140,7 +140,7 @@ const sliceRespuestas = createSlice({
       catch (e) {
         state.categorias = []
       }
-      state.respuestas = respuestas.sort(ordenarPorFechaCita())
+      state.respuestas = respuestas
       state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
       state.pagina = 1
       state.cacheInvalido = false
