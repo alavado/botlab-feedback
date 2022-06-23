@@ -79,7 +79,10 @@ const SelectorRangoFechas = () => {
         : <>
             <ReactDatePicker
               selected={fechaInicio}
-              onChange={f => dispatch(guardaRangoFechas([f, f]))}
+              onChange={f => {
+                track('Feedback', 'Respuestas', 'cambiarFechaEspecifica', { fecha: f })
+                dispatch(guardaRangoFechas([f, f]))
+              }}
               dateFormat="iiii d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker SelectorRangoFechas__datepicker--ancho"

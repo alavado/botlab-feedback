@@ -17,12 +17,12 @@ if (cuenta) {
 }
 
 function useAnalytics() {
-  const { nombreUsuario: usuario, cuenta } = useSelector(state => state.login)
+  const { nombreUsuario: cliente, cuenta } = useSelector(state => state.login)
   return (app, seccion, evento, parametros = {}) => {
     analytics.track(
       [app, seccion, evento].join('-'),
       {
-        usuario,
+        cliente,
         cuenta,
         url: window.location.href,
         ...parametros
