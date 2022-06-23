@@ -36,9 +36,9 @@
   display: flex;
   gap: .5rem;
   max-width: 50ch;
-  padding: .5rem;
+  padding: .35rem .45rem;
   font-size: .65rem;
-  border-radius: .25rem;
+  border-radius: .35rem;
   filter: drop-shadow(0 1px 1px var(--color-sombras));
   position: relative;
   transition: all .15s ease;
@@ -86,9 +86,13 @@
 }
 
 .MensajesInteraccion__mensaje_hora {
-  place-self: end end;
-  font-size: .55rem;
+  display: inline-flex;
+  float: right;
+  font-size: .5rem;
   opacity: .75;
+  transform: translate(.1rem, .4rem);
+  flex: 1;
+  padding-left: 1rem;
 }
 
 .MensajesInteraccion__mensaje_contenido {

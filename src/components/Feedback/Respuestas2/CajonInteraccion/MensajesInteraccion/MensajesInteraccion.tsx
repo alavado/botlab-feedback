@@ -118,8 +118,10 @@ const MensajesInteraccion = () => {
                 })}
                 style={{ animationDelay: `${Math.max(0, i - indicePrimerMensajeUltimaConversacion) * .05}s` }}
               >
-                <p className="MensajesInteraccion__mensaje_contenido">{formatearMensaje(mensaje, i)}</p>
-                <p className="MensajesInteraccion__mensaje_hora">{format(timestamp, 'HH:mm')}</p>
+                <p className="MensajesInteraccion__mensaje_contenido">
+                  {formatearMensaje(mensaje, i)}
+                  <span className="MensajesInteraccion__mensaje_hora">{format(timestamp, 'HH:mm')}</span>
+                </p>
               </div>
             </React.Fragment>
           )
