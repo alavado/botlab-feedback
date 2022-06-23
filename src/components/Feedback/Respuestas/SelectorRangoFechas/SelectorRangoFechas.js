@@ -55,7 +55,10 @@ const SelectorRangoFechas = () => {
         ? <>
             <ReactDatePicker
               selected={fechaInicio}
-              onChange={f => dispatch(guardaFechaInicio(f))}
+              onChange={f => {
+                track('Feedback', 'Respuestas', 'cambiarFechaInicial', { fecha: f })
+                dispatch(guardaFechaInicio(f))
+              }}
               maxDate={fechaTermino}
               dateFormat="d MMMM yyyy"
               locale="es"
@@ -64,7 +67,10 @@ const SelectorRangoFechas = () => {
             -
             <ReactDatePicker
               selected={fechaTermino}
-              onChange={f => dispatch(guardaFechaTermino(f))}
+              onChange={f => {
+                track('Feedback', 'Respuestas', 'cambiarFechaFinal', { fecha: f })
+                dispatch(guardaFechaTermino(f))
+              }}
               dateFormat="d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker"

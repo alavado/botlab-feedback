@@ -11,6 +11,7 @@ import { useParams, useRouteMatch } from 'react-router-dom'
 import classNames from 'classnames'
 import { obtenerTiposEncuestasVisibles } from '../../../../helpers/encuestasSecretas'
 import { obtenerPollsCalculadas } from '../../../../helpers/pollsCalculadas'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const TabsEncuestas = () => {
 
@@ -22,6 +23,7 @@ const TabsEncuestas = () => {
   const { idEncuesta: idEncuestaRuta } = useParams()
   const { path } = useRouteMatch()
   const dispatch = useDispatch()
+  const track = useAnalytics()
   
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos?.find(({ id }) => id === idEncuestaSeleccionada)
@@ -41,6 +43,7 @@ const TabsEncuestas = () => {
   }, [tipos, idEncuestaSeleccionada, respuestas, cuenta])
 
   const verEncuesta = useCallback(async id => {
+    track('Feedback', 'Respuestas', 'verEncuestaConTabs', { idEncuesta: id })
     setCargandoEncuesta(true)
     if (`${id}`.startsWith('filtro')) {
       setCargandoEncuesta(false)
@@ -73,7 +76,7 @@ const TabsEncuestas = () => {
     } catch (e) {
       console.error('un error', e)
     }
-  }, [dispatch, idEncuestaSeleccionada])
+  }, [dispatch, idEncuestaSeleccionada, track])
 
   useEffect(() => {
     let tiposEncuestas = obtenerTiposEncuestasVisibles(cuenta, tipos)
