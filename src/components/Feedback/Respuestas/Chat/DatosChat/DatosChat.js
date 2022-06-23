@@ -67,8 +67,11 @@ const DatosChat = ({ cargando, datos, telefono }) => {
       <div className="DatosChat__navegacion">
         <button
           className="DatosChat__link_atras"
-          onClick={() => history.push(urlAnterior ?? '/')}
-          title="Volver a respuestas"
+          onClick={() => {
+            track('Feedback', 'Chat', `volverA${urlAnterior ? 'Alertas': 'Respuestas'}`)
+            history.push(urlAnterior ?? '/')
+          }}
+          title={`Volver a ${urlAnterior ? 'alertas': 'respuestas'}`}
         >
           <InlineIcon className="DatosChat__icono_volver" icon="mdi:arrow-left" />
           {urlAnterior ? 'Alertas': 'Respuestas'}
@@ -124,6 +127,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
                   href={`https://wa.me/${telefono}`}
                   className="DatosChat__link_ws"
                   title="Continuar a chat WhatsApp"
+                  onClick={() => track('Feedback', 'Chat', 'abrirWhatsappWebDesdeDatosChat', { link: `https://wa.me/${telefono}` })}
                 >
                   <InlineIcon icon="mdi:whatsapp" />
                 </a>
