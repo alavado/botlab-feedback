@@ -12,7 +12,6 @@ import { useParams, useRouteMatch } from 'react-router-dom'
 import classNames from 'classnames'
 import Scrambler from '../../../Scrambler/Scrambler'
 import { obtenerTiposEncuestasVisibles } from '../../../../helpers/encuestasSecretas'
-import useAnalytics from '../../../../hooks/useAnalytics'
 
 const SelectorEncuesta = () => {
 
@@ -25,10 +24,8 @@ const SelectorEncuesta = () => {
   const { idEncuesta: idEncuestaRuta } = useParams()
   const { path } = useRouteMatch()
   const dispatch = useDispatch()
-  const track = useAnalytics()
 
   const verEncuesta = useCallback(async id => {
-    track('Feedback', 'Respuestas', 'verEncuestaConSelector', { idEncuesta: id })
     setCargandoEncuesta(true)
     if (`${id}`.startsWith('filtro')) {
       setCargandoEncuesta(false)

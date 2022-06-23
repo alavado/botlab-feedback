@@ -43,7 +43,6 @@ const TabsEncuestas = () => {
   }, [tipos, idEncuestaSeleccionada, respuestas, cuenta])
 
   const verEncuesta = useCallback(async id => {
-    track('Feedback', 'Respuestas', 'verEncuestaConTabs', { idEncuesta: id })
     setCargandoEncuesta(true)
     if (`${id}`.startsWith('filtro')) {
       setCargandoEncuesta(false)
@@ -130,7 +129,10 @@ const TabsEncuestas = () => {
             {tiposOrdenados.map(tipo => (
               <button
                 key={`boton-tab-${tipo.id}`}
-                onClick={() => verEncuesta(tipo.id)}
+                onClick={() => {
+                  track('Feedback', 'Respuestas', 'verEncuestaConTabs', { idEncuesta: tipo.id, nombreEncuesta: tipo.nombre })
+                  verEncuesta(tipo.id)
+                }}
                 className={classNames({
                   "TabsEncuestas__tab": true,
                   "TabsEncuestas__tab--activo": idEncuestaSeleccionada === tipo.id

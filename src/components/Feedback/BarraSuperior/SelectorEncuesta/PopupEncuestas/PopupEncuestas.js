@@ -7,12 +7,14 @@ import './PopupEncuestas.css'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import { obtenerPollsCalculadas } from '../../../../../helpers/pollsCalculadas'
 import { obtenerTiposEncuestasVisibles } from '../../../../../helpers/encuestasSecretas'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { cuenta } = useSelector(state => state.login)
   const { respuestas } = useSelector(state => state.respuestas)
+  const track = useAnalytics()
   
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos.find(({ id }) => id === idEncuestaSeleccionada)
@@ -50,6 +52,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
           <div
             key={`boton-${id}`}
             onClick={e => {
+              track('Feedback', 'Respuestas', 'verEncuestaConSelector', { idEncuesta: id, nombreEncuesta: nombre })
               verEncuesta(id)
               esconder()
               e.stopPropagation()
