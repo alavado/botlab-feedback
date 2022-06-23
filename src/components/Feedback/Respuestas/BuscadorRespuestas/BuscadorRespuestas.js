@@ -5,12 +5,15 @@ import { buscaEsto } from '../../../../redux/ducks/respuestas'
 import classNames from 'classnames'
 import _ from 'lodash'
 import useAnalytics from '../../../../hooks/useAnalytics'
+import { useRef } from 'react'
 
 const BuscadorRespuestas = ({ cargando }) => {
 
   const { busqueda } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
   const track = useAnalytics()
+
+  const trackBusqueda = useRef(_.debounce(termino => track('Feedback', 'Respuestas', 'buscarEnTabla', { termino }), 2_000)).current
 
   return (
     <div className="BuscadorRespuestas">
@@ -36,7 +39,7 @@ const BuscadorRespuestas = ({ cargando }) => {
         })}
         value={busqueda}
         onChange={e => {
-          _.debounce(() => track('Feedback', 'Respuestas', 'buscarEnTabla', { termino: e.target.value }), 2_000)
+          trackBusqueda(e.target.value)
           dispatch(buscaEsto(e.target.value))
         }}
         spellCheck="false"
