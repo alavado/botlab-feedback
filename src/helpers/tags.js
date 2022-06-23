@@ -8,6 +8,9 @@ export const INFO_REAGENDA = 'INFO_REAGENDA'
 export const NO_INFO_REAGENDA = 'NO_INFO_REAGENDA'
 export const NINGUNA = 'NINGUNA'
 export const CUALQUIERA = 'CUALQUIERA'
+export const AGENDA_OPCION_1 = 'AGENDA_OPCION_1'
+export const AGENDA_OPCION_2 = 'AGENDA_OPCION_2'
+export const AGENDA_OPCION_3 = 'AGENDA_OPCION_3'
 
 const tags = {
   YES: {
@@ -206,6 +209,27 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   },
+  AGENDAR: {
+    texto: 'Agendar hora',
+    titulo: 'Agendar hora',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: ''
+  },
+  AGENDAR_OTRO: {
+    texto: 'Agendar (otro)',
+    titulo: 'Agendar (otro)',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: ''
+  },
+  AGENDAR_EV_DENTAL: {
+    texto: 'Agendar evaluación dental',
+    titulo: 'Agendar evaluación deental',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: ''
+  },
   'COMUNA-DATETIME': {
     texto: 'Fecha y comuna',
     titulo: 'Fecha y comuna',
@@ -232,6 +256,27 @@ const tags = {
     titulo: 'No se encuentra',
     icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--no',
+    color: ''
+  },
+  AGENDA_OPCION_1: {
+    texto: 'Bloque 1 agendado',
+    titulo: 'Bloque 1 agendado',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  AGENDA_OPCION_2: {
+    texto: 'Bloque 2 agendado',
+    titulo: 'Bloque 2 agendado',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
+  },
+  AGENDA_OPCION_3: {
+    texto: 'Bloque 3 agendado',
+    titulo: 'Bloque 3 agendado',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
     color: ''
   }
 }

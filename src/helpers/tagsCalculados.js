@@ -1,4 +1,4 @@
-import { YES, NO, REAGENDA } from './tags'
+import { YES, NO, REAGENDA, AGENDA_OPCION_1, AGENDA_OPCION_2, AGENDA_OPCION_3 } from './tags'
 
 const actionSuccess = 'action_result:SUCCESS'
 // const actionFailure = 'action_result:FAILURE'
@@ -70,6 +70,48 @@ export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
+      case 509:
+        return [
+          {
+            texto: 'Mensaje Inicial',
+            tipo: 'OPEN',
+            f: r => r[0]
+          },
+          {
+            texto: 'Encontramos horas',
+            tipo: 'INTERNAL',
+            f: r => r[2]
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: r => r[3]
+          },
+          {
+            texto: 'Bloque agendado',
+            tipo: 'INTERNAL',
+            f: r => {
+              if (r[510].tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_1,
+                  texto: 'Bloque 1'
+                }
+              }
+              if (r[520].tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_2,
+                  texto: 'Bloque 2'
+                }
+              }
+              if (r[530].tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3'
+                }
+              }
+            }
+          }
+        ]
       case Number(process.env.REACT_APP_ID_POLL_SANASALUD_CMSC):
         return [
           {
@@ -337,5 +379,10 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
   const headersSinTags = headers
     .filter(h => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
     .map(h => h.texto.includes(' Externo') ?  ({ ...h, texto: h.texto.slice(0, -8) }) : h)
+  // caso especial agendamiento, para poner el teléfono al comienzo
+  if (idEncuesta === 509) {
+    return [...headersSinTags, ...tagsCalculados]
+
+  }
   return [...tagsCalculados, ...headersSinTags]
 }
