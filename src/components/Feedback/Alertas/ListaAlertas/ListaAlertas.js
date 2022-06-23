@@ -64,7 +64,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
               key={`fila-alerta-${alerta.id}`}
               onClick={e => {
                 e.stopPropagation()
-                track('Feedback', 'Alertas', 'verChatAlerta', { idAlerta: alerta.id })
+                track('Feedback', 'Alertas', 'verChatAlertaEnCajon', { idAlerta: alerta.id })
                 history.push(`/alertas/${alerta.id}`)
                 // dispatch(destacaAlerta({ id: alerta.id }))
                 // mostrarCajon()
@@ -95,7 +95,10 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
                 >
                   <button
                     className="ListaAlertas__boton_accion"
-                    onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
+                    onClick={() => {
+                      track('Feedback', 'Alertas', alerta.dismissed ? 'marcarAlertaComoNoResuelta' : 'marcarAlertaComoResuelta', { idAlerta: alerta.id })
+                      mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed })
+                    }}
                     title={alerta.dismissed ? "Marcar que alerta no ha sido resuelta" : "Marcar que alerta fue resuelta"}
                   >
                     <InlineIcon icon={alerta.dismissed ? "mdi:bell-ring-outline" : "mdi:check-bold"} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}

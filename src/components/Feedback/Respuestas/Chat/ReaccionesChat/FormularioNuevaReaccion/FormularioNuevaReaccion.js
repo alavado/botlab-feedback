@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { eliminaReaccion, guardaReaccion } from '../../../../../../redux/ducks/reacciones'
 import { InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
+import useAnalytics from '../../../../../../hooks/useAnalytics'
 
 const FormularioNuevaReaccion = ({ agregarNota }) => {
   
@@ -17,9 +18,11 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
   const inputRef = useRef()
   const botonEmojiRef = useRef()
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   const agregar = e => {
     e.preventDefault()
+    track('Feedback', 'Chat', 'agregarComentario', { emoji, comentario })
     agregarNota(emoji, comentario)
     dispatch(guardaReaccion({ emoji, comentario }))
   }
