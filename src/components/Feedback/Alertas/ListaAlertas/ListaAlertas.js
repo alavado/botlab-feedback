@@ -8,12 +8,14 @@ import { obtenerEtiquetaAlerta } from '../../../../helpers/alertas'
 import Scrambler from '../../../Scrambler/Scrambler'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
 
   const { id } = useParams()
   const { verAlertas } = useSelector(state => state.alertas)
   const history = useHistory()
+  const track = useAnalytics()
 
   const queryClient = useQueryClient()
   const mutation = useMutation(({ id, dismissed }) => marcarAlerta(id, dismissed), {
@@ -62,6 +64,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
               key={`fila-alerta-${alerta.id}`}
               onClick={e => {
                 e.stopPropagation()
+                track('Feedback', 'Alertas', 'verChatAlerta', { idAlerta: alerta.id })
                 history.push(`/alertas/${alerta.id}`)
                 // dispatch(destacaAlerta({ id: alerta.id }))
                 // mostrarCajon()

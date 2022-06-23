@@ -6,11 +6,13 @@ import './BarraLateral.css'
 import { useSelector } from 'react-redux'
 import ConteoAlertas from './ConteoAlertas'
 import { tieneAccesoAAlertas, tieneAccesoAReportes } from '../../../helpers/permisos'
+import useAnalytics from '../../../hooks/useAnalytics'
 
 const BarraLateral = () => {
 
   const { cuenta } = useSelector(state => state.login)
   const [feliz, setFeliz] = useState(false)
+  const track = useAnalytics()
   
   return (
     <div className="BarraLateral">
@@ -30,6 +32,7 @@ const BarraLateral = () => {
           activeClassName="BarraLateral__link--activo"
           to="/"
           exact
+          onClick={() => track('Feedback', 'BarraLateral', 'verRespuestas')}
         >
           <Icon icon="mdi:home" />
           <div className="BarraLateral__nombre_seccion">Respuestas</div>
@@ -39,6 +42,7 @@ const BarraLateral = () => {
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
             to="/alertas"
+            onClick={() => track('Feedback', 'BarraLateral', 'verAlertas')}
           >
             <ConteoAlertas setFeliz={setFeliz} />
             <Icon icon={feliz ? 'mdi:robot-happy' : 'mdi:robot'} />
@@ -58,6 +62,7 @@ const BarraLateral = () => {
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
             to="/exportar"
+            onClick={() => track('Feedback', 'BarraLateral', 'verExportar')}
           >
             <Icon icon="mdi:table-export" />
             <div className="BarraLateral__nombre_seccion">Reporte</div>
@@ -67,6 +72,7 @@ const BarraLateral = () => {
           className="BarraLateral__link"
           activeClassName="BarraLateral__link--activo"
           to="/busqueda"
+          onClick={() => track('Feedback', 'BarraLateral', 'verBusqueda')}
         >
           <Icon icon="mdi:search" />
           <div className="BarraLateral__nombre_seccion">Búsqueda</div>
@@ -75,6 +81,7 @@ const BarraLateral = () => {
           className="BarraLateral__link"
           activeClassName="BarraLateral__link--activo"
           to="/uso"
+          onClick={() => track('Feedback', 'BarraLateral', 'verUso')}
         >
           <Icon icon="mdi:wallet" />
           <div className="BarraLateral__nombre_seccion">Uso</div>
@@ -84,6 +91,7 @@ const BarraLateral = () => {
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
             to="/tutoriales"
+            onClick={() => track('Feedback', 'BarraLateral', 'verTutoriales')}
           >
             <Icon icon="mdi:play-box-multiple" />
             <div className="BarraLateral__nombre_seccion">Tutoriales</div>
