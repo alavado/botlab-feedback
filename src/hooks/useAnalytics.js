@@ -13,7 +13,7 @@ const analytics = Analytics({
 })
 const cuenta = store.getState().login.cuenta
 if (cuenta) {
-  analytics.identify(cuenta)
+  analytics.identify(cuenta.toLowerCase())
 }
 
 function useAnalytics() {
@@ -26,7 +26,7 @@ function useAnalytics() {
       [app, seccion, evento].join('-'),
       {
         cliente,
-        cuenta,
+        cuenta: cuenta.toLowerCase(),
         url: window.location.href,
         ...parametros
       }
