@@ -27,6 +27,9 @@ const App = () => {
   useEffect(() => {
     window.addEventListener('focus', () => track('Feedback', 'Browser', 'focus'))
     window.addEventListener('blur', () => track('Feedback', 'Browser', 'blur'))
+    if (window.performance.getEntriesByType('navigation').map((nav) => nav.type).includes('reload')) {
+      track('Feedback', 'Browser', 'refresh')
+    }
   }, [])
 
   return (
