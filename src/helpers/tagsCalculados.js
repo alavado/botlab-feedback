@@ -70,7 +70,54 @@ export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
-      case 509:
+      case 557: // Norden agendamiento
+        return [
+          {
+            texto: '¿Menor de edad?',
+            tipo: 'YESNO',
+            f: r => r[13]
+          },
+          {
+            texto: 'Mensaje Inicial',
+            tipo: 'OPEN',
+            f: r => r[0]
+          },
+          {
+            texto: 'Encontramos horas',
+            tipo: 'INTERNAL',
+            f: r => r[2]
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: r => r[3]
+          },
+          {
+            texto: 'Bloque agendado',
+            tipo: 'INTERNAL',
+            f: r => {
+              if (r[510].tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_1,
+                  texto: 'Bloque 1'
+                }
+              }
+              if (r[520].tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_2,
+                  texto: 'Bloque 2'
+                }
+              }
+              if (r[530].tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3'
+                }
+              }
+            }
+          }
+        ]
+      case 509: // SS agendamiento
         return [
           {
             texto: 'Mensaje Inicial',
@@ -380,7 +427,7 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
     .filter(h => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
     .map(h => h.texto.includes(' Externo') ?  ({ ...h, texto: h.texto.slice(0, -8) }) : h)
   // caso especial agendamiento, para poner el teléfono al comienzo
-  if (idEncuesta === 509) {
+  if ([509, 557].includes(idEncuesta)) {
     return [...headersSinTags, ...tagsCalculados]
 
   }
