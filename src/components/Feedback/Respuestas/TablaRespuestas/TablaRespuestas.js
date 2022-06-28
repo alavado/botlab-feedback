@@ -22,7 +22,7 @@ const respuestasPorPagina = 50
 
 const TablaRespuestas = () => {
 
-  const { headers } = useSelector(state => state.encuestas)
+  const { headers, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { cuenta } = useSelector(state => state.login)
   const { tooltipVisible } = useSelector(state => state.novedades)
   const refContenedor = useRef()
@@ -31,7 +31,7 @@ const TablaRespuestas = () => {
   const track = useAnalytics()
 
   const cargando = !respuestas || !headers
-  const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO'))
+  const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO')) && idEncuestaSeleccionada !== 557
 
   useEffect(() => {
     dispatch(fijaOpcionTableroVisible(false))
