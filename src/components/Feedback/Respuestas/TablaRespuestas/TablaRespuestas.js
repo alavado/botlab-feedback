@@ -42,6 +42,8 @@ const TablaRespuestas = () => {
     return () => dispatch(fijaScrollTabla(scrollFinal))
   }, [dispatch, scrollTabla])
 
+  useEffect(() => track('Feedback', 'Respuestas', 'index'), [track])
+
   const mostrarModalConfiguracion = () => {
     track('Feedback', 'Respuestas', 'abrirConfiguracion')
     dispatch(muestraModal())

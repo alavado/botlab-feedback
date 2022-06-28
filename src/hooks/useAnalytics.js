@@ -2,6 +2,7 @@ import { Analytics } from "analytics"
 import segmentPlugin from '@analytics/segment'
 import { useSelector } from "react-redux"
 import store from "../redux/store"
+import { useCallback } from "react"
 
 const analytics = Analytics({
   app: 'Feedback',
@@ -18,7 +19,7 @@ if (cuenta) {
 
 function useAnalytics() {
   const { nombreUsuario: cliente, cuenta } = useSelector(state => state.login)
-  return (app, seccion, evento, parametros = {}) => {
+  return useCallback((app, seccion, evento, parametros = {}) => {
     if (cuenta.endsWith('cero') || cuenta.endsWith('botlab')) {
       return
     }
@@ -31,7 +32,7 @@ function useAnalytics() {
         ...parametros
       }
     )
-  }
+  }, [cliente, cuenta])
 }
 
 export default useAnalytics

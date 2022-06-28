@@ -7,6 +7,7 @@ import './ExportacionAvanzada.css'
 import { exportarRespuestas } from '../../api/endpoints'
 import { useSelector } from 'react-redux'
 import ModalExportacionAvanzada from './ModalExportacionAvanzada'
+import useAnalytics from '../../hooks/useAnalytics'
 
 export const tiposExportacion = [
   {
@@ -30,6 +31,7 @@ const ExportacionAvanzada = () => {
   const [error, setError] = useState()
   const [extension, setExtension] = useState(tiposExportacion[0].extension)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const track = useAnalytics()
 
   const exportar = e => {
     e.preventDefault()
@@ -50,6 +52,8 @@ const ExportacionAvanzada = () => {
       setInicio(termino)
     }
   }, [termino])
+
+  useEffect(() => track('Feedback', 'Reporte', 'index'), [track])
 
   useEffect(() => {
     if (inicio > termino) {

@@ -7,6 +7,7 @@ import { Icon } from '@iconify/react'
 import { useSelector } from 'react-redux'
 import { generarPDFUso } from '../../../helpers/generacionPDF'
 import './Uso.css'
+import useAnalytics from '../../../hooks/useAnalytics'
 
 const mesesSelector = 12
 
@@ -16,6 +17,7 @@ const Uso = () => {
   const [mes, setMes] = useState(0)
   const [filas, setFilas] = useState()
   const { nombreUsuario } = useSelector(state => state.login)
+  const track = useAnalytics()
 
   useEffect(() => {
     const inicioMes = format(startOfMonth(subMonths(new Date(), mes)), 'yyyy-MM-dd')
@@ -52,6 +54,8 @@ const Uso = () => {
         setMeses(meses)
       })
   }, [mes])
+
+  useEffect(() => track('Feedback', 'Uso', 'index'), [track])
 
   return (
     <div className="Uso">

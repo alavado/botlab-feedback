@@ -18,6 +18,7 @@ import { Switch } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import _ from 'lodash'
+import useAnalytics from '../../../hooks/useAnalytics'
 
 const tabsAlertas = [
   {
@@ -73,6 +74,7 @@ const Alertas = () => {
       }
     }
   )
+  const track = useAnalytics()
 
   useEffect(() => {
     if (id && dataAlertas) {
@@ -85,6 +87,8 @@ const Alertas = () => {
       })
     }
   }, [dataAlertas, id])
+
+  useEffect(() => track('Feedback', 'Alertas', 'index'), [track])
 
   if (cargandoAlertas) {
     return (
@@ -144,7 +148,10 @@ const Alertas = () => {
                 "Alertas__boton_tab": true,
                 "Alertas__boton_tab--activo": idTabAlertasActivo === tipoAlertas.id,
               })}
-              onClick={() => setIdTabAlertasActivo(tipoAlertas.id)}
+              onClick={() => {
+                track('Feedback', 'Alertas', tipoAlertas.titulo === 'Por resolver' ? 'verTabAlertasResueltas' : 'verTabAlertasPorResolver')
+                setIdTabAlertasActivo(tipoAlertas.id)
+              }}
               style={{ '--color-tab-alerta': tipoAlertas.color }}
               title={`Ver alertas ${tipoAlertas.titulo}`}
             >
