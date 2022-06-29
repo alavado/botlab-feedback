@@ -7,11 +7,13 @@ import Scrambler from '../../../../../Scrambler'
 import { fijaFilaTablaDestacada } from '../../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../TagRespuesta'
 import './FilaTablaRespuestas.css'
+import useAnalytics from '../../../../../../hooks/useAnalytics'
 
 const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
 
   const { columnaDestacada, filaTablaDestacada } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   if (!respuesta) {
     return null
@@ -46,7 +48,10 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
           <span className="FilaTablaRespuestas__contenedor_reaccion">
             {ultimaReaccion.reaction_emoji}
             {ultimaReaccion.reaction_text && (
-              <span className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario">
+              <span
+                className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario"
+                onMouseEnter={() => track('Feedback', 'Respuestas', 'verPopupComentario', { texto: ultimaReaccion.reaction_text, emoji: ultimaReaccion.reaction_emoji })}
+              >
                 {ultimaReaccion.reaction_text} <span style={{ fontStyle: 'italic', opacity: .8, paddingLeft: '.2rem' }}>{formatDistanceToNow(parseISO(ultimaReaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}</span>
               </span>
             )}

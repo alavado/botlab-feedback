@@ -5,6 +5,7 @@ import { remueveFiltro, combinaFiltros } from '../../../../../redux/ducks/respue
 import ModalAyuda from '../../../../ModalAyuda'
 import classNames from 'classnames'
 import './Filtros.css'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const Filtros = () => {
   
@@ -13,6 +14,7 @@ const Filtros = () => {
   const [mostrarAyuda, setMostrarAyuda] = useState(false)
   const dispatch = useDispatch()
   const filtrosVisibles = filtros.filter(f => !f.oculto)
+  const track = useAnalytics()
 
   return (
     <div className="Filtros">
@@ -26,7 +28,10 @@ const Filtros = () => {
           onDragStart={() => setIndiceFiltroInicioDrag(i)}
           onDragOver={e => e.preventDefault()}
           onDragEnter={e => e.preventDefault()}
-          onDrop={() => dispatch(combinaFiltros([indiceFiltroInicioDrag, i]))}
+          onDrop={() => {
+            track('Feedback', 'Respuestas', 'combinarFiltros', { filtro: f })
+            dispatch(combinaFiltros([indiceFiltroInicioDrag, i]))
+          }}
           title="Arrastra un filtro sobre otro para combinarlos"
           className={classNames({
             'Filtros__tag_filtro': true,
@@ -43,14 +48,23 @@ const Filtros = () => {
           <button
             className="Filtros__boton_remover_filtro"
             title="Remover este filtro"
-            onClick={() => dispatch(remueveFiltro(i))}
+            onClick={() => {
+              track('Feedback', 'Respuestas', 'removerFiltros', { filtro: f })
+              dispatch(remueveFiltro(i))
+            }}
           >
             <InlineIcon icon="mdi:close" />
           </button>
         </div>
       ))}
       <button className="Filtros__boton_ayuda">
-        <InlineIcon icon="mdi:help-circle" onClick={() => setMostrarAyuda(!mostrarAyuda)} />
+        <InlineIcon
+          icon="mdi:help-circle"
+          onClick={() => {
+            track('Feedback', 'Respuestas', 'mostrarAyudaFiltros')
+            setMostrarAyuda(!mostrarAyuda)
+          }}
+        />
       </button>
       {mostrarAyuda && <ModalAyuda cerrar={() => setMostrarAyuda(false)} />}
     </div>

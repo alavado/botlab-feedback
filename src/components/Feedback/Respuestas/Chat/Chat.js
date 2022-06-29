@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { chat2 as chatAPI } from '../../../../api/endpoints'
 import CelularWhatsapp from './CelularWhatsapp/CelularWhatsapp'
