@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { uso as usoAPI } from '../../../api/endpoints'
 import { subMonths, format, startOfMonth, endOfMonth, parse } from 'date-fns'
 import { es } from 'date-fns/locale'
 import Skeleton from '../../Skeleton'
-import Icon from '@iconify/react'
-import iconoDescargarPDF from '@iconify/icons-mdi/file-download'
+import { Icon } from '@iconify/react'
 import { useSelector } from 'react-redux'
 import { generarPDFUso } from '../../../helpers/generacionPDF'
 import './Uso.css'
+import useAnalytics from '../../../hooks/useAnalytics'
 
 const mesesSelector = 12
 
@@ -17,6 +17,7 @@ const Uso = () => {
   const [mes, setMes] = useState(0)
   const [filas, setFilas] = useState()
   const { nombreUsuario } = useSelector(state => state.login)
+  const track = useAnalytics()
 
   useEffect(() => {
     const inicioMes = format(startOfMonth(subMonths(new Date(), mes)), 'yyyy-MM-dd')
@@ -54,6 +55,8 @@ const Uso = () => {
       })
   }, [mes])
 
+  useEffect(() => track('Feedback', 'Uso', 'index'), [track])
+
   return (
     <div className="Uso">
       <div className="Uso__superior">
@@ -63,7 +66,7 @@ const Uso = () => {
           className="Uso__boton_descargar_pdf"
           disabled={!filas}
         >
-          <Icon className="Uso__icono_descargar_pdf" icon={iconoDescargarPDF} />
+          <Icon className="Uso__icono_descargar_pdf" icon="mdi:file-download" />
           Descargar PDF
         </button>
       </div>

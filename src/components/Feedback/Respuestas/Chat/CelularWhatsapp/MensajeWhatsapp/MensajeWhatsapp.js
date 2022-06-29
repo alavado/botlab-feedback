@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { format, parseISO } from 'date-fns'
 import { Icon, InlineIcon } from '@iconify/react'
-import iconoVisto from '@iconify/icons-mdi/check-all'
-import iconoLinkExterno from '@iconify/icons-mdi/arrow-right-bold'
 import classNames from 'classnames'
 import { es } from 'date-fns/locale'
 import Linkify from 'react-linkify'
@@ -11,12 +9,6 @@ import './MensajeWhatsapp.css'
 import { scrambleMulti } from '../../../../../Scrambler/scramblers'
 import { useSelector } from 'react-redux'
 import { obtenerContenidoMultimedia } from '../../../../../../api/endpoints'
-import iconoCargando from '@iconify/icons-mdi/loading'
-import iconoImagen from '@iconify/icons-mdi/image'
-import iconoVideo from '@iconify/icons-mdi/video'
-import iconoArchivo from '@iconify/icons-mdi/download-circle-outline'
-import iconoContacto from '@iconify/icons-mdi/person-circle'
-import iconoPlay from '@iconify/icons-mdi/play'
 import axios from 'axios'
 import { marcarNegritas } from '../../../../../../helpers/mensajes'
 
@@ -150,7 +142,7 @@ const MensajeImagen = ({ mensaje, hora, esDeHumano }) => {
         title="Ver imagen"
       >
         <p className="MensajeWhatsapp__texto_placeholder_imagen">
-          <InlineIcon icon={iconoImagen} /> Ver imagen
+          <InlineIcon icon="mdi:image" /> Ver imagen
         </p>
       </button>
   )
@@ -191,7 +183,7 @@ const MensajeAudio = ({ mensaje, hora, esDeHumano }) => {
             "MensajeWhatsapp__placeholder_icono_reproducir_audio": true,
             "MensajeWhatsapp__placeholder_icono_reproducir_audio--cargando": cargandoAudio
           })}
-          icon={cargandoAudio ? iconoCargando : iconoPlay}
+          icon={cargandoAudio ? 'mdi:loading' : 'mdi:play'}
         />
         <div className="MensajeWhatsapp__trackbar">
 
@@ -228,7 +220,7 @@ const MensajeVideo = ({ mensaje, hora, esDeHumano }) => {
         title="Ver imagen"
       >
         <p className="MensajeWhatsapp__texto_placeholder_imagen">
-          <InlineIcon icon={iconoVideo} /> Ver video
+          <InlineIcon icon="mdi:video" /> Ver video
         </p>
       </button>
   )
@@ -264,7 +256,7 @@ const MensajeArchivo = ({ mensaje }) => {
       onClick={descargarArchivo}
     >
       Descargar Archivo
-      <InlineIcon className="MensajeWhatsapp__icono_descargar_archivo" icon={iconoArchivo} /> 
+      <InlineIcon className="MensajeWhatsapp__icono_descargar_archivo" icon="mdi:download-circle-outline" /> 
     </button>
   )
 }
@@ -304,7 +296,7 @@ const MensajeContacto = ({ mensaje }) => {
   if (nombreContacto) {
     return (
       <div className="MensajeWhatsapp__contenedor_contacto">
-        <InlineIcon className="MensajeWhatsapp__icono_contacto" icon={iconoContacto} /> 
+        <InlineIcon className="MensajeWhatsapp__icono_contacto" icon="mdi:person-circle" /> 
         <p>{nombreContacto}</p>
         {telefonoContacto && <a href={`https://wa.me/${telefonoContacto.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer noopener">{telefonoContacto}</a>}
       </div>
@@ -316,7 +308,7 @@ const MensajeContacto = ({ mensaje }) => {
       className="MensajeWhatsapp__boton_contacto"
       onClick={descargarArchivo}
     >
-      <InlineIcon className="MensajeWhatsapp__icono_contacto" icon={iconoContacto} /> 
+      <InlineIcon className="MensajeWhatsapp__icono_contacto" icon="mdi:person-circle" /> 
       Haga click para ver contacto
     </button>
   )
@@ -358,7 +350,7 @@ const MensajeConAdjunto = ({ mensaje }) => {
             </div>
             <div className="MensajeWhatsapp__nombre_archivo">{scrambled ? scrambleMulti(nombreArchivo, terminos) : nombreArchivo}</div>
             <div className="MensajeWhatsapp__icono_link">
-              <Icon icon={iconoLinkExterno} />
+              <Icon icon="mdi:arrow-right-bold" />
             </div>
           </a>
       }
@@ -384,7 +376,7 @@ const Hora = ({ hora, esDeHumano, escondida }) => {
 const Visto = () => (
   <InlineIcon
     className="MensajeWhatsapp__icono_visto"
-    icon={iconoVisto}
+    icon="mdi:check-all"
   />
 )
 

@@ -9,8 +9,6 @@ import { es } from 'date-fns/locale'
 import { InlineIcon } from '@iconify/react'
 import { useEffect, useMemo } from 'react'
 import { alertas as getAlertas } from '../../../../../api/endpoints'
-import iconoRobot from '@iconify/icons-mdi/robot'
-import iconoRobotFeliz from '@iconify/icons-mdi/robot-happy'
 import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import MensajeChat from './MensajeChat'
@@ -20,7 +18,7 @@ const ContenidoChat = () => {
 
   const { id } = useParams()
   const { data: dataAlertas } = useQuery('alertas', getAlertas)
-  const alertaDestacada = dataAlertas.data.find(a => a.id === Number(id))
+  const alertaDestacada = dataAlertas?.data.find(a => a.id === Number(id))
   const { isLoading, data } = useQuery(
     ['chat', alertaDestacada.poll_id, alertaDestacada.user_id],
     () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id),
@@ -36,7 +34,7 @@ const ContenidoChat = () => {
     }
     const conversaciones = data.data.data.conversations
     const eventos = _.flatten(
-      conversaciones.map(({ context, messages, start }) => {
+      conversaciones.filter(c => Object.keys(c.context).length > 0).map(({ context, messages, start }) => {
         const fecha = context.find(p => p.target.includes('date'))?.value
         const hora = context.find(p => p.target.includes('time'))?.value
         const doctor = context.find(p => p.target.includes('dentist') || p.target.includes('doctor'))?.value
@@ -79,7 +77,7 @@ const ContenidoChat = () => {
             })}
             title={alertaDestacada.dismissed ? 'Esta alerta ya fue resuelta' : 'Esta alerta aún no ha sido resuelta'}
           />
-          <InlineIcon style={{ fontSize: '1.25rem' }} icon={alertaDestacada.dismissed ? iconoRobotFeliz : iconoRobot} />
+          <InlineIcon style={{ fontSize: '1.25rem' }} icon={alertaDestacada.dismissed ? 'mdi:robot-happy' : 'mdi:robot'} />
           <div className="ContenidoChat__datos_alerta">
             <p>{obtenerEtiquetaAlerta(alertaDestacada.message)}</p>
             <p className="ContenidoChat__datos_alerta_subtitulo">

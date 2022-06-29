@@ -1,14 +1,12 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import './HeadTablaRespuestas.css'
 import { InlineIcon } from '@iconify/react'
-import triangulito from '@iconify/icons-mdi/arrow-down-drop'
-import iconoOrdenDESC from '@iconify/icons-mdi/arrow-down'
-import iconoOrdenASC from '@iconify/icons-mdi/arrow-up'
 import ModalFiltros from '../ModalFiltros'
 import { destacaColumna, fijaColumna, yaNoDestaquesColumna } from '../../../../../redux/ducks/respuestas'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const HeadTablaRespuestas = () => {
 
@@ -16,11 +14,13 @@ const HeadTablaRespuestas = () => {
   const [modalFiltroActivo, setModalFiltroActivo] = useState(false)
   const [indiceColumnaFiltrada, setIndiceColumnaFiltrada] = useState(0)
   const { columnaDestacada, ordenHeader, orden } = useSelector(state => state.respuestas)
+  const track = useAnalytics()
   const dispatch = useDispatch()
 
   const headersOrdenados = useMemo(() => obtenerHeaders(headers, idEncuesta) || [], [headers, idEncuesta])
 
   const mostrarModalFiltros = indiceColumna => {
+    track('Feedback', 'Respuestas', 'filtrarPorColumna', { idEncuesta, header: headersOrdenados[indiceColumna].nombre })
     setIndiceColumnaFiltrada(indiceColumna)
     setModalFiltroActivo(true)
     dispatch(fijaColumna(true))
@@ -54,11 +54,11 @@ const HeadTablaRespuestas = () => {
               <span>
                 {texto}
                 <span className="HeadTablaRespuestas__icono_orden">
-                  {ordenHeader === nombre && <InlineIcon icon={orden === 'ASC' ? iconoOrdenASC : iconoOrdenDESC} />}
+                  {ordenHeader === nombre && <InlineIcon icon={orden === 'ASC' ? "mdi:arrow-up" : "mdi:arrow-down"} />}
                 </span>
               </span>
               <button className="HeaderTablaRespuestas__boton_filtros">
-                <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_filtros" />
+                <InlineIcon icon="mdi:arrow-down-drop" className="HeaderTablaRespuestas__icono_filtros" />
               </button>
               {/* {ordenHeader === nombre && orden === 'ASC' &&
                 <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />

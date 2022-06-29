@@ -8,6 +8,7 @@ import TagRespuesta from '../TablaRespuestas/TagRespuesta'
 import LoaderRespuestas from '../TablaRespuestas/LoaderRespuestas/LoaderRespuestas'
 import { obtenerHeaders } from '../../../../helpers/tablaRespuestas'
 import { obtenerHeadersConTagsCalculados } from '../../../../helpers/tagsCalculados'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const ResumenRespuestas = ({ cargando }) => {
 
@@ -17,6 +18,7 @@ const ResumenRespuestas = ({ cargando }) => {
   const headersConTagsCalculados = obtenerHeadersConTagsCalculados(headers, idEncuestaSeleccionada)
   const headersOriginales = obtenerHeaders(headers, idEncuestaSeleccionada)
   const primerTag = (headersConTagsCalculados || headersOriginales)?.find(h => h.tipo === 'YESNO')
+  const track = useAnalytics()
 
   const tagsAMostrar = ['YES', 'NO', 'REAGENDA', 'OUT']
 
@@ -71,12 +73,15 @@ const ResumenRespuestas = ({ cargando }) => {
                         <td>
                           <div
                             className="ResumenRespuestas__tag"
-                            onClick={() => dispatch(agregaFiltro({
-                              busqueda: diccionarioTags(tag).texto,
-                              nombreHeader: primerTag.nombre,
-                              textoHeader: primerTag.texto,
-                              idEncuesta: idEncuestaSeleccionada
-                            }))}
+                            onClick={() => {
+                              track('Feedback', 'Respuestas', 'filtrarPorTagEnResumen', { tag: diccionarioTags(tag).texto })
+                              dispatch(agregaFiltro({
+                                busqueda: diccionarioTags(tag).texto,
+                                nombreHeader: primerTag.nombre,
+                                textoHeader: primerTag.texto,
+                                idEncuesta: idEncuestaSeleccionada
+                              }))
+                            }}
                           >
                             <TagRespuesta tag={tag} />
                           </div>

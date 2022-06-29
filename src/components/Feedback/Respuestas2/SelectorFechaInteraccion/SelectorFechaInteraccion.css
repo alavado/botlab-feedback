@@ -1,0 +1,28 @@
+.SelectorFechaInteraccion {
+  position: relative;
+}
+
+.SelectorFechaInteraccion__boton {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  gap: .25rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 2rem;
+}
+
+.SelectorFechaInteraccion__calendario {
+  position: absolute;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  top: 2rem;
+  width: 10rem;
+  height: 10rem;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}

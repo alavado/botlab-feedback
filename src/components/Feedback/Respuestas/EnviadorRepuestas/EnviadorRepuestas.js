@@ -2,11 +2,6 @@ import { InlineIcon } from '@iconify/react'
 import { createPortal } from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { desactivaEnviador } from '../../../../redux/ducks/enviador'
-import iconoContacto from '@iconify/icons-mdi/send'
-import iconoCerrar from '@iconify/icons-mdi/close'
-import iconoAgregarFila from '@iconify/icons-mdi/table-row-add-after'
-import iconoImportarCSV from '@iconify/icons-mdi/table-import'
-// import iconoLimpiarTabla from '@iconify/icons-mdi/table-off'
 import { useMutation, useQuery } from 'react-query'
 import './EnviadorRepuestas.css'
 import { consultarMapping, crearEncuestas } from '../../../../api/endpoints'
@@ -153,7 +148,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
               onClick={() => dispatch(desactivaEnviador())}
               title="Cerrar"
             >
-              <InlineIcon icon={iconoCerrar} />
+              <InlineIcon icon="mdi:close" />
             </button>
             <div className="EnviadorRespuestas__superior">
               <h1 className="EnviadorRespuestas__titulo">Contactar pacientes</h1>
@@ -162,13 +157,13 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                   className="EnviadorRespuestas__boton_accion"
                   onClick={agregarFilaVacía}
                 >
-                  <InlineIcon icon={iconoAgregarFila} /> Agregar paciente
+                  <InlineIcon icon="mdi:table-row-add-after" /> Agregar paciente
                 </button>
                 <button
                   className="EnviadorRespuestas__boton_accion"
                   onClick={abrirDialogoArchivo}
                 >
-                  <InlineIcon icon={iconoImportarCSV} /> Cargar desde archivo
+                  <InlineIcon icon="mdi:table-import" /> Cargar desde archivo
                 </button>
                 {/* <button
                   className="EnviadorRespuestas__boton_accion"
@@ -275,7 +270,7 @@ const EnviadorRepuestas = ({ idEncuesta }) => {
                   disabled={!filasPendientes.length}
                   type="submit"
                 >
-                  <InlineIcon icon={iconoContacto} /> {enviando ? 'Contactando...' : textoBotonContactar}
+                  <InlineIcon icon="mdi:send" /> {enviando ? 'Contactando...' : textoBotonContactar}
                 </button>
               </div>
             </form>

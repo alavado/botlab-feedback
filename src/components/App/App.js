@@ -9,18 +9,28 @@ import classNames from 'classnames'
 import { ESQUEMA_OSCURO } from '../../redux/ducks/opciones'
 import './App.css'
 import imagenes from './preloads'
+import useAnalytics from '../../hooks/useAnalytics'
 
 const App = () => {
 
   const { token, fechaToken } = useSelector(state => state.login)
   const { esquema } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
+  const track = useAnalytics()
   
   useEffect(() => {
     if (fechaToken && differenceInHours(Date.now(), fechaToken) > 8) {
       dispatch(cierraLaSesion())
     }
   }, [fechaToken, dispatch])
+
+  useEffect(() => {
+    window.addEventListener('focus', () => track('Feedback', 'Browser', 'focus'))
+    window.addEventListener('blur', () => track('Feedback', 'Browser', 'blur'))
+    if (window.performance.getEntriesByType('navigation').map((nav) => nav.type).includes('reload')) {
+      track('Feedback', 'Browser', 'refresh')
+    }
+  }, [])
 
   return (
     <div className={classNames({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './Login.css'
 import { useDispatch } from 'react-redux'
 import { guardaToken } from '../../redux/ducks/login'
@@ -9,7 +9,6 @@ import classNames from 'classnames'
 import logo from '../../assets/images/logo-feedback.svg'
 import Loader from '../Loader'
 import { InlineIcon } from '@iconify/react'
-import iconoError from '@iconify/icons-mdi/warning'
 
 const Login = () => {
 
@@ -88,7 +87,7 @@ const Login = () => {
         </div>
         {error && (
           <p className="Login__error">
-            <InlineIcon className="Login__icono_error" icon={iconoError} />
+            <InlineIcon className="Login__icono_error" icon="mdi:warning" />
             {error}
           </p>
         )}

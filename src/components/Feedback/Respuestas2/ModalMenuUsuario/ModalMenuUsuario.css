@@ -1,0 +1,36 @@
+.ModalMenuUsuario {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  opacity: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
+.ModalMenuUsuario--activo {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.ModalMenuUsuario__contenedor_botones {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 2rem;
+  margin-right: .5rem;
+}
+
+.ModalMenuUsuario__boton_accion {
+  gap: .25rem;
+  background-color: var(--color-fondo);
+  color: var(--color-principal);
+  font-size: .75rem;
+  font-weight: 600;
+  display: flex;
+  border: none;
+  align-items: center;
+  cursor: pointer;
+  padding: .25rem;
+  width: 10rem;
+  justify-content: flex-start;
+}

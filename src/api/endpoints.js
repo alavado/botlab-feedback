@@ -184,3 +184,17 @@ export const obtenerVCard = idRespuesta => {
   return obtenerContenidoMultimedia(idRespuesta)
     .then(data => axios.get(data.data.data.url))
 }
+
+export const agregarSolicitud = (tipo, detalle, contacto) => {
+  const token = store.getState().login.token
+  const url = `${API_ROOT}/solicitudes`
+  return axios.post(
+    url,
+    {
+      change_type: tipo,
+      change_value: detalle,
+      contact: contacto
+    },
+    { headers: { 'Api-Token': token } }
+  )
+}

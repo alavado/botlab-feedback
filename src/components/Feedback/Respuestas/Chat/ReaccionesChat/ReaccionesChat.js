@@ -1,5 +1,4 @@
 import { InlineIcon } from '@iconify/react'
-import iconoAgregar from '@iconify/icons-mdi/lead-pencil'
 import { useEffect, useState } from 'react'
 import { agregarReaccion, obtenerReacciones } from '../../../../../api/endpoints'
 import { useParams } from 'react-router-dom'
@@ -62,7 +61,7 @@ const ReaccionesChat = ({ start }) => {
             onClick={() => setFormularioActivo(true)}
             title="Agregar un comentario a este chat"
           >
-            <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoAgregar} /> Agregar comentario
+            <InlineIcon style={{ fontSize: '.8rem' }} icon="mdi:lead-pencil" /> Agregar comentario
           </button>
         )}
       </div>
@@ -75,7 +74,7 @@ const ReaccionesChat = ({ start }) => {
                     onClick={() => setFormularioActivo(true)}
                     title="Agregar comentario a este chat"
                   >
-                    <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoAgregar} /> Agregar comentario
+                    <InlineIcon style={{ fontSize: '.8rem' }} icon="mdi:lead-pencil" /> Agregar comentario
                   </button>
                   <p className="ReaccionesChat__mensaje_sin_notas">Este chat aún no tiene comentarios</p>
                 </div>

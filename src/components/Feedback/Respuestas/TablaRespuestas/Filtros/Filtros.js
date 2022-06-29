@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { InlineIcon } from '@iconify/react'
-import iconoRemoverFiltro from '@iconify/icons-mdi/close'
-import iconoFiltros from '@iconify/icons-mdi/filter'
-import iconoAyuda from '@iconify/icons-mdi/help-circle'
 import { useDispatch, useSelector } from 'react-redux'
 import { remueveFiltro, combinaFiltros } from '../../../../../redux/ducks/respuestas'
 import ModalAyuda from '../../../../ModalAyuda'
 import classNames from 'classnames'
 import './Filtros.css'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const Filtros = () => {
   
@@ -16,11 +14,12 @@ const Filtros = () => {
   const [mostrarAyuda, setMostrarAyuda] = useState(false)
   const dispatch = useDispatch()
   const filtrosVisibles = filtros.filter(f => !f.oculto)
+  const track = useAnalytics()
 
   return (
     <div className="Filtros">
       <div className="Filtros__titulo">
-        <p className="Filtros__mensaje"><InlineIcon icon={iconoFiltros} /> {filtrosVisibles.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}</p> 
+        <p className="Filtros__mensaje"><InlineIcon icon="mdi:filter" /> {filtrosVisibles.length > 0 ? 'Filtros activos:' : 'No hay filtros activos'}</p> 
       </div>
       {filtros.map((f, i) => (
         <div
@@ -29,7 +28,10 @@ const Filtros = () => {
           onDragStart={() => setIndiceFiltroInicioDrag(i)}
           onDragOver={e => e.preventDefault()}
           onDragEnter={e => e.preventDefault()}
-          onDrop={() => dispatch(combinaFiltros([indiceFiltroInicioDrag, i]))}
+          onDrop={() => {
+            track('Feedback', 'Respuestas', 'combinarFiltros', { filtro: f })
+            dispatch(combinaFiltros([indiceFiltroInicioDrag, i]))
+          }}
           title="Arrastra un filtro sobre otro para combinarlos"
           className={classNames({
             'Filtros__tag_filtro': true,
@@ -46,14 +48,23 @@ const Filtros = () => {
           <button
             className="Filtros__boton_remover_filtro"
             title="Remover este filtro"
-            onClick={() => dispatch(remueveFiltro(i))}
+            onClick={() => {
+              track('Feedback', 'Respuestas', 'removerFiltros', { filtro: f })
+              dispatch(remueveFiltro(i))
+            }}
           >
-            <InlineIcon icon={iconoRemoverFiltro} />
+            <InlineIcon icon="mdi:close" />
           </button>
         </div>
       ))}
       <button className="Filtros__boton_ayuda">
-        <InlineIcon icon={iconoAyuda} onClick={() => setMostrarAyuda(!mostrarAyuda)} />
+        <InlineIcon
+          icon="mdi:help-circle"
+          onClick={() => {
+            track('Feedback', 'Respuestas', 'mostrarAyudaFiltros')
+            setMostrarAyuda(!mostrarAyuda)
+          }}
+        />
       </button>
       {mostrarAyuda && <ModalAyuda cerrar={() => setMostrarAyuda(false)} />}
     </div>

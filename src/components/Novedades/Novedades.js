@@ -1,8 +1,7 @@
-import Icon, { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import { createPortal } from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { desactivaModal } from '../../redux/ducks/novedades'
-import iconoCerrar from '@iconify/icons-mdi/close'
 import { useState } from 'react'
 import classNames from 'classnames'
 import novedades from '../../helpers/novedades'
@@ -32,7 +31,7 @@ const Novedades = () => {
           onClick={() => dispatch(desactivaModal())}
           title="Cerrar"
         >
-          <InlineIcon icon={iconoCerrar} />
+          <InlineIcon icon="mdi:close" />
         </button>
         <h2 className="Novedades__subtitulo">{novedades.subtitulo}</h2>
         <h1 className="Novedades__titulo">{novedades.titulo}</h1>

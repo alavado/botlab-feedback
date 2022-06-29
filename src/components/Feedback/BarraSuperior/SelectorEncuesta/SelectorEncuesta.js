@@ -1,8 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Icon } from '@iconify/react'
-import chevronDown from '@iconify/icons-mdi/chevron-down'
-import home from '@iconify/icons-mdi/map-marker-radius'
-import whatsapp from '@iconify/icons-mdi/whatsapp'
 import { useDispatch, useSelector } from 'react-redux'
 import { headersRespuestas as headersAPI } from '../../../../api/endpoints'
 import { guardaHeadersEncuesta } from '../../../../redux/ducks/encuestas'
@@ -110,7 +107,7 @@ const SelectorEncuesta = () => {
         ? <>
             <Icon
               className="SelectorEncuesta__icono_empresa"
-              icon={whatsapp}
+              icon="mdi:whatsapp"
             />
             <div className="SelectorEncuesta__nombre_encuesta">
               Todas las encuestas
@@ -119,13 +116,13 @@ const SelectorEncuesta = () => {
         : <>
             <Icon
               className="SelectorEncuesta__icono_empresa"
-              icon={nombreEncuestaFiltrada ? home : whatsapp}
+              icon={nombreEncuestaFiltrada ? 'mdi:map-marker-radius' : 'mdi:whatsapp'}
               style={{ color: encuestaSeleccionada.enabled ? '#48BB78' : '#9f9eae' }}
             />
             <div className="SelectorEncuesta__nombre_encuesta">
               <Scrambler tipo="multi">{nombreEncuestaFiltrada || encuestaSeleccionada.nombre}</Scrambler>
             </div>
-            {path.indexOf('chat') < 0 && <Icon className="SelectorEncuesta__icono_menu" icon={chevronDown} />}
+            {path.indexOf('chat') < 0 && <Icon className="SelectorEncuesta__icono_menu" icon="mdi:chevron-down" />}
             <PopupEncuestas
               activo={popupActivo}
               esconder={() => setPopupActivo(false)}

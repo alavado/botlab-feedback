@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import classNames from 'classnames'
 import './PopupMenuUsuario.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,19 +6,12 @@ import { cierraLaSesion } from '../../../../../redux/ducks/login'
 import { limpiaEncuestas } from '../../../../../redux/ducks/encuestas'
 import { cambiaEsquemaColor, ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
 import { escondeDatosSensibles } from '../../../../../redux/ducks/scrambler'
-import iconoCerrarSesion from '@iconify/icons-mdi/exit-to-app'
-import iconoLuna from '@iconify/icons-mdi/weather-night'
-import iconoSol from '@iconify/icons-mdi/white-balance-sunny'
-import iconoIncognito from '@iconify/icons-mdi/incognito'
-import iconoNovedades from '@iconify/icons-mdi/robot-happy-outline'
-import iconoTablero from '@iconify/icons-mdi/developer-board'
-import iconoReducirZoom from '@iconify/icons-mdi/minus'
-import iconoAumentarZoom from '@iconify/icons-mdi/plus'
 import { InlineIcon } from '@iconify/react'
 import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
 import { createPortal } from 'react-dom'
 import { activaModal } from '../../../../../redux/ducks/novedades'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
 
@@ -27,6 +20,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
   const { scrambled } = useSelector(state => state.scrambler)
   const history = useHistory()
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   const esc = useCallback(e => e.key === 'Escape' && esconder(), [esconder])
 
@@ -70,13 +64,13 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
             className="PopupMenuUsuario__boton_zoom"
             onClick={zoomOut}
           >
-            <InlineIcon icon={iconoReducirZoom} />
+            <InlineIcon icon="mdi:minus" />
           </button>
           <button
             className="PopupMenuUsuario__boton_zoom"
             onClick={zoomIn}
           >
-          <InlineIcon icon={iconoAumentarZoom} />
+          <InlineIcon icon="mdi:plus" />
           </button>
         </div>
         <div className="PopupMenuUsuario__opciones">
@@ -88,7 +82,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               esconder()
             }}
           >
-            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoNovedades} /> Novedades del servicio
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:robot-happy-outline" /> Novedades del servicio
           </button>
           {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
             <button
@@ -98,7 +92,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
                 history.push('/tablero')
               }}
             >
-              <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoTablero} /> Tablero de respuestas
+              <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:developer-board" /> Tablero de respuestas
             </button>
           }
           <button
@@ -108,7 +102,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               dispatch(cambiaEsquemaColor())
             }}
           >
-            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? iconoSol : iconoLuna} /> Ver colores {esquema === ESQUEMA_OSCURO ? 'diurnos' : 'nocturnos'}
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={esquema === ESQUEMA_OSCURO ? 'mdi:white-balance-sunny' : 'mdi:weather-night'} /> Ver colores {esquema === ESQUEMA_OSCURO ? 'diurnos' : 'nocturnos'}
           </button>
           <button
             className="PopupMenuUsuario__boton_opcion"
@@ -117,18 +111,19 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               dispatch(escondeDatosSensibles(!scrambled))
             }}
           >
-            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoIncognito} /> {scrambled ? 'Mostrar' : 'Ocultar'} datos sensibles
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:incognito" /> {scrambled ? 'Mostrar' : 'Ocultar'} datos sensibles
           </button>
           <div className="PopupMenuUsuario__separador" />
           <button
             className="PopupMenuUsuario__boton_opcion"
             onClick={() => {
+              track('Feedback', 'MenuUsuario', 'cerrarSesion')
               dispatch(limpiaEncuestas())
               dispatch(limpiaFiltros())
               dispatch(cierraLaSesion())
             }}
           >
-            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon={iconoCerrarSesion}></InlineIcon> Cerrar sesión
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:exit-to-app"></InlineIcon> Cerrar sesión
           </button>
         </div>
       </div>

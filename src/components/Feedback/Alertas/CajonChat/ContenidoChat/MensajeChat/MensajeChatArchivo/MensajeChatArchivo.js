@@ -1,6 +1,5 @@
 import { InlineIcon } from '@iconify/react'
 import {  obtenerContenidoMultimedia } from '../../../../../../../api/endpoints'
-import iconoArchivo from '@iconify/icons-mdi/download-circle-outline'
 import './MensajeChatArchivo.css'
 import { useState } from 'react'
 
@@ -34,7 +33,7 @@ const MensajeChatArchivo = ({ mensaje }) => {
       onClick={descargarArchivo}
     >
       Descargar Archivo
-      <InlineIcon className="MensajeChatArchivo__icono_descargar" icon={iconoArchivo} /> 
+      <InlineIcon className="MensajeChatArchivo__icono_descargar" icon="mdi:download-circle-outline" /> 
     </button>
   )
 }

@@ -1,10 +1,9 @@
-import React from 'react'
-import Icon from '@iconify/react'
-import iconoExportar from '@iconify/icons-mdi/download-outline'
+import { Icon } from '@iconify/react'
 import './ExportadorRespuestas.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { exportarTablaRespuestas } from '../../../../../helpers/tablaRespuestas'
 import { fijaTablaDestacada } from '../../../../../redux/ducks/respuestas'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const ExportadorRespuestas = ({ cargando }) => {
 
@@ -12,12 +11,16 @@ const ExportadorRespuestas = ({ cargando }) => {
   const { tipos, idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
   const dispatch = useDispatch()
   const encuestaSeleccionada = tipos?.find(t => t.id === idEncuestaSeleccionada)
+  const track = useAnalytics()
 
   if (!encuestaSeleccionada) {
     return null
   }
 
-  const descargarCSV = () => exportarTablaRespuestas(headers, respuestas, encuestaSeleccionada.nombre, fechaInicio, fechaTermino)
+  const descargarCSV = () => {
+    track('Feedback', 'Respuestas', 'exportarTabla', { idEncuesta: idEncuestaSeleccionada, encuesta: encuestaSeleccionada.nombre, fechaInicio, fechaTermino })
+    exportarTablaRespuestas(headers, respuestas, encuestaSeleccionada.nombre, fechaInicio, fechaTermino)
+  }
 
   return (
     <div className="ExportadorRespuestas">
@@ -29,7 +32,7 @@ const ExportadorRespuestas = ({ cargando }) => {
         onMouseEnter={() => dispatch(fijaTablaDestacada(true))}
         onMouseLeave={() => dispatch(fijaTablaDestacada(false))}
       >
-        <Icon className="ExportadorRespuestas__icono" icon={iconoExportar} />
+        <Icon className="ExportadorRespuestas__icono" icon="mdi:download-outline" />
         Exportar
       </button>
     </div>

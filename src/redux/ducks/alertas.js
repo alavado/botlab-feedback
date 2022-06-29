@@ -33,7 +33,6 @@ const alertasSlice = createSlice({
       state.verAlertas = []
     },
     seleccionarSucursal(state, { payload }) {
-      console.log({payload})
       state.sucursalSeleccionada = payload
     },
   }

@@ -4,8 +4,6 @@ import { alertas as getAlertas } from '../../../api/endpoints'
 import { useQuery } from 'react-query'
 import classNames from 'classnames'
 import { InlineIcon } from '@iconify/react'
-import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
-import iconoAlertasResueltas from '@iconify/icons-mdi/bell-check-outline'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,19 +18,20 @@ import { Switch } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import _ from 'lodash'
+import useAnalytics from '../../../hooks/useAnalytics'
 
 const tabsAlertas = [
   {
     id: 1,
     titulo: 'Por resolver',
-    icono: iconoAlertasNoResueltas,
+    icono: 'mdi:bell-ring-outline',
     filtro: a => mensajesAlertasVisibles.indexOf(a.message) >= 0 && !a.dismissed,
     color: 'var(--color-alerta-pendiente)'
   },
   {
     id: 2,
     titulo: 'Resueltas',
-    icono: iconoAlertasResueltas,
+    icono: 'mdi:bell-check-outline',
     filtro: a => mensajesAlertasVisibles.indexOf(a.message) >= 0 && a.dismissed,
     color: 'var(--color-alerta-resuelta)'
   }
@@ -75,6 +74,7 @@ const Alertas = () => {
       }
     }
   )
+  const track = useAnalytics()
 
   useEffect(() => {
     if (id && dataAlertas) {
@@ -87,6 +87,8 @@ const Alertas = () => {
       })
     }
   }, [dataAlertas, id])
+
+  useEffect(() => track('Feedback', 'Alertas', 'index'), [track])
 
   if (cargandoAlertas) {
     return (
@@ -146,7 +148,10 @@ const Alertas = () => {
                 "Alertas__boton_tab": true,
                 "Alertas__boton_tab--activo": idTabAlertasActivo === tipoAlertas.id,
               })}
-              onClick={() => setIdTabAlertasActivo(tipoAlertas.id)}
+              onClick={() => {
+                track('Feedback', 'Alertas', tipoAlertas.titulo === 'Por resolver' ? 'verTabAlertasResueltas' : 'verTabAlertasPorResolver')
+                setIdTabAlertasActivo(tipoAlertas.id)
+              }}
               style={{ '--color-tab-alerta': tipoAlertas.color }}
               title={`Ver alertas ${tipoAlertas.titulo}`}
             >

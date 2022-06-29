@@ -1,5 +1,4 @@
 import { InlineIcon } from '@iconify/react'
-import iconoEliminar from '@iconify/icons-mdi/delete'
 import { format, formatDistanceToNow, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useParams } from 'react-router-dom'
@@ -8,17 +7,20 @@ import './FilaReaccion.css'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { eliminaReaccionDeRespuesta } from '../../../../../../redux/ducks/respuestas'
+import useAnalytics from '../../../../../../hooks/useAnalytics'
 
 const FilaReaccion = ({ reaccion, refrescar }) => {
 
   const { idEncuesta, idUsuario } = useParams()
   const [eliminando, setEliminando] = useState(false)
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   const clickEnBorrar = () => {
     setEliminando(true)
     eliminarReaccion(idEncuesta, idUsuario, reaccion.id)
       .then(() => {
+        track('Feedback', 'Chat', 'eliminarComentario', { idEncuesta, idUsuario, idComentario: reaccion.id })
         dispatch(eliminaReaccionDeRespuesta({ idUsuario, fecha: reaccion.created_at }))
         refrescar()
       })
@@ -49,7 +51,7 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
           onClick={clickEnBorrar}
           disabled={eliminando}
         >
-          <InlineIcon icon={iconoEliminar} />
+          <InlineIcon icon="mdi:delete" />
         </button>
       </div>
     </div>

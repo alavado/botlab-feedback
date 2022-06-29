@@ -1,22 +1,21 @@
-import Icon, { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import { useMutation, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'
 import { marcarAlerta } from '../../../../api/endpoints'
-import iconoMarcar from '@iconify/icons-mdi/check-bold'
-import iconoDesmarcar from '@iconify/icons-mdi/bell-ring-outline'
-import iconoMarcaChatActivo from '@iconify/icons-mdi/chevron-right'
 import './ListaAlertas.css'
 import { obtenerEtiquetaAlerta } from '../../../../helpers/alertas'
 import Scrambler from '../../../Scrambler/Scrambler'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
 
   const { id } = useParams()
   const { verAlertas } = useSelector(state => state.alertas)
   const history = useHistory()
+  const track = useAnalytics()
 
   const queryClient = useQueryClient()
   const mutation = useMutation(({ id, dismissed }) => marcarAlerta(id, dismissed), {
@@ -65,6 +64,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
               key={`fila-alerta-${alerta.id}`}
               onClick={e => {
                 e.stopPropagation()
+                track('Feedback', 'Alertas', 'verChatAlertaEnCajon', { idAlerta: alerta.id })
                 history.push(`/alertas/${alerta.id}`)
                 // dispatch(destacaAlerta({ id: alerta.id }))
                 // mostrarCajon()
@@ -95,10 +95,13 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
                 >
                   <button
                     className="ListaAlertas__boton_accion"
-                    onClick={() => mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed }) }
+                    onClick={() => {
+                      track('Feedback', 'Alertas', alerta.dismissed ? 'marcarAlertaComoNoResuelta' : 'marcarAlertaComoResuelta', { idAlerta: alerta.id })
+                      mutation.mutate({ id: alerta.id, dismissed: !alerta.dismissed })
+                    }}
                     title={alerta.dismissed ? "Marcar que alerta no ha sido resuelta" : "Marcar que alerta fue resuelta"}
                   >
-                    <InlineIcon icon={alerta.dismissed ? iconoDesmarcar : iconoMarcar} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
+                    <InlineIcon icon={alerta.dismissed ? "mdi:bell-ring-outline" : "mdi:check-bold"} /> Marcar {alerta.dismissed ? 'no resuelta' : 'resuelta'}
                   </button>
                 </div>
               }
@@ -107,7 +110,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
                   "ListaAlertas__icono_fila_activa": true,
                   "ListaAlertas__icono_fila_activa--activa": alerta.id === Number(id),
                 })}
-                icon={iconoMarcaChatActivo}
+                icon="mdi-chevron-right"
               />
             </div>
           ))}

@@ -1,15 +1,15 @@
-import React from 'react'
 import Skeleton from '../../../../Skeleton'
-import Icon from '@iconify/react'
-import iconoSiguiente from '@iconify/icons-mdi/play'
+import { Icon } from '@iconify/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { avanzaPagina, retrocedePagina } from '../../../../../redux/ducks/respuestas'
 import './FooterTablaRespuestas.css'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const FooterTablaRespuestas = ({ cargando, respuestasPorPagina, totalRespuestas }) => {
 
   const numeroPaginas = Math.ceil(totalRespuestas / respuestasPorPagina)
   const { pagina } = useSelector(state => state.respuestas)
+  const track = useAnalytics()
 
   const dispatch = useDispatch()
 
@@ -32,21 +32,27 @@ const FooterTablaRespuestas = ({ cargando, respuestasPorPagina, totalRespuestas 
                 <div className="FooterTablaRespuestas__botones_paginas">
                   <button
                     className="FooterTablaRespuestas__boton_pagina FooterTablaRespuestas__boton_pagina--anterior"
-                    onClick={() => dispatch(retrocedePagina())}
+                    onClick={() => {
+                      track('Feedback', 'Respuestas', 'retrocederPagina', { pagina })
+                      dispatch(retrocedePagina())
+                    }}
                     disabled={pagina === 1}
                     title="Página anterior"
                   >
-                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon={iconoSiguiente} />
+                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon="mdi:play" />
                     Anterior
                   </button>
                   <button
                     className="FooterTablaRespuestas__boton_pagina FooterTablaRespuestas__boton_pagina--siguiente"
-                    onClick={() => dispatch(avanzaPagina())}
+                    onClick={() => {
+                      track('Feedback', 'Respuestas', 'avanzarPagina', { pagina })
+                      dispatch(avanzaPagina())
+                    }}
                     disabled={numeroPaginas === 1 || pagina >= numeroPaginas}
                     title="Página siguiente"
                   >
                     Siguiente
-                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon={iconoSiguiente} />
+                    <Icon className="FooterTablaRespuestas__boton_pagina_icono" icon="mdi:play" />
                   </button>
                 </div>
               }

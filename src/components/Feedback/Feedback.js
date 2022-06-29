@@ -16,10 +16,10 @@ import Uso from './Uso'
 import ErrorBoundary from '../../helpers/ErrorBoundary'
 import Alertas from './Alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
-import VisorGuiones from './VisorGuiones'
 import Novedades from '../Novedades'
 import Respuestas2 from './Respuestas2'
 import Tutoriales from './Tutoriales'
+import ModalConfiguracion from './ModalConfiguracion'
 
 const Feedback = () => {
 
@@ -62,11 +62,22 @@ const Feedback = () => {
     <ErrorBoundary>
       <div className="Feedback">
         {errorCargandoRespuestas}
+        <ModalConfiguracion />
         <Novedades />
-        <BarraLateral />
+        <Switch>
+          <Route path="/respuestas2">
+            <></>
+          </Route>
+          <Route>
+            <BarraLateral />
+          </Route>
+        </Switch>
         <div className="Feedback__contenedor">
           <Switch>
             <Route exact path="/respuestas2">
+              <></>
+            </Route>
+            <Route path="/interaccion">
               <></>
             </Route>
             <Route>
@@ -111,11 +122,11 @@ const Feedback = () => {
               <Route path="/tablero">
                 <Respuestas />
               </Route>
-              <Route path="/visor_guiones">
-                <VisorGuiones />
-              </Route>
               <Route path="/tutoriales">
                 <Tutoriales />
+              </Route>
+              <Route path="/interaccion">
+                <Respuestas2 />
               </Route>
               <Route path="/">
                 <Respuestas />

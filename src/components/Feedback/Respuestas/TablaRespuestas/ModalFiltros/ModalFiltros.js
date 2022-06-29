@@ -5,13 +5,6 @@ import './ModalFiltros.css'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { agregaFiltro, ordenaRespuestas, remueveFiltro } from '../../../../../redux/ducks/respuestas'
-import iconoLimpiarFiltro from '@iconify/icons-mdi/close'
-import iconoOrden from '@iconify/icons-mdi/sort'
-import iconoOrdenDescendente from '@iconify/icons-mdi/sort-ascending'
-import iconoOrdenAcendente from '@iconify/icons-mdi/sort-descending'
-import iconoCheckboxActivo from '@iconify/icons-mdi/checkbox-marked'
-import iconoCheckboxInactivo from '@iconify/icons-mdi/checkbox-blank-outline'
-import iconoFiltro from '@iconify/icons-mdi/filter'
 import { InlineIcon } from '@iconify/react'
 import { ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
 import { useMemo } from 'react'
@@ -75,8 +68,8 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
           >
             <InlineIcon icon={
               header.nombre === ordenHeader
-                ? (orden === 'ASC' ? iconoOrdenAcendente : iconoOrdenDescendente)
-                : iconoOrden
+                ? (orden === 'ASC' ? "mdi:sort-descending" : "mdi:sort-ascending")
+                : "mdi:sort"
             } />
             {header.nombre === ordenHeader
               ? (orden === 'ASC' ? 'Orden ascendente' : 'Orden descendente')
@@ -90,7 +83,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                   className="ModalFiltros__checkbox_nivel"
                   onClick={() => dispatch(remueveFiltro(indiceFiltro))}
                 >
-                  <InlineIcon icon={filtro ? iconoCheckboxInactivo : iconoCheckboxActivo} className="ModalFiltros__icono_checkbox_nivel" /> Mostrar todo
+                  <InlineIcon icon={filtro ? "mdi:checkbox-blank-outline" : "mdi:checkbox-marked"} className="ModalFiltros__icono_checkbox_nivel" /> Mostrar todo
                 </button>
               </div>
               {nivelesHeader.map((nivel, i) => (
@@ -112,11 +105,11 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                   >
                     {categoria.esTag
                       ? <>
-                          <InlineIcon icon={filtro?.busqueda?.includes(diccionarioTags(nivel).texto) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" />
+                          <InlineIcon icon={filtro?.busqueda?.includes(diccionarioTags(nivel).texto) ? "mdi:checkbox-marked" : "mdi:checkbox-blank-outline"} className="ModalFiltros__icono_checkbox_nivel" />
                           <TagRespuesta tag={nivel} pregunta={diccionarioTags(nivel).texto} incluirSinRespuesta={true} />
                         </>
                       : <>
-                          <InlineIcon icon={filtro?.busqueda?.includes(nivel) ? iconoCheckboxActivo : iconoCheckboxInactivo} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</>
+                          <InlineIcon icon={filtro?.busqueda?.includes(nivel) ? "mdi:checkbox-marked" : "mdi:checkbox-blank-outline"} className="ModalFiltros__icono_checkbox_nivel" /> <>{nivel || '(Vacío)'}</>
                         </>
                     }
                   </button>
@@ -128,7 +121,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
             className="ModalFiltros__boton"
             onClick={() => filtroRef.current.focus()}
           >
-            <InlineIcon icon={iconoFiltro} />
+            <InlineIcon icon="mdi:filter" />
             <input
               className="ModalFiltros__input_filtro"
               ref={filtroRef}
@@ -156,7 +149,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
             }))}
             title="Limpiar filtro"
           >
-            <InlineIcon icon={iconoLimpiarFiltro} />
+            <InlineIcon icon="mdi:close" />
           </button>
         </div>
       </div>

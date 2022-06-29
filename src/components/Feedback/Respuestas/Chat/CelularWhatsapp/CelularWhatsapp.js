@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useEffect } from 'react'
+import { useMemo, useRef, useEffect } from 'react'
 import LoaderMensajes from './LoaderMensajes'
 import BarraAppCelular from './BarraAppCelular'
 import BarraEstadoCelular from './BarraEstadoCelular'
@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
 import './CelularWhatsapp.css'
 import { fijaChatExpandido } from '../../../../../redux/ducks/opciones'
-import Icon from '@iconify/react'
-import iconoEncoger from '@iconify/icons-mdi/arrow-collapse'
+import { Icon } from '@iconify/react'
 import SelectorConversacion from './SelectorConversacion'
 import { useHistory } from 'react-router'
 import { toggleDebugging } from '../../../../../redux/ducks/cero'
@@ -82,7 +81,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
             title="Vista compacta"
             onClick={() => dispatch(fijaChatExpandido(false))}
           >
-            <Icon icon={iconoEncoger} />
+            <Icon icon="mdi:arrow-collapse" />
           </button>
           <BarraEstadoCelular />
           <BarraAppCelular

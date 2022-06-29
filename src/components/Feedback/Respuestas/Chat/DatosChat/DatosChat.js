@@ -1,16 +1,14 @@
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import iconoVolver from '@iconify/icons-mdi/arrow-left'
-import iconoSiguiente from '@iconify/icons-mdi/play'
-import iconoAnterior from '@iconify/icons-mdi/play'
-import iconoWhatsapp from '@iconify/icons-mdi/whatsapp'
-import { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import { guardaEstaRespuesta } from '../../../../../redux/ducks/respuestas'
 import './DatosChat.css'
 import LoaderChat from '../LoaderChat'
 import Scrambler from '../../../../Scrambler'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
+import { muestraModal } from '../../../../../redux/ducks/configuracion'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const DatosChat = ({ cargando, datos, telefono }) => {
 
@@ -19,27 +17,30 @@ const DatosChat = ({ cargando, datos, telefono }) => {
   // const { tableroVisible } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   const history = useHistory()
+  const track = useAnalytics()
 
   const haySiguienteChat = respuestas && indiceRespuestaSeleccionada < respuestas.length - 1
   const hayChatAnterior = indiceRespuestaSeleccionada > 0
 
   const irARespuestaAnterior = useCallback(() => {
+    track('Feedback', 'Chat', 'anterior', { idEncuesta })
     if (!datos || !hayChatAnterior) {
       return
     }
     const respuestaAnterior = respuestas[indiceRespuestaSeleccionada - 1]
     dispatch(guardaEstaRespuesta([respuestaAnterior, indiceRespuestaSeleccionada - 1]))
     history.push(`/chat/${idEncuesta}/${respuestaAnterior.user_id}`)
-  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, hayChatAnterior])
+  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, hayChatAnterior, track])
 
   const irASiguienteRespuesta = useCallback(() => {
+    track('Feedback', 'Chat', 'siguiente', { idEncuesta })
     if (!datos || !haySiguienteChat) {
       return
     }
     const siguienteRespuesta = respuestas[indiceRespuestaSeleccionada + 1]
     dispatch(guardaEstaRespuesta([siguienteRespuesta, indiceRespuestaSeleccionada + 1]))
     history.push(`/chat/${idEncuesta}/${siguienteRespuesta.user_id}`)
-  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, haySiguienteChat])
+  }, [datos, dispatch, history, indiceRespuestaSeleccionada, idEncuesta, respuestas, haySiguienteChat, track])
 
   useEffect(() => {
     const teclasMagicas = e => {
@@ -54,6 +55,11 @@ const DatosChat = ({ cargando, datos, telefono }) => {
     return () => window.removeEventListener('keyup', teclasMagicas)
   }, [irARespuestaAnterior, irASiguienteRespuesta])
 
+  const mostrarModalConfiguracion = () => {
+    track('Feedback', 'Chat', 'abrirConfiguracion')
+    dispatch(muestraModal())
+  }
+
   const urlAnterior = history.location.state?.from
 
   return (
@@ -61,10 +67,13 @@ const DatosChat = ({ cargando, datos, telefono }) => {
       <div className="DatosChat__navegacion">
         <button
           className="DatosChat__link_atras"
-          onClick={() => history.push(urlAnterior ?? '/')}
-          title="Volver a respuestas"
+          onClick={() => {
+            track('Feedback', 'Chat', `volverA${urlAnterior ? 'Alertas': 'Respuestas'}`)
+            history.push(urlAnterior ?? '/')
+          }}
+          title={`Volver a ${urlAnterior ? 'alertas': 'respuestas'}`}
         >
-          <InlineIcon className="DatosChat__icono_volver" icon={iconoVolver} />
+          <InlineIcon className="DatosChat__icono_volver" icon="mdi:arrow-left" />
           {urlAnterior ? 'Alertas': 'Respuestas'}
         </button>
         {respuestas && respuestas.length > 0 && indiceRespuestaSeleccionada !== undefined && 
@@ -75,7 +84,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
               disabled={cargando || !hayChatAnterior || !datos}
               title={hayChatAnterior ? 'Ver chat anterior (←)' : 'Este es el primer chat de la tabla'}
             >
-              <InlineIcon className="DatosChat__icono_anterior" icon={iconoAnterior} />
+              <InlineIcon className="DatosChat__icono_anterior" icon="mdi:play" />
             </button>
             <div className="DatosChat__posicion">
               Chat {(indiceRespuestaSeleccionada + 1).toLocaleString('de-DE')} / {respuestas.length.toLocaleString('de-DE')}
@@ -86,12 +95,24 @@ const DatosChat = ({ cargando, datos, telefono }) => {
               disabled={cargando || !haySiguienteChat || !datos}
               title={haySiguienteChat ? 'Ver chat siguiente (→)' : 'Este es el último chat de la tabla'}
             >
-              <InlineIcon className="DatosChat__icono_siguiente" icon={iconoSiguiente} />
+              <InlineIcon className="DatosChat__icono_siguiente" icon="mdi:play" />
             </button>
           </div>
         }
       </div>
-      <h1 className="DatosChat__titulo">Datos del chat</h1>
+      <h1 className="DatosChat__titulo">
+        Datos del chat
+        <button
+          className="TablaRespuestas__boton_configuracion"
+          tooltip="Configuración"
+          onClick={mostrarModalConfiguracion}
+        >
+          <Icon
+            className="TablaRespuestas__boton_icono"
+            icon="mdi:cog"
+          />
+        </button>
+      </h1>
       {!cargando && datos !== undefined
         ? <div className="DatosChat__contenedor_datos">
             <div className="DatosChat__contenedor_header">
@@ -106,8 +127,9 @@ const DatosChat = ({ cargando, datos, telefono }) => {
                   href={`https://wa.me/${telefono}`}
                   className="DatosChat__link_ws"
                   title="Continuar a chat WhatsApp"
+                  onClick={() => track('Feedback', 'Chat', 'abrirWhatsappWebDesdeDatosChat', { link: `https://wa.me/${telefono}` })}
                 >
-                  <InlineIcon icon={iconoWhatsapp} />
+                  <InlineIcon icon="mdi:whatsapp" />
                 </a>
               </div>
             </div>

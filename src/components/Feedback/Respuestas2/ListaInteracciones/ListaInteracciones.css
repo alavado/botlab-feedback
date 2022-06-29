@@ -1,23 +1,215 @@
 .ListaInteracciones {
-  margin: 0 .75rem;
+  padding-top: 0rem;
+  padding-bottom: 15vh;
+  background-color: hsl(225, 21%, 97%);
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: calc(100vh - 5.75rem);
+}
+
+.ListaInteracciones__mensaje_paso_previo {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  font-size: .7rem;
+  gap: .15rem;
+  padding-left: 2.5rem;
+  padding-top: .25rem;
+}
+
+.ListaInteracciones__icono_paso_previo {
+  font-size: 1.35rem;
+  animation: indicador-seleccion-paso-previo .75s ease-in infinite alternate-reverse both;
 }
 
 .ListaInteracciones__interaccion {
   display: grid;
-  grid-template-columns: 20ch 42ch 10ch 15ch 1fr;
-  font-size: .65rem;
+  grid-template-columns: 1.5rem 9.5rem 1.75rem 15rem 6rem 5rem 9rem 1fr;
+  font-size: .6rem;
   border-bottom: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo);
+  position: relative;
+  cursor: pointer;
+  transition: background-color .25s ease, box-shadow .25s ease;
 }
 
-.ListaInteracciones__interaccion div {
-  border-right: 1px solid var(--color-bordes);
-  padding: .6rem .35rem;
+.ListaInteracciones__estado_interaccion {
+  background-color: var(--color-si);
+  padding: .25rem .5rem;
+  border-radius: 9in;
+  display: flex;
+  gap: .25rem;
 }
 
-.ListaInteracciones__interaccion div:last-child {
+.ListaInteracciones__interaccion:not(.ListaInteracciones__interaccion--encabezados):not(.ListaInteracciones__interaccion--activa):hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.ListaInteracciones__interaccion > div {
+  padding: 0 .5rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  /* border-right: 1px solid var(--color-bordes); */
+}
+
+.ListaInteracciones__interaccion > div:first-child,
+.ListaInteracciones__interaccion > div:nth-child(9),
+.ListaInteracciones__interaccion > div:nth-child(17),
+.ListaInteracciones__interaccion > div:nth-child(25),
+.ListaInteracciones__interaccion > div:nth-child(33) {
+  display: flex;
+  justify-content: center;
+  opacity: .35;
+  border-right: none;
+}
+
+.ListaInteracciones__interaccion > div:last-child {
   border-right: 1px solid transparent;
 }
 
 .ListaInteracciones__interaccion--encabezados {
-  opacity: .6;
+  background-color: hsl(225, 21%, 97%);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.ListaInteracciones__sin_citas {
+  font-size: .6rem;
+  padding-left: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  gap: .25rem;
+  border-bottom: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo);
+  height: 100%;
+}
+
+.ListaInteracciones__icono_sin_citas {
+  font-size: 1.5rem;
+  color: var(--color-texto);
+}
+
+.ListaInteracciones__mensaje_sin_citas {
+  border: 1px solid var(--color-texto);
+  padding: .5rem .5rem;
+  border-radius: 1rem 1rem 1rem 0;
+  transform: translateY(-.75rem);
+  transform-origin: 0% 100%;
+  animation: aparece-mensaje-sin-citas .25s ease both;
+}
+
+.ListaInteracciones__interaccion::after {
+  position: absolute;
+  content: '';
+  right: -3rem;
+  transition: all .35s ease;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--color-principal);
+  transform: rotateZ(45deg);
+  top: .5rem;
+}
+
+.ListaInteracciones__interaccion--activa {
+  box-shadow: 0 0 .25rem var(--color-sombras);
+  border-bottom: 1px solid var(--color-sombras);
+  z-index: 2;
+  font-weight: 700;
+  background: hsl(45, 80%, 98%);
+}
+
+.ListaInteracciones__interaccion--activa::after {
+  right: 28.75rem;
+  box-shadow: 0 0 .15rem var(--color-sombras);
+}
+
+.ListaInteracciones__avatar {
+  width: 0;
+  height: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-claro);
+  opacity: 0;
+}
+
+.ListaInteracciones__avatar--visible {
+  animation: aparece-avatar-fila-interaccion .15s ease both;
+}
+
+.ListaInteracciones__icono_estado_interaccion {
+  margin-left: .15rem;
+  display: flex;
+  cursor: help;
+}
+
+.ListaInteracciones__lista_servicios {
+  width: 100%;
+  place-content: center;
+  height: 100%;
+  display: grid;
+  gap: .5rem;
+}
+
+.ListaInteracciones__titulo_servicios {
+  font-weight: bold;
+}
+
+.ListaInteracciones__boton_servicio {
+  display: grid;
+  grid-template: auto auto / 3rem 15rem 8rem;
+  place-items: start;
+  font-size: .75rem;
+  padding: .75rem .75rem;
+  cursor: pointer;
+  border: none;
+  background: var(--color-bordes);
+  border-radius: .5rem;
+  place-items: center start;
+}
+
+.ListaInteracciones__descripcion_servicio {
+  font-size: .75rem;
+  text-align: left;
+  place-self: start start;
+}
+
+.ListaInteracciones__boton_servicio svg {
+  font-size: 2rem;
+}
+
+@keyframes aparece-mensaje-sin-citas {
+  0% {
+    opacity: 0;
+    transform: translateY(-.75rem) scale(.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-.75rem) scale(1);
+  }
+}
+
+@keyframes aparece-avatar-fila-interaccion {
+  0% {
+    width: 0;
+    transform: scale(.75);
+  }
+  50% {
+    width: 1rem;
+    opacity: 0;
+    transform: scale(.75);
+  }
+  100% {
+    min-width: 1rem;
+    transform: scale(1);
+    opacity: 1;
+    margin-right: .35rem;
+  }
 }

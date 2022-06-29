@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Icon } from '@iconify/react'
-import whatsapp from '@iconify/icons-mdi/whatsapp'
 import { useDispatch, useSelector } from 'react-redux'
 import { headersRespuestas as headersAPI } from '../../../../api/endpoints'
 import { guardaHeadersEncuesta } from '../../../../redux/ducks/encuestas'
@@ -12,6 +11,7 @@ import { useParams, useRouteMatch } from 'react-router-dom'
 import classNames from 'classnames'
 import { obtenerTiposEncuestasVisibles } from '../../../../helpers/encuestasSecretas'
 import { obtenerPollsCalculadas } from '../../../../helpers/pollsCalculadas'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const TabsEncuestas = () => {
 
@@ -23,6 +23,7 @@ const TabsEncuestas = () => {
   const { idEncuesta: idEncuestaRuta } = useParams()
   const { path } = useRouteMatch()
   const dispatch = useDispatch()
+  const track = useAnalytics()
   
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos?.find(({ id }) => id === idEncuestaSeleccionada)
@@ -118,7 +119,7 @@ const TabsEncuestas = () => {
         ? <>
             <Icon
               className="TabsEncuestas__icono_empresa"
-              icon={whatsapp}
+              icon="mdi:whatsapp"
             />
             <div className="TabsEncuestas__nombre_encuesta">
               Todas las encuestas
@@ -128,7 +129,10 @@ const TabsEncuestas = () => {
             {tiposOrdenados.map(tipo => (
               <button
                 key={`boton-tab-${tipo.id}`}
-                onClick={() => verEncuesta(tipo.id)}
+                onClick={() => {
+                  track('Feedback', 'Respuestas', 'verEncuestaConTabs', { idEncuesta: tipo.id, nombreEncuesta: tipo.nombre })
+                  verEncuesta(tipo.id)
+                }}
                 className={classNames({
                   "TabsEncuestas__tab": true,
                   "TabsEncuestas__tab--activo": idEncuestaSeleccionada === tipo.id
@@ -136,7 +140,7 @@ const TabsEncuestas = () => {
               >
                 <Icon
                   className="TabsEncuestas__tab_icono_empresa"
-                  icon={whatsapp}
+                  icon="mdi:whatsapp"
                 />
                 {tipo.nombre.replace(nombreUsuario, '')}
               </button>

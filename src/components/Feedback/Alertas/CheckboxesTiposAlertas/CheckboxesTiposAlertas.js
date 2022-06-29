@@ -1,9 +1,5 @@
-import Icon from '@iconify/react'
 import { useMemo } from 'react'
-import { InlineIcon } from '@iconify/react'
-import iconoMarcar from '@iconify/icons-mdi/check-bold'
-import iconoSinAlertasPorResolver from '@iconify/icons-mdi/check'
-import iconoAlertasNoResueltas from '@iconify/icons-mdi/bell-ring-outline'
+import { Icon, InlineIcon } from '@iconify/react'
 import { agregaAlertasVisibles, mensajesAlertasVisibles, remueveAlertasVisibles } from '../../../../redux/ducks/alertas'
 import { obtenerEtiquetaAlerta, obtenerIconoAlerta } from '../../../../helpers/alertas'
 import { useDispatch, useSelector } from 'react-redux'
@@ -40,7 +36,7 @@ const CheckboxesTiposAlertas = ({ alertas }) => {
           >
             <Icon
               className="CheckboxesTiposAlertas__icono_checkbox"
-              icon={iconoMarcar}
+              icon="mdi:check-bold"
             />
             <input
               type="checkbox"
@@ -67,8 +63,8 @@ const CheckboxesTiposAlertas = ({ alertas }) => {
             </span>
             <span className="CheckboxesTiposAlertas__conteo_tipo_alerta">
               {conteo === 0
-                ? <><InlineIcon icon={iconoSinAlertasPorResolver} /> Sin alertas por resolver</>
-                : <><InlineIcon icon={iconoAlertasNoResueltas} /> {conteo} alerta{conteo !== 1 ? 's' : ''} por resolver</>
+                ? <><InlineIcon icon="mdi:check" /> Sin alertas por resolver</>
+                : <><InlineIcon icon="mdi:bell-ring-outline" /> {conteo} alerta{conteo !== 1 ? 's' : ''} por resolver</>
               }
             </span>
           </label>

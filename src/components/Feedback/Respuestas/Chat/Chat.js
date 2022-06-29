@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { chat2 as chatAPI } from '../../../../api/endpoints'
 import CelularWhatsapp from './CelularWhatsapp/CelularWhatsapp'
@@ -9,6 +9,7 @@ import './Chat.css'
 import { useSelector } from 'react-redux'
 import AccionesChat from './AccionesChat'
 import ReaccionesChat from './ReaccionesChat'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const msExpiracionCache = 60_000
 const msHabilitacionReporteSlack = 0
@@ -25,6 +26,7 @@ const Chat = () => {
   const [accionesHabilitadas, setAccionesHabilitadas] = useState()
   const { idEncuesta, idUsuario } = useParams()
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
+  const track = useAnalytics()
 
   const actualizarMensajes = useCallback(() => {
     setConversaciones(undefined)
@@ -84,6 +86,8 @@ const Chat = () => {
     const to = setTimeout(() => setAccionesHabilitadas(true), msHabilitacionReporteSlack)
     return () => clearTimeout(to)
   }, [indiceRespuestaSeleccionada])
+
+  useEffect(() => track('Feedback', 'Chat', 'index'), [track])
 
   const link = useMemo(() => {
     if (!conversaciones || conversaciones.length === 0) {

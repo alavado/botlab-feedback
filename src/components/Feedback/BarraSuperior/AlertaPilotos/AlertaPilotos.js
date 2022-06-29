@@ -12,12 +12,17 @@ const usuariosPiloto = [
     exp: '2022-06-02 00:00:00'
   },
   {
+<<<<<<< HEAD
     nombre: 'CentralDental',
     exp: '2022-06-07 00:00:00'
   },
   {
     nombre: 'OrthoCenter',
     exp: '2022-06-04 00:00:00'
+=======
+    nombre: 'FARR',
+    exp: '2022-06-11 00:00:00'
+>>>>>>> a21ef5072e7249aa3cb5b2c53c7172d3e0291296
   },
 ]
 

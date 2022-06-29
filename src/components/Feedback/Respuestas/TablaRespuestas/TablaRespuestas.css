@@ -34,8 +34,11 @@
 
 .TablaRespuestas__titulo {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-family: 'Raleway';
+  width: 15ch;
+  overflow: visible;
+  white-space: nowrap;
   color: var(--color-texto);
 }
 
@@ -95,7 +98,7 @@
 }
 
 .TablaRespuestas__contenedor_tabla--extendido {
-  --h: calc(100vh - calc(2.75rem + 9.5rem));
+  --h: calc(100vh - calc(2.75rem + 7rem));
 }
 
 .TablaRespuestas__contenedor_tabla::-webkit-scrollbar {
@@ -114,6 +117,71 @@
   gap: .5rem;
 }
 
+.TablaRespuestas__boton_configuracion {
+  background: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
+  margin-left: .15rem;
+  color: var(--color-principal);
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+  color: var(--color-principal);
+  padding: .35rem .5rem;
+  gap: .25rem;
+  border-radius: .5rem;
+}
+
+.TablaRespuestas__boton_configuracion:hover::after {
+  position: absolute;
+  content: attr(tooltip);
+  background-color: var(--color-principal-2);
+  color: var(--color-texto-claro);
+  top: calc(100% + .35rem);
+  white-space: nowrap;
+  border-radius: .25rem;
+  padding: 0 .5rem;
+  height: 1.5rem;
+  font-size: .7rem;
+  display: flex;
+  align-items: center;
+  animation: aparece-tooltip-opcion .15s ease both;
+  z-index: 4;
+}
+
+.TablaRespuestas__tooltip_configuracion {
+  background-color: var(--color-secundario);
+  color: var(--color-texto-claro);
+  font-size: .5rem;
+  padding: .25rem;
+  border-radius: 0 .25rem .25rem .25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  left: 2rem;
+  top: .75rem;
+  filter: drop-shadow(0 0 .15rem var(--color-sombras));
+  animation: aparece-tooltip-configuracion .25s 5s ease both;
+}
+
+.TablaRespuestas__tooltip_configuracion h3 {
+  font-weight: bold;
+}
+
+.TablaRespuestas__tooltip_configuracion::before {
+  content: '';
+  width: .5rem;
+  height: .5rem;
+  background-color: var(--color-secundario);
+  position: absolute;
+  left: -.35rem;
+  top: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+}
+
 @keyframes aparece-tabla-respuestas {
   0% {
     opacity: 0;
@@ -121,6 +189,17 @@
   100% {
     opacity: 1;
   }
+}
+
+@keyframes aparece-tooltip-configuracion {
+  0% {
+    opacity: 0;
+    transform: translateX(-.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }  
 }
 
 @media (orientation: portrait) {
