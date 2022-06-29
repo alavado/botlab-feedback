@@ -278,6 +278,13 @@ const tags = {
     icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: ''
+  },
+  MANTENER_ORIGINAL: {
+    texto: 'Mantener original',
+    titulo: 'Mantener original',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: ''
   }
 }
 
