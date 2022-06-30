@@ -7,14 +7,10 @@ import { useSelector } from 'react-redux'
 import './AlertaPilotos.css'
 
 const usuariosPiloto = [
-  {
-    nombre: 'Bollek',
-    exp: '2022-06-02 00:00:00'
-  },
-  {
-    nombre: 'FARR',
-    exp: '2022-06-11 00:00:00'
-  },
+  // {
+  //   nombre: 'Bollek',
+  //   exp: '2022-06-02 00:00:00'
+  // },
 ]
 
 const AlertaPilotos = () => {
