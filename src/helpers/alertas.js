@@ -27,5 +27,5 @@ export const obtenerEtiquetaAlerta = mensaje => {
 }
 
 export const obtenerNombrePaciente = alerta => {
-  return alerta.meta['name'] ?? alerta.meta['patient_name_1'] ?? alerta.meta['Nombre'] ?? '-'
+  return alerta.meta['name'] ?? alerta.meta['patient_name_1'] ?? alerta.meta['Nombre']  ?? alerta.meta['Nombre 1'] ?? '-'
 }
