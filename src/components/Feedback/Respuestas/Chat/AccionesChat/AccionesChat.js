@@ -177,7 +177,7 @@ const AccionesChat = ({ telefono, link }) => {
               onClick={() => abrirAgenda()}
               title={`Abrir chat en ${link.tipo}`}
             >
-              <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon="mdi:arrow-up-right" />
+              <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon="mdi:arrow-top-right" />
               Ver cita en {link.tipo}
             </button>
           }

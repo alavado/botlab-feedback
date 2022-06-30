@@ -118,7 +118,10 @@ const Alertas = () => {
             <p className="Alertas__label_sucursal">Sucursal</p>
             <select
               className="Alertas__selector_sucursal"
-              onChange={e => dispatch(seleccionarSucursal(e.target.value))}
+              onChange={e => {
+                track('Feedback', 'Alertas', 'seleccionarSucursal', { sucursal: e.target.value })
+                dispatch(seleccionarSucursal(e.target.value))
+              }}
               value={sucursalSeleccionada}
             >
               <option value=''>

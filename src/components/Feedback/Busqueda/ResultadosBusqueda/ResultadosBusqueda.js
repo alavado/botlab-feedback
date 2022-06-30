@@ -7,6 +7,7 @@ import './ResultadosBusqueda.css'
 import LoaderResultadosBusqueda from './LoaderResultadosBusqueda'
 import { useHistory, useParams } from 'react-router-dom'
 import { busqueda as busquedaAPI } from '../../../../api/endpoints'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const ResultadosBusqueda = () => {
 
@@ -16,6 +17,7 @@ const ResultadosBusqueda = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const inputBusquedaRef = useRef()
+  const track = useAnalytics()
 
   useEffect(() => {
     dispatch(comienzaBusqueda())
@@ -31,6 +33,7 @@ const ResultadosBusqueda = () => {
 
   const buscar = e => {
     e.preventDefault()
+    track('Feedback', 'Busqueda', 'buscar', { termino: terminoNuevaBusqueda })
     history.push(`/busqueda/${terminoNuevaBusqueda}`)
   }
 

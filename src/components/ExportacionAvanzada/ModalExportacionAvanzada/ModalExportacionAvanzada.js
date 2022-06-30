@@ -12,7 +12,7 @@ const ModalExportacionAvanzada = ({ email, visible, ocultar }) => {
     >
       <div className="ModalExportacionAvanzada__contenido">
         <h2>¡Éxito!</h2>
-        <p>Enviaremos su reporte a<br/><strong>{email}</strong><br />dentro de los próximos minutos.</p>
+        <p>Enviaremos tu reporte a<br/><strong>{email}</strong><br />dentro de los próximos minutos.</p>
         <button
           className="ModalExportacionAvanzada__boton"
           onClick={ocultar}
