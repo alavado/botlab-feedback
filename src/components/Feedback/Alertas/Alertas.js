@@ -40,8 +40,7 @@ const tabsAlertas = [
 const Alertas = () => {
 
   const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
-  const { sucursalSeleccionada } = useSelector(state => state.alertas)
-  const { verAlertas } = useSelector(state => state.alertas)
+  const { sucursalSeleccionada, verAlertas } = useSelector(state => state.alertas)
   const dispatch = useDispatch()
   const { id } = useParams()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
@@ -68,7 +67,7 @@ const Alertas = () => {
           return {
             ...t,
             alertas,
-            conteo: alertas.filter(a => verAlertas.includes(a.message)).length,
+            conteo: alertas.filter(a => verAlertas.includes(a.message)),
           }
         })
       }

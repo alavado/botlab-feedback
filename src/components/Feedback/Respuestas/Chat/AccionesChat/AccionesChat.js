@@ -39,6 +39,7 @@ const AccionesChat = ({ telefono, link }) => {
 
   const reportarProblema = async e => {
     e.preventDefault()
+    track('Feedback', 'Chat', 'enviarReporteDeProblema', { nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion })
     setEnviando(true)
     try {
       await agregarIssueADBNotion(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
@@ -54,6 +55,7 @@ const AccionesChat = ({ telefono, link }) => {
 
   const enviarContacto = e => {
     e.preventDefault()
+    track('Feedback', 'Chat', 'enviarContactoParaReporteDeProblema', { contacto })
     agregarMensajeAHilo(ts, `Usuario deja contacto: *${contacto}*`)
     setContactoEnviado(true)
     dispatch(guardaContacto(contacto))
@@ -113,7 +115,10 @@ const AccionesChat = ({ telefono, link }) => {
           >
             <button
               className="AccionesChat__boton_cerrar"
-              onClick={() => setFormularioVisible(false)}
+              onClick={() => {
+                track('Feedback', 'Chat', 'cancelarReporteDeProblema')
+                setFormularioVisible(false)
+              }}
               title="Cancelar"
             >
               <InlineIcon icon="mdi:close" />
@@ -178,7 +183,10 @@ const AccionesChat = ({ telefono, link }) => {
           }
           <button
             className="AccionesChat__boton"
-            onClick={() => setFormularioVisible(true)}
+            onClick={() => {
+              track('Feedback', 'Chat', 'reportarProblema')
+              setFormularioVisible(true)
+            }}
             title="Reportar problema a CERO"
           >
             <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon="mdi:report" />

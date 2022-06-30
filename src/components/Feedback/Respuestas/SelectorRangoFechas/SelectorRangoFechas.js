@@ -59,6 +59,8 @@ const SelectorRangoFechas = () => {
                 track('Feedback', 'Respuestas', 'cambiarFechaInicial', { fecha: f })
                 dispatch(guardaFechaInicio(f))
               }}
+              onCalendarOpen={() => track('Feedback', 'Respuestas', 'abrirCalendario', { posicion: 'inicio' })}
+              onClickOutside={() => track('Feedback', 'Respuestas', 'cerrarCalendario', { posicion: 'inicio' })}
               maxDate={fechaTermino}
               dateFormat="d MMMM yyyy"
               locale="es"
@@ -71,6 +73,8 @@ const SelectorRangoFechas = () => {
                 track('Feedback', 'Respuestas', 'cambiarFechaFinal', { fecha: f })
                 dispatch(guardaFechaTermino(f))
               }}
+              onCalendarOpen={() => track('Feedback', 'Respuestas', 'abrirCalendario', { posicion: 'fin' })}
+              onClickOutside={() => track('Feedback', 'Respuestas', 'cerrarCalendario', { posicion: 'fin' })}
               dateFormat="d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker"
@@ -83,6 +87,8 @@ const SelectorRangoFechas = () => {
                 track('Feedback', 'Respuestas', 'cambiarFechaEspecifica', { fecha: f })
                 dispatch(guardaRangoFechas([f, f]))
               }}
+              onCalendarOpen={() => track('Feedback', 'Respuestas', 'abrirCalendario', { posicion: 'unica' })}
+              onClickOutside={() => track('Feedback', 'Respuestas', 'cerrarCalendario', { posicion: 'unica' })}
               dateFormat="iiii d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker SelectorRangoFechas__datepicker--ancho"

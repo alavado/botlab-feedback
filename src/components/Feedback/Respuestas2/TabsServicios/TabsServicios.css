@@ -1,9 +1,9 @@
 .TabsServicios {
   height: 1.5rem;
-  background-color: var(--color-principal);
+  background-color: var(--color-principal-claro);
   display: flex;
   gap: .1rem;
-  padding-left: .25rem;
+  padding-left: .5rem;
 }
 
 .TabsServicios__boton_menu {
