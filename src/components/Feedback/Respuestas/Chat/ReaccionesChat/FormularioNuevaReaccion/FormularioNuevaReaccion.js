@@ -35,6 +35,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
             setEmoji={setEmoji}
             cerrar={() => {
               setSeleccionandoEmoji(false)
+              track('Feedback', 'Chat', 'seleccionarEmojiParaComentario', { emoji })
               inputRef.current.focus()
             }}
             refPadre={botonEmojiRef}
@@ -115,6 +116,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
               className="FormularioNuevaReaccion__boton_sugerencia"
               onClick={() => {
                 setEmoji(emoji)
+                track('Feedback', 'Chat', 'seleccionarSugerenciaParaComentario', { i, emoji, comentario })
                 setComentario(comentario)
                 inputRef.current.focus()
               }}
@@ -126,6 +128,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
               <button
                 onClick={e => {
                   e.stopPropagation()
+                  track('Feedback', 'Chat', 'eliminarSugerenciaParaComentario', { i, emoji, comentario })
                   dispatch(eliminaReaccion(comentario))
                 }}
                 className="FormularioNuevaReaccion__boton_eliminar_sugerencia"
