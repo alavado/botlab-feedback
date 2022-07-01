@@ -11,7 +11,7 @@ import { mensajesAlertasVisibles, seleccionarSucursal } from '../../../redux/duc
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
-import { obtenerIconoAlerta, obtenerNombrePaciente } from '../../../helpers/alertas'
+import { obtenerIconoAlerta, obtenerNombrePacienteAlerta, obtenerSucursalAlerta } from '../../../helpers/alertas'
 import CheckboxesTiposAlertas from './CheckboxesTiposAlertas'
 import OpcionesAlertas from './OpcionesAlertas'
 import { Switch } from 'react-router-dom'
@@ -55,10 +55,10 @@ const Alertas = () => {
             .filter(t.filtro)
             .map(a => ({
               ...a,
-              nombrePaciente: obtenerNombrePaciente(a),
+              nombrePaciente: obtenerNombrePacienteAlerta(a),
               icono: obtenerIconoAlerta(a.message),
               idPoll: a.poll_id,
-              sucursal: a.meta?.sucursal_name,
+              sucursal: obtenerSucursalAlerta(a),
               horaLegible: !isToday(parseISO(a.utc_timestamp))
                 ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
                 : format(addHours(parseISO(a.utc_timestamp), new Date().getTimezoneOffset() / -60), 'HH:mm', { locale: es }),

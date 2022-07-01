@@ -26,7 +26,7 @@ export const obtenerEtiquetaAlerta = mensaje => {
   }
 }
 
-export const obtenerNombrePaciente = alerta => {
+export const obtenerNombrePacienteAlerta = alerta => {
   if (alerta.meta['Nombre']) {
     return alerta.meta['Nombre'] + (` ${alerta.meta['Apellidos']}` || '')
   }
@@ -40,4 +40,15 @@ export const obtenerNombrePaciente = alerta => {
     return alerta.meta['patient_name_1']
   }
   return '-'
+}
+
+export const obtenerSucursalAlerta = alerta => {
+  if (alerta.meta['sucursal_name_1']) {
+    return alerta.meta['sucursal_name_1']
+  }
+  if (alerta.meta['sucursal_name']) {
+    return alerta.meta['sucursal_name']
+  }
+  console.log(alerta)
+  return ''
 }

@@ -6,7 +6,7 @@ import { alertas as getAlertas } from '../../../../../api/endpoints'
 import './DatosPacienteCajon.css'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import { useParams } from 'react-router-dom'
-import { obtenerNombrePaciente } from '../../../../../helpers/alertas'
+import { obtenerNombrePaciente, obtenerNombrePacienteAlerta } from '../../../../../helpers/alertas'
 
 const DatosPacienteCajon = () => {
 
@@ -32,7 +32,7 @@ const DatosPacienteCajon = () => {
     )
   }
 
-  const nombrePaciente = obtenerNombrePaciente(alertaDestacada)
+  const nombrePaciente = obtenerNombrePacienteAlerta(alertaDestacada)
   const telefonoPaciente = formatearCampoRespuestas(data.data.data.user.phone, 'phone')
 
   return (
