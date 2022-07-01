@@ -325,7 +325,7 @@ const MensajeConAdjunto = ({ mensaje }) => {
     urlArchivo = `https://${urlArchivo}`
   }
   const mensajeSinAdjunto = mensaje.substring(0, mensaje.indexOf(tokenAdjunto) - 1) + substringAdjunto.substring(finAdjunto)
-  const nombreArchivo = urlArchivo.substring(urlArchivo.lastIndexOf('/') + 1)
+  const nombreArchivo = decodeURIComponent(urlArchivo.substring(urlArchivo.lastIndexOf('/') + 1))
   const extensionArchivo = nombreArchivo.substring(nombreArchivo.lastIndexOf('.') + 1)
 
   return (
@@ -350,7 +350,7 @@ const MensajeConAdjunto = ({ mensaje }) => {
             </div>
             <div className="MensajeWhatsapp__nombre_archivo">{scrambled ? scrambleMulti(nombreArchivo, terminos) : nombreArchivo}</div>
             <div className="MensajeWhatsapp__icono_link">
-              <Icon icon="mdi:arrow-right-bold" />
+              <Icon icon="mdi:arrow-down-bold" />
             </div>
           </a>
       }
