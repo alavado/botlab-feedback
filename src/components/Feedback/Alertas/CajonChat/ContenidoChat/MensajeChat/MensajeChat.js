@@ -9,6 +9,7 @@ import MensajeChatVCard from './MensajeChatVCard'
 import MensajeChatVideo from './MensajeChatVideo'
 import './MensajeChat.css'
 import { marcarNegritas } from '../../../../../../helpers/mensajes'
+import MensajeConAdjunto from './MensajeConAdjunto'
 
 const MensajeChat = ({ mensaje }) => {
 
@@ -28,6 +29,9 @@ const MensajeChat = ({ mensaje }) => {
   }
   else if (mensaje.message === 'MEDIAFILEURL') {
     return <MensajeChatArchivo mensaje={mensaje} />
+  }
+  else if (mensaje.message.indexOf('ATTACHMENT') >= 0) {
+    return <MensajeConAdjunto mensaje={mensaje} />
   }
 
   return (

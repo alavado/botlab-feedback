@@ -6,6 +6,7 @@ import { alertas as getAlertas } from '../../../../../api/endpoints'
 import './DatosPacienteCajon.css'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import { useParams } from 'react-router-dom'
+import { obtenerNombrePaciente } from '../../../../../helpers/alertas'
 
 const DatosPacienteCajon = () => {
 
@@ -31,8 +32,7 @@ const DatosPacienteCajon = () => {
     )
   }
 
-  const ultimaConversacion = data.data.data.conversations.slice(-1)[0]
-  const nombrePaciente = ultimaConversacion.context.find(d => ['name', 'patient_name_1', 'Nombre', 'Nombre 1'].includes(d.target))?.value
+  const nombrePaciente = obtenerNombrePaciente(alertaDestacada)
   const telefonoPaciente = formatearCampoRespuestas(data.data.data.user.phone, 'phone')
 
   return (
