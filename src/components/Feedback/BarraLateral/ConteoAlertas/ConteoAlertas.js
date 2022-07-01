@@ -10,7 +10,7 @@ import './ConteoAlertas.css'
 const ConteoAlertas = ({ setFeliz }) => {
 
   const [conteoAlertas, setConteoAlertas] = useState(0)
-  const { recibirNotificaciones, sucursalSeleccionada } = useSelector(state => state.alertas)
+  const { recibirNotificaciones, sucursalSeleccionada, verAlertas } = useSelector(state => state.alertas)
   const { data } = useAlertasQuery()
   const history = useHistory()
 
@@ -22,6 +22,7 @@ const ConteoAlertas = ({ setFeliz }) => {
       .map(tab => tab.alertas)
       .flat()
       .filter(a => !sucursalSeleccionada || a.sucursal === sucursalSeleccionada)
+      .filter(a => verAlertas.includes(a.message))
     setConteoAlertas(prev => {
       const alertas = dataAlertas?.filter(a => mensajesAlertasVisibles.indexOf(a.message) >= 0 && !a.dismissed) || []
       const nuevoConteo = alertas.length
