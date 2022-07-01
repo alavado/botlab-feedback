@@ -9,7 +9,6 @@ import Scrambler from '../../../Scrambler/Scrambler'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import useAnalytics from '../../../../hooks/useAnalytics'
-import { mensajesAlertasVisibles } from '../../../../redux/ducks/alertas'
 
 const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
 

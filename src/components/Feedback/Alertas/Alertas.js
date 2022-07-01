@@ -96,8 +96,11 @@ const Alertas = () => {
       </div>
     )
   }
-
+  
   const sucursales = [...new Set(_.flatten(dataAlertas.map(t => (t.alertas.filter(a => a.sucursal).map(a => a.sucursal)))))]
+  if (!sucursales.find(s => s === sucursalSeleccionada)) {
+    dispatch(seleccionarSucursal(''))
+  }
 
   const alertasEncuestaSeleccionada = dataAlertas.map(t => {
     const alertasFiltradas = t.alertas
