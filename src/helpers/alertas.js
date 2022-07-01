@@ -49,6 +49,5 @@ export const obtenerSucursalAlerta = alerta => {
   if (alerta.meta['sucursal_name']) {
     return alerta.meta['sucursal_name']
   }
-  console.log(alerta)
   return ''
 }

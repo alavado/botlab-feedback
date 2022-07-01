@@ -27,12 +27,17 @@ const MensajeConAdjunto = ({ mensaje }) => {
     return <p className="MensajeConAdjunto__error">Archivo no disponible</p>
   }
 
+  const texto = decodeURIComponent(mensaje.message)
+
   return (
     <button
       className="MensajeConAdjunto"
       onClick={descargarArchivo}
     >
-      Descargar Archivo
+      <div className="MensajeConAdjunto__logo_pdf">
+        {texto.substring(texto.lastIndexOf('.') + 1)}
+      </div>
+      {texto.substring(texto.lastIndexOf('/') + 1)}
       <InlineIcon className="MensajeConAdjunto__icono_descargar" icon="mdi:download-circle-outline" /> 
     </button>
   )
