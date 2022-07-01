@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Alertas.css'
 import { alertas as getAlertas } from '../../../api/endpoints'
 import { useQuery } from 'react-query'
@@ -37,17 +37,14 @@ const tabsAlertas = [
   }
 ]
 
-const Alertas = () => {
-
-  const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
-  const { sucursalSeleccionada, verAlertas } = useSelector(state => state.alertas)
-  const dispatch = useDispatch()
-  const { id } = useParams()
-  const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
+export const useAlertasQuery = () => {
+  const { verAlertas } = useSelector(state => state.alertas)
+  return useQuery(
     'alertas',
     getAlertas,
     {
       refetchInterval: 30_000,
+      refetchIntervalInBackground: 30_000,
       refetchOnMount: true,
       select: res => {
         return tabsAlertas.map(t => {
@@ -73,6 +70,15 @@ const Alertas = () => {
       }
     }
   )
+}
+
+const Alertas = () => {
+
+  const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
+  const { sucursalSeleccionada } = useSelector(state => state.alertas)
+  const dispatch = useDispatch()
+  const { id } = useParams()
+  const { isLoading: cargandoAlertas, data: dataAlertas } = useAlertasQuery()
   const track = useAnalytics()
 
   useEffect(() => {
