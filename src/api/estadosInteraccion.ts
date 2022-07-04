@@ -2,15 +2,8 @@ import { EstadoInteraccion } from "./types/servicio"
 
 export const estadosInteracciones: EstadoInteraccion[] = [
   {
-    id: 'CUALQUIERA',
-    descripcion: 'Todas',
-    icono: 'mdi:home',
-    explicacion: 'Todas las interacciones',
-    color: '#eee',
-  },
-  {
     id: 'PENDIENTE',
-    descripcion: 'Esperando respuesta',
+    descripcion: 'Pendiente',
     icono: 'mdi:timer-sand',
     explicacion: 'Bot todavía no recibe respuesta',
     color: '#eee',

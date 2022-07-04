@@ -3,12 +3,8 @@
   flex-direction: column;
   gap: .25rem;
   padding: 0 .75rem 0 .75rem;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  min-height: calc(100vh - 8.75rem);
-  max-height: calc(100vh - 8.75rem);
   padding-bottom: 50vh;
-  font-family: 'Roboto';
+  flex: 1;
 }
 
 .MensajesInteraccion__dia_mensajes {
@@ -17,8 +13,11 @@
   padding: .35rem .5rem;
   border-radius: .25rem;
   margin: .5rem 0 .25rem 0;
-  filter: drop-shadow(0 1px 1px var(--color-sombras));
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
   background-color: var(--whatsapp-fondo-fecha);
+  position: sticky;
+  top: .15rem;
+  z-index: 2;
 }
 
 .MensajesInteraccion__mensaje_avatar {
@@ -35,8 +34,8 @@
   background-color: var(--color-fondo);
   display: flex;
   gap: .5rem;
-  max-width: 50ch;
-  padding: .35rem .45rem;
+  max-width: 85%;
+  padding: .35rem .45rem .35rem .45rem;
   font-size: .65rem;
   border-radius: .35rem;
   filter: drop-shadow(0 1px 1px var(--color-sombras));
@@ -104,7 +103,7 @@
   display: grid;
   grid-template: auto 1fr / 1fr .33fr;
   gap: .35rem 1rem;
-  width: 66%;
+  width: 85%;
   padding: .5rem;
   font-size: .65rem;
   border-radius: .25rem;
@@ -124,11 +123,12 @@
 }
 
 .MensajesInteraccion__comentario_emisor svg {
-  font-size: .65rem;
+  font-size: .85rem;
+  place-self: start start;
 }
 
 .MensajesInteraccion__comentario_hora {
-  place-self: center end;
+  place-self: start end;
   font-size: .55rem;
   opacity: .75;
 }

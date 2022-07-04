@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { useServiciosQuery } from '../../../../api/hooks'
 import { RootState } from '../../../../redux/ducks'
-import { toggleCajonFiltros, seleccionaServicio } from '../../../../redux/ducks/servicio'
+import { seleccionaServicio } from '../../../../redux/ducks/servicio'
 import './TabsServicios.css'
 
 const TabsServicios = () => {

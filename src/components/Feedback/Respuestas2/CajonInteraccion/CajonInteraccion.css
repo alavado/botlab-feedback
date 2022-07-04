@@ -1,19 +1,18 @@
 .CajonInteraccion {
   position: fixed;
-  --ancho-cajon-interaccion: 30rem;
-  right: calc(-1 * var(--ancho-cajon-interaccion));
+  right: -100%;
   bottom: 0;
   background-color: var(--color-fondo);
-  width: var(--ancho-cajon-interaccion);
   height: calc(100vh - 5.75rem);
   box-shadow: 0 0 .25rem var(--color-sombras);
   transition: all .35s ease;
-  background-color: var(--color-gris);
+  background-color: var(--color-fondo);
   border-left: 1px solid var(--color-bordes);
   border-top-left-radius: .15rem;
   z-index: 4;
   display: flex;
   flex-direction: column;
+  transition: all .25s ease;
 }
 
 .CajonInteraccion--visible {
@@ -108,9 +107,46 @@
   animation: animacion-skeletons .75s linear alternate-reverse infinite both;
 }
 
-.CajonInteraccion__mensajes {
-  background: var(--whatsapp-fondo);
+.CajonInteraccion__principal {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CajonInteraccion__telefono {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0 0 0 1vh black;
+  border-radius: 1.75vh;
+  height: calc(100vh - 12rem);
+  aspect-ratio: 9 / 17;
+  margin: 0 2rem;
+}
+
+.CajonInteraccion__telefono_barra {
+  flex: 1;
+  background-color: var(--whatsapp-fondo-barra-superior);
+  border-radius: 1.5vh 1.5vh 0 0;
+}
+
+.CajonInteraccion__telefono_mensajes {
+  flex: 9;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: var(--whatsapp-fondo);
+  border-radius: 0 0 1.5vh 1.5vh;
+}
+
+.CajonInteraccion__telefono_mensajes::-webkit-scrollbar {
+  width: .35em;
+  background-color: transparent;
+}
+
+.CajonInteraccion__telefono_mensajes::-webkit-scrollbar-thumb {
+  border-radius: .25em;
+  background-color: var(--whatsapp-color-scrollbar-contenedor-mensajes);
 }
 
 @keyframes animacion-skeletons {

@@ -73,10 +73,7 @@ const CajonInteraccion = () => {
         </h2>
         <div className="CajonInteraccion__botones_acciones">
           <button className="CajonInteraccion__boton_accion">
-            <InlineIcon icon="mdi:whatsapp" />
-          </button>
-          <button className="CajonInteraccion__boton_accion">
-            <InlineIcon icon="mdi:open-in-new" />
+            <InlineIcon icon="mdi:more" />
           </button>
         </div>
         <p className="CajonInteraccion__subtitulo">
@@ -86,13 +83,25 @@ const CajonInteraccion = () => {
           }
         </p>
       </div>
-      <div className="CajonInteraccion__mensajes">
-        {data?.conversaciones && !cargandoComentarios
-          ? <MensajesInteraccion />
-          : <div className="CajonInteraccion__loader">
-              <Loader color="var(--color-texto)" />
-            </div>
-        }
+      <div className="CajonInteraccion__principal">
+        <div className="CajonInteraccion__telefono">
+          <div className="CajonInteraccion__telefono_barra">
+            
+          </div>
+          <div className="CajonInteraccion__telefono_mensajes">
+            {data?.conversaciones && !cargandoComentarios
+              ? <MensajesInteraccion />
+              : <div className="CajonInteraccion__loader">
+                  <Loader color="var(--color-texto)" />
+                </div>
+            }
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <button>Chatear con paciente</button>
+        <button>Ver cita en Dentalink</button>
+        <button>Reportar problema</button>
+        </div>
       </div>
     </div>
   )
