@@ -7,6 +7,13 @@ import ModalFiltros from '../ModalFiltros'
 import { destacaColumna, fijaColumna, yaNoDestaquesColumna } from '../../../../../redux/ducks/respuestas'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
 
+const parchar = texto => {
+  if (texto.includes('_PAPERInsTypeDR')) {
+    return texto.replace('_PAPERInsTypeDR', 'Previsión')
+  }
+  return texto
+}
+
 const HeadTablaRespuestas = () => {
 
   const { idEncuestaSeleccionada: idEncuesta, headers } = useSelector(state => state.encuestas)
@@ -49,7 +56,7 @@ const HeadTablaRespuestas = () => {
           >
             <span className="HeadTablaRespuestas__texto_header">
               <span>
-                {texto}
+                {parchar(texto)}
                 <span className="HeadTablaRespuestas__icono_orden">
                   {ordenHeader === nombre && <InlineIcon icon={orden === 'ASC' ? "mdi:arrow-up" : "mdi:arrow-down"} />}
                 </span>

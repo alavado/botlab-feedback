@@ -429,7 +429,6 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
   // caso especial agendamiento, para poner el teléfono al comienzo
   if ([509, 557].includes(idEncuesta)) {
     return [...headersSinTags, ...tagsCalculados]
-
   }
   return [...tagsCalculados, ...headersSinTags]
 }

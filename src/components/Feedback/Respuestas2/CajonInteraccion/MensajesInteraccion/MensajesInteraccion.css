@@ -45,6 +45,7 @@
 
 .MensajesInteraccion__mensaje a {
   color: var(--whatsapp-color-links);
+  word-break: break-all;
 }
 
 .MensajesInteraccion__mensaje::after {
@@ -75,13 +76,6 @@
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
   top: 0;
   left: -.45rem;
-}
-
-.MensajesInteraccion__mensaje_emisor {
-  font-size: .55rem;
-  display: flex;
-  align-items: center;
-  gap: .25rem;
 }
 
 .MensajesInteraccion__mensaje_hora {
