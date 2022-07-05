@@ -25,7 +25,7 @@ export const estadosInteracciones: EstadoInteraccion[] = [
   {
     id: 'REAGENDADA',
     descripcion: 'Reagenda',
-    icono: 'mdi:autorenew',
+    icono: 'mdi:arrow-right',
     explicacion: 'La cita ha sido reagendada',
     color: 'var(--color-reagenda)',
   },

@@ -15,8 +15,6 @@
   margin: .5rem 0 .25rem 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
   background-color: var(--whatsapp-fondo-fecha);
-  position: sticky;
-  top: .15rem;
   z-index: 2;
 }
 
@@ -98,7 +96,7 @@
   grid-template: auto 1fr / 1fr .33fr;
   gap: .35rem 1rem;
   width: 85%;
-  padding: .5rem;
+  padding: .35rem .45rem .35rem .45rem;
   font-size: .65rem;
   border-radius: .25rem;
   position: relative;
@@ -124,8 +122,9 @@
 
 .MensajesInteraccion__comentario_hora {
   place-self: start end;
-  font-size: .55rem;
+  font-size: .5rem;
   opacity: .75;
+  line-height: 1.15;
 }
 
 .MensajesInteraccion__comentario_contenido {

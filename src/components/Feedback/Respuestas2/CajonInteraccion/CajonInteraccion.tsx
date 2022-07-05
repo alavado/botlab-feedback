@@ -50,10 +50,18 @@ const CajonInteraccion = () => {
                     <Fragment key={`CajonInteraccion-icono-cita-${i}`}>
                       {cita.nombre.split(' ')[0]}
                       <span
-                        className="CajonInteraccion__icono_estado_interaccion"
+                        className="CajonInteraccion__estado_interaccion"
                         title={cita.estadoInteraccion.explicacion}
+                        style={{
+                          boxShadow: `
+                            0 0 0 .35rem ${cita.estadoInteraccion.color},
+                            .2rem 0 0 .35rem ${cita.estadoInteraccion.color}
+                          `,
+                          background: cita.estadoInteraccion.color
+                        }}
                       >
                         <InlineIcon icon={cita.estadoInteraccion.icono} />
+                        {cita.estadoInteraccion.descripcion}
                       </span>
                       {i < data.citas.length - 1 && ', '}
                     </Fragment>
@@ -62,19 +70,27 @@ const CajonInteraccion = () => {
               : <>
                   {data.citas[0].nombre}
                   <span
-                    className="CajonInteraccion__icono_estado_interaccion"
+                    className="CajonInteraccion__estado_interaccion"
                     title={data.citas[0].estadoInteraccion.explicacion}
+                    style={{
+                      boxShadow: `
+                        0 0 0 .35rem ${data.citas[0].estadoInteraccion.color},
+                        .2rem 0 0 .35rem ${data.citas[0].estadoInteraccion.color}
+                      `,
+                      background: data.citas[0].estadoInteraccion.color
+                    }}
                   >
-                    <InlineIcon icon={data.citas[0].estadoInteraccion.icono} />
+                    <InlineIcon
+                      icon={data.citas[0].estadoInteraccion.icono}
+                    />
+                    {data.citas[0].estadoInteraccion.descripcion}
                   </span>
                 </>
             : 'Cargando...'
           }
         </h2>
         <div className="CajonInteraccion__botones_acciones">
-          <button className="CajonInteraccion__boton_accion">
-            <InlineIcon icon="mdi:more" />
-          </button>
+          
         </div>
         <p className="CajonInteraccion__subtitulo">
           {data?.telefonoUsuario

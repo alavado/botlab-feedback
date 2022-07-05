@@ -38,6 +38,7 @@
   background-color: var(--color-si);
   padding: .4rem .65rem .4rem .5rem;
   border-radius: 9in;
+  font-size: .65rem;
   font-weight: bold;
   color: rgba(0, 0, 0, .75);
   display: flex;

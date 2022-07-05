@@ -16,6 +16,7 @@ const TabsServicios = () => {
     <div className="TabsServicios">
       <button className="TabsServicios__tab">
         <Icon icon="mdi:robot" />
+        Alertas
       </button>
       {/* <button
         className="TabsServicios__boton_menu"
