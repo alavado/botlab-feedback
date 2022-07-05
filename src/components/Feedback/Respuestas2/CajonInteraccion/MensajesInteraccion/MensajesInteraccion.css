@@ -114,6 +114,7 @@
   align-items: center;
   gap: .25rem;
   opacity: .75;
+  line-height: 1.15;
 }
 
 .MensajesInteraccion__comentario_emisor svg {

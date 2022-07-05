@@ -118,8 +118,29 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  box-shadow: 0 0 0 1vh black;
-  border-radius: 1.75vh;
+  --ancho-marco-telefono: calc(0.0225 * (100vh - 12rem));
+  --spread: calc(0.1 * var(--ancho-marco-telefono));
+  box-shadow:
+    -2vh -2vh .5vh -2vh black,
+    2vh -2vh .5vh -2vh black,
+    2vh 2.5vh .5vh -2vh black,
+    -2vh 2.5vh .5vh -2vh black,
+
+    0 0 var(--spread) calc(0.2 * var(--ancho-marco-telefono)) black,
+    0 calc(0.25 * var(--ancho-marco-telefono)) var(--spread) calc(0.25 * var(--ancho-marco-telefono)) black,
+
+    0 0 var(--spread) calc(0.45 * var(--ancho-marco-telefono)) #666,
+    0 calc(0.25 * var(--ancho-marco-telefono)) var(--spread) calc(0.45 * var(--ancho-marco-telefono)) #666,
+
+    0 0 var(--spread) calc(0.65 * var(--ancho-marco-telefono)) black,
+    0 calc(0.25 * var(--ancho-marco-telefono)) 0 calc(0.65 * var(--ancho-marco-telefono)) black,
+
+    0 0 var(--spread) calc(0.8 * var(--ancho-marco-telefono)) #eee,
+    0 calc(0.25 * var(--ancho-marco-telefono)) var(--spread) calc(0.8 * var(--ancho-marco-telefono)) #ccc,
+
+    0 0 0 var(--ancho-marco-telefono) #333,
+    0 calc(0.25 * var(--ancho-marco-telefono)) 0 var(--ancho-marco-telefono) #333;
+  border-radius: 2.5vh;
   height: calc(100vh - 12rem);
   aspect-ratio: 9 / 18;
   margin: 0 2rem;
@@ -128,7 +149,7 @@
 .CajonInteraccion__telefono_barra {
   flex: 1;
   background-color: var(--whatsapp-fondo-barra-superior);
-  border-radius: 1.5vh 1.5vh 0 0;
+  border-radius: 2.5vh 2.5vh 0 0;
 }
 
 .CajonInteraccion__telefono_mensajes {
@@ -136,7 +157,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   background: var(--whatsapp-fondo);
-  border-radius: 0 0 1.5vh 1.5vh;
+  border-radius: 0 0 2.5vh 2.5vh;
 }
 
 .CajonInteraccion__telefono_mensajes::-webkit-scrollbar {
