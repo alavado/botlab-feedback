@@ -27,6 +27,10 @@ const usuariosPiloto = [
     nombre: 'Elquivision',
     exp: '2022-07-23 00:00:00'
   },
+  {
+    nombre: 'BiobioSalud',
+    exp: '2022-07-26 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
