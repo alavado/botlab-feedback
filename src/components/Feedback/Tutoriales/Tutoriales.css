@@ -96,6 +96,18 @@
   z-index: 2;
 }
 
+.Tutoriales__miniatura_play {
+  display: none;
+}
+
+.Tutoriales__boton--activo .Tutoriales__miniatura_play {
+  display: block;
+}
+
+.Tutoriales__boton--activo .Tutoriales__miniatura_n {
+  display: none;
+}
+
 .Tutoriales__miniatura {
   grid-row: span 2;
   width: 5rem;
@@ -121,10 +133,10 @@
   right: .15rem;
   bottom: .15rem;
   position: absolute;
-  font-size: .5rem;
+  font-size: .45rem;
   background-color: rgba(0, 0, 0, .65);
   color: var(--color-texto-claro);
-  padding: 0 .15rem;
+  padding: .05rem .15rem;
   border-radius: .1rem;
 }
 
