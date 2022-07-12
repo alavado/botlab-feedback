@@ -19,6 +19,21 @@ import { Route } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import _ from 'lodash'
 import useAnalytics from '../../../hooks/useAnalytics'
+import { desactivaModalAlertas } from '../../../redux/ducks/novedades'
+
+let nuevosUsuarios = [
+  '2020',
+  'visum',
+  'leciel',
+  'adich',
+  'behappy',
+  'ctmelipilla',
+  'altotobalaba',
+  'medisis',
+  'facelab',
+  'sonrie_arica',
+]
+nuevosUsuarios = [...nuevosUsuarios, ...nuevosUsuarios.map(u => `${u}_cero`)]
 
 const tabsAlertas = [
   {
@@ -76,6 +91,8 @@ const Alertas = () => {
 
   const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
   const { sucursalSeleccionada } = useSelector(state => state.alertas)
+  const { cuenta } = useSelector(state => state.login)
+  const { modalAlertasDesactivado } = useSelector(state => state.novedades)
   const dispatch = useDispatch()
   const { id } = useParams()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useAlertasQuery()
@@ -122,17 +139,30 @@ const Alertas = () => {
   const seleccionAlerta = (
     <>
       <div className="Alertas__lateral">
-        <button
-          className="Alertas__boton_tutoriales"
-          onClick={() => {
-            track('Feedback', 'Alertas', 'verTutorial')
-            history.push('/tutoriales/alertas')
-          }}
-        >
-          <Icon icon="mdi:robot" />
-          ¡Ahora tienes alertas activas!
-          Mira un videotutorial para aprender a usarlas
-        </button>
+        {!modalAlertasDesactivado && nuevosUsuarios.includes(cuenta) &&
+          <button
+            className="Alertas__boton_tutoriales"
+            onClick={() => {
+              track('Feedback', 'Alertas', 'verTutorial')
+              history.push('/tutoriales/alertas')
+            }}
+            title="Ver tutorial de alertas"
+          >
+            <button
+              onClick={e => {
+                dispatch(desactivaModalAlertas())
+                e.stopPropagation()
+              }}
+              title="Cerrar"
+              className="Alertas__boton_cierra_modal_tutoriales"
+            >
+              <Icon icon="mdi:close" />
+            </button>
+            <Icon icon="mdi:robot" />
+            <p style={{ fontWeight: 600 }}>¡Ahora tienes alertas activas!</p>
+            <p>Mira un videotutorial para aprender a usarlas</p>
+          </button>
+        }
         <h1 className="Alertas__titulo">
           Alertas
         </h1>
