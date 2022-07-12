@@ -52,29 +52,17 @@ export const tieneAccesoAAlertas = cuenta => {
     //Tabilo, consulta del doctor
     'tabilo',
 
-    // 2020, Clínica Oftalmológica
-    '2020',
-
-    // Visum, Centro Oftalmológico
-    'visum',
-
     // CORE, Centro Médico
     'core',
 
     // Laboratorio Cánovas
     'canovas',
 
-    // Le Ciel- Confirmaciones, Clínica
-    'leciel',
-
     // Cath, Clínica 
     'cath',
 
     // Integral Linares, Clínica 
     'integral_linares',
-
-    // ADICH
-    'adich',
 
     // Dental Reagan 
     'dentalreagan',
@@ -96,12 +84,6 @@ export const tieneAccesoAAlertas = cuenta => {
 
     // COP
     'cop',
-
-    // BeHappy, Centro Dental 
-    'behappy',
-
-    // CTMelipilla
-    'ctmelipilla',
 
     // Menta Lindavista
     'menta',
@@ -138,9 +120,6 @@ export const tieneAccesoAAlertas = cuenta => {
     // Vitalia, Clínica 
     'vitalia',
 
-    // AltoTobalaba, Centro Médico
-    'altotobalaba',
-
     // Ventus, Odontología 
     'ventus',
 
@@ -171,20 +150,11 @@ export const tieneAccesoAAlertas = cuenta => {
     // Ezio Chiappe, Clínica Dr.
     'eziochiappe',
 
-    // Medisis
-    'medisis',
-
     // Tobalaba, Clínica Dental
     'tobalaba',
 
     // RoaDent, Clínica Odontológica
     'roadent',
-
-    // Face Lab
-    'facelab',
-
-    // Sonríe Arica, Clínica
-    'sonrie_arica',
 
     // Dental Spa Chile
     'dentalspachile',
