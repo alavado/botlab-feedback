@@ -31,7 +31,7 @@
   background-color: var(--color-fondo);
   position: relative;
   cursor: pointer;
-  transition: background-color .25s ease, box-shadow .25s ease;
+  transition: all .1s ease;
 }
 
 .ListaInteracciones__estado_interaccion {
@@ -47,6 +47,10 @@
 
 .ListaInteracciones__interaccion:not(.ListaInteracciones__interaccion--encabezados):not(.ListaInteracciones__interaccion--activa):hover {
   background-color: var(--color-fila-destacada);
+}
+
+.ListaInteracciones__interaccion:not(.ListaInteracciones__interaccion--encabezados):not(.ListaInteracciones__interaccion--activa):active {
+  background-color: hsl(45, 80%, 98%);
 }
 
 .ListaInteracciones__interaccion > div {
@@ -112,7 +116,7 @@
   border-bottom: 1px solid var(--color-sombras);
   z-index: 2;
   font-weight: 700;
-  background: hsl(45, 80%, 98%);
+  background: hsl(45, 80%, 92%);
 }
 
 .ListaInteracciones__avatar {
