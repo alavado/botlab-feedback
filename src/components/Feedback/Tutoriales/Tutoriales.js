@@ -94,15 +94,21 @@ const Tutoriales = () => {
             {videos.map(video => (
               <Route
                 path={`/tutoriales/${video.id}`}
+                key={`ruta-tutorial-${video.id}`}
               >
-                <iframe
-                  title={video.titulo}
-                  src={video.link}
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                >
-                </iframe>
+                <div className="Tutoriales__contenedor_video_con_titulo">
+                  <h2 className="Tutoriales__contenedor_video_titulo">
+                    <Icon icon="mdi:information" />Estás viendo: <span style={{ fontWeight: 'bold' }}>{video.titulo}</span>
+                  </h2>
+                  <iframe
+                    title={video.titulo}
+                    src={video.link}
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                  >
+                  </iframe>
+                </div>
               </Route>
             ))}
             <Route>

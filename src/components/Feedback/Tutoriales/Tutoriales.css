@@ -70,9 +70,26 @@
   justify-content: flex-start;
 }
 
+.Tutoriales__contenedor_video_con_titulo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+}
+
+.Tutoriales__contenedor_video_titulo {
+  font-size: .75rem;
+  padding-bottom: .5rem;
+  display: flex;
+  align-items: center;
+  gap: .15rem;
+}
+
 .Tutoriales__video iframe {
   width: 100%;
   height: 100%;
+  flex: 1;
+  align-self: flex-start;
 }
 
 .Tutoriales__boton {

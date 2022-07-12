@@ -3,7 +3,7 @@ import './Alertas.css'
 import { alertas as getAlertas } from '../../../api/endpoints'
 import { useQuery } from 'react-query'
 import classNames from 'classnames'
-import { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ import CajonChat from './CajonChat'
 import { obtenerIconoAlerta, obtenerNombrePacienteAlerta, obtenerSucursalAlerta } from '../../../helpers/alertas'
 import CheckboxesTiposAlertas from './CheckboxesTiposAlertas'
 import OpcionesAlertas from './OpcionesAlertas'
-import { Switch } from 'react-router-dom'
+import { Switch, useHistory } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import _ from 'lodash'
@@ -80,6 +80,7 @@ const Alertas = () => {
   const { id } = useParams()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useAlertasQuery()
   const track = useAnalytics()
+  const history = useHistory()
 
   useEffect(() => {
     if (id && dataAlertas) {
@@ -121,7 +122,20 @@ const Alertas = () => {
   const seleccionAlerta = (
     <>
       <div className="Alertas__lateral">
-        <h1 className="Alertas__titulo">Alertas</h1>
+        <button
+          className="Alertas__boton_tutoriales"
+          onClick={() => {
+            track('Feedback', 'Alertas', 'verTutorial')
+            history.push('/tutoriales/alertas')
+          }}
+        >
+          <Icon icon="mdi:robot" />
+          ¡Ahora tienes alertas activas!
+          Mira un videotutorial para aprender a usarlas
+        </button>
+        <h1 className="Alertas__titulo">
+          Alertas
+        </h1>
         {sucursales.length > 1 && (
           <label>
             <p className="Alertas__label_sucursal">Sucursal</p>
