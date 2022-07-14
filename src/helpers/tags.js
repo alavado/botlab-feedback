@@ -174,6 +174,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)'
   },
+  MEDIA_AUDIO: {
+    texto: 'Audio',
+    titulo: 'Paciente envía audio',
+    icono: 'mdi:volume-high',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)'
+  },
   CONFIRMA_DESPUES: {
     texto: 'Confirma después',
     titulo: 'Paciente indica que confirmará más tarde',
