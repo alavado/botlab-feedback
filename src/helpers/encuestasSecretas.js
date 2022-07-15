@@ -4,5 +4,5 @@ export const obtenerTiposEncuestasVisibles = (cuenta, tipos) => {
     return tipos
   }
   let tiposEncuestas = tipos?.slice() || []
-  return tiposEncuestas.filter(t => ![233, 374, 457, 577].includes(t.id))
+  return tiposEncuestas.filter(t => ![233, 374, 457].includes(t.id))
 }
