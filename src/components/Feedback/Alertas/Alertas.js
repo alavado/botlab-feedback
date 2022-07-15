@@ -32,6 +32,16 @@ let nuevosUsuarios = [
   'medisis',
   'facelab',
   'sonrie_arica',
+  'centauro',
+  'bukal',
+  'tabilo',
+  'core',
+  'cath',
+  'integral_linares',
+  'orregoluco',
+  'sanbartolome',
+  'coepej',
+  'oas',
 ]
 nuevosUsuarios = [...nuevosUsuarios, ...nuevosUsuarios.map(u => `${u}_cero`)]
 
