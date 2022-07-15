@@ -70,7 +70,8 @@ export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
-      case 557: // Norden agendamiento
+      case 557: // agendamiento
+      case 577:
         return [
           {
             texto: '¿Menor de edad?',
@@ -427,7 +428,7 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
     .filter(h => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
     .map(h => h.texto.includes(' Externo') ?  ({ ...h, texto: h.texto.slice(0, -8) }) : h)
   // caso especial agendamiento, para poner el teléfono al comienzo
-  if ([509, 557].includes(idEncuesta)) {
+  if ([509, 557, 577].includes(idEncuesta)) {
     return [...headersSinTags, ...tagsCalculados]
   }
   return [...tagsCalculados, ...headersSinTags]
