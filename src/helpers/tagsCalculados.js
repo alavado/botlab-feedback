@@ -70,8 +70,7 @@ export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
-      case 557: // agendamiento
-      case 577:
+      case 557: // agendamiento norden
         return [
           {
             texto: '¿Menor de edad?',
@@ -97,19 +96,66 @@ export const obtenerTagsCalculados = idEncuesta => {
             texto: 'Bloque agendado',
             tipo: 'INTERNAL',
             f: r => {
-              if (r[510].tag === actionSuccess) {
+              if (r[610]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_1,
                   texto: 'Bloque 1'
                 }
               }
-              if (r[520].tag === actionSuccess) {
+              if (r[620]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_2,
                   texto: 'Bloque 2'
                 }
               }
-              if (r[530].tag === actionSuccess) {
+              if (r[630]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3'
+                }
+              }
+            }
+          }
+        ]
+      case 577: // agendamiento everest
+        return [
+          {
+            texto: '¿Menor de edad?',
+            tipo: 'YESNO',
+            f: r => r[13]
+          },
+          {
+            texto: 'Mensaje Inicial',
+            tipo: 'OPEN',
+            f: r => r[0]
+          },
+          {
+            texto: 'Encontramos horas',
+            tipo: 'INTERNAL',
+            f: r => r[2]
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: r => r[3]
+          },
+          {
+            texto: 'Bloque agendado',
+            tipo: 'INTERNAL',
+            f: r => {
+              if (r[510]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_1,
+                  texto: 'Bloque 1'
+                }
+              }
+              if (r[520]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_2,
+                  texto: 'Bloque 2'
+                }
+              }
+              if (r[530]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_3,
                   texto: 'Bloque 3'
