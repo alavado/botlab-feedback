@@ -17,52 +17,8 @@ export const tieneAccesoAReportes = cuenta => {
 export const tieneAccesoAAlertas = cuenta => {
   const cuentasSinAlertas = [
 
-    // Centauro
-    'centauro_zona_c',
-    'centauro_zona_b',
-    'centauro_zona_a',
-    'centauro_sistemas',
-    'centauro_cat',
-    'centauro_c_san_angel',
-    'centauro_c_queretaro',
-    'centauro_c_puerta_la_victoria',
-    'centauro_c_parques_polanco',
-    'centauro_c_monterrey_cuauhtemoc',
-    'centauro_c_monterrey',
-    'centauro_c_gran_sur',
-    'centauro_b_zapopan',
-    'centauro_b_sentura',
-    'centauro_b_puebla',
-    'centauro_b_plaza_mexico',
-    'centauro_b_hermosillo',
-    'centauro_b_galerias',
-    'centauro_b_churubusco',
-    'centauro_a_toluca',
-    'centauro_a_tijuana',
-    'centauro_a_tecnoparque',
-    'centauro_a_santa_fe',
-    'centauro_a_lindavista',
-    'centauro_a_interlomas',
-    'centauro_a_del_valle',
-    'centauro',
-
-    // Bukal
-    'bukal',
-
-    //Tabilo, consulta del doctor
-    'tabilo',
-
-    // CORE, Centro Médico
-    'core',
-
     // Laboratorio Cánovas
     'canovas',
-
-    // Cath, Clínica 
-    'cath',
-
-    // Integral Linares, Clínica 
-    'integral_linares',
 
     // Dental Reagan 
     'dentalreagan',
@@ -73,14 +29,8 @@ export const tieneAccesoAAlertas = cuenta => {
     // Smile Kids Center
     'smilekidscenter',
 
-    // Orrego Luco, Clínica 
-    'orregoluco',
-
     // Smilers
     'smilers',
-
-    // San Bartolome
-    'sanbartolome',
 
     // COP
     'cop',
@@ -97,9 +47,6 @@ export const tieneAccesoAAlertas = cuenta => {
     // Smile Design Clinic
     'smiledesign',
 
-    // COEPEJ
-    'coepej',
-
     // Marchesani, Clínica 
     'marchesani',
 
@@ -107,9 +54,6 @@ export const tieneAccesoAAlertas = cuenta => {
     'alemana',
     'vguerra@alemana.cl',
     'krodriguez@alemana.cl',
-
-    // OAS, Odontología Avanzada Sonríe
-    'oas',
 
     // Cerro Grande, Clínica 
     'cerrogrande',

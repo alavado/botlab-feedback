@@ -149,7 +149,7 @@ const Alertas = () => {
   const seleccionAlerta = (
     <>
       <div className="Alertas__lateral">
-        {!modalAlertasDesactivado && nuevosUsuarios.includes(cuenta) &&
+        {!modalAlertasDesactivado && nuevosUsuarios.includes(cuenta.toLowerCase()) &&
           <button
             className="Alertas__boton_tutoriales"
             onClick={() => {
