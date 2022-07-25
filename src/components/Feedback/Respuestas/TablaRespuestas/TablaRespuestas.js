@@ -19,7 +19,7 @@ import { desactivaTooltip } from '../../../../redux/ducks/novedades'
 import useAnalytics from '../../../../hooks/useAnalytics'
 
 const respuestasPorPagina = 50
-const idsEncuestasAgendamiento = [557, 577]
+const idsEncuestasAgendamiento = [509, 557, 577]
 
 const TablaRespuestas = () => {
 
