@@ -35,8 +35,8 @@ const ContenidoChat = () => {
     const conversaciones = data.data.data.conversations
     const eventos = _.flatten(
       conversaciones.filter(c => Object.keys(c.context).length > 0).map(({ context, messages, start }) => {
-        const fecha = context.find(p => p.target.includes('date'))?.value
-        const hora = context.find(p => p.target.includes('time'))?.value
+        const fecha = context.find(p => p.target.includes('date') || p.target.includes('echa'))?.value
+        const hora = context.find(p => p.target.includes('time')?.value || p.target.includes('ora')?.value)
         const doctor = context.find(p => p.target.includes('dentist') || p.target.includes('doctor'))?.value
         const eventos = messages
           .map(m => ({
