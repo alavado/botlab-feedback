@@ -56,7 +56,7 @@ const AccionesChat = ({ telefono, link }) => {
   const enviarContacto = e => {
     e.preventDefault()
     track('Feedback', 'Chat', 'enviarContactoParaReporteDeProblema', { contacto })
-    agregarMensajeAHilo(ts, `Usuario deja contacto: *${contacto}*`)
+    agregarMensajeAHilo(ts, `Usuario deja contacto: *${contacto}*`, cuenta)
     setContactoEnviado(true)
     dispatch(guardaContacto(contacto))
   }
