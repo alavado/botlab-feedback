@@ -91,6 +91,7 @@ const AccionesChat = ({ telefono, link }) => {
                 className="AccionesChat__input_contacto"
                 value={contacto}
                 onChange={e => setContacto(e.target.value)}
+                onKeyUp={e => e.stopPropagation()}
                 required
               />
               <button
@@ -144,6 +145,7 @@ const AccionesChat = ({ telefono, link }) => {
               ref={refDescripcion}
               disabled={enviando}
               value={descripcion}
+              onKeyUp={e => e.stopPropagation()}
               onChange={e => setDescripcion(e.target.value)}
               className="AccionesChat__textarea"
               required={true}
