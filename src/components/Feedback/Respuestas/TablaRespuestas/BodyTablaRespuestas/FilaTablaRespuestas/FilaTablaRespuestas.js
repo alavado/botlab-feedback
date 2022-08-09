@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { formatDistanceToNow, parseISO } from 'date-fns'
+import { isToday, isTomorrow, isYesterday, parseISO, format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useDispatch, useSelector } from 'react-redux'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
@@ -34,6 +34,13 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
       }
     })
   }
+
+  let fechaAgregadaLegible = ''
+
+  if (ultimaReaccion) {
+    let fechaAgregada = parseISO(ultimaReaccion.created_at)
+    fechaAgregadaLegible = (isYesterday(fechaAgregada) ? 'ayer, ' : '') + (isToday(fechaAgregada) ? 'hoy, ' : '') + (isTomorrow(fechaAgregada) ? 'mañana, ' : '') + format(fechaAgregada, 'EEEE d \'de\' MMMM \'a las\' HH:mm', { locale: es })
+  }
   
   return (
     <tr
@@ -52,7 +59,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
                 className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario"
                 onMouseEnter={() => track('Feedback', 'Respuestas', 'verPopupComentario', { texto: ultimaReaccion.reaction_text, emoji: ultimaReaccion.reaction_emoji })}
               >
-                {ultimaReaccion.reaction_text} <span style={{ fontStyle: 'italic', opacity: .8, paddingLeft: '.2rem' }}>{formatDistanceToNow(parseISO(ultimaReaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}</span>
+                {ultimaReaccion.reaction_text} <span style={{ fontStyle: 'italic', opacity: .8, paddingLeft: '.2rem' }}>{fechaAgregadaLegible}</span>
               </span>
             )}
           </span>

@@ -1,5 +1,5 @@
 import { InlineIcon } from '@iconify/react'
-import { format, formatDistanceToNow, parseISO } from 'date-fns'
+import { format, isToday, isTomorrow, isYesterday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useParams } from 'react-router-dom'
 import { eliminarReaccion } from '../../../../../../api/endpoints'
@@ -27,7 +27,8 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
       .catch(() => setEliminando(false))
   }
 
-  const fechaAgregada = formatDistanceToNow(parseISO(reaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })
+  const fechaAgregada = parseISO(reaccion.created_at)
+  const fechaAgregadaLegible = (isYesterday(fechaAgregada) ? 'ayer, ' : '') + (isToday(fechaAgregada) ? 'hoy, ' : '') + (isTomorrow(fechaAgregada) ? 'mañana, ' : '') + format(fechaAgregada, 'EEEE d \'de\' MMMM \'a las\' HH:mm', { locale: es })
   const tooltipFechaAgregada = format(parseISO(reaccion.created_at), `iiii d 'de' MMMM 'de' yyyy 'a las' HH:mm`, { locale: es })
 
   return (
@@ -42,7 +43,7 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
         className="FilaReaccion__fecha_reaccion"
         title={tooltipFechaAgregada}
       >
-        {fechaAgregada}
+        {fechaAgregadaLegible}
       </div>
       <div className="FilaReaccion__acciones">
         <button
