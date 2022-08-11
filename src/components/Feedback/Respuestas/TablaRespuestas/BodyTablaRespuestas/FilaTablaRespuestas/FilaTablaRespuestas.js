@@ -1,8 +1,7 @@
 import classNames from 'classnames'
-import { isToday, isTomorrow, isYesterday, parseISO, format } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { parseISO } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
-import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
+import { formatearCampoRespuestas, formatearFecha } from '../../../../../../helpers/respuestas'
 import Scrambler from '../../../../../Scrambler'
 import { fijaFilaTablaDestacada } from '../../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../TagRespuesta'
@@ -38,8 +37,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
   let fechaAgregadaLegible = ''
 
   if (ultimaReaccion) {
-    let fechaAgregada = parseISO(ultimaReaccion.created_at)
-    fechaAgregadaLegible = (isYesterday(fechaAgregada) ? 'ayer, ' : '') + (isToday(fechaAgregada) ? 'hoy, ' : '') + (isTomorrow(fechaAgregada) ? 'mañana, ' : '') + format(fechaAgregada, 'EEEE d \'de\' MMMM \'a las\' HH:mm', { locale: es })
+    fechaAgregadaLegible = formatearFecha(parseISO(ultimaReaccion.created_at), true)
   }
   
   return (

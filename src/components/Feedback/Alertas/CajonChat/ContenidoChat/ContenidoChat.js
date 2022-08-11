@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { addMinutes, format, isFuture, isSameDay, isToday, isTomorrow, isYesterday, parse, parseISO, startOfDay } from 'date-fns'
+import { addMinutes, format, isFuture, isSameDay, parse, parseISO, startOfDay } from 'date-fns'
 import { useQuery } from 'react-query'
 import { chat2 } from '../../../../../api/endpoints'
 import Loader from '../../../../Loader'
@@ -13,6 +13,7 @@ import { obtenerEtiquetaAlerta } from '../../../../../helpers/alertas'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import MensajeChat from './MensajeChat'
 import { useParams } from 'react-router-dom'
+import { formatearFecha } from '../../../../../helpers/respuestas'
 
 const ContenidoChat = () => {
 
@@ -96,7 +97,7 @@ const ContenidoChat = () => {
           tipo: 'dia',
           fecha: startOfDay(e.fecha),
           formato: 'hh:m aaaa',
-          contenido: '📅 ' + (isYesterday(e.fecha) ? 'ayer, ' : '') + (isToday(e.fecha) ? 'hoy, ' : '') + (isTomorrow(e.fecha) ? 'mañana, ' : '') + format(e.fecha, 'EEEE d \'de\' MMMM', { locale: es })
+          contenido: '📅 ' + formatearFecha(e.fecha)
         })
       }
     })
