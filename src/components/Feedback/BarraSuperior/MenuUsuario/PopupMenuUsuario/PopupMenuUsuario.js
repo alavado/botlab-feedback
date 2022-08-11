@@ -7,7 +7,7 @@ import { limpiaEncuestas } from '../../../../../redux/ducks/encuestas'
 import { cambiaEsquemaColor, ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
 import { escondeDatosSensibles } from '../../../../../redux/ducks/scrambler'
 import { InlineIcon } from '@iconify/react'
-import { limpiaFiltros } from '../../../../../redux/ducks/respuestas'
+import { fijaFilaTablaDestacada, limpiaFiltros } from '../../../../../redux/ducks/respuestas'
 import { useHistory } from 'react-router-dom'
 import { createPortal } from 'react-dom'
 import { activaModal } from '../../../../../redux/ducks/novedades'
@@ -120,6 +120,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               track('Feedback', 'MenuUsuario', 'cerrarSesion')
               dispatch(limpiaEncuestas())
               dispatch(limpiaFiltros())
+              dispatch(fijaFilaTablaDestacada())
               dispatch(cierraLaSesion())
             }}
           >

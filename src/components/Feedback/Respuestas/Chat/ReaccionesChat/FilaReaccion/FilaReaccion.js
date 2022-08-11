@@ -1,6 +1,5 @@
 import { InlineIcon } from '@iconify/react'
-import { format, parseISO } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { parseISO } from 'date-fns'
 import { useParams } from 'react-router-dom'
 import { eliminarReaccion } from '../../../../../../api/endpoints'
 import './FilaReaccion.css'
@@ -29,7 +28,6 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
   }
 
   const fechaAgregadaLegible = formatearFecha(parseISO(reaccion.created_at), true)
-  const tooltipFechaAgregada = format(parseISO(reaccion.created_at), `iiii d 'de' MMMM 'de' yyyy 'a las' HH:mm`, { locale: es })
 
   return (
     <div className="FilaReaccion">
@@ -39,16 +37,13 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
       <div className="FilaReaccion__texto_reaccion">
         {reaccion.reaction_text || <p className="FilaReaccion__texto_reaccion_sin_comentario">Sin comentario</p>}
       </div>
-      <div
-        className="FilaReaccion__fecha_reaccion"
-        title={tooltipFechaAgregada}
-      >
+      <div className="FilaReaccion__fecha_reaccion">
         {fechaAgregadaLegible}
       </div>
       <div className="FilaReaccion__acciones">
         <button
           className="FilaReaccion__boton_eliminar"
-          title="Eliminar esta nota"
+          title="Eliminar este comentario"
           onClick={clickEnBorrar}
           disabled={eliminando}
         >
