@@ -22,7 +22,7 @@ const SelectorRangoFechas = () => {
   const { seleccionarRangoFechas } = useSelector(state => state.opciones)
   const [popupRangosComunesActivo, setPopupRangosComunesActivo] = useState(false)
   const [popupTipoSeleccionActivo, setPopupTipoSeleccionActivo] = useState(false)
-  const [fechaActual, setFechaActual] = useState('')
+  const [fechaActual, setFechaActual] = useState(Date.now())
   const esconderPopupRangosComunes = useCallback(() => setPopupRangosComunesActivo(false), [setPopupRangosComunesActivo])
   const esconderPopupTipoSeleccionActivo = useCallback(() => setPopupTipoSeleccionActivo(false), [setPopupTipoSeleccionActivo])
   const dispatch = useDispatch()

@@ -305,6 +305,7 @@ const sliceRespuestas = createSlice({
       if (Array.isArray(action.payload)) {
         const [respuesta, indice] = action.payload
         state.respuestaSeleccionada = respuesta
+        state.filaTablaDestacada += indice - state.filaTablaDestacada
         state.indiceRespuestaSeleccionada = indice
       }
       else {

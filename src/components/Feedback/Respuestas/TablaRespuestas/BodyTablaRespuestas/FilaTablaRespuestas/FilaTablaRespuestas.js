@@ -47,6 +47,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
         "FilaTablaRespuestas--destacada": indice === filaTablaDestacada
       })}
       onClick={clickEnFila}
+      title={indice === filaTablaDestacada ? 'Este fue el último chat que revisaste' : ''}
     >
       <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
         {ultimaReaccion && (
