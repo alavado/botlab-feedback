@@ -70,6 +70,13 @@ export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
+      case 492: // confirmación maitenes
+        return juntaTagsEquivalentes(1001, 1010, '¿Confirma?')
+      case 550: // confirmación hms
+        return juntaTagsEquivalentes(1001, 1010, '¿Confirma?')
+      case 244: // confirmación ayv
+      case 295: // confirmación ayv t-2
+        return juntaTagsEquivalentes(1001, 1010, '¿Confirma?')
       case 557: // agendamiento norden
         return [
           {
@@ -283,8 +290,6 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_SONRIE_ARICA):
       case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
       case Number(process.env.REACT_APP_ID_POLL_MEDISIS):
-      case Number(process.env.REACT_APP_ID_POLL_AYVDENTAL):
-      case Number(process.env.REACT_APP_ID_POLL_AYVDENTAL_2):
       case Number(process.env.REACT_APP_ID_POLL_DENTALONE):
       case Number(process.env.REACT_APP_ID_POLL_3DENTONCE16):
       case Number(process.env.REACT_APP_ID_POLL_NATURALDENT):
