@@ -1,3 +1,6 @@
+import { format, isToday, isTomorrow, isYesterday } from "date-fns"
+import { es } from "date-fns/locale"
+
 export const extraerTextoHeader = (header, respuesta) => {
   if (header.tipo === 'META') {
     return respuesta[header.nombre]
@@ -27,4 +30,12 @@ export const formatearCampoRespuestas = (texto, tipoCampo) => {
     return `${texto.slice(-100, -11)} ${texto.slice(-11, -10)} ${texto.slice(-10, -8)} ${texto.slice(-8, -4)} ${texto.slice(-4)}`
   }
   return texto
+}
+
+export const formatearFecha = (fecha, incluirHora = false) => {
+  const prefijo = (isYesterday(fecha) ? 'ayer, ' : '') + (isToday(fecha) ? 'hoy, ' : '') + (isTomorrow(fecha) ? 'mañana, ' : '')
+  const fechaFormateada = incluirHora
+    ? format(fecha, 'EEEE d \'de\' MMMM \'a las\' HH:mm', { locale: es })
+    : format(fecha, 'EEEE d \'de\' MMMM', { locale: es })
+  return prefijo  + fechaFormateada
 }

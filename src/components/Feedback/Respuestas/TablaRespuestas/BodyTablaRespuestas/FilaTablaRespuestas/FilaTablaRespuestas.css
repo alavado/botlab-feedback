@@ -6,7 +6,9 @@
 }
 
 .FilaTablaRespuestas--destacada {
-  background-color: var(--color-fila-destacada) !important;
+  background-color: var(--color-fila-muy-destacada) !important;
+  font-weight: bold;
+  box-shadow: 0 1px .25rem var(--color-sombras);
 }
 
 .FilaTablaRespuestas__celda--oculta {
@@ -18,7 +20,7 @@
 }
 
 .FilaTablaRespuestas:active {
-  background-color: var(--color-foco-fila) !important;
+  background-color: var(--color-fila-muy-destacada) !important;
 }
 
 .FilaTablaRespuestas:hover {

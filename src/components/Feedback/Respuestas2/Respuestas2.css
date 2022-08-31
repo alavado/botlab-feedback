@@ -11,7 +11,7 @@
   height: 2rem;
   display: flex;
   align-items: center;
-  background-color: var(--color-principal);
+  background-color: var(--color-principal-claro);
   color: var(--color-texto-claro);
   padding: 0 .5rem 0 .75rem;
   justify-content: space-between;

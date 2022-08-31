@@ -6,7 +6,13 @@ import { InlineIcon } from '@iconify/react'
 import ModalFiltros from '../ModalFiltros'
 import { destacaColumna, fijaColumna, yaNoDestaquesColumna } from '../../../../../redux/ducks/respuestas'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
-import useAnalytics from '../../../../../hooks/useAnalytics'
+
+const parchar = texto => {
+  if (texto.includes('_PAPERInsTypeDR')) {
+    return texto.replace('_PAPERInsTypeDR', 'Previsión')
+  }
+  return texto
+}
 
 const HeadTablaRespuestas = () => {
 
@@ -14,13 +20,11 @@ const HeadTablaRespuestas = () => {
   const [modalFiltroActivo, setModalFiltroActivo] = useState(false)
   const [indiceColumnaFiltrada, setIndiceColumnaFiltrada] = useState(0)
   const { columnaDestacada, ordenHeader, orden } = useSelector(state => state.respuestas)
-  const track = useAnalytics()
   const dispatch = useDispatch()
 
   const headersOrdenados = useMemo(() => obtenerHeaders(headers, idEncuesta) || [], [headers, idEncuesta])
 
   const mostrarModalFiltros = indiceColumna => {
-    track('Feedback', 'Respuestas', 'filtrarPorColumna', { idEncuesta, header: headersOrdenados[indiceColumna].nombre })
     setIndiceColumnaFiltrada(indiceColumna)
     setModalFiltroActivo(true)
     dispatch(fijaColumna(true))
@@ -52,7 +56,7 @@ const HeadTablaRespuestas = () => {
           >
             <span className="HeadTablaRespuestas__texto_header">
               <span>
-                {texto}
+                {parchar(texto)}
                 <span className="HeadTablaRespuestas__icono_orden">
                   {ordenHeader === nombre && <InlineIcon icon={orden === 'ASC' ? "mdi:arrow-up" : "mdi:arrow-down"} />}
                 </span>

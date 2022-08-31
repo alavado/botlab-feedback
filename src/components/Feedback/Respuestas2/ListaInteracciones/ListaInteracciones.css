@@ -25,19 +25,22 @@
 
 .ListaInteracciones__interaccion {
   display: grid;
-  grid-template-columns: 1.5rem 9.5rem 1.75rem 15rem 6rem 5rem 9rem 1fr;
-  font-size: .6rem;
+  grid-template-columns: 1.5rem 6rem 1.75rem 15rem 6rem 5rem 9rem 1fr;
+  font-size: .65rem;
   border-bottom: 1px solid var(--color-bordes);
   background-color: var(--color-fondo);
   position: relative;
   cursor: pointer;
-  transition: background-color .25s ease, box-shadow .25s ease;
+  transition: all .1s ease;
 }
 
 .ListaInteracciones__estado_interaccion {
   background-color: var(--color-si);
-  padding: .25rem .5rem;
+  padding: .4rem .65rem .4rem .5rem;
   border-radius: 9in;
+  font-size: .65rem;
+  font-weight: bold;
+  color: rgba(0, 0, 0, .75);
   display: flex;
   gap: .25rem;
 }
@@ -46,9 +49,13 @@
   background-color: var(--color-fila-destacada);
 }
 
+.ListaInteracciones__interaccion:not(.ListaInteracciones__interaccion--encabezados):not(.ListaInteracciones__interaccion--activa):active {
+  background-color: hsl(45, 80%, 98%);
+}
+
 .ListaInteracciones__interaccion > div {
   padding: 0 .5rem;
-  height: 2rem;
+  height: 2.25rem;
   display: flex;
   align-items: center;
   /* border-right: 1px solid var(--color-bordes); */
@@ -104,29 +111,12 @@
   animation: aparece-mensaje-sin-citas .25s ease both;
 }
 
-.ListaInteracciones__interaccion::after {
-  position: absolute;
-  content: '';
-  right: -3rem;
-  transition: all .35s ease;
-  width: 1rem;
-  height: 1rem;
-  background-color: var(--color-principal);
-  transform: rotateZ(45deg);
-  top: .5rem;
-}
-
 .ListaInteracciones__interaccion--activa {
   box-shadow: 0 0 .25rem var(--color-sombras);
   border-bottom: 1px solid var(--color-sombras);
   z-index: 2;
   font-weight: 700;
-  background: hsl(45, 80%, 98%);
-}
-
-.ListaInteracciones__interaccion--activa::after {
-  right: 28.75rem;
-  box-shadow: 0 0 .15rem var(--color-sombras);
+  background: hsl(45, 80%, 92%);
 }
 
 .ListaInteracciones__avatar {

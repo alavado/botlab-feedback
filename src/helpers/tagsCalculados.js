@@ -70,7 +70,14 @@ export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
-      case 557: // Norden agendamiento
+      case 492: // confirmación maitenes
+        return juntaTagsEquivalentes(1001, 1010, '¿Confirma?')
+      case 550: // confirmación hms
+        return juntaTagsEquivalentes(1001, 1010, '¿Confirma?')
+      case 244: // confirmación ayv
+      case 295: // confirmación ayv t-2
+        return juntaTagsEquivalentes(1001, 1010, '¿Confirma?')
+      case 557: // agendamiento norden
         return [
           {
             texto: '¿Menor de edad?',
@@ -96,19 +103,66 @@ export const obtenerTagsCalculados = idEncuesta => {
             texto: 'Bloque agendado',
             tipo: 'INTERNAL',
             f: r => {
-              if (r[510].tag === actionSuccess) {
+              if (r[610]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_1,
                   texto: 'Bloque 1'
                 }
               }
-              if (r[520].tag === actionSuccess) {
+              if (r[620]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_2,
                   texto: 'Bloque 2'
                 }
               }
-              if (r[530].tag === actionSuccess) {
+              if (r[630]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3'
+                }
+              }
+            }
+          }
+        ]
+      case 577: // agendamiento everest
+        return [
+          {
+            texto: '¿Menor de edad?',
+            tipo: 'YESNO',
+            f: r => r[13]
+          },
+          {
+            texto: 'Mensaje Inicial',
+            tipo: 'OPEN',
+            f: r => r[0]
+          },
+          {
+            texto: 'Encontramos horas',
+            tipo: 'INTERNAL',
+            f: r => r[2]
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: r => r[3]
+          },
+          {
+            texto: 'Bloque agendado',
+            tipo: 'INTERNAL',
+            f: r => {
+              if (r[510]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_1,
+                  texto: 'Bloque 1'
+                }
+              }
+              if (r[520]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_2,
+                  texto: 'Bloque 2'
+                }
+              }
+              if (r[530]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_3,
                   texto: 'Bloque 3'
@@ -214,7 +268,6 @@ export const obtenerTagsCalculados = idEncuesta => {
 
       case Number(process.env.REACT_APP_ID_POLL_OREMA):
       case Number(process.env.REACT_APP_ID_POLL_LAS_CRUCES):
-      case Number(process.env.REACT_APP_ID_POLL_OYEDENTAL):
       case Number(process.env.REACT_APP_ID_POLL_OYEDENTALVINA):
       case Number(process.env.REACT_APP_ID_POLL_ACHS):
         return juntarConfirmaYReagenda(0, 1)
@@ -237,13 +290,12 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_SONRIE_ARICA):
       case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
       case Number(process.env.REACT_APP_ID_POLL_MEDISIS):
-      case Number(process.env.REACT_APP_ID_POLL_AYVDENTAL):
-      case Number(process.env.REACT_APP_ID_POLL_AYVDENTAL_2):
       case Number(process.env.REACT_APP_ID_POLL_DENTALONE):
       case Number(process.env.REACT_APP_ID_POLL_3DENTONCE16):
       case Number(process.env.REACT_APP_ID_POLL_NATURALDENT):
       case Number(process.env.REACT_APP_ID_POLL_EZIOCHIAPPE):
       case Number(process.env.REACT_APP_ID_POLL_ALTOTOBALABA):
+      case Number(process.env.REACT_APP_ID_POLL_OYEDENTAL):
       case Number(process.env.REACT_APP_ID_POLL_SPORTS_MEDICINA_DEPORTIVA):
         return juntarConfirmaYReagenda(0, 4)
       
@@ -427,9 +479,8 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
     .filter(h => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
     .map(h => h.texto.includes(' Externo') ?  ({ ...h, texto: h.texto.slice(0, -8) }) : h)
   // caso especial agendamiento, para poner el teléfono al comienzo
-  if ([509, 557].includes(idEncuesta)) {
+  if ([509, 557, 577].includes(idEncuesta)) {
     return [...headersSinTags, ...tagsCalculados]
-
   }
   return [...tagsCalculados, ...headersSinTags]
 }

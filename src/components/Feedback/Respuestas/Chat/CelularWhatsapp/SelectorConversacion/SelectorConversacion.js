@@ -4,8 +4,11 @@ import classNames from 'classnames'
 import './SelectorConversacion.css'
 import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
+import useAnalytics from '../../../../../../hooks/useAnalytics'
 
 const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, seleccionarConversacion }) => {
+
+  const track = useAnalytics()
 
   useEffect(() => {
     const botonesSeleccion = document.getElementsByClassName('SelectorConversacion__boton')
@@ -30,7 +33,10 @@ const SelectorConversacion = ({ conversaciones, indiceConversacionSeleccionada, 
               'SelectorConversacion__boton--seleccionado': i === indiceConversacionSeleccionada
             })}
             style={{ background: diccionarioTags(primerTag).color }}
-            onClick={() => seleccionarConversacion(i)}
+            onClick={() => {
+              track('Feedback', 'Chat', 'verConversacionAnterior', { indice: i })
+              seleccionarConversacion(i)
+            }}
             data-title={format(parseISO(c.start), 'dd MMM yyyy', { locale: es })}
           >
           </button>

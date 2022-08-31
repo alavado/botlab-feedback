@@ -10,6 +10,8 @@ import { ESQUEMA_OSCURO } from '../../../../../redux/ducks/opciones'
 import { useMemo } from 'react'
 import TagRespuesta from '../TagRespuesta'
 import diccionarioTags from "../../../../../helpers/tags"
+import useAnalytics from '../../../../../hooks/useAnalytics'
+import _ from 'lodash'
 
 const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
 
@@ -23,6 +25,8 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   const filtro = indiceFiltro >= 0 && filtros[indiceFiltro]
   const container = i >= 0 && document.getElementsByClassName(containerClass)[i]
   const { left, top, width } = useMemo(() => (container && container.getBoundingClientRect()) || { left: 0, top: 0, width: 0 }, [container, i])
+  const track = useAnalytics()
+  const trackBusqueda = useRef(_.debounce(props => track('Feedback', 'Respuestas', 'filtrarPorColumnaSegunTexto', props), 2_000)).current
 
   useEffect(() => setAncho(document.getElementsByClassName('ModalFiltros')[0]?.clientWidth), [filtro])
   useEffect(() => {
@@ -33,7 +37,10 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   }, [filtro, activo])
   const anchoTotal = left + width + ancho
 
-  const ordenarRespuestas = () => dispatch(ordenaRespuestas({ header: header.nombre, idEncuesta: idEncuestaSeleccionada } ))
+  const ordenarRespuestas = () => {
+    track('Feedback', 'Respuestas', 'ordenarPorColumna', { header: header.nombre, idEncuesta: idEncuestaSeleccionada })
+    dispatch(ordenaRespuestas({ header: header.nombre, idEncuesta: idEncuestaSeleccionada } ))
+  }
 
   if (!header) {
     return null
@@ -93,15 +100,18 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                 >
                   <button
                     className="ModalFiltros__checkbox_nivel"
-                    onClick={() => dispatch(agregaFiltro({
-                      busqueda: categoria.esTag ? diccionarioTags(nivel).texto : nivel,
-                      nombreHeader: header.nombre,
-                      textoHeader: header.texto,
-                      idEncuesta: idEncuestaSeleccionada,
-                      opciones: {
-                        mismaColumna: true
-                      }
-                    }))}
+                    onClick={() => {
+                      track('Feedback', 'Respuestas', 'filtrarPorColumna', { header: header.nombre })
+                      dispatch(agregaFiltro({
+                        busqueda: categoria.esTag ? diccionarioTags(nivel).texto : nivel,
+                        nombreHeader: header.nombre,
+                        textoHeader: header.texto,
+                        idEncuesta: idEncuestaSeleccionada,
+                        opciones: {
+                          mismaColumna: true
+                        }
+                      }))
+                    }}
                   >
                     {categoria.esTag
                       ? <>
@@ -125,12 +135,15 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
             <input
               className="ModalFiltros__input_filtro"
               ref={filtroRef}
-              onChange={e => dispatch(agregaFiltro({
-                busqueda: e.target.value,
-                nombreHeader: header.nombre,
-                textoHeader: header.texto,
-                idEncuesta: idEncuestaSeleccionada
-              }))}
+              onChange={e => {
+                trackBusqueda({ header: header.nombre, busqueda: e.target.value })
+                dispatch(agregaFiltro({
+                  busqueda: e.target.value,
+                  nombreHeader: header.nombre,
+                  textoHeader: header.texto,
+                  idEncuesta: idEncuestaSeleccionada
+                }))
+              }}
               placeholder="Escribe para filtrar"
               onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === 'Escape') {
@@ -141,12 +154,15 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
           </button>
           <button
             className="ModalFiltros__boton_limpiar_filtro"
-            onClick={() => dispatch(agregaFiltro({
-              busqueda: '',
-              nombreHeader: header.nombre,
-              textoHeader: header.texto,
-              idEncuesta: idEncuestaSeleccionada
-            }))}
+            onClick={() => {
+              track('Feedback', 'Respuestas', 'limpiarFiltroPorTextoEnColumna', { header: header.nombre })
+              dispatch(agregaFiltro({
+                busqueda: '',
+                nombreHeader: header.nombre,
+                textoHeader: header.texto,
+                idEncuesta: idEncuestaSeleccionada
+              }))
+            }}
             title="Limpiar filtro"
           >
             <InlineIcon icon="mdi:close" />

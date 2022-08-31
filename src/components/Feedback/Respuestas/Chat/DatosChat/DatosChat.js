@@ -45,15 +45,17 @@ const DatosChat = ({ cargando, datos, telefono }) => {
   useEffect(() => {
     const teclasMagicas = e => {
       if (e.code === 'PageUp' || e.code === 'ArrowLeft') {
+        track('Feedback', 'Chat', 'anteriorConTeclado', { idEncuesta })
         irARespuestaAnterior()
       }
       else if (e.code === 'PageDown' || e.code === 'ArrowRight') {
+        track('Feedback', 'Chat', 'siguienteConTeclado', { idEncuesta })
         irASiguienteRespuesta()
       }
     }
     window.addEventListener('keyup', teclasMagicas)
     return () => window.removeEventListener('keyup', teclasMagicas)
-  }, [irARespuestaAnterior, irASiguienteRespuesta])
+  }, [irARespuestaAnterior, irASiguienteRespuesta, track])
 
   const mostrarModalConfiguracion = () => {
     track('Feedback', 'Chat', 'abrirConfiguracion')

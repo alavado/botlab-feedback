@@ -41,6 +41,7 @@ const ExportacionAvanzada = () => {
     setExportando(true)
     exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, extension)
       .then(() => {
+        track('Feedback', 'Reporte', 'exportar', { idEncuestaSeleccionada, inicio, termino, email, extension })
         setExportando(false)
         setModalVisible(true)
       })

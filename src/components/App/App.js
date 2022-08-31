@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import Feedback from '../Feedback'
@@ -27,10 +27,11 @@ const App = () => {
   useEffect(() => {
     window.addEventListener('focus', () => track('Feedback', 'Browser', 'focus'))
     window.addEventListener('blur', () => track('Feedback', 'Browser', 'blur'))
+    document.addEventListener('copy', () => track('Feedback', 'Browser', 'copy', { texto: document.getSelection().toString() }))
     if (window.performance.getEntriesByType('navigation').map((nav) => nav.type).includes('reload')) {
       track('Feedback', 'Browser', 'refresh')
     }
-  }, [])
+  }, [track])
 
   return (
     <div className={classNames({

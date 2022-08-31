@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { useServiciosQuery } from '../../../../api/hooks'
 import { RootState } from '../../../../redux/ducks'
-import { toggleCajonFiltros, seleccionaServicio } from '../../../../redux/ducks/servicio'
+import { seleccionaServicio } from '../../../../redux/ducks/servicio'
 import './TabsServicios.css'
 
 const TabsServicios = () => {
@@ -14,12 +14,16 @@ const TabsServicios = () => {
   
   return (
     <div className="TabsServicios">
-      <button
+      <button className="TabsServicios__tab">
+        <Icon icon="mdi:robot" />
+        Alertas
+      </button>
+      {/* <button
         className="TabsServicios__boton_menu"
         onClick={() => dispatch(toggleCajonFiltros())}
       >
         <Icon icon="mdi:menu" />
-      </button>
+      </button> */}
       {isLoading || !servicios
         ? <>
             <button

@@ -1,33 +1,28 @@
 import { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { alertas as alertasAPI } from '../../../../api/endpoints'
 import logoFeedback from '../../../../assets/images/logo_cuadrado_notificaciones.png'
 import { obtenerEtiquetaAlerta } from '../../../../helpers/alertas'
 import { mensajesAlertasVisibles } from '../../../../redux/ducks/alertas'
+import { useAlertasQuery } from '../../Alertas/Alertas'
 import './ConteoAlertas.css'
 
 const ConteoAlertas = ({ setFeliz }) => {
 
   const [conteoAlertas, setConteoAlertas] = useState(0)
-  const { recibirNotificaciones, verAlertas } = useSelector(state => state.alertas)
-  const { data: dataAlertas } = useQuery(
-    'alertas',
-    alertasAPI,
-    {
-      refetchInterval: 30_000,
-      refetchIntervalInBackground: 30_000,
-      refetchOnMount: true,
-      select: res => res.data.filter(a => verAlertas.includes(a.message)),
-    }
-  )
+  const { recibirNotificaciones, sucursalSeleccionada, verAlertas } = useSelector(state => state.alertas)
+  const { data } = useAlertasQuery()
   const history = useHistory()
 
   useEffect(() => {
-    if (!dataAlertas) {
+    if (!data) {
       return
     }
+    const dataAlertas = data
+      .map(tab => tab.alertas)
+      .flat()
+      .filter(a => !sucursalSeleccionada || a.sucursal === sucursalSeleccionada)
+      .filter(a => verAlertas.includes(a.message))
     setConteoAlertas(prev => {
       const alertas = dataAlertas?.filter(a => mensajesAlertasVisibles.indexOf(a.message) >= 0 && !a.dismissed) || []
       const nuevoConteo = alertas.length
@@ -51,7 +46,7 @@ const ConteoAlertas = ({ setFeliz }) => {
       setFeliz(alertas.length === 0)
       return nuevoConteo
     })
-  }, [dataAlertas, setFeliz, recibirNotificaciones, history])
+  }, [data, sucursalSeleccionada, setFeliz, recibirNotificaciones, history])
 
   useEffect(() => {
     if (recibirNotificaciones) {

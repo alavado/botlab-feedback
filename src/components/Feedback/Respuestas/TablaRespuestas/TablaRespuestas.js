@@ -19,6 +19,7 @@ import { desactivaTooltip } from '../../../../redux/ducks/novedades'
 import useAnalytics from '../../../../hooks/useAnalytics'
 
 const respuestasPorPagina = 50
+const idsEncuestasAgendamiento = [509, 557, 577]
 
 const TablaRespuestas = () => {
 
@@ -31,7 +32,7 @@ const TablaRespuestas = () => {
   const track = useAnalytics()
 
   const cargando = !respuestas || !headers
-  const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO')) && idEncuestaSeleccionada !== 557
+  const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO')) && !idsEncuestasAgendamiento.includes(idEncuestaSeleccionada)
 
   useEffect(() => {
     dispatch(fijaOpcionTableroVisible(false))

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Alertas.css'
 import { alertas as getAlertas } from '../../../api/endpoints'
 import { useQuery } from 'react-query'
 import classNames from 'classnames'
-import { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,14 +11,76 @@ import { mensajesAlertasVisibles, seleccionarSucursal } from '../../../redux/duc
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
-import { obtenerIconoAlerta, obtenerNombrePaciente } from '../../../helpers/alertas'
+import { obtenerIconoAlerta, obtenerNombrePacienteAlerta, obtenerSucursalAlerta } from '../../../helpers/alertas'
 import CheckboxesTiposAlertas from './CheckboxesTiposAlertas'
 import OpcionesAlertas from './OpcionesAlertas'
-import { Switch } from 'react-router-dom'
+import { Switch, useHistory } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import _ from 'lodash'
 import useAnalytics from '../../../hooks/useAnalytics'
+import { desactivaModalAlertas } from '../../../redux/ducks/novedades'
+
+let nuevosUsuarios = [
+  '2020',
+  'visum',
+  'leciel',
+  'adich',
+  'behappy',
+  'ctmelipilla',
+  'altotobalaba',
+  'medisis',
+  'facelab',
+  'sonrie_arica',
+  'centauro',
+  'bukal',
+  'tabilo',
+  'core',
+  'cath',
+  'integral_linares',
+  'orregoluco',
+  'sanbartolome',
+  'coepej',
+  'oas',
+  'ayvdental',
+  'ayvdental2',
+  'rao_admin',
+  'rao',
+  'dentalstudio',
+  '3dentonce16',
+  '3dent',
+  'alphasaludbiobio',
+  'cdcdental',
+  'eziochiappe',
+  'tobalaba',
+  'roadent',
+  'dentalspachile',
+  'oyedentalvina',
+  'altosdelvalle',
+  'basu',
+  'las_cruces',
+  'ortodoncia_chile',
+  'vitasalud_admin',
+  'vitasalud',
+  'kvera_vitasalud',
+  'norden',
+  'sanasalud_admin',
+  'sanasalud_callcenter',
+  'sanasalud_felipe',
+  'roberto.rosas',
+  'claudio.jorquera',
+  'ignacio.cordero',
+  'diego.moreira',
+  'sebastian.polanco',
+  'alfredo.sepulveda',
+  'jorge.molina',
+  'marcela.plaza',
+  'fabian.rojas',
+  'tomas.correa',
+  'daniel.verdugo',
+  'sanasalud_sebastian',
+]
+nuevosUsuarios = [...nuevosUsuarios, ...nuevosUsuarios.map(u => `${u}_cero`)]
 
 const tabsAlertas = [
   {
@@ -37,18 +99,14 @@ const tabsAlertas = [
   }
 ]
 
-const Alertas = () => {
-
-  const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
-  const { sucursalSeleccionada } = useSelector(state => state.alertas)
+export const useAlertasQuery = () => {
   const { verAlertas } = useSelector(state => state.alertas)
-  const dispatch = useDispatch()
-  const { id } = useParams()
-  const { isLoading: cargandoAlertas, data: dataAlertas } = useQuery(
+  return useQuery(
     'alertas',
     getAlertas,
     {
       refetchInterval: 30_000,
+      refetchIntervalInBackground: 30_000,
       refetchOnMount: true,
       select: res => {
         return tabsAlertas.map(t => {
@@ -56,10 +114,10 @@ const Alertas = () => {
             .filter(t.filtro)
             .map(a => ({
               ...a,
-              nombrePaciente: obtenerNombrePaciente(a),
+              nombrePaciente: obtenerNombrePacienteAlerta(a),
               icono: obtenerIconoAlerta(a.message),
               idPoll: a.poll_id,
-              sucursal: a.meta?.sucursal_name,
+              sucursal: obtenerSucursalAlerta(a),
               horaLegible: !isToday(parseISO(a.utc_timestamp))
                 ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
                 : format(addHours(parseISO(a.utc_timestamp), new Date().getTimezoneOffset() / -60), 'HH:mm', { locale: es }),
@@ -68,13 +126,25 @@ const Alertas = () => {
           return {
             ...t,
             alertas,
-            conteo: alertas.filter(a => verAlertas.includes(a.message)).length,
+            conteo: alertas.filter(a => verAlertas.includes(a.message)),
           }
         })
       }
     }
   )
+}
+
+const Alertas = () => {
+
+  const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
+  const { sucursalSeleccionada } = useSelector(state => state.alertas)
+  const { cuenta } = useSelector(state => state.login)
+  const { modalAlertasDesactivado } = useSelector(state => state.novedades)
+  const dispatch = useDispatch()
+  const { id } = useParams()
+  const { isLoading: cargandoAlertas, data: dataAlertas } = useAlertasQuery()
   const track = useAnalytics()
+  const history = useHistory()
 
   useEffect(() => {
     if (id && dataAlertas) {
@@ -97,8 +167,11 @@ const Alertas = () => {
       </div>
     )
   }
-
+  
   const sucursales = [...new Set(_.flatten(dataAlertas.map(t => (t.alertas.filter(a => a.sucursal).map(a => a.sucursal)))))]
+  if (!sucursales.find(s => s === sucursalSeleccionada)) {
+    dispatch(seleccionarSucursal(''))
+  }
 
   const alertasEncuestaSeleccionada = dataAlertas.map(t => {
     const alertasFiltradas = t.alertas
@@ -113,13 +186,42 @@ const Alertas = () => {
   const seleccionAlerta = (
     <>
       <div className="Alertas__lateral">
-        <h1 className="Alertas__titulo">Alertas</h1>
+        {!modalAlertasDesactivado && nuevosUsuarios.includes(cuenta.toLowerCase()) &&
+          <button
+            className="Alertas__boton_tutoriales"
+            onClick={() => {
+              track('Feedback', 'Alertas', 'verTutorial')
+              history.push('/tutoriales/alertas')
+            }}
+            title="Ver tutorial de alertas"
+          >
+            <button
+              onClick={e => {
+                dispatch(desactivaModalAlertas())
+                e.stopPropagation()
+              }}
+              title="Cerrar"
+              className="Alertas__boton_cierra_modal_tutoriales"
+            >
+              <Icon icon="mdi:close" />
+            </button>
+            <Icon icon="mdi:robot" />
+            <p style={{ fontWeight: 600 }}>¡Ahora tienes alertas activas!</p>
+            <p>Mira un videotutorial para aprender a usarlas</p>
+          </button>
+        }
+        <h1 className="Alertas__titulo">
+          Alertas
+        </h1>
         {sucursales.length > 1 && (
           <label>
             <p className="Alertas__label_sucursal">Sucursal</p>
             <select
               className="Alertas__selector_sucursal"
-              onChange={e => dispatch(seleccionarSucursal(e.target.value))}
+              onChange={e => {
+                track('Feedback', 'Alertas', 'seleccionarSucursal', { sucursal: e.target.value })
+                dispatch(seleccionarSucursal(e.target.value))
+              }}
               value={sucursalSeleccionada}
             >
               <option value=''>

@@ -1,6 +1,5 @@
 import { InlineIcon } from '@iconify/react'
-import { format, formatDistanceToNow, parseISO } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { parseISO } from 'date-fns'
 import { useParams } from 'react-router-dom'
 import { eliminarReaccion } from '../../../../../../api/endpoints'
 import './FilaReaccion.css'
@@ -8,6 +7,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { eliminaReaccionDeRespuesta } from '../../../../../../redux/ducks/respuestas'
 import useAnalytics from '../../../../../../hooks/useAnalytics'
+import { formatearFecha } from '../../../../../../helpers/respuestas'
 
 const FilaReaccion = ({ reaccion, refrescar }) => {
 
@@ -27,8 +27,7 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
       .catch(() => setEliminando(false))
   }
 
-  const fechaAgregada = formatDistanceToNow(parseISO(reaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })
-  const tooltipFechaAgregada = format(parseISO(reaccion.created_at), `iiii d 'de' MMMM 'de' yyyy 'a las' HH:mm`, { locale: es })
+  const fechaAgregadaLegible = formatearFecha(parseISO(reaccion.created_at), true)
 
   return (
     <div className="FilaReaccion">
@@ -38,16 +37,13 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
       <div className="FilaReaccion__texto_reaccion">
         {reaccion.reaction_text || <p className="FilaReaccion__texto_reaccion_sin_comentario">Sin comentario</p>}
       </div>
-      <div
-        className="FilaReaccion__fecha_reaccion"
-        title={tooltipFechaAgregada}
-      >
-        {fechaAgregada}
+      <div className="FilaReaccion__fecha_reaccion">
+        {fechaAgregadaLegible}
       </div>
       <div className="FilaReaccion__acciones">
         <button
           className="FilaReaccion__boton_eliminar"
-          title="Eliminar esta nota"
+          title="Eliminar este comentario"
           onClick={clickEnBorrar}
           disabled={eliminando}
         >

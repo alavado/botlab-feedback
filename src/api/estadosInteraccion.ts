@@ -2,15 +2,8 @@ import { EstadoInteraccion } from "./types/servicio"
 
 export const estadosInteracciones: EstadoInteraccion[] = [
   {
-    id: 'CUALQUIERA',
-    descripcion: 'Todas',
-    icono: 'mdi:home',
-    explicacion: 'Todas las interacciones',
-    color: '#eee',
-  },
-  {
     id: 'PENDIENTE',
-    descripcion: 'Esperando respuesta',
+    descripcion: 'Pendiente',
     icono: 'mdi:timer-sand',
     explicacion: 'Bot todavía no recibe respuesta',
     color: '#eee',
@@ -32,7 +25,7 @@ export const estadosInteracciones: EstadoInteraccion[] = [
   {
     id: 'REAGENDADA',
     descripcion: 'Reagenda',
-    icono: 'mdi:autorenew',
+    icono: 'mdi:arrow-right',
     explicacion: 'La cita ha sido reagendada',
     color: 'var(--color-reagenda)',
   },

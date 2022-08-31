@@ -71,7 +71,12 @@ export const reportarASlack = async (usuario, cuenta, nombreEncuestaSeleccionada
 
   const fieldsPostData = new FormData()
   fieldsPostData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
-  fieldsPostData.append('channel', process.env.REACT_APP_SLACK_CHANNEL_ID)
+  fieldsPostData.append(
+    'channel',
+    (cuenta.endsWith('cero') || cuenta.endsWith('botlab'))
+      ? process.env.REACT_APP_SLACK_INTERNAL_CHANNEL_ID
+      : process.env.REACT_APP_SLACK_CHANNEL_ID
+  )
   fieldsPostData.append('text', data.text)
   fieldsPostData.append('unfurl_links', false)
   fieldsPostData.append('blocks', JSON.stringify(data.blocks))
@@ -83,7 +88,12 @@ export const reportarASlack = async (usuario, cuenta, nombreEncuestaSeleccionada
   const fieldsTimestamp = fieldsData.data.message.ts
   const formData = new FormData()
   formData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
-  formData.append('channels', process.env.REACT_APP_SLACK_CHANNEL_ID)
+  formData.append(
+    'channels',
+    (cuenta.endsWith('cero') || cuenta.endsWith('botlab'))
+      ? process.env.REACT_APP_SLACK_INTERNAL_CHANNEL_ID
+      : process.env.REACT_APP_SLACK_CHANNEL_ID
+  )
   formData.append('file', blobFB)
   formData.append('thread_ts', fieldsTimestamp)
   await axios({
@@ -102,10 +112,15 @@ export const reportarASlack = async (usuario, cuenta, nombreEncuestaSeleccionada
   return fieldsTimestamp
 }
 
-export const agregarMensajeAHilo = async (ts, texto) => {
+export const agregarMensajeAHilo = async (ts, texto, cuenta) => {
   const formData = new FormData()
   formData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
-  formData.append('channel', process.env.REACT_APP_SLACK_CHANNEL_ID)
+  formData.append(
+    'channel',
+    (cuenta.endsWith('cero') || cuenta.endsWith('botlab'))
+      ? process.env.REACT_APP_SLACK_INTERNAL_CHANNEL_ID
+      : process.env.REACT_APP_SLACK_CHANNEL_ID
+  )
   formData.append('text', texto)
   formData.append('unfurl_links', false)
   formData.append('thread_ts', ts)

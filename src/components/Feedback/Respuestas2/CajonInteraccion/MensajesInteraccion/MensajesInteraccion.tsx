@@ -70,10 +70,14 @@ const MensajesInteraccion = () => {
 
   const { data: dataInteraccionActiva } = useInteraccionActivaQuery()
   const [autoScroll, setAutoScroll] = useState(true)
-  const { isLoading } = useComentariosInteraccionActivaQuery()
+  const { isLoading: cargandoComentarios } = useComentariosInteraccionActivaQuery()
 
   useEffect(() => {
-    if (isLoading || !autoScroll) {
+    setAutoScroll(true)
+  }, [dataInteraccionActiva?.idUsuario])
+
+  useEffect(() => {
+    if (cargandoComentarios || !autoScroll) {
       return
     }
     const fechas = document.querySelectorAll('.MensajesInteraccion__dia_mensajes')
@@ -82,13 +86,9 @@ const MensajesInteraccion = () => {
       document.querySelector('.MensajesInteraccion')?.scrollBy({ top: -8 })
       setAutoScroll(false)
     }
-  }, [dataInteraccionActiva, isLoading, autoScroll])
+  }, [dataInteraccionActiva, cargandoComentarios, autoScroll])
 
-  useEffect(() => {
-    setAutoScroll(true)
-  }, [dataInteraccionActiva?.idUsuario])
-
-  if (!dataInteraccionActiva?.conversaciones || isLoading) {
+  if (!dataInteraccionActiva?.conversaciones || cargandoComentarios) {
     return <div className="MensajesInteraccion__skeleton" />
   }
 

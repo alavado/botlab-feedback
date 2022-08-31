@@ -7,6 +7,7 @@
 	--color-bordes: #E2E8F0;
 	--color-gris: #718096;
 	--color-fila-destacada: #F7FAFC;
+	--color-fila-muy-destacada: hsl(22, 73%, 97%);
   --color-foco-fila: #E2E8F0;
 
 	--color-si: #cbf4c9;
@@ -60,6 +61,7 @@
 	--color-bordes: #2D3748;
   --color-texto-claro: #E2E8F0;
 	--color-fila-destacada: #0f1016;
+	--color-fila-muy-destacada: #262938;
   --color-foco-fila: #000000;
 
 	--color-principal: #553C9A;

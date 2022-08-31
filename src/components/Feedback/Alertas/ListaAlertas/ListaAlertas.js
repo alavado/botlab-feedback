@@ -85,7 +85,7 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
               <div className="ListaAlertas__mensaje">
                 <p>{obtenerEtiquetaAlerta(alerta.message)}</p>
                 <p className="ListaAlertas__subtitulo">
-                  <Scrambler tipo="nombre">{alerta.nombrePaciente}</Scrambler> {mostrarSucursal && <span> • {alerta.sucursal}</span>}
+                  <Scrambler tipo="nombre">{alerta.nombrePaciente}</Scrambler> {mostrarSucursal && alerta.sucursal && <span> • {alerta.sucursal}</span>}
                 </p>
               </div>
               {alerta.id === Number(id) &&

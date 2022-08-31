@@ -1,8 +1,7 @@
 import classNames from 'classnames'
-import { formatDistanceToNow, parseISO } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { parseISO } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
-import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
+import { formatearCampoRespuestas, formatearFecha } from '../../../../../../helpers/respuestas'
 import Scrambler from '../../../../../Scrambler'
 import { fijaFilaTablaDestacada } from '../../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../TagRespuesta'
@@ -34,6 +33,12 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
       }
     })
   }
+
+  let fechaAgregadaLegible = ''
+
+  if (ultimaReaccion) {
+    fechaAgregadaLegible = formatearFecha(parseISO(ultimaReaccion.created_at), true)
+  }
   
   return (
     <tr
@@ -42,6 +47,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
         "FilaTablaRespuestas--destacada": indice === filaTablaDestacada
       })}
       onClick={clickEnFila}
+      title={indice === filaTablaDestacada ? 'Este fue el último chat que revisaste' : ''}
     >
       <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
         {ultimaReaccion && (
@@ -52,7 +58,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
                 className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario"
                 onMouseEnter={() => track('Feedback', 'Respuestas', 'verPopupComentario', { texto: ultimaReaccion.reaction_text, emoji: ultimaReaccion.reaction_emoji })}
               >
-                {ultimaReaccion.reaction_text} <span style={{ fontStyle: 'italic', opacity: .8, paddingLeft: '.2rem' }}>{formatDistanceToNow(parseISO(ultimaReaccion.created_at), { locale: es, addSuffix: true, includeSeconds: false })}</span>
+                {ultimaReaccion.reaction_text} <span style={{ fontStyle: 'italic', opacity: .8, paddingLeft: '.2rem' }}>{fechaAgregadaLegible}</span>
               </span>
             )}
           </span>

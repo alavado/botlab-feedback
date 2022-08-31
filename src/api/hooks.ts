@@ -269,7 +269,7 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
       enabled: !!idServicioActivo,
       select: interacciones => estadosInteracciones.map(estado => {
         const interaccionesEstado = interacciones
-          .filter(d => estado.id === 'CUALQUIERA' || d.estadoInteraccion.id === estado.id)
+          .filter(d => d.estadoInteraccion.id === estado.id)
           .filter(interaccion => !nombreSucursalActiva || nombreSucursalActiva === interaccion.sucursal)
         const interaccionesConComentarios = interaccionesEstado.filter(i => i.comentarios.length > 0)
         return {
