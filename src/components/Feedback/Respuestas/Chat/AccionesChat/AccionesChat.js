@@ -164,6 +164,7 @@ const AccionesChat = ({ telefono, link }) => {
                 : <>Reportar problema a <img className="AccionesChat__logo_cero" src={logoCero} alt="logo Cero" /></>
               }
             </button>
+            {error && <p>{error}</p>}
           </form>
         : 
         <>
@@ -196,7 +197,6 @@ const AccionesChat = ({ telefono, link }) => {
             <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon="mdi:report" />
             Reportar problema
           </button>
-          {error && <p>{error}</p>}
         </>
       }
     </div>
