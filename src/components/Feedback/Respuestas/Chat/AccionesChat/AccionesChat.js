@@ -22,6 +22,7 @@ const AccionesChat = ({ telefono, link }) => {
   const [descripcion, setDescripcion] = useState('')
   const [enviado, setEnviado] = useState(false)
   const [enviando, setEnviando] = useState(false)
+  const [error, setError] = useState()
   const [ts, setTs] = useState(0)
   const { contacto: contactoGuardado } = useSelector(state => state.opciones)
   const [contacto, setContacto] = useState(contactoGuardado || '')
@@ -40,6 +41,7 @@ const AccionesChat = ({ telefono, link }) => {
     e.preventDefault()
     track('Feedback', 'Chat', 'enviarReporteDeProblema', { nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion })
     setEnviando(true)
+    setError()
     try {
       const res = await reportarASlack(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
       setTs(res)
@@ -49,6 +51,7 @@ const AccionesChat = ({ telefono, link }) => {
     catch (e) {
       setEnviado(false)
       setEnviando(false)
+      setError(e)
     }
   }
 
@@ -193,6 +196,7 @@ const AccionesChat = ({ telefono, link }) => {
             <InlineIcon style={{ fontSize: '.8rem' }} className="AccionesChat__icono_boton" icon="mdi:report" />
             Reportar problema
           </button>
+          {error && <p>{error}</p>}
         </>
       }
     </div>
