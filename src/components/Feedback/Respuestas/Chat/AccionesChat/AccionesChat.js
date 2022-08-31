@@ -5,7 +5,6 @@ import { agregarMensajeAHilo, reportarASlack } from '../../../../../helpers/slac
 import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
 import { guardaContacto } from '../../../../../redux/ducks/opciones'
-import { agregarIssueADBNotion } from '../../../../../api/notion'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const obtenerSonrisa = () => {
@@ -41,15 +40,15 @@ const AccionesChat = ({ telefono, link }) => {
     e.preventDefault()
     setEnviando(true)
     try {
-      await agregarIssueADBNotion(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
+      const res = await reportarASlack(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
+      setTs(res)
+      setEnviado(true)
+      setEnviando(false)
     }
-    catch (err) {
-      console.error('Notion todavía no soporta CORS')
+    catch (e) {
+      setEnviado(false)
+      setEnviando(false)
     }
-    const res = await reportarASlack(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
-    setTs(res)
-    setEnviado(true)
-    setEnviando(false)
   }
 
   const enviarContacto = e => {
