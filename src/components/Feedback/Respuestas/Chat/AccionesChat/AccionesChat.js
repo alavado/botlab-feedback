@@ -48,10 +48,10 @@ const AccionesChat = ({ telefono, link }) => {
       setEnviado(true)
       setEnviando(false)
     }
-    catch (e) {
+    catch (err) {
       setEnviado(false)
       setEnviando(false)
-      setError(e)
+      setError(err.message)
     }
   }
 
