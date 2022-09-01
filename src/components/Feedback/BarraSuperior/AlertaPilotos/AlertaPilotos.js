@@ -11,6 +11,10 @@ const usuariosPiloto = [
   //   nombre: 'BiobioSalud',
   //   exp: '2022-07-26 00:00:00'
   // },
+  {
+    nombre: 'CAMMYN',
+    exp: '2022-09-16 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
