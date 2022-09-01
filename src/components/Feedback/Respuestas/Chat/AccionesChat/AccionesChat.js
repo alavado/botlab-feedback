@@ -5,7 +5,6 @@ import { agregarMensajeAHilo, reportarASlack } from '../../../../../helpers/slac
 import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
 import { guardaContacto } from '../../../../../redux/ducks/opciones'
-import { agregarIssueADBNotion } from '../../../../../api/notion'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const obtenerSonrisa = () => {
@@ -23,6 +22,7 @@ const AccionesChat = ({ telefono, link }) => {
   const [descripcion, setDescripcion] = useState('')
   const [enviado, setEnviado] = useState(false)
   const [enviando, setEnviando] = useState(false)
+  const [error, setError] = useState()
   const [ts, setTs] = useState(0)
   const { contacto: contactoGuardado } = useSelector(state => state.opciones)
   const [contacto, setContacto] = useState(contactoGuardado || '')
@@ -41,16 +41,18 @@ const AccionesChat = ({ telefono, link }) => {
     e.preventDefault()
     track('Feedback', 'Chat', 'enviarReporteDeProblema', { nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion })
     setEnviando(true)
+    setError()
     try {
-      await agregarIssueADBNotion(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
+      const res = await reportarASlack(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
+      setTs(res)
+      setEnviado(true)
+      setEnviando(false)
     }
     catch (err) {
-      console.error('Notion todavía no soporta CORS')
+      setEnviado(false)
+      setEnviando(false)
+      setError(err.message)
     }
-    const res = await reportarASlack(nombreUsuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion)
-    setTs(res)
-    setEnviado(true)
-    setEnviando(false)
   }
 
   const enviarContacto = e => {
@@ -162,6 +164,7 @@ const AccionesChat = ({ telefono, link }) => {
                 : <>Reportar problema a <img className="AccionesChat__logo_cero" src={logoCero} alt="logo Cero" /></>
               }
             </button>
+            {error && <p>{error}</p>}
           </form>
         : 
         <>
