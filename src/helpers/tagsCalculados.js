@@ -71,12 +71,12 @@ export const obtenerTagsCalculados = idEncuesta => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
       case 492: // confirmación maitenes
-        return juntaTagsEquivalentes(1001, 1010, '¿Confirma?')
+        return juntaTagsEquivalentes(1000, 1010, '¿Confirma?')
       case 550: // confirmación hms
-        return juntaTagsEquivalentes(1001, 1010, '¿Confirma?')
+        return juntaTagsEquivalentes(1000, 1010, '¿Confirma?')
       case 244: // confirmación ayv
       case 295: // confirmación ayv t-2
-        return juntaTagsEquivalentes(1001, 1010, '¿Confirma?')
+        return juntaTagsEquivalentes(1000, 1010, '¿Confirma?')
       case 557: // agendamiento norden
         return [
           {
