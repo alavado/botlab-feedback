@@ -362,7 +362,7 @@ const MensajeConAdjunto = ({ mensaje }) => {
 const Hora = ({ hora, esDeHumano, escondida }) => {
 
   const [horas, minutos] = hora.split(':')
-  const horasMenos = ((new Date().getTimezoneOffset() - 240) / 60)
+  const horasMenos = Number(process.env.REACT_APP_UTC_OFFSET) + new Date().getTimezoneOffset() / 60
   const horaAjustada = `${horas - horasMenos}:${minutos}`
 
   return (
