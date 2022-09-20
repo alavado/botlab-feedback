@@ -70,6 +70,29 @@ export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
+      case 167: // confirmación norden
+        return [
+          ...juntaTagsEquivalentes(0, 1001, '¿Confirma?'),
+          {
+            texto: '¿Reagenda?',
+            tipo: 'REAGENDA',
+            f: r => r[104]
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: r => r[6]
+          },
+        ]
+      case 578: // confirmación imagen salud
+        return [
+          ...juntaTagsEquivalentes(0, 1001, '¿Confirma?'),
+          {
+            texto: '¿Reagenda?',
+            tipo: 'REAGENDA',
+            f: r => r[104]
+          },
+        ]
       case 492: // confirmación maitenes
         return juntaTagsEquivalentes(1000, 1010, '¿Confirma?')
       case 550: // confirmación hms
