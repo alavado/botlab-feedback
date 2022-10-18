@@ -20,7 +20,7 @@ if (cuenta) {
 function useAnalytics() {
   const { nombreUsuario: cliente, cuenta } = useSelector(state => state.login)
   return useCallback((app, seccion, evento, parametros = {}) => {
-    if (cuenta.endsWith('cero') || cuenta.endsWith('botlab')) {
+    if (!cuenta || cuenta.endsWith('cero') || cuenta.endsWith('botlab')) {
       return
     }
     analytics.track(
