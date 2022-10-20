@@ -10,6 +10,7 @@ export const tieneAccesoAReportes = cuenta => {
     'centauro_cat',
     'centauro_sistemas',
     'centraldental',
+    'centauro',
     'centraldental_cero',
   ].includes(cuenta)
 }
