@@ -134,6 +134,12 @@ const DatosChat = ({ cargando, datos, telefono }) => {
                   <InlineIcon icon="mdi:whatsapp" />
                 </a>
               </div>
+              <button
+                className="DatosChat__boton_copiar"
+                onClick={() => navigator.clipboard.writeText(telefono)}
+              >
+                <Icon icon="mdi:content-copy" /> Copiar
+              </button>
             </div>
             {datos.map(({ value: nombre, title: texto, target }, i) => (
               <div
@@ -146,6 +152,12 @@ const DatosChat = ({ cargando, datos, telefono }) => {
                 <div className="DatosChat__valor_header">
                   <Scrambler propagar={true} tipo={target}>{nombre}</Scrambler>
                 </div>
+                <button
+                  className="DatosChat__boton_copiar"
+                  onClick={() => navigator.clipboard.writeText(nombre)}
+                >
+                  <Icon icon="mdi:content-copy" /> Copiar
+                </button>
               </div>
             ))}
           </div>

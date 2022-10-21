@@ -7,6 +7,7 @@ import './DatosPacienteCajon.css'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import { useParams } from 'react-router-dom'
 import { obtenerNombrePaciente, obtenerNombrePacienteAlerta } from '../../../../../helpers/alertas'
+import { Icon } from '@iconify/react'
 
 const DatosPacienteCajon = () => {
 
@@ -45,9 +46,21 @@ const DatosPacienteCajon = () => {
       </div>
       <div className="DatosPacienteCajon__nombre">
         <Scrambler tipo="name" propagar={true}>{nombrePaciente}</Scrambler>
+        <button
+          className="DatosPacienteCajon__boton_copiar"
+          onClick={() => navigator.clipboard.writeText(nombrePaciente)}
+        >
+          <Icon icon="mdi:content-copy" /> Copiar
+        </button>
       </div>
       <div className="DatosPacienteCajon__telefono">
         <Scrambler tipo="phone">{telefonoPaciente}</Scrambler>
+        <button
+          className="DatosPacienteCajon__boton_copiar"
+          onClick={() => navigator.clipboard.writeText(data.data.data.user.phone)}
+        >
+          <Icon icon="mdi:content-copy" /> Copiar
+        </button>
       </div>
     </div>
   )

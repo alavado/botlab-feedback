@@ -113,6 +113,7 @@
   line-height: 1.15;
   border-bottom: 1px solid var(--color-bordes);
   align-items: center;
+  position: relative;
   animation: aparece-contenedor-datos .25s ease both;
 }
 
@@ -135,6 +136,39 @@
   color: var(--color-whatsapp);
   margin-left: .35rem;
   font-size: .8rem;
+}
+
+.DatosChat__valor_header {
+  display: flex;
+}
+
+.DatosChat__contenedor_header:hover .DatosChat__boton_copiar {
+  opacity: 1;
+}
+
+.DatosChat__boton_copiar {
+  cursor: pointer;
+  border: none;
+  background: none;
+  position: absolute;
+  right: .25rem;
+  display: flex;
+  opacity: 0;
+  align-items: center;
+  gap: .25rem;
+  color: var(--color-principal);
+  background-color: var(--color-fila-destacada);
+  box-shadow: 0 .05rem .1rem var(--color-sombras);
+  padding: .25rem;
+  border-radius: .25rem;
+}
+
+.DatosChat__boton_copiar:hover {
+  background-color: var(--color-fila-muy-destacada);
+}
+
+.DatosChat__boton_copiar:active {
+  opacity: .8 !important;
 }
 
 @keyframes aparece-contenedor-datos {

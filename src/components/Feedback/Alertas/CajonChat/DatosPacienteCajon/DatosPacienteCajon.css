@@ -21,8 +21,45 @@
 .DatosPacienteCajon__nombre {
   place-self: end start;
   font-size: .75rem;
+  position: relative;
+  padding-right: .25rem;
 }
 
 .DatosPacienteCajon__telefono {
   font-size: .65rem;
+  position: relative;
+  place-self: center start;
+  padding-right: .25rem;
+}
+
+.DatosPacienteCajon__telefono:hover .DatosPacienteCajon__boton_copiar,
+.DatosPacienteCajon__nombre:hover .DatosPacienteCajon__boton_copiar {
+  opacity: 1;
+}
+
+.DatosPacienteCajon__boton_copiar {
+  cursor: pointer;
+  border: none;
+  background: none;
+  position: absolute;
+  top: -.25rem;
+  left: 100%;
+  display: flex;
+  opacity: 0;
+  align-items: center;
+  gap: .25rem;
+  color: var(--color-principal);
+  background-color: var(--color-fila-destacada);
+  box-shadow: 0 .05rem .1rem var(--color-sombras);
+  padding: .25rem;
+  border-radius: .25rem;
+  z-index: 2;
+}
+
+.DatosPacienteCajon__boton_copiar:hover {
+  background-color: var(--color-fila-muy-destacada);
+}
+
+.DatosPacienteCajon__boton_copiar:active {
+  opacity: .8 !important;
 }
