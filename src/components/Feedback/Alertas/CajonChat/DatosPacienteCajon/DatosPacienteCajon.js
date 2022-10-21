@@ -6,12 +6,14 @@ import { alertas as getAlertas } from '../../../../../api/endpoints'
 import './DatosPacienteCajon.css'
 import Scrambler from '../../../../Scrambler/Scrambler'
 import { useParams } from 'react-router-dom'
-import { obtenerNombrePaciente, obtenerNombrePacienteAlerta } from '../../../../../helpers/alertas'
+import {  obtenerNombrePacienteAlerta } from '../../../../../helpers/alertas'
 import { Icon } from '@iconify/react'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const DatosPacienteCajon = () => {
 
   const { id } = useParams()
+  const track = useAnalytics()
   const { data: dataAlertas, isLoading: loadingAlertas } = useQuery('alertas', getAlertas)
   const alertaDestacada = dataAlertas.data.find(a => a.id === Number(id))
   const { isLoading, data } = useQuery(
@@ -48,7 +50,10 @@ const DatosPacienteCajon = () => {
         <Scrambler tipo="name" propagar={true}>{nombrePaciente}</Scrambler>
         <button
           className="DatosPacienteCajon__boton_copiar"
-          onClick={() => navigator.clipboard.writeText(nombrePaciente)}
+          onClick={() => {
+            track('Feedback', 'Chat', 'copia', { campo: 'nombre', valor: nombrePaciente })
+            navigator.clipboard.writeText(nombrePaciente)
+          }}
         >
           <Icon icon="mdi:content-copy" /> Copiar
         </button>
@@ -57,7 +62,10 @@ const DatosPacienteCajon = () => {
         <Scrambler tipo="phone">{telefonoPaciente}</Scrambler>
         <button
           className="DatosPacienteCajon__boton_copiar"
-          onClick={() => navigator.clipboard.writeText(data.data.data.user.phone)}
+          onClick={() => {
+            track('Feedback', 'Chat', 'copia', { campo: 'teléfono', valor: data.data.data.user.phone })
+            navigator.clipboard.writeText(data.data.data.user.phone)
+          }}
         >
           <Icon icon="mdi:content-copy" /> Copiar
         </button>

@@ -136,7 +136,10 @@ const DatosChat = ({ cargando, datos, telefono }) => {
               </div>
               <button
                 className="DatosChat__boton_copiar"
-                onClick={() => navigator.clipboard.writeText(telefono)}
+                onClick={() => {  
+                  track('Feedback', 'Chat', 'copia', { campo: 'teléfono', valor: telefono })
+                  navigator.clipboard.writeText(telefono)
+                }}
               >
                 <Icon icon="mdi:content-copy" /> Copiar
               </button>
@@ -154,7 +157,10 @@ const DatosChat = ({ cargando, datos, telefono }) => {
                 </div>
                 <button
                   className="DatosChat__boton_copiar"
-                  onClick={() => navigator.clipboard.writeText(nombre)}
+                  onClick={() => {
+                    track('Feedback', 'Chat', 'copia', { campo: texto, valor: nombre })
+                    navigator.clipboard.writeText(nombre)
+                  }}
                 >
                   <Icon icon="mdi:content-copy" /> Copiar
                 </button>
