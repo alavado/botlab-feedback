@@ -164,7 +164,7 @@
 }
 
 .DatosChat__boton_copiar:hover {
-  background-color: var(--color-fila-muy-destacada);
+  filter: brightness(105%);
 }
 
 .DatosChat__boton_copiar:active {
