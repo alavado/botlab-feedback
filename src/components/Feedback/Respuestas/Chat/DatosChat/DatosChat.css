@@ -115,6 +115,7 @@
   align-items: center;
   position: relative;
   animation: aparece-contenedor-datos .25s ease both;
+  z-index: 2;
 }
 
 .DatosChat__contenedor_header:hover {
