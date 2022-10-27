@@ -13,10 +13,6 @@ import { obtenerTiposEncuestasVisibles } from '../../../../helpers/encuestasSecr
 import { obtenerPollsCalculadas } from '../../../../helpers/pollsCalculadas'
 import useAnalytics from '../../../../hooks/useAnalytics'
 
-const encuestasSecretas = [
-  635 // lista de espera hbv
-]
-
 const TabsEncuestas = () => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
@@ -30,19 +26,18 @@ const TabsEncuestas = () => {
   const track = useAnalytics()
   
   const tiposOrdenados = useMemo(() => {
-    const tiposVisibles = tipos.filter(t => !encuestasSecretas.includes(t.id) || cuenta.endsWith('cero'))
-    const encuestaSeleccionada = tiposVisibles?.find(({ id }) => id === idEncuestaSeleccionada)
+    const encuestaSeleccionada = tipos?.find(({ id }) => id === idEncuestaSeleccionada)
     if (!encuestaSeleccionada) {
-      return tiposVisibles
+      return tipos
     }
     const encuestasCalculadas = obtenerPollsCalculadas(encuestaSeleccionada, respuestas)
     if (encuestasCalculadas.length === 0) {
-      return tiposVisibles
+      return tipos
     }
     let tiposEncuestas = [
       encuestaSeleccionada,
       ...encuestasCalculadas,
-      ...tiposVisibles.filter(({ id }) => id !== idEncuestaSeleccionada)
+      ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada)
     ]
     return obtenerTiposEncuestasVisibles(cuenta, tiposEncuestas)
   }, [tipos, idEncuestaSeleccionada, respuestas, cuenta])

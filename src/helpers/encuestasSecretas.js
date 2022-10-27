@@ -4,5 +4,10 @@ export const obtenerTiposEncuestasVisibles = (cuenta, tipos) => {
     return tipos
   }
   let tiposEncuestas = tipos?.slice() || []
-  return tiposEncuestas.filter(t => ![233, 374, 457].includes(t.id))
+  return tiposEncuestas.filter(t => ![
+    233, // Sanasalud Reactivación (deshabilitado)
+    374, // FALP Convenios
+    457, // Alemana Seguros
+    635, // lista de espera hbv
+  ].includes(t.id))
 }
