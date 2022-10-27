@@ -3,15 +3,15 @@ import { Icon } from '@iconify/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { headersRespuestas as headersAPI } from '../../../../api/endpoints'
 import { guardaHeadersEncuesta } from '../../../../redux/ducks/encuestas'
-import Loader from '../../../Loader'
-import './TabsEncuestas.css'
 import { actualizaRespuestas, agregaFiltro, limpiaFiltros, limpiaRespuestas } from '../../../../redux/ducks/respuestas'
 import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
 import { useParams, useRouteMatch } from 'react-router-dom'
-import classNames from 'classnames'
 import { obtenerTiposEncuestasVisibles } from '../../../../helpers/encuestasSecretas'
 import { obtenerPollsCalculadas } from '../../../../helpers/pollsCalculadas'
+import Loader from '../../../Loader'
+import classNames from 'classnames'
 import useAnalytics from '../../../../hooks/useAnalytics'
+import './TabsEncuestas.css'
 
 const TabsEncuestas = () => {
 
@@ -28,11 +28,11 @@ const TabsEncuestas = () => {
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos?.find(({ id }) => id === idEncuestaSeleccionada)
     if (!encuestaSeleccionada) {
-      return tipos
+      return obtenerTiposEncuestasVisibles(cuenta, tipos)
     }
     const encuestasCalculadas = obtenerPollsCalculadas(encuestaSeleccionada, respuestas)
     if (encuestasCalculadas.length === 0) {
-      return tipos
+      return obtenerTiposEncuestasVisibles(cuenta, tipos)
     }
     let tiposEncuestas = [
       encuestaSeleccionada,
