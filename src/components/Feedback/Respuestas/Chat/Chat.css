@@ -15,9 +15,18 @@
   padding: .25rem;
   border-radius: .25rem;
   font-size: .75rem;
-  max-height: 90vh;
+  max-height: 66vh;
   overflow: auto;
   cursor: move;
+  right: 0;
+}
+
+.Chat__titulo_contenedor_json {
+  padding-bottom: .25rem;
+}
+
+.Chat__contenedor_json--segundo {
+  top: 2.5rem;
 }
 
 @keyframes aparece-chat {

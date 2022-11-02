@@ -28,6 +28,8 @@ const Chat = () => {
   const [error403, setError403] = useState(false)
   const [accionesHabilitadas, setAccionesHabilitadas] = useState()
   const { idEncuesta, idUsuario } = useParams()
+  const { cuenta } = useSelector(state => state.login)
+  const { debugging } = useSelector(state => state.cero)
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } = useSelector(state => state.respuestas)
   const track = useAnalytics()
 
@@ -117,18 +119,36 @@ const Chat = () => {
 
   return (
     <div className="Chat">
-      <Draggable>
-        <div className="Chat__contenedor_json">
-          <h1>_appointment_data</h1>
-          <ReactJson src={jsonChat.data._appointment_data} theme="monokai" />
-        </div>
-      </Draggable>
-      <Draggable>
-        <div className="Chat__contenedor_json">
-          <h1>_appointment_metas</h1>
-          <ReactJson src={jsonChat.data._appointment_metas} theme="monokai" />
-        </div>
-      </Draggable>
+      {jsonChat?.data && cuenta.endsWith('_cero') && debugging && (
+        <>
+          <Draggable>
+            <div
+              className="Chat__contenedor_json Chat__contenedor_json--primero"
+              onClick={e => e.stopPropagation()}
+            >
+              <h1 className="Chat__titulo_contenedor_json">appointment_metas</h1>
+              <ReactJson
+                src={jsonChat.data._appointment_metas}
+                theme="monokai"
+                collapsed
+              />
+            </div>
+          </Draggable>
+          <Draggable>
+            <div
+              className="Chat__contenedor_json Chat__contenedor_json--segundo"
+              onClick={e => e.stopPropagation()}
+            >
+              <h1 className="Chat__titulo_contenedor_json">appointment_data</h1>
+              <ReactJson
+                src={jsonChat.data._appointment_data}
+                theme="monokai"
+                collapsed
+              />
+            </div>
+          </Draggable>
+        </>
+      )}
       <DatosChat
         datos={conversaciones?.[indiceConversacion]?.context}
         telefono={telefono}
