@@ -7,6 +7,19 @@
   padding-top: .5rem;
 }
 
+.Chat__contenedor_json {
+  position: absolute;
+  z-index: 3;
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+  padding: .25rem;
+  border-radius: .25rem;
+  font-size: .75rem;
+  max-height: 90vh;
+  overflow: auto;
+  cursor: move;
+}
+
 @keyframes aparece-chat {
   0% {
     opacity: 0;
