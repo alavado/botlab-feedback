@@ -70,6 +70,24 @@ export const obtenerTagsCalculados = idEncuesta => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
+      case 635: // lista de espera hbv
+        return [
+          {
+            texto: 'Confirma?',
+            tipo: 'YESNO',
+            f: r => r[0]
+          },
+          {
+            texto: '¿Se arrepiente?',
+            tipo: 'OPEN',
+            f: r => r[2].tag === 'NO_CANCELAR'
+              ? ({
+                  tag: 'DEFAULT',
+                  text: r[2].text
+                })
+              : null
+          },
+        ]
       case 167: // confirmación norden
         return [
           ...juntaTagsEquivalentes(0, 1001, '¿Confirma?'),
