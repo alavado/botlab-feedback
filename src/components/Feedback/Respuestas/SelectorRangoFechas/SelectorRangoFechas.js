@@ -78,6 +78,7 @@ const SelectorRangoFechas = () => {
               dateFormat="d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker"
+              maxDate={Date.now()}
             />
           </>
         : <>
@@ -92,6 +93,7 @@ const SelectorRangoFechas = () => {
               dateFormat="iiii d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker SelectorRangoFechas__datepicker--ancho"
+              maxDate={Date.now()}
             />
           </>
       }
