@@ -13,7 +13,6 @@ import useAnalytics from '../../../../hooks/useAnalytics'
 import Draggable from 'react-draggable'
 import ReactJson from 'react-json-view'
 
-const msExpiracionCache = 60_000
 const msHabilitacionReporteSlack = 0
 
 const Chat = () => {
@@ -22,7 +21,6 @@ const Chat = () => {
   const [telefono, setTelefono] = useState()
   const [nombreBot, setNombreBot] = useState()
   const [indiceConversacion, setIndiceConversacion] = useState()
-  // const [chatsCacheados, setChatCacheados] = useState({})
   const [cargando, setCargando] = useState(false)
   const [jsonChat, setJsonChat] = useState({})
   const [error403, setError403] = useState(false)
@@ -36,51 +34,16 @@ const Chat = () => {
   const actualizarMensajes = useCallback(() => {
     setConversaciones(undefined)
     setCargando(true)
-    // const chatCacheado = chatsCacheados[idUsuario]
-    // if (chatCacheado && Date.now() - chatCacheado.t < msExpiracionCache) {
-    //   setTelefono(chatCacheado.telefono)
-    //   setConversaciones(chatCacheado.conversaciones)
-    //   setIndiceConversacion(chatCacheado.conversaciones.length - 1)
-    // }
-    // else {
-      chatAPI(idEncuesta, idUsuario)
-        .then(({ data }) => {
-          const { data: { conversations, user, bot } } = data
-          setNombreBot(bot.name)
-          setTelefono(user ? user.phone : '')
-          setConversaciones(conversations)
-          setIndiceConversacion(conversations.length - 1)
-          // setChatCacheados({
-          //   ...chatsCacheados,
-          //   [idUsuario]: {
-          //     telefono: user ? user.phone : '',
-          //     conversaciones: conversations,
-          //     t: Date.now()
-          //   }
-          // })
-          setJsonChat(data)
-        })
-        .catch(() => setError403(true))
-    // }
-    // const haySiguienteChat = respuestas && indiceRespuestaSeleccionada < respuestas.length - 1
-    // if (haySiguienteChat && !chatsCacheados[respuestas[indiceRespuestaSeleccionada + 1].user_id]) {
-    //   chatAPI(idEncuesta, respuestas[indiceRespuestaSeleccionada + 1].user_id)
-    //     .then(({ data }) => {
-    //       const { data: { conversations, user } } = data
-    //       setChatCacheados({
-    //         ...chatsCacheados,
-    //         [respuestas[indiceRespuestaSeleccionada + 1].user_id]: {
-    //           telefono: user ? user.phone : '',
-    //           conversaciones: conversations,
-    //           t: Date.now()
-    //         }
-    //       })
-    //       setCargando(false)
-    //     })
-    // }
-    // else {
-    //   setCargando(false)
-    // }
+    chatAPI(idEncuesta, idUsuario)
+      .then(({ data }) => {
+        const { data: { conversations, user, bot } } = data
+        setNombreBot(bot.name)
+        setTelefono(user ? user.phone : '')
+        setConversaciones(conversations)
+        setIndiceConversacion(conversations.length - 1)
+        setJsonChat(data)
+      })
+      .catch(() => setError403(true))
     setCargando(false)
   }, [idEncuesta, idUsuario, indiceRespuestaSeleccionada, respuestas])
 

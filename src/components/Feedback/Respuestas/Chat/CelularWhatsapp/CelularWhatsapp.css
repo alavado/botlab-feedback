@@ -128,7 +128,6 @@
   max-height: calc(83vh - 4.1rem);
   background: var(--whatsapp-fondo);
   background-size: cover;
-  scroll-behavior: smooth;
   outline: none;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, .25) transparent;
