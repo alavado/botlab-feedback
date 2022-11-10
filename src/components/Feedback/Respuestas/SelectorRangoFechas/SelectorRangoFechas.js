@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
-import ReactDatePicker, { registerLocale } from 'react-datepicker'
+import ReactDatePicker, { registerLocale as reactDatePickerRegisterLocale } from 'react-datepicker'
 import es from 'date-fns/locale/es'
 import { useDispatch, useSelector } from 'react-redux'
 import { actualizaRespuestas, guardaFechaInicio, guardaFechaTermino, guardaRangoFechas } from '../../../../redux/ducks/respuestas'
@@ -14,12 +14,13 @@ import { differenceInMinutes } from 'date-fns'
 import PopupTipoSeleccion from './PopupTipoSeleccion'
 import useAnalytics from '../../../../hooks/useAnalytics'
 
-registerLocale('es', es)
+reactDatePickerRegisterLocale('es', es)
 
 const SelectorRangoFechas = () => {
 
   const { fechaInicio, fechaTermino, cacheInvalido, fechaActualizacion } = useSelector(state => state.respuestas)
   const { seleccionarRangoFechas } = useSelector(state => state.opciones)
+  const { cuenta } = useSelector(state => state.login)
   const [popupRangosComunesActivo, setPopupRangosComunesActivo] = useState(false)
   const [popupTipoSeleccionActivo, setPopupTipoSeleccionActivo] = useState(false)
   const [fechaActual, setFechaActual] = useState(Date.now())
@@ -50,8 +51,7 @@ const SelectorRangoFechas = () => {
     >
       {seleccionarRangoFechas ? 'Rango' : 'Fecha'} <InlineIcon icon="mdi:chevron-down" />
     </button>
-      {
-        seleccionarRangoFechas
+      {seleccionarRangoFechas
         ? <>
             <ReactDatePicker
               selected={fechaInicio}

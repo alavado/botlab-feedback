@@ -1,0 +1,13 @@
+.SelectorRangoFechas2 {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.SelectorRangoFechas2__label {
+  font-size: .8rem;
+}
+
+.SelectorRangoFechas2__contenedor_calendario {
+  position: relative;
+}

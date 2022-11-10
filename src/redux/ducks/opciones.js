@@ -8,7 +8,7 @@ const opcionesSlice = createSlice({
   initialState: {
     chatExpandido: false,
     contacto: '',
-    seleccionarRangoFechas: true,
+    seleccionarRangoFechas: false,
     tableroVisible: false,
     esquema: ESQUEMA_CLARO
   },

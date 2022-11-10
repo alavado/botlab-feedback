@@ -44,7 +44,7 @@ const BuscadorRespuestas = ({ cargando }) => {
         }}
         spellCheck="false"
         disabled={cargando}
-        placeholder="Buscar en tabla"
+        placeholder="Filtrar tabla"
       />
     </div>
   )

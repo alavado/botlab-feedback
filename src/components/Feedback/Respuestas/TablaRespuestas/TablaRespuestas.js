@@ -17,6 +17,7 @@ import { tieneAccesoAReportes } from '../../../../helpers/permisos'
 import { muestraModal } from '../../../../redux/ducks/configuracion'
 import { desactivaTooltip } from '../../../../redux/ducks/novedades'
 import useAnalytics from '../../../../hooks/useAnalytics'
+import SelectorRangoFechas2 from '../SelectorRangoFechas2'
 
 const respuestasPorPagina = 50
 const idsEncuestasAgendamiento = [509, 557, 577]
@@ -75,7 +76,7 @@ const TablaRespuestas = () => {
             )}
           </button>
         </h1>
-        <SelectorRangoFechas />
+        <SelectorRangoFechas2 />
         <div className="TablaRespuestas__herramientas">
           <BuscadorRespuestas cargando={cargando} />
           {tieneAccesoAReportes(cuenta) && <ExportadorRespuestas cargando={cargando} />}

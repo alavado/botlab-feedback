@@ -1,0 +1,28 @@
+.Calendario {
+  position: absolute;
+  z-index: 2;
+}
+
+.Calendario__selector_mes {
+  display: flex;
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+  justify-content: space-between;
+  padding: .25rem;
+}
+
+.Calendario__contenedor_dias {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: .25rem;
+  background-color: var(--color-fondo);
+  padding: .25rem;
+}
+
+.Calendario__boton_selector_mes {
+  cursor: pointer;
+}
+
+.Calendario__boton_selector_mes:disabled {
+  opacity: 0;
+}
