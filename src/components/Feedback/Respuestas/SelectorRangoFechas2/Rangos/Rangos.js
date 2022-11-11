@@ -1,3 +1,4 @@
+import { InlineIcon } from '@iconify/react'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { useHistory } from 'react-router-dom'
 import './Rangos.css'
@@ -23,6 +24,14 @@ const Rangos = ({ rangos, ocultar }) => {
           onClick={() => history.push('/exportar')}
         >
           Otro rango (Reporte)
+          <InlineIcon icon="mdi:table-export" />
+        </button>
+        <button
+          className="Rangos__opcion"
+          onClick={() => history.push('/busqueda')}
+        >
+          Búsqueda general
+          <InlineIcon icon="mdi:search" />
         </button>
       </div>
     </OutsideClickHandler>
