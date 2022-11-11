@@ -40,6 +40,9 @@
   overflow: visible;
   white-space: nowrap;
   color: var(--color-texto);
+  display: flex;
+  align-items: center;
+  gap: .25rem;
 }
 
 .TablaRespuestas__contenedor_tabla {

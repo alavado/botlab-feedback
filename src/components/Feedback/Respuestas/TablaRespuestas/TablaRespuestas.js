@@ -18,6 +18,7 @@ import { muestraModal } from '../../../../redux/ducks/configuracion'
 import { desactivaTooltip } from '../../../../redux/ducks/novedades'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import SelectorRangoFechas2 from '../SelectorRangoFechas2'
+import BotonActualizar from '../BotonActualizar'
 
 const respuestasPorPagina = 50
 const idsEncuestasAgendamiento = [509, 557, 577]
@@ -46,17 +47,17 @@ const TablaRespuestas = () => {
 
   useEffect(() => track('Feedback', 'Respuestas', 'index'), [track])
 
-  const mostrarModalConfiguracion = () => {
-    track('Feedback', 'Respuestas', 'abrirConfiguracion')
-    dispatch(muestraModal())
-  }
+  // const mostrarModalConfiguracion = () => {
+  //   track('Feedback', 'Respuestas', 'abrirConfiguracion')
+  //   dispatch(muestraModal())
+  // }
   
   return (
     <div className="TablaRespuestas">
       <div className="TablaRespuestas__superior">
         <h1 className="TablaRespuestas__titulo">
           Respuestas
-          <button
+          {/* <button
             className="TablaRespuestas__boton_configuracion"
             tooltip="Configuración"
             onClick={() => {
@@ -74,7 +75,8 @@ const TablaRespuestas = () => {
                 <p>Aquí puedes configurar tu servicio</p>
               </div>
             )}
-          </button>
+          </button> */}
+          <BotonActualizar />
         </h1>
         <SelectorRangoFechas2 />
         <div className="TablaRespuestas__herramientas">

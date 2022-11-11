@@ -45,6 +45,7 @@
   outline: none;
   transition: all .15s ease;
   position: relative;
+  z-index: 2;
 }
 
 .SelectorRangoFechas__boton:hover {

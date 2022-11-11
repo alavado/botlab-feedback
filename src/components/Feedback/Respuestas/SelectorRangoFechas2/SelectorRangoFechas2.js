@@ -1,4 +1,4 @@
-import { format, isSameDay } from 'date-fns'
+import { format, isSameDay, isToday, isYesterday } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,8 +23,11 @@ const SelectorRangoFechas2 = () => {
     <div className="SelectorRangoFechas2">
       <div className="SelectorRangoFechas2__label">Fecha chats:</div>
       <div className="SelectorRangoFechas2__contenedor_calendario">
-        <button onClick={() => setCalendarioVisible(true)}>
-          {format(fechaSeleccionada, 'iiii d MMMM', { locale: es })}
+        <button
+          className="SelectorRangoFechas2__boton_principal"
+          onClick={() => setCalendarioVisible(true)}
+        >
+          {isToday(fechaSeleccionada) && 'hoy, '} {isYesterday(fechaSeleccionada) && 'ayer, '} {format(fechaSeleccionada, 'iiii d \'de\' MMMM', { locale: es })}
         </button>
         {calendarioVisible && (
           <Calendario

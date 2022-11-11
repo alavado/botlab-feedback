@@ -113,7 +113,7 @@ const SelectorRangoFechas = () => {
         activo={popupTipoSeleccionActivo}
         esconder={esconderPopupTipoSeleccionActivo}
       />
-      <button
+      {/* <button
         className={classNames({
           "SelectorRangoFechas__boton": true,
           "SelectorRangoFechas__boton--alerta": alertar,
@@ -123,7 +123,7 @@ const SelectorRangoFechas = () => {
         disabled={cacheInvalido}
       >
         <Icon className="SelectorRangoFechas__boton_icono" icon="mdi:refresh" />
-      </button>
+      </button> */}
     </div>
   )
 }

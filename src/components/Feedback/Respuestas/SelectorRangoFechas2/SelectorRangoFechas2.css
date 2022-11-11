@@ -11,3 +11,7 @@
 .SelectorRangoFechas2__contenedor_calendario {
   position: relative;
 }
+
+.SelectorRangoFechas2__boton_principal {
+  cursor: pointer;
+}
