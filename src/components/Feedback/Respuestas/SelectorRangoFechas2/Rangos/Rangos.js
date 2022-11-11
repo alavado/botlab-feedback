@@ -1,21 +1,29 @@
-import { Icon } from '@iconify/react'
 import OutsideClickHandler from 'react-outside-click-handler'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import './Rangos.css'
 
 const Rangos = ({ rangos, ocultar }) => {
+
+  const history = useHistory()
+
   return (
     <OutsideClickHandler onOutsideClick={ocultar}>
       <div className="Rangos">
         {rangos.map((rango, i) => (
           <button
+            className="Rangos__opcion"
             key={`rango-${i}`}
             onClick={rango.onClick}
           >
             {rango.etiqueta}
           </button>
         ))}
-        <p className="Rangos__mensaje">Para consultar otros rangos, por favor usa la sección <Link to="/exportar">Reporte <Icon icon="mdi:table-arrow-right" /></Link></p>
+        <button
+          className="Rangos__opcion"
+          onClick={() => history.push('/exportar')}
+        >
+          Otro rango (Reporte)
+        </button>
       </div>
     </OutsideClickHandler>
   )

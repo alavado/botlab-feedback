@@ -14,7 +14,7 @@ const SelectorRangoFechas2 = () => {
   const [rangoSeleccionado, setRangoSeleccionado] = useState(fechaInicio ? [fechaInicio, fechaTermino] : [new Date(), new Date()])
   const [calendarioVisible, setCalendarioVisible] = useState(false)
   const [rangosVisibles, setRangosVisibles] = useState(false)
-  const [etiqueta, setEtiqueta] = useState()
+  const [etiqueta, setEtiqueta] = useState(format(fechaInicio, 'dd/MM') + ' al ' + format(fechaTermino, 'dd/MM'))
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -81,15 +81,19 @@ const SelectorRangoFechas2 = () => {
               {
                 etiqueta: 'Esta semana',
                 onClick: () => {
-                  setRangoSeleccionado([startOfWeek(new Date(), { locale: es }), endOfWeek(new Date(), { locale: es })])
-                  setEtiqueta('Esta semana')
+                  const inicio = startOfWeek(new Date(), { locale: es })
+                  const termino = endOfWeek(new Date(), { locale: es })
+                  setRangoSeleccionado([inicio, termino])
+                  setEtiqueta(`Esta semana - ${format(inicio, 'dd/MM')} al ${format(termino, 'dd/MM')}`)
                 }
               },
               {
-                etiqueta: 'Esta semana y la anterior',
+                etiqueta: 'Semana pasada',
                 onClick: () => {
-                  setRangoSeleccionado([startOfWeek(addWeeks(new Date(), -1), { locale: es }), endOfWeek(new Date(), { locale: es })])
-                  setEtiqueta('Esta semana y la anterior')
+                  const inicio = startOfWeek(addWeeks(new Date(), -1), { locale: es })
+                  const termino = endOfWeek(addWeeks(new Date(), -1), { locale: es })
+                  setRangoSeleccionado([inicio, termino])
+                  setEtiqueta(`Semana pasada - ${format(inicio, 'dd/MM')} al ${format(termino, 'dd/MM')}`)
                 }
               }
             ]}
