@@ -104,7 +104,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
       </div>
       <h1 className="DatosChat__titulo">
         Datos del chat
-        <button
+        {/* <button
           className="TablaRespuestas__boton_configuracion"
           tooltip="Configuración"
           onClick={mostrarModalConfiguracion}
@@ -113,7 +113,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
             className="TablaRespuestas__boton_icono"
             icon="mdi:cog"
           />
-        </button>
+        </button> */}
       </h1>
       {!cargando && datos !== undefined
         ? <div className="DatosChat__contenedor_datos">

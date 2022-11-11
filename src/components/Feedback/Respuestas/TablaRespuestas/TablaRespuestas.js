@@ -13,7 +13,7 @@ import Filtros from './Filtros'
 import './TablaRespuestas.css'
 import { fijaScrollTabla } from '../../../../redux/ducks/respuestas'
 import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
-import { tieneAccesoAReportes } from '../../../../helpers/permisos'
+import { esRedSalud, tieneAccesoAReportes } from '../../../../helpers/permisos'
 import { muestraModal } from '../../../../redux/ducks/configuracion'
 import { desactivaTooltip } from '../../../../redux/ducks/novedades'
 import useAnalytics from '../../../../hooks/useAnalytics'
@@ -78,7 +78,7 @@ const TablaRespuestas = () => {
           </button> */}
           <BotonActualizar />
         </h1>
-        <SelectorRangoFechas2 />
+        {esRedSalud(cuenta) ? <SelectorRangoFechas /> : <SelectorRangoFechas2 />}
         <div className="TablaRespuestas__herramientas">
           <BuscadorRespuestas cargando={cargando} />
           {tieneAccesoAReportes(cuenta) && <ExportadorRespuestas cargando={cargando} />}
