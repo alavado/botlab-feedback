@@ -4,11 +4,13 @@ import { addDays, addMonths, endOfMonth, endOfWeek, format, isFuture, isSameDay,
 import { es } from 'date-fns/locale'
 import { useMemo, useState } from 'react'
 import OutsideClickHandler from 'react-outside-click-handler'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 import './Calendario.css'
 
 const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
 
   const [mes, setMes] = useState(endOfWeek(fechaSeleccionada, { locale: es }))
+  const track = useAnalytics()
 
   const fechas = useMemo(() => {
     let fecha = startOfWeek(startOfMonth(mes), { locale: es })
@@ -26,7 +28,10 @@ const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
       <div className="Calendario">
         <div className="Calendario__selector_mes">
           <button
-            onClick={() => setMes(mes => addMonths(mes, -1))}
+            onClick={() => {
+              setMes(mes => addMonths(mes, -1))
+              track('Feedback', 'Respuestas', 'calendarioNuevoMesAnterior')
+            }}
             className="Calendario__boton_selector_mes"
             title="Mes anterior"
           >
@@ -34,7 +39,10 @@ const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
           </button>
           {format(mes, 'MMMM yyyy', { locale: es })}
           <button
-            onClick={() => setMes(mes => addMonths(mes, 1))}
+            onClick={() => {
+              setMes(mes => addMonths(mes, 1))
+              track('Feedback', 'Respuestas', 'calendarioNuevoMesSiguiente')
+            }}
             disabled={isSameMonth(mes, new Date())}
             className="Calendario__boton_selector_mes"
             title="Mes siguiente"
@@ -65,6 +73,7 @@ const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
               onClick={() => {
                 seleccionarFecha(f)
                 ocultar()
+                track('Feedback', 'Respuestas', 'calendarioNuevoDia')
               }}
               disabled={isFuture(f)}
             >

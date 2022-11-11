@@ -69,9 +69,6 @@
   border-radius: .25rem;
 }
 
-.Calendario__boton_dia--hoy {
-}
-
 .Calendario__boton_dia--seleccionado {
   background-color: var(--color-principal);
   color: var(--color-texto-claro);

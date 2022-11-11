@@ -3,6 +3,7 @@ import { addDays, addWeeks, endOfWeek, format, isSameDay, isToday, isYesterday, 
 import { es } from 'date-fns/locale'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import useAnalytics from '../../../../hooks/useAnalytics'
 import { guardaRangoFechas } from '../../../../redux/ducks/respuestas'
 import Calendario from './Calendario'
 import Rangos from './Rangos'
@@ -16,6 +17,7 @@ const SelectorRangoFechas2 = () => {
   const [rangosVisibles, setRangosVisibles] = useState(false)
   const [etiqueta, setEtiqueta] = useState(format(fechaInicio, 'dd/MM') + ' al ' + format(fechaTermino, 'dd/MM'))
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   useEffect(() => {
     if (!isSameDay(fechaInicio, rangoSeleccionado[0]) || !isSameDay(fechaTermino, rangoSeleccionado[1])) {
@@ -27,7 +29,10 @@ const SelectorRangoFechas2 = () => {
     <div className="SelectorRangoFechas2">
       <div
         className="SelectorRangoFechas2__label"
-        onClick={() => setCalendarioVisible(true)}
+        onClick={() => {
+          setCalendarioVisible(true)
+          track('Feedback', 'Respuestas', 'calendarioNuevoAbrirConLabel')
+        }}
       >
         <Icon icon="mdi:calendar-month" /> Fecha chats
       </div>
@@ -35,7 +40,10 @@ const SelectorRangoFechas2 = () => {
         <div className="SelectorRangoFechas2__contenedor_botones">
           <button
             className="SelectorRangoFechas2__boton SelectorRangoFechas2__boton--retroceder"
-            onClick={() => setRangoSeleccionado(r => [addDays(r[0], -1), addDays(r[0], -1)])}
+            onClick={() => {
+              setRangoSeleccionado(r => [addDays(r[0], -1), addDays(r[0], -1)])
+              track('Feedback', 'Respuestas', 'calendarioNuevoDiaAnterior')
+            }}
             disabled={!isSameDay(rangoSeleccionado[0], rangoSeleccionado[1])}
             title="Día anterior"
           >
@@ -43,7 +51,10 @@ const SelectorRangoFechas2 = () => {
           </button>
           <button
             className="SelectorRangoFechas2__boton SelectorRangoFechas2__boton--principal"
-            onClick={() => setCalendarioVisible(true)}
+            onClick={() => {
+              setCalendarioVisible(true)
+              track('Feedback', 'Respuestas', 'calendarioNuevoAbrir')
+            }}
           >
             {isSameDay(rangoSeleccionado[0], rangoSeleccionado[1])
               ? `${isToday(rangoSeleccionado[0]) ? 'hoy, ' : ''} ${isYesterday(rangoSeleccionado[0]) ? 'ayer, ' : ''} ${format(rangoSeleccionado[0], 'iiii d \'de\' MMMM', { locale: es })}`
@@ -52,7 +63,10 @@ const SelectorRangoFechas2 = () => {
           </button>
           <button
             className="SelectorRangoFechas2__boton SelectorRangoFechas2__boton--avanzar"
-            onClick={() => setRangoSeleccionado(r => [addDays(r[0], 1), addDays(r[0], 1)])}
+            onClick={() => {
+              setRangoSeleccionado(r => [addDays(r[0], 1), addDays(r[0], 1)])
+              track('Feedback', 'Respuestas', 'calendarioNuevoDiaSiguiente')
+            }}
             disabled={isSameDay(rangoSeleccionado[0], new Date()) || !isSameDay(rangoSeleccionado[0], rangoSeleccionado[1])}
             title="Día siguiente"
           >
@@ -85,6 +99,7 @@ const SelectorRangoFechas2 = () => {
                   const termino = endOfWeek(new Date(), { locale: es })
                   setRangoSeleccionado([inicio, termino])
                   setEtiqueta(`Esta semana - ${format(inicio, 'dd/MM')} al ${format(termino, 'dd/MM')}`)
+                  track('Feedback', 'Respuestas', 'calendarioNuevoEstaSemana')
                 }
               },
               {
@@ -94,6 +109,7 @@ const SelectorRangoFechas2 = () => {
                   const termino = endOfWeek(addWeeks(new Date(), -1), { locale: es })
                   setRangoSeleccionado([inicio, termino])
                   setEtiqueta(`Semana pasada - ${format(inicio, 'dd/MM')} al ${format(termino, 'dd/MM')}`)
+                  track('Feedback', 'Respuestas', 'calendarioNuevoSemanaPasada')
                 }
               }
             ]}
