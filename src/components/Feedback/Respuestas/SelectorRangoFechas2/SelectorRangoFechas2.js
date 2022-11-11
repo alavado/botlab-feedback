@@ -37,6 +37,7 @@ const SelectorRangoFechas2 = () => {
             className="SelectorRangoFechas2__boton SelectorRangoFechas2__boton--retroceder"
             onClick={() => setRangoSeleccionado(r => [addDays(r[0], -1), addDays(r[0], -1)])}
             disabled={!isSameDay(rangoSeleccionado[0], rangoSeleccionado[1])}
+            title="Día anterior"
           >
             <Icon icon="mdi:chevron-left" />
           </button>
@@ -53,6 +54,7 @@ const SelectorRangoFechas2 = () => {
             className="SelectorRangoFechas2__boton SelectorRangoFechas2__boton--avanzar"
             onClick={() => setRangoSeleccionado(r => [addDays(r[0], 1), addDays(r[0], 1)])}
             disabled={isSameDay(rangoSeleccionado[0], new Date()) || !isSameDay(rangoSeleccionado[0], rangoSeleccionado[1])}
+            title="Día siguiente"
           >
             <Icon icon="mdi:chevron-right" />
           </button>

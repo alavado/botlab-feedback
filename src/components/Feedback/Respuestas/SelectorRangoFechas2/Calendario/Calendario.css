@@ -2,15 +2,22 @@
   position: absolute;
   z-index: 2;
   top: 2.25rem;
-  left: 2rem;
+  left: .65rem;
+  width: 15rem;
+  box-shadow:
+    0rem 0rem .25rem rgba(0, 0, 0, .15); 
 }
 
 .Calendario__selector_mes {
   display: flex;
+  align-items: center;
   background-color: var(--color-principal);
   color: var(--color-texto-claro);
   justify-content: space-between;
-  padding: .25rem;
+  padding: .5rem;
+  border-radius: .25rem .25rem 0 0;
+  font-size: .9rem;
+  font-weight: bold;
 }
 
 .Calendario__contenedor_dias {
@@ -19,12 +26,65 @@
   gap: .25rem;
   background-color: var(--color-fondo);
   padding: .25rem;
+  border-radius: 0 0 .25rem .25rem;
 }
 
 .Calendario__boton_selector_mes {
   cursor: pointer;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-claro);
+}
+
+.Calendario__contenedor_encabezados_dias {
+  display: flex;
+  font-size: .75rem;
+  padding: .25rem 0;
+  background-color: var(--color-principal);
+}
+
+.Calendario__encabezado_dia {
+  color: var(--color-texto-claro);
+  flex: 1;
+  text-align: center;
+  text-transform: lowercase;
 }
 
 .Calendario__boton_selector_mes:disabled {
   opacity: 0;
+}
+
+.Calendario__boton_dia {
+  background: none;
+  border: none;
+  font-size: .8rem;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: .25rem;
+}
+
+.Calendario__boton_dia--hoy {
+}
+
+.Calendario__boton_dia--seleccionado {
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+}
+
+.Calendario__boton_dia--otro-mes {
+  opacity: .3;
+}
+
+.Calendario__boton_dia--feriado {
+  color: var(--color-secundario) !important;
+}
+
+.Calendario__boton_dia--feriado:disabled {
+  opacity: .3;
 }

@@ -15,7 +15,7 @@ const Rangos = ({ rangos, ocultar }) => {
             {rango.etiqueta}
           </button>
         ))}
-        <p className="Rangos__mensaje">Para otros rangos, por favor usa la sección <Link to="/exportar">Reporte <Icon icon="mdi:table-arrow-right" /></Link></p>
+        <p className="Rangos__mensaje">Para consultar otros rangos, por favor usa la sección <Link to="/exportar">Reporte <Icon icon="mdi:table-arrow-right" /></Link></p>
       </div>
     </OutsideClickHandler>
   )

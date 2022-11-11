@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
-import { addDays, addMonths, endOfMonth, endOfWeek, format, isFuture, isSameDay, isSameMonth, startOfMonth, startOfWeek } from 'date-fns'
+import classNames from 'classnames'
+import { addDays, addMonths, endOfMonth, endOfWeek, format, isFuture, isSameDay, isSameMonth, isSunday, isToday, startOfMonth, startOfWeek } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useMemo, useState } from 'react'
 import OutsideClickHandler from 'react-outside-click-handler'
@@ -27,6 +28,7 @@ const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
           <button
             onClick={() => setMes(mes => addMonths(mes, -1))}
             className="Calendario__boton_selector_mes"
+            title="Mes anterior"
           >
             <Icon icon="mdi:chevron-left" />
           </button>
@@ -35,20 +37,30 @@ const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
             onClick={() => setMes(mes => addMonths(mes, 1))}
             disabled={isSameMonth(mes, new Date())}
             className="Calendario__boton_selector_mes"
+            title="Mes siguiente"
           >
             <Icon icon="mdi:chevron-right" />
           </button>
         </div>
+        <div className="Calendario__contenedor_encabezados_dias">
+          <div className="Calendario__encabezado_dia">Lu</div>
+          <div className="Calendario__encabezado_dia">Ma</div>
+          <div className="Calendario__encabezado_dia">Mi</div>
+          <div className="Calendario__encabezado_dia">Ju</div>
+          <div className="Calendario__encabezado_dia">Vi</div>
+          <div className="Calendario__encabezado_dia">Sá</div>
+          <div className="Calendario__encabezado_dia">Do</div>
+        </div>
         <div className="Calendario__contenedor_dias">
-          <div>Lu</div>
-          <div>Ma</div>
-          <div>Mi</div>
-          <div>Ju</div>
-          <div>Vi</div>
-          <div>Sá</div>
-          <div>Do</div>
           {fechas.map((f, i) => (
             <button
+              className={classNames({
+                "Calendario__boton_dia": true,
+                "Calendario__boton_dia--hoy": isToday(f),
+                "Calendario__boton_dia--seleccionado": isSameDay(f, fechaSeleccionada),
+                "Calendario__boton_dia--otro-mes": !isSameMonth(mes, f),
+                "Calendario__boton_dia--feriado": isSunday(f)
+              })}
               key={`boton-calendario-${i}`}
               onClick={() => {
                 seleccionarFecha(f)
