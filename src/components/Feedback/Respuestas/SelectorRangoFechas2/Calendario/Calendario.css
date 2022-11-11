@@ -67,6 +67,7 @@
   cursor: pointer;
   font-weight: 600;
   border-radius: .25rem;
+  color: var(--color-texto);
 }
 
 .Calendario__boton_dia--seleccionado {
