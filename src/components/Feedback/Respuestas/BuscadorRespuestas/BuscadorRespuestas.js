@@ -27,7 +27,7 @@ const BuscadorRespuestas = ({ cargando }) => {
         title="Limpiar filtro"
       >
         <Icon
-          icon={busqueda ? "mdi:close" : "mdi:text-search"}
+          icon={busqueda ? "mdi:close" : "mdi:filter-variant"}
           className="BuscadorRespuestas__icono"
         />
       </div>

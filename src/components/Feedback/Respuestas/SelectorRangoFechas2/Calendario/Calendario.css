@@ -1,6 +1,8 @@
 .Calendario {
   position: absolute;
   z-index: 2;
+  top: 2.25rem;
+  left: 2rem;
 }
 
 .Calendario__selector_mes {

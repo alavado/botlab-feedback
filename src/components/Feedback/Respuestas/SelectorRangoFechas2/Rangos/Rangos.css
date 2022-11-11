@@ -1,0 +1,11 @@
+.Rangos {
+  position: absolute;
+  z-index: 2;
+  width: 12rem;
+}
+
+.Rangos__mensaje {
+  font-size: .7rem;
+  background-color: var(--color-fondo);
+  padding: .25rem;
+}

@@ -1,14 +1,13 @@
 import { Icon } from '@iconify/react'
-import classNames from 'classnames'
-import { addDays, addMonths, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, startOfMonth, startOfWeek } from 'date-fns'
+import { addDays, addMonths, endOfMonth, endOfWeek, format, isFuture, isSameDay, isSameMonth, startOfMonth, startOfWeek } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useMemo, useState } from 'react'
 import OutsideClickHandler from 'react-outside-click-handler'
 import './Calendario.css'
 
-const Calendario = ({ ocultar, seleccionarFecha }) => {
+const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
 
-  const [mes, setMes] = useState(new Date())
+  const [mes, setMes] = useState(endOfWeek(fechaSeleccionada, { locale: es }))
 
   const fechas = useMemo(() => {
     let fecha = startOfWeek(startOfMonth(mes), { locale: es })
@@ -41,13 +40,13 @@ const Calendario = ({ ocultar, seleccionarFecha }) => {
           </button>
         </div>
         <div className="Calendario__contenedor_dias">
-          <div className="Calendario__abreviacion_dia">Lu</div>
-          <div className="Calendario__abreviacion_dia">Ma</div>
-          <div className="Calendario__abreviacion_dia">Mi</div>
-          <div className="Calendario__abreviacion_dia">Ju</div>
-          <div className="Calendario__abreviacion_dia">Vi</div>
-          <div className="Calendario__abreviacion_dia">Sá</div>
-          <div className="Calendario__abreviacion_dia">Do</div>
+          <div>Lu</div>
+          <div>Ma</div>
+          <div>Mi</div>
+          <div>Ju</div>
+          <div>Vi</div>
+          <div>Sá</div>
+          <div>Do</div>
           {fechas.map((f, i) => (
             <button
               key={`boton-calendario-${i}`}
@@ -55,6 +54,7 @@ const Calendario = ({ ocultar, seleccionarFecha }) => {
                 seleccionarFecha(f)
                 ocultar()
               }}
+              disabled={isFuture(f)}
             >
               {format(f, 'd')}
             </button>
