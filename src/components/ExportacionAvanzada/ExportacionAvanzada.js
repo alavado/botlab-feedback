@@ -30,7 +30,8 @@ const ExportacionAvanzada = () => {
   const [modalVisible, setModalVisible] = useState(false)
   const [error, setError] = useState()
   const [extension, setExtension] = useState(tiposExportacion[0].extension)
-  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { tipos } = useSelector(state => state.encuestas)
+  const [idTipoSeleccionado, setIdTipoSeleccionado] = useState(tipos[0].id)
   const track = useAnalytics()
 
   const exportar = e => {
@@ -39,9 +40,9 @@ const ExportacionAvanzada = () => {
       return
     }
     setExportando(true)
-    exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, extension)
+    exportarRespuestas(idTipoSeleccionado, inicio, termino, email, extension)
       .then(() => {
-        track('Feedback', 'Reporte', 'exportar', { idEncuestaSeleccionada, inicio, termino, email, extension })
+        track('Feedback', 'Reporte', 'exportar', { idEncuestaSeleccionada: idTipoSeleccionado, inicio, termino, email, extension })
         setExportando(false)
         setModalVisible(true)
       })
@@ -52,7 +53,7 @@ const ExportacionAvanzada = () => {
     if (termino < inicio) {
       setInicio(termino)
     }
-  }, [termino])
+  }, [inicio, termino])
 
   useEffect(() => track('Feedback', 'Reporte', 'index'), [track])
 
@@ -60,7 +61,7 @@ const ExportacionAvanzada = () => {
     if (inicio > termino) {
       setTermino(inicio)
     }
-  }, [inicio])
+  }, [inicio, termino])
 
   return (
     <div className="ExportacionAvanzada">
@@ -77,6 +78,13 @@ const ExportacionAvanzada = () => {
           className="ExportacionAvanzada__contenedor_formulario"
           onSubmit={exportar}
         >
+          <h2 className="ExportacionAvanzada__subtitulo">Encuesta</h2>
+            <select
+              value={idTipoSeleccionado}
+              onChange={e => setIdTipoSeleccionado(tipos.find(t => t.id === e.target.value))}
+            >
+              {tipos?.map(t => <option value={t.id}>{t.nombre}</option>)}
+            </select>
           <h2 className="ExportacionAvanzada__subtitulo">Periodo</h2>
           <div className="ExportacionAvanzada__contenedor_rango">
             <ReactDatePicker
