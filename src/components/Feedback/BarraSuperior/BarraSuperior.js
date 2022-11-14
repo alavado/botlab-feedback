@@ -47,6 +47,7 @@ const BarraSuperior = () => {
             <Route path="/preparaciones" component={TabsEncuestas} />
             <Route path="/alertas" component={TabsEncuestas} />
             <Route path="/tutoriales" component={TabsEncuestas} />
+            <Route path="/exportar" component={TabsEncuestas} />
             <Route path="/" component={TabsEncuestas} />
           </Switch>
         : <Switch>
@@ -56,6 +57,7 @@ const BarraSuperior = () => {
             <Route path="/preparaciones" component={SelectorEncuesta} />
             <Route path="/alertas" component={SelectorEncuesta} />
             <Route path="/tutoriales" component={SelectorEncuesta} />
+            <Route path="/exportar" component={SelectorEncuesta} />
             <Route path="/" component={SelectorEncuesta} />
           </Switch>
       }
