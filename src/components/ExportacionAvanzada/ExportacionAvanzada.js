@@ -73,10 +73,30 @@ const ExportacionAvanzada = () => {
         <h1 className="ExportacionAvanzada__titulo">Reporte</h1>
       </div>
       <div className="ExportacionAvanzada__contenedor">
+        <p className="ExportacionAvanzada__explicacion">
+          Este módulo permite exportar todas las respuestas de la encuesta seleccionada a una planilla de datos. La planilla será enviada al e-mail indicado en unos minutos.
+        </p>
         <form
           className="ExportacionAvanzada__contenedor_formulario"
           onSubmit={exportar}
         >
+          <h2 className="ExportacionAvanzada__subtitulo">E-mail</h2>
+          <div className="ExportacionAvanzada__contenedor_rango">
+            <input
+              className="ExportacionAvanzada__input"
+              type="email"
+              required
+              onChange={e => setEmail(e.target.value)}
+              value={email}
+            />
+          </div>
+          <h2 className="ExportacionAvanzada__subtitulo">Servicio</h2>
+          <div className="ExportacionAvanzada__contenedor_rango">
+            <input
+              className="ExportacionAvanzada__input"
+              required
+            />
+          </div>
           <h2 className="ExportacionAvanzada__subtitulo">Periodo</h2>
           <div className="ExportacionAvanzada__contenedor_rango">
             <ReactDatePicker
@@ -113,16 +133,6 @@ const ExportacionAvanzada = () => {
               </button>
             ))}
           </div>
-          <h2 className="ExportacionAvanzada__subtitulo">E-mail</h2>
-          <div className="ExportacionAvanzada__contenedor_rango">
-            <input
-              className="ExportacionAvanzada__input"
-              type="email"
-              required
-              onChange={e => setEmail(e.target.value)}
-              value={email}
-            />
-          </div>
           <button
             className="ExportacionAvanzada__boton_exportar"
             type="submit"
@@ -133,9 +143,6 @@ const ExportacionAvanzada = () => {
               : <><Icon className="ExportacionAvanzada__icono" icon="mdi:table-export" /> Generar reporte</>
             }
           </button>
-          <p className="ExportacionAvanzada__explicacion">
-            Este módulo permite exportar todas las respuestas de la encuesta seleccionada a una planilla de datos. La planilla será enviada al e-mail indicado en unos minutos.
-          </p>
         </form>
         {error}
       </div>
