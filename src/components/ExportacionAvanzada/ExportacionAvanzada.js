@@ -133,6 +133,7 @@ const ExportacionAvanzada = () => {
             <select
               id="servicio"
               onChange={e => setIdEncuestaSeleccionada(e.target.value)}
+              className="ExportacionAvanzada__input"
             >
               {tipos.map(t => (
                 <option
@@ -151,23 +152,25 @@ const ExportacionAvanzada = () => {
             >
               Rango de fechas
             </label>
-            <ReactDatePicker
-              selected={inicio}
-              onChange={f => setInicio(f)}
-              dateFormat="d MMMM yyyy"
-              locale="es"
-              className="SelectorRangoFechas__datepicker"
-              required
-            />
-            -
-            <ReactDatePicker
-              selected={termino}
-              onChange={f => setTermino(f)}
-              dateFormat="d MMMM yyyy"
-              locale="es"
-              className="SelectorRangoFechas__datepicker"
-              required
-            />
+            <div className="ExportacionAvanzada__contenedor_rango">
+              <ReactDatePicker
+                selected={inicio}
+                onChange={f => setInicio(f)}
+                dateFormat="d MMMM yyyy"
+                locale="es"
+                className="SelectorRangoFechas__datepicker"
+                required
+              />
+              -
+              <ReactDatePicker
+                selected={termino}
+                onChange={f => setTermino(f)}
+                dateFormat="d MMMM yyyy"
+                locale="es"
+                className="SelectorRangoFechas__datepicker"
+                required
+              />
+            </div>
           </div>
           <div className="ExportacionAvanzada__campo">
             <label
@@ -176,16 +179,21 @@ const ExportacionAvanzada = () => {
             >
               Formato
             </label>
-            {tiposExportacion.map((tipo, i) => (
-              <label key={`radio-exportacion-${i}`}>
-                <input
-                  onChange={() => setIndiceExtensionSeleccionado(i)}
-                  type="radio"
-                  radioGroup="formato"
-                  checked={indiceExtensionSeleccionado === i}
-                /> {tipo.nombre}
-              </label>
-            ))}
+            <div className="ExportacionAvanzada__contenedor_rango">
+              {tiposExportacion.map((tipo, i) => (
+                <label
+                  key={`radio-exportacion-${i}`}
+                  className="ExportacionAvanzada__label_option"
+                >
+                  <input
+                    onChange={() => setIndiceExtensionSeleccionado(i)}
+                    type="radio"
+                    radioGroup="formato"
+                    checked={indiceExtensionSeleccionado === i}
+                  /> {tipo.nombre}
+                </label>
+              ))}
+            </div>
           </div>
           <button
             className="ExportacionAvanzada__boton_exportar"
