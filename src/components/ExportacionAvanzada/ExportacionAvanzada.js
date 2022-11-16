@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import classNames from 'classnames'
@@ -12,11 +12,13 @@ import useAnalytics from '../../hooks/useAnalytics'
 export const tiposExportacion = [
   {
     nombre: 'CSV',
-    extension: 'csv'
+    extension: 'csv',
+    icono: 'mdi:file-delimited'
   },
   {
     nombre: 'Excel',
-    extension: 'xlsx'
+    extension: 'xlsx',
+    icono: 'mdi:microsoft-excel'
   }
 ]
 
@@ -29,8 +31,9 @@ const ExportacionAvanzada = () => {
   const [exportando, setExportando] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
   const [error, setError] = useState()
-  const [extension, setExtension] = useState(tiposExportacion[0].extension)
+  const [indiceExtensionSeleccionado, setIndiceExtensionSeleccionado] = useState(0)
   const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const emailRef = useRef()
   const track = useAnalytics()
 
   const exportar = e => {
@@ -39,20 +42,28 @@ const ExportacionAvanzada = () => {
       return
     }
     setExportando(true)
-    exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, extension)
+    exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, indiceExtensionSeleccionado)
       .then(() => {
-        track('Feedback', 'Reporte', 'exportar', { idEncuestaSeleccionada, inicio, termino, email, extension })
+        track('Feedback', 'Reporte', 'exportar', {
+          idEncuestaSeleccionada,
+          inicio,
+          termino,
+          email,
+          extension: tiposExportacion[indiceExtensionSeleccionado].extension
+        })
         setExportando(false)
         setModalVisible(true)
       })
       .catch(err => setError(err))
   }
 
+  useEffect(() => emailRef.current?.focus(), [])
+
   useEffect(() => {
     if (termino < inicio) {
       setInicio(termino)
     }
-  }, [termino])
+  }, [inicio, termino])
 
   useEffect(() => track('Feedback', 'Reporte', 'index'), [track])
 
@@ -60,7 +71,7 @@ const ExportacionAvanzada = () => {
     if (inicio > termino) {
       setTermino(inicio)
     }
-  }, [inicio])
+  }, [inicio, termino])
 
   return (
     <div className="ExportacionAvanzada">
@@ -73,9 +84,20 @@ const ExportacionAvanzada = () => {
         <h1 className="ExportacionAvanzada__titulo">Reporte</h1>
       </div>
       <div className="ExportacionAvanzada__contenedor">
-        <p className="ExportacionAvanzada__explicacion">
-          Este módulo permite exportar todas las respuestas de la encuesta seleccionada a una planilla de datos. La planilla será enviada al e-mail indicado en unos minutos.
-        </p>
+        <div className="ExportacionAvanzada__explicacion">
+          <p>
+            Este módulo permite exportar todas las interacciones
+            de un servicio a una planilla de datos.
+            <br />
+            <br />
+            La planilla será enviada al e-mail ingresado en unos minutos.
+          </p>
+          <div className="ExportacionAvanzada__diagrama">
+            <Icon icon={tiposExportacion[indiceExtensionSeleccionado].icono} />
+            <Icon icon="mdi:arrow-right-thick" />
+            <Icon icon="mdi:email" />
+          </div>
+        </div>
         <form
           className="ExportacionAvanzada__contenedor_formulario"
           onSubmit={exportar}
@@ -88,6 +110,7 @@ const ExportacionAvanzada = () => {
               required
               onChange={e => setEmail(e.target.value)}
               value={email}
+              ref={emailRef}
             />
           </div>
           <h2 className="ExportacionAvanzada__subtitulo">Servicio</h2>
@@ -118,19 +141,16 @@ const ExportacionAvanzada = () => {
             />
           </div>
           <h2 className="ExportacionAvanzada__subtitulo">Formato</h2>
-          <div className="ExportacionAvanzada__botones_tipos">
+          <div>
             {tiposExportacion.map((tipo, i) => (
-              <button
-                key={`boton-tipo-exportacion-${i}`}
-                className={classNames({
-                  "ExportacionAvanzada__boton": true,
-                  "ExportacionAvanzada__boton--activo": tipo.extension === extension
-                })}
-                type="button"
-                onClick={() => setExtension(tipo.extension)}
-              >
-                {tipo.nombre}
-              </button>
+              <label key={`radio-exportacion-${i}`}>
+                <input
+                  onChange={() => setIndiceExtensionSeleccionado(i)}
+                  type="radio"
+                  radioGroup="formato"
+                  checked={indiceExtensionSeleccionado === i}
+                /> {tipo.nombre}
+              </label>
             ))}
           </div>
           <button
@@ -140,7 +160,7 @@ const ExportacionAvanzada = () => {
           >
             {exportando
               ? <><div className="ExportacionAvanzada__loader_exportando" /> Generando...</>
-              : <><Icon className="ExportacionAvanzada__icono" icon="mdi:table-export" /> Generar reporte</>
+              : <>Generar reporte</>
             }
           </button>
         </form>
