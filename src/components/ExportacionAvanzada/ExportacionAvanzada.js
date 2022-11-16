@@ -32,7 +32,7 @@ const ExportacionAvanzada = () => {
   const [error, setError] = useState()
   const [indiceExtensionSeleccionado, setIndiceExtensionSeleccionado] = useState(0)
   const { tipos } = useSelector(state => state.encuestas)
-  const [idEncuestaSeleccionada, setIdEncuestaSeleccionada] = useState(tipos[0].id)
+  const [idEncuestaSeleccionada, setIdEncuestaSeleccionada] = useState(tipos?.[0].id)
   const emailRef = useRef()
   const track = useAnalytics()
 
@@ -73,6 +73,10 @@ const ExportacionAvanzada = () => {
     }
   }, [inicio, termino])
 
+  if (!tipos) {
+    return null
+  }
+
   return (
     <div className="ExportacionAvanzada">
       <ModalExportacionAvanzada
@@ -102,20 +106,32 @@ const ExportacionAvanzada = () => {
           className="ExportacionAvanzada__contenedor_formulario"
           onSubmit={exportar}
         >
-          <h2 className="ExportacionAvanzada__subtitulo">E-mail</h2>
-          <div className="ExportacionAvanzada__contenedor_rango">
+          <div className="ExportacionAvanzada__campo">
+            <label
+              className="ExportacionAvanzada__label"
+              htmlFor="email"
+            >
+              E-mail
+            </label>
             <input
               className="ExportacionAvanzada__input"
               type="email"
+              id="email"
               required
               onChange={e => setEmail(e.target.value)}
               value={email}
               ref={emailRef}
             />
           </div>
-          <h2 className="ExportacionAvanzada__subtitulo">Servicio</h2>
-          <div className="ExportacionAvanzada__contenedor_rango">
+          <div className="ExportacionAvanzada__campo">
+            <label
+              className="ExportacionAvanzada__label"
+              htmlFor="servicio"
+            >
+              Servicio
+            </label>
             <select
+              id="servicio"
               onChange={e => setIdEncuestaSeleccionada(e.target.value)}
             >
               {tipos.map(t => (
@@ -128,8 +144,13 @@ const ExportacionAvanzada = () => {
               ))}
             </select>
           </div>
-          <h2 className="ExportacionAvanzada__subtitulo">Periodo</h2>
-          <div className="ExportacionAvanzada__contenedor_rango">
+          <div className="ExportacionAvanzada__campo">
+            <label
+              className="ExportacionAvanzada__label"
+              htmlFor="periodo"
+            >
+              Rango de fechas
+            </label>
             <ReactDatePicker
               selected={inicio}
               onChange={f => setInicio(f)}
@@ -148,8 +169,13 @@ const ExportacionAvanzada = () => {
               required
             />
           </div>
-          <h2 className="ExportacionAvanzada__subtitulo">Formato</h2>
-          <div>
+          <div className="ExportacionAvanzada__campo">
+            <label
+              className="ExportacionAvanzada__label"
+              htmlFor="periodo"
+            >
+              Formato
+            </label>
             {tiposExportacion.map((tipo, i) => (
               <label key={`radio-exportacion-${i}`}>
                 <input
