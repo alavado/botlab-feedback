@@ -12,6 +12,7 @@ import Loader from '../../../Loader'
 import classNames from 'classnames'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import './TabsEncuestas.css'
+import { formatearNombreEncuesta } from '../../../../helpers/respuestas'
 
 const TabsEncuestas = () => {
 
@@ -142,7 +143,7 @@ const TabsEncuestas = () => {
                   className="TabsEncuestas__tab_icono_empresa"
                   icon="mdi:whatsapp"
                 />
-                {tipo.nombre.replace(nombreUsuario, '')}
+                {formatearNombreEncuesta(nombreUsuario, tipo.nombre)}
               </button>
             ))}
           </>

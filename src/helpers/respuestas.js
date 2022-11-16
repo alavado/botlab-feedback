@@ -39,3 +39,7 @@ export const formatearFecha = (fecha, incluirHora = false) => {
     : format(fecha, 'EEEE d \'de\' MMMM', { locale: es })
   return prefijo  + fechaFormateada
 }
+
+export const formatearNombreEncuesta = (nombreCliente, nombreEncuesta) => {
+  return nombreEncuesta.replace(nombreCliente, '')
+}

@@ -7,6 +7,7 @@ import { exportarRespuestas } from '../../api/endpoints'
 import { useSelector } from 'react-redux'
 import ModalExportacionAvanzada from './ModalExportacionAvanzada'
 import useAnalytics from '../../hooks/useAnalytics'
+import { formatearNombreEncuesta } from '../../helpers/respuestas'
 
 export const tiposExportacion = [
   {
@@ -24,6 +25,7 @@ export const tiposExportacion = [
 const ExportacionAvanzada = () => {
 
   const { fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
+  const { nombreUsuario } = useSelector(state => state.login)
   const [inicio, setInicio] = useState(fechaInicio)
   const [termino, setTermino] = useState(fechaTermino)
   const [email, setEmail] = useState('')
@@ -99,7 +101,10 @@ const ExportacionAvanzada = () => {
           <div className="ExportacionAvanzada__diagrama">
             <Icon icon={tiposExportacion[indiceExtensionSeleccionado].icono} />
             <Icon icon="mdi:arrow-right-thick" />
-            <Icon icon="mdi:email" />
+            <Icon
+              onClick={() => emailRef.current.focus()}
+              icon="mdi:email"
+            />
           </div>
         </div>
         <form
@@ -140,7 +145,7 @@ const ExportacionAvanzada = () => {
                   key={`option-tipo-${t.id}`}
                   value={t.id}
                 >
-                  {t.nombre}
+                  {formatearNombreEncuesta(nombreUsuario, t.nombre)}
                 </option>
               ))}
             </select>

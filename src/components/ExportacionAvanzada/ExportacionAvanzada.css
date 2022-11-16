@@ -109,11 +109,14 @@
   max-width: 30ch;
   line-height: 1.5;
   text-align: right;
-  place-self: center end;
+  place-self: stretch end;
   opacity: .8;
   padding-right: 2rem;
   border-right: 1px solid var(--color-bordes);
   animation: aparece-explicacion-busqueda 1s .1s ease both;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .ExportacionAvanzada__diagrama {
