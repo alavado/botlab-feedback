@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
-import classNames from 'classnames'
 import { Icon } from '@iconify/react'
 import './ExportacionAvanzada.css'
 import { exportarRespuestas } from '../../api/endpoints'
@@ -32,7 +31,8 @@ const ExportacionAvanzada = () => {
   const [modalVisible, setModalVisible] = useState(false)
   const [error, setError] = useState()
   const [indiceExtensionSeleccionado, setIndiceExtensionSeleccionado] = useState(0)
-  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { tipos } = useSelector(state => state.encuestas)
+  const [idEncuestaSeleccionada, setIdEncuestaSeleccionada] = useState(tipos[0].id)
   const emailRef = useRef()
   const track = useAnalytics()
 
@@ -42,7 +42,7 @@ const ExportacionAvanzada = () => {
       return
     }
     setExportando(true)
-    exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, indiceExtensionSeleccionado)
+    exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, tiposExportacion[indiceExtensionSeleccionado].extension)
       .then(() => {
         track('Feedback', 'Reporte', 'exportar', {
           idEncuestaSeleccionada,
@@ -115,10 +115,18 @@ const ExportacionAvanzada = () => {
           </div>
           <h2 className="ExportacionAvanzada__subtitulo">Servicio</h2>
           <div className="ExportacionAvanzada__contenedor_rango">
-            <input
-              className="ExportacionAvanzada__input"
-              required
-            />
+            <select
+              onChange={e => setIdEncuestaSeleccionada(e.target.value)}
+            >
+              {tipos.map(t => (
+                <option
+                  key={`option-tipo-${t.id}`}
+                  value={t.id}
+                >
+                  {t.nombre}
+                </option>
+              ))}
+            </select>
           </div>
           <h2 className="ExportacionAvanzada__subtitulo">Periodo</h2>
           <div className="ExportacionAvanzada__contenedor_rango">

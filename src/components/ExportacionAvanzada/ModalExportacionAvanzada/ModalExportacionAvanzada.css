@@ -4,10 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(100% + 2rem);
-  top: -2rem;
-  left: -1.5rem;
-  height: 100%;
+  width: calc(100% + 3rem);
+  top: -2.25rem;
+  left: -3rem;
+  height: calc(100vh + 2.25rem);
   backdrop-filter: blur(1rem);
   opacity: 0;
   pointer-events: none;
