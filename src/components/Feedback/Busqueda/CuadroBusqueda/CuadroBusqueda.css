@@ -16,6 +16,7 @@
   padding: 2rem;
   border-radius: .5rem;
   animation: aparece-exportacion-avanzada .35s ease both;
+  transform: translateY(-2.75rem);
 }
 
 .CuadroBusqueda__titulo {
