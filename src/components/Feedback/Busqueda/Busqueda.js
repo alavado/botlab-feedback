@@ -23,7 +23,6 @@ const Busqueda = () => {
             <div className="Busqueda__sombra" />
           </>
         }
-        <h1 className="Busqueda__titulo">Búsqueda</h1>
       </div>
       <div className="Busqueda__contenedor">
         {termino

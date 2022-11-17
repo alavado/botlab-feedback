@@ -35,13 +35,6 @@
   bottom: 0;
 }
 
-.Busqueda__titulo {
-  font-weight: bold;
-  font-size: 1.35rem;
-  font-family: 'Raleway';
-  z-index: 3;
-}
-
 .Busqueda__contenedor {
   display: flex;
   flex-direction: column;

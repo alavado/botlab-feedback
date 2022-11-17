@@ -33,7 +33,7 @@ export const generarPDFUso = async (filas, mes, nombreUsuario) => {
     start: { x: 40, y: 670 },
     end: { x: 560, y: 670 }
   })
-  page.drawText(`Todas las encuestas de ${nombreUsuario}`, { x: 40, y: 655, size: 10, font: helveticaBold })
+  page.drawText(`Todos los servicios de ${nombreUsuario}`, { x: 40, y: 655, size: 10, font: helveticaBold })
   page.drawText(filas[0].enviadas.toLocaleString('de-DE'), { x: 380, y: 655, size: 10, font: helveticaBold })
   page.drawText(filas[0].enviadas.toLocaleString('de-DE'), { x: 480, y: 655, size: 10, font: helveticaBold })
   filas.slice(1).forEach((f, i) => {

@@ -27,35 +27,45 @@ const CuadroBusqueda = () => {
 
   return (
     <div className="CuadroBusqueda">
-      <canvas style={{ border: '1px solid grey', display: 'none' }} id="mycanvas" />
-      <form
-        className="CuadroBusqueda__formulario"
-        onSubmit={buscar}
-      >
-        <input
-          className="CuadroBusqueda__input"
-          type="text"
-          spellCheck="false"
-          ref={inputRef}
-          value={termino}
-          onChange={e => setTermino(e.target.value)}
-          placeholder="RUT, nombre, teléfono..."
-        />
-        <Icon
-          icon="mdi:search"
-          className="CuadroBusqueda__icono_buscar"
-        />
-        <button
-          type="submit"
-          className="CuadroBusqueda__boton_buscar"
+      <div className="CuadroBusqueda__tarjeta">
+        <h1 className="CuadroBusqueda__titulo">Búsqueda general</h1>
+        <div className="CuadroBusqueda__explicacion">
+          <p>
+            Este módulo busca los chats más relevantes en todos los servicios y cualquier fecha.<br /><br />
+            Puedes buscar por RUT, nombre, teléfono o cualquier otro dato de las citas.
+          </p>
+          <div className="ExportacionAvanzada__diagrama">
+            <Icon icon="mdi:account-box-multiple" />
+            <Icon icon="mdi:search" />
+          </div>
+        </div>
+        <form
+          className="CuadroBusqueda__formulario"
+          onSubmit={buscar}
         >
-          Buscar
-        </button>
-      </form>
-      <p className="CuadroBusqueda__explicacion">
-        Este módulo busca en todos los servicios y cualquier fecha, entregando los resultados más relevantes.<br /><br />
-        Puedes buscar por RUT, nombre, teléfono o cualquier otro dato de las citas.
-      </p>
+          <div className="CuadroBusqueda__contenedor_input">
+            <input
+              className="CuadroBusqueda__input"
+              type="text"
+              spellCheck="false"
+              ref={inputRef}
+              value={termino}
+              onChange={e => setTermino(e.target.value)}
+              placeholder="RUT, nombre, teléfono..."
+            />
+            <Icon
+              icon="mdi:search"
+              className="CuadroBusqueda__icono_buscar"
+            />
+          </div>
+          <button
+            type="submit"
+            className="CuadroBusqueda__boton_buscar"
+          >
+            Buscar
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

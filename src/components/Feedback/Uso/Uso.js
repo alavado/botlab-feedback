@@ -36,7 +36,7 @@ const Uso = () => {
           ...obj,
           enviadas: obj.enviadas + e.enviadas,
           respondidas: obj.respondidas + e.respondidas
-        }), { nombreEncuesta: 'Todas las encuestas', enviadas: 0, respondidas: 0 })
+        }), { nombreEncuesta: 'Todos los servicios', enviadas: 0, respondidas: 0 })
         setFilas([total, ...datosPorEncuesta])
         const fechaInicio = parse(
           datosPorEncuesta.map(d => d.inicio).reduce((min, d) => min < d ? min : d),
