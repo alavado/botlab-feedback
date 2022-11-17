@@ -103,14 +103,14 @@ const SelectorEncuesta = () => {
       })}
       onClick={() => setPopupActivo(path.indexOf('chat') < 0)}
     >
-      {path.indexOf('busqueda') >= 0 || path.indexOf('uso') >= 0 || path.indexOf('alertas') >= 0 || path.indexOf('tutoriales') >= 0
+      {['busqueda', 'uso', 'alertas', 'tutoriales', 'exportar'].some(x => path.indexOf(x) >= 0)
         ? <>
             <Icon
               className="SelectorEncuesta__icono_empresa"
               icon="mdi:whatsapp"
             />
             <div className="SelectorEncuesta__nombre_encuesta">
-              Todas las encuestas
+              Todos los servicios
             </div>
           </>
         : <>

@@ -12,6 +12,7 @@ import Loader from '../../../Loader'
 import classNames from 'classnames'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import './TabsEncuestas.css'
+import { formatearNombreEncuesta } from '../../../../helpers/respuestas'
 
 const TabsEncuestas = () => {
 
@@ -115,14 +116,14 @@ const TabsEncuestas = () => {
         'TabsEncuestas--todas': path.indexOf('busqueda') >= 0
       })}
     >
-      {['busqueda', 'uso', 'chat', 'alertas', 'tutoriales', 'exportar'].some(ruta => path.indexOf(ruta) >= 0)
+      {['busqueda', 'uso', 'alertas', 'tutoriales', 'exportar'].some(x => path.indexOf(x) >= 0)
         ? <>
             <Icon
               className="TabsEncuestas__icono_empresa"
               icon="mdi:whatsapp"
             />
             <div className="TabsEncuestas__nombre_encuesta">
-              Todas las encuestas
+              Todos los servicios
             </div>
           </>
         : <>
@@ -142,7 +143,7 @@ const TabsEncuestas = () => {
                   className="TabsEncuestas__tab_icono_empresa"
                   icon="mdi:whatsapp"
                 />
-                {tipo.nombre.replace(nombreUsuario, '')}
+                {formatearNombreEncuesta(nombreUsuario, tipo.nombre)}
               </button>
             ))}
           </>
