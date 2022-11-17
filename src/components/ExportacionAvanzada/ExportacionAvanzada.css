@@ -7,19 +7,12 @@
   padding: 1rem 1rem 0rem 1rem;
 }
 
-.ExportacionAvanzada__superior {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 2.75rem;
-  padding-bottom: 1rem;
-}
-
 .ExportacionAvanzada__titulo {
   font-weight: bold;
   font-size: 1.35rem;
   font-family: 'Raleway';
   z-index: 3;
+  grid-column: 1 / -1;
 }
 
 .ExportacionAvanzada__label {
@@ -39,11 +32,21 @@
 
 .ExportacionAvanzada__contenedor {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ExportacionAvanzada__tarjeta {
   display: grid;
-  grid-template-columns: 400px 1.5fr;
-  gap: 2rem;
+  grid-template: auto 1fr / 1fr 1.5fr;
+  gap: 1rem 3rem;
   animation: aparece-exportacion-avanzada .35s ease both;
-  padding-bottom: 4rem;
+  padding: 2rem;
+  border-radius: .5rem;
+  box-shadow:
+    0 .05rem .25rem .025rem var(--color-sombras),
+    0 .25rem .25rem var(--color-sombras);
 }
 
 .ExportacionAvanzada__contenedor_rango {
@@ -91,7 +94,7 @@
   justify-content: center;
   border-radius: 1.5rem;
   height: 2.75rem;
-  padding: 0 1.5rem;
+  padding: 0 2.5rem;
   color: var(--color-texto-claro);
   background-color: var(--color-principal);
   border: none;
@@ -106,12 +109,12 @@
 
 .ExportacionAvanzada__explicacion {
   font-size: .9rem;
-  max-width: 28ch;
+  max-width: 30ch;
   line-height: 1.5;
   text-align: right;
   place-self: stretch end;
   height: 100%;
-  padding-right: 2rem;
+  padding-right: 3rem;
   border-right: 1px solid var(--color-bordes);
   display: flex;
   flex-direction: column;
@@ -119,15 +122,11 @@
 }
 
 .ExportacionAvanzada__diagrama {
-  font-size: 3.5rem;
+  font-size: 3rem;
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
   color: var(--color-principal);
-}
-
-.ExportacionAvanzada__icono {
-  font-size: 1.1rem;
 }
 
 .ExportacionAvanzada__loader_exportando {

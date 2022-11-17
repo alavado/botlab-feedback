@@ -73,8 +73,8 @@
 }
 
 .CuadroBusqueda__explicacion {
-  font-size: .8rem;
-  max-width: 50ch;
+  font-size: .9rem;
+  max-width: 40ch;
   line-height: 1.5;
   text-align: center;
   opacity: .8;
@@ -106,7 +106,7 @@
     opacity: 0;
   }
   100% {
-    opacity: 1;
+    opacity: .8;
   }
 }
 

@@ -53,8 +53,8 @@ const CuadroBusqueda = () => {
         </button>
       </form>
       <p className="CuadroBusqueda__explicacion">
-        La búsqueda entrega hasta 100 resultados más relevantes de cualquier encuesta asociada al término ingresado.
-        Los resultados pueden tener un desfase de hasta 15 minutos.
+        Este módulo busca en todos los servicios y cualquier fecha, entregando los resultados más relevantes.<br /><br />
+        Puedes buscar por RUT, nombre, teléfono o cualquier otro dato de las citas.
       </p>
     </div>
   )

@@ -57,6 +57,15 @@ const BarraLateral = () => {
         <Icon icon={preparaciones} />
         <div className="BarraLateral__nombre_seccion">Preparaciones</div>
         </NavLink> */}
+        <NavLink
+          className="BarraLateral__link"
+          activeClassName="BarraLateral__link--activo"
+          to="/busqueda"
+          onClick={() => track('Feedback', 'BarraLateral', 'verBusqueda')}
+        >
+          <Icon icon="mdi:search" />
+          <div className="BarraLateral__nombre_seccion">Búsqueda</div>
+        </NavLink>
         {tieneAccesoAReportes(cuenta) && (
           <NavLink
             className="BarraLateral__link"
@@ -68,15 +77,6 @@ const BarraLateral = () => {
             <div className="BarraLateral__nombre_seccion">Reporte</div>
           </NavLink>
         )}
-        <NavLink
-          className="BarraLateral__link"
-          activeClassName="BarraLateral__link--activo"
-          to="/busqueda"
-          onClick={() => track('Feedback', 'BarraLateral', 'verBusqueda')}
-        >
-          <Icon icon="mdi:search" />
-          <div className="BarraLateral__nombre_seccion">Búsqueda</div>
-        </NavLink>
         <NavLink
           className="BarraLateral__link"
           activeClassName="BarraLateral__link--activo"

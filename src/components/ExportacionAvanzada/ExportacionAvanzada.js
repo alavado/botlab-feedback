@@ -87,133 +87,133 @@ const ExportacionAvanzada = () => {
         visible={modalVisible}
         ocultar={() => setModalVisible(false)}
       />
-      <div className="ExportacionAvanzada__superior">
-        <h1 className="ExportacionAvanzada__titulo">Reporte</h1>
-      </div>
       <div className="ExportacionAvanzada__contenedor">
-        <div className="ExportacionAvanzada__explicacion">
-          <p>
-            Este módulo permite exportar todas las interacciones
-            de un servicio a una planilla de datos.
-            <br />
-            <br />
-            Recibirás la planilla en el email ingresado.
-          </p>
-          <div className="ExportacionAvanzada__diagrama">
-            <Icon icon={tiposExportacion[indiceExtensionSeleccionado].icono} />
-            <Icon icon="mdi:arrow-right-thick" />
-            <Icon
-              onClick={() => emailRef.current.focus()}
-              icon="mdi:email"
-            />
-          </div>
-        </div>
-        <form
-          className="ExportacionAvanzada__contenedor_formulario"
-          onSubmit={exportar}
-        >
-          <div className="ExportacionAvanzada__campo">
-            <label
-              className="ExportacionAvanzada__label"
-              htmlFor="email"
-            >
-              E-mail
-            </label>
-            <input
-              className="ExportacionAvanzada__input"
-              type="email"
-              id="email"
-              required
-              onChange={e => setEmail(e.target.value)}
-              value={email}
-              ref={emailRef}
-              placeholder="Ingresa tu e-mail"
-            />
-          </div>
-          <div className="ExportacionAvanzada__campo">
-            <label
-              className="ExportacionAvanzada__label"
-              htmlFor="servicio"
-            >
-              Servicio
-            </label>
-            <select
-              id="servicio"
-              onChange={e => setIdEncuestaSeleccionada(e.target.value)}
-              className="ExportacionAvanzada__input"
-            >
-              {tipos.map(t => (
-                <option
-                  key={`option-tipo-${t.id}`}
-                  value={t.id}
-                >
-                  {formatearNombreEncuesta(nombreUsuario, t.nombre)}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="ExportacionAvanzada__campo">
-            <label
-              className="ExportacionAvanzada__label"
-              htmlFor="periodo"
-            >
-              Rango de fechas
-            </label>
-            <div className="ExportacionAvanzada__contenedor_rango">
-              <ReactDatePicker
-                selected={inicio}
-                onChange={f => setInicio(f)}
-                dateFormat="d MMMM yyyy"
-                locale="es"
-                className="SelectorRangoFechas__datepicker"
-                required
-              />
-              -
-              <ReactDatePicker
-                selected={termino}
-                onChange={f => setTermino(f)}
-                dateFormat="d MMMM yyyy"
-                locale="es"
-                className="SelectorRangoFechas__datepicker"
-                required
+        <div className="ExportacionAvanzada__tarjeta">
+          <h1 className="ExportacionAvanzada__titulo">Reporte completo</h1>
+          <div className="ExportacionAvanzada__explicacion">
+            <p>
+              Este módulo permite exportar la lista de chats
+              de un servicio a una planilla de datos.
+              <br />
+              <br />
+              Recibirás la planilla en el email ingresado.
+            </p>
+            <div className="ExportacionAvanzada__diagrama">
+              <Icon icon={tiposExportacion[indiceExtensionSeleccionado].icono} />
+              <Icon icon="mdi:arrow-right-thick" />
+              <Icon
+                onClick={() => emailRef.current.focus()}
+                icon="mdi:email"
               />
             </div>
           </div>
-          <div className="ExportacionAvanzada__campo">
-            <label
-              className="ExportacionAvanzada__label"
-              htmlFor="periodo"
-            >
-              Formato
-            </label>
-            <div className="ExportacionAvanzada__contenedor_rango">
-              {tiposExportacion.map((tipo, i) => (
-                <label
-                  key={`radio-exportacion-${i}`}
-                  className="ExportacionAvanzada__label_option"
-                >
-                  <input
-                    onChange={() => setIndiceExtensionSeleccionado(i)}
-                    type="radio"
-                    radioGroup="formato"
-                    checked={indiceExtensionSeleccionado === i}
-                  /> {tipo.nombre}
-                </label>
-              ))}
-            </div>
-          </div>
-          <button
-            className="ExportacionAvanzada__boton_exportar"
-            type="submit"
-            disabled={exportando}
+          <form
+            className="ExportacionAvanzada__contenedor_formulario"
+            onSubmit={exportar}
           >
-            {exportando
-              ? <><div className="ExportacionAvanzada__loader_exportando" /> Generando...</>
-              : <>Generar reporte</>
-            }
-          </button>
-        </form>
-        {error}
+            <div className="ExportacionAvanzada__campo">
+              <label
+                className="ExportacionAvanzada__label"
+                htmlFor="email"
+              >
+                E-mail
+              </label>
+              <input
+                className="ExportacionAvanzada__input"
+                type="email"
+                id="email"
+                required
+                onChange={e => setEmail(e.target.value)}
+                value={email}
+                ref={emailRef}
+                placeholder="Ingresa tu e-mail"
+              />
+            </div>
+            <div className="ExportacionAvanzada__campo">
+              <label
+                className="ExportacionAvanzada__label"
+                htmlFor="servicio"
+              >
+                Servicio
+              </label>
+              <select
+                id="servicio"
+                onChange={e => setIdEncuestaSeleccionada(e.target.value)}
+                className="ExportacionAvanzada__input"
+              >
+                {tipos.map(t => (
+                  <option
+                    key={`option-tipo-${t.id}`}
+                    value={t.id}
+                  >
+                    {formatearNombreEncuesta(nombreUsuario, t.nombre)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="ExportacionAvanzada__campo">
+              <label
+                className="ExportacionAvanzada__label"
+                htmlFor="periodo"
+              >
+                Rango de fechas
+              </label>
+              <div className="ExportacionAvanzada__contenedor_rango">
+                <ReactDatePicker
+                  selected={inicio}
+                  onChange={f => setInicio(f)}
+                  dateFormat="d MMMM yyyy"
+                  locale="es"
+                  className="SelectorRangoFechas__datepicker"
+                  required
+                />
+                -
+                <ReactDatePicker
+                  selected={termino}
+                  onChange={f => setTermino(f)}
+                  dateFormat="d MMMM yyyy"
+                  locale="es"
+                  className="SelectorRangoFechas__datepicker"
+                  required
+                />
+              </div>
+            </div>
+            <div className="ExportacionAvanzada__campo">
+              <label
+                className="ExportacionAvanzada__label"
+                htmlFor="periodo"
+              >
+                Formato
+              </label>
+              <div className="ExportacionAvanzada__contenedor_rango">
+                {tiposExportacion.map((tipo, i) => (
+                  <label
+                    key={`radio-exportacion-${i}`}
+                    className="ExportacionAvanzada__label_option"
+                  >
+                    <input
+                      onChange={() => setIndiceExtensionSeleccionado(i)}
+                      type="radio"
+                      radioGroup="formato"
+                      checked={indiceExtensionSeleccionado === i}
+                    /> {tipo.nombre}
+                  </label>
+                ))}
+              </div>
+            </div>
+            <button
+              className="ExportacionAvanzada__boton_exportar"
+              type="submit"
+              disabled={exportando}
+            >
+              {exportando
+                ? <><div className="ExportacionAvanzada__loader_exportando" /> Generando...</>
+                : <>Generar reporte</>
+              }
+            </button>
+            {error}
+          </form>
+        </div>
       </div>
     </div>
   )

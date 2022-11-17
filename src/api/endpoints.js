@@ -122,9 +122,6 @@ export const exportarRespuestas = (idEncuesta, fechaInicio, fechaTermino, email,
       }
     }
   )
-  .then(res => {
-    console.log(res)
-  })
 }
 
 export const obtenerReacciones = (idEncuesta, idUsuario, start) => {
