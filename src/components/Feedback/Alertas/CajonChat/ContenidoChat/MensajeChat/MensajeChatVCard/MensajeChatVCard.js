@@ -47,7 +47,7 @@ const MensajeChatVCard = ({ mensaje }) => {
       <p>{nombre}</p>
       <p
         className="MensajeChatVCard__telefono"
-        onClick={() => window.open(`https://web.whatsapp.com/send?phone=${telefono}`, '_blank').focus()}
+        onClick={() => window.open(`https://wa.me/${telefono}`, '_blank').focus()}
         title="Contactar por Whatsapp"
       >
         {telefono}

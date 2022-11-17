@@ -37,12 +37,14 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
     const html = document.querySelector('html')
     const tamañoAnterior = window.getComputedStyle(html, null).getPropertyValue('font-size').slice(0, -2)
     html.style.fontSize = `${Number(tamañoAnterior) + 2}px`
+    track('Feedback', 'MenuUsuario', 'zoomIn')
   }
 
   const zoomOut = () => {
     const html = document.querySelector('html')
     const tamañoAnterior = window.getComputedStyle(html, null).getPropertyValue('font-size').slice(0, -2)
     html.style.fontSize = `${Number(tamañoAnterior) - 2}px`
+    track('Feedback', 'MenuUsuario', 'zoomOut')
   }
 
   return createPortal(
@@ -80,11 +82,23 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               e.stopPropagation()
               dispatch(activaModal())
               esconder()
+              track('Feedback', 'MenuUsuario', 'verNovedades')
             }}
           >
             <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:robot-happy-outline" /> Novedades del servicio
           </button>
-          {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
+          <button
+            className="PopupMenuUsuario__boton_opcion"
+            onClick={e => {
+              e.stopPropagation()
+              dispatch(activaModal())
+              esconder()
+              track('Feedback', 'MenuUsuario', 'verNovedades')
+            }}
+          >
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:robot-happy-outline" /> Novedades del servicio
+          </button>
+          {/* {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
             <button
               className="PopupMenuUsuario__boton_opcion"
               onClick={e => {
@@ -94,11 +108,12 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
             >
               <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:developer-board" /> Tablero de respuestas
             </button>
-          }
+          } */}
           <button
             className="PopupMenuUsuario__boton_opcion"
             onClick={e => {
               e.stopPropagation()
+              track('Feedback', 'MenuUsuario', 'cambiarColores', { esquema })
               dispatch(cambiaEsquemaColor())
             }}
           >
@@ -108,6 +123,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
             className="PopupMenuUsuario__boton_opcion"
             onClick={e => {
               e.stopPropagation()
+              track('Feedback', 'MenuUsuario', 'toggleModoIncognito', { scrambled })
               dispatch(escondeDatosSensibles(!scrambled))
             }}
           >

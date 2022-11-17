@@ -39,7 +39,7 @@ const AccionesCajon = () => {
       <button
         className="AccionesCajon__boton_accion"
         onClick={() => {
-          const link = `https://web.whatsapp.com/send?phone=${telefono}`
+          const link = `https://wa.me/${telefono}`
           track('Feedback', 'Alertas', 'abrirWhatsappWeb', { link })
           window.open(link, '_blank').focus()
         }}

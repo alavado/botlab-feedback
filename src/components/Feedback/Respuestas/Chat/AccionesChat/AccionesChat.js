@@ -64,7 +64,7 @@ const AccionesChat = ({ telefono, link }) => {
   }
 
   const abrirWhatsappWeb = () => {
-    const link = `https://web.whatsapp.com/send?phone=${telefono}`
+    const link = `https://wa.me/${telefono}`
     track('Feedback', 'Chat', 'abrirWhatsappWeb', { link })
     window.open(link, '_blank').focus();
   }
