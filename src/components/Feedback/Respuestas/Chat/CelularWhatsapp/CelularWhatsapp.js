@@ -11,6 +11,7 @@ import { Icon } from '@iconify/react'
 import SelectorConversacion from './SelectorConversacion'
 import { useHistory } from 'react-router'
 import { toggleDebugging } from '../../../../../redux/ducks/cero'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConversacion, actualizarMensajes, nombreBot }) => {
 
@@ -18,15 +19,19 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
   const contenedorMensajes = useRef()
   const dispatch = useDispatch()
   const history = useHistory()
+  const track = useAnalytics()
 
   const todosLosMensajes = useMemo(() => {
     return conversaciones ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], []) : []
   }, [conversaciones])
 
   const irAConversacion = indice => {
-    seleccionarConversacion(indice)
-    const conversacion = document.getElementById(`contenedor-conversacion-${indice}`)
-    conversacion.scrollIntoView()
+    if (indice !== indiceConversacion) {
+      track('Feedback', 'Chat', 'clickEnConversacion')
+      seleccionarConversacion(indice)
+      const conversacion = document.getElementById(`contenedor-conversacion-${indice}`)
+      conversacion.scrollIntoView()
+    }
   }
 
   useEffect(() => {
@@ -52,11 +57,11 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
       CelularWhatsapp: true,
       'CelularWhatsapp--expandido': chatExpandido
     })}>
-      <SelectorConversacion
+      {/* <SelectorConversacion
         conversaciones={conversaciones}
         indiceConversacionSeleccionada={indiceConversacion}
         seleccionarConversacion={irAConversacion}
-      />
+      /> */}
       <div className="CelularWhatsapp__celular">
         <div className="CelularWhatsapp__datos_extra">
           {history.location.pathname.slice(6)}
@@ -95,7 +100,12 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
                         "CelularWhatsapp__contenedor_conversacion--seleccionada": ic === indiceConversacion,
                       })}
                       title={ic === indiceConversacion ? '' : 'Ver conversación'}
-                      onClick={() => seleccionarConversacion(ic)}
+                      onClick={() => {
+                        if (ic !== indiceConversacion) {
+                          track('Feedback', 'Chat', 'clickEnOtraConversacion')
+                          seleccionarConversacion(ic)
+                        }
+                      }}
                     >
                       {mensajes.length > 0
                         ? mensajes.map((mensaje, i) => (
