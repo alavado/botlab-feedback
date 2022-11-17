@@ -87,17 +87,6 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
           >
             <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:robot-happy-outline" /> Novedades del servicio
           </button>
-          <button
-            className="PopupMenuUsuario__boton_opcion"
-            onClick={e => {
-              e.stopPropagation()
-              dispatch(activaModal())
-              esconder()
-              track('Feedback', 'MenuUsuario', 'verNovedades')
-            }}
-          >
-            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:robot-happy-outline" /> Novedades del servicio
-          </button>
           {/* {(cuenta.endsWith('cero') || cuenta.endsWith('botlab')) &&
             <button
               className="PopupMenuUsuario__boton_opcion"
@@ -128,6 +117,17 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
             }}
           >
             <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:incognito" /> {scrambled ? 'Mostrar' : 'Ocultar'} datos sensibles
+          </button>
+          <button
+            className="PopupMenuUsuario__boton_opcion"
+            onClick={e => {
+              e.stopPropagation()
+              history.push('/tutoriales')
+              esconder()
+              track('Feedback', 'MenuUsuario', 'verTutoriales')
+            }}
+          >
+            <InlineIcon className="PopupMenuUsuario__icono_opcion" icon="mdi:play-box-multiple" /> Tutoriales de Feedback
           </button>
           <div className="PopupMenuUsuario__separador" />
           <button
