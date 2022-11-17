@@ -81,6 +81,7 @@ const ExportacionAvanzada = () => {
 
   return (
     <div className="ExportacionAvanzada">
+      {tiposExportacion.map((t, i) => (<Icon key={`preload-icono-${i}`} icon={t.icono} style={{ display: 'none' }} />))}
       <ModalExportacionAvanzada
         email={email}
         visible={modalVisible}
@@ -96,7 +97,7 @@ const ExportacionAvanzada = () => {
             de un servicio a una planilla de datos.
             <br />
             <br />
-            La planilla será enviada al e-mail ingresado en unos minutos.
+            Recibirás la planilla en el email ingresado.
           </p>
           <div className="ExportacionAvanzada__diagrama">
             <Icon icon={tiposExportacion[indiceExtensionSeleccionado].icono} />
@@ -126,6 +127,7 @@ const ExportacionAvanzada = () => {
               onChange={e => setEmail(e.target.value)}
               value={email}
               ref={emailRef}
+              placeholder="Ingresa tu e-mail"
             />
           </div>
           <div className="ExportacionAvanzada__campo">
