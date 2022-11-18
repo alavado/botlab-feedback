@@ -7,7 +7,6 @@ import './DatosChat.css'
 import LoaderChat from '../LoaderChat'
 import Scrambler from '../../../../Scrambler'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
-import { muestraModal } from '../../../../../redux/ducks/configuracion'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const DatosChat = ({ cargando, datos, telefono }) => {
@@ -57,11 +56,6 @@ const DatosChat = ({ cargando, datos, telefono }) => {
     return () => window.removeEventListener('keyup', teclasMagicas)
   }, [irARespuestaAnterior, irASiguienteRespuesta, track])
 
-  const mostrarModalConfiguracion = () => {
-    track('Feedback', 'Chat', 'abrirConfiguracion')
-    dispatch(muestraModal())
-  }
-
   const urlAnterior = history.location.state?.from
 
   return (
@@ -104,16 +98,6 @@ const DatosChat = ({ cargando, datos, telefono }) => {
       </div>
       <h1 className="DatosChat__titulo">
         Datos del chat
-        {/* <button
-          className="TablaRespuestas__boton_configuracion"
-          tooltip="Configuración"
-          onClick={mostrarModalConfiguracion}
-        >
-          <Icon
-            className="TablaRespuestas__boton_icono"
-            icon="mdi:cog"
-          />
-        </button> */}
       </h1>
       {!cargando && datos !== undefined
         ? <div className="DatosChat__contenedor_datos">

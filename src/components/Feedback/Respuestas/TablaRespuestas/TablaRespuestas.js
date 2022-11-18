@@ -14,8 +14,6 @@ import './TablaRespuestas.css'
 import { fijaScrollTabla } from '../../../../redux/ducks/respuestas'
 import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
 import { esRedSalud, tieneAccesoAReportes } from '../../../../helpers/permisos'
-import { muestraModal } from '../../../../redux/ducks/configuracion'
-import { desactivaTooltip } from '../../../../redux/ducks/novedades'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import SelectorRangoFechas2 from '../SelectorRangoFechas2'
 import BotonActualizar from '../BotonActualizar'
@@ -27,7 +25,6 @@ const TablaRespuestas = () => {
 
   const { headers, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
   const { cuenta } = useSelector(state => state.login)
-  const { tooltipVisible } = useSelector(state => state.novedades)
   const refContenedor = useRef()
   const dispatch = useDispatch()
   const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla, cacheInvalido } = useSelector(state => state.respuestas)
@@ -47,35 +44,11 @@ const TablaRespuestas = () => {
 
   useEffect(() => track('Feedback', 'Respuestas', 'index'), [track])
 
-  // const mostrarModalConfiguracion = () => {
-  //   track('Feedback', 'Respuestas', 'abrirConfiguracion')
-  //   dispatch(muestraModal())
-  // }
-  
   return (
     <div className="TablaRespuestas">
       <div className="TablaRespuestas__superior">
         <h1 className="TablaRespuestas__titulo">
           Respuestas
-          {/* <button
-            className="TablaRespuestas__boton_configuracion"
-            tooltip="Configuración"
-            onClick={() => {
-              dispatch(desactivaTooltip())
-              mostrarModalConfiguracion()
-            }}
-          >
-            <Icon
-              className="TablaRespuestas__boton_icono"
-              icon="mdi:cog"
-            />
-            {tooltipVisible && (
-              <div className="TablaRespuestas__tooltip_configuracion">
-                <h3>Configuración</h3>
-                <p>Aquí puedes configurar tu servicio</p>
-              </div>
-            )}
-          </button> */}
           <BotonActualizar />
         </h1>
         {esRedSalud(cuenta) ? <SelectorRangoFechas /> : <SelectorRangoFechas2 />}

@@ -64,12 +64,6 @@ const HeadTablaRespuestas = () => {
               <button className="HeaderTablaRespuestas__boton_filtros">
                 <InlineIcon icon="mdi:arrow-down-drop" className="HeaderTablaRespuestas__icono_filtros" />
               </button>
-              {/* {ordenHeader === nombre && orden === 'ASC' &&
-                <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden" />
-              }
-              {ordenHeader === nombre && orden === 'DESC' &&
-                <InlineIcon icon={triangulito} className="HeaderTablaRespuestas__icono_orden HeaderTablaRespuestas__icono_orden--girado" />
-              } */}
             </span>
           </th>
         ))}
