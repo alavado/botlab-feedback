@@ -25,20 +25,23 @@ const BotonActualizar = () => {
     dispatch(actualizaRespuestas())
   }
 
-  const alertar = differenceInMinutes(fechaActual, fechaActualizacion) >= 5
+  const alertar = differenceInMinutes(fechaActual, fechaActualizacion) >= 3
   const mensajeActualizacion = `actualizado ${formatDistanceToNow(fechaActualizacion, { locale: es, addSuffix: true })}`
 
   return (
     <button
       className={classNames({
-        "SelectorRangoFechas__boton": true,
-        "SelectorRangoFechas__boton--alerta": alertar,
+        "BotonActualizar": true,
+        "BotonActualizar--alerta": alertar,
       })}
       tooltip={`Actualizar (${mensajeActualizacion})`}
       onClick={actualizar}
       disabled={cacheInvalido}
     >
-      <Icon className="SelectorRangoFechas__boton_icono" icon="mdi:refresh" />
+      {alertar
+        ? <><Icon className="BotonActualizar__icono" icon="mdi:refresh" /></>
+        : <><Icon className="BotonActualizar__icono" icon="mdi:refresh" /></>
+      }
     </button>
   )
 }
