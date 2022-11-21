@@ -39,7 +39,7 @@ const BarraSuperior = () => {
   return (
     <div className="BarraSuperior">
       <AlertaPilotos />
-      {cuenta.includes('centauro') || (tiposOrdenados?.length < 4 && !cuenta.includes('redsalud'))
+      {cuenta.includes('centauro') || (tiposOrdenados?.length < 5 && !cuenta.includes('redsalud'))
         ? <Switch>
             <Route path="/chat/:idEncuesta/:idUsuario" component={TabsEncuestas} />
             <Route path="/busqueda" component={TabsEncuestas} />
