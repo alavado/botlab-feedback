@@ -6,7 +6,8 @@ export const mensajesAlertasVisibles = [
   'Paciente reagenda post confirmación',
   'Paciente cancela post confirmación',
   'Paciente se arrepiente de cancelar su hora',
-  'Mensaje post encuesta'
+  'Mensaje post encuesta',
+  'Indica fallecimiento'
 ]
 
 const alertasSlice = createSlice({

@@ -12,6 +12,8 @@ export const obtenerIconoAlerta = mensaje => {
       return 'mdi:chat-question'
     case 'Mensaje post encuesta':
       return 'mdi:chat-processing'
+    case 'Indica fallecimiento':
+      return 'mdi:coffin'
     default:
       return 'mdi:whatsapp'
   }
