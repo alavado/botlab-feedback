@@ -15,10 +15,14 @@
   padding: .25rem;
   border-radius: .25rem;
   font-size: .75rem;
-  max-height: 66vh;
-  overflow: auto;
   cursor: move;
   right: 0;
+}
+
+.Chat__contenedor_scroll_json {
+  overflow: auto;
+  max-height: 66vh;
+  min-height: auto;
 }
 
 .Chat__titulo_contenedor_json {

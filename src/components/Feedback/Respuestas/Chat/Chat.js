@@ -90,11 +90,14 @@ const Chat = () => {
               onClick={e => e.stopPropagation()}
             >
               <h1 className="Chat__titulo_contenedor_json">appointment_metas</h1>
-              <ReactJson
-                src={jsonChat.data._appointment_metas}
-                theme="monokai"
-                collapsed
-              />
+              <div className="Chat__contenedor_scroll_json">
+                <ReactJson
+                  src={jsonChat.data._appointment_metas}
+                  theme="monokai"
+                  sortKeys={true}
+                  collapsed
+                />
+              </div>
             </div>
           </Draggable>
           <Draggable>
@@ -103,11 +106,14 @@ const Chat = () => {
               onClick={e => e.stopPropagation()}
             >
               <h1 className="Chat__titulo_contenedor_json">appointment_data</h1>
-              <ReactJson
-                src={jsonChat.data._appointment_data}
-                theme="monokai"
-                collapsed
-              />
+              <div className="Chat__contenedor_scroll_json">
+                <ReactJson
+                  src={jsonChat.data._appointment_data}
+                  theme="monokai"
+                  collapsed
+                  sortKeys={true}
+                />
+              </div>
             </div>
           </Draggable>
         </>
