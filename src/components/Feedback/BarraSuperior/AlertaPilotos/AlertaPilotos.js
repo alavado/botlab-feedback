@@ -11,6 +11,14 @@ const usuariosPiloto = [
   //   nombre: 'BiobioSalud',
   //   exp: '2022-07-26 00:00:00'
   // },
+  {
+    nombre: 'NucleoSalud',
+    exp: '2022-12-01 00:00:00'
+  },
+  {
+    nombre: 'SGFertility',
+    exp: '2022-12-06 00:00:00'
+  },
 ]
 
 const AlertaPilotos = () => {
