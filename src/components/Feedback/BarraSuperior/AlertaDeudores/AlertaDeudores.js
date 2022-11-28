@@ -3,7 +3,7 @@ import './AlertaDeudores.css'
 
 const usuariosDeudores = [
   // 'BiobioSalud'
-  'Sanadent',
+  'Sanasalud',
   'Everest',
   'LeCiel',
   'Maitenes',
@@ -14,6 +14,8 @@ const usuariosDeudores = [
   'ImagenSalud',
   'RoaDent',
   'MAZ',
+  'CerroGrande',
+  'YohananTherapeutes',
 ]
 
 const AlertaDeudores = () => {
