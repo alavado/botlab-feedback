@@ -12,8 +12,8 @@ const usuariosDeudores = [
   'Santis',
   'SonrieArica',
   'ImagenSalud',
-  'Roadent',
-  'Maz',
+  'RoaDent',
+  'MAZ',
 ]
 
 const AlertaDeudores = () => {
