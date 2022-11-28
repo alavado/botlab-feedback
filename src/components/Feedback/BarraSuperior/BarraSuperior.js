@@ -10,6 +10,7 @@ import { activaEnviador } from '../../../redux/ducks/enviador'
 import TabsEncuestas from './TabsEncuestas'
 import { obtenerPollsCalculadas } from '../../../helpers/pollsCalculadas'
 import { obtenerTiposEncuestasVisibles } from '../../../helpers/encuestasSecretas'
+import AlertaDeudores from './AlertaDeudores'
 
 const BarraSuperior = () => {
 
@@ -39,6 +40,7 @@ const BarraSuperior = () => {
   return (
     <div className="BarraSuperior">
       <AlertaPilotos />
+      <AlertaDeudores />
       {cuenta.includes('centauro') || (tiposOrdenados?.length < 5 && !cuenta.includes('redsalud'))
         ? <Switch>
             <Route path="/chat/:idEncuesta/:idUsuario" component={TabsEncuestas} />
