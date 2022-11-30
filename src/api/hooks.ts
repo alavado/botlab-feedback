@@ -11,6 +11,12 @@ import { alertasAPIResponse, chatAPIMessage, chatAPIResponse, reactionsAPIRespon
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
+const get = async (url: string) => {
+  const { login }: any = store.getState()
+  const { token } = login
+  return axios.get(url, { headers: { 'Api-Token': token } } )
+}
+
 const obtenerIconoServicio = (nombre: string): string => {
   switch (nombre) {
     case 'Confirmación':
@@ -43,9 +49,8 @@ const obtenerDescripcionServicio = (nombre: string): string => {
 
 const obtenerServicios = async (): Promise<Servicio[]> => {
   const { login, encuestas }: any = store.getState()
-  const { token, nombreUsuario } = login
-  const url = `${API_ROOT}/polls_headers`
-  const headersAPIResponse: any = await axios.get(url, { headers: { 'Api-Token': token } })
+  const { nombreUsuario } = login
+  const headersAPIResponse: any = get(`${API_ROOT}/polls_headers`)
   const serviciosQueVienenJuntoAlToken = encuestas.tipos
   const servicios: Servicio[] = headersAPIResponse.data.data.map((headers: any): Servicio => {
     const servicio = serviciosQueVienenJuntoAlToken.find((tipo: { id: any }) => tipo.id === headers.poll_id)
@@ -196,12 +201,9 @@ const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): In
 }
 
 const obtenerInteracciones = async (servicio: Servicio, fechaInicio: Date = new Date(), fechaTermino: Date = new Date()): Promise<Interaccion[]> => {
-  const { login }: any = store.getState()
-  const { token } = login
   const inicio = format(fechaInicio, 'yyyy-MM-dd')
   const termino = format(fechaTermino, 'yyyy-MM-dd')
-  const url = `${API_ROOT}/answers/${servicio.id}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`
-  const answersAPIResponse: any = await axios.get(url, { headers: { 'Api-Token': token } })
+  const answersAPIResponse: any = get(`${API_ROOT}/answers/${servicio.id}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`)
   const interacciones: Interaccion[] = answersAPIResponse.data.data
     .filter((interaccion: any) => interaccion.started === 'True')
     .map((interaccion: any): Interaccion => {
@@ -283,10 +285,7 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
 }
 
 const obtenerConversaciones = async (idServicio: number, idUsuario: number): Promise<{nombreBot: string, telefonoUsuario: string, conversaciones: Conversacion[]}> => {
-  const { login }: any = store.getState()
-  const { token } = login
-  const url = `${API_ROOT}/chat/${idServicio}/${idUsuario}`
-  const response: chatAPIResponse = (await axios.get(url, { headers: { 'Api-Token': token } })).data
+  const response: chatAPIResponse = (await get(`${API_ROOT}/chat/${idServicio}/${idUsuario}`)).data
   const nombreBot = response.data.bot.name
   const telefonoUsuario = response.data.user.phone
   const conversaciones: Conversacion[] = response.data.conversations.map((c: any): Conversacion => {
@@ -331,10 +330,7 @@ export const useInteraccionActivaQuery = () => {
 }
 
 const obtenerComentarios = async (idServicio: number, idUsuario: number, inicio: Date): Promise<Comentario[]> => {
-  const { login }: any = store.getState()
-  const { token } = login
-  const url = `${API_ROOT}/reactions/${idServicio}/${idUsuario}`
-  const response: reactionsAPIResponse = (await axios.get(url, { headers: { 'Api-Token': token } })).data
+  const response: reactionsAPIResponse = (await get(`${API_ROOT}/reactions/${idServicio}/${idUsuario}`)).data
   const comentarios: Comentario[] = response.data.map((c: any): Comentario => {
     return {
       id: c.id,
@@ -374,12 +370,9 @@ export const useComentariosInteraccionActivaQuery = () => {
 }
 
 const obtenerAlertas = async (diasAtras: number = 3): Promise<Alerta[]> => {
-  const { login }: any = store.getState()
-  const { token } = login
   const hoy = format(new Date(), 'yyyy-MM-dd')
   const hace7Dias = format(addDays(new Date(), -diasAtras), 'yyyy-MM-dd')
-  const url = `${API_ROOT}/polls/alerts?start_date=${hace7Dias}&end_date=${hoy}`
-  const response: alertasAPIResponse = (await axios.get(url, { headers: { 'Api-Token': token } })).data
+  const response: alertasAPIResponse = (await get(`${API_ROOT}/polls/alerts?start_date=${hace7Dias}&end_date=${hoy}`)).data
   return response.data.map((alertaAPI: any): Alerta => ({
     timestamp: parseISO(alertaAPI.utc_timestamp),
     texto: alertaAPI.message,
