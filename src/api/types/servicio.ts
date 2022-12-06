@@ -17,27 +17,25 @@ export interface PropiedadServicio {
   tipo: TipoPropiedadServicio
 }
 
-export interface Interaccion {
-  sucursal: string,
-  idUsuario: number,
-  estadoInteraccion: EstadoInteraccion,
-  inicio: Date,
-  citas: Cita[],
+export interface Interaction {
+  userId: number,
+  start: Date,
+  appointments: Appointment[],
+  sucursal?: string,
   nombreBot?: string,
   telefonoUsuario?: string,
   conversaciones?: Conversacion[],
-  alertas: Alerta[],
-  comentarios: Comentario[]
+  alertas?: Alerta[],
+  comentarios?: Comentario[]
 }
 
-export interface Cita {
-  id: number,
+export interface Appointment {
   rut: string,
   nombre: string,
-  estadoInteraccion: EstadoInteraccion,
-  fecha?: Date,
-  responsable?: string,
-  preguntas: Pregunta[]
+  estadoInteraccion: InteractionStatus,
+  fecha: Date,
+  id?: number,
+  responsable?: string
 }
 
 export interface Pregunta {
@@ -49,7 +47,7 @@ export interface Pregunta {
 
 export type IDEstadoInteraccion = 'CUALQUIERA' | 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'REAGENDADA'
 
-export interface EstadoInteraccion {
+export interface InteractionStatus {
   id: IDEstadoInteraccion,
   descripcion?: string,
   explicacion?: string,

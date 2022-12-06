@@ -1,3 +1,5 @@
+import { Appointment, Interaction } from "./servicio"
+
 interface chatAPIUserMessage {
   answer_id: number,
   message: string,
@@ -68,4 +70,56 @@ export interface alertasAPIResponse {
     user_id: number,
     utc_timestamp: string,
   }]
+}
+
+interface SearchAPISingleAppointment {
+  date: string,
+  doctor_name: string,
+  id_cita: string,
+  name: string,
+  phone: string,
+  poll_id: number,
+  rut: string,
+  service_name: string,
+  start: string,
+  started: string,
+  time: string,
+  user_id: number,
+  sucursal_name: string
+}
+
+interface SearchAPIMultiAppointment {
+  date_1: string,
+  id_cita_1: string,
+  id_cita_2: string,
+  id_cita_3: string,
+  id_cita_4: string,
+  id_cita_5: string,
+  n_appointments: string,
+  patient_name_1: string,
+  patient_name_2: string,
+  patient_name_3: string,
+  patient_name_4: string,
+  patient_name_5: string,
+  phone: string,
+  poll_id: number,
+  rut_1: string,
+  rut_2: string,
+  rut_3: string,
+  rut_4: string,
+  rut_5: string,
+  start: string,
+  started: string,
+  sucursal_name_1: string,
+  time_1: string,
+  time_2: string,
+  time_3: string,
+  time_4: string,
+  time_5: string,
+  user_id: number
+}
+
+export interface SearchAPIResponse {
+  status: string,
+  data: [SearchAPISingleAppointment | SearchAPIMultiAppointment]
 }
