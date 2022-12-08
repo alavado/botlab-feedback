@@ -43,47 +43,47 @@ const CajonInteraccion = () => {
           <AvatarUsuarios />
         </div>
         <h2 className="CajonInteraccion__titulo">
-          {data?.citas
-            ? data.citas.length > 1
+          {data?.appointments
+            ? data.appointments.length > 1
               ? <>
-                  {data.citas.map((cita, i) => (
+                  {data.appointments.map((cita, i) => (
                     <Fragment key={`CajonInteraccion-icono-cita-${i}`}>
-                      {cita.nombre.split(' ')[0]}
+                      {cita.patientName.split(' ')[0]}
                       <span
                         className="CajonInteraccion__estado_interaccion"
-                        title={cita.estadoInteraccion.explicacion}
+                        title={cita.status?.explicacion}
                         style={{
                           boxShadow: `
-                            0 0 0 .35rem ${cita.estadoInteraccion.color},
-                            .2rem 0 0 .35rem ${cita.estadoInteraccion.color}
+                            0 0 0 .35rem ${cita.status?.color},
+                            .2rem 0 0 .35rem ${cita.status?.color}
                           `,
-                          background: cita.estadoInteraccion.color
+                          background: cita.status?.color
                         }}
                       >
-                        <InlineIcon icon={cita.estadoInteraccion.icono} />
-                        {cita.estadoInteraccion.descripcion}
+                        <InlineIcon icon={cita.status?.icono || 'mdi:clock'} />
+                        {cita.status?.descripcion}
                       </span>
-                      {i < data.citas.length - 1 && ', '}
+                      {i < data.appointments.length - 1 && ', '}
                     </Fragment>
                   ))}
                 </>
               : <>
-                  {data.citas[0].nombre}
+                  {data.appointments[0].patientName}
                   <span
                     className="CajonInteraccion__estado_interaccion"
-                    title={data.citas[0].estadoInteraccion.explicacion}
+                    title={data.appointments[0].status?.explicacion}
                     style={{
                       boxShadow: `
-                        0 0 0 .35rem ${data.citas[0].estadoInteraccion.color},
-                        .2rem 0 0 .35rem ${data.citas[0].estadoInteraccion.color}
+                        0 0 0 .35rem ${data.appointments[0].status?.color},
+                        .2rem 0 0 .35rem ${data.appointments[0].status?.color}
                       `,
-                      background: data.citas[0].estadoInteraccion.color
+                      background: data.appointments[0].status?.color
                     }}
                   >
                     <InlineIcon
-                      icon={data.citas[0].estadoInteraccion.icono}
+                      icon={data.appointments[0].status?.icono || 'mdi:clock'}
                     />
-                    {data.citas[0].estadoInteraccion.descripcion}
+                    {data.appointments[0].status?.descripcion}
                   </span>
                 </>
             : 'Cargando...'

@@ -74,7 +74,7 @@ const MensajesInteraccion = () => {
 
   useEffect(() => {
     setAutoScroll(true)
-  }, [dataInteraccionActiva?.idUsuario])
+  }, [dataInteraccionActiva?.userId])
 
   useEffect(() => {
     if (cargandoComentarios || !autoScroll) {
@@ -93,7 +93,7 @@ const MensajesInteraccion = () => {
   }
 
   const mensajes = dataInteraccionActiva.conversaciones.map(c => c.mensajes).flat()
-  const mensajesYComentarios: (Mensaje | Comentario)[] = [...mensajes, ...dataInteraccionActiva.comentarios]
+  const mensajesYComentarios: (Mensaje | Comentario)[] = [...mensajes, ...(dataInteraccionActiva.comments || [])]
   mensajesYComentarios.sort((m1, m2) => m1.timestamp < m2.timestamp ? -1 : 1)
   const ultimaConversacion = dataInteraccionActiva.conversaciones.slice(-1)[0]
   const indicePrimerMensajeUltimaConversacion = mensajesYComentarios.findIndex(c => isSameDay(c.timestamp, ultimaConversacion.inicio))
