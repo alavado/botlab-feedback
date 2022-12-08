@@ -15,6 +15,8 @@ import servicio from './servicio'
 import interaccion from './interaccion'
 import sucursal from './sucursal'
 
+import search from './search'
+
 const rootReducer = combineReducers({
   login,
   encuestas,
@@ -29,7 +31,8 @@ const rootReducer = combineReducers({
   alertas,
   servicio,
   interaccion,
-  sucursal
+  sucursal,
+  search
 })
 
 export type RootState = ReturnType<typeof rootReducer>
