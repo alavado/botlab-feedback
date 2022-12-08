@@ -72,7 +72,7 @@ export interface alertasAPIResponse {
   }]
 }
 
-interface SearchAPISingleAppointment {
+export interface SearchAPISingleAppointment {
   date: string,
   doctor_name: string,
   id_cita: string,
@@ -88,7 +88,7 @@ interface SearchAPISingleAppointment {
   sucursal_name: string
 }
 
-interface SearchAPIMultiAppointment {
+export interface SearchAPIMultiAppointment {
   date_1: string,
   id_cita_1: string,
   id_cita_2: string,
@@ -117,9 +117,4 @@ interface SearchAPIMultiAppointment {
   time_4: string,
   time_5: string,
   user_id: number
-}
-
-export interface SearchAPIResponse {
-  status: string,
-  data: [SearchAPISingleAppointment | SearchAPIMultiAppointment]
 }

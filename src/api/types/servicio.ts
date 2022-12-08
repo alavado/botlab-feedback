@@ -21,21 +21,19 @@ export interface Interaction {
   userId: number,
   start: Date,
   appointments: Appointment[],
-  sucursal?: string,
-  nombreBot?: string,
-  telefonoUsuario?: string,
-  conversaciones?: Conversacion[],
-  alertas?: Alerta[],
-  comentarios?: Comentario[]
+  branch?: string,
+  phone?: string,
+  conversations?: Conversacion[],
+  alerts?: Alerta[],
+  comments?: Comentario[]
 }
 
 export interface Appointment {
+  id?: string,
   rut: string,
-  nombre: string,
-  estadoInteraccion: InteractionStatus,
-  fecha: Date,
-  id?: number,
-  responsable?: string
+  patientName: string,
+  status?: InteractionStatus,
+  datetime: Date
 }
 
 export interface Pregunta {

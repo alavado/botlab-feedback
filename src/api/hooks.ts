@@ -1,13 +1,14 @@
 import axios from 'axios'
 import store from '../redux/store'
-import { Interaccion, PropiedadServicio, Servicio, Cita, EstadoInteraccion, IDEstadoInteraccion, Pregunta, Conversacion, Mensaje, Comentario, Alerta } from './types/servicio'
+import { Interaction, PropiedadServicio, Servicio, Appointment, InteractionStatus, IDEstadoInteraccion, Pregunta, Conversacion, Mensaje, Comentario, Alerta } from './types/servicio'
 import { parse, format, parseISO, addHours, addDays } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { useQuery, useQueryClient } from 'react-query'
+import { useQuery, useQueryClient, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/ducks'
 import { estadosInteracciones } from './estadosInteraccion'
-import { alertasAPIResponse, chatAPIMessage, chatAPIResponse, reactionsAPIResponse } from './types/responses'
+import { alertasAPIResponse, chatAPIMessage, chatAPIResponse, reactionsAPIResponse, SearchAPIMultiAppointment, SearchAPISingleAppointment } from './types/responses'
+import _ from 'lodash'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -84,24 +85,24 @@ export const useServiciosQuery = () => {
   )
 }
 
-const estadoInteraccionPorID = (id: IDEstadoInteraccion): EstadoInteraccion => {
-  return estadosInteracciones.find(e => e.id === id) as EstadoInteraccion
+const estadoInteraccionPorID = (id: IDEstadoInteraccion): InteractionStatus => {
+  return estadosInteracciones.find(e => e.id === id) as InteractionStatus
 }
 
-const obtenerEstadoInteraccionGeneral = (citas: Cita[]): EstadoInteraccion => {
-  if (citas.some(cita => cita.estadoInteraccion.id === 'REAGENDADA')) {
+const obtenerEstadoInteraccionGeneral = (citas: Appointment[]): InteractionStatus => {
+  if (citas.some(cita => cita.status?.id === 'REAGENDADA')) {
     return estadoInteraccionPorID('REAGENDADA')
   }
-  if (citas.some(cita => cita.estadoInteraccion.id === 'CANCELADA')) {
+  if (citas.some(cita => cita.status?.id === 'CANCELADA')) {
     return estadoInteraccionPorID('CANCELADA')
   }
-  if (citas.some(cita => cita.estadoInteraccion.id === 'CONFIRMADA')) {
+  if (citas.some(cita => cita.status?.id === 'CONFIRMADA')) {
     return estadoInteraccionPorID('CONFIRMADA')
   }
   return estadoInteraccionPorID('PENDIENTE')
 }
 
-const obtenerEstadoInteraccion = (preguntas: Pregunta[]): EstadoInteraccion => {
+const obtenerEstadoInteraccion = (preguntas: Pregunta[]): InteractionStatus => {
   const preguntaConfirmaYESNO = preguntas.find(p => p.tipo === 'YESNO' && p.texto.includes('Confirma'))
   const preguntaReagendaYESNO = preguntas.find(p => p.tipo === 'YESNO' && p.texto.includes('Reagenda'))
   if (preguntaReagendaYESNO) {
@@ -123,7 +124,7 @@ const obtenerEstadoInteraccion = (preguntas: Pregunta[]): EstadoInteraccion => {
   return estadoInteraccionPorID('PENDIENTE')
 }
 
-const construirInteraccionCitaNormal = (interaccion: any, servicio: Servicio): Interaccion => {
+const construirInteraccionCitaNormal = (interaccion: any, servicio: Servicio): Interaction => {
   const preguntas: Pregunta[] = servicio.propiedades
     .filter(p => p.tipo !== 'META')
     .map(p => ({
@@ -132,29 +133,26 @@ const construirInteraccionCitaNormal = (interaccion: any, servicio: Servicio): I
       respuesta: interaccion[p.id].tag,
       tipo: p.tipo
     }))
-  const estadoInteraccion: EstadoInteraccion = obtenerEstadoInteraccion(preguntas)
-  const citas: Cita[] = [{
+  const estadoInteraccion: InteractionStatus = obtenerEstadoInteraccion(preguntas)
+  const citas: Appointment[] = [{
     id: interaccion.id_cita,
     rut: interaccion.rut,
-    nombre: interaccion.name,
-    fecha: parse(
+    patientName: interaccion.name,
+    datetime: parse(
       `${interaccion.date} ${interaccion.time}`,
       interaccion.time.includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m',
       parseISO(interaccion.start),
       { locale: es }
     ),
-    responsable: interaccion.dentist_name,
-    estadoInteraccion,
-    preguntas
+    status: estadoInteraccion
   }]
   return {
-    sucursal: interaccion.sucursal_name,
-    idUsuario: interaccion.user_id,
-    inicio: addHours(parseISO(interaccion.start), new Date().getTimezoneOffset() / -60),
-    estadoInteraccion,
-    citas,
-    alertas: [],
-    comentarios: interaccion.reactions.map((reaction: any): Comentario => ({
+    branch: interaccion.sucursal_name,
+    userId: interaccion.user_id,
+    start: addHours(parseISO(interaccion.start), new Date().getTimezoneOffset() / -60),
+    appointments: citas,
+    alerts: [],
+    comments: interaccion.reactions.map((reaction: any): Comentario => ({
       id: reaction.id,
       timestamp: parseISO(reaction.created_at),
       texto: reaction.reaction_text,
@@ -163,9 +161,9 @@ const construirInteraccionCitaNormal = (interaccion: any, servicio: Servicio): I
   }
 }
 
-const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): Interaccion => {
+const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): Interaction => {
   const nCitas = Number(interaccion.n_appointments)
-  const citas: Cita[] = [...Array(nCitas)].map((_, i): Cita => {
+  const citas: Appointment[] = [...Array(nCitas)].map((_, i): Appointment => {
     const indiceCita = i + 1
     const preguntas: Pregunta[] = servicio.propiedades
       .filter(p => p.tipo === 'YESNO' && p.id.endsWith(`${indiceCita}`))
@@ -179,19 +177,18 @@ const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): In
     return {
       id: interaccion[`id_cita_${indiceCita}`],
       rut: interaccion[`rut_${indiceCita}`],
-      nombre: interaccion[`patient_name_${indiceCita}`],
-      estadoInteraccion,
-      preguntas
+      patientName: interaccion[`patient_name_${indiceCita}`],
+      status: estadoInteraccion,
+      datetime: new Date()
     }
   })
   return {
-    sucursal: interaccion['sucursal_name_1'],
-    idUsuario: interaccion['user_id'],
-    estadoInteraccion: obtenerEstadoInteraccionGeneral(citas),
-    inicio: addHours(parseISO(interaccion['start']), new Date().getTimezoneOffset() / -60),
-    citas,
-    alertas: [],
-    comentarios: interaccion.reactions.map((reaction: any): Comentario => ({
+    branch: interaccion['sucursal_name_1'],
+    userId: interaccion['user_id'],
+    start: addHours(parseISO(interaccion['start']), new Date().getTimezoneOffset() / -60),
+    appointments: citas,
+    alerts: [],
+    comments: interaccion.reactions.map((reaction: any): Comentario => ({
       id: reaction.id,
       timestamp: parseISO(reaction.created_at),
       texto: reaction.reaction_text,
@@ -200,18 +197,18 @@ const construirInteraccionMulticita = (interaccion: any, servicio: Servicio): In
   }
 }
 
-const obtenerInteracciones = async (servicio: Servicio, fechaInicio: Date = new Date(), fechaTermino: Date = new Date()): Promise<Interaccion[]> => {
+const obtenerInteracciones = async (servicio: Servicio, fechaInicio: Date = new Date(), fechaTermino: Date = new Date()): Promise<Interaction[]> => {
   const inicio = format(fechaInicio, 'yyyy-MM-dd')
   const termino = format(fechaTermino, 'yyyy-MM-dd')
   const answersAPIResponse: any = get(`${API_ROOT}/answers/${servicio.id}?fecha_inicio=${inicio}%2000%3A00&fecha_termino=${termino}%2023%3A59`)
-  const interacciones: Interaccion[] = answersAPIResponse.data.data
+  const interacciones: Interaction[] = answersAPIResponse.data.data
     .filter((interaccion: any) => interaccion.started === 'True')
-    .map((interaccion: any): Interaccion => {
+    .map((interaccion: any): Interaction => {
       return interaccion.n_appointments !== undefined
         ? construirInteraccionMulticita(interaccion, servicio)
         : construirInteraccionCitaNormal(interaccion, servicio)
     })
-  interacciones.sort((i1, i2) => (i1.citas[0].fecha ?? -1) < (i2.citas[0].fecha ?? 1) ? -1 : 1)
+  interacciones.sort((i1, i2) => (i1.appointments[0].datetime ?? -1) < (i2.appointments[0].datetime ?? 1) ? -1 : 1)
   return interacciones
 }
 
@@ -226,9 +223,9 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
     async () => {
       const interacciones = await obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino)
       interacciones.forEach(interaccion => {
-        const interaccionCacheada: Interaccion | undefined = queryClient.getQueryData(['interaccion', idServicioActivo, interaccion.idUsuario])
+        const interaccionCacheada: Interaction | undefined = queryClient.getQueryData(['interaccion', idServicioActivo, interaccion.userId])
         if (!interaccionCacheada) {
-          queryClient.setQueryData(['interaccion', idServicioActivo, interaccion.idUsuario], interaccion)
+          queryClient.setQueryData(['interaccion', idServicioActivo, interaccion.userId], interaccion)
         }
       })
       return interacciones
@@ -236,8 +233,8 @@ export const useInteraccionesServicioYEstadoActivosQuery = () => {
     {
       select: interacciones => {
         return interacciones
-          .filter(interaccion => idEstadoInteraccionActivo === 'CUALQUIERA' || idEstadoInteraccionActivo === interaccion.estadoInteraccion.id)
-          .filter(interaccion => !nombreSucursalActiva || nombreSucursalActiva === interaccion.sucursal)
+          .filter(interaccion => idEstadoInteraccionActivo === 'CUALQUIERA')
+          .filter(interaccion => !nombreSucursalActiva || nombreSucursalActiva === interaccion.branch)
       },
       enabled: !!idServicioActivo && !!idEstadoInteraccionActivo,
       refetchInterval: 30_000
@@ -256,9 +253,9 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
     async () => {
       const interacciones = await obtenerInteracciones(servicioActivo, fechaInicio, fechaTermino)
       interacciones.forEach(interaccion => {
-        const interaccionCacheada: Interaccion | undefined = queryClient.getQueryData(['interaccion', idServicioActivo, interaccion.idUsuario])
+        const interaccionCacheada: Interaction | undefined = queryClient.getQueryData(['interaccion', idServicioActivo, interaccion.userId])
         queryClient.setQueryData(
-          ['interaccion', idServicioActivo, interaccion.idUsuario],
+          ['interaccion', idServicioActivo, interaccion.userId],
           interaccionCacheada
             ? { ...interaccionCacheada, ...interaccion }
             : interaccion
@@ -271,9 +268,8 @@ export const usePosiblesEstadosInteraccionesQuery = () => {
       enabled: !!idServicioActivo,
       select: interacciones => estadosInteracciones.map(estado => {
         const interaccionesEstado = interacciones
-          .filter(d => d.estadoInteraccion.id === estado.id)
-          .filter(interaccion => !nombreSucursalActiva || nombreSucursalActiva === interaccion.sucursal)
-        const interaccionesConComentarios = interaccionesEstado.filter(i => i.comentarios.length > 0)
+          .filter(interaccion => !nombreSucursalActiva || nombreSucursalActiva === interaccion.branch)
+        const interaccionesConComentarios = interaccionesEstado.filter(i => i.comments && i.comments.length > 0)
         return {
           estado,
           conteo: interaccionesEstado.length,
@@ -314,7 +310,7 @@ export const useInteraccionActivaQuery = () => {
     ['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva],
     async () => {
       const datosExtra = await obtenerConversaciones(idServicioInteraccionActiva as number, idUsuarioInteraccionActiva as number)
-      const interaccion = queryClient.getQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva]) as Interaccion
+      const interaccion = queryClient.getQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva]) as Interaction
       const interaccionCompleta = {
         ...interaccion,
         ...datosExtra
@@ -354,10 +350,10 @@ export const useComentariosInteraccionActivaQuery = () => {
         idUsuarioInteraccionActiva as number,
         inicioInteraccionActiva as Date
       )
-      const interaccion = queryClient.getQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva]) as Interaccion
-      const interaccionCompleta: Interaccion = {
+      const interaccion = queryClient.getQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva]) as Interaction
+      const interaccionCompleta: Interaction = {
         ...interaccion,
-        comentarios
+        comments: comentarios
       }
       queryClient.setQueryData(['interaccion', idServicioInteraccionActiva, idUsuarioInteraccionActiva], interaccionCompleta)
       return interaccionCompleta
@@ -404,6 +400,54 @@ export const useAlertasQuery = () => {
       refetchInterval: 30_000,
       refetchOnWindowFocus: false,
       enabled: !!data
+    }
+  )
+}
+
+export const useSearchQueryResults = (term: String): UseQueryResult<Interaction[], unknown> => {
+  return useQuery(
+    ['search', term],
+    async () => {
+      if (!term) {
+        return []
+      }
+      const { data } = await get(`https://api.botlab.cl/answers_es?query=${term}`)
+      return _.orderBy(data.data.map((searchResult: any): Interaction => {
+          const nAppointments = Number(searchResult.n_appointments || 1)
+          if (nAppointments > 1) {
+            const result = searchResult as SearchAPIMultiAppointment
+            return {
+              start: parseISO(result.start),
+              userId: result.user_id,
+              branch: result.sucursal_name_1,
+              phone: result.phone,
+              appointments: Array(nAppointments).fill(0).map<Appointment>((_, i): Appointment => {
+                const index = i + 1
+                return {
+                  datetime: new Date(),
+                  patientName: result[`patient_name_${index}` as keyof SearchAPIMultiAppointment] as string,
+                  rut: result[`rut_${index}` as keyof SearchAPIMultiAppointment] as string,
+                  id: result[`id_cita_${index}` as keyof SearchAPIMultiAppointment] as string
+                }
+              })
+            }
+          }
+          else {
+            const result = searchResult as SearchAPISingleAppointment
+            return {
+              start: parseISO(result.start),
+              userId: result.user_id,
+              branch: result.sucursal_name,
+              phone: result.phone,
+              appointments: [{
+                datetime: new Date(),
+                patientName: result.name,
+                rut: result.rut,
+                id: result.id_cita
+              }]
+            }
+          }
+      }), 'start', 'desc')
     }
   )
 }

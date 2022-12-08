@@ -1,6 +1,6 @@
-import { EstadoInteraccion } from "./types/servicio"
+import { InteractionStatus } from "./types/servicio"
 
-export const estadosInteracciones: EstadoInteraccion[] = [
+export const estadosInteracciones: InteractionStatus[] = [
   {
     id: 'PENDIENTE',
     descripcion: 'Pendiente',
