@@ -19,6 +19,7 @@ import { cierraLaSesion } from '../../redux/ducks/login'
 import Novedades from '../Novedades'
 import Respuestas2 from './Respuestas2'
 import Tutoriales from './Tutoriales'
+import Search from './Search'
 
 const Feedback = () => {
 
@@ -78,6 +79,9 @@ const Feedback = () => {
             <Route path="/interaccion">
               <></>
             </Route>
+            <Route path="/busqueda">
+              <></>
+            </Route>
             <Route>
               <BarraSuperior />
             </Route>
@@ -100,7 +104,7 @@ const Feedback = () => {
                 <Alertas  />
               </Route>
               <Route exact path="/busqueda">
-                <Busqueda />
+                <Search />
               </Route>
               <Route path="/busqueda/:termino">
                 <Busqueda />

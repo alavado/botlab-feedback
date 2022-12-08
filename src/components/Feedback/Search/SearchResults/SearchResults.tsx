@@ -3,7 +3,7 @@ import { format } from 'date-fns/esm'
 import { Interaction } from '../../../../api/types/servicio'
 import { useVirtual } from 'react-virtual'
 import './SearchResults.css'
-import { useRef } from 'react'
+import { MouseEventHandler, useRef } from 'react'
 
 const columnHelper = createColumnHelper<Interaction>()
 
@@ -58,7 +58,7 @@ const columns = [
   }),
 ]
 
-const SearchResults = ({ data } : { data: Interaction[] }) => {
+const SearchResults = ({ data, onRowClick } : { data: Interaction[], onRowClick: MouseEventHandler }) => {
 
   const tableContainerRef = useRef<HTMLDivElement>(null)
   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() })
@@ -66,7 +66,7 @@ const SearchResults = ({ data } : { data: Interaction[] }) => {
   const rowVirtualizer = useVirtual({
     parentRef: tableContainerRef,
     size: rows.length,
-    overscan: 10,
+    overscan: 20,
   })
   const { virtualItems: virtualRows, totalSize } = rowVirtualizer
 
@@ -75,7 +75,7 @@ const SearchResults = ({ data } : { data: Interaction[] }) => {
     virtualRows.length > 0
       ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
       : 0
-
+    
   return (
     <div ref={tableContainerRef} className="SearchResults">
       <table className="SearchResults__table">
@@ -86,7 +86,7 @@ const SearchResults = ({ data } : { data: Interaction[] }) => {
                 <th
                   key={header.id}
                   className="SearchResults__th"
-                  style={headerGroup.id === 'n' ? { border: 'none' } : {}}
+                  style={{ width: header.getSize() }}
                 >
                   {header.isPlaceholder
                     ? null
@@ -108,7 +108,10 @@ const SearchResults = ({ data } : { data: Interaction[] }) => {
           {virtualRows.map((virtualRow: any) => {
             const row = rows[virtualRow.index] as Row<Interaction>
             return (
-            <tr key={row.id}>
+            <tr
+              key={row.id}
+              onClick={onRowClick}
+            >
               {row.getVisibleCells().map(cell => (
                 <td key={cell.id} className="SearchResults__td">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

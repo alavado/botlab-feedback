@@ -31,3 +31,31 @@
 .SearchInput__input:focus {
   box-shadow: 0 0 0 2px var(--color-principal);
 }
+
+.SearchInput__status_control {
+  position: absolute;
+  right: .35rem;
+}
+
+.SearchInput__clear_button {
+  background: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+  border: none;
+  transition: all .15s ease;
+  opacity: .75;
+}
+
+.SearchInput__clear_icon {
+  font-size: 1rem;
+}
+
+.SearchInput__clear_button--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
