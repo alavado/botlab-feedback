@@ -1,0 +1,10 @@
+.SearchInput {
+  padding: 1rem;
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}
+
+.SearchInput__label {
+  font-size: .7rem;
+}

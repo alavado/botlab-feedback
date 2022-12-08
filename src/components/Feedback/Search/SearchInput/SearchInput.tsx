@@ -4,22 +4,32 @@ import { DebounceInput } from 'react-debounce-input'
 import './SearchInput.css'
 import { useState } from 'react'
 
-const SearchInput = ({ loadingResults } : { loadingResults: boolean }) => {
+const SearchInput = ({ showLoader = false } : { showLoader: boolean }) => {
 
   const dispatch = useDispatch()
   const [debouncing, setDebouncing] = useState(false)
 
+  const dispatchSearch = (term: string) => {
+    dispatch(setSearchTerm(term))
+    setDebouncing(false)
+  }
+
   return (
     <div className="SearchInput">
+      <label
+        className="SearchInput__label"
+        htmlFor="SearchInput__input"
+      >
+        Buscar: 
+      </label>
       <DebounceInput
-        onChange={e => {
-          dispatch(setSearchTerm(e.target.value))
-          setDebouncing(false)
-        }}
+        autoFocus={true}
+        onChange={e => dispatchSearch(e.target.value)}
         debounceTimeout={300}
         onChangeCapture={() => setDebouncing(true)}
+        id="SearchInput__input"
       />
-      {(debouncing || loadingResults) && 'cargando...'}
+      {(debouncing || showLoader) && 'cargando...'}
     </div>
   )
 }

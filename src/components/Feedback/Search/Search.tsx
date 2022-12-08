@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux'
 import { useSearchQueryResults } from '../../../api/hooks'
-import { Interaction } from '../../../api/types/servicio'
 import { RootState } from '../../../redux/ducks'
 import './Search.css'
 import SearchInput from './SearchInput'
+import SearchResults from './SearchResults'
 
 const Search = () => {
 
@@ -12,12 +12,8 @@ const Search = () => {
 
   return (
     <div className="Search">
-      <SearchInput loadingResults={isLoading} />
-      <div>
-        {data?.map((interaction: Interaction) => (
-          <div>{interaction.phone}</div>
-        ))}
-      </div>
+      <SearchInput showLoader={isLoading} />
+      <SearchResults data={data || []} />
     </div>
   )
 }
