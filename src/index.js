@@ -12,6 +12,11 @@ import store from './redux/store'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from 'react-query'
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser')
+  worker.start()
+}
+
 const queryClient = new QueryClient()
 
 ReactDOM.render(
