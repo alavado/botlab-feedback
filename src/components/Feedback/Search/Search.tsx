@@ -12,7 +12,9 @@ const Search = () => {
 
   return (
     <div className="Search">
-      <SearchInput showLoader={isLoading} />
+      <div className="Search__topbar">
+        <SearchInput showLoader={isLoading} />
+      </div>
       <SearchResults data={data || []} />
     </div>
   )

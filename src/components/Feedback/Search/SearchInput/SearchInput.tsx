@@ -3,6 +3,7 @@ import { setTerm as setSearchTerm } from '../../../../redux/ducks/search'
 import { DebounceInput } from 'react-debounce-input'
 import './SearchInput.css'
 import { useState } from 'react'
+import { Icon } from '@iconify/react'
 
 const SearchInput = ({ showLoader = false } : { showLoader: boolean }) => {
 
@@ -15,22 +16,22 @@ const SearchInput = ({ showLoader = false } : { showLoader: boolean }) => {
   }
 
   return (
-    <div className="SearchInput">
-      <label
-        className="SearchInput__label"
-        htmlFor="SearchInput__input"
-      >
-        Buscar: 
-      </label>
-      <DebounceInput
-        autoFocus={true}
-        onChange={e => dispatchSearch(e.target.value)}
-        debounceTimeout={300}
-        onChangeCapture={() => setDebouncing(true)}
-        id="SearchInput__input"
-      />
-      {(debouncing || showLoader) && 'cargando...'}
-    </div>
+    <>
+      <p className="SearchInput__label">Búsqueda</p>
+      <div className="SearchInput">
+        <Icon className="SearchInput__icon" icon="mdi:search"/>
+        <DebounceInput
+          autoFocus={true}
+          onChange={e => dispatchSearch(e.target.value)}
+          debounceTimeout={300}
+          onChangeCapture={() => setDebouncing(true)}
+          id="SearchInput__input"
+          className="SearchInput__input"
+          placeholder="Buscar"
+        />
+        {(debouncing || showLoader) && 'cargando...'}
+      </div>
+    </>
   )
 }
 
