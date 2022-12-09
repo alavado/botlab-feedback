@@ -2,7 +2,7 @@ import { createColumnHelper, useReactTable, getCoreRowModel, flexRender, Row } f
 import { format } from 'date-fns/esm'
 import { Interaction } from '../../../../api/types/servicio'
 import { useVirtual } from 'react-virtual'
-import './SearchResults.css'
+import './InteractionsTable.css'
 import { MouseEventHandler, useRef } from 'react'
 
 const columnHelper = createColumnHelper<Interaction>()
@@ -24,12 +24,12 @@ const columns = [
   columnHelper.accessor(row => row.appointments, {
     id: `rut`,
     header: 'RUT',
-    cell: info => info.getValue().map(v => <div className="SearchResults__multi_cell">{v.rut}</div>),
+    cell: info => info.getValue().map(v => <div className="InteractionsTable__multi_cell">{v.rut}</div>),
   }),
   columnHelper.accessor(row => row.appointments, {
     id: `patient`,
     header: 'Nombre',
-    cell: info => info.getValue().map(v => <div className="SearchResults__multi_cell">{v.patientName}</div>),
+    cell: info => info.getValue().map(v => <div className="InteractionsTable__multi_cell">{v.patientName}</div>),
   }),
   columnHelper.accessor(row => row.appointments[0].datetime, {
     id: `app_date`,
@@ -42,15 +42,15 @@ const columns = [
     cell: info => info.getValue().map(v => {
       const time = format(v.datetime, 'HH:mm')
       if (time === '00:00') {
-        return <div className="SearchResults__multi_cell">-</div>
+        return <div className="InteractionsTable__multi_cell">-</div>
       }
-      return <div className="SearchResults__multi_cell">{time}</div>
+      return <div className="InteractionsTable__multi_cell">{time}</div>
     }),
   }),
   columnHelper.accessor(row => row.appointments, {
     id: `app_id`,
     header: 'ID cita',
-    cell: info => info.getValue().map(v => <div className="SearchResults__multi_cell">{v.id}</div>),
+    cell: info => info.getValue().map(v => <div className="InteractionsTable__multi_cell">{v.id}</div>),
   }),
   columnHelper.accessor('branch', {
     header: 'Sucursal',
@@ -58,7 +58,7 @@ const columns = [
   }),
 ]
 
-const SearchResults = ({ data, onRowClick } : { data: Interaction[], onRowClick: MouseEventHandler }) => {
+const InteractionsTable = ({ data, onRowClick } : { data: Interaction[], onRowClick: MouseEventHandler }) => {
 
   const tableContainerRef = useRef<HTMLDivElement>(null)
   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() })
@@ -77,15 +77,15 @@ const SearchResults = ({ data, onRowClick } : { data: Interaction[], onRowClick:
       : 0
     
   return (
-    <div ref={tableContainerRef} className="SearchResults">
-      <table className="SearchResults__table">
-        <thead className="SearchResults__thead">
+    <div ref={tableContainerRef} className="InteractionsTable">
+      <table className="InteractionsTable__table">
+        <thead className="InteractionsTable__thead">
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => (
                 <th
                   key={header.id}
-                  className="SearchResults__th"
+                  className="InteractionsTable__th"
                   style={{ width: header.getSize() }}
                 >
                   {header.isPlaceholder
@@ -111,9 +111,10 @@ const SearchResults = ({ data, onRowClick } : { data: Interaction[], onRowClick:
             <tr
               key={row.id}
               onClick={onRowClick}
+              className="InteractionsTable__tr"
             >
               {row.getVisibleCells().map(cell => (
-                <td key={cell.id} className="SearchResults__td">
+                <td key={cell.id} className="InteractionsTable__td">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
@@ -131,4 +132,4 @@ const SearchResults = ({ data, onRowClick } : { data: Interaction[], onRowClick:
   )
 }
 
-export default SearchResults
+export default InteractionsTable

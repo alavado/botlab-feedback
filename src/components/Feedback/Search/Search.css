@@ -22,11 +22,13 @@
   position: absolute;
   height: 100%;
   right: 0;
-  background: red;
-  transition: all .5s ease-out;
+  background: blue;
+  transition: all .35s ease-out;
   width: 33rem;
+  opacity: 1;
 }
 
 .Search__drawer--hidden {
   right: -100%;
+  opacity: 0;
 }

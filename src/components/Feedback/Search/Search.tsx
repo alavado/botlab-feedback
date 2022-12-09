@@ -6,7 +6,7 @@ import { hideDrawer, showDrawer } from '../../../redux/ducks/search'
 import InteractionDrawer from './InteractionDrawer'
 import './Search.css'
 import SearchInput from './SearchInput'
-import SearchResults from './SearchResults'
+import InteractionsTable from './InteractionsTable'
 
 const Search = () => {
 
@@ -19,7 +19,7 @@ const Search = () => {
       <div className="Search__topbar">
         <SearchInput showLoader={isLoading} />
       </div>
-      <SearchResults
+      <InteractionsTable
         data={data || []}
         onRowClick={() => dispatch(showDrawer())}
       />
