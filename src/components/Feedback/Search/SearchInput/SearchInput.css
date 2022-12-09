@@ -5,6 +5,12 @@
   position: relative;
 }
 
+.SearchInput__input_container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
 .SearchInput__label {
   font-weight: bold;
   font-size: 0.8rem;
@@ -34,7 +40,7 @@
 
 .SearchInput__status_control {
   position: absolute;
-  right: 0.35rem;
+  right: 0.5rem;
 }
 
 .SearchInput__clear_button {

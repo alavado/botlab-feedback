@@ -2,25 +2,41 @@ import { useDispatch } from 'react-redux'
 import { setTerm as setSearchTerm } from '../../../../redux/ducks/search'
 import { DebounceInput } from 'react-debounce-input'
 import './SearchInput.css'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import Loader from '../../../Loader'
 import classNames from 'classnames'
 
-const SearchInput = ({ showLoader = false }: { showLoader: boolean }) => {
+interface SearchInputProps {
+  showLoader: boolean
+  defaultValue: string
+}
+
+const SearchInput = ({
+  showLoader = false,
+  defaultValue = '',
+}: SearchInputProps) => {
   const dispatch = useDispatch()
   const [debouncing, setDebouncing] = useState(false)
-  const [inputContent, setInputContent] = useState('')
+  const [inputContent, setInputContent] = useState(defaultValue)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const dispatchSearch = (term: string) => {
     dispatch(setSearchTerm(term))
     setDebouncing(false)
   }
 
+  const clearInput = () => {
+    setInputContent('')
+    inputRef.current?.focus()
+  }
+
   return (
-    <>
-      <p className="SearchInput__label">Búsqueda</p>
-      <div className="SearchInput">
+    <div className="SearchInput">
+      <label htmlFor="SearchInput__input" className="SearchInput__label">
+        Búsqueda
+      </label>
+      <div className="SearchInput__input_container">
         <Icon className="SearchInput__icon" icon="mdi:search" />
         <DebounceInput
           value={inputContent}
@@ -34,6 +50,7 @@ const SearchInput = ({ showLoader = false }: { showLoader: boolean }) => {
           id="SearchInput__input"
           className="SearchInput__input"
           placeholder="Buscar"
+          inputRef={inputRef}
         />
         <div className="SearchInput__status_control">
           {debouncing || showLoader ? (
@@ -44,9 +61,7 @@ const SearchInput = ({ showLoader = false }: { showLoader: boolean }) => {
                 SearchInput__clear_button: true,
                 'SearchInput__clear_button--hidden': !inputContent,
               })}
-              onClick={() => {
-                setInputContent('')
-              }}
+              onClick={clearInput}
               title="Limpiar búsqueda"
             >
               <Icon className="SearchInput__clear_icon" icon="mdi:close" />
@@ -54,7 +69,7 @@ const SearchInput = ({ showLoader = false }: { showLoader: boolean }) => {
           )}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -1,11 +1,11 @@
 import { MouseEventHandler } from 'react'
 import './InteractionDrawer.css'
 
-interface InteractionDrawerParams {
+interface InteractionDrawerProps {
   onCloseClick: MouseEventHandler
 }
 
-const InteractionDrawer = ({ onCloseClick }: InteractionDrawerParams) => {
+const InteractionDrawer = ({ onCloseClick }: InteractionDrawerProps) => {
   return (
     <div className="InteractionDrawer">
       <button onClick={onCloseClick}>x</button>

@@ -18,7 +18,7 @@ const Search = () => {
   return (
     <div className="Search">
       <div className="Search__topbar">
-        <SearchInput showLoader={isLoading} />
+        <SearchInput showLoader={isLoading} defaultValue={searchTerm} />
       </div>
       <InteractionsTable
         data={data || []}

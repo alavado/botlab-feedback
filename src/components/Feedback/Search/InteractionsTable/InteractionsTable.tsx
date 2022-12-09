@@ -80,12 +80,12 @@ const columns = [
   }),
 ]
 
-interface InteractionsTableParams {
+interface InteractionsTableProps {
   data: Interaction[]
   onRowClick: MouseEventHandler
 }
 
-const InteractionsTable = ({ data, onRowClick }: InteractionsTableParams) => {
+const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
   const tableContainerRef = useRef<HTMLDivElement>(null)
   const table = useReactTable({
     data,
