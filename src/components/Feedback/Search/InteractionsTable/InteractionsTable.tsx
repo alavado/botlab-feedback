@@ -82,7 +82,7 @@ const columns = [
 
 interface InteractionsTableProps {
   data: Interaction[]
-  onRowClick: MouseEventHandler
+  onRowClick: Function
 }
 
 const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
@@ -140,7 +140,7 @@ const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
             return (
               <tr
                 key={row.id}
-                onClick={onRowClick}
+                onClick={() => onRowClick(row.original)}
                 className="InteractionsTable__tr"
               >
                 {row.getVisibleCells().map((cell) => (

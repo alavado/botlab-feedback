@@ -26,8 +26,9 @@ const SearchInput = ({
     setDebouncing(false)
   }
 
-  const clearInput = () => {
+  const clearSearchInput = () => {
     setInputContent('')
+    dispatch(setSearchTerm(''))
     inputRef.current?.focus()
   }
 
@@ -61,7 +62,7 @@ const SearchInput = ({
                 SearchInput__clear_button: true,
                 'SearchInput__clear_button--hidden': !inputContent,
               })}
-              onClick={clearInput}
+              onClick={clearSearchInput}
               title="Limpiar búsqueda"
             >
               <Icon className="SearchInput__clear_icon" icon="mdi:close" />
