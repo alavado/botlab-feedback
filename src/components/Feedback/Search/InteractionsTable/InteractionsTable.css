@@ -1,11 +1,11 @@
 .InteractionsTable {
-  font-size: .6rem;
+  font-size: 0.6rem;
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - .5rem - var(--search-topbar-height));
+  height: calc(100vh - 0.5rem - var(--search-topbar-height));
   overflow-y: scroll;
-  padding: 0 .5rem .5rem .5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .InteractionsTable__table {
@@ -19,7 +19,7 @@
 }
 
 .InteractionsTable__th {
-  padding: .5rem .75rem;
+  padding: 0.5rem 0.75rem;
   box-shadow: 0 0 0 1px var(--color-barra-superior);
   background-color: var(--color-barra-superior);
   text-align: left;
@@ -37,14 +37,14 @@
 }
 
 .InteractionsTable__td {
-  padding: .75rem;
+  padding: 0.75rem;
   border-top: 1px solid var(--color-bordes);
   border-bottom: 1px solid var(--color-bordes);
   white-space: nowrap;
 }
 
 .InteractionsTable__multi_cell:not(:last-child) {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .InteractionsTable__tr {

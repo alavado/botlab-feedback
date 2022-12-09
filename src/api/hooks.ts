@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '../redux/store'
 import { Interaction, PropiedadServicio, Servicio, Appointment, InteractionStatus, IDEstadoInteraccion, Pregunta, Conversacion, Mensaje, Comentario, Alerta } from './types/servicio'
-import { parse, format, parseISO, addHours, addDays } from 'date-fns'
+import { parse, format, parseISO, addHours, addDays, startOfDay } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useQuery, useQueryClient, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
@@ -404,6 +404,26 @@ export const useAlertasQuery = () => {
   )
 }
 
+const parseDate = (appointmentDate: string, appointmentTime: string, referenceISODate: string) => {
+  if (!appointmentDate) {
+    return startOfDay(parseISO(referenceISODate))
+  }
+  if (!appointmentTime) {
+    return parse(
+      appointmentDate,
+      'd \'de\' MMMM',
+      startOfDay(parseISO(referenceISODate)),
+      { locale: es }
+    )
+  }
+  return parse(
+    `${appointmentDate} ${appointmentTime}`,
+    appointmentTime.includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m',
+    parseISO(referenceISODate),
+    { locale: es }
+  )
+}
+
 export const useSearchQueryResults = (term: String): UseQueryResult<Interaction[], unknown> => {
   return useQuery(
     ['search', term],
@@ -423,8 +443,9 @@ export const useSearchQueryResults = (term: String): UseQueryResult<Interaction[
               phone: result.phone,
               appointments: Array(nAppointments).fill(0).map<Appointment>((_, i): Appointment => {
                 const index = i + 1
+                const appointment_time = result[`time_${index}` as keyof SearchAPIMultiAppointment] as string || ''
                 return {
-                  datetime: new Date(),
+                  datetime: parseDate(result.date_1, appointment_time, result.start),
                   patientName: result[`patient_name_${index}` as keyof SearchAPIMultiAppointment] as string,
                   rut: result[`rut_${index}` as keyof SearchAPIMultiAppointment] as string,
                   id: result[`id_cita_${index}` as keyof SearchAPIMultiAppointment] as string
@@ -440,7 +461,7 @@ export const useSearchQueryResults = (term: String): UseQueryResult<Interaction[
               branch: result.sucursal_name,
               phone: result.phone,
               appointments: [{
-                datetime: new Date(),
+                datetime: parseDate(result.date, result.time, result.start),
                 patientName: result.name,
                 rut: result.rut,
                 id: result.id_cita

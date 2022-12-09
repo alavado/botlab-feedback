@@ -8,8 +8,8 @@ const server = setupServer(
   // capture "GET /greeting" requests
   rest.get('/greeting', (req, res, ctx) => {
     // respond using a mocked JSON body
-    return res(ctx.json({greeting: 'hello there'}))
-  }),
+    return res(ctx.json({ greeting: 'hello there' }))
+  })
 )
 
 // establish API mocking before all tests
@@ -31,7 +31,7 @@ test('handles server error', async () => {
     // to return a 500 Server Error
     rest.get('/greeting', (req, res, ctx) => {
       return res(ctx.status(500))
-    }),
+    })
   )
 
   // ...

@@ -4,14 +4,15 @@ import { useSearchQueryResults } from '../../../api/hooks'
 import { RootState } from '../../../redux/ducks'
 import { hideDrawer, showDrawer } from '../../../redux/ducks/search'
 import InteractionDrawer from './InteractionDrawer'
-import './Search.css'
 import SearchInput from './SearchInput'
 import InteractionsTable from './InteractionsTable'
+import './Search.css'
 
 const Search = () => {
-
-  const { term: searchTerm, drawerVisible } = useSelector((state: RootState) => state.search)
-  const { data, isLoading }  = useSearchQueryResults(searchTerm)
+  const { term: searchTerm, drawerVisible } = useSelector(
+    (state: RootState) => state.search
+  )
+  const { data, isLoading } = useSearchQueryResults(searchTerm)
   const dispatch = useDispatch()
 
   return (
@@ -25,13 +26,11 @@ const Search = () => {
       />
       <div
         className={classNames({
-          "Search__drawer": true,
-          "Search__drawer--hidden": !drawerVisible,
+          Search__drawer: true,
+          'Search__drawer--hidden': !drawerVisible,
         })}
       >
-        <InteractionDrawer
-          onCloseClick={() => dispatch(hideDrawer())}
-        />
+        <InteractionDrawer onCloseClick={() => dispatch(hideDrawer())} />
       </div>
     </div>
   )
