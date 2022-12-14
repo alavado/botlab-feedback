@@ -647,7 +647,7 @@ const searchMultiAppointmentToInteraction = (
     start: parseISO(appointment.start),
     userId: appointment.user_id,
     pollId: appointment.poll_id,
-    branch: appointment.sucursal_name_1,
+    branch: appointment.sucursal_name_1 || appointment.sucursal_name,
     phone: appointment.phone,
     appointments: Array(Number(appointment.n_appointments))
       .fill(0)

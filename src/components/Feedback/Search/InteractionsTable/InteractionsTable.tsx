@@ -4,81 +4,147 @@ import {
   getCoreRowModel,
   flexRender,
   Row,
+  ColumnFiltersState,
+  Column,
+  Table,
+  getFilteredRowModel,
+  FilterFn,
+  ColumnDef,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
 } from '@tanstack/react-table'
 import { format } from 'date-fns/esm'
-import { Interaction } from '../../../../api/types/servicio'
+import { Appointment, Interaction } from '../../../../api/types/servicio'
 import { useVirtual } from 'react-virtual'
 import './InteractionsTable.css'
-import { MouseEventHandler, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+
+import {
+  RankingInfo,
+  rankItem,
+  compareItems,
+} from '@tanstack/match-sorter-utils'
 
 const columnHelper = createColumnHelper<Interaction>()
 
-const columns = [
+const multiAppointmentDataSeparator = ' + '
+
+declare module '@tanstack/table-core' {
+  interface FilterFns {
+    fuzzy: FilterFn<unknown>
+  }
+  interface FilterMeta {
+    itemRank: RankingInfo
+  }
+}
+
+const columns: ColumnDef<Interaction, any>[] = [
   columnHelper.display({
     id: 'n',
     header: '#',
     cell: (props) => <div>{props.row.index + 1}</div>,
   }),
-  columnHelper.accessor('start', {
+  {
+    id: 'start',
+    accessorFn: (row) => format(row.start, 'dd/MM/yy HH:mm'),
     header: 'Inicio interacción',
-    cell: (info) => format(info.getValue(), 'dd/MM/yy HH:mm'),
-  }),
-  columnHelper.accessor('phone', {
+    filterFn: 'fuzzy',
+  },
+  {
+    id: 'phone',
+    accessorFn: (row) => row.phone,
     header: 'Teléfono',
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor((row) => row.appointments, {
-    id: `rut`,
+    filterFn: 'fuzzy',
+  },
+  {
+    id: 'rut',
+    accessorFn: (row) =>
+      row.appointments.map((a) => a.rut).join(multiAppointmentDataSeparator),
     header: 'RUT',
+    filterFn: 'fuzzy',
     cell: (info) =>
       info
         .getValue()
-        .map((v) => (
-          <div className="InteractionsTable__multi_cell">{v.rut}</div>
+        .split(multiAppointmentDataSeparator)
+        .map((v: string) => (
+          <div className="InteractionsTable__multi_cell">{v}</div>
         )),
-  }),
-  columnHelper.accessor((row) => row.appointments, {
-    id: `patient`,
+  },
+  {
+    id: 'patient',
+    accessorFn: (row) =>
+      row.appointments
+        .map((a) => a.patientName)
+        .join(multiAppointmentDataSeparator),
     header: 'Nombre',
+    filterFn: 'fuzzy',
     cell: (info) =>
       info
         .getValue()
-        .map((v) => (
-          <div className="InteractionsTable__multi_cell">{v.patientName}</div>
+        .split(multiAppointmentDataSeparator)
+        .map((v: string) => (
+          <div className="InteractionsTable__multi_cell">{v}</div>
         )),
-  }),
-  columnHelper.accessor((row) => row.appointments[0].datetime, {
-    id: `app_date`,
+  },
+  {
+    id: 'app_date',
+    accessorFn: (row) => format(row.appointments[0].datetime, 'dd/MM'),
     header: 'Fecha cita',
-    cell: (info) => format(info.getValue(), 'dd/MM'),
-  }),
-  columnHelper.accessor((row) => row.appointments, {
-    id: `app_time`,
+    filterFn: 'fuzzy',
+  },
+  {
+    id: 'app_time',
+    accessorFn: (row) =>
+      row.appointments
+        .map((a) => format(a.datetime, 'HH:mm'))
+        .join(multiAppointmentDataSeparator),
     header: 'Hora cita',
-    cell: (info) =>
-      info.getValue().map((v) => {
-        const time = format(v.datetime, 'HH:mm')
-        if (time === '00:00') {
-          return <div className="InteractionsTable__multi_cell">-</div>
-        }
-        return <div className="InteractionsTable__multi_cell">{time}</div>
-      }),
-  }),
-  columnHelper.accessor((row) => row.appointments, {
-    id: `app_id`,
-    header: 'ID cita',
+    filterFn: 'fuzzy',
     cell: (info) =>
       info
         .getValue()
-        .map((v) => (
-          <div className="InteractionsTable__multi_cell">{v.id}</div>
+        .split(multiAppointmentDataSeparator)
+        .map((v: string) => {
+          if (v === '00:00') {
+            return <div className="InteractionsTable__multi_cell">-</div>
+          }
+          return <div className="InteractionsTable__multi_cell">{v}</div>
+        }),
+  },
+  {
+    id: 'app_id',
+    accessorFn: (row) =>
+      row.appointments.map((a) => a.id).join(multiAppointmentDataSeparator),
+    header: 'ID cita',
+    filterFn: 'fuzzy',
+    cell: (info) =>
+      info
+        .getValue()
+        .split(multiAppointmentDataSeparator)
+        .map((v: string) => (
+          <div className="InteractionsTable__multi_cell">{v}</div>
         )),
-  }),
-  columnHelper.accessor('branch', {
+  },
+  {
+    id: 'branch',
+    accessorFn: (row) => row.branch,
     header: 'Sucursal',
-    cell: (info) => info.getValue() || '',
-  }),
+    filterFn: 'fuzzy',
+  },
 ]
+
+const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+  // Rank the item
+  const itemRank = rankItem(row.getValue(columnId), value)
+
+  // Store the itemRank info
+  addMeta({
+    itemRank,
+  })
+
+  // Return if the item should be filtered in/out
+  return itemRank.passed
+}
 
 interface InteractionsTableProps {
   data: Interaction[]
@@ -87,10 +153,21 @@ interface InteractionsTableProps {
 
 const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
   const tableContainerRef = useRef<HTMLDivElement>(null)
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const table = useReactTable({
     data,
     columns,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    state: {
+      columnFilters,
+    },
+    onColumnFiltersChange: setColumnFilters,
   })
   const { rows } = table.getRowModel()
   const rowVirtualizer = useVirtual({
@@ -99,7 +176,6 @@ const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
     overscan: 20,
   })
   const { virtualItems: virtualRows, totalSize } = rowVirtualizer
-
   const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0
   const paddingBottom =
     virtualRows.length > 0
@@ -124,6 +200,11 @@ const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
                         header.column.columnDef.header,
                         header.getContext()
                       )}
+                  {header.column.getCanFilter() ? (
+                    <div>
+                      <Filter column={header.column} />
+                    </div>
+                  ) : null}
                 </th>
               ))}
             </tr>
@@ -159,6 +240,68 @@ const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
         </tbody>
       </table>
     </div>
+  )
+}
+
+function Filter({ column }: { column: Column<any, unknown> }) {
+  const columnFilterValue = column.getFilterValue()
+
+  const sortedUniqueValues = useMemo(
+    () => Array.from(column.getFacetedUniqueValues().keys()).sort(),
+    [column.getFacetedUniqueValues()]
+  )
+
+  return (
+    <>
+      <datalist id={column.id + 'list'}>
+        {sortedUniqueValues.slice(0, 5000).map((value: any) => (
+          <option value={value} key={value} />
+        ))}
+      </datalist>
+      <DebouncedInput
+        type="text"
+        value={(columnFilterValue ?? '') as string}
+        onChange={(value) => column.setFilterValue(value)}
+        placeholder={`Filtrar... (${column.getFacetedUniqueValues().size})`}
+        className="w-36 border shadow rounded"
+        list={column.id + 'list'}
+      />
+      <div className="h-1" />
+    </>
+  )
+}
+
+// A debounced input react component
+function DebouncedInput({
+  value: initialValue,
+  onChange,
+  debounce = 500,
+  ...props
+}: {
+  value: string | number
+  onChange: (value: string | number) => void
+  debounce?: number
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>) {
+  const [value, setValue] = useState(initialValue)
+
+  useEffect(() => {
+    setValue(initialValue)
+  }, [initialValue])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      onChange(value)
+    }, debounce)
+
+    return () => clearTimeout(timeout)
+  }, [value])
+
+  return (
+    <input
+      {...props}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
   )
 }
 
