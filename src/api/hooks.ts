@@ -616,6 +616,67 @@ const parseDate = (
   )
 }
 
+const searchSingleAppointmentToInteraction = (
+  appointment: SearchAPISingleAppointment
+): Interaction => {
+  return {
+    start: parseISO(appointment.start),
+    userId: appointment.user_id,
+    pollId: appointment.poll_id,
+    branch: appointment.sucursal_name,
+    phone: appointment.phone,
+    appointments: [
+      {
+        datetime: parseDate(
+          appointment.date,
+          appointment.time,
+          appointment.start
+        ),
+        patientName: appointment.name,
+        rut: appointment.rut,
+        id: appointment.id_cita,
+      },
+    ],
+  }
+}
+
+const searchMultiAppointmentToInteraction = (
+  appointment: SearchAPIMultiAppointment
+): Interaction => {
+  return {
+    start: parseISO(appointment.start),
+    userId: appointment.user_id,
+    pollId: appointment.poll_id,
+    branch: appointment.sucursal_name_1,
+    phone: appointment.phone,
+    appointments: Array(Number(appointment.n_appointments))
+      .fill(0)
+      .map<Appointment>((_, i): Appointment => {
+        const index = i + 1
+        const appointment_time =
+          (appointment[
+            `time_${index}` as keyof SearchAPIMultiAppointment
+          ] as string) || ''
+        return {
+          datetime: parseDate(
+            appointment.date_1,
+            appointment_time,
+            appointment.start
+          ),
+          patientName: appointment[
+            `patient_name_${index}` as keyof SearchAPIMultiAppointment
+          ] as string,
+          rut: appointment[
+            `rut_${index}` as keyof SearchAPIMultiAppointment
+          ] as string,
+          id: appointment[
+            `id_cita_${index}` as keyof SearchAPIMultiAppointment
+          ] as string,
+        }
+      }),
+  }
+}
+
 export const useSearchQueryResults = (
   term: String
 ): UseQueryResult<Interaction[], unknown> => {
@@ -624,64 +685,16 @@ export const useSearchQueryResults = (
       return []
     }
     const { data } = await get(`https://api.botlab.cl/answers_es?query=${term}`)
-    return _.orderBy(
-      data.data.map((searchResult: any): Interaction => {
-        const nAppointments = Number(searchResult.n_appointments || 1)
-        if (nAppointments > 1) {
-          const result = searchResult as SearchAPIMultiAppointment
-          return {
-            start: parseISO(result.start),
-            userId: result.user_id,
-            pollId: result.poll_id,
-            branch: result.sucursal_name_1,
-            phone: result.phone,
-            appointments: Array(nAppointments)
-              .fill(0)
-              .map<Appointment>((_, i): Appointment => {
-                const index = i + 1
-                const appointment_time =
-                  (result[
-                    `time_${index}` as keyof SearchAPIMultiAppointment
-                  ] as string) || ''
-                return {
-                  datetime: parseDate(
-                    result.date_1,
-                    appointment_time,
-                    result.start
-                  ),
-                  patientName: result[
-                    `patient_name_${index}` as keyof SearchAPIMultiAppointment
-                  ] as string,
-                  rut: result[
-                    `rut_${index}` as keyof SearchAPIMultiAppointment
-                  ] as string,
-                  id: result[
-                    `id_cita_${index}` as keyof SearchAPIMultiAppointment
-                  ] as string,
-                }
-              }),
-          }
-        } else {
-          const result = searchResult as SearchAPISingleAppointment
-          return {
-            start: parseISO(result.start),
-            userId: result.user_id,
-            pollId: result.poll_id,
-            branch: result.sucursal_name,
-            phone: result.phone,
-            appointments: [
-              {
-                datetime: parseDate(result.date, result.time, result.start),
-                patientName: result.name,
-                rut: result.rut,
-                id: result.id_cita,
-              },
-            ],
-          }
-        }
-      }),
-      'start',
-      'desc'
-    )
+    const interactions = data.data.map((searchResult: any): Interaction => {
+      const nAppointments = Number(searchResult.n_appointments || 1)
+      return nAppointments > 1
+        ? searchMultiAppointmentToInteraction(
+            searchResult as SearchAPIMultiAppointment
+          )
+        : searchSingleAppointmentToInteraction(
+            searchResult as SearchAPISingleAppointment
+          )
+    })
+    return _.orderBy(interactions, 'start', 'desc')
   })
 }
