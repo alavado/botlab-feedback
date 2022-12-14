@@ -6,15 +6,16 @@ import {
   Row,
   ColumnFiltersState,
   Column,
-  Table,
   getFilteredRowModel,
   FilterFn,
   ColumnDef,
   getFacetedRowModel,
   getFacetedUniqueValues,
+  SortingFn,
+  sortingFns,
 } from '@tanstack/react-table'
 import { format } from 'date-fns/esm'
-import { Appointment, Interaction } from '../../../../api/types/servicio'
+import { Interaction } from '../../../../api/types/servicio'
 import { useVirtual } from 'react-virtual'
 import './InteractionsTable.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -38,6 +39,21 @@ declare module '@tanstack/table-core' {
   }
 }
 
+const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
+  let dir = 0
+
+  // Only sort by rank if the column has ranking information
+  if (rowA.columnFiltersMeta[columnId]) {
+    dir = compareItems(
+      rowA.columnFiltersMeta[columnId]?.itemRank!,
+      rowB.columnFiltersMeta[columnId]?.itemRank!
+    )
+  }
+
+  // Provide an alphanumeric fallback for when the item ranks are equal
+  return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
+}
+
 const columns: ColumnDef<Interaction, any>[] = [
   columnHelper.display({
     id: 'n',
@@ -49,6 +65,7 @@ const columns: ColumnDef<Interaction, any>[] = [
     accessorFn: (row) => format(row.start, 'dd/MM/yy HH:mm'),
     header: 'Inicio interacción',
     filterFn: 'fuzzy',
+    sortingFn: fuzzySort,
   },
   {
     id: 'phone',
@@ -253,11 +270,13 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 
   return (
     <>
-      <datalist id={column.id + 'list'}>
-        {sortedUniqueValues.slice(0, 5000).map((value: any) => (
-          <option value={value} key={value} />
-        ))}
-      </datalist>
+      {column.id === 'branch' && (
+        <datalist id={column.id + 'list'}>
+          {sortedUniqueValues.slice(0, 5000).map((value: any) => (
+            <option value={value} key={value} />
+          ))}
+        </datalist>
+      )}
       <DebouncedInput
         type="text"
         value={(columnFilterValue ?? '') as string}

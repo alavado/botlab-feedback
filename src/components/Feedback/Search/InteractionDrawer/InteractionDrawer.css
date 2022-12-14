@@ -1,0 +1,6 @@
+.InteractionDrawer {
+  background-color: var(--color-fondo);
+  width: 100%;
+  height: 100%;
+  box-shadow: -0.25rem 0 0.25rem var(--color-sombras);
+}
