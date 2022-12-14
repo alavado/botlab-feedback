@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
-import { useSearchQueryResults } from '../../../api/hooks'
+import { useSearchQuery } from '../../../api/hooks'
 import { RootState } from '../../../redux/ducks'
 import {
   hideDrawer,
@@ -19,7 +19,7 @@ const Search = () => {
     drawerVisible,
     activeInteraction,
   } = useSelector((state: RootState) => state.search)
-  const { data, isLoading } = useSearchQueryResults(searchTerm)
+  const { data, isLoading } = useSearchQuery(searchTerm)
   const dispatch = useDispatch()
 
   const selectInteraction = (interaction: Interaction) => {
@@ -41,7 +41,8 @@ const Search = () => {
       >
         {activeInteraction && (
           <InteractionDrawer
-            interaction={activeInteraction}
+            pollId={activeInteraction.pollId}
+            userId={activeInteraction.userId}
             onCloseClick={() => dispatch(hideDrawer())}
           />
         )}

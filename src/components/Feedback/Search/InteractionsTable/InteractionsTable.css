@@ -50,3 +50,7 @@
 .InteractionsTable__tr {
   cursor: pointer;
 }
+
+.InteractionsTable__tr:hover {
+  background-color: var(--color-fila-destacada);
+}

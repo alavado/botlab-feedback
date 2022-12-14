@@ -8,8 +8,8 @@ import {
   InteractionStatus,
   IDEstadoInteraccion,
   Pregunta,
-  Conversacion,
-  Mensaje,
+  Conversation,
+  Message,
   Comentario,
   Alerta,
 } from './types/servicio'
@@ -408,23 +408,23 @@ const obtenerConversaciones = async (
 ): Promise<{
   nombreBot: string
   telefonoUsuario: string
-  conversaciones: Conversacion[]
+  conversaciones: Conversation[]
 }> => {
   const response: chatAPIResponse = (
     await get(`${API_ROOT}/chat/${idServicio}/${idUsuario}`)
   ).data
   const nombreBot = response.data.bot.name
   const telefonoUsuario = response.data.user.phone
-  const conversaciones: Conversacion[] = response.data.conversations.map(
-    (c: any): Conversacion => {
+  const conversaciones: Conversation[] = response.data.conversations.map(
+    (c: any): Conversation => {
       return {
         inicio: parseISO(c.start),
         mensajes: c.messages.map(
-          (m: chatAPIMessage): Mensaje => ({
+          (m: chatAPIMessage): Message => ({
             timestamp: parseISO(m.timestamp),
-            mensaje: m.message,
-            emisor: m.type === 'bot' ? 'BOT' : 'USUARIO',
-            tipo: 'TEXTO',
+            content: m.message,
+            sender: m.type === 'bot' ? 'BOT' : 'USUARIO',
+            type: 'TEXTO',
           })
         ),
       }
@@ -677,7 +677,7 @@ const searchMultiAppointmentToInteraction = (
   }
 }
 
-export const useSearchQueryResults = (
+export const useSearchQuery = (
   term: String
 ): UseQueryResult<Interaction[], unknown> => {
   return useQuery(['search', term], async () => {
@@ -696,5 +696,16 @@ export const useSearchQueryResults = (
           )
     })
     return _.orderBy(interactions, 'start', 'desc')
+  })
+}
+
+export const useInteractionQuery = (
+  pollId: number,
+  userId: number
+): UseQueryResult<Interaction, unknown> => {
+  return useQuery(['interaction', pollId, userId], async () => {
+    const { data } = await get(`${API_ROOT}/chat/${pollId}/${userId}`)
+    console.log(data)
+    return data
   })
 }

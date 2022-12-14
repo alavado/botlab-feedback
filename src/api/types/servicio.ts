@@ -24,7 +24,7 @@ export interface Interaction {
   appointments: Appointment[]
   branch?: string
   phone?: string
-  conversations?: Conversacion[]
+  conversations?: Conversation[]
   alerts?: Alerta[]
   comments?: Comentario[]
 }
@@ -59,16 +59,16 @@ export interface InteractionStatus {
   color: string
 }
 
-export interface Conversacion {
+export interface Conversation {
   inicio: Date
-  mensajes: Mensaje[]
+  mensajes: Message[]
 }
 
-export interface Mensaje {
+export interface Message {
   timestamp: Date
-  mensaje: String
-  emisor: 'BOT' | 'USUARIO'
-  tipo: 'TEXTO' | 'AUDIO' | 'IMAGEN' | 'VIDEO'
+  content: String
+  sender: 'BOT' | 'USUARIO'
+  type: 'TEXTO' | 'AUDIO' | 'IMAGEN' | 'VIDEO'
 }
 
 export interface Alerta {
