@@ -21,7 +21,6 @@ const usuariosDeudores = [
   "Cesmed",
   "YohananTherapeutes",
   "AyVDental",
-  "CTMelipilla",
   "RoaDent",
   "MAZ",
   "SonrieArica",
