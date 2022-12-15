@@ -17,6 +17,20 @@ interface chatAPIBotMessage {
 
 export type chatAPIMessage = chatAPIUserMessage | chatAPIBotMessage
 
+export interface chatAPIConversation {
+  context: any
+  start: string
+  messages: chatAPIMessage[]
+  reactions: [any]
+  tags: [
+    {
+      question: string
+      question_id: string
+      tag: string
+    }
+  ]
+}
+
 export interface chatAPIResponse {
   status: string
   data: {
@@ -24,21 +38,7 @@ export interface chatAPIResponse {
       name: string
       phone: string
     }
-    conversations: [
-      {
-        context: any
-        start: string
-        messages: chatAPIMessage[]
-        reactions: [any]
-        tags: [
-          {
-            question: string
-            question_id: string
-            tag: string
-          }
-        ]
-      }
-    ]
+    conversations: chatAPIConversation[]
     user: {
       id: number
       outsider: boolean

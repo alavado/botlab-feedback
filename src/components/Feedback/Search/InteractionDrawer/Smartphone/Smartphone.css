@@ -1,0 +1,29 @@
+.Smartphone {
+  height: 100%;
+  aspect-ratio: 9 / 19.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Smartphone__screen {
+  background-color: lightgray;
+  width: calc(100% - 1rem);
+  height: calc(100% - 1rem);
+  border-radius: 2rem;
+  box-shadow: 0 0 0 0.5rem black;
+  display: flex;
+  flex-direction: column;
+}
+
+.Smartphone__app_bar {
+  height: 10%;
+  border-radius: 2rem 2rem 0 0;
+  background-color: var(--whatsapp-fondo-barra-superior);
+}
+
+.Smartphone__messages_container {
+  background: var(--whatsapp-fondo);
+  flex: 1;
+  border-radius: 0 0 2rem 2rem;
+}

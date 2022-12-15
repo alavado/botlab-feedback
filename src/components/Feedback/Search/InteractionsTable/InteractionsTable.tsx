@@ -25,6 +25,8 @@ import {
   rankItem,
   compareItems,
 } from '@tanstack/match-sorter-utils'
+import classNames from 'classnames'
+import { isSameDay } from 'date-fns'
 
 const columnHelper = createColumnHelper<Interaction>()
 
@@ -41,16 +43,12 @@ declare module '@tanstack/table-core' {
 
 const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   let dir = 0
-
-  // Only sort by rank if the column has ranking information
   if (rowA.columnFiltersMeta[columnId]) {
     dir = compareItems(
       rowA.columnFiltersMeta[columnId]?.itemRank!,
       rowB.columnFiltersMeta[columnId]?.itemRank!
     )
   }
-
-  // Provide an alphanumeric fallback for when the item ranks are equal
   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
 }
 
@@ -151,24 +149,38 @@ const columns: ColumnDef<Interaction, any>[] = [
 ]
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-  // Rank the item
   const itemRank = rankItem(row.getValue(columnId), value)
-
-  // Store the itemRank info
   addMeta({
     itemRank,
   })
-
-  // Return if the item should be filtered in/out
   return itemRank.passed
 }
 
 interface InteractionsTableProps {
   data: Interaction[]
+  highlighted?: Interaction
   onRowClick: Function
 }
 
-const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
+const isSameInteraction = (
+  i1: Interaction | undefined,
+  i2: Interaction | undefined
+): boolean => {
+  if (!i1 || !i2) {
+    return false
+  }
+  return (
+    i1.pollId === i2.pollId &&
+    i1.userId === i2.userId &&
+    isSameDay(i1.appointments[0].datetime, i2.appointments[0].datetime)
+  )
+}
+
+const InteractionsTable = ({
+  data,
+  highlighted,
+  onRowClick,
+}: InteractionsTableProps) => {
   const tableContainerRef = useRef<HTMLDivElement>(null)
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const table = useReactTable({
@@ -198,6 +210,8 @@ const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
     virtualRows.length > 0
       ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
       : 0
+
+  console.log(highlighted)
 
   return (
     <div ref={tableContainerRef} className="InteractionsTable">
@@ -239,7 +253,13 @@ const InteractionsTable = ({ data, onRowClick }: InteractionsTableProps) => {
               <tr
                 key={row.id}
                 onClick={() => onRowClick(row.original)}
-                className="InteractionsTable__tr"
+                className={classNames({
+                  InteractionsTable__tr: true,
+                  'InteractionsTable__tr--highlighted': isSameInteraction(
+                    row.original,
+                    highlighted
+                  ),
+                })}
               >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="InteractionsTable__td">
@@ -290,7 +310,6 @@ function Filter({ column }: { column: Column<any, unknown> }) {
   )
 }
 
-// A debounced input react component
 function DebouncedInput({
   value: initialValue,
   onChange,

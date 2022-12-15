@@ -1,29 +1,35 @@
+import es from 'date-fns/esm/locale/es/index.js'
+import { format } from 'date-fns'
 import { Resizable } from 're-resizable'
 import { MouseEventHandler } from 'react'
 import { useInteractionQuery } from '../../../../api/hooks'
-import { Interaction } from '../../../../api/types/servicio'
 import './InteractionDrawer.css'
+import Smartphone from './Smartphone'
 
 interface InteractionDrawerProps {
   pollId: number
   userId: number
-  startStr: string
+  start: Date
+  onPreviousClick: MouseEventHandler
+  onNextClick: MouseEventHandler
   onCloseClick: MouseEventHandler
 }
 
 const InteractionDrawer = ({
   pollId,
   userId,
-  startStr,
+  start,
+  onPreviousClick,
+  onNextClick,
   onCloseClick,
 }: InteractionDrawerProps) => {
-  const { data, isLoading, isError } = useInteractionQuery(
-    pollId,
-    userId,
-    startStr
-  )
+  const {
+    data: interaction,
+    isLoading,
+    isError,
+  } = useInteractionQuery(pollId, userId, start)
 
-  console.log(data)
+  console.log(interaction)
 
   return (
     <Resizable
@@ -45,41 +51,36 @@ const InteractionDrawer = ({
       }}
     >
       <div className="InteractionDrawer__top_bar">
-        <button onClick={onCloseClick}>x</button>
+        <div className="InteractionDrawer__top_bar_actions">
+          <button onClick={onCloseClick}>x</button>
+          <button onClick={onPreviousClick}>anterior</button>
+          <button onClick={onNextClick}>siguiente</button>
+        </div>
+        {/* <h2>
+          {interaction
+            ? `Interacción: ${format(interaction.start, 'iiii dd/MM', {
+                locale: es,
+              })}`
+            : `Cargando...`}
+        </h2> */}
       </div>
       <div className="InteractionDrawer__phone_container">
-        <div className="InteractionDrawer__phone">
-          <div className="InteractionDrawer__phone_screen"></div>
-        </div>
+        <Smartphone interaction={interaction} />
       </div>
       <div className="InteractionDrawer__comments_container">
         <h2>Comentarios</h2>
-        <p>comentarios</p>
-        <p>comentarios</p>
-        <p>comentarios</p>
-        <p>comentarios</p>
-        <p>comentarios</p>
-        <p>comentarios</p>
-        <p>comentarios</p>
-        <p>comentarios</p>
+        <p>No hay comentarios</p>
       </div>
       <div className="InteractionDrawer__data_container">
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
-        <p>datos</p>
+        <p>Teléfono: {interaction?.phone}</p>
+        {interaction?.branch && <p>Sucursal: {interaction?.branch}</p>}
+        {interaction?.appointments.map((appointment) => (
+          <>
+            <p>{appointment.rut}</p>
+            <p>{appointment.patientName}</p>
+            <p>{format(appointment.datetime, 'HH:mm')}</p>
+          </>
+        ))}
       </div>
     </Resizable>
   )

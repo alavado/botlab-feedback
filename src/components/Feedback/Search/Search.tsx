@@ -32,7 +32,11 @@ const Search = () => {
       <div className="Search__topbar">
         <SearchInput showLoader={isLoading} defaultValue={searchTerm} />
       </div>
-      <InteractionsTable data={data || []} onRowClick={selectInteraction} />
+      <InteractionsTable
+        data={data || []}
+        onRowClick={selectInteraction}
+        highlighted={activeInteraction}
+      />
       <div
         className={classNames({
           Search__drawer: true,
@@ -43,7 +47,9 @@ const Search = () => {
           <InteractionDrawer
             pollId={activeInteraction.pollId}
             userId={activeInteraction.userId}
-            startStr={activeInteraction.startStr}
+            start={activeInteraction.start}
+            onPreviousClick={() => {}}
+            onNextClick={() => {}}
             onCloseClick={() => dispatch(hideDrawer())}
           />
         )}

@@ -49,8 +49,18 @@
 
 .InteractionsTable__tr {
   cursor: pointer;
+  transition: all 0.1s ease;
 }
 
 .InteractionsTable__tr:hover {
   background-color: var(--color-fila-destacada);
+}
+
+.InteractionsTable__tr:active {
+  background-color: var(--color-foco-fila);
+}
+
+.InteractionsTable__tr--highlighted,
+.InteractionsTable__tr--highlighted:hover {
+  background-color: var(--color-fila-muy-destacada);
 }

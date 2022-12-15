@@ -5,13 +5,15 @@
   box-shadow: -0.25rem 0 0.25rem var(--color-sombras);
   display: grid;
   grid-template: 2rem auto 1fr / 20rem auto;
-  gap: 1rem;
+  gap: 0.5rem;
+  padding: 0 0.5rem;
 }
 
 .InteractionDrawer__top_bar {
   grid-column: 1 / -1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .InteractionDrawer__phone_container {
@@ -20,22 +22,6 @@
   align-items: center;
   justify-content: center;
   padding: 0 1rem;
-}
-
-.InteractionDrawer__phone {
-  height: 100%;
-  aspect-ratio: 9 / 19.5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.InteractionDrawer__phone_screen {
-  background-color: lightgray;
-  width: calc(100% - 1rem);
-  height: calc(100% - 1rem);
-  border-radius: 2rem;
-  box-shadow: 0 0 0 0.5rem black;
 }
 
 .InteractionDrawer__comments_container {
@@ -51,7 +37,5 @@
 }
 
 .InteractionDrawer__data_container p {
-  background-color: gray;
   flex: 1;
-  padding: 1rem;
 }

@@ -21,7 +21,6 @@ export interface Interaction {
   userId: number
   pollId: number
   start: Date
-  startStr: string
   appointments: Appointment[]
   branch?: string
   phone?: string
@@ -64,7 +63,7 @@ export interface InteractionStatus {
 export interface Message {
   timestamp: Date
   content: String
-  sender: 'BOT' | 'USUARIO'
+  sender: 'BOT' | 'USER'
   type: 'TEXTO' | 'AUDIO' | 'IMAGEN' | 'VIDEO'
 }
 

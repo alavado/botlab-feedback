@@ -19,6 +19,7 @@ import {
   addHours,
   addDays,
   startOfDay,
+  isSameDay,
 } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useQuery, useQueryClient, UseQueryResult } from 'react-query'
@@ -27,6 +28,7 @@ import { RootState } from '../redux/ducks'
 import { estadosInteracciones } from './estadosInteraccion'
 import {
   alertasAPIResponse,
+  chatAPIConversation,
   chatAPIMessage,
   chatAPIResponse,
   reactionsAPIResponse,
@@ -204,7 +206,6 @@ const construirInteraccionCitaNormal = (
       parseISO(interaccion.start),
       new Date().getTimezoneOffset() / -60
     ),
-    startStr: interaccion.start,
     appointments: citas,
     alerts: [],
     // comments: interaccion.reactions.map(
@@ -250,7 +251,6 @@ const construirInteraccionMulticita = (
       parseISO(interaccion['start']),
       new Date().getTimezoneOffset() / -60
     ),
-    startStr: interaccion.start,
     appointments: citas,
     alerts: [],
     // comments: interaccion.reactions.map(
@@ -607,7 +607,6 @@ const searchSingleAppointmentToInteraction = (
 ): Interaction => {
   return {
     start: parseISO(appointment.start),
-    startStr: appointment.start,
     userId: appointment.user_id,
     pollId: appointment.poll_id,
     branch: appointment.sucursal_name,
@@ -632,7 +631,6 @@ const searchMultiAppointmentToInteraction = (
 ): Interaction => {
   return {
     start: parseISO(appointment.start),
-    startStr: appointment.start,
     userId: appointment.user_id,
     pollId: appointment.poll_id,
     branch: appointment.sucursal_name_1 || appointment.sucursal_name,
@@ -687,28 +685,54 @@ export const useSearchQuery = (
   })
 }
 
+const getClosestConversation = (
+  conversationsData: chatAPIConversation[],
+  start: Date
+): chatAPIConversation => {
+  const sameDayConversations = conversationsData.filter((c: any) =>
+    isSameDay(parseISO(c.start), start)
+  )
+  if (!sameDayConversations) {
+    return conversationsData[0]
+  }
+  return sameDayConversations[0]
+}
+
 export const useInteractionQuery = (
   pollId: number,
   userId: number,
-  startStr: string
+  start: Date
 ): UseQueryResult<Interaction, unknown> => {
-  return useQuery(['interaction', pollId, userId], async () => {
-    const { data }: { data: chatAPIResponse } = await get(
-      `${API_ROOT}/chat/${pollId}/${userId}`
-    )
-    const interaction: Interaction = {
-      userId,
-      pollId,
-      start: parseISO(startStr),
-      startStr,
-      appointments: [],
-      branch: '',
-      phone: data.data.user.phone,
-      messages: [],
-      alerts: [],
-      comments: [],
-      botName: data.data.bot.name,
+  return useQuery<any, any, Interaction>(
+    ['interaction', pollId, userId],
+    async () => {
+      const { data }: { data: chatAPIResponse } = await get(
+        `${API_ROOT}/chat/${pollId}/${userId}`
+      )
+      const conversation = getClosestConversation(
+        data.data.conversations,
+        start
+      )
+      const interaction: Interaction = {
+        userId,
+        pollId,
+        start: parseISO(conversation.start),
+        appointments: [],
+        branch: '',
+        phone: data.data.user.phone,
+        messages: conversation.messages.map(
+          (message): Message => ({
+            sender: message.type === 'bot' ? 'BOT' : 'USER',
+            content: message.message,
+            timestamp: parseISO(message.timestamp),
+            type: 'TEXTO',
+          })
+        ),
+        alerts: [],
+        comments: [],
+        botName: data.data.bot.name,
+      }
+      return interaction
     }
-    return interaction
-  })
+  )
 }

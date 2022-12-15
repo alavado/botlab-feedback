@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
   servicio,
   interaccion,
   sucursal,
-  search
+  search,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
