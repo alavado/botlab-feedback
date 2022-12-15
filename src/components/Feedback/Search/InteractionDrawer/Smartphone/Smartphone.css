@@ -11,9 +11,74 @@
   width: calc(100% - 1rem);
   height: calc(100% - 1rem);
   border-radius: 2rem;
-  box-shadow: 0 0 0 0.5rem black;
+  background-color: var(--whatsapp-color-celular);
+  box-shadow: 0 0 0 0.3rem black, 0 0 0 0.4rem var(--phone-color),
+    0 0 0 0.45rem rgba(255, 255, 255, 0.7), 0 0 0 0.55rem var(--phone-color),
+    -0.02rem -0.02rem 0 0.325rem var(--whatsapp-color-brillo-celular),
+    0.03rem 0.03rem 0 0.325rem var(--whatsapp-color-brillo-2-celular),
+    0 0.05rem 0.25rem 0.55rem var(--color-sombras),
+    0 0.25rem 0.75rem var(--color-sombras);
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.Smartphone__button {
+  position: absolute;
+  content: '';
+  background: var(--phone-color);
+  filter: brightness(0.7);
+  width: 0.15rem;
+  border: none;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.Smartphone__button-l {
+  left: -0.7rem;
+  border-radius: 0.15rem 0 0 0.15rem;
+}
+
+.Smartphone__button-l1 {
+  top: 15%;
+  height: 4%;
+}
+
+.Smartphone__button-l2 {
+  top: 22%;
+  height: 7%;
+}
+
+.Smartphone__button-l3 {
+  top: 31%;
+  height: 7%;
+}
+
+.Smartphone__button-r {
+  left: unset;
+  right: -0.7rem;
+  border-radius: 0 0.15rem 0.15rem 0;
+}
+
+.Smartphone__button-r1 {
+  top: 25%;
+  height: 10%;
+}
+
+.Smartphone__screen::after {
+  position: absolute;
+  content: '';
+  background: linear-gradient(
+    -70deg,
+    rgba(255, 255, 255, 0.1),
+    transparent,
+    rgba(255, 255, 255, 0.1)
+  );
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
+  pointer-events: none;
 }
 
 .Smartphone__app_bar {
@@ -26,4 +91,41 @@
   background: var(--whatsapp-fondo);
   flex: 1;
   border-radius: 0 0 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  gap: 0.5rem;
+  padding: 0.35rem 0.35rem 25vh 0.35rem;
+  scrollbar-width: 0.35rem;
+  scrollbar-color: var(--whatsapp-color-scrollbar-contenedor-mensajes)
+    var(--color-fondo);
+}
+
+.Smartphone__messages_container::-webkit-scrollbar {
+  border-radius: 0.1rem;
+  width: 0.35rem;
+  background-color: transparent;
+}
+
+.Smartphone__messages_container::-webkit-scrollbar-thumb {
+  border-radius: 0.1rem;
+  width: 0.35rem;
+  background-color: var(--whatsapp-color-scrollbar-contenedor-mensajes);
+}
+
+.Smartphone__message {
+  background-color: white;
+  max-width: 80%;
+  padding: 0.45rem;
+  font-size: 0.65rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  min-width: 20%;
+}
+
+.Smartphone__message--outbound {
+  background-color: white;
+  align-self: flex-end;
+  background-color: var(--whatsapp-fondo-mensajes-salientes);
 }
