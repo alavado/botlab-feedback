@@ -31,7 +31,7 @@ const usuariosDeudores = [
   "SantaBlanca",
   "Everest",
   "LeCiel",
-  // "Sanasalud",
+  "Sanasalud",
   "Maitenes",
   "Medisis",
 ];
