@@ -17,29 +17,43 @@ import ErrorBoundary from '../../helpers/ErrorBoundary'
 import Alertas from './Alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import Novedades from '../Novedades'
-import Respuestas2 from './Respuestas2'
 import Tutoriales from './Tutoriales'
 import Search from './Search'
 
 const Feedback = () => {
-
-  const { token } = useSelector(state => state.login)
+  const { token } = useSelector((state) => state.login)
   const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
-  const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(state => state.respuestas)
-  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(
+    (state) => state.respuestas
+  )
+  const { idEncuestaSeleccionada } = useSelector((state) => state.encuestas)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino && cacheInvalido) {
+    if (
+      token &&
+      idEncuestaSeleccionada &&
+      fechaInicio &&
+      fechaTermino &&
+      cacheInvalido
+    ) {
       const fetchData = async () => {
         // dispatch(limpiaRespuestas())
         try {
           const headers = await headersAPI(token)
           dispatch(guardaHeaders(headers))
-          const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-          dispatch(guardaRespuestas({ jsonRespuestas: data, idEncuesta: idEncuestaSeleccionada }))
-        }
-        catch (e) {
+          const data = await respuestasAPI(
+            idEncuestaSeleccionada,
+            fechaInicio,
+            fechaTermino
+          )
+          dispatch(
+            guardaRespuestas({
+              jsonRespuestas: data,
+              idEncuesta: idEncuestaSeleccionada,
+            })
+          )
+        } catch (e) {
           console.error(e)
           dispatch(cierraLaSesion())
           dispatch(limpiaEncuestas())
@@ -52,7 +66,14 @@ const Feedback = () => {
         setErrorCargandoRespuestas('Ocurrió un error')
       }
     }
-  }, [token, idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino, cacheInvalido])
+  }, [
+    token,
+    idEncuestaSeleccionada,
+    dispatch,
+    fechaInicio,
+    fechaTermino,
+    cacheInvalido,
+  ])
 
   if (!token) {
     return <Login />
@@ -64,18 +85,12 @@ const Feedback = () => {
         {errorCargandoRespuestas}
         <Novedades />
         <Switch>
-          <Route path="/respuestas2">
-            <></>
-          </Route>
           <Route>
             <BarraLateral />
           </Route>
         </Switch>
         <div className="Feedback__contenedor">
           <Switch>
-            <Route exact path="/respuestas2">
-              <></>
-            </Route>
             <Route path="/interaccion">
               <></>
             </Route>
@@ -98,10 +113,10 @@ const Feedback = () => {
                 <Respuestas />
               </Route>
               <Route path="/alertas/:id">
-                <Alertas  />
+                <Alertas />
               </Route>
               <Route path="/alertas">
-                <Alertas  />
+                <Alertas />
               </Route>
               <Route exact path="/busqueda">
                 <Search />
@@ -118,17 +133,11 @@ const Feedback = () => {
               <Route path="/respuestas">
                 <Respuestas />
               </Route>
-              <Route path="/respuestas2">
-                <Respuestas2 />
-              </Route>
               <Route path="/tablero">
                 <Respuestas />
               </Route>
               <Route path="/tutoriales">
                 <Tutoriales />
-              </Route>
-              <Route path="/interaccion">
-                <Respuestas2 />
               </Route>
               <Route path="/">
                 <Respuestas />

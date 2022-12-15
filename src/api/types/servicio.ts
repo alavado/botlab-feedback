@@ -21,12 +21,14 @@ export interface Interaction {
   userId: number
   pollId: number
   start: Date
+  startStr: string
   appointments: Appointment[]
   branch?: string
   phone?: string
-  conversations?: Conversation[]
+  messages?: Message[]
+  comments?: Comment[]
   alerts?: Alerta[]
-  comments?: Comentario[]
+  botName?: string
 }
 
 export interface Appointment {
@@ -59,11 +61,6 @@ export interface InteractionStatus {
   color: string
 }
 
-export interface Conversation {
-  inicio: Date
-  mensajes: Message[]
-}
-
 export interface Message {
   timestamp: Date
   content: String
@@ -81,9 +78,9 @@ export interface Alerta {
   idUsuario: number
 }
 
-export interface Comentario {
+export interface Comment {
   id: number
   timestamp: Date
-  texto: string
+  text: string
   emoji: string
 }

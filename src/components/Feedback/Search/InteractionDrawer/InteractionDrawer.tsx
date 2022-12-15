@@ -7,15 +7,21 @@ import './InteractionDrawer.css'
 interface InteractionDrawerProps {
   pollId: number
   userId: number
+  startStr: string
   onCloseClick: MouseEventHandler
 }
 
 const InteractionDrawer = ({
   pollId,
   userId,
+  startStr,
   onCloseClick,
 }: InteractionDrawerProps) => {
-  const { data, isLoading, isError } = useInteractionQuery(pollId, userId)
+  const { data, isLoading, isError } = useInteractionQuery(
+    pollId,
+    userId,
+    startStr
+  )
 
   console.log(data)
 
@@ -47,6 +53,7 @@ const InteractionDrawer = ({
         </div>
       </div>
       <div className="InteractionDrawer__comments_container">
+        <h2>Comentarios</h2>
         <p>comentarios</p>
         <p>comentarios</p>
         <p>comentarios</p>

@@ -8,9 +8,8 @@ import {
   InteractionStatus,
   IDEstadoInteraccion,
   Pregunta,
-  Conversation,
   Message,
-  Comentario,
+  Comment,
   Alerta,
 } from './types/servicio'
 import {
@@ -205,16 +204,17 @@ const construirInteraccionCitaNormal = (
       parseISO(interaccion.start),
       new Date().getTimezoneOffset() / -60
     ),
+    startStr: interaccion.start,
     appointments: citas,
     alerts: [],
-    comments: interaccion.reactions.map(
-      (reaction: any): Comentario => ({
-        id: reaction.id,
-        timestamp: parseISO(reaction.created_at),
-        texto: reaction.reaction_text,
-        emoji: reaction.reaction_emoji,
-      })
-    ),
+    // comments: interaccion.reactions.map(
+    //   (reaction: any): Comentario => ({
+    //     id: reaction.id,
+    //     timestamp: parseISO(reaction.created_at),
+    //     texto: reaction.reaction_text,
+    //     emoji: reaction.reaction_emoji,
+    //   })
+    // ),
   }
 }
 
@@ -250,16 +250,17 @@ const construirInteraccionMulticita = (
       parseISO(interaccion['start']),
       new Date().getTimezoneOffset() / -60
     ),
+    startStr: interaccion.start,
     appointments: citas,
     alerts: [],
-    comments: interaccion.reactions.map(
-      (reaction: any): Comentario => ({
-        id: reaction.id,
-        timestamp: parseISO(reaction.created_at),
-        texto: reaction.reaction_text,
-        emoji: reaction.reaction_emoji,
-      })
-    ),
+    // comments: interaccion.reactions.map(
+    //   (reaction: any): Comentario => ({
+    //     id: reaction.id,
+    //     timestamp: parseISO(reaction.created_at),
+    //     texto: reaction.reaction_text,
+    //     emoji: reaction.reaction_emoji,
+    //   })
+    // ),
   }
 }
 
@@ -408,29 +409,14 @@ const obtenerConversaciones = async (
 ): Promise<{
   nombreBot: string
   telefonoUsuario: string
-  conversaciones: Conversation[]
+  conversaciones: Message[]
 }> => {
   const response: chatAPIResponse = (
     await get(`${API_ROOT}/chat/${idServicio}/${idUsuario}`)
   ).data
   const nombreBot = response.data.bot.name
   const telefonoUsuario = response.data.user.phone
-  const conversaciones: Conversation[] = response.data.conversations.map(
-    (c: any): Conversation => {
-      return {
-        inicio: parseISO(c.start),
-        mensajes: c.messages.map(
-          (m: chatAPIMessage): Message => ({
-            timestamp: parseISO(m.timestamp),
-            content: m.message,
-            sender: m.type === 'bot' ? 'BOT' : 'USUARIO',
-            type: 'TEXTO',
-          })
-        ),
-      }
-    }
-  )
-  conversaciones.sort((c1, c2) => (c1.inicio < c2.inicio ? -1 : 1))
+  const conversaciones: Message[] = []
   return {
     nombreBot,
     telefonoUsuario,
@@ -479,15 +465,15 @@ const obtenerComentarios = async (
   idServicio: number,
   idUsuario: number,
   inicio: Date
-): Promise<Comentario[]> => {
+): Promise<Comment[]> => {
   const response: reactionsAPIResponse = (
     await get(`${API_ROOT}/reactions/${idServicio}/${idUsuario}`)
   ).data
-  const comentarios: Comentario[] = response.data.map((c: any): Comentario => {
+  const comentarios: Comment[] = response.data.map((c: any): Comment => {
     return {
       id: c.id,
       timestamp: parseISO(c.created_at),
-      texto: c.reaction_text,
+      text: c.reaction_text,
       emoji: c.reaction_emoji,
     }
   })
@@ -621,6 +607,7 @@ const searchSingleAppointmentToInteraction = (
 ): Interaction => {
   return {
     start: parseISO(appointment.start),
+    startStr: appointment.start,
     userId: appointment.user_id,
     pollId: appointment.poll_id,
     branch: appointment.sucursal_name,
@@ -645,6 +632,7 @@ const searchMultiAppointmentToInteraction = (
 ): Interaction => {
   return {
     start: parseISO(appointment.start),
+    startStr: appointment.start,
     userId: appointment.user_id,
     pollId: appointment.poll_id,
     branch: appointment.sucursal_name_1 || appointment.sucursal_name,
@@ -701,11 +689,26 @@ export const useSearchQuery = (
 
 export const useInteractionQuery = (
   pollId: number,
-  userId: number
+  userId: number,
+  startStr: string
 ): UseQueryResult<Interaction, unknown> => {
   return useQuery(['interaction', pollId, userId], async () => {
-    const { data } = await get(`${API_ROOT}/chat/${pollId}/${userId}`)
-    console.log(data)
-    return data
+    const { data }: { data: chatAPIResponse } = await get(
+      `${API_ROOT}/chat/${pollId}/${userId}`
+    )
+    const interaction: Interaction = {
+      userId,
+      pollId,
+      start: parseISO(startStr),
+      startStr,
+      appointments: [],
+      branch: '',
+      phone: data.data.user.phone,
+      messages: [],
+      alerts: [],
+      comments: [],
+      botName: data.data.bot.name,
+    }
+    return interaction
   })
 }

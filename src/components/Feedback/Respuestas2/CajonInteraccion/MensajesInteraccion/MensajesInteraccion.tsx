@@ -7,11 +7,11 @@ import {
   useInteraccionActivaQuery,
 } from '../../../../../api/hooks'
 import React, { useEffect, useState } from 'react'
-import { Comentario, Message } from '../../../../../api/types/servicio'
+import { Comment, Message } from '../../../../../api/types/servicio'
 import es from 'date-fns/esm/locale/es/index.js'
 import Linkify from 'linkify-react'
 
-const esMensaje = (elemento: Message | Comentario): elemento is Message => {
+const esMensaje = (elemento: Message | Comment): elemento is Message => {
   return (elemento as Message).content !== undefined
 }
 
@@ -76,124 +76,126 @@ const formatearMensaje = (mensaje: String, id: number) => {
   )
 }
 
-const MensajesInteraccion = () => {
-  const { data: dataInteraccionActiva } = useInteraccionActivaQuery()
-  const [autoScroll, setAutoScroll] = useState(true)
-  const { isLoading: cargandoComentarios } =
-    useComentariosInteraccionActivaQuery()
+// const MensajesInteraccion = () => {
+//   const { data: dataInteraccionActiva } = useInteraccionActivaQuery()
+//   const [autoScroll, setAutoScroll] = useState(true)
+//   const { isLoading: cargandoComentarios } =
+//     useComentariosInteraccionActivaQuery()
 
-  useEffect(() => {
-    setAutoScroll(true)
-  }, [dataInteraccionActiva?.userId])
+//   useEffect(() => {
+//     setAutoScroll(true)
+//   }, [dataInteraccionActiva?.userId])
 
-  useEffect(() => {
-    if (cargandoComentarios || !autoScroll) {
-      return
-    }
-    const fechas = document.querySelectorAll(
-      '.MensajesInteraccion__dia_mensajes'
-    )
-    if (fechas.length > 0) {
-      fechas[fechas.length - 1].scrollIntoView()
-      document.querySelector('.MensajesInteraccion')?.scrollBy({ top: -8 })
-      setAutoScroll(false)
-    }
-  }, [dataInteraccionActiva, cargandoComentarios, autoScroll])
+//   useEffect(() => {
+//     if (cargandoComentarios || !autoScroll) {
+//       return
+//     }
+//     const fechas = document.querySelectorAll(
+//       '.MensajesInteraccion__dia_mensajes'
+//     )
+//     if (fechas.length > 0) {
+//       fechas[fechas.length - 1].scrollIntoView()
+//       document.querySelector('.MensajesInteraccion')?.scrollBy({ top: -8 })
+//       setAutoScroll(false)
+//     }
+//   }, [dataInteraccionActiva, cargandoComentarios, autoScroll])
 
-  if (!dataInteraccionActiva?.conversaciones || cargandoComentarios) {
-    return <div className="MensajesInteraccion__skeleton" />
-  }
+//   if (!dataInteraccionActiva?.conversaciones || cargandoComentarios) {
+//     return <div className="MensajesInteraccion__skeleton" />
+//   }
 
-  const mensajes = dataInteraccionActiva.conversaciones
-    .map((c) => c.mensajes)
-    .flat()
-  const mensajesYComentarios: (Message | Comentario)[] = [
-    ...mensajes,
-    ...(dataInteraccionActiva.comments || []),
-  ]
-  mensajesYComentarios.sort((m1, m2) => (m1.timestamp < m2.timestamp ? -1 : 1))
-  const ultimaConversacion = dataInteraccionActiva.conversaciones.slice(-1)[0]
-  const indicePrimerMensajeUltimaConversacion = mensajesYComentarios.findIndex(
-    (c) => isSameDay(c.timestamp, ultimaConversacion.inicio)
-  )
+//   const mensajes = dataInteraccionActiva.conversaciones
+//     .map((c) => c.messages)
+//     .flat()
+//   const mensajesYComentarios: (Message | Comment)[] = [
+//     ...mensajes,
+//     ...(dataInteraccionActiva.comments || []),
+//   ]
+//   mensajesYComentarios.sort((m1, m2) => (m1.timestamp < m2.timestamp ? -1 : 1))
+//   const ultimaConversacion = dataInteraccionActiva.conversaciones.slice(-1)[0]
+//   const indicePrimerMensajeUltimaConversacion = mensajesYComentarios.findIndex(
+//     (c) => isSameDay(c.timestamp, ultimaConversacion.start)
+//   )
 
-  return (
-    <div className="MensajesInteraccion">
-      {mensajesYComentarios.map(
-        (mensajeOComentario: Message | Comentario, i: number) => {
-          if (esMensaje(mensajeOComentario)) {
-            const {
-              timestamp,
-              sender: emisor,
-              content: mensaje,
-            } = mensajeOComentario
-            return (
-              <React.Fragment key={`mensaje-${i}-${timestamp}`}>
-                {(i === 0 ||
-                  !isSameDay(
-                    mensajesYComentarios[i - 1].timestamp,
-                    timestamp
-                  )) && (
-                  <div className="MensajesInteraccion__dia_mensajes">
-                    <InlineIcon icon="mdi:calendar-check" />{' '}
-                    {(isYesterday(timestamp) ? 'ayer, ' : '') +
-                      (isToday(timestamp) ? 'hoy, ' : '') +
-                      format(timestamp, "EEEE d 'de' MMMM", { locale: es })}
-                  </div>
-                )}
-                <div
-                  className={classNames({
-                    MensajesInteraccion__mensaje: true,
-                    'MensajesInteraccion__mensaje--usuario':
-                      emisor === 'USUARIO',
-                    'MensajesInteraccion__mensaje--bot': emisor === 'BOT',
-                  })}
-                  style={{
-                    animationDelay: `${
-                      Math.max(0, i - indicePrimerMensajeUltimaConversacion) *
-                      0.05
-                    }s`,
-                  }}
-                >
-                  <p className="MensajesInteraccion__mensaje_contenido">
-                    {formatearMensaje(mensaje, i)}
-                    <span className="MensajesInteraccion__mensaje_hora">
-                      {format(timestamp, 'HH:mm')}
-                    </span>
-                  </p>
-                </div>
-              </React.Fragment>
-            )
-          } else {
-            const { texto, emoji, timestamp } = mensajeOComentario
-            return (
-              <div
-                className="MensajesInteraccion__comentario"
-                key={`comentario-${i}-${timestamp}`}
-                style={{
-                  animationDelay: `${
-                    Math.max(0, i - indicePrimerMensajeUltimaConversacion) *
-                    0.05
-                  }s`,
-                }}
-              >
-                <p className="MensajesInteraccion__comentario_emisor">
-                  <InlineIcon icon="mdi:comment-check" /> Comentario (visible
-                  solo en Feedback)
-                </p>
-                <p className="MensajesInteraccion__comentario_hora">
-                  {format(timestamp, 'HH:mm')}
-                </p>
-                <p className="MensajesInteraccion__comentario_contenido">
-                  {emoji} {texto}
-                </p>
-              </div>
-            )
-          }
-        }
-      )}
-    </div>
-  )
-}
+//   return (
+//     <div className="MensajesInteraccion">
+//       {mensajesYComentarios.map(
+//         (mensajeOComentario: Message | Comment, i: number) => {
+//           if (esMensaje(mensajeOComentario)) {
+//             const {
+//               timestamp,
+//               sender: emisor,
+//               content: mensaje,
+//             } = mensajeOComentario
+//             return (
+//               <React.Fragment key={`mensaje-${i}-${timestamp}`}>
+//                 {(i === 0 ||
+//                   !isSameDay(
+//                     mensajesYComentarios[i - 1].timestamp,
+//                     timestamp
+//                   )) && (
+//                   <div className="MensajesInteraccion__dia_mensajes">
+//                     <InlineIcon icon="mdi:calendar-check" />{' '}
+//                     {(isYesterday(timestamp) ? 'ayer, ' : '') +
+//                       (isToday(timestamp) ? 'hoy, ' : '') +
+//                       format(timestamp, "EEEE d 'de' MMMM", { locale: es })}
+//                   </div>
+//                 )}
+//                 <div
+//                   className={classNames({
+//                     MensajesInteraccion__mensaje: true,
+//                     'MensajesInteraccion__mensaje--usuario':
+//                       emisor === 'USUARIO',
+//                     'MensajesInteraccion__mensaje--bot': emisor === 'BOT',
+//                   })}
+//                   style={{
+//                     animationDelay: `${
+//                       Math.max(0, i - indicePrimerMensajeUltimaConversacion) *
+//                       0.05
+//                     }s`,
+//                   }}
+//                 >
+//                   <p className="MensajesInteraccion__mensaje_contenido">
+//                     {formatearMensaje(mensaje, i)}
+//                     <span className="MensajesInteraccion__mensaje_hora">
+//                       {format(timestamp, 'HH:mm')}
+//                     </span>
+//                   </p>
+//                 </div>
+//               </React.Fragment>
+//             )
+//           } else {
+//             const { text: texto, emoji, timestamp } = mensajeOComentario
+//             return (
+//               <div
+//                 className="MensajesInteraccion__comentario"
+//                 key={`comentario-${i}-${timestamp}`}
+//                 style={{
+//                   animationDelay: `${
+//                     Math.max(0, i - indicePrimerMensajeUltimaConversacion) *
+//                     0.05
+//                   }s`,
+//                 }}
+//               >
+//                 <p className="MensajesInteraccion__comentario_emisor">
+//                   <InlineIcon icon="mdi:comment-check" /> Comentario (visible
+//                   solo en Feedback)
+//                 </p>
+//                 <p className="MensajesInteraccion__comentario_hora">
+//                   {format(timestamp, 'HH:mm')}
+//                 </p>
+//                 <p className="MensajesInteraccion__comentario_contenido">
+//                   {emoji} {texto}
+//                 </p>
+//               </div>
+//             )
+//           }
+//         }
+//       )}
+//     </div>
+//   )
+// }
+
+const MensajesInteraccion = () => <></>
 
 export default MensajesInteraccion

@@ -43,6 +43,7 @@ const Search = () => {
           <InteractionDrawer
             pollId={activeInteraction.pollId}
             userId={activeInteraction.userId}
+            startStr={activeInteraction.startStr}
             onCloseClick={() => dispatch(hideDrawer())}
           />
         )}
