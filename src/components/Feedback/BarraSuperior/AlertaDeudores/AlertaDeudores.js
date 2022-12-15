@@ -33,6 +33,7 @@ const usuariosDeudores = [
   "LeCiel",
   // "Sanasalud",
   "Maitenes",
+  "Medisis",
 ];
 
 const AlertaDeudores = () => {
