@@ -4,19 +4,23 @@ import { Interaction } from '../../../../../api/types/servicio'
 import './Smartphone.css'
 
 const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
-  const [phoneColor, setPhoneColor] = useState('var(--whatsapp-color-celular)')
+  const [phoneColor, setPhoneColor] = useState([0, 0, 10])
 
   const setRandomPhoneColor = () =>
-    setPhoneColor(
-      `rgb(${255 * Math.random()}, ${255 * Math.random()}, ${
-        255 * Math.random()
-      })`
-    )
+    setPhoneColor([
+      360 * Math.random(),
+      25 + 75 * Math.random(),
+      75 * Math.random(),
+    ])
 
   return (
     <div
       className="Smartphone"
-      style={{ '--phone-color': phoneColor } as React.CSSProperties}
+      style={
+        {
+          '--phone-color': `hsl(${phoneColor[0]}, ${phoneColor[1]}%, ${phoneColor[2]}%)`,
+        } as React.CSSProperties
+      }
     >
       <div className="Smartphone__screen">
         <button
@@ -25,24 +29,35 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
         />
         <button
           className="Smartphone__button Smartphone__button-l Smartphone__button-l2"
-          onClick={setRandomPhoneColor}
+          onClick={() =>
+            setPhoneColor((c) => [c[0], c[1], Math.min(75, c[2] + 5)])
+          }
         />
         <button
           className="Smartphone__button Smartphone__button-l Smartphone__button-l3"
-          onClick={setRandomPhoneColor}
+          onClick={() =>
+            setPhoneColor((c) => [c[0], c[1], Math.min(75, c[2] - 5)])
+          }
         />
         <button
           className="Smartphone__button Smartphone__button-r Smartphone__button-r1"
-          onClick={() => setPhoneColor('var(--whatsapp-color-celular)')}
+          onClick={() => setPhoneColor([0, 0, 10])}
         />
         <div className="Smartphone__app_bar">
-          <div>
+          <div className="Smartphone__nav_bar">
             <div>10:10</div>
+            <div className="Smartphone__camera">
+              {interaction?.pollId} / {interaction?.userId}
+            </div>
             <div>iconos</div>
           </div>
-          <div>
-            <div>{interaction?.botName}</div>
-            <div>en línea</div>
+          <div className="Smartphone__actions_bar">
+            <div className="Smartphone__avatar" />
+            <div className="Smartphone__receiver_name">
+              {interaction?.botName}
+            </div>
+            <div className="Smartphone__receiver_status">en línea</div>
+            <div className="Smartphone__actions">x</div>
           </div>
         </div>
         <div className="Smartphone__messages_container">
