@@ -193,6 +193,12 @@ const columns: ColumnDef<Interaction, any>[] = [
     accessorFn: (row) => row.branch,
     header: 'Sucursal',
     filterFn: 'fuzzy',
+    cell: (info) => (
+      <CopyDiv
+        className="InteractionsTable__multi_cell"
+        text={info.getValue()}
+      />
+    ),
   },
 ]
 
@@ -232,7 +238,7 @@ const InteractionsTable = ({
   const tableContainerRef = useRef<HTMLDivElement>(null)
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const table = useReactTable({
-    data,
+    data: data.slice(0, 20),
     columns,
     filterFns: {
       fuzzy: fuzzyFilter,
@@ -250,7 +256,7 @@ const InteractionsTable = ({
   const rowVirtualizer = useVirtual({
     parentRef: tableContainerRef,
     size: rows.length,
-    overscan: 20,
+    overscan: 10,
   })
   const { virtualItems: virtualRows, totalSize } = rowVirtualizer
   const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0
@@ -333,7 +339,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
   return (
     <>
       {column.id === 'branch' && (
-        <datalist id={column.id + 'list'}>
+        <datalist>
           {sortedUniqueValues.slice(0, 5000).map((value: any) => (
             <option value={value} key={value} />
           ))}
@@ -344,7 +350,11 @@ function Filter({ column }: { column: Column<any, unknown> }) {
         value={(columnFilterValue ?? '') as string}
         onChange={(value) => column.setFilterValue(value)}
         placeholder={`Filtrar... (${column.getFacetedUniqueValues().size})`}
-        className="w-36 border shadow rounded"
+        className={classNames({
+          'w-36 border shadow rounded': true,
+          InteractionsTable__filter_input: true,
+          'InteractionsTable__filter_input--active': columnFilterValue,
+        })}
         list={column.id + 'list'}
       />
       <div className="h-1" />

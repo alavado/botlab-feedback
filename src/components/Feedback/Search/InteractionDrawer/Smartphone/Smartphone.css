@@ -196,7 +196,7 @@
 }
 
 .Smartphone__message {
-  background-color: white;
+  background-color: var(--whatsapp-fondo-mensajes-entrantes);
   max-width: 80%;
   padding: 0.45rem;
   font-size: 0.65rem;

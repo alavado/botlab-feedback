@@ -6,7 +6,7 @@
   display: grid;
   grid-template: 2rem auto 1fr / 20rem auto;
   gap: 0;
-  padding: 0 0.5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .InteractionDrawer__top_bar {
@@ -49,6 +49,7 @@
   font-size: 1rem;
   display: flex;
   align-items: center;
+  color: var(--color-texto);
   cursor: pointer;
 }
 

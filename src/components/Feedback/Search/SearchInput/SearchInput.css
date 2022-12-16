@@ -21,6 +21,7 @@
   left: 0.5rem;
   font-size: 1rem;
   opacity: 0.75;
+  color: var(--color-texto);
 }
 
 .SearchInput__input {
@@ -30,6 +31,8 @@
   outline: none;
   border: none;
   box-shadow: 0 0 0 1px var(--color-bordes);
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
   font-size: 0.8rem;
   transition: all 0.25s ease;
 }
@@ -55,6 +58,7 @@
   border: none;
   transition: all 0.15s ease;
   opacity: 0.75;
+  color: var(--color-texto);
 }
 
 .SearchInput__clear_icon {

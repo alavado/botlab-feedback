@@ -606,7 +606,10 @@ const searchSingleAppointmentToInteraction = (
   appointment: SearchAPISingleAppointment
 ): Interaction => {
   return {
-    start: parseISO(appointment.start),
+    start: addHours(
+      parseISO(appointment.start),
+      Number(process.env.REACT_APP_UTC_OFFSET)
+    ),
     userId: appointment.user_id,
     pollId: appointment.poll_id,
     branch: appointment.sucursal_name,
@@ -630,7 +633,10 @@ const searchMultiAppointmentToInteraction = (
   appointment: SearchAPIMultiAppointment
 ): Interaction => {
   return {
-    start: parseISO(appointment.start),
+    start: addHours(
+      parseISO(appointment.start),
+      Number(process.env.REACT_APP_UTC_OFFSET)
+    ),
     userId: appointment.user_id,
     pollId: appointment.poll_id,
     branch: appointment.sucursal_name_1 || appointment.sucursal_name,
@@ -716,7 +722,10 @@ export const useInteractionQuery = (
       const interaction: Interaction = {
         userId,
         pollId,
-        start: parseISO(conversation.start),
+        start: addHours(
+          parseISO(conversation.start),
+          Number(process.env.REACT_APP_UTC_OFFSET)
+        ),
         appointments: [],
         branch: '',
         phone: data.data.user.phone,
