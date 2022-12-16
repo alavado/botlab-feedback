@@ -27,6 +27,7 @@ import {
 } from '@tanstack/match-sorter-utils'
 import classNames from 'classnames'
 import { isSameDay } from 'date-fns'
+import { Icon } from '@iconify/react'
 
 const columnHelper = createColumnHelper<Interaction>()
 
@@ -52,6 +53,35 @@ const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
 }
 
+const CopyDiv = ({
+  text,
+  className,
+}: {
+  text: string | undefined
+  className: string
+}) => {
+  return (
+    <div
+      className={classNames({
+        [className]: true,
+        InteractionsTable__copy_div: true,
+      })}
+    >
+      <span>{text}</span>
+      <button
+        onClick={(e) => {
+          e.stopPropagation()
+          navigator.clipboard.writeText(text || '')
+        }}
+        title="Copiar"
+        className="InteractionsTable__copy_div_button"
+      >
+        <Icon icon="mdi:content-copy" />
+      </button>
+    </div>
+  )
+}
+
 const columns: ColumnDef<Interaction, any>[] = [
   columnHelper.display({
     id: 'n',
@@ -64,12 +94,24 @@ const columns: ColumnDef<Interaction, any>[] = [
     header: 'Inicio interacción',
     filterFn: 'fuzzy',
     sortingFn: fuzzySort,
+    cell: (info) => (
+      <CopyDiv
+        className="InteractionsTable__multi_cell"
+        text={info.getValue()}
+      />
+    ),
   },
   {
     id: 'phone',
     accessorFn: (row) => row.phone,
     header: 'Teléfono',
     filterFn: 'fuzzy',
+    cell: (info) => (
+      <CopyDiv
+        className="InteractionsTable__multi_cell"
+        text={info.getValue()}
+      />
+    ),
   },
   {
     id: 'rut',
@@ -82,7 +124,7 @@ const columns: ColumnDef<Interaction, any>[] = [
         .getValue()
         .split(multiAppointmentDataSeparator)
         .map((v: string) => (
-          <div className="InteractionsTable__multi_cell">{v}</div>
+          <CopyDiv className="InteractionsTable__multi_cell" text={v} />
         )),
   },
   {
@@ -98,7 +140,7 @@ const columns: ColumnDef<Interaction, any>[] = [
         .getValue()
         .split(multiAppointmentDataSeparator)
         .map((v: string) => (
-          <div className="InteractionsTable__multi_cell">{v}</div>
+          <CopyDiv className="InteractionsTable__multi_cell" text={v} />
         )),
   },
   {
@@ -106,6 +148,12 @@ const columns: ColumnDef<Interaction, any>[] = [
     accessorFn: (row) => format(row.appointments[0].datetime, 'dd/MM'),
     header: 'Fecha cita',
     filterFn: 'fuzzy',
+    cell: (info) => (
+      <CopyDiv
+        className="InteractionsTable__multi_cell"
+        text={info.getValue()}
+      />
+    ),
   },
   {
     id: 'app_time',
@@ -123,7 +171,7 @@ const columns: ColumnDef<Interaction, any>[] = [
           if (v === '00:00') {
             return <div className="InteractionsTable__multi_cell">-</div>
           }
-          return <div className="InteractionsTable__multi_cell">{v}</div>
+          return <CopyDiv className="InteractionsTable__multi_cell" text={v} />
         }),
   },
   {
@@ -137,7 +185,7 @@ const columns: ColumnDef<Interaction, any>[] = [
         .getValue()
         .split(multiAppointmentDataSeparator)
         .map((v: string) => (
-          <div className="InteractionsTable__multi_cell">{v}</div>
+          <CopyDiv className="InteractionsTable__multi_cell" text={v} />
         )),
   },
   {
