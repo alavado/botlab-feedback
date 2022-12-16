@@ -695,6 +695,7 @@ const getClosestConversation = (
   conversationsData: chatAPIConversation[],
   start: Date
 ): chatAPIConversation => {
+  console.log(start)
   const sameDayConversations = conversationsData.filter((c: any) =>
     isSameDay(parseISO(c.start), start)
   )
@@ -710,7 +711,7 @@ export const useInteractionQuery = (
   start: Date
 ): UseQueryResult<Interaction, unknown> => {
   return useQuery<any, any, Interaction>(
-    ['interaction', pollId, userId],
+    ['interaction', pollId, userId, start],
     async () => {
       const { data }: { data: chatAPIResponse } = await get(
         `${API_ROOT}/chat/${pollId}/${userId}`

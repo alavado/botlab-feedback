@@ -35,6 +35,8 @@ const InteractionDrawer = ({
   const history = useHistory()
   const track = useAnalytics()
 
+  console.log(pollId, userId, start)
+
   return (
     <Resizable
       // defaultSize={{

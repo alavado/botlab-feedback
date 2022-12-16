@@ -28,6 +28,7 @@ import {
 import classNames from 'classnames'
 import { isSameDay } from 'date-fns'
 import { Icon } from '@iconify/react'
+import es from 'date-fns/esm/locale/es/index.js'
 
 const columnHelper = createColumnHelper<Interaction>()
 
@@ -90,7 +91,7 @@ const columns: ColumnDef<Interaction, any>[] = [
   {
     id: 'start',
     accessorFn: (row) => format(row.start, 'dd/MM/yy HH:mm'),
-    header: 'Inicio interacción',
+    header: 'Fecha interacción',
     filterFn: 'fuzzy',
     sortingFn: fuzzySort,
     cell: (info) => (
@@ -144,7 +145,8 @@ const columns: ColumnDef<Interaction, any>[] = [
   },
   {
     id: 'app_date',
-    accessorFn: (row) => format(row.appointments[0].datetime, 'dd/MM'),
+    accessorFn: (row) =>
+      format(row.appointments[0].datetime, "dd 'de' MMMM", { locale: es }),
     header: 'Fecha cita',
     filterFn: 'fuzzy',
     cell: (info) => (
@@ -299,7 +301,9 @@ const InteractionsTable = ({
             return (
               <tr
                 key={row.id}
-                onClick={() => onRowClick(row.original)}
+                onClick={() => {
+                  onRowClick(row.original)
+                }}
                 className={classNames({
                   InteractionsTable__tr: true,
                   'InteractionsTable__tr--highlighted': isSameInteraction(
