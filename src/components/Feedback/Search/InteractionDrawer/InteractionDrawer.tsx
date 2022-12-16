@@ -41,7 +41,7 @@ const InteractionDrawer = ({
       //   width: window.innerWidth / 5,
       //   height: 'auto',
       // }}
-      maxWidth={(3 * window.innerWidth) / 4}
+      // maxWidth={(3 * window.innerWidth) / 4}
       className="InteractionDrawer"
       enable={{
         top: false,
