@@ -1,0 +1,138 @@
+.InteractionsTable {
+  font-size: 0.6rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 0.5rem - var(--search-topbar-height));
+  overflow-y: scroll;
+  padding: 0 0.5rem 0.5rem 0.5rem;
+}
+
+.InteractionsTable__table {
+  width: 100%;
+}
+
+.InteractionsTable__thead {
+  background-color: var(--color-barra-superior);
+  position: sticky;
+  top: 0;
+}
+
+.InteractionsTable__th {
+  padding: 0.5rem 0;
+  padding-right: 0.5rem;
+  box-shadow: 0 0 0 1px var(--color-barra-superior);
+  background-color: var(--color-barra-superior);
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.InteractionsTable__th:first-child,
+.InteractionsTable__td:first-child {
+  border-left: none;
+  padding-left: 0.75rem;
+}
+
+.InteractionsTable__td:last-child {
+  border-right: none;
+  width: 100%;
+}
+
+.InteractionsTable__td {
+  padding: 0.75rem 0;
+  padding-right: 0.5rem;
+  border-top: 1px solid var(--color-bordes);
+  border-bottom: 1px solid var(--color-bordes);
+  white-space: nowrap;
+}
+
+.InteractionsTable__multi_cell {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.InteractionsTable__multi_cell:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.InteractionsTable__tr {
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.InteractionsTable__tr:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.InteractionsTable__tr:active {
+  background-color: var(--color-foco-fila);
+}
+
+.InteractionsTable__tr--highlighted,
+.InteractionsTable__tr--highlighted:hover {
+  background-color: var(--color-fila-muy-destacada);
+}
+
+.InteractionsTable__filter_container {
+  margin-top: 0.25rem;
+}
+
+.InteractionsTable__copy_div {
+  transition: all 0.1s ease;
+}
+
+.InteractionsTable__copy_div:has(.InteractionsTable__copy_div_button:active)
+  span {
+  box-shadow: 0 0 0 0.1rem var(--color-secundario);
+  transition: all 0.1s ease;
+}
+
+.InteractionsTable__copy_div:hover .InteractionsTable__copy_div_button {
+  opacity: 1;
+}
+
+.InteractionsTable__copy_div_button {
+  opacity: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+  padding: 0.1rem;
+  border-radius: 0.25rem;
+  color: var(--color-texto);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.InteractionsTable__copy_div:hover .InteractionsTable__copy_div_button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.InteractionsTable__copy_div:hover .InteractionsTable__copy_div_button:active {
+  position: relative;
+}
+
+.InteractionsTable__copy_div:hover
+  .InteractionsTable__copy_div_button:active::after {
+  content: '¡Copiado!';
+  position: absolute;
+  left: calc(100% + 0.25rem);
+  opacity: 1;
+  font-size: 0.5rem;
+}
+
+.InteractionsTable__filter_input {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  border: 1px solid var(--color-bordes);
+}
+
+.InteractionsTable__filter_input--active {
+  background-color: var(--color-no);
+  color: var(--color-texto-tag);
+}

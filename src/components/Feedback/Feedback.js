@@ -17,28 +17,44 @@ import ErrorBoundary from '../../helpers/ErrorBoundary'
 import Alertas from './Alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import Novedades from '../Novedades'
-import Respuestas2 from './Respuestas2'
 import Tutoriales from './Tutoriales'
+import Search from './Search'
+import { esRedSalud } from '../../helpers/permisos'
 
 const Feedback = () => {
-
-  const { token } = useSelector(state => state.login)
+  const { token, cuenta } = useSelector((state) => state.login)
   const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
-  const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(state => state.respuestas)
-  const { idEncuestaSeleccionada } = useSelector(state => state.encuestas)
+  const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(
+    (state) => state.respuestas
+  )
+  const { idEncuestaSeleccionada } = useSelector((state) => state.encuestas)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (token && idEncuestaSeleccionada && fechaInicio && fechaTermino && cacheInvalido) {
+    if (
+      token &&
+      idEncuestaSeleccionada &&
+      fechaInicio &&
+      fechaTermino &&
+      cacheInvalido
+    ) {
       const fetchData = async () => {
         // dispatch(limpiaRespuestas())
         try {
           const headers = await headersAPI(token)
           dispatch(guardaHeaders(headers))
-          const data = await respuestasAPI(idEncuestaSeleccionada, fechaInicio, fechaTermino)
-          dispatch(guardaRespuestas({ jsonRespuestas: data, idEncuesta: idEncuestaSeleccionada }))
-        }
-        catch (e) {
+          const data = await respuestasAPI(
+            idEncuestaSeleccionada,
+            fechaInicio,
+            fechaTermino
+          )
+          dispatch(
+            guardaRespuestas({
+              jsonRespuestas: data,
+              idEncuesta: idEncuestaSeleccionada,
+            })
+          )
+        } catch (e) {
           console.error(e)
           dispatch(cierraLaSesion())
           dispatch(limpiaEncuestas())
@@ -51,7 +67,14 @@ const Feedback = () => {
         setErrorCargandoRespuestas('Ocurrió un error')
       }
     }
-  }, [token, idEncuestaSeleccionada, dispatch, fechaInicio, fechaTermino, cacheInvalido])
+  }, [
+    token,
+    idEncuestaSeleccionada,
+    dispatch,
+    fechaInicio,
+    fechaTermino,
+    cacheInvalido,
+  ])
 
   if (!token) {
     return <Login />
@@ -63,19 +86,16 @@ const Feedback = () => {
         {errorCargandoRespuestas}
         <Novedades />
         <Switch>
-          <Route path="/respuestas2">
-            <></>
-          </Route>
           <Route>
             <BarraLateral />
           </Route>
         </Switch>
         <div className="Feedback__contenedor">
           <Switch>
-            <Route exact path="/respuestas2">
+            <Route path="/interaccion">
               <></>
             </Route>
-            <Route path="/interaccion">
+            <Route path="/busqueda">
               <></>
             </Route>
             <Route>
@@ -94,13 +114,13 @@ const Feedback = () => {
                 <Respuestas />
               </Route>
               <Route path="/alertas/:id">
-                <Alertas  />
+                <Alertas />
               </Route>
               <Route path="/alertas">
-                <Alertas  />
+                <Alertas />
               </Route>
               <Route exact path="/busqueda">
-                <Busqueda />
+                {esRedSalud(cuenta) ? <Busqueda /> : <Search />}
               </Route>
               <Route path="/busqueda/:termino">
                 <Busqueda />
@@ -114,17 +134,11 @@ const Feedback = () => {
               <Route path="/respuestas">
                 <Respuestas />
               </Route>
-              <Route path="/respuestas2">
-                <Respuestas2 />
-              </Route>
               <Route path="/tablero">
                 <Respuestas />
               </Route>
               <Route path="/tutoriales">
                 <Tutoriales />
-              </Route>
-              <Route path="/interaccion">
-                <Respuestas2 />
               </Route>
               <Route path="/">
                 <Respuestas />

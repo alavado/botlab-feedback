@@ -95,28 +95,28 @@ const ListaInteracciones = () => {
           key={`interaccion-${i}`}
           className={classNames({
             "ListaInteracciones__interaccion": true,
-            "ListaInteracciones__interaccion--inactiva": !cajonInteraccionVisible || (idUsuarioInteraccionActiva && idUsuarioInteraccionActiva !== interaccion.idUsuario),
-            "ListaInteracciones__interaccion--activa": cajonInteraccionVisible && idUsuarioInteraccionActiva === interaccion.idUsuario,
+            "ListaInteracciones__interaccion--inactiva": !cajonInteraccionVisible || (idUsuarioInteraccionActiva && idUsuarioInteraccionActiva !== interaccion.userId),
+            "ListaInteracciones__interaccion--activa": cajonInteraccionVisible && idUsuarioInteraccionActiva === interaccion.userId,
           })}
           onClick={() => {
             dispatch(muestraCajonInteraccion())
-            dispatch(seleccionaInteraccion([idServicioActivo, interaccion.idUsuario, interaccion.inicio]))
+            dispatch(seleccionaInteraccion([idServicioActivo, interaccion.userId, interaccion.start]))
           }}
         >
-          {interaccion.citas.map((cita, j) => (
+          {interaccion.appointments.map((cita, j) => (
             <Fragment
               key={`cita-${j}`}
             >
               <div>{j === 0 ? (i + 1) : ''}</div>
               <div>
-                <div className="ListaInteracciones__estado_interaccion" style={{background: interaccion.estadoInteraccion.color}}>
+                <div className="ListaInteracciones__estado_interaccion" style={{background: 'white'}}>
                   <InlineIcon
-                    icon={interaccion.estadoInteraccion.icono}
+                    icon={'mdi:clock'}
                   />
-                  {interaccion.estadoInteraccion.descripcion}
+                  {/* {interaccion.status?.descripcion || ''} */}
                 </div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>{j === 0 ? interaccion.comentarios[0]?.emoji : ''}</div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>{j === 0 ? interaccion.comments?.[0]?.emoji : ''}</div>
               <div>
                 {/* <div
                   style={{ background: `hsl(${360 * ((cita.nombre.toLowerCase().charCodeAt(0) - 97) / 25)}, 65%, 55%)` }}
@@ -127,12 +127,12 @@ const ListaInteracciones = () => {
                 >
                   {cita.nombre[0]}
                 </div> */}
-                {cita.nombre}
+                {cita.patientName}
               </div>
-              <div>{cita.fecha ? `${isTomorrow(cita.fecha) ? 'mañana, ' : ''}${format(cita.fecha, 'dd/MM')}` : '-'}</div>
-              <div>{cita.fecha ? format(cita.fecha, 'HH:mm') : '-'}</div>
-              <div>{cita.responsable}</div>
-              <div>{interaccion.sucursal}</div>
+              <div>{cita.datetime ? `${isTomorrow(cita.datetime) ? 'mañana, ' : ''}${format(cita.datetime, 'dd/MM')}` : '-'}</div>
+              <div>{cita.datetime ? format(cita.datetime, 'HH:mm') : '-'}</div>
+              {/* <div>{cita.responsable}</div> */}
+              <div>{interaccion.branch}</div>
             </Fragment>
           ))}
         </div>

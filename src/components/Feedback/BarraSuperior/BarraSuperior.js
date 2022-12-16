@@ -4,7 +4,7 @@ import './BarraSuperior.css'
 import MenuUsuario from './MenuUsuario'
 import SelectorEncuesta from './SelectorEncuesta'
 import AlertaPilotos from './AlertaPilotos'
-import { Icon, InlineIcon } from '@iconify/react'
+import { InlineIcon } from '@iconify/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { activaEnviador } from '../../../redux/ducks/enviador'
 import TabsEncuestas from './TabsEncuestas'
@@ -14,7 +14,6 @@ import AlertaDeudores from './AlertaDeudores'
 
 const BarraSuperior = () => {
 
-  const [verModal, setVerModal] = useState(false)
   const { respuestas } = useSelector(state => state.respuestas)
   const { cuenta } = useSelector(state => state.login)
   const { idEncuestaSeleccionada, tipos } = useSelector(state => state.encuestas)
@@ -74,15 +73,6 @@ const BarraSuperior = () => {
             </button>
           )}/>
         </Switch>
-      )}
-      {respuestas && false && (
-        <button
-          onClick={() => setVerModal(!verModal)}
-          className="BarraSuperior__boton"
-          title={verModal ? 'Ocultar guión' : 'Ver guión' }
-        >
-          <Icon icon="mdi:script-text" className="SelectorRangoFechas__boton_icono" />
-        </button>
       )}
       <MenuUsuario />
     </div>
