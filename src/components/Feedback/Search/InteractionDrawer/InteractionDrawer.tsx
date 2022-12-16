@@ -5,6 +5,7 @@ import { MouseEventHandler } from 'react'
 import { useInteractionQuery } from '../../../../api/hooks'
 import './InteractionDrawer.css'
 import Smartphone from './Smartphone'
+import { Icon } from '@iconify/react'
 
 interface InteractionDrawerProps {
   pollId: number
@@ -29,14 +30,12 @@ const InteractionDrawer = ({
     isError,
   } = useInteractionQuery(pollId, userId, start)
 
-  console.log(interaction)
-
   return (
     <Resizable
-      defaultSize={{
-        width: (2 * window.innerWidth) / 5,
-        height: 'auto',
-      }}
+      // defaultSize={{
+      //   width: window.innerWidth / 5,
+      //   height: 'auto',
+      // }}
       maxWidth={(3 * window.innerWidth) / 4}
       className="InteractionDrawer"
       enable={{
@@ -52,9 +51,14 @@ const InteractionDrawer = ({
     >
       <div className="InteractionDrawer__top_bar">
         <div className="InteractionDrawer__top_bar_actions">
-          <button onClick={onCloseClick}>x</button>
-          <button onClick={onPreviousClick}>anterior</button>
-          <button onClick={onNextClick}>siguiente</button>
+          <button
+            className="InteractionDrawer__top_bar_action_button"
+            onClick={onCloseClick}
+          >
+            <Icon icon="mdi:close" />
+          </button>
+          {/* <button onClick={onPreviousClick}>anterior</button>
+          <button onClick={onNextClick}>siguiente</button> */}
         </div>
         {/* <h2>
           {interaction
@@ -67,7 +71,7 @@ const InteractionDrawer = ({
       <div className="InteractionDrawer__phone_container">
         <Smartphone interaction={interaction} />
       </div>
-      <div className="InteractionDrawer__comments_container">
+      {/* <div className="InteractionDrawer__comments_container">
         <h2>Comentarios</h2>
         <p>No hay comentarios</p>
       </div>
@@ -81,7 +85,7 @@ const InteractionDrawer = ({
             <p>{format(appointment.datetime, 'HH:mm')}</p>
           </>
         ))}
-      </div>
+      </div> */}
     </Resizable>
   )
 }

@@ -156,12 +156,6 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   return itemRank.passed
 }
 
-interface InteractionsTableProps {
-  data: Interaction[]
-  highlighted?: Interaction
-  onRowClick: Function
-}
-
 const isSameInteraction = (
   i1: Interaction | undefined,
   i2: Interaction | undefined
@@ -174,6 +168,12 @@ const isSameInteraction = (
     i1.userId === i2.userId &&
     isSameDay(i1.appointments[0].datetime, i2.appointments[0].datetime)
   )
+}
+
+interface InteractionsTableProps {
+  data: Interaction[]
+  highlighted?: Interaction
+  onRowClick: Function
 }
 
 const InteractionsTable = ({
@@ -211,8 +211,6 @@ const InteractionsTable = ({
       ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
       : 0
 
-  console.log(highlighted)
-
   return (
     <div ref={tableContainerRef} className="InteractionsTable">
       <table className="InteractionsTable__table">
@@ -220,19 +218,15 @@ const InteractionsTable = ({
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th
-                  key={header.id}
-                  className="InteractionsTable__th"
-                  style={{ width: header.getSize() }}
-                >
+                <th key={header.id} className="InteractionsTable__th">
                   {header.isPlaceholder
                     ? null
                     : flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
-                  {header.column.getCanFilter() ? (
-                    <div>
+                  {data.length > 0 && header.column.getCanFilter() ? (
+                    <div className="InteractionsTable__filter_container">
                       <Filter column={header.column} />
                     </div>
                   ) : null}

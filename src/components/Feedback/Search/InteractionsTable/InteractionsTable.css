@@ -64,3 +64,7 @@
 .InteractionsTable__tr--highlighted:hover {
   background-color: var(--color-fila-muy-destacada);
 }
+
+.InteractionsTable__filter_container {
+  margin-top: 0.25rem;
+}

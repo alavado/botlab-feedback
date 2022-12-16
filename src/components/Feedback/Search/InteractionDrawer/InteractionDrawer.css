@@ -16,6 +16,15 @@
   justify-content: space-between;
 }
 
+.InteractionDrawer__top_bar_action_button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 .InteractionDrawer__phone_container {
   grid-row: 2 / -1;
   display: flex;

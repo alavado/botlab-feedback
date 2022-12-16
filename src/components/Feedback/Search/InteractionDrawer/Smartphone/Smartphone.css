@@ -109,9 +109,21 @@
   justify-content: space-between;
   color: var(--color-texto-claro);
   font-size: 0.6rem;
-  padding: 0 1.25rem;
+  padding: 0 1.1rem;
   height: 1.25rem;
   align-items: center;
+}
+
+.Smartphone__nav_bar_time {
+  font-weight: 600;
+  opacity: 0.9;
+  font-size: 0.55rem;
+}
+
+.Smartphone__nav_bar_icons {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .Smartphone__actions_bar {

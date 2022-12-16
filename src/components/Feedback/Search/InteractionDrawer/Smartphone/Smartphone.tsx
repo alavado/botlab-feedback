@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useState } from 'react'
 import { Interaction } from '../../../../../api/types/servicio'
@@ -45,19 +46,23 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
         />
         <div className="Smartphone__app_bar">
           <div className="Smartphone__nav_bar">
-            <div>10:10</div>
+            <div className="Smartphone__nav_bar_time">15:40</div>
             <div className="Smartphone__camera">
               {interaction?.pollId} / {interaction?.userId}
             </div>
-            <div>iconos</div>
+            <div className="Smartphone__nav_bar_icons">
+              <Icon icon="mdi:wifi" />
+              <Icon icon="mdi:signal" />
+              <Icon icon="mdi:battery" />
+            </div>
           </div>
           <div className="Smartphone__actions_bar">
             <div className="Smartphone__avatar" />
             <div className="Smartphone__receiver_name">
-              {interaction?.botName}
+              {interaction?.botName || '...'}
             </div>
             <div className="Smartphone__receiver_status">en línea</div>
-            <div className="Smartphone__actions">x</div>
+            <div className="Smartphone__actions"></div>
           </div>
         </div>
         <div className="Smartphone__messages_container">
