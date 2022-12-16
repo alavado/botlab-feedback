@@ -58,7 +58,7 @@ const InteractionDrawer = ({
             className="InteractionDrawer__top_bar_action_button"
             onClick={onCloseClick}
           >
-            <Icon icon="mdi:close" />
+            <Icon icon="mdi:chevron-double-right" />
           </button>
           {/* <button onClick={onPreviousClick}>anterior</button>
           <button onClick={onNextClick}>siguiente</button> */}

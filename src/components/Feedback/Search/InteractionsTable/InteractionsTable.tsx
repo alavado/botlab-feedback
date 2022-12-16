@@ -70,10 +70,9 @@ const CopyDiv = ({
       <span>{text}</span>
       <button
         onClick={(e) => {
-          e.stopPropagation()
           navigator.clipboard.writeText(text || '')
         }}
-        title="Copiar"
+        title={`Copiar "${text}"`}
         className="InteractionsTable__copy_div_button"
       >
         <Icon icon="mdi:content-copy" />
@@ -308,6 +307,7 @@ const InteractionsTable = ({
                     highlighted
                   ),
                 })}
+                title="Ver conversación"
               >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="InteractionsTable__td">

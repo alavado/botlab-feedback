@@ -80,6 +80,15 @@
 }
 
 .InteractionsTable__copy_div {
+  transition: all 0.1s ease;
+}
+
+.InteractionsTable__copy_div:has(.InteractionsTable__copy_div_button:active)
+  span {
+  background-color: var(--color-secundario);
+  box-shadow: 0 0 0 0.15rem var(--color-secundario);
+  border-radius: 0.1rem;
+  color: white;
 }
 
 .InteractionsTable__copy_div:hover .InteractionsTable__copy_div_button {
@@ -107,7 +116,16 @@
 }
 
 .InteractionsTable__copy_div:hover .InteractionsTable__copy_div_button:active {
-  opacity: 0.75;
+  position: relative;
+}
+
+.InteractionsTable__copy_div:hover
+  .InteractionsTable__copy_div_button:active::after {
+  content: '¡Copiado!';
+  position: absolute;
+  left: calc(100% + 0.25rem);
+  opacity: 1;
+  font-size: 0.5rem;
 }
 
 .InteractionsTable__filter_input {
