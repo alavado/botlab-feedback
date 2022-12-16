@@ -29,6 +29,7 @@ import classNames from 'classnames'
 import { isSameDay } from 'date-fns'
 import { Icon } from '@iconify/react'
 import es from 'date-fns/esm/locale/es/index.js'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const columnHelper = createColumnHelper<Interaction>()
 
@@ -61,6 +62,8 @@ const CopyDiv = ({
   text: string | undefined
   className: string
 }) => {
+  const track = useAnalytics()
+
   return (
     <div
       className={classNames({
@@ -71,6 +74,7 @@ const CopyDiv = ({
       <span>{text}</span>
       <button
         onClick={(e) => {
+          track('Feedback', 'Search', 'copy')
           navigator.clipboard.writeText(text || '')
         }}
         title={`Copiar "${text}"`}
