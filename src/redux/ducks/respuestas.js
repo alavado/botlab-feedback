@@ -1,50 +1,72 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { formatISO9075, parse } from "date-fns"
-import { es } from "date-fns/locale"
-import diccionarioTags from "../../helpers/tags"
-import { obtenerTagsCalculados } from "../../helpers/tagsCalculados"
+import { createSlice } from '@reduxjs/toolkit'
+import { formatISO9075, parse } from 'date-fns'
+import { es } from 'date-fns/locale'
+import diccionarioTags from '../../helpers/tags'
+import { obtenerTagsCalculados } from '../../helpers/tagsCalculados'
 
-export const normalizar = s => (s.tag ?? s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+export const normalizar = (s) =>
+  (s.tag ?? s)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
 
 const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
-  const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === nombreHeader)
+  const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(
+    (t) => t.nombre === nombreHeader
+  )
   if (tagCalculado) {
     const tagEnDiccionario = diccionarioTags(tagCalculado.f(r).tag)
     if (tagEnDiccionario) {
       return normalizar(tagEnDiccionario.texto).indexOf(terminoNormalizado) >= 0
-    }
-    else if (!isNaN(tagCalculado.f(r).tag)) {
+    } else if (!isNaN(tagCalculado.f(r).tag)) {
       return normalizar(tagCalculado.f(r).tag).indexOf(terminoNormalizado) >= 0
-    }
-    else {
+    } else {
       return normalizar(tagCalculado.f(r).text).indexOf(terminoNormalizado) >= 0
     }
   }
   return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
 }
 
-const ordenarPorFechaCita = (orden = 'ASC') => (r1, r2) => {
-  try {
-    const propHora = r1.time ? 'time' : 'time_1'
-    const propFecha = r1.time ? 'date' : 'date_1'
-    const formato = r1[propHora].includes('M') ? 'd \'de\' MMMM h:m a' : 'd \'de\' MMMM H:m'
-    const fecha1 = parse(`${r1[propFecha]} ${r1[propHora]}`, formato, new Date(), { locale: es })
-    const fecha2 = parse(`${r2[propFecha]} ${r2[propHora]}`, formato, new Date(), { locale: es })
-    return orden === 'ASC' ? (fecha1 > fecha2 ? 1 : -1) : (fecha1 < fecha2 ? 1 : -1)
+const ordenarPorFechaCita =
+  (orden = 'ASC') =>
+  (r1, r2) => {
+    try {
+      const propHora = r1.time ? 'time' : 'time_1'
+      const propFecha = r1.time ? 'date' : 'date_1'
+      const formato = r1[propHora].includes('M')
+        ? "d 'de' MMMM h:m a"
+        : "d 'de' MMMM H:m"
+      const fecha1 = parse(
+        `${r1[propFecha]} ${r1[propHora]}`,
+        formato,
+        new Date(),
+        { locale: es }
+      )
+      const fecha2 = parse(
+        `${r2[propFecha]} ${r2[propHora]}`,
+        formato,
+        new Date(),
+        { locale: es }
+      )
+      return orden === 'ASC'
+        ? fecha1 > fecha2
+          ? 1
+          : -1
+        : fecha1 < fecha2
+        ? 1
+        : -1
+    } catch (e) {
+      return 1
+    }
   }
-  catch (e) {
-    console.log(e)
-    return 1
-  }
-}
 
 const funcionDeOrdenamiento = (header, orden = 'ASC') => {
   if (header.includes('time') || header.includes('date')) {
     return ordenarPorFechaCita(orden)
   }
-  return orden === 'ASC' 
-    ? (r1, r2) => normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1
-    : (r1, r2) => normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1
+  return orden === 'ASC'
+    ? (r1, r2) => (normalizar(r1[header]) < normalizar(r2[header]) ? -1 : 1)
+    : (r1, r2) => (normalizar(r1[header]) > normalizar(r2[header]) ? -1 : 1)
 }
 
 const sliceRespuestas = createSlice({
@@ -81,67 +103,70 @@ const sliceRespuestas = createSlice({
     guardaRespuestas(state, action) {
       const { jsonRespuestas, idEncuesta } = action.payload
       const respuestas = jsonRespuestas.data.data
-        .filter(r => r.started === 'True')
-        .map(r => {
-          const respuestaString = Object.keys(r)
-            .reduce((prev, k) => {
-              let slug = ''
-              if (typeof r[k] === 'string') {
-                slug = normalizar(r[k])
-              }
-              else if (r[k]?.tag) {
-                slug = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
-              }
-              return prev + slug
-            }, '')
-          const respuestaNormalizada = Object.keys(r)
-            .reduce((prev, k) => {
-              if (typeof r[k] === 'string') {
-                prev[k] = normalizar(r[k])
-              }
-              else if (r[k]?.tag || r[k]?.tag === '') {
-                prev[k] = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
-              }
-              return prev
-            }, {})
+        .filter((r) => r.started === 'True')
+        .map((r) => {
+          const respuestaString = Object.keys(r).reduce((prev, k) => {
+            let slug = ''
+            if (typeof r[k] === 'string') {
+              slug = normalizar(r[k])
+            } else if (r[k]?.tag) {
+              slug = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
+            }
+            return prev + slug
+          }, '')
+          const respuestaNormalizada = Object.keys(r).reduce((prev, k) => {
+            if (typeof r[k] === 'string') {
+              prev[k] = normalizar(r[k])
+            } else if (r[k]?.tag || r[k]?.tag === '') {
+              prev[k] = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
+            }
+            return prev
+          }, {})
           return {
             ...r,
             respuestaString,
-            respuestaNormalizada
+            respuestaNormalizada,
           }
         })
         .reverse()
       try {
-        let categorias = Object.keys(respuestas[0]).map(k => (
+        let categorias = Object.keys(respuestas[0]).map((k) =>
           respuestas[0][k]?.tag !== undefined
             ? {
                 propiedad: k,
                 esTag: true,
-                niveles: [...new Set(respuestas.map(r => r[k].tag))].sort((x, y) => x > y ? 1 : -1)
+                niveles: [...new Set(respuestas.map((r) => r[k].tag))].sort(
+                  (x, y) => (x > y ? 1 : -1)
+                ),
               }
             : {
                 propiedad: k,
                 esTag: false,
-                niveles: [...new Set(respuestas.map(r => r[k]))].sort((x, y) => x > y ? 1 : -1)
+                niveles: [...new Set(respuestas.map((r) => r[k]))].sort(
+                  (x, y) => (x > y ? 1 : -1)
+                ),
               }
-        ))
+        )
         const tagsCalculados = obtenerTagsCalculados(idEncuesta)
         if (tagsCalculados) {
-          categorias = categorias.concat(tagsCalculados.map(tag => (
-            {
+          categorias = categorias.concat(
+            tagsCalculados.map((tag) => ({
               propiedad: tag.nombre,
               esTag: true,
-              niveles: [...new Set(respuestas.map(r => tag.f(r).tag))].sort((x, y) => x > y ? 1 : -1)
-            }
-          )))
+              niveles: [...new Set(respuestas.map((r) => tag.f(r).tag))].sort(
+                (x, y) => (x > y ? 1 : -1)
+              ),
+            }))
+          )
         }
         state.categorias = categorias
-      }
-      catch (e) {
+      } catch (e) {
         state.categorias = []
       }
       state.respuestas = respuestas
-      state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+      state.respuestasVisibles = state.respuestas.filter((r) =>
+        state.filtros.reduce((res, { f }) => res && f(r), true)
+      )
       state.pagina = 1
       state.cacheInvalido = false
       state.fechaActualizacion = Date.now()
@@ -167,30 +192,33 @@ const sliceRespuestas = createSlice({
       const terminoNormalizado = normalizar(action.payload)
       state.busqueda = action.payload
       state.pagina = 1
-      const indiceFiltroGlobal = state.filtros.findIndex(f => f.headers === '*')
+      const indiceFiltroGlobal = state.filtros.findIndex(
+        (f) => f.headers === '*'
+      )
       const filtro = {
         headers: '*',
         busqueda: action.payload,
         descripcion: `Filtro global: "${action.payload}"`,
-        f: r => r.respuestaString.indexOf(terminoNormalizado) >= 0
+        f: (r) => r.respuestaString.indexOf(terminoNormalizado) >= 0,
       }
       if (indiceFiltroGlobal >= 0) {
         if (terminoNormalizado.length > 0) {
           state.filtros[indiceFiltroGlobal] = filtro
-        }
-        else {
+        } else {
           state.filtros.splice(indiceFiltroGlobal, 1)
         }
-      }
-      else if (terminoNormalizado.length > 0) {
+      } else if (terminoNormalizado.length > 0) {
         state.filtros.push(filtro)
       }
       state.respuestasVisibles = state.respuestas
-        ? state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+        ? state.respuestas.filter((r) =>
+            state.filtros.reduce((res, { f }) => res && f(r), true)
+          )
         : []
     },
     agregaFiltro(state, action) {
-      const { busqueda, nombreHeader, textoHeader, idEncuesta, opciones } = action.payload
+      const { busqueda, nombreHeader, textoHeader, idEncuesta, opciones } =
+        action.payload
       const { filtroImplicito, titulo, temporal, mismaColumna } = opciones || {}
       const terminoNormalizado = normalizar(busqueda)
       const filtro = {
@@ -201,54 +229,97 @@ const sliceRespuestas = createSlice({
         descripcion: `"${busqueda}" en ${textoHeader}`,
         oculto: filtroImplicito,
         temporal,
-        f: r => funcionFiltro(r, nombreHeader, terminoNormalizado, idEncuesta)
+        f: (r) =>
+          funcionFiltro(r, nombreHeader, terminoNormalizado, idEncuesta),
       }
-      const indiceFiltro = state.filtros.findIndex(f => f.headers.every(h => h === nombreHeader))
+      const indiceFiltro = state.filtros.findIndex((f) =>
+        f.headers.every((h) => h === nombreHeader)
+      )
       if (indiceFiltro >= 0) {
         const filtroExistente = state.filtros[indiceFiltro]
         if (mismaColumna) {
-          const indiceTerminoExistente = filtroExistente.busqueda.findIndex(t => t === busqueda)
+          const indiceTerminoExistente = filtroExistente.busqueda.findIndex(
+            (t) => t === busqueda
+          )
           if (indiceTerminoExistente < 0) {
-            const nombresHeaders = [...filtroExistente.nombresHeaders, textoHeader]
-            const terminosNormalizados = [...filtroExistente.terminosNormalizados, terminoNormalizado]
+            const nombresHeaders = [
+              ...filtroExistente.nombresHeaders,
+              textoHeader,
+            ]
+            const terminosNormalizados = [
+              ...filtroExistente.terminosNormalizados,
+              terminoNormalizado,
+            ]
             const headers = [...filtroExistente.headers, nombreHeader]
             state.filtros[indiceFiltro] = {
               headers: [...filtroExistente.headers, nombreHeader],
               busqueda: [...filtroExistente.busqueda, busqueda],
               terminosNormalizados,
               nombresHeaders,
-              descripcion: nombresHeaders.map((h, i) => `"${busqueda[i]}" en ${h}`).join(' o '),
-              f: r => headers.some((h, i) => funcionFiltro(r, h, terminosNormalizados[i], idEncuesta))
+              descripcion: nombresHeaders
+                .map((h, i) => `"${busqueda[i]}" en ${h}`)
+                .join(' o '),
+              f: (r) =>
+                headers.some((h, i) =>
+                  funcionFiltro(r, h, terminosNormalizados[i], idEncuesta)
+                ),
             }
-          }
-          else {
-            if (filtroExistente.busqueda.length === 1 && filtroExistente.busqueda[0] === busqueda) {
+          } else {
+            if (
+              filtroExistente.busqueda.length === 1 &&
+              filtroExistente.busqueda[0] === busqueda
+            ) {
               state.filtros.splice(indiceFiltro, 1)
-            }
-            else {
-              state.filtros[indiceFiltro].nombresHeaders.splice(indiceTerminoExistente, 1)
-              state.filtros[indiceFiltro].terminosNormalizados.splice(indiceTerminoExistente, 1)
-              state.filtros[indiceFiltro].headers.splice(indiceTerminoExistente, 1)
-              state.filtros[indiceFiltro].busqueda.splice(indiceTerminoExistente, 1)
-              state.filtros[indiceFiltro].descripcion = state.filtros[indiceFiltro].nombresHeaders.map((h, i) => `"${busqueda[i]}" en ${h}`).join(' o ')
-              state.filtros[indiceFiltro].f = r => state.filtros[indiceFiltro].headers.some((h, i) => funcionFiltro(r, h, state.filtros[indiceFiltro].terminosNormalizados[i], idEncuesta))
+            } else {
+              state.filtros[indiceFiltro].nombresHeaders.splice(
+                indiceTerminoExistente,
+                1
+              )
+              state.filtros[indiceFiltro].terminosNormalizados.splice(
+                indiceTerminoExistente,
+                1
+              )
+              state.filtros[indiceFiltro].headers.splice(
+                indiceTerminoExistente,
+                1
+              )
+              state.filtros[indiceFiltro].busqueda.splice(
+                indiceTerminoExistente,
+                1
+              )
+              state.filtros[indiceFiltro].descripcion = state.filtros[
+                indiceFiltro
+              ].nombresHeaders
+                .map((h, i) => `"${busqueda[i]}" en ${h}`)
+                .join(' o ')
+              state.filtros[indiceFiltro].f = (r) =>
+                state.filtros[indiceFiltro].headers.some((h, i) =>
+                  funcionFiltro(
+                    r,
+                    h,
+                    state.filtros[indiceFiltro].terminosNormalizados[i],
+                    idEncuesta
+                  )
+                )
             }
           }
-        }
-        else if (terminoNormalizado.length > 0 && state.filtros[indiceFiltro].busqueda[0] !== busqueda) {
+        } else if (
+          terminoNormalizado.length > 0 &&
+          state.filtros[indiceFiltro].busqueda[0] !== busqueda
+        ) {
           state.filtros[indiceFiltro] = filtro
-        }
-        else if (!filtroImplicito) {
+        } else if (!filtroImplicito) {
           state.filtros.splice(indiceFiltro, 1)
         }
-      }
-      else if (busqueda !== '') {
+      } else if (busqueda !== '') {
         state.filtros.push(filtro)
       }
       if (filtroImplicito) {
         state.nombreEncuestaFiltrada = titulo
       }
-      state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+      state.respuestasVisibles = state.respuestas.filter((r) =>
+        state.filtros.reduce((res, { f }) => res && f(r), true)
+      )
       state.pagina = 1
     },
     combinaFiltros(state, action) {
@@ -256,47 +327,69 @@ const sliceRespuestas = createSlice({
       if (i === j) {
         return
       }
-      const indiceFiltroGlobal = state.filtros.findIndex(f => f.headers === '*')
+      const indiceFiltroGlobal = state.filtros.findIndex(
+        (f) => f.headers === '*'
+      )
       if (i === indiceFiltroGlobal || j === indiceFiltroGlobal) {
         return
       }
       const fi = state.filtros[i].f
       const fj = state.filtros[j].f
       const headers = [...state.filtros[j].headers, ...state.filtros[i].headers]
-      const nombresHeaders = [...state.filtros[j].nombresHeaders, ...state.filtros[i].nombresHeaders]
-      const busqueda = [...state.filtros[j].busqueda, ...state.filtros[i].busqueda]
+      const nombresHeaders = [
+        ...state.filtros[j].nombresHeaders,
+        ...state.filtros[i].nombresHeaders,
+      ]
+      const busqueda = [
+        ...state.filtros[j].busqueda,
+        ...state.filtros[i].busqueda,
+      ]
       state.filtros[j] = {
         headers,
         busqueda,
         nombresHeaders,
-        descripcion: nombresHeaders.map((h, i) => `"${busqueda[i]}" en ${h}`).join(' o '),
-        f: r => fi(r) || fj(r)
+        descripcion: nombresHeaders
+          .map((h, i) => `"${busqueda[i]}" en ${h}`)
+          .join(' o '),
+        f: (r) => fi(r) || fj(r),
       }
       state.filtros.splice(i, 1)
-      state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+      state.respuestasVisibles = state.respuestas.filter((r) =>
+        state.filtros.reduce((res, { f }) => res && f(r), true)
+      )
     },
     remueveFiltro(state, action) {
       const indiceFiltro = action.payload
-      const indiceFiltroGlobal = state.filtros.findIndex(f => f.headers === '*')
+      const indiceFiltroGlobal = state.filtros.findIndex(
+        (f) => f.headers === '*'
+      )
       if (indiceFiltro === indiceFiltroGlobal) {
         state.busqueda = ''
       }
       state.filtros.splice(indiceFiltro, 1)
-      state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+      state.respuestasVisibles = state.respuestas.filter((r) =>
+        state.filtros.reduce((res, { f }) => res && f(r), true)
+      )
     },
     remueveFiltroPorNombre(state, action) {
       const nombreFiltro = action.payload
-      state.filtros = state.filtros.filter(f => f.headers.indexOf(nombreFiltro) < 0)
-      state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+      state.filtros = state.filtros.filter(
+        (f) => f.headers.indexOf(nombreFiltro) < 0
+      )
+      state.respuestasVisibles = state.respuestas.filter((r) =>
+        state.filtros.reduce((res, { f }) => res && f(r), true)
+      )
     },
     remueveFiltrosTemporales(state) {
-      state.filtros = state.filtros.filter(f => !f.temporal)
+      state.filtros = state.filtros.filter((f) => !f.temporal)
       if (state.respuestas) {
-        state.respuestasVisibles = state.respuestas.filter(r => state.filtros.reduce((res, { f }) => res && f(r), true))
+        state.respuestasVisibles = state.respuestas.filter((r) =>
+          state.filtros.reduce((res, { f }) => res && f(r), true)
+        )
       }
     },
     limpiaFiltros(state) {
-      state.filtros = state.filtros.filter(f => f.oculto)
+      state.filtros = state.filtros.filter((f) => f.oculto)
       state.respuestasVisibles = state.respuestas
       state.nombreEncuestaFiltrada = undefined
       state.busqueda = ''
@@ -307,8 +400,7 @@ const sliceRespuestas = createSlice({
         state.respuestaSeleccionada = respuesta
         state.filaTablaDestacada += indice - state.filaTablaDestacada
         state.indiceRespuestaSeleccionada = indice
-      }
-      else {
+      } else {
         state.respuestaSeleccionada = action.payload
         state.indiceRespuestaSeleccionada = undefined
       }
@@ -316,26 +408,41 @@ const sliceRespuestas = createSlice({
     ordenaRespuestas(state, action) {
       const { header, idEncuesta } = action.payload
       state.ordenHeader = header
-      const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(t => t.nombre === header)
+      const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(
+        (t) => t.nombre === header
+      )
       if (tagCalculado) {
         if (state.orden === 'ASC') {
           state.orden = 'DESC'
-          state.respuestas.sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)
-          state.respuestasVisibles.sort((r1, r2) => normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2)) ? -1 : 1)
-        }
-        else {
+          state.respuestas.sort((r1, r2) =>
+            normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2))
+              ? -1
+              : 1
+          )
+          state.respuestasVisibles.sort((r1, r2) =>
+            normalizar(tagCalculado.f(r1)) < normalizar(tagCalculado.f(r2))
+              ? -1
+              : 1
+          )
+        } else {
           state.orden = 'ASC'
-          state.respuestas.sort((r1, r2) => normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2)) ? -1 : 1)
-          state.respuestasVisibles.sort((r1, r2) => normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2)) ? -1 : 1)
+          state.respuestas.sort((r1, r2) =>
+            normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2))
+              ? -1
+              : 1
+          )
+          state.respuestasVisibles.sort((r1, r2) =>
+            normalizar(tagCalculado.f(r1)) > normalizar(tagCalculado.f(r2))
+              ? -1
+              : 1
+          )
         }
-      }
-      else {
+      } else {
         if (state.orden === 'ASC') {
           state.orden = 'DESC'
           state.respuestas.sort(funcionDeOrdenamiento(header, 'DESC'))
           state.respuestasVisibles.sort(funcionDeOrdenamiento(header, 'DESC'))
-        }
-        else {
+        } else {
           state.orden = 'ASC'
           state.respuestas.sort(funcionDeOrdenamiento(header, 'ASC'))
           state.respuestasVisibles.sort(funcionDeOrdenamiento(header, 'ASC'))
@@ -380,7 +487,7 @@ const sliceRespuestas = createSlice({
       const nuevaReaccion = {
         created_at: formatISO9075(Date.now()),
         reaction_emoji: emoji,
-        reaction_text: comentario
+        reaction_text: comentario,
       }
       for (let i = 0; i < state.respuestasVisibles.length; i++) {
         if (state.respuestasVisibles[i].user_id === Number(idUsuario)) {
@@ -399,7 +506,11 @@ const sliceRespuestas = createSlice({
       const { idUsuario, fecha } = action.payload
       for (let i = 0; i < state.respuestasVisibles.length; i++) {
         if (state.respuestasVisibles[i].user_id === Number(idUsuario)) {
-          for (let j = 0; j < state.respuestasVisibles[i].reactions.length; j++) {
+          for (
+            let j = 0;
+            j < state.respuestasVisibles[i].reactions.length;
+            j++
+          ) {
             if (state.respuestasVisibles[i].reactions[j].created_at === fecha) {
               state.respuestasVisibles[i].reactions.splice(j, j)
               break
@@ -419,8 +530,8 @@ const sliceRespuestas = createSlice({
           break
         }
       }
-    }
-  }
+    },
+  },
 })
 
 export const {
@@ -448,7 +559,7 @@ export const {
   eliminaReaccionDeRespuesta,
   fijaScrollTabla,
   fijaFilaTablaDestacada,
-  remueveFiltrosTemporales
+  remueveFiltrosTemporales,
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer

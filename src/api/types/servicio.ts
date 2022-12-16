@@ -36,6 +36,7 @@ export interface Appointment {
   patientName: string
   status?: InteractionStatus
   datetime: Date
+  url?: string
 }
 
 export interface Pregunta {

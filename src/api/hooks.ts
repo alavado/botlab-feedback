@@ -624,6 +624,7 @@ const searchSingleAppointmentToInteraction = (
         patientName: appointment.name,
         rut: appointment.rut,
         id: appointment.id_cita,
+        url: appointment.dentalink_link,
       },
     ],
   }
@@ -695,7 +696,6 @@ const getClosestConversation = (
   conversationsData: chatAPIConversation[],
   start: Date
 ): chatAPIConversation => {
-  console.log(start)
   const sameDayConversations = conversationsData.filter((c: any) =>
     isSameDay(parseISO(c.start), start)
   )

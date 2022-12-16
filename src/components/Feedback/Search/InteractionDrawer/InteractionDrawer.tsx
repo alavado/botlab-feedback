@@ -35,8 +35,6 @@ const InteractionDrawer = ({
   const history = useHistory()
   const track = useAnalytics()
 
-  console.log(pollId, userId, start)
-
   return (
     <Resizable
       // defaultSize={{
@@ -66,6 +64,17 @@ const InteractionDrawer = ({
           </button>
           {/* <button onClick={onPreviousClick}>anterior</button>
           <button onClick={onNextClick}>siguiente</button> */}
+          {interaction?.appointments[0]?.url && (
+            <button
+              className="InteractionDrawer__legacy_button"
+              onClick={() => {
+                track('Feedback', 'Search', 'openDentalink')
+              }}
+            >
+              <Icon icon="mdi:tooth" />
+              Dentalink
+            </button>
+          )}
           <button
             className="InteractionDrawer__legacy_button"
             onClick={() => {
