@@ -2,7 +2,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   color: var(--color-texto);
   --search-topbar-height: 2rem;
   position: relative;

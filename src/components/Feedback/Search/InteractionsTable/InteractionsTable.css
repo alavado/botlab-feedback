@@ -5,7 +5,6 @@
   flex-direction: column;
   height: calc(100vh - 0.5rem - var(--search-topbar-height));
   overflow-y: scroll;
-  padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .InteractionsTable__table {
@@ -13,7 +12,6 @@
 }
 
 .InteractionsTable__thead {
-  background-color: var(--color-barra-superior);
   position: sticky;
   top: 0;
 }
