@@ -85,10 +85,8 @@
 
 .InteractionsTable__copy_div:has(.InteractionsTable__copy_div_button:active)
   span {
-  background-color: var(--color-secundario);
-  box-shadow: 0 0 0 0.15rem var(--color-secundario);
-  border-radius: 0.1rem;
-  color: white;
+  box-shadow: 0 0 0 0.1rem var(--color-secundario);
+  transition: all 0.1s ease;
 }
 
 .InteractionsTable__copy_div:hover .InteractionsTable__copy_div_button {

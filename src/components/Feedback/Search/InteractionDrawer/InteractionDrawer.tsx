@@ -7,6 +7,7 @@ import './InteractionDrawer.css'
 import Smartphone from './Smartphone'
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router-dom'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 interface InteractionDrawerProps {
   pollId: number
@@ -32,6 +33,7 @@ const InteractionDrawer = ({
   } = useInteractionQuery(pollId, userId, start)
 
   const history = useHistory()
+  const track = useAnalytics()
 
   return (
     <Resizable
@@ -64,11 +66,12 @@ const InteractionDrawer = ({
           <button onClick={onNextClick}>siguiente</button> */}
           <button
             className="InteractionDrawer__legacy_button"
-            onClick={() =>
+            onClick={() => {
+              track('Feedback', 'Search', 'openChatView')
               history.push(
                 `/chat/${interaction?.pollId}/${interaction?.userId}`
               )
-            }
+            }}
           >
             <Icon icon="mdi:cellphone" />
             Ver en pantalla de Chat
