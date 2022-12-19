@@ -6,11 +6,18 @@ import { fijaTablaDestacada } from '../../../../../redux/ducks/respuestas'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const ExportadorRespuestas = ({ cargando }) => {
-
-  const { respuestasVisibles: respuestas, fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
-  const { tipos, idEncuestaSeleccionada, headers } = useSelector(state => state.encuestas)
+  const {
+    respuestasVisibles: respuestas,
+    fechaInicio,
+    fechaTermino,
+  } = useSelector((state) => state.respuestas)
+  const { tipos, idEncuestaSeleccionada, headers } = useSelector(
+    (state) => state.encuestas
+  )
   const dispatch = useDispatch()
-  const encuestaSeleccionada = tipos?.find(t => t.id === idEncuestaSeleccionada)
+  const encuestaSeleccionada = tipos?.find(
+    (t) => t.id === idEncuestaSeleccionada
+  )
   const track = useAnalytics()
 
   if (!encuestaSeleccionada) {
@@ -18,8 +25,20 @@ const ExportadorRespuestas = ({ cargando }) => {
   }
 
   const descargarCSV = () => {
-    track('Feedback', 'Respuestas', 'exportarTabla', { idEncuesta: idEncuestaSeleccionada, encuesta: encuestaSeleccionada.nombre, fechaInicio, fechaTermino })
-    exportarTablaRespuestas(headers, respuestas, encuestaSeleccionada.nombre, fechaInicio, fechaTermino)
+    track('Feedback', 'Respuestas', 'exportarTabla', {
+      idEncuesta: idEncuestaSeleccionada,
+      encuesta: encuestaSeleccionada.nombre,
+      fechaInicio,
+      fechaTermino,
+    })
+    exportarTablaRespuestas(
+      headers,
+      respuestas,
+      encuestaSeleccionada.nombre,
+      fechaInicio,
+      fechaTermino,
+      idEncuestaSeleccionada
+    )
   }
 
   return (
@@ -32,7 +51,10 @@ const ExportadorRespuestas = ({ cargando }) => {
         onMouseEnter={() => dispatch(fijaTablaDestacada(true))}
         onMouseLeave={() => dispatch(fijaTablaDestacada(false))}
       >
-        <Icon className="ExportadorRespuestas__icono" icon="mdi:download-outline" />
+        <Icon
+          className="ExportadorRespuestas__icono"
+          icon="mdi:download-outline"
+        />
         Exportar
       </button>
     </div>
