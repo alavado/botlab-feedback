@@ -15,7 +15,6 @@ export const exportarTablaRespuestas = (
   const headersAIncluir = headers.filter((h) =>
     ['META', 'YESNO', 'RANGE', 'OPEN'].includes(h.tipo)
   )
-  console.log(respuestas)
   if (respuestas[0].phone) {
     headersCSV = [
       'Teléfono',
@@ -27,7 +26,7 @@ export const exportarTablaRespuestas = (
         [
           formatearCampoRespuestas(r.phone, 'phone'),
           ...headersAIncluir.map((h) => extraerTextoHeader(h, r)),
-          `http://feedback.cero.ai/chat/${pollId}/${r.user_id}`,
+          `https://feedback.cero.ai/chat/${pollId}/${r.user_id}`,
         ].join(';')
       )
       .join('\n')
@@ -36,7 +35,7 @@ export const exportarTablaRespuestas = (
     respuestasCSV = respuestas
       .map((r) => [
         ...headersAIncluir.map((h) => extraerTextoHeader(h, r)),
-        `http://feedback.cero.ai/chat/${pollId}/${r.user_id}`,
+        `https://feedback.cero.ai/chat/${pollId}/${r.user_id}`,
       ])
       .join(';')
       .join('\n')
