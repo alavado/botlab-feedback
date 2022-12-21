@@ -9,6 +9,7 @@
 
 .InteractionsTable__table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 .InteractionsTable__thead {
@@ -40,8 +41,6 @@
 .InteractionsTable__td {
   padding: 0.5rem 0;
   padding-right: 0.5rem;
-  border-top: 1px solid var(--color-bordes);
-  border-bottom: 1px solid var(--color-bordes);
   white-space: nowrap;
 }
 
@@ -58,6 +57,8 @@
 .InteractionsTable__tr {
   cursor: pointer;
   transition: all 0.1s ease;
+  border-top: 1px solid var(--color-bordes);
+  border-bottom: 1px solid var(--color-bordes);
 }
 
 .InteractionsTable__tr:hover {
