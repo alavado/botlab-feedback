@@ -12,6 +12,7 @@ import SearchInput from './SearchInput'
 import InteractionsTable from './InteractionsTable'
 import './Search.css'
 import { Interaction } from '../../../api/types/servicio'
+import useAnalytics from '../../../hooks/useAnalytics'
 
 const Search = () => {
   const {
@@ -21,10 +22,12 @@ const Search = () => {
   } = useSelector((state: RootState) => state.search)
   const { data, isLoading } = useSearchQuery(searchTerm)
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   const selectInteraction = (interaction: Interaction) => {
     dispatch(setActiveInteraction(interaction))
     dispatch(showDrawer())
+    track('Feedback', 'Search', 'rowClick')
   }
 
   return (
