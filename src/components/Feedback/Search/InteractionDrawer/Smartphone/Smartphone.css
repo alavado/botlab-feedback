@@ -1,7 +1,8 @@
 .Smartphone {
+  height: 90vh;
   aspect-ratio: 9 / 19.5;
+  width: auto;
   display: flex;
-  height: 100%;
   align-items: center;
   justify-content: center;
 }
