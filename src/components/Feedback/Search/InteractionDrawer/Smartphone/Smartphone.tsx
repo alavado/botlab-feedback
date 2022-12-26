@@ -3,9 +3,14 @@ import classNames from 'classnames'
 import Linkify from 'linkify-react'
 import { useState } from 'react'
 import { Interaction } from '../../../../../api/types/servicio'
+import AttachmentMessage from './AttachmentMessage'
+import { hasAttachment } from './helpers'
 import './Smartphone.css'
 
 const formatChatMessage = (message: String) => {
+  if (hasAttachment(message)) {
+    return <AttachmentMessage message={message} />
+  }
   const messageLines = message.split('\n')
   return (
     <>
