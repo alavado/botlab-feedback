@@ -16,7 +16,6 @@ import {
 } from '@tanstack/react-table'
 import { format } from 'date-fns/esm'
 import { Interaction } from '../../../../api/types/servicio'
-import { useVirtual } from 'react-virtual'
 import './InteractionsTable.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
@@ -243,7 +242,7 @@ const InteractionsTable = ({
   const tableContainerRef = useRef<HTMLDivElement>(null)
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const table = useReactTable({
-    data: data.slice(0, 20),
+    data,
     columns,
     filterFns: {
       fuzzy: fuzzyFilter,
@@ -258,17 +257,6 @@ const InteractionsTable = ({
     onColumnFiltersChange: setColumnFilters,
   })
   const { rows } = table.getRowModel()
-  const rowVirtualizer = useVirtual({
-    parentRef: tableContainerRef,
-    size: rows.length,
-    overscan: 10,
-  })
-  const { virtualItems: virtualRows, totalSize } = rowVirtualizer
-  const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0
-  const paddingBottom =
-    virtualRows.length > 0
-      ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
-      : 0
 
   return (
     <div ref={tableContainerRef} className="InteractionsTable">
@@ -295,13 +283,7 @@ const InteractionsTable = ({
           ))}
         </thead>
         <tbody>
-          {paddingTop > 0 && (
-            <tr>
-              <td style={{ height: `${paddingTop}px` }} />
-            </tr>
-          )}
-          {virtualRows.map((virtualRow: any) => {
-            const row = rows[virtualRow.index] as Row<Interaction>
+          {rows.map((row: Row<Interaction>) => {
             return (
               <tr
                 key={row.id}
@@ -325,11 +307,6 @@ const InteractionsTable = ({
               </tr>
             )
           })}
-          {paddingBottom > 0 && (
-            <tr>
-              <td style={{ height: `${paddingBottom}px` }} />
-            </tr>
-          )}
         </tbody>
       </table>
     </div>

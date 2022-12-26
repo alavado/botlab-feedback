@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Interaction } from '../../../../../api/types/servicio'
 import './Smartphone.css'
 
-const formatMessage = (message: String) => {
+const formatChatMessage = (message: String) => {
   const messageLines = message.split('\n')
   return (
     <>
@@ -96,7 +96,7 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
                 'Smartphone__message--outbound': message.sender === 'USER',
               })}
             >
-              {formatMessage(message.content)}
+              {formatChatMessage(message.content)}
             </div>
           ))}
         </div>
