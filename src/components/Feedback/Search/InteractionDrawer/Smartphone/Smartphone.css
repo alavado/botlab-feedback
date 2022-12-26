@@ -208,6 +208,8 @@
   position: relative;
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
+  animation: Smartphone__message 0.25s ease;
 }
 
 .Smartphone__message::after {
@@ -264,4 +266,13 @@
   position: sticky;
   top: 0;
   z-index: 2;
+}
+
+@keyframes Smartphone__message {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

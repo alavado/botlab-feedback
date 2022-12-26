@@ -5,6 +5,7 @@ import es from 'date-fns/esm/locale/es/index.js'
 import Linkify from 'linkify-react'
 import { useMemo, useState } from 'react'
 import { Interaction, Message } from '../../../../../api/types/servicio'
+import Loader from '../../../../Loader'
 import AttachmentMessage from './AttachmentMessage'
 import { hasAttachment } from './helpers'
 import './Smartphone.css'
@@ -117,27 +118,31 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
           </div>
         </div>
         <div className="Smartphone__messages_container">
-          {chatBubbles.map((bubble) => {
-            if ('content' in bubble) {
-              return (
-                <div
-                  className={classNames({
-                    Smartphone__message: true,
-                    'Smartphone__message--outbound': bubble.sender === 'USER',
-                  })}
-                >
-                  <span>{formatChatMessage(bubble.content)}</span>
-                  <span className="Smartphone__message_time">10:22</span>
-                </div>
-              )
-            } else {
-              return (
-                <div className="Smartphone__date_bubble">
-                  {format(bubble, 'd MMMM yyyy', { locale: es })}
-                </div>
-              )
-            }
-          })}
+          {interaction ? (
+            chatBubbles.map((bubble) => {
+              if ('content' in bubble) {
+                return (
+                  <div
+                    className={classNames({
+                      Smartphone__message: true,
+                      'Smartphone__message--outbound': bubble.sender === 'USER',
+                    })}
+                  >
+                    <span>{formatChatMessage(bubble.content)}</span>
+                    <span className="Smartphone__message_time">10:22</span>
+                  </div>
+                )
+              } else {
+                return (
+                  <div className="Smartphone__date_bubble">
+                    {format(bubble, 'd MMMM yyyy', { locale: es })}
+                  </div>
+                )
+              }
+            })
+          ) : (
+            <Loader color="var(--color-principal)" />
+          )}
         </div>
       </div>
     </div>

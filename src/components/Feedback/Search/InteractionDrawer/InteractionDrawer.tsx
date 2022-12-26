@@ -1,5 +1,3 @@
-import es from 'date-fns/esm/locale/es/index.js'
-import { format } from 'date-fns'
 import { Resizable } from 're-resizable'
 import { MouseEventHandler } from 'react'
 import { useInteractionQuery } from '../../../../api/hooks'
