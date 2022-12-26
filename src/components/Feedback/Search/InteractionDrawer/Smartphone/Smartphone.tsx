@@ -4,6 +4,20 @@ import { useState } from 'react'
 import { Interaction } from '../../../../../api/types/servicio'
 import './Smartphone.css'
 
+const formatMessage = (message: String) => {
+  const messageLines = message.split('\n')
+  return (
+    <>
+      {messageLines.map((line: String) => (
+        <>
+          <span>{line}</span>
+          <br />
+        </>
+      ))}
+    </>
+  )
+}
+
 const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
 
@@ -73,7 +87,7 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
                 'Smartphone__message--outbound': message.sender === 'USER',
               })}
             >
-              {message.content}
+              {formatMessage(message.content)}
             </div>
           ))}
         </div>
