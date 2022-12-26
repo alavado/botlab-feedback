@@ -8,12 +8,21 @@ const formatMessage = (message: String) => {
   const messageLines = message.split('\n')
   return (
     <>
-      {messageLines.map((line: String) => (
-        <>
-          <span>{line}</span>
-          <br />
-        </>
-      ))}
+      {messageLines.map((line: String) => {
+        const boldParts = line.split('*')
+        return (
+          <>
+            <>
+              {boldParts.map((part, i) => (
+                <span style={{ fontWeight: i % 2 === 0 ? 400 : 'bold' }}>
+                  {part}
+                </span>
+              ))}
+            </>
+            <br />
+          </>
+        )
+      })}
     </>
   )
 }
