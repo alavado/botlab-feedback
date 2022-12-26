@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
+import Linkify from 'linkify-react'
 import { useState } from 'react'
 import { Interaction } from '../../../../../api/types/servicio'
 import './Smartphone.css'
@@ -15,7 +16,7 @@ const formatChatMessage = (message: String) => {
             <>
               {boldParts.map((part, i) => (
                 <span style={{ fontWeight: i % 2 === 0 ? 400 : 'bold' }}>
-                  {part}
+                  <Linkify>{part}</Linkify>
                 </span>
               ))}
             </>

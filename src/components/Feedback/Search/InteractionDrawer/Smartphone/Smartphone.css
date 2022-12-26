@@ -211,3 +211,7 @@
   align-self: flex-end;
   background-color: var(--whatsapp-fondo-mensajes-salientes);
 }
+
+.Smartphone__message a {
+  color: var(--color-principal);
+}
