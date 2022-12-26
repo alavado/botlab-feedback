@@ -33,6 +33,10 @@
   padding-left: 0.75rem;
 }
 
+.InteractionsTable__td:first-child {
+  opacity: 0.5;
+}
+
 .InteractionsTable__td:last-child {
   border-right: none;
   width: 100%;
@@ -129,8 +133,8 @@
   background-color: var(--color-fondo);
   color: var(--color-texto);
   border: 1px solid var(--color-bordes);
-  font-size: .65rem;
-  padding: .15rem;
+  font-size: 0.65rem;
+  padding: 0.15rem;
 }
 
 .InteractionsTable__filter_input--active {

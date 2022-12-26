@@ -16,7 +16,13 @@ const formatChatMessage = (message: String) => {
             <>
               {boldParts.map((part, i) => (
                 <span style={{ fontWeight: i % 2 === 0 ? 400 : 'bold' }}>
-                  <Linkify>{part}</Linkify>
+                  <Linkify
+                    options={{
+                      target: '_blank',
+                    }}
+                  >
+                    {part}
+                  </Linkify>
                 </span>
               ))}
             </>
