@@ -1,8 +1,10 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
+import { format, isSameDay } from 'date-fns'
+import es from 'date-fns/esm/locale/es/index.js'
 import Linkify from 'linkify-react'
-import { useState } from 'react'
-import { Interaction } from '../../../../../api/types/servicio'
+import { useMemo, useState } from 'react'
+import { Interaction, Message } from '../../../../../api/types/servicio'
 import AttachmentMessage from './AttachmentMessage'
 import { hasAttachment } from './helpers'
 import './Smartphone.css'
@@ -48,6 +50,20 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
       25 + 75 * Math.random(),
       75 * Math.random(),
     ])
+
+  const chatBubbles: (Message | Date)[] = useMemo(() => {
+    if (!interaction || !interaction.messages) {
+      return []
+    }
+    const bubbles: (Message | Date)[] = []
+    interaction.messages.forEach((message: Message, i, arr) => {
+      if (i === 0 || !isSameDay(arr[i - 1].timestamp, message.timestamp)) {
+        bubbles.push(message.timestamp)
+      }
+      bubbles.push(message)
+    })
+    return bubbles
+  }, [interaction])
 
   return (
     <div
@@ -101,16 +117,26 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
           </div>
         </div>
         <div className="Smartphone__messages_container">
-          {interaction?.messages?.map((message) => (
-            <div
-              className={classNames({
-                Smartphone__message: true,
-                'Smartphone__message--outbound': message.sender === 'USER',
-              })}
-            >
-              {formatChatMessage(message.content)}
-            </div>
-          ))}
+          {chatBubbles.map((bubble) => {
+            if ('content' in bubble) {
+              return (
+                <div
+                  className={classNames({
+                    Smartphone__message: true,
+                    'Smartphone__message--outbound': bubble.sender === 'USER',
+                  })}
+                >
+                  {formatChatMessage(bubble.content)}
+                </div>
+              )
+            } else {
+              return (
+                <div className="Smartphone__date_bubble">
+                  {format(bubble, 'd MMMM yyyy', { locale: es })}
+                </div>
+              )
+            }
+          })}
         </div>
       </div>
     </div>

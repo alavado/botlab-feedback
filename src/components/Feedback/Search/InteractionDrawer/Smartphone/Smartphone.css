@@ -178,7 +178,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   gap: 0.5rem;
-  padding: 0.35rem 0.35rem 25vh 0.35rem;
+  padding: 0.35rem 0.5rem 25vh 0.5rem;
   scrollbar-width: 0.35rem;
   scrollbar-color: var(--whatsapp-color-scrollbar-contenedor-mensajes)
     var(--color-fondo);
@@ -204,6 +204,31 @@
   line-height: 1.5;
   border-radius: 0.25rem;
   min-width: 20%;
+  box-shadow: 0 0.05rem 0 0.05rem rgba(0, 0, 0, 0.075);
+  position: relative;
+}
+
+.Smartphone__message::after {
+  position: absolute;
+  z-index: 100;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 0.45rem solid var(--whatsapp-fondo-mensajes-entrantes);
+  border-right: 0.45rem solid var(--whatsapp-fondo-mensajes-entrantes);
+  border-left: 0.45rem solid transparent;
+  border-bottom: 0.45rem solid transparent;
+  top: 0;
+  left: -0.4rem;
+}
+
+.Smartphone__message--outbound::after {
+  border-top: 0.45rem solid var(--whatsapp-fondo-mensajes-salientes);
+  border-right: 0.45rem solid transparent;
+  border-left: 0.45rem solid var(--whatsapp-fondo-mensajes-salientes);
+  border-bottom: 0.45rem solid transparent;
+  right: calc(-1 * 0.4rem);
+  left: auto;
 }
 
 .Smartphone__message--outbound {
@@ -214,4 +239,20 @@
 
 .Smartphone__message a {
   color: var(--color-principal);
+}
+
+.Smartphone__date_bubble {
+  align-self: center;
+  background-color: var(--whatsapp-fondo-fecha);
+  display: flex;
+  align-items: center;
+  font-size: 0.64rem;
+  font-weight: 500;
+  padding: 0.25rem 0.4rem;
+  border-radius: 0.35rem;
+  box-shadow: 0 0.05rem 0 0.05rem rgba(0, 0, 0, 0.075);
+  color: var(--whatsapp-color-texto-fecha);
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
