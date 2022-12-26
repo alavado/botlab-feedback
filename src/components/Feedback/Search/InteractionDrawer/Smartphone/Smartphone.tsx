@@ -126,7 +126,8 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
                     'Smartphone__message--outbound': bubble.sender === 'USER',
                   })}
                 >
-                  {formatChatMessage(bubble.content)}
+                  <span>{formatChatMessage(bubble.content)}</span>
+                  <span className="Smartphone__message_time">10:22</span>
                 </div>
               )
             } else {

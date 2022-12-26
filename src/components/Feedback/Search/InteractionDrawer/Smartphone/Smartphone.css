@@ -206,6 +206,8 @@
   min-width: 20%;
   box-shadow: 0 0.05rem 0 0.05rem rgba(0, 0, 0, 0.075);
   position: relative;
+  display: flex;
+  align-items: flex-end;
 }
 
 .Smartphone__message::after {
@@ -239,6 +241,13 @@
 
 .Smartphone__message a {
   color: var(--color-principal);
+}
+
+.Smartphone__message_time {
+  font-size: 0.5rem;
+  transform: translate(0.15rem, 0.3rem);
+  padding-left: 0.05rem;
+  opacity: 0.8;
 }
 
 .Smartphone__date_bubble {
