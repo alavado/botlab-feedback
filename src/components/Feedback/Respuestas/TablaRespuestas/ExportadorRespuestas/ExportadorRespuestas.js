@@ -46,7 +46,7 @@ const ExportadorRespuestas = ({ cargando }) => {
     <div className="ExportadorRespuestas">
       <button
         className="ExportadorRespuestas__boton"
-        tooltip="Exportar tabla a CSV"
+        tooltip="Exportar tabla a Excel"
         onClick={descargarArchivo}
         disabled={cargando}
         onMouseEnter={() => dispatch(fijaTablaDestacada(true))}
@@ -54,7 +54,7 @@ const ExportadorRespuestas = ({ cargando }) => {
       >
         <Icon
           className="ExportadorRespuestas__icono"
-          icon="mdi:download-outline"
+          icon="mdi:table-arrow-down"
         />
         Exportar
       </button>
