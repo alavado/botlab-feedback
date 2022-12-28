@@ -50,8 +50,22 @@ export const exportarTablaRespuestas = async (
         Target: fila.slice(-1)[0],
         Tooltip: 'Abrir Chat en Feedback',
       }
-      cell.s = { font: { color: { rgb: '0000aa' }, underline: true } }
+      cell.s = { font: { color: { rgb: '2017d9' }, underline: true } }
     })
+    let objectMaxLength = []
+    data.forEach((arr) => {
+      Object.keys(arr).forEach((key) => {
+        let value = arr[key] === null ? '' : arr[key]
+        if (typeof value === 'number') {
+          return (objectMaxLength[key] = 10)
+        }
+        objectMaxLength[key] =
+          objectMaxLength[key] >= value.length
+            ? objectMaxLength[key]
+            : value.length
+      })
+    })
+    worksheet['!cols'] = objectMaxLength.map((width) => ({ width }))
     utils.book_append_sheet(workbook, worksheet, 'Exportación Feedback')
     writeFile(workbook, nombreArchivo)
   } else {
