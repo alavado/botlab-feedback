@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { obtenerHeadersConTagsCalculados } from './tagsCalculados'
 import { extraerTextoHeader, formatearCampoRespuestas } from './respuestas'
-import { writeFileXLSX, utils } from 'xlsx'
+import { writeFile, utils } from 'xlsx-js-style'
 
 export const exportarTablaRespuestas = async (
   headers,
@@ -23,30 +23,37 @@ export const exportarTablaRespuestas = async (
     let headersXLSX
     let filasXLSX
     if (respuestas[0].phone) {
-      headersXLSX = ['Teléfono', ...headersAIncluir.map((h) => h.texto), 'URL']
+      headersXLSX = ['Teléfono', ...headersAIncluir.map((h) => h.texto), 'Link']
       filasXLSX = respuestas.map((r) => [
         formatearCampoRespuestas(r.phone, 'phone'),
         ...headersAIncluir.map((h) => extraerTextoHeader(h, r)),
         `https://feedback.cero.ai/chat/${pollId}/${r.user_id}`,
       ])
     } else {
-      headersXLSX = [...headersAIncluir.map((h) => h.texto), 'URL']
+      headersXLSX = [...headersAIncluir.map((h) => h.texto), 'Link']
       filasXLSX = respuestas.map((r) => [
         ...headersAIncluir.map((h) => extraerTextoHeader(h, r)),
         `https://feedback.cero.ai/chat/${pollId}/${r.user_id}`,
       ])
     }
     const data = [headersXLSX, ...filasXLSX]
-    var workbook = utils.book_new()
-    var ws = utils.aoa_to_sheet(data)
-    filasXLSX.forEach((fila, i) => {
-      ws[utils.encode_cell({ r: i + 1, c: headersXLSX.length - 1 })].l = {
-        Target: fila.slice(-1)[0],
-        Tooltip: fila.slice(-1)[0],
-      }
+    const workbook = utils.book_new()
+    const worksheet = utils.aoa_to_sheet(data)
+    headersXLSX.forEach((_, i) => {
+      const cell = worksheet[utils.encode_cell({ r: 0, c: i })]
+      cell.s = { font: { bold: true } }
     })
-    utils.book_append_sheet(workbook, ws, 'x')
-    writeFileXLSX(workbook, nombreArchivo)
+    filasXLSX.forEach((fila, i) => {
+      const cell =
+        worksheet[utils.encode_cell({ r: i + 1, c: headersXLSX.length - 1 })]
+      cell.l = {
+        Target: fila.slice(-1)[0],
+        Tooltip: 'Abrir Chat en Feedback',
+      }
+      cell.s = { font: { color: { rgb: '0000aa' }, underline: true } }
+    })
+    utils.book_append_sheet(workbook, worksheet, 'Exportación Feedback')
+    writeFile(workbook, nombreArchivo)
   } else {
     let headersCSV
     let respuestasCSV
@@ -54,7 +61,7 @@ export const exportarTablaRespuestas = async (
       headersCSV = [
         'Teléfono',
         ...headersAIncluir.map((h) => h.texto),
-        'URL',
+        'Link',
       ].join(';')
       respuestasCSV = respuestas
         .map((r) =>
@@ -66,7 +73,7 @@ export const exportarTablaRespuestas = async (
         )
         .join('\n')
     } else {
-      headersCSV = [...headersAIncluir.map((h) => h.texto), 'URL'].join(';')
+      headersCSV = [...headersAIncluir.map((h) => h.texto), 'Link'].join(';')
       respuestasCSV = respuestas
         .map((r) => [
           ...headersAIncluir.map((h) => extraerTextoHeader(h, r)),
