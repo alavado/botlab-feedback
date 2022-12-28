@@ -24,7 +24,7 @@ const ExportadorRespuestas = ({ cargando }) => {
     return null
   }
 
-  const descargarCSV = () => {
+  const descargarArchivo = () => {
     track('Feedback', 'Respuestas', 'exportarTabla', {
       idEncuesta: idEncuestaSeleccionada,
       encuesta: encuestaSeleccionada.nombre,
@@ -37,7 +37,8 @@ const ExportadorRespuestas = ({ cargando }) => {
       encuestaSeleccionada.nombre,
       fechaInicio,
       fechaTermino,
-      idEncuestaSeleccionada
+      idEncuestaSeleccionada,
+      'xlsx'
     )
   }
 
@@ -46,7 +47,7 @@ const ExportadorRespuestas = ({ cargando }) => {
       <button
         className="ExportadorRespuestas__boton"
         tooltip="Exportar tabla a CSV"
-        onClick={descargarCSV}
+        onClick={descargarArchivo}
         disabled={cargando}
         onMouseEnter={() => dispatch(fijaTablaDestacada(true))}
         onMouseLeave={() => dispatch(fijaTablaDestacada(false))}
