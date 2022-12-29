@@ -1,6 +1,6 @@
 import { Resizable } from 're-resizable'
 import { MouseEventHandler } from 'react'
-import { useInteractionQuery } from '../../../../api/hooks'
+import { usePollInteractionsForUserQuery } from '../../../../api/hooks'
 import './InteractionDrawer.css'
 import Smartphone from './Smartphone'
 import { Icon } from '@iconify/react'
@@ -28,7 +28,7 @@ const InteractionDrawer = ({
     data: interaction,
     isLoading,
     isError,
-  } = useInteractionQuery(pollId, userId, start)
+  } = usePollInteractionsForUserQuery(pollId, userId, start)
 
   const history = useHistory()
   const track = useAnalytics()

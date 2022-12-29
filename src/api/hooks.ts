@@ -705,7 +705,7 @@ const getClosestConversation = (
   return sameDayConversations[0]
 }
 
-export const useInteractionQuery = (
+export const usePollInteractionsForUserQuery = (
   pollId: number,
   userId: number,
   start: Date

@@ -18,7 +18,7 @@
     -0.02rem -0.02rem 0 0.325rem var(--whatsapp-color-brillo-celular),
     0.03rem 0.03rem 0 0.325rem var(--whatsapp-color-brillo-2-celular),
     0 0.05rem 0.25rem 0.55rem var(--color-sombras),
-    0 0.25rem 0.75rem var(--color-sombras);
+    0 0.25rem 0.25rem 0.5rem var(--color-sombras);
   display: flex;
   flex-direction: column;
   position: relative;
