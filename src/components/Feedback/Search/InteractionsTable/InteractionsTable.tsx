@@ -78,6 +78,7 @@ const CopyDiv = ({
         }}
         title={`Copiar "${text}"`}
         className="InteractionsTable__copy_div_button"
+        style={{ display: !text ? 'none' : 'inherit' }}
       >
         <Icon icon="mdi:content-copy" />
       </button>
