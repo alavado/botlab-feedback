@@ -7,11 +7,18 @@ import { Icon, InlineIcon } from '@iconify/react'
 import { addHours, format, isToday, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useDispatch, useSelector } from 'react-redux'
-import { mensajesAlertasVisibles, seleccionarSucursal } from '../../../redux/ducks/alertas'
+import {
+  mensajesAlertasVisibles,
+  seleccionarSucursal,
+} from '../../../redux/ducks/alertas'
 import Loader from '../../Loader'
 import ListaAlertas from './ListaAlertas'
 import CajonChat from './CajonChat'
-import { obtenerIconoAlerta, obtenerNombrePacienteAlerta, obtenerSucursalAlerta } from '../../../helpers/alertas'
+import {
+  obtenerIconoAlerta,
+  obtenerNombrePacienteAlerta,
+  obtenerSucursalAlerta,
+} from '../../../helpers/alertas'
 import CheckboxesTiposAlertas from './CheckboxesTiposAlertas'
 import OpcionesAlertas from './OpcionesAlertas'
 import { Switch, useHistory } from 'react-router-dom'
@@ -80,66 +87,72 @@ let nuevosUsuarios = [
   'daniel.verdugo',
   'sanasalud_sebastian',
 ]
-nuevosUsuarios = [...nuevosUsuarios, ...nuevosUsuarios.map(u => `${u}_cero`)]
+nuevosUsuarios = [...nuevosUsuarios, ...nuevosUsuarios.map((u) => `${u}_cero`)]
 
 const tabsAlertas = [
   {
     id: 1,
     titulo: 'Por resolver',
     icono: 'mdi:bell-ring-outline',
-    filtro: a => mensajesAlertasVisibles.indexOf(a.message) >= 0 && !a.dismissed,
-    color: 'var(--color-alerta-pendiente)'
+    filtro: (a) =>
+      mensajesAlertasVisibles.indexOf(a.message) >= 0 && !a.dismissed,
+    color: 'var(--color-alerta-pendiente)',
   },
   {
     id: 2,
     titulo: 'Resueltas',
     icono: 'mdi:bell-check-outline',
-    filtro: a => mensajesAlertasVisibles.indexOf(a.message) >= 0 && a.dismissed,
-    color: 'var(--color-alerta-resuelta)'
-  }
+    filtro: (a) =>
+      mensajesAlertasVisibles.indexOf(a.message) >= 0 && a.dismissed,
+    color: 'var(--color-alerta-resuelta)',
+  },
 ]
 
 export const useAlertasQuery = () => {
-  const { verAlertas } = useSelector(state => state.alertas)
-  return useQuery(
-    'alertas',
-    getAlertas,
-    {
-      refetchInterval: 30_000,
-      refetchIntervalInBackground: 30_000,
-      refetchOnMount: true,
-      select: res => {
-        return tabsAlertas.map(t => {
-          const alertas = res.data
-            .filter(t.filtro)
-            .map(a => ({
-              ...a,
-              nombrePaciente: obtenerNombrePacienteAlerta(a),
-              icono: obtenerIconoAlerta(a.message),
-              idPoll: a.poll_id,
-              sucursal: obtenerSucursalAlerta(a),
-              horaLegible: !isToday(parseISO(a.utc_timestamp))
-                ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
-                : format(addHours(parseISO(a.utc_timestamp), new Date().getTimezoneOffset() / -60), 'HH:mm', { locale: es }),
-            }))
-          alertas.sort((a1, a2) => a1.utc_timestamp > a2.utc_timestamp ? -1 : 1)
-          return {
-            ...t,
-            alertas,
-            conteo: alertas.filter(a => verAlertas.includes(a.message)),
-          }
-        })
-      }
-    }
-  )
+  const { verAlertas } = useSelector((state) => state.alertas)
+  return useQuery('alertas', getAlertas, {
+    refetchInterval: 30_000,
+    refetchIntervalInBackground: 30_000,
+    refetchOnMount: true,
+    select: (res) => {
+      return tabsAlertas.map((t) => {
+        console.log(res.data)
+        const alertas = res.data.filter(t.filtro).map((a) => ({
+          ...a,
+          nombrePaciente: obtenerNombrePacienteAlerta(a),
+          icono: obtenerIconoAlerta(a.message),
+          idPoll: a.poll_id,
+          sucursal: obtenerSucursalAlerta(a),
+          horaLegible: !isToday(parseISO(a.utc_timestamp))
+            ? format(parseISO(a.utc_timestamp), 'd MMM', { locale: es })
+            : format(
+                addHours(
+                  parseISO(a.utc_timestamp),
+                  new Date().getTimezoneOffset() / -60
+                ),
+                'HH:mm',
+                { locale: es }
+              ),
+          resueltaPor: a.dismissal_by_username,
+        }))
+        alertas.sort((a1, a2) => (a1.utc_timestamp > a2.utc_timestamp ? -1 : 1))
+        return {
+          ...t,
+          alertas,
+          conteo: alertas.filter((a) => verAlertas.includes(a.message)),
+        }
+      })
+    },
+  })
 }
 
 const Alertas = () => {
-
-  const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(tabsAlertas[0].id)
-  const { sucursalSeleccionada } = useSelector(state => state.alertas)
-  const { cuenta } = useSelector(state => state.login)
-  const { modalAlertasDesactivado } = useSelector(state => state.novedades)
+  const [idTabAlertasActivo, setIdTabAlertasActivo] = useState(
+    tabsAlertas[0].id
+  )
+  const { sucursalSeleccionada } = useSelector((state) => state.alertas)
+  const { cuenta } = useSelector((state) => state.login)
+  const { modalAlertasDesactivado } = useSelector((state) => state.novedades)
   const dispatch = useDispatch()
   const { id } = useParams()
   const { isLoading: cargandoAlertas, data: dataAlertas } = useAlertasQuery()
@@ -149,7 +162,7 @@ const Alertas = () => {
   useEffect(() => {
     if (id && dataAlertas) {
       dataAlertas.forEach((tipoAlertas, tab) => {
-        tipoAlertas.alertas.forEach(a => {
+        tipoAlertas.alertas.forEach((a) => {
           if (a.id === Number(id)) {
             setIdTabAlertasActivo(tabsAlertas[tab].id)
           }
@@ -167,71 +180,76 @@ const Alertas = () => {
       </div>
     )
   }
-  
-  const sucursales = [...new Set(_.flatten(dataAlertas.map(t => (t.alertas.filter(a => a.sucursal).map(a => a.sucursal)))))]
-  if (!sucursales.find(s => s === sucursalSeleccionada)) {
+
+  const sucursales = [
+    ...new Set(
+      _.flatten(
+        dataAlertas.map((t) =>
+          t.alertas.filter((a) => a.sucursal).map((a) => a.sucursal)
+        )
+      )
+    ),
+  ]
+  if (!sucursales.find((s) => s === sucursalSeleccionada)) {
     dispatch(seleccionarSucursal(''))
   }
 
-  const alertasEncuestaSeleccionada = dataAlertas.map(t => {
-    const alertasFiltradas = t.alertas
-      .filter(a => !sucursalSeleccionada || a.sucursal === sucursalSeleccionada)
+  const alertasEncuestaSeleccionada = dataAlertas.map((t) => {
+    const alertasFiltradas = t.alertas.filter(
+      (a) => !sucursalSeleccionada || a.sucursal === sucursalSeleccionada
+    )
     return {
       ...t,
       conteo: alertasFiltradas.length,
-      alertas: alertasFiltradas
+      alertas: alertasFiltradas,
     }
   })
 
   const seleccionAlerta = (
     <>
       <div className="Alertas__lateral">
-        {!modalAlertasDesactivado && nuevosUsuarios.includes(cuenta.toLowerCase()) &&
-          <button
-            className="Alertas__boton_tutoriales"
-            onClick={() => {
-              track('Feedback', 'Alertas', 'verTutorial')
-              history.push('/tutoriales/alertas')
-            }}
-            title="Ver tutorial de alertas"
-          >
+        {!modalAlertasDesactivado &&
+          nuevosUsuarios.includes(cuenta.toLowerCase()) && (
             <button
-              onClick={e => {
-                dispatch(desactivaModalAlertas())
-                e.stopPropagation()
+              className="Alertas__boton_tutoriales"
+              onClick={() => {
+                track('Feedback', 'Alertas', 'verTutorial')
+                history.push('/tutoriales/alertas')
               }}
-              title="Cerrar"
-              className="Alertas__boton_cierra_modal_tutoriales"
+              title="Ver tutorial de alertas"
             >
-              <Icon icon="mdi:close" />
+              <button
+                onClick={(e) => {
+                  dispatch(desactivaModalAlertas())
+                  e.stopPropagation()
+                }}
+                title="Cerrar"
+                className="Alertas__boton_cierra_modal_tutoriales"
+              >
+                <Icon icon="mdi:close" />
+              </button>
+              <Icon icon="mdi:robot" />
+              <p style={{ fontWeight: 600 }}>¡Ahora tienes alertas activas!</p>
+              <p>Mira un videotutorial para aprender a usarlas</p>
             </button>
-            <Icon icon="mdi:robot" />
-            <p style={{ fontWeight: 600 }}>¡Ahora tienes alertas activas!</p>
-            <p>Mira un videotutorial para aprender a usarlas</p>
-          </button>
-        }
-        <h1 className="Alertas__titulo">
-          Alertas
-        </h1>
+          )}
+        <h1 className="Alertas__titulo">Alertas</h1>
         {sucursales.length > 1 && (
           <label>
             <p className="Alertas__label_sucursal">Sucursal</p>
             <select
               className="Alertas__selector_sucursal"
-              onChange={e => {
-                track('Feedback', 'Alertas', 'seleccionarSucursal', { sucursal: e.target.value })
+              onChange={(e) => {
+                track('Feedback', 'Alertas', 'seleccionarSucursal', {
+                  sucursal: e.target.value,
+                })
                 dispatch(seleccionarSucursal(e.target.value))
               }}
               value={sucursalSeleccionada}
             >
-              <option value=''>
-                Todas las sucursales
-              </option>
+              <option value="">Todas las sucursales</option>
               {sucursales.map((s, i) => (
-                <option
-                  key={`opcion-sucursal-${s}`}
-                  value={s}
-                >
+                <option key={`opcion-sucursal-${s}`} value={s}>
                   {s}
                 </option>
               ))}
@@ -243,23 +261,35 @@ const Alertas = () => {
       </div>
       <div className="Alertas__contenedor_central">
         <div className="Alertas__tabs">
-          {alertasEncuestaSeleccionada.map(tipoAlertas => (
+          {alertasEncuestaSeleccionada.map((tipoAlertas) => (
             <button
               key={`boton-tipo-alertas-${tipoAlertas.id}`}
               className={classNames({
-                "Alertas__boton_tab": true,
-                "Alertas__boton_tab--activo": idTabAlertasActivo === tipoAlertas.id,
+                Alertas__boton_tab: true,
+                'Alertas__boton_tab--activo':
+                  idTabAlertasActivo === tipoAlertas.id,
               })}
               onClick={() => {
-                track('Feedback', 'Alertas', tipoAlertas.titulo === 'Por resolver' ? 'verTabAlertasResueltas' : 'verTabAlertasPorResolver')
+                track(
+                  'Feedback',
+                  'Alertas',
+                  tipoAlertas.titulo === 'Por resolver'
+                    ? 'verTabAlertasResueltas'
+                    : 'verTabAlertasPorResolver'
+                )
                 setIdTabAlertasActivo(tipoAlertas.id)
               }}
               style={{ '--color-tab-alerta': tipoAlertas.color }}
               title={`Ver alertas ${tipoAlertas.titulo}`}
             >
-              <InlineIcon className="Alertas__icono_tab" icon={tipoAlertas.icono} />
+              <InlineIcon
+                className="Alertas__icono_tab"
+                icon={tipoAlertas.icono}
+              />
               <p className="Alertas__boton_tab_titulo">{tipoAlertas.titulo}</p>
-              <p className="Alertas__boton_tab_subtitulo">{tipoAlertas.conteo} alerta{tipoAlertas.conteo !== 1 && 's'}</p>
+              <p className="Alertas__boton_tab_subtitulo">
+                {tipoAlertas.conteo} alerta{tipoAlertas.conteo !== 1 && 's'}
+              </p>
             </button>
           ))}
         </div>
@@ -275,15 +305,15 @@ const Alertas = () => {
   return (
     <div className="Alertas">
       <div className="Alertas__contenedor">
-      <Switch>
-        <Route exact path="/alertas">
-          {seleccionAlerta}
-        </Route>
-        <Route path="/alertas/:id">
-          {seleccionAlerta}
-          <CajonChat />
-        </Route>
-      </Switch>
+        <Switch>
+          <Route exact path="/alertas">
+            {seleccionAlerta}
+          </Route>
+          <Route path="/alertas/:id">
+            {seleccionAlerta}
+            <CajonChat />
+          </Route>
+        </Switch>
       </div>
     </div>
   )
