@@ -258,6 +258,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: '',
   },
+  REAGENDA_SOFT: {
+    texto: 'Reagenda sin perder hora',
+    titulo: 'Paciente intenta reagendar solo de ser posible',
+    icono: 'mdi:arrow-right',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: '',
+  },
   'COMUNA-DATETIME': {
     texto: 'Fecha y comuna',
     titulo: 'Fecha y comuna',

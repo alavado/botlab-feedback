@@ -76,6 +76,7 @@
 .InteractionsTable__tr--highlighted,
 .InteractionsTable__tr--highlighted:hover {
   background-color: var(--color-fila-muy-destacada);
+  font-weight: 600;
 }
 
 .InteractionsTable__filter_container {
