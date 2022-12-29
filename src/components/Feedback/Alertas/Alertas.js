@@ -116,7 +116,6 @@ export const useAlertasQuery = () => {
     refetchOnMount: true,
     select: (res) => {
       return tabsAlertas.map((t) => {
-        console.log(res.data)
         const alertas = res.data.filter(t.filtro).map((a) => ({
           ...a,
           nombrePaciente: obtenerNombrePacienteAlerta(a),

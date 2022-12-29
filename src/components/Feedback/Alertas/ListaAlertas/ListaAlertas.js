@@ -94,8 +94,8 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
                   )}{' '}
                   {alerta.resueltaPor && (
                     <>
-                      • Resuelta por: <InlineIcon icon="mdi:user" />{' '}
-                      {alerta.resueltaPor}
+                      <InlineIcon icon="mdi:check" /> Resuelta por:{' '}
+                      <InlineIcon icon="mdi:user" /> {alerta.resueltaPor}
                     </>
                   )}
                 </p>
