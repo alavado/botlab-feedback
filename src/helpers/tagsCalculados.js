@@ -1,4 +1,11 @@
-import { YES, NO, REAGENDA, AGENDA_OPCION_1, AGENDA_OPCION_2, AGENDA_OPCION_3 } from './tags'
+import {
+  YES,
+  NO,
+  REAGENDA,
+  AGENDA_OPCION_1,
+  AGENDA_OPCION_2,
+  AGENDA_OPCION_3,
+} from './tags'
 
 const actionSuccess = 'action_result:SUCCESS'
 // const actionFailure = 'action_result:FAILURE'
@@ -9,34 +16,38 @@ export const juntarConfirmaYReagenda = (indiceConfirma, indiceReagenda) => {
       nombre: 'tc1',
       texto: 'Respuesta',
       tipo: 'YESNO',
-      f: r => {
+      f: (r) => {
         const confirma = r[indiceConfirma]
         const reagenda = r[indiceReagenda]
         if (reagenda?.tag === REAGENDA || reagenda?.tag === YES) {
           return {
             tag: REAGENDA,
-            text: `${confirma.text} / ${reagenda.text}`
+            text: `${confirma.text} / ${reagenda.text}`,
           }
         }
         return reagenda?.tag ? reagenda : confirma
-      }
-    }
+      },
+    },
   ]
 }
 
-const juntarConfirmaYReagendaAutomatico = (indiceConfirma, indiceReagenda, indiceReagendaAuto) => {
+const juntarConfirmaYReagendaAutomatico = (
+  indiceConfirma,
+  indiceReagenda,
+  indiceReagendaAuto
+) => {
   return [
     {
       nombre: 'tc1',
       texto: '¿Confirma?',
       tipo: 'YESNO',
-      f: r => {
+      f: (r) => {
         const confirma = r[indiceConfirma]
         const reagenda = r[indiceReagenda]
         if (reagenda?.tag === REAGENDA || reagenda?.tag === YES) {
           return {
             tag: REAGENDA,
-            text: `${confirma.text} / ${reagenda.text}`
+            text: `${confirma.text} / ${reagenda.text}`,
           }
         }
         return reagenda?.tag ? reagenda : confirma
@@ -46,8 +57,8 @@ const juntarConfirmaYReagendaAutomatico = (indiceConfirma, indiceReagenda, indic
       nombre: 'tc2',
       texto: '¿Reagenda?',
       tipo: 'OPEN',
-      f: r => r[indiceReagendaAuto]
-    }
+      f: (r) => r[indiceReagendaAuto],
+    },
   ]
 }
 
@@ -57,16 +68,16 @@ const juntaTagsEquivalentes = (indice1, indice2, texto, tipo = 'YESNO') => {
       nombre: 'tc0',
       texto,
       tipo,
-      f: r => {
+      f: (r) => {
         const tag1 = r[indice1]
         const tag2 = r[indice2]
         return tag1?.tag ? tag1 : tag2
       },
-    }
+    },
   ]
 }
 
-export const obtenerTagsCalculados = idEncuesta => {
+export const obtenerTagsCalculados = (idEncuesta) => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
     switch (idEncuesta) {
@@ -75,17 +86,18 @@ export const obtenerTagsCalculados = idEncuesta => {
           {
             texto: 'Confirma?',
             tipo: 'YESNO',
-            f: r => r[0]
+            f: (r) => r[0],
           },
           {
             texto: '¿Se arrepiente?',
             tipo: 'OPEN',
-            f: r => r[2].tag === 'NO_CANCELAR'
-              ? ({
-                  tag: 'DEFAULT',
-                  text: r[2].text
-                })
-              : null
+            f: (r) =>
+              r[2].tag === 'NO_CANCELAR'
+                ? {
+                    tag: 'DEFAULT',
+                    text: r[2].text,
+                  }
+                : null,
           },
         ]
       case 167: // confirmación norden
@@ -94,21 +106,12 @@ export const obtenerTagsCalculados = idEncuesta => {
           {
             texto: '¿Reagenda?',
             tipo: 'REAGENDA',
-            f: r => r[104]
+            f: (r) => r[104],
           },
           {
             texto: 'Opción elegida',
             tipo: 'OPEN',
-            f: r => r[6]
-          },
-        ]
-      case 578: // confirmación imagen salud
-        return [
-          ...juntaTagsEquivalentes(0, 1001, '¿Confirma?'),
-          {
-            texto: '¿Reagenda?',
-            tipo: 'REAGENDA',
-            f: r => r[104]
+            f: (r) => r[6],
           },
         ]
       case 557: // agendamiento norden
@@ -116,155 +119,157 @@ export const obtenerTagsCalculados = idEncuesta => {
           {
             texto: '¿Menor de edad?',
             tipo: 'YESNO',
-            f: r => r[13]
+            f: (r) => r[13],
           },
           {
             texto: 'Mensaje Inicial',
             tipo: 'OPEN',
-            f: r => r[0]
+            f: (r) => r[0],
           },
           {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
-            f: r => r[2]
+            f: (r) => r[2],
           },
           {
             texto: 'Opción elegida',
             tipo: 'OPEN',
-            f: r => r[3]
+            f: (r) => r[3],
           },
           {
             texto: 'Bloque agendado',
             tipo: 'INTERNAL',
-            f: r => {
+            f: (r) => {
               if (r[610]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_1,
-                  texto: 'Bloque 1'
+                  texto: 'Bloque 1',
                 }
               }
               if (r[620]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_2,
-                  texto: 'Bloque 2'
+                  texto: 'Bloque 2',
                 }
               }
               if (r[630]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_3,
-                  texto: 'Bloque 3'
+                  texto: 'Bloque 3',
                 }
               }
-            }
-          }
+            },
+          },
         ]
       case 577: // agendamiento everest
         return [
           {
             texto: '¿Menor de edad?',
             tipo: 'YESNO',
-            f: r => r[13]
+            f: (r) => r[13],
           },
           {
             texto: 'Mensaje Inicial',
             tipo: 'OPEN',
-            f: r => r[0]
+            f: (r) => r[0],
           },
           {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
-            f: r => r[2]
+            f: (r) => r[2],
           },
           {
             texto: 'Opción elegida',
             tipo: 'OPEN',
-            f: r => r[3]
+            f: (r) => r[3],
           },
           {
             texto: 'Bloque agendado',
             tipo: 'INTERNAL',
-            f: r => {
+            f: (r) => {
               if (r[510]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_1,
-                  texto: 'Bloque 1'
+                  texto: 'Bloque 1',
                 }
               }
               if (r[520]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_2,
-                  texto: 'Bloque 2'
+                  texto: 'Bloque 2',
                 }
               }
               if (r[530]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_3,
-                  texto: 'Bloque 3'
+                  texto: 'Bloque 3',
                 }
               }
-            }
-          }
+            },
+          },
         ]
       case 509: // SS agendamiento
         return [
           {
             texto: 'Mensaje Inicial',
             tipo: 'OPEN',
-            f: r => r[0]
+            f: (r) => r[0],
           },
           {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
-            f: r => r[2]
+            f: (r) => r[2],
           },
           {
             texto: 'Opción elegida',
             tipo: 'OPEN',
-            f: r => r[3]
+            f: (r) => r[3],
           },
           {
             texto: 'Bloque agendado',
             tipo: 'INTERNAL',
-            f: r => {
+            f: (r) => {
               if (r[510].tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_1,
-                  texto: 'Bloque 1'
+                  texto: 'Bloque 1',
                 }
               }
               if (r[520].tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_2,
-                  texto: 'Bloque 2'
+                  texto: 'Bloque 2',
                 }
               }
               if (r[530].tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_3,
-                  texto: 'Bloque 3'
+                  texto: 'Bloque 3',
                 }
               }
-            }
-          }
+            },
+          },
         ]
       case Number(process.env.REACT_APP_ID_POLL_SANASALUD_CMSC):
         return [
           {
             texto: 'Respuesta',
             tipo: 'YESNO',
-            f: r => {
+            f: (r) => {
               if (r[7]?.tag) {
                 return { tag: NO, texto: 'Usuario cancela post interacción' }
               }
-              if ([r[11]?.tag, r[12]?.tag, r[13]?.tag].includes(actionSuccess)) {
+              if (
+                [r[11]?.tag, r[12]?.tag, r[13]?.tag].includes(actionSuccess)
+              ) {
                 return { tag: REAGENDA, texto: 'Reagendamiento exitoso' }
               }
               if (r[2]?.tag === REAGENDA || r[2]?.tag === YES) {
                 return { tag: REAGENDA, texto: 'Reagendamiento en curso' }
               }
-              return r[0]//{ tag: REAGENDADO, texto: 'Reagendamiento exitoso' }
-            }
-          }
+              return r[0] //{ tag: REAGENDADO, texto: 'Reagendamiento exitoso' }
+            },
+          },
         ]
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_BLOQUEO_EGT2H):
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_BLOQUEO_ELEQ2H):
@@ -273,30 +278,30 @@ export const obtenerTagsCalculados = idEncuesta => {
           {
             texto: '¿Agenda primera opción?',
             tipo: 'YESNO',
-            f: r => r[2]
+            f: (r) => r[2],
           },
           {
             texto: 'Fecha preferente',
             tipo: 'OPEN',
-            f: r => r[3]
+            f: (r) => r[3],
           },
           {
             texto: 'Opción elegida',
             tipo: 'OPEN',
-            f: r => r[5]
+            f: (r) => r[5],
           },
           {
             texto: '¿Quiere ser llamado?',
             tipo: 'YESNO',
-            f: r => r[21].tag ? r[21] : (r[60] || r[21])
+            f: (r) => (r[21].tag ? r[21] : r[60] || r[21]),
           },
           {
             texto: 'Encuesta de satisfacción',
             tipo: 'RANGE',
-            f: r => r[-41].tag ? r[-41] : (r[-51] || r[-41])
-          }
+            f: (r) => (r[-41].tag ? r[-41] : r[-51] || r[-41]),
+          },
         ]
-      
+
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_LISTA_DE_ESPERA_2):
         return juntaTagsEquivalentes(100, 101, '¿Agenda?')
 
@@ -305,12 +310,12 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_OYEDENTALVINA):
       case Number(process.env.REACT_APP_ID_POLL_ACHS):
         return juntarConfirmaYReagenda(0, 1)
-      
+
       case Number(process.env.REACT_APP_ID_POLL_VICHUQUEN):
       case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CONCEPCION):
       case Number(process.env.REACT_APP_ID_POLL_ROADENT):
         return juntarConfirmaYReagenda(0, 2)
-      
+
       case Number(process.env.REACT_APP_ID_POLL_FACELAB):
       case Number(process.env.REACT_APP_ID_POLL_VERSALLES):
       case Number(process.env.REACT_APP_ID_POLL_TOBALABA):
@@ -332,7 +337,7 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_OYEDENTAL):
       case Number(process.env.REACT_APP_ID_POLL_SPORTS_MEDICINA_DEPORTIVA):
         return juntarConfirmaYReagenda(0, 4)
-      
+
       case Number(process.env.REACT_APP_ID_POLL_AYVDENTAL_RECONFIRMACION):
       case Number(process.env.REACT_APP_ID_POLL_OYEDENTAL_RECONFIRMACION):
       case Number(process.env.REACT_APP_ID_POLL_VENTUS_RECONFIRMACION):
@@ -340,7 +345,7 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_OAS_RECONFIRMACION):
       case Number(process.env.REACT_APP_ID_POLL_CENTAURO_RECORDATORIO):
         return juntarConfirmaYReagenda(50, 104)
-      
+
       case Number(process.env.REACT_APP_ID_POLL_ODONTOS):
       case Number(process.env.REACT_APP_ID_POLL_VENTUS):
       case Number(process.env.REACT_APP_ID_POLL_SANTIS):
@@ -415,78 +420,78 @@ export const obtenerTagsCalculados = idEncuesta => {
       case Number(process.env.REACT_APP_ID_POLL_BUKAL):
       case Number(process.env.REACT_APP_ID_POLL_4EVER_SMILE):
         return juntarConfirmaYReagenda(0, 104)
-      
+
       case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
         return juntarConfirmaYReagendaAutomatico(0, 104, 204)
 
       case Number(process.env.REACT_APP_ID_POLL_EVEREST1):
       case Number(process.env.REACT_APP_ID_POLL_EVEREST2):
         return juntarConfirmaYReagendaAutomatico(50, 104, 204)
-      
+
       case Number(process.env.REACT_APP_ID_POLL_FALP_CONVENIOS):
         return [
           {
             texto: '¿Dirección?',
             tipo: 'YESNO',
-            f: r => r.start < fechaCambioMapping ? r[0] : r[0]
+            f: (r) => (r.start < fechaCambioMapping ? r[0] : r[0]),
           },
           {
             texto: 'Pedir dirección correcta',
             tipo: 'OPEN',
-            f: r => r.start < fechaCambioMapping ? r[10] : r[10]
+            f: (r) => (r.start < fechaCambioMapping ? r[10] : r[10]),
           },
           {
             texto: '¿Email?',
             tipo: 'OPEN',
-            f: r => r.start < fechaCambioMapping ? r[1] : r[2]
+            f: (r) => (r.start < fechaCambioMapping ? r[1] : r[2]),
           },
           {
             texto: 'Pedir email correcto',
             tipo: 'OPEN',
-            f: r => r.start < fechaCambioMapping ? r[11] : r[12]
+            f: (r) => (r.start < fechaCambioMapping ? r[11] : r[12]),
           },
           {
             texto: '¿Prevision?',
             tipo: 'YESNO',
-            f: r => r.start < fechaCambioMapping ? r[2] : r[3]
+            f: (r) => (r.start < fechaCambioMapping ? r[2] : r[3]),
           },
           {
             texto: 'Pedir previsión correcta',
             tipo: 'OPEN',
-            f: r => r.start < fechaCambioMapping ? r[12] : r[13]
+            f: (r) => (r.start < fechaCambioMapping ? r[12] : r[13]),
           },
         ]
-      
+
       case Number(process.env.REACT_APP_ID_POLL_SANASALUD_KOPLAND_T5):
         return [
           {
             texto: '¿Confirma?',
             tipo: 'YESNO',
-            f: r => r[0]
+            f: (r) => r[0],
           },
           {
             texto: 'Reagenda',
             tipo: 'YESNO',
-            f: r => r[1]
+            f: (r) => r[1],
           },
           {
             texto: '¿Por qué no?',
             tipo: 'OPEN',
-            f: r => r[-15]
+            f: (r) => r[-15],
           },
           {
             texto: '¿Por qué no?',
             tipo: 'OPEN',
-            f: r => r[-16]
+            f: (r) => r[-16],
           },
         ]
-      
+
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_GES_CMD_ALAMEDA):
         return [
           {
             texto: 'Respuesta',
             tipo: 'YESNO',
-            f: r => {
+            f: (r) => {
               if (r[4].tag === REAGENDA || r[4].tag === YES) {
                 return { tag: REAGENDA, text: `${r[0].text} / ${r[4].text}` }
               }
@@ -495,8 +500,8 @@ export const obtenerTagsCalculados = idEncuesta => {
                 confirma = r[-5]
               }
               return confirma
-            }
-          }
+            },
+          },
         ]
       default:
         return
@@ -510,8 +515,10 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
     return
   }
   const headersSinTags = headers
-    .filter(h => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
-    .map(h => h.texto.includes(' Externo') ?  ({ ...h, texto: h.texto.slice(0, -8) }) : h)
+    .filter((h) => !['YESNO', 'RANGE', 'OPEN', 'INTERNAL'].includes(h.tipo))
+    .map((h) =>
+      h.texto.includes(' Externo') ? { ...h, texto: h.texto.slice(0, -8) } : h
+    )
   // caso especial agendamiento, para poner el teléfono al comienzo
   if ([509, 557, 577].includes(idEncuesta)) {
     return [...headersSinTags, ...tagsCalculados]
