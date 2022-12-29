@@ -93,10 +93,10 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
                     <span> • {alerta.sucursal}</span>
                   )}{' '}
                   {alerta.resueltaPor && (
-                    <>
+                    <span style={{ opacity: 0 }}>
                       <InlineIcon icon="mdi:check" /> Resuelta por:{' '}
                       <InlineIcon icon="mdi:user" /> {alerta.resueltaPor}
-                    </>
+                    </span>
                   )}
                 </p>
               </div>
