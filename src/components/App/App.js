@@ -10,14 +10,14 @@ import { ESQUEMA_OSCURO } from '../../redux/ducks/opciones'
 import './App.css'
 import imagenes from './preloads'
 import useAnalytics from '../../hooks/useAnalytics'
+import ModalTOS from '../ModalTOS'
 
 const App = () => {
-
-  const { token, fechaToken } = useSelector(state => state.login)
-  const { esquema } = useSelector(state => state.opciones)
+  const { token, fechaToken } = useSelector((state) => state.login)
+  const { esquema } = useSelector((state) => state.opciones)
   const dispatch = useDispatch()
   const track = useAnalytics()
-  
+
   useEffect(() => {
     if (fechaToken && differenceInHours(Date.now(), fechaToken) > 8) {
       dispatch(cierraLaSesion())
@@ -25,19 +25,33 @@ const App = () => {
   }, [fechaToken, dispatch])
 
   useEffect(() => {
-    window.addEventListener('focus', () => track('Feedback', 'Browser', 'focus'))
+    window.addEventListener('focus', () =>
+      track('Feedback', 'Browser', 'focus')
+    )
     window.addEventListener('blur', () => track('Feedback', 'Browser', 'blur'))
-    document.addEventListener('copy', () => track('Feedback', 'Browser', 'copy', { texto: document.getSelection().toString() }))
-    if (window.performance.getEntriesByType('navigation').map((nav) => nav.type).includes('reload')) {
+    document.addEventListener('copy', () =>
+      track('Feedback', 'Browser', 'copy', {
+        texto: document.getSelection().toString(),
+      })
+    )
+    if (
+      window.performance
+        .getEntriesByType('navigation')
+        .map((nav) => nav.type)
+        .includes('reload')
+    ) {
       track('Feedback', 'Browser', 'refresh')
     }
   }, [track])
 
   return (
-    <div className={classNames({
-      'App': true,
-      'App__oscura': esquema === ESQUEMA_OSCURO
-    })}>
+    <div
+      className={classNames({
+        App: true,
+        App__oscura: esquema === ESQUEMA_OSCURO,
+      })}
+    >
+      <ModalTOS />
       <Switch>
         <Route exact path="/">
           {token ? <Feedback /> : <Login />}
@@ -47,7 +61,9 @@ const App = () => {
         </Route>
       </Switch>
       <div className="App__preload_imagenes">
-        {imagenes.map((img, i) => <img key={`preload-img-${i}`} src={img} alt={`preload-${i}`} />)}
+        {imagenes.map((img, i) => (
+          <img key={`preload-img-${i}`} src={img} alt={`preload-${i}`} />
+        ))}
       </div>
     </div>
   )
