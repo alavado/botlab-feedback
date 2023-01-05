@@ -10,7 +10,7 @@ import { ESQUEMA_OSCURO } from '../../redux/ducks/opciones'
 import './App.css'
 import imagenes from './preloads'
 import useAnalytics from '../../hooks/useAnalytics'
-import ModalTOS from '../ModalTOS'
+// import ModalTOS from '../ModalTOS'
 
 const App = () => {
   const { token, fechaToken } = useSelector((state) => state.login)
@@ -51,7 +51,7 @@ const App = () => {
         App__oscura: esquema === ESQUEMA_OSCURO,
       })}
     >
-      <ModalTOS />
+      {/* <ModalTOS /> */}
       <Switch>
         <Route exact path="/">
           {token ? <Feedback /> : <Login />}

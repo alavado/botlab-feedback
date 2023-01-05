@@ -19,10 +19,9 @@ import { cierraLaSesion } from '../../redux/ducks/login'
 import Novedades from '../Novedades'
 import Tutoriales from './Tutoriales'
 import Search from './Search'
-import { esRedSalud } from '../../helpers/permisos'
 
 const Feedback = () => {
-  const { token, cuenta } = useSelector((state) => state.login)
+  const { token } = useSelector((state) => state.login)
   const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
   const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(
     (state) => state.respuestas
@@ -120,7 +119,7 @@ const Feedback = () => {
                 <Alertas />
               </Route>
               <Route exact path="/busqueda">
-                {esRedSalud(cuenta) ? <Busqueda /> : <Search />}
+                <Search />
               </Route>
               <Route path="/busqueda/:termino">
                 <Busqueda />
