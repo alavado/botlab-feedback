@@ -6,6 +6,7 @@ import { useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import Loader from '../../../Loader'
 import classNames from 'classnames'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 interface SearchInputProps {
   showLoader: boolean
@@ -20,10 +21,12 @@ const SearchInput = ({
   const [debouncing, setDebouncing] = useState(false)
   const [inputContent, setInputContent] = useState(defaultValue)
   const inputRef = useRef<HTMLInputElement>(null)
+  const track = useAnalytics()
 
   const dispatchSearch = (term: string) => {
     dispatch(setSearchTerm(term))
     setDebouncing(false)
+    track('Feedback', 'Search', 'search')
   }
 
   const clearSearchInput = () => {

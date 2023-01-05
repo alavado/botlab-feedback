@@ -316,6 +316,7 @@ const InteractionsTable = ({
 
 function Filter({ column }: { column: Column<any, unknown> }) {
   const columnFilterValue = column.getFilterValue()
+  const track = useAnalytics()
 
   const sortedUniqueValues = useMemo(
     () => Array.from(column.getFacetedUniqueValues().keys()).sort(),
@@ -335,6 +336,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
         type="text"
         value={(columnFilterValue ?? '') as string}
         onChange={(value) => column.setFilterValue(value)}
+        onFocus={() => track('Feedback', 'Search', 'columnFilterFocus')}
         placeholder={`Filtrar... (${column.getFacetedUniqueValues().size})`}
         className={classNames({
           'w-36 border shadow rounded': true,

@@ -53,7 +53,10 @@ const Search = () => {
             start={activeInteraction.start}
             onPreviousClick={() => {}}
             onNextClick={() => {}}
-            onCloseClick={() => dispatch(hideDrawer())}
+            onCloseClick={() => {
+              dispatch(hideDrawer())
+              track('Feedback', 'Search', 'hideDrawer')
+            }}
           />
         )}
       </div>

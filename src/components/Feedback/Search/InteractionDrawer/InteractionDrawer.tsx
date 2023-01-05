@@ -65,9 +65,7 @@ const InteractionDrawer = ({
           {interaction?.appointments[0]?.url && (
             <button
               className="InteractionDrawer__legacy_button"
-              onClick={() => {
-                track('Feedback', 'Search', 'openDentalink')
-              }}
+              onClick={() => track('Feedback', 'Search', 'openDentalink')}
             >
               <Icon icon="mdi:tooth" />
               Dentalink
