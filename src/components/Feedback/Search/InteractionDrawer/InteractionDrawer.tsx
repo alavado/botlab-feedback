@@ -51,6 +51,7 @@ const InteractionDrawer = ({
         bottomLeft: false,
         topLeft: false,
       }}
+      maxWidth="90vw"
     >
       <div className="InteractionDrawer__top_bar">
         <div className="InteractionDrawer__top_bar_actions">
