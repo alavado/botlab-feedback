@@ -717,7 +717,7 @@ export const usePollInteractionsForUserQuery = (
         `${API_ROOT}/chat/${pollId}/${userId}`
       )
       const [conversation, index] = getClosestConversation(
-        data.data.conversations,
+        data.data.conversations.filter((c) => !_.isEmpty(c.context)),
         start
       )
       const appointment = data.data._appointment_metas[index]

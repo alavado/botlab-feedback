@@ -85,7 +85,7 @@ const InteractionDrawer = ({
       <div className="InteractionDrawer__phone_container">
         <Smartphone interaction={interaction} />
       </div>
-      <div>
+      <div className="InteractionDrawer__legacy_buttons_container">
         <button
           className="InteractionDrawer__legacy_button"
           onClick={() => {
