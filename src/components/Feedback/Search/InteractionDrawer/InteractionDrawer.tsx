@@ -61,29 +61,18 @@ const InteractionDrawer = ({
           >
             <Icon icon="mdi:chevron-double-right" />
           </button>
+          <div className="InteractionDrawer__top_bar_data">
+            <span>
+              <Icon icon="mdi:user" />{' '}
+              {interaction?.appointments[0]?.patientName}{' '}
+            </span>{' '}
+            •
+            <span>
+              <Icon icon="mdi:phone" /> {interaction?.phone}
+            </span>
+          </div>
           {/* <button onClick={onPreviousClick}>anterior</button>
           <button onClick={onNextClick}>siguiente</button> */}
-          {interaction?.appointments[0]?.url && (
-            <button
-              className="InteractionDrawer__legacy_button"
-              onClick={() => track('Feedback', 'Search', 'openDentalink')}
-            >
-              <Icon icon="mdi:tooth" />
-              Dentalink
-            </button>
-          )}
-          <button
-            className="InteractionDrawer__legacy_button"
-            onClick={() => {
-              track('Feedback', 'Search', 'openChatView')
-              history.push(
-                `/chat/${interaction?.pollId}/${interaction?.userId}`
-              )
-            }}
-          >
-            <Icon icon="mdi:cellphone" />
-            Ver en pantalla de Chat
-          </button>
         </div>
         {/* <h2>
           {interaction
@@ -95,6 +84,53 @@ const InteractionDrawer = ({
       </div>
       <div className="InteractionDrawer__phone_container">
         <Smartphone interaction={interaction} />
+      </div>
+      <div>
+        <button
+          className="InteractionDrawer__legacy_button"
+          onClick={() => {
+            track('Feedback', 'Search', 'openChatView')
+            history.push(`/chat/${interaction?.pollId}/${interaction?.userId}`)
+          }}
+        >
+          <Icon icon="mdi:cellphone" />
+          Ver en <br /> vista Chat
+        </button>
+        <button
+          className="InteractionDrawer__legacy_button"
+          onClick={() => {
+            track('Feedback', 'Search', 'openWhatsapp')
+            const el = document.createElement('a')
+            el.setAttribute('target', '_blank')
+            el.setAttribute('href', `https://wa.me/${interaction?.phone}`)
+            el.style.display = 'none'
+            document.body.appendChild(el)
+            el.click()
+            document.body.removeChild(el)
+          }}
+        >
+          <Icon icon="mdi:whatsapp" />
+          Chatear con <br /> paciente
+        </button>
+        {interaction?.appointments[0]?.url && (
+          <button
+            className="InteractionDrawer__legacy_button"
+            onClick={() => {
+              track('Feedback', 'Search', 'openDentalink')
+              const el = document.createElement('a')
+              el.setAttribute('target', '_blank')
+              el.setAttribute('href', interaction.appointments[0].url as string)
+              el.style.display = 'none'
+              document.body.appendChild(el)
+              el.click()
+              document.body.removeChild(el)
+            }}
+          >
+            <Icon icon="mdi:tooth-outline" />
+            Ver en <br />
+            Dentalink
+          </button>
+        )}
       </div>
       {/* <div className="InteractionDrawer__comments_container">
         <h2>Comentarios</h2>

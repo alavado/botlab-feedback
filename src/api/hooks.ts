@@ -20,6 +20,7 @@ import {
   addDays,
   startOfDay,
   isSameDay,
+  formatISO,
 } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useQuery, useQueryClient, UseQueryResult } from 'react-query'
@@ -29,7 +30,6 @@ import { estadosInteracciones } from './estadosInteraccion'
 import {
   alertasAPIResponse,
   chatAPIConversation,
-  chatAPIMessage,
   chatAPIResponse,
   reactionsAPIResponse,
   SearchAPIMultiAppointment,
@@ -695,14 +695,14 @@ export const useSearchQuery = (
 const getClosestConversation = (
   conversationsData: chatAPIConversation[],
   start: Date
-): chatAPIConversation => {
-  const sameDayConversations = conversationsData.filter((c: any) =>
+): [chatAPIConversation, number] => {
+  const sameDayConversationIndex = conversationsData.findIndex((c: any) =>
     isSameDay(parseISO(c.start), start)
   )
-  if (!sameDayConversations) {
-    return conversationsData[0]
+  if (sameDayConversationIndex < 0) {
+    return [conversationsData[0], 0]
   }
-  return sameDayConversations[0]
+  return [conversationsData[sameDayConversationIndex], sameDayConversationIndex]
 }
 
 export const usePollInteractionsForUserQuery = (
@@ -716,10 +716,11 @@ export const usePollInteractionsForUserQuery = (
       const { data }: { data: chatAPIResponse } = await get(
         `${API_ROOT}/chat/${pollId}/${userId}`
       )
-      const conversation = getClosestConversation(
+      const [conversation, index] = getClosestConversation(
         data.data.conversations,
         start
       )
+      const appointment = data.data._appointment_metas[index]
       const interaction: Interaction = {
         userId,
         pollId,
@@ -727,7 +728,18 @@ export const usePollInteractionsForUserQuery = (
           parseISO(conversation.start),
           Number(process.env.REACT_APP_UTC_OFFSET)
         ),
-        appointments: [],
+        appointments: [
+          {
+            datetime: parseDate(
+              appointment.date,
+              appointment.time,
+              formatISO(start)
+            ),
+            rut: appointment.rut,
+            patientName: appointment.name || appointment.patient_name_1,
+            url: appointment.dentalink_link,
+          },
+        ],
         branch: '',
         phone: data.data.user.phone,
         messages: conversation.messages.map(

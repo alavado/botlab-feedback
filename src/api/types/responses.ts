@@ -1,5 +1,3 @@
-import { Appointment, Interaction } from './servicio'
-
 interface chatAPIUserMessage {
   answer_id: number
   message: string
@@ -45,6 +43,8 @@ export interface chatAPIResponse {
       phone: string
       timestamp: string
     }
+    _appointment_data: any
+    _appointment_metas: any[]
   }
 }
 

@@ -3,7 +3,7 @@
   height: 100%;
   box-shadow: -0.25rem 0 0.25rem var(--color-sombras);
   display: grid;
-  grid-template: 2rem auto 1fr / auto;
+  grid-template: 2rem auto 1fr / auto auto;
   gap: 0;
   padding: 0 0.5rem 0.5rem 0.5rem;
 }
@@ -15,20 +15,34 @@
   justify-content: space-between;
 }
 
+.InteractionDrawer__top_bar_data {
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.InteractionDrawer__top_bar_data span {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
 .InteractionDrawer__top_bar_actions {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding-right: 0.25rem;
 }
 
 .InteractionDrawer__legacy_button {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   gap: 0.25rem;
   border-radius: 0.35rem;
-  height: 1.5rem;
-  padding: 0 0.5rem;
+  padding: 0.5rem;
   color: var(--color-texto-claro);
   background-color: var(--color-principal);
   border: none;
@@ -40,6 +54,11 @@
   font-size: 0.65rem;
   animation: aparece-boton-reacciones 0.2s ease both;
   margin: 1rem 0;
+  width: 100%;
+}
+
+.InteractionDrawer__legacy_button svg {
+  font-size: 1.35rem;
 }
 
 .InteractionDrawer__top_bar_action_button {
@@ -54,7 +73,7 @@
 
 .InteractionDrawer__phone_container {
   grid-row: 2 / -1;
-  grid-column: 1 / -1;
+  grid-column: 1;
   display: flex;
   align-items: center;
   justify-content: center;
