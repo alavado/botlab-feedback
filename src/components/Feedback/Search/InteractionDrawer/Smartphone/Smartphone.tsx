@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { format, isSameDay } from 'date-fns'
 import es from 'date-fns/esm/locale/es/index.js'
 import Linkify from 'linkify-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Interaction, Message } from '../../../../../api/types/servicio'
 import Loader from '../../../../Loader'
 import AttachmentMessage from './AttachmentMessage'
@@ -44,6 +44,12 @@ const formatChatMessage = (message: String) => {
 
 const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
+  const [time, setTime] = useState(new Date())
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime(new Date()), 1_000)
+    return () => clearInterval(interval)
+  }, [])
 
   const setRandomPhoneColor = () =>
     setPhoneColor([
@@ -98,7 +104,9 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
         />
         <div className="Smartphone__app_bar">
           <div className="Smartphone__nav_bar">
-            <div className="Smartphone__nav_bar_time">15:40</div>
+            <div className="Smartphone__nav_bar_time">
+              {format(time, 'H:mm')}
+            </div>
             <div className="Smartphone__camera">
               {interaction?.pollId} / {interaction?.userId}
             </div>
@@ -109,7 +117,9 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
             </div>
           </div>
           <div className="Smartphone__actions_bar">
-            <div className="Smartphone__avatar" />
+            <div className="Smartphone__avatar">
+              {interaction?.botName?.[0]}
+            </div>
             <div className="Smartphone__receiver_name">
               {interaction?.botName || '...'}
             </div>
@@ -128,8 +138,12 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
                       'Smartphone__message--outbound': bubble.sender === 'USER',
                     })}
                   >
-                    <span>{formatChatMessage(bubble.content)}</span>
-                    <span className="Smartphone__message_time">10:22</span>
+                    <span className="Smartphone__message_content">
+                      {formatChatMessage(bubble.content)}
+                    </span>
+                    <span className="Smartphone__message_time">
+                      {format(bubble.timestamp, 'H:mm')}
+                    </span>
                   </div>
                 )
               } else {
