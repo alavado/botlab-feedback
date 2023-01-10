@@ -30,6 +30,8 @@ export interface Interaction {
   botName?: string
 }
 
+export type SchedulingSystem = 'Dentalink' | 'Medilink' | 'Otro'
+
 export interface Appointment {
   id?: string
   rut: string
@@ -37,6 +39,7 @@ export interface Appointment {
   status?: InteractionStatus
   datetime: Date
   url?: string
+  schedulingSystem?: SchedulingSystem
 }
 
 export interface Pregunta {

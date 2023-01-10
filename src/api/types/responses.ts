@@ -95,6 +95,7 @@ export interface SearchAPISingleAppointment {
   user_id: number
   sucursal_name: string
   dentalink_link?: string
+  medilink_link?: string
 }
 
 export interface SearchAPIMultiAppointment {

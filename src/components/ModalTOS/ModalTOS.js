@@ -1,6 +1,7 @@
 import Modal from 'react-modal'
 import './ModalTOS.css'
-// import { Document, Page } from 'react-pdf'
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+import eco from './eco.pdf'
 
 const customStyles = {
   content: {
@@ -27,14 +28,15 @@ const ModalTOS = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          zIndex: 10,
         }}
       >
         <h2>Términos del servicio</h2>
         <button onClick={() => null}>close</button>
         <div>
-          {/* <Document file="empathy.pdf">
-            <Page />
-          </Document> */}
+          <Document file={eco}>
+            <Page pageNumber={1} />
+          </Document>
         </div>
         <form>
           <div>

@@ -126,9 +126,9 @@ const InteractionDrawer = ({
               document.body.removeChild(el)
             }}
           >
-            <Icon icon="mdi:tooth-outline" />
+            <Icon icon="mdi:open-in-new" />
             Ver en <br />
-            Dentalink
+            {interaction?.appointments[0]?.schedulingSystem}
           </button>
         )}
       </div>

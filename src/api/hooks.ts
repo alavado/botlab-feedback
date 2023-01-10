@@ -11,6 +11,7 @@ import {
   Message,
   Comment,
   Alerta,
+  SchedulingSystem,
 } from './types/servicio'
 import {
   parse,
@@ -624,7 +625,7 @@ const searchSingleAppointmentToInteraction = (
         patientName: appointment.name,
         rut: appointment.rut,
         id: appointment.id_cita,
-        url: appointment.dentalink_link,
+        url: appointment.dentalink_link || appointment.medilink_link,
       },
     ],
   }
@@ -705,6 +706,20 @@ const getClosestConversation = (
   return [conversationsData[sameDayConversationIndex], sameDayConversationIndex]
 }
 
+const getSchedulingSystemURL = (data: any): string | undefined => {
+  return data.dentalink_link || data.medilink_link
+}
+
+const inferSchedulingSystem = (data: any): SchedulingSystem => {
+  if (data.dentalink_link) {
+    return 'Dentalink'
+  }
+  if (data.medilink_link) {
+    return 'Medilink'
+  }
+  return 'Otro'
+}
+
 export const usePollInteractionsForUserQuery = (
   pollId: number,
   userId: number,
@@ -737,7 +752,8 @@ export const usePollInteractionsForUserQuery = (
             ),
             rut: appointment.rut,
             patientName: appointment.name || appointment.patient_name_1,
-            url: appointment.dentalink_link,
+            url: getSchedulingSystemURL(appointment),
+            schedulingSystem: inferSchedulingSystem(appointment),
           },
         ],
         branch: '',
