@@ -33,6 +33,16 @@ const InteractionDrawer = ({
   const history = useHistory()
   const track = useAnalytics()
 
+  const openExternalLink = (url: string) => {
+    const el = document.createElement('a')
+    el.setAttribute('target', '_blank')
+    el.setAttribute('href', url)
+    el.style.display = 'none'
+    document.body.appendChild(el)
+    el.click()
+    document.body.removeChild(el)
+  }
+
   return (
     <Resizable
       // defaultSize={{
@@ -100,34 +110,23 @@ const InteractionDrawer = ({
           className="InteractionDrawer__legacy_button"
           onClick={() => {
             track('Feedback', 'Search', 'openWhatsapp')
-            const el = document.createElement('a')
-            el.setAttribute('target', '_blank')
-            el.setAttribute('href', `https://wa.me/${interaction?.phone}`)
-            el.style.display = 'none'
-            document.body.appendChild(el)
-            el.click()
-            document.body.removeChild(el)
+            openExternalLink(`https://wa.me/${interaction?.phone}`)
           }}
         >
           <Icon icon="mdi:whatsapp" />
-          Chatear con <br /> paciente
+          Chatear en <br />
+          Whatsapp
         </button>
         {interaction?.appointments[0]?.url && (
           <button
             className="InteractionDrawer__legacy_button"
             onClick={() => {
-              track('Feedback', 'Search', 'openDentalink')
-              const el = document.createElement('a')
-              el.setAttribute('target', '_blank')
-              el.setAttribute('href', interaction.appointments[0].url as string)
-              el.style.display = 'none'
-              document.body.appendChild(el)
-              el.click()
-              document.body.removeChild(el)
+              track('Feedback', 'Search', 'openSchedulingSystem')
+              openExternalLink(interaction.appointments[0].url as string)
             }}
           >
             <Icon icon="mdi:open-in-new" />
-            Ver en <br />
+            Ver cita en <br />
             {interaction?.appointments[0]?.schedulingSystem}
           </button>
         )}
