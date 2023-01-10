@@ -1,11 +1,11 @@
 import { Resizable } from 're-resizable'
 import { MouseEventHandler } from 'react'
-import { usePollInteractionsForUserQuery } from '../../../../api/hooks'
 import './InteractionDrawer.css'
 import Smartphone from './Smartphone'
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router-dom'
 import useAnalytics from '../../../../hooks/useAnalytics'
+import usePollInteractionsForUserQuery from '../../../../api/hooks/usePollInteractionsForUserQuery'
 
 interface InteractionDrawerProps {
   pollId: number
