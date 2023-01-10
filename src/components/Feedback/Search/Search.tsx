@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
-import { useSearchQuery } from '../../../api/hooks'
 import { RootState } from '../../../redux/ducks'
 import {
   hideDrawer,
@@ -13,6 +12,7 @@ import InteractionsTable from './InteractionsTable'
 import './Search.css'
 import { Interaction } from '../../../api/types/servicio'
 import useAnalytics from '../../../hooks/useAnalytics'
+import useSearchQuery from '../../../api/hooks/useSearchQuery'
 
 const Search = () => {
   const {
