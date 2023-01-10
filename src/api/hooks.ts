@@ -678,48 +678,49 @@ export const useSearchQuery = (
   })
 }
 
-const getClosestConversation = (
+const splitConversations = (
   conversationsData: chatAPIConversation[],
-  start: Date
+  currentConversationDate: Date
 ): {
-  closestConversation: chatAPIConversation
-  closestConversationIndex: number
+  currentConversation: chatAPIConversation
+  currentConversationIndex: number
   pastConversations: chatAPIConversation[]
   futureConversations: chatAPIConversation[]
 } => {
-  const closestConversationIndex = conversationsData.findIndex((c: any) =>
-    isSameDay(parseISO(c.start), start)
+  const currentConversationIndex = conversationsData.findIndex((c: any) =>
+    isSameDay(parseISO(c.start), currentConversationDate)
   )
-  if (closestConversationIndex < 0) {
+  if (currentConversationIndex < 0) {
     return {
-      closestConversation: conversationsData[0],
-      closestConversationIndex: 0,
+      currentConversation: conversationsData[0],
+      currentConversationIndex: 0,
       pastConversations: [],
       futureConversations: conversationsData.slice(1),
     }
   }
   return {
-    closestConversation: conversationsData[closestConversationIndex],
-    closestConversationIndex,
-    pastConversations: conversationsData.slice(0, closestConversationIndex),
-    futureConversations: conversationsData.slice(closestConversationIndex + 1),
+    currentConversation: conversationsData[currentConversationIndex],
+    currentConversationIndex,
+    pastConversations: conversationsData.slice(0, currentConversationIndex),
+    futureConversations: conversationsData.slice(currentConversationIndex + 1),
   }
 }
 
-const getSchedulingSystemURL = (data: any): string | undefined => {
-  return (
-    data.dentalink_link ||
-    data.dentalink_link_1 ||
-    data.medilink_link ||
-    data.medilink_link_1
-  )
+const getSchedulingSystemURL = (
+  conversation: chatAPIConversation
+): string | undefined => {
+  return conversation.context.find((v) =>
+    ['dentalink_link', 'medilink_link'].includes(v.target)
+  )?.value
 }
 
-const inferSchedulingSystem = (data: any): SchedulingSystem => {
-  if (data.dentalink_link || data.dentalink_link_1) {
+const inferSchedulingSystem = (
+  conversation: chatAPIConversation
+): SchedulingSystem => {
+  if (conversation.context.find((v) => v.target === 'dentalink_link')) {
     return 'Dentalink'
   }
-  if (data.medilink_link || data.medilink_link_1) {
+  if (conversation.context.find((v) => v.target === 'medilink_link')) {
     return 'Medilink'
   }
   return 'Otro'
@@ -737,38 +738,42 @@ export const usePollInteractionsForUserQuery = (
         `${API_ROOT}/chat/${pollId}/${userId}`
       )
       const {
-        closestConversation,
-        closestConversationIndex,
+        currentConversation,
+        currentConversationIndex,
         pastConversations,
         futureConversations,
-      } = getClosestConversation(
+      } = splitConversations(
         data.data.conversations.filter((c) => !_.isEmpty(c.context)),
         start
       )
-      const appointment = data.data._appointment_metas[closestConversationIndex]
       const interaction: Interaction = {
         userId,
         pollId,
         start: addHours(
-          parseISO(closestConversation.start),
+          parseISO(currentConversation.start),
           Number(process.env.REACT_APP_UTC_OFFSET)
         ),
         appointments: [
           {
             datetime: parseDate(
-              appointment.date,
-              appointment.time,
+              currentConversation.context.find((c) => c.target === 'date')
+                ?.value as string,
+              currentConversation.context.find((c) => c.target === 'time')
+                ?.value as string,
               formatISO(start)
             ),
-            rut: appointment.rut,
-            patientName: appointment.name || appointment.patient_name_1,
-            url: getSchedulingSystemURL(appointment),
-            schedulingSystem: inferSchedulingSystem(appointment),
+            rut: currentConversation.context.find((c) => c.target === 'rut')
+              ?.value as string,
+            patientName: currentConversation.context.find(
+              (c) => c.target === 'name' || c.target === 'patient_name_1'
+            )?.value as string,
+            url: getSchedulingSystemURL(currentConversation),
+            schedulingSystem: inferSchedulingSystem(currentConversation),
           },
         ],
         branch: '',
         phone: data.data.user.phone,
-        messages: closestConversation.messages.map(
+        messages: currentConversation.messages.map(
           (message): Message => ({
             sender: message.type === 'bot' ? 'BOT' : 'USER',
             content: message.message,

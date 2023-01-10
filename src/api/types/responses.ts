@@ -16,8 +16,20 @@ interface chatAPIBotMessage {
 export type chatAPIMessage = chatAPIUserMessage | chatAPIBotMessage
 
 export interface chatAPIConversation {
-  context: any
   start: string
+  context: {
+    target:
+      | 'rut'
+      | 'name'
+      | 'patient_name_1'
+      | 'date'
+      | 'time'
+      | 'sucursal_name'
+      | 'dentalink_link'
+      | 'medilink_link'
+    title: string
+    value: string
+  }[]
   messages: chatAPIMessage[]
   reactions: [any]
   tags: [
