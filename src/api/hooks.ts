@@ -681,14 +681,29 @@ export const useSearchQuery = (
 const getClosestConversation = (
   conversationsData: chatAPIConversation[],
   start: Date
-): [chatAPIConversation, number] => {
-  const sameDayConversationIndex = conversationsData.findIndex((c: any) =>
+): {
+  closestConversation: chatAPIConversation
+  closestConversationIndex: number
+  pastConversations: chatAPIConversation[]
+  futureConversations: chatAPIConversation[]
+} => {
+  const closestConversationIndex = conversationsData.findIndex((c: any) =>
     isSameDay(parseISO(c.start), start)
   )
-  if (sameDayConversationIndex < 0) {
-    return [conversationsData[0], 0]
+  if (closestConversationIndex < 0) {
+    return {
+      closestConversation: conversationsData[0],
+      closestConversationIndex: 0,
+      pastConversations: [],
+      futureConversations: conversationsData.slice(1),
+    }
   }
-  return [conversationsData[sameDayConversationIndex], sameDayConversationIndex]
+  return {
+    closestConversation: conversationsData[closestConversationIndex],
+    closestConversationIndex,
+    pastConversations: conversationsData.slice(0, closestConversationIndex),
+    futureConversations: conversationsData.slice(closestConversationIndex + 1),
+  }
 }
 
 const getSchedulingSystemURL = (data: any): string | undefined => {
@@ -721,16 +736,21 @@ export const usePollInteractionsForUserQuery = (
       const { data }: { data: chatAPIResponse } = await get(
         `${API_ROOT}/chat/${pollId}/${userId}`
       )
-      const [conversation, index] = getClosestConversation(
+      const {
+        closestConversation,
+        closestConversationIndex,
+        pastConversations,
+        futureConversations,
+      } = getClosestConversation(
         data.data.conversations.filter((c) => !_.isEmpty(c.context)),
         start
       )
-      const appointment = data.data._appointment_metas[index]
+      const appointment = data.data._appointment_metas[closestConversationIndex]
       const interaction: Interaction = {
         userId,
         pollId,
         start: addHours(
-          parseISO(conversation.start),
+          parseISO(closestConversation.start),
           Number(process.env.REACT_APP_UTC_OFFSET)
         ),
         appointments: [
@@ -748,7 +768,7 @@ export const usePollInteractionsForUserQuery = (
         ],
         branch: '',
         phone: data.data.user.phone,
-        messages: conversation.messages.map(
+        messages: closestConversation.messages.map(
           (message): Message => ({
             sender: message.type === 'bot' ? 'BOT' : 'USER',
             content: message.message,
