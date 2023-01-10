@@ -96,6 +96,8 @@ export interface SearchAPISingleAppointment {
   sucursal_name: string
   dentalink_link?: string
   medilink_link?: string
+  dentalink_link_1?: string
+  medilink_link_1?: string
 }
 
 export interface SearchAPIMultiAppointment {

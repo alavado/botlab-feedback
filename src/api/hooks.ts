@@ -125,21 +125,6 @@ const estadoInteraccionPorID = (id: IDEstadoInteraccion): InteractionStatus => {
   return estadosInteracciones.find((e) => e.id === id) as InteractionStatus
 }
 
-const obtenerEstadoInteraccionGeneral = (
-  citas: Appointment[]
-): InteractionStatus => {
-  if (citas.some((cita) => cita.status?.id === 'REAGENDADA')) {
-    return estadoInteraccionPorID('REAGENDADA')
-  }
-  if (citas.some((cita) => cita.status?.id === 'CANCELADA')) {
-    return estadoInteraccionPorID('CANCELADA')
-  }
-  if (citas.some((cita) => cita.status?.id === 'CONFIRMADA')) {
-    return estadoInteraccionPorID('CONFIRMADA')
-  }
-  return estadoInteraccionPorID('PENDIENTE')
-}
-
 const obtenerEstadoInteraccion = (preguntas: Pregunta[]): InteractionStatus => {
   const preguntaConfirmaYESNO = preguntas.find(
     (p) => p.tipo === 'YESNO' && p.texto.includes('Confirma')
@@ -707,14 +692,19 @@ const getClosestConversation = (
 }
 
 const getSchedulingSystemURL = (data: any): string | undefined => {
-  return data.dentalink_link || data.medilink_link
+  return (
+    data.dentalink_link ||
+    data.dentalink_link_1 ||
+    data.medilink_link ||
+    data.medilink_link_1
+  )
 }
 
 const inferSchedulingSystem = (data: any): SchedulingSystem => {
-  if (data.dentalink_link) {
+  if (data.dentalink_link || data.dentalink_link_1) {
     return 'Dentalink'
   }
-  if (data.medilink_link) {
+  if (data.medilink_link || data.medilink_link_1) {
     return 'Medilink'
   }
   return 'Otro'
