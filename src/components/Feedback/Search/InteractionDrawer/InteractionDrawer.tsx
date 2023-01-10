@@ -24,11 +24,13 @@ const InteractionDrawer = ({
   onNextClick,
   onCloseClick,
 }: InteractionDrawerProps) => {
-  const {
-    data: interaction,
-    isLoading,
-    isError,
-  } = usePollInteractionsForUserQuery(pollId, userId, start)
+  const { data, isLoading, isError } = usePollInteractionsForUserQuery({
+    pollId,
+    userId,
+    start,
+  })
+
+  const interaction = data?.currentInteraction
 
   const history = useHistory()
   const track = useAnalytics()

@@ -678,31 +678,115 @@ export const useSearchQuery = (
   })
 }
 
-const splitConversations = (
-  conversationsData: chatAPIConversation[],
-  currentConversationDate: Date
+const chatAPIConversationToInteraction = (
+  id: chatAPIInteractionID,
+  phone: string,
+  botName: string,
+  conversation: chatAPIConversation
+): Interaction => {
+  const { pollId, userId, start } = id
+  const interaction: Interaction = {
+    userId,
+    pollId,
+    start: addHours(
+      parseISO(conversation.start),
+      Number(process.env.REACT_APP_UTC_OFFSET)
+    ),
+    appointments: [
+      {
+        datetime: parseDate(
+          conversation.context.find((c) => c.target === 'date')
+            ?.value as string,
+          conversation.context.find((c) => c.target === 'time')
+            ?.value as string,
+          formatISO(start)
+        ),
+        rut: conversation.context.find((c) => c.target === 'rut')
+          ?.value as string,
+        patientName: conversation.context.find(
+          (c) => c.target === 'name' || c.target === 'patient_name_1'
+        )?.value as string,
+        url: getSchedulingSystemURL(conversation),
+        schedulingSystem: inferSchedulingSystem(conversation),
+      },
+    ],
+    branch: '',
+    phone,
+    messages: conversation.messages.map(
+      (message): Message => ({
+        sender: message.type === 'bot' ? 'BOT' : 'USER',
+        content: message.message,
+        timestamp: parseISO(message.timestamp),
+        type: 'TEXTO',
+      })
+    ),
+    alerts: [],
+    comments: [],
+    botName,
+  }
+  return interaction
+}
+
+const splitInteractions = (
+  id: chatAPIInteractionID,
+  response: chatAPIResponse
 ): {
-  currentConversation: chatAPIConversation
-  currentConversationIndex: number
-  pastConversations: chatAPIConversation[]
-  futureConversations: chatAPIConversation[]
+  currentInteraction: Interaction
+  pastInteractions: Interaction[]
+  futureInteractions: Interaction[]
 } => {
-  const currentConversationIndex = conversationsData.findIndex((c: any) =>
-    isSameDay(parseISO(c.start), currentConversationDate)
+  const { conversations } = response.data
+  const currentConversationIndex = conversations.findIndex((c: any) =>
+    isSameDay(parseISO(c.start), id.start)
   )
   if (currentConversationIndex < 0) {
     return {
-      currentConversation: conversationsData[0],
-      currentConversationIndex: 0,
-      pastConversations: [],
-      futureConversations: conversationsData.slice(1),
+      currentInteraction: chatAPIConversationToInteraction(
+        id,
+        response.data.user.phone,
+        response.data.bot.name,
+        conversations[0]
+      ),
+      pastInteractions: [],
+      futureInteractions: conversations
+        .slice(1)
+        .map((c) =>
+          chatAPIConversationToInteraction(
+            id,
+            response.data.user.phone,
+            response.data.bot.name,
+            c
+          )
+        ),
     }
   }
   return {
-    currentConversation: conversationsData[currentConversationIndex],
-    currentConversationIndex,
-    pastConversations: conversationsData.slice(0, currentConversationIndex),
-    futureConversations: conversationsData.slice(currentConversationIndex + 1),
+    currentInteraction: chatAPIConversationToInteraction(
+      id,
+      response.data.user.phone,
+      response.data.bot.name,
+      conversations[currentConversationIndex]
+    ),
+    pastInteractions: conversations
+      .slice(0, currentConversationIndex)
+      .map((c) =>
+        chatAPIConversationToInteraction(
+          id,
+          response.data.user.phone,
+          response.data.bot.name,
+          c
+        )
+      ),
+    futureInteractions: conversations
+      .slice(currentConversationIndex + 1)
+      .map((c) =>
+        chatAPIConversationToInteraction(
+          id,
+          response.data.user.phone,
+          response.data.bot.name,
+          c
+        )
+      ),
   }
 }
 
@@ -726,66 +810,30 @@ const inferSchedulingSystem = (
   return 'Otro'
 }
 
-export const usePollInteractionsForUserQuery = (
-  pollId: number,
-  userId: number,
+type chatAPIInteractionID = {
+  pollId: number
+  userId: number
   start: Date
-): UseQueryResult<Interaction, unknown> => {
-  return useQuery<any, any, Interaction>(
+}
+
+export const usePollInteractionsForUserQuery = (
+  id: chatAPIInteractionID
+): UseQueryResult<
+  {
+    currentInteraction: Interaction
+    pastInteractions: Interaction[]
+    futureInteractions: Interaction[]
+  },
+  unknown
+> => {
+  const { pollId, userId, start } = id
+  return useQuery<any, any, any>(
     ['interaction', pollId, userId, start],
     async () => {
       const { data }: { data: chatAPIResponse } = await get(
         `${API_ROOT}/chat/${pollId}/${userId}`
       )
-      const {
-        currentConversation,
-        currentConversationIndex,
-        pastConversations,
-        futureConversations,
-      } = splitConversations(
-        data.data.conversations.filter((c) => !_.isEmpty(c.context)),
-        start
-      )
-      const interaction: Interaction = {
-        userId,
-        pollId,
-        start: addHours(
-          parseISO(currentConversation.start),
-          Number(process.env.REACT_APP_UTC_OFFSET)
-        ),
-        appointments: [
-          {
-            datetime: parseDate(
-              currentConversation.context.find((c) => c.target === 'date')
-                ?.value as string,
-              currentConversation.context.find((c) => c.target === 'time')
-                ?.value as string,
-              formatISO(start)
-            ),
-            rut: currentConversation.context.find((c) => c.target === 'rut')
-              ?.value as string,
-            patientName: currentConversation.context.find(
-              (c) => c.target === 'name' || c.target === 'patient_name_1'
-            )?.value as string,
-            url: getSchedulingSystemURL(currentConversation),
-            schedulingSystem: inferSchedulingSystem(currentConversation),
-          },
-        ],
-        branch: '',
-        phone: data.data.user.phone,
-        messages: currentConversation.messages.map(
-          (message): Message => ({
-            sender: message.type === 'bot' ? 'BOT' : 'USER',
-            content: message.message,
-            timestamp: parseISO(message.timestamp),
-            type: 'TEXTO',
-          })
-        ),
-        alerts: [],
-        comments: [],
-        botName: data.data.bot.name,
-      }
-      return interaction
+      return splitInteractions(id, data)
     }
   )
 }
