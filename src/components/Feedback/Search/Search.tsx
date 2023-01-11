@@ -14,6 +14,7 @@ import { Interaction } from '../../../api/types/servicio'
 import useAnalytics from '../../../hooks/useAnalytics'
 import useSearchQuery from '../../../api/hooks/useSearchQuery'
 import { Icon } from '@iconify/react'
+import MenuUsuario from '../BarraSuperior/MenuUsuario'
 
 const Search = () => {
   const {
@@ -35,6 +36,7 @@ const Search = () => {
     <div className="Search">
       <div className="Search__topbar">
         <SearchInput showLoader={isLoading} defaultValue={searchTerm} />
+        <MenuUsuario />
       </div>
       <InteractionsTable
         data={data || []}

@@ -49,24 +49,53 @@ const useChatQuery = (
   )
 }
 
-const getSchedulingSystemURL = (
-  conversation: chatAPIConversation
-): string | undefined => {
-  return conversation.context.find((v) =>
-    ['dentalink_link', 'medilink_link'].includes(v.target)
-  )?.value
-}
-
-const inferSchedulingSystem = (
-  conversation: chatAPIConversation
-): SchedulingSystem => {
-  if (conversation.context.find((v) => v.target === 'dentalink_link')) {
-    return 'Dentalink'
+const splitInteractions = (
+  currentInteractionID: chatAPIInteractionID,
+  conversations: chatAPIConversation[],
+  phone: string,
+  botName: string
+): {
+  currentInteraction: Interaction
+  pastInteractions: Interaction[]
+  futureInteractions: Interaction[]
+} => {
+  const currentConversationIndex = conversations.findIndex((c: any) =>
+    isSameDay(parseISO(c.start), currentInteractionID.start)
+  )
+  if (currentConversationIndex < 0) {
+    return {
+      currentInteraction: conversationToInteraction(
+        currentInteractionID,
+        phone,
+        botName,
+        conversations[0]
+      ),
+      pastInteractions: [],
+      futureInteractions: conversations
+        .slice(1)
+        .map((c) =>
+          conversationToInteraction(currentInteractionID, phone, botName, c)
+        ),
+    }
   }
-  if (conversation.context.find((v) => v.target === 'medilink_link')) {
-    return 'Medilink'
+  return {
+    currentInteraction: conversationToInteraction(
+      currentInteractionID,
+      phone,
+      botName,
+      conversations[currentConversationIndex]
+    ),
+    pastInteractions: conversations
+      .slice(0, currentConversationIndex)
+      .map((c) =>
+        conversationToInteraction(currentInteractionID, phone, botName, c)
+      ),
+    futureInteractions: conversations
+      .slice(currentConversationIndex + 1)
+      .map((c) =>
+        conversationToInteraction(currentInteractionID, phone, botName, c)
+      ),
   }
-  return 'Otro'
 }
 
 const extractAppointments = (
@@ -77,7 +106,6 @@ const extractAppointments = (
   const appointmentsCount: number = Number(
     _.find(context, { target: 'n_appointments' })?.value || 1
   )
-  console.log(context)
   if (appointmentsCount > 1) {
     return Array(appointmentsCount)
       .fill(0)
@@ -149,53 +177,24 @@ const conversationToInteraction = (
   return interaction
 }
 
-const splitInteractions = (
-  currentInteractionID: chatAPIInteractionID,
-  conversations: chatAPIConversation[],
-  phone: string,
-  botName: string
-): {
-  currentInteraction: Interaction
-  pastInteractions: Interaction[]
-  futureInteractions: Interaction[]
-} => {
-  const currentConversationIndex = conversations.findIndex((c: any) =>
-    isSameDay(parseISO(c.start), currentInteractionID.start)
-  )
-  if (currentConversationIndex < 0) {
-    return {
-      currentInteraction: conversationToInteraction(
-        currentInteractionID,
-        phone,
-        botName,
-        conversations[0]
-      ),
-      pastInteractions: [],
-      futureInteractions: conversations
-        .slice(1)
-        .map((c) =>
-          conversationToInteraction(currentInteractionID, phone, botName, c)
-        ),
-    }
+const getSchedulingSystemURL = (
+  conversation: chatAPIConversation
+): string | undefined => {
+  return conversation.context.find((v) =>
+    ['dentalink_link', 'medilink_link'].includes(v.target)
+  )?.value
+}
+
+const inferSchedulingSystem = (
+  conversation: chatAPIConversation
+): SchedulingSystem => {
+  if (conversation.context.find((v) => v.target === 'dentalink_link')) {
+    return 'Dentalink'
   }
-  return {
-    currentInteraction: conversationToInteraction(
-      currentInteractionID,
-      phone,
-      botName,
-      conversations[currentConversationIndex]
-    ),
-    pastInteractions: conversations
-      .slice(0, currentConversationIndex)
-      .map((c) =>
-        conversationToInteraction(currentInteractionID, phone, botName, c)
-      ),
-    futureInteractions: conversations
-      .slice(currentConversationIndex + 1)
-      .map((c) =>
-        conversationToInteraction(currentInteractionID, phone, botName, c)
-      ),
+  if (conversation.context.find((v) => v.target === 'medilink_link')) {
+    return 'Medilink'
   }
+  return 'Otro'
 }
 
 export default useChatQuery

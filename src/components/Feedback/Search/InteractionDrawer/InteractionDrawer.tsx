@@ -32,8 +32,6 @@ const InteractionDrawer = ({
 
   const interaction = data?.currentInteraction
 
-  console.log(interaction)
-
   const history = useHistory()
   const track = useAnalytics()
 
