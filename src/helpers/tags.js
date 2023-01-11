@@ -139,6 +139,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--si',
     color: '',
   },
+  6: {
+    texto: '6',
+    titulo: '6',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: '',
+  },
   PC_PRECIO: {
     texto: 'Consulta precio',
     titulo: 'Paciente consulta por precio',
