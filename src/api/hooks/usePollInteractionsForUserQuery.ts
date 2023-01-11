@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import { chatAPIConversation, chatAPIResponse } from '../types/responses'
 import { Interaction, Message, SchedulingSystem } from '../types/servicio'
-import { get, parseDate } from './utils'
+import { get, parseAPIDate } from './utils'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -24,7 +24,7 @@ const conversationToInteraction = (
     ),
     appointments: [
       {
-        datetime: parseDate(
+        datetime: parseAPIDate(
           _.find(context, { target: 'date' })?.value as string,
           _.find(context, { target: 'time' })?.value as string,
           formatISO(start)

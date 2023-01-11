@@ -9,7 +9,7 @@ export const get = async (url: string) => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
-export const parseDate = (
+export const parseAPIDate = (
   appointmentDate: string,
   appointmentTime: string,
   referenceISODate: string

@@ -13,6 +13,7 @@ import './Search.css'
 import { Interaction } from '../../../api/types/servicio'
 import useAnalytics from '../../../hooks/useAnalytics'
 import useSearchQuery from '../../../api/hooks/useSearchQuery'
+import { Icon } from '@iconify/react'
 
 const Search = () => {
   const {
@@ -40,6 +41,17 @@ const Search = () => {
         onRowClick={selectInteraction}
         highlighted={activeInteraction}
       />
+      {!searchTerm && (
+        <p className="Search__message Search__message--instructions">
+          <Icon icon="mdi:arrow-up" /> Escribe algo para buscar
+        </p>
+      )}
+      {searchTerm && data?.length === 0 && (
+        <p className="Search__message Search__message--empty-result">
+          <Icon icon="mdi:shimmer" /> No se encontraron resultados para "
+          {searchTerm}"
+        </p>
+      )}
       <div
         className={classNames({
           Search__drawer: true,

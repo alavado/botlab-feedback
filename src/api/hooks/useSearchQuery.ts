@@ -7,7 +7,7 @@ import {
   SearchAPISingleAppointment,
 } from '../types/responses'
 import { Appointment, Interaction } from '../types/servicio'
-import { get, parseDate } from './utils'
+import { get, parseAPIDate } from './utils'
 
 const searchSingleAppointmentToInteraction = (
   appointment: SearchAPISingleAppointment
@@ -23,7 +23,7 @@ const searchSingleAppointmentToInteraction = (
     phone: appointment.phone,
     appointments: [
       {
-        datetime: parseDate(
+        datetime: parseAPIDate(
           appointment.date,
           appointment.time,
           appointment.start
@@ -58,7 +58,7 @@ const searchMultiAppointmentToInteraction = (
             `time_${index}` as keyof SearchAPIMultiAppointment
           ] as string) || ''
         return {
-          datetime: parseDate(
+          datetime: parseAPIDate(
             appointment.date_1,
             appointment_time,
             appointment.start

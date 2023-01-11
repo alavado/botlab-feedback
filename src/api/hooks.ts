@@ -1,4 +1,3 @@
-import axios from 'axios'
 import store from '../redux/store'
 import {
   Interaction,
@@ -11,40 +10,21 @@ import {
   Message,
   Comment,
   Alerta,
-  SchedulingSystem,
 } from './types/servicio'
-import {
-  parse,
-  format,
-  parseISO,
-  addHours,
-  addDays,
-  startOfDay,
-  isSameDay,
-  formatISO,
-} from 'date-fns'
+import { parse, format, parseISO, addHours, addDays } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { useQuery, useQueryClient, UseQueryResult } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/ducks'
 import { estadosInteracciones } from './estadosInteraccion'
 import {
   alertasAPIResponse,
-  chatAPIConversation,
   chatAPIResponse,
   reactionsAPIResponse,
-  SearchAPIMultiAppointment,
-  SearchAPISingleAppointment,
 } from './types/responses'
-import _ from 'lodash'
+import { get } from './hooks/utils'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
-
-const get = async (url: string) => {
-  const { login }: any = store.getState()
-  const { token } = login
-  return axios.get(url, { headers: { 'Api-Token': token } })
-}
 
 const obtenerIconoServicio = (nombre: string): string => {
   switch (nombre) {

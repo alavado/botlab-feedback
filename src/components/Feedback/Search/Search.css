@@ -7,6 +7,21 @@
   position: relative;
 }
 
+.Search__message {
+  position: absolute;
+  top: 4.5rem;
+  left: 0.5rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  opacity: 0.8;
+}
+
+.Search__message svg {
+  font-size: 1rem;
+}
+
 .Search__topbar {
   height: var(--search-topbar-height);
   display: flex;
