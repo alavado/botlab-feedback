@@ -43,7 +43,8 @@ const Search = () => {
       />
       {!searchTerm && (
         <p className="Search__message Search__message--instructions">
-          <Icon icon="mdi:arrow-up" /> Escribe algo para buscar
+          <Icon icon="mdi:arrow-up" /> Escribe para buscar por teléfono, RUT o
+          nombre de paciente
         </p>
       )}
       {searchTerm && data?.length === 0 && (
