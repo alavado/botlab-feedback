@@ -4,6 +4,7 @@ import { format, isSameDay } from 'date-fns'
 import es from 'date-fns/esm/locale/es/index.js'
 import Linkify from 'linkify-react'
 import { useEffect, useMemo, useState } from 'react'
+import uuid from 'react-uuid'
 import { Interaction, Message } from '../../../../../api/types/servicio'
 import Loader from '../../../../Loader'
 import AttachmentMessage from './AttachmentMessage'
@@ -23,7 +24,10 @@ const formatChatMessage = (message: String) => {
           <>
             <>
               {boldParts.map((part, i) => (
-                <span style={{ fontWeight: i % 2 === 0 ? 400 : 'bold' }}>
+                <span
+                  key={uuid()}
+                  style={{ fontWeight: i % 2 === 0 ? 400 : 'bold' }}
+                >
                   <Linkify
                     options={{
                       target: '_blank',
@@ -47,7 +51,7 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
   const [time, setTime] = useState(new Date())
 
   useEffect(() => {
-    const interval = setInterval(() => setTime(new Date()), 1_000)
+    const interval = setInterval(() => setTime(new Date()), 5_000)
     return () => clearInterval(interval)
   }, [])
 

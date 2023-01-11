@@ -15,21 +15,52 @@ interface chatAPIBotMessage {
 
 export type chatAPIMessage = chatAPIUserMessage | chatAPIBotMessage
 
+export type metaTarget =
+  | 'id_cita'
+  | 'rut'
+  | 'name'
+  | 'date'
+  | 'time'
+  | 'sucursal_name'
+  | 'dentalink_link'
+  | 'medilink_link'
+  | 'n_appointments'
+  | 'sucursal_name_1'
+  | 'id_cita_1'
+  | 'rut_1'
+  | 'patient_name_1'
+  | 'date_1'
+  | 'time_1'
+  | 'id_cita_2'
+  | 'rut_2'
+  | 'patient_name_2'
+  | 'date_2'
+  | 'time_2'
+  | 'id_cita_3'
+  | 'rut_3'
+  | 'patient_name_3'
+  | 'date_3'
+  | 'time_3'
+  | 'id_cita_4'
+  | 'rut_4'
+  | 'patient_name_4'
+  | 'date_4'
+  | 'time_4'
+  | 'id_cita_5'
+  | 'rut_5'
+  | 'patient_name_5'
+  | 'date_5'
+  | 'time_5'
+
+export interface chatAPIConversationContextField {
+  target: metaTarget
+  title: string
+  value: string
+}
+
 export interface chatAPIConversation {
   start: string
-  context: {
-    target:
-      | 'rut'
-      | 'name'
-      | 'patient_name_1'
-      | 'date'
-      | 'time'
-      | 'sucursal_name'
-      | 'dentalink_link'
-      | 'medilink_link'
-    title: string
-    value: string
-  }[]
+  context: chatAPIConversationContextField[]
   messages: chatAPIMessage[]
   reactions: [any]
   tags: [

@@ -5,7 +5,7 @@ import Smartphone from './Smartphone'
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router-dom'
 import useAnalytics from '../../../../hooks/useAnalytics'
-import usePollInteractionsForUserQuery from '../../../../api/hooks/usePollInteractionsForUserQuery'
+import useChatQuery from '../../../../api/hooks/useChatQuery'
 
 interface InteractionDrawerProps {
   pollId: number
@@ -24,13 +24,15 @@ const InteractionDrawer = ({
   onNextClick,
   onCloseClick,
 }: InteractionDrawerProps) => {
-  const { data, isLoading, isError } = usePollInteractionsForUserQuery({
+  const { data, isLoading, isError } = useChatQuery({
     pollId,
     userId,
     start,
   })
 
   const interaction = data?.currentInteraction
+
+  console.log(interaction)
 
   const history = useHistory()
   const track = useAnalytics()
