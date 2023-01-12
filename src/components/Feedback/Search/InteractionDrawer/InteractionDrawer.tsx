@@ -31,7 +31,9 @@ const InteractionDrawer = ({
     start,
   })
 
-  const interaction = data?.currentInteraction
+  const pastInteractions = data?.pastInteractions
+  const currentInteraction = data?.currentInteraction
+  const futureInteractions = data?.futureInteractions
 
   const history = useHistory()
   const track = useAnalytics()
@@ -75,15 +77,15 @@ const InteractionDrawer = ({
             <Icon icon="mdi:chevron-double-right" />
           </button>
           <div className="InteractionDrawer__top_bar_data">
-            {interaction ? (
+            {currentInteraction ? (
               <>
                 <span>
                   <Icon icon="mdi:user" />{' '}
-                  {interaction?.appointments[0]?.patientName}{' '}
+                  {currentInteraction?.appointments[0]?.patientName}{' '}
                 </span>{' '}
                 •
                 <span>
-                  <Icon icon="mdi:phone" /> {interaction?.phone}
+                  <Icon icon="mdi:phone" /> {currentInteraction?.phone}
                 </span>
               </>
             ) : (
@@ -102,7 +104,11 @@ const InteractionDrawer = ({
         </h2> */}
       </div>
       <div className="InteractionDrawer__phone_container">
-        <Smartphone interaction={interaction} />
+        <Smartphone
+          pastInteractions={pastInteractions}
+          currentInteraction={currentInteraction}
+          futureInteractions={futureInteractions}
+        />
       </div>
       <div className="InteractionDrawer__legacy_buttons_container">
         <button
@@ -110,7 +116,7 @@ const InteractionDrawer = ({
           onClick={() => {
             track('Feedback', 'Search', 'openChatView')
             history.push(
-              `/chat/${interaction?.pollId}/${interaction?.userId}`,
+              `/chat/${currentInteraction?.pollId}/${currentInteraction?.userId}`,
               { from: '/busqueda' }
             )
           }}
@@ -122,7 +128,7 @@ const InteractionDrawer = ({
           className="InteractionDrawer__legacy_button"
           onClick={() => {
             track('Feedback', 'Search', 'openWhatsapp')
-            openExternalLink(`https://wa.me/${interaction?.phone}`)
+            openExternalLink(`https://wa.me/${currentInteraction?.phone}`)
           }}
         >
           <Icon icon="mdi:whatsapp" />
@@ -130,17 +136,17 @@ const InteractionDrawer = ({
           <br />
           por Whatsapp
         </button>
-        {interaction?.appointments[0]?.url && (
+        {currentInteraction?.appointments[0]?.url && (
           <button
             className="InteractionDrawer__legacy_button"
             onClick={() => {
               track('Feedback', 'Search', 'openSchedulingSystem')
-              openExternalLink(interaction.appointments[0].url as string)
+              openExternalLink(currentInteraction.appointments[0].url as string)
             }}
           >
             <Icon icon="mdi:arrow-top-right" />
             Ver cita en <br />
-            {interaction?.appointments[0]?.schedulingSystem}
+            {currentInteraction?.appointments[0]?.schedulingSystem}
           </button>
         )}
       </div>

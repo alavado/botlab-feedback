@@ -47,7 +47,15 @@ const formatChatMessage = (message: String) => {
   )
 }
 
-const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
+const Smartphone = ({
+  pastInteractions,
+  currentInteraction,
+  futureInteractions,
+}: {
+  pastInteractions?: Interaction[]
+  currentInteraction?: Interaction
+  futureInteractions?: Interaction[]
+}) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
   const [time, setTime] = useState(new Date())
   const track = useAnalytics()
@@ -64,19 +72,42 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
       75 * Math.random(),
     ])
 
-  const chatBubbles: (Message | Date)[] = useMemo(() => {
-    if (!interaction || !interaction.messages) {
-      return []
-    }
-    const bubbles: (Message | Date)[] = []
-    interaction.messages.forEach((message: Message, i, arr) => {
-      if (i === 0 || !isSameDay(arr[i - 1].timestamp, message.timestamp)) {
-        bubbles.push(message.timestamp)
+  const chatBubbles: { content: Message | Date; current: boolean }[] =
+    useMemo(() => {
+      if (!currentInteraction || !currentInteraction.messages) {
+        return []
       }
-      bubbles.push(message)
-    })
-    return bubbles
-  }, [interaction])
+      const bubbles: { content: Message | Date; current: boolean }[] = []
+      pastInteractions?.forEach((interaction: Interaction) => {
+        interaction.messages?.forEach((message: Message, i, arr) => {
+          if (i === 0 || !isSameDay(arr[i - 1].timestamp, message.timestamp)) {
+            bubbles.push({ content: message.timestamp, current: false })
+          }
+          bubbles.push({ content: message, current: false })
+        })
+      })
+      currentInteraction.messages.forEach((message: Message, i, arr) => {
+        if (i === 0 || !isSameDay(arr[i - 1].timestamp, message.timestamp)) {
+          bubbles.push({ content: message.timestamp, current: true })
+        }
+        bubbles.push({ content: message, current: true })
+      })
+      futureInteractions?.forEach((interaction: Interaction) => {
+        interaction.messages?.forEach((message: Message, i, arr) => {
+          if (i === 0 || !isSameDay(arr[i - 1].timestamp, message.timestamp)) {
+            bubbles.push({ content: message.timestamp, current: false })
+          }
+          bubbles.push({ content: message, current: false })
+        })
+      })
+      return bubbles
+    }, [pastInteractions, currentInteraction, futureInteractions])
+
+  useEffect(() => {
+    document
+      .querySelector('.Smartphone__date_bubble--current')
+      ?.scrollIntoView()
+  }, [currentInteraction?.userId])
 
   return (
     <div
@@ -122,9 +153,9 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
               {format(time, 'H:mm')}
             </div>
             <div className="Smartphone__camera">
-              {interaction ? (
+              {currentInteraction ? (
                 <>
-                  {interaction?.pollId} / {interaction?.userId}
+                  {currentInteraction?.pollId} / {currentInteraction?.userId}
                 </>
               ) : (
                 <>&nbsp;</>
@@ -144,7 +175,7 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
                   '--avatar-hue':
                     360 *
                     (((
-                      interaction?.appointments?.[0].patientName.toLowerCase() ??
+                      currentInteraction?.appointments?.[0].patientName.toLowerCase() ??
                       'a'
                     ).charCodeAt(0) -
                       97) /
@@ -152,29 +183,30 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
                 } as React.CSSProperties
               }
             >
-              {interaction?.appointments?.[0].patientName[0] || (
+              {currentInteraction?.appointments?.[0].patientName[0] || (
                 <Loader color="white" />
               )}
             </div>
             <div className="Smartphone__receiver_name">
               {(
                 <>
-                  {interaction?.appointments?.[0].patientName}{' '}
-                  {interaction && interaction.appointments.length > 1 && (
-                    <span>+{interaction.appointments.length - 1}</span>
-                  )}
+                  {currentInteraction?.appointments?.[0].patientName}{' '}
+                  {currentInteraction &&
+                    currentInteraction.appointments.length > 1 && (
+                      <span>+{currentInteraction.appointments.length - 1}</span>
+                    )}
                 </>
               ) || <span>&nbsp;</span>}
-              {interaction?.appointments?.[0].patientName && (
+              {currentInteraction?.appointments?.[0].patientName && (
                 <button
                   className="Smartphone__copy_button"
                   onClick={() => {
                     track('Feedback', 'Smartphone', 'copy', {
                       property: 'patientName',
-                      value: interaction?.appointments?.[0].patientName,
+                      value: currentInteraction?.appointments?.[0].patientName,
                     })
                     navigator.clipboard.writeText(
-                      interaction.appointments[0].patientName
+                      currentInteraction.appointments[0].patientName
                     )
                   }}
                 >
@@ -183,20 +215,24 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
               )}
             </div>
             <div className="Smartphone__receiver_status">
-              {interaction?.phone && (
+              {currentInteraction?.phone && (
                 <>
-                  <Icon icon="mdi:phone" /> {interaction?.phone}
+                  <span className="Smartphone__receiver_phone">
+                    <Icon icon="mdi:phone" /> {currentInteraction?.phone}
+                  </span>
                 </>
               )}
-              {interaction?.phone && (
+              {currentInteraction?.phone && (
                 <button
                   className="Smartphone__copy_button"
                   onClick={() => {
                     track('Feedback', 'Smartphone', 'copy', {
                       property: 'phone',
-                      value: interaction?.phone,
+                      value: currentInteraction?.phone,
                     })
-                    navigator.clipboard.writeText(interaction.phone as string)
+                    navigator.clipboard.writeText(
+                      currentInteraction.phone as string
+                    )
                   }}
                 >
                   <Icon icon="mdi:content-copy" /> Copiar
@@ -207,28 +243,38 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
           </div>
         </div>
         <div className="Smartphone__messages_container">
-          {interaction ? (
+          {currentInteraction ? (
             chatBubbles.map((bubble) => {
-              if ('content' in bubble) {
+              if ('content' in bubble.content) {
                 return (
                   <div
                     className={classNames({
                       Smartphone__message: true,
-                      'Smartphone__message--outbound': bubble.sender === 'BOT',
+                      'Smartphone__message--outbound':
+                        bubble.content.sender === 'BOT',
+                      'Smartphone__message--focused': bubble.current,
+                      'Smartphone__message--unfocused': !bubble.current,
                     })}
                   >
                     <span className="Smartphone__message_content">
-                      {formatChatMessage(bubble.content)}
+                      {formatChatMessage(bubble.content.content)}
                     </span>
                     <span className="Smartphone__message_time">
-                      {format(bubble.timestamp, 'H:mm')}
+                      {format(bubble.content.timestamp, 'H:mm')}
                     </span>
                   </div>
                 )
               } else {
                 return (
-                  <div className="Smartphone__date_bubble">
-                    {format(bubble, 'd MMMM yyyy', { locale: es })}
+                  <div
+                    className={classNames({
+                      Smartphone__date_bubble: true,
+                      'Smartphone__date_bubble--current': bubble.current,
+                    })}
+                  >
+                    {format(bubble.content, 'iiii d MMMM yyyy', {
+                      locale: es,
+                    })}
                   </div>
                 )
               }

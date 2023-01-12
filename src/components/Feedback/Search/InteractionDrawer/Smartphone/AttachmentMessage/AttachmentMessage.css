@@ -2,7 +2,7 @@
   color: var(--whatsapp-color-texto);
   display: flex;
   align-items: center;
-  background: var(--whatsapp-fondo-mensajes-entrantes);
+  background: var(--whatsapp-fondo-mensajes-salientes);
   filter: brightness(96%);
   width: 100%;
   padding: 0.35rem 0.25rem;
