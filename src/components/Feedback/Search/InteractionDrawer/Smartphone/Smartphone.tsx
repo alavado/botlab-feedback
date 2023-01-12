@@ -6,6 +6,7 @@ import Linkify from 'linkify-react'
 import { useEffect, useMemo, useState } from 'react'
 import uuid from 'react-uuid'
 import { Interaction, Message } from '../../../../../api/types/servicio'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 import Loader from '../../../../Loader'
 import AttachmentMessage from './AttachmentMessage'
 import { hasAttachment } from './helpers'
@@ -49,6 +50,7 @@ const formatChatMessage = (message: String) => {
 const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
   const [time, setTime] = useState(new Date())
+  const track = useAnalytics()
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 5_000)
@@ -88,23 +90,31 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
       <div className="Smartphone__screen">
         <button
           className="Smartphone__button Smartphone__button-l Smartphone__button-l1"
-          onClick={setRandomPhoneColor}
+          onClick={() => {
+            track('Feedback', 'Smartphone', 'colorRandomizer')
+            setRandomPhoneColor()
+          }}
         />
         <button
           className="Smartphone__button Smartphone__button-l Smartphone__button-l2"
-          onClick={() =>
+          onClick={() => {
+            track('Feedback', 'Smartphone', 'colorLightningUp')
             setPhoneColor((c) => [c[0], c[1], Math.min(75, c[2] + 5)])
-          }
+          }}
         />
         <button
           className="Smartphone__button Smartphone__button-l Smartphone__button-l3"
-          onClick={() =>
+          onClick={() => {
+            track('Feedback', 'Smartphone', 'colorLightningDown')
             setPhoneColor((c) => [c[0], c[1], Math.min(75, c[2] - 5)])
-          }
+          }}
         />
         <button
           className="Smartphone__button Smartphone__button-r Smartphone__button-r1"
-          onClick={() => setPhoneColor([0, 0, 10])}
+          onClick={() => {
+            track('Feedback', 'Smartphone', 'colorReset')
+            setPhoneColor([0, 0, 10])
+          }}
         />
         <div className="Smartphone__app_bar">
           <div className="Smartphone__nav_bar">
@@ -158,11 +168,15 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
               {interaction?.appointments?.[0].patientName && (
                 <button
                   className="Smartphone__copy_button"
-                  onClick={() =>
+                  onClick={() => {
+                    track('Feedback', 'Smartphone', 'copy', {
+                      property: 'patientName',
+                      value: interaction?.appointments?.[0].patientName,
+                    })
                     navigator.clipboard.writeText(
                       interaction.appointments[0].patientName
                     )
-                  }
+                  }}
                 >
                   <Icon icon="mdi:content-copy" /> Copiar
                 </button>
@@ -177,9 +191,13 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
               {interaction?.phone && (
                 <button
                   className="Smartphone__copy_button"
-                  onClick={() =>
+                  onClick={() => {
+                    track('Feedback', 'Smartphone', 'copy', {
+                      property: 'phone',
+                      value: interaction?.phone,
+                    })
                     navigator.clipboard.writeText(interaction.phone as string)
-                  }
+                  }}
                 >
                   <Icon icon="mdi:content-copy" /> Copiar
                 </button>
