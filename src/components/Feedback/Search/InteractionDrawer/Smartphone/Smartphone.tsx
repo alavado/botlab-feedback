@@ -147,15 +147,42 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
               )}
             </div>
             <div className="Smartphone__receiver_name">
-              {interaction?.appointments?.[0].patientName || (
-                <span>&nbsp;</span>
+              {(
+                <>
+                  {interaction?.appointments?.[0].patientName}{' '}
+                  {interaction && interaction.appointments.length > 1 && (
+                    <span>+{interaction.appointments.length - 1}</span>
+                  )}
+                </>
+              ) || <span>&nbsp;</span>}
+              {interaction?.appointments?.[0].patientName && (
+                <button
+                  className="Smartphone__copy_button"
+                  onClick={() =>
+                    navigator.clipboard.writeText(
+                      interaction.appointments[0].patientName
+                    )
+                  }
+                >
+                  <Icon icon="mdi:content-copy" /> Copiar
+                </button>
               )}
             </div>
             <div className="Smartphone__receiver_status">
-              {interaction?.botName && (
+              {interaction?.phone && (
                 <>
                   <Icon icon="mdi:phone" /> {interaction?.phone}
                 </>
+              )}
+              {interaction?.phone && (
+                <button
+                  className="Smartphone__copy_button"
+                  onClick={() =>
+                    navigator.clipboard.writeText(interaction.phone as string)
+                  }
+                >
+                  <Icon icon="mdi:content-copy" /> Copiar
+                </button>
               )}
             </div>
             <div className="Smartphone__actions"></div>
