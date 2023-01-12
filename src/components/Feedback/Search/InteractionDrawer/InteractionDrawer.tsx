@@ -109,7 +109,10 @@ const InteractionDrawer = ({
           className="InteractionDrawer__legacy_button"
           onClick={() => {
             track('Feedback', 'Search', 'openChatView')
-            history.push(`/chat/${interaction?.pollId}/${interaction?.userId}`)
+            history.push(
+              `/chat/${interaction?.pollId}/${interaction?.userId}`,
+              { from: '/busqueda' }
+            )
           }}
         >
           <Icon icon="mdi:cellphone" />
