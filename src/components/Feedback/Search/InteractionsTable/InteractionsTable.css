@@ -88,9 +88,16 @@
   transition: all 0.1s ease;
 }
 
+.InteractionsTable__copy_div span {
+  border-bottom: 1px dashed transparent;
+}
+
+.InteractionsTable__copy_div:hover span {
+  border-bottom: 1px dashed var(--color-texto);
+}
+
 .InteractionsTable__copy_div:has(.InteractionsTable__copy_div_button:active)
   span {
-  box-shadow: 0 0 0 0.1rem var(--color-secundario);
   transition: all 0.1s ease;
 }
 

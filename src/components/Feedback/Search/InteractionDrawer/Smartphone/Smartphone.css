@@ -149,6 +149,7 @@
   font-weight: 600;
   background-color: hsl(var(--avatar-hue), 65%, 56%);
   color: var(--color-texto-claro);
+  text-shadow: 0 0 1px var(--color-sombras);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,21 +173,29 @@
   position: relative;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
   max-width: 100%;
+  border-bottom: 1px dashed transparent;
+}
+
+.Smartphone__receiver_name:hover {
+  border-bottom: 1px dashed var(--color-texto);
 }
 
 .Smartphone__receiver_status {
   grid-row: 2;
   grid-column: 2;
   font-size: 0.65rem;
-  opacity: 0.75;
   place-self: start start;
   display: flex;
   align-items: center;
   gap: 0.15rem;
   padding-right: 0.25rem;
   position: relative;
+  border-bottom: 1px dashed transparent;
+}
+
+.Smartphone__receiver_status:hover {
+  border-bottom: 1px dashed var(--color-texto);
 }
 
 .Smartphone__copy_button {
@@ -202,7 +211,7 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  color: var(--color-principal);
+  color: var(--color-texto);
   background-color: var(--color-fila-destacada);
   box-shadow: 0 0.05rem 0.1rem var(--color-sombras);
   padding: 0.25rem;

@@ -13,37 +13,49 @@ import { useHistory } from 'react-router'
 import { toggleDebugging } from '../../../../../redux/ducks/cero'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 
-const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConversacion, actualizarMensajes, nombreBot }) => {
-
-  const { chatExpandido } = useSelector(state => state.opciones)
+const CelularWhatsapp = ({
+  conversaciones,
+  indiceConversacion,
+  seleccionarConversacion,
+  actualizarMensajes,
+  nombrePaciente,
+  telefono,
+}) => {
+  const { chatExpandido } = useSelector((state) => state.opciones)
   const contenedorMensajes = useRef()
   const dispatch = useDispatch()
   const history = useHistory()
   const track = useAnalytics()
 
   const todosLosMensajes = useMemo(() => {
-    return conversaciones ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], []) : []
+    return conversaciones
+      ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], [])
+      : []
   }, [conversaciones])
 
-  const irAConversacion = indice => {
+  const irAConversacion = (indice) => {
     if (indice !== indiceConversacion) {
       track('Feedback', 'Chat', 'clickEnConversacion')
       seleccionarConversacion(indice)
-      const conversacion = document.getElementById(`contenedor-conversacion-${indice}`)
+      const conversacion = document.getElementById(
+        `contenedor-conversacion-${indice}`
+      )
       conversacion.scrollIntoView()
     }
   }
 
   useEffect(() => {
     if (conversaciones?.length > 0) {
-      const conversacion = document.getElementById(`contenedor-conversacion-${conversaciones.length - 1}`)
+      const conversacion = document.getElementById(
+        `contenedor-conversacion-${conversaciones.length - 1}`
+      )
       conversacion.scrollIntoView()
       contenedorMensajes.current.focus({ preventScroll: true })
     }
   }, [conversaciones])
 
   useEffect(() => {
-    const teclasMagicas = e => {
+    const teclasMagicas = (e) => {
       if (e.code === 'Digit0') {
         dispatch(toggleDebugging())
       }
@@ -53,10 +65,12 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
   }, [dispatch])
 
   return (
-    <div className={classNames({
-      CelularWhatsapp: true,
-      'CelularWhatsapp--expandido': chatExpandido
-    })}>
+    <div
+      className={classNames({
+        CelularWhatsapp: true,
+        'CelularWhatsapp--expandido': chatExpandido,
+      })}
+    >
       {/* <SelectorConversacion
         conversaciones={conversaciones}
         indiceConversacionSeleccionada={indiceConversacion}
@@ -70,7 +84,7 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
           <button
             className={classNames({
               CelularWhatsapp__boton_encoger: true,
-              'CelularWhatsapp__boton_encoger--visible': chatExpandido
+              'CelularWhatsapp__boton_encoger--visible': chatExpandido,
             })}
             title="Vista compacta"
             onClick={() => dispatch(fijaChatExpandido(false))}
@@ -81,50 +95,54 @@ const CelularWhatsapp = ({ conversaciones, indiceConversacion, seleccionarConver
           <BarraAppCelular
             mensajes={todosLosMensajes}
             actualizarMensajes={actualizarMensajes}
-            nombreBot={nombreBot}
+            nombrePaciente={nombrePaciente}
+            telefono={telefono}
           />
           <div
             className="CelularWhatsapp__contenedor_mensajes"
             ref={contenedorMensajes}
             tabIndex={0}
           >
-            {conversaciones
-              ? conversaciones.map((c, ic) => {
-                  const mensajes = c.messages
-                  return (
-                    <div
-                      key={`contenedor-conversacion-${ic}`}
-                      id={`contenedor-conversacion-${ic}`}
-                      className={classNames({
-                        "CelularWhatsapp__contenedor_conversacion": true,
-                        "CelularWhatsapp__contenedor_conversacion--seleccionada": ic === indiceConversacion,
-                      })}
-                      title={ic === indiceConversacion ? '' : 'Ver conversación'}
-                      onClick={() => {
-                        if (ic !== indiceConversacion) {
-                          track('Feedback', 'Chat', 'clickEnOtraConversacion')
-                          seleccionarConversacion(ic)
-                        }
-                      }}
-                    >
-                      {mensajes.length > 0
-                        ? mensajes.map((mensaje, i) => (
-                          <MensajeWhatsapp
-                            mensaje={mensaje}
-                            mensajes={mensajes}
-                            posicion={i}
-                            key={`mensaje-${i}`}
-                          />
-                          ))
-                        : <p className="CelularWhatsapp__conversacion_vacia">
-                            Esta conversación todavía no contiene mensajes
-                          </p>
+            {conversaciones ? (
+              conversaciones.map((c, ic) => {
+                const mensajes = c.messages
+                return (
+                  <div
+                    key={`contenedor-conversacion-${ic}`}
+                    id={`contenedor-conversacion-${ic}`}
+                    className={classNames({
+                      CelularWhatsapp__contenedor_conversacion: true,
+                      'CelularWhatsapp__contenedor_conversacion--seleccionada':
+                        ic === indiceConversacion,
+                    })}
+                    title={ic === indiceConversacion ? '' : 'Ver conversación'}
+                    onClick={() => {
+                      if (ic !== indiceConversacion) {
+                        track('Feedback', 'Chat', 'clickEnOtraConversacion')
+                        seleccionarConversacion(ic)
                       }
-                    </div>
-                  )
-                })
-              : <LoaderMensajes />
-            }
+                    }}
+                  >
+                    {mensajes.length > 0 ? (
+                      mensajes.map((mensaje, i) => (
+                        <MensajeWhatsapp
+                          mensaje={mensaje}
+                          mensajes={mensajes}
+                          posicion={i}
+                          key={`mensaje-${i}`}
+                        />
+                      ))
+                    ) : (
+                      <p className="CelularWhatsapp__conversacion_vacia">
+                        Esta conversación todavía no contiene mensajes
+                      </p>
+                    )}
+                  </div>
+                )
+              })
+            ) : (
+              <LoaderMensajes />
+            )}
           </div>
         </div>
       </div>
