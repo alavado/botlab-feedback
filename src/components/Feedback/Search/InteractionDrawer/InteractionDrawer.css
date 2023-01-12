@@ -65,6 +65,15 @@
   min-width: 5rem;
 }
 
+.InteractionDrawer__legacy_button:hover {
+  box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
+  filter: brightness(110%);
+}
+
+.InteractionDrawer__legacy_button:active {
+  filter: brightness(130%);
+}
+
 .InteractionDrawer__legacy_button svg {
   font-size: 1.35rem;
 }

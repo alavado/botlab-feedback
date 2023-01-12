@@ -6,6 +6,7 @@ import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router-dom'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import useChatQuery from '../../../../api/hooks/useChatQuery'
+import Loader from '../../../Loader'
 
 interface InteractionDrawerProps {
   pollId: number
@@ -74,14 +75,20 @@ const InteractionDrawer = ({
             <Icon icon="mdi:chevron-double-right" />
           </button>
           <div className="InteractionDrawer__top_bar_data">
-            <span>
-              <Icon icon="mdi:user" />{' '}
-              {interaction?.appointments[0]?.patientName}{' '}
-            </span>{' '}
-            •
-            <span>
-              <Icon icon="mdi:phone" /> {interaction?.phone}
-            </span>
+            {interaction ? (
+              <>
+                <span>
+                  <Icon icon="mdi:user" />{' '}
+                  {interaction?.appointments[0]?.patientName}{' '}
+                </span>{' '}
+                •
+                <span>
+                  <Icon icon="mdi:phone" /> {interaction?.phone}
+                </span>
+              </>
+            ) : (
+              <Loader color="var(--color-texto)" />
+            )}
           </div>
           {/* <button onClick={onPreviousClick}>anterior</button>
           <button onClick={onNextClick}>siguiente</button> */}

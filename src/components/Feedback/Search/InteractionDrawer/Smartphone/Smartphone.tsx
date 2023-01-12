@@ -112,7 +112,13 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
               {format(time, 'H:mm')}
             </div>
             <div className="Smartphone__camera">
-              {interaction?.pollId} / {interaction?.userId}
+              {interaction ? (
+                <>
+                  {interaction?.pollId} / {interaction?.userId}
+                </>
+              ) : (
+                <>&nbsp;</>
+              )}
             </div>
             <div className="Smartphone__nav_bar_icons">
               <Icon icon="mdi:wifi" />
@@ -122,12 +128,14 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
           </div>
           <div className="Smartphone__actions_bar">
             <div className="Smartphone__avatar">
-              {interaction?.botName?.[0]}
+              {interaction?.botName?.[0] || <Loader color="white" />}
             </div>
             <div className="Smartphone__receiver_name">
-              {interaction?.botName || '...'}
+              {interaction?.botName || <span>&nbsp;</span>}
             </div>
-            <div className="Smartphone__receiver_status">en línea</div>
+            <div className="Smartphone__receiver_status">
+              {interaction?.botName && <>en línea</>}
+            </div>
             <div className="Smartphone__actions"></div>
           </div>
         </div>
@@ -159,7 +167,10 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
               }
             })
           ) : (
-            <Loader color="var(--color-principal)" />
+            <div className="Smartphone__loading_message">
+              <Loader color="var(--color-principal)" />
+              <p>Cargando mensajes...</p>
+            </div>
           )}
         </div>
       </div>

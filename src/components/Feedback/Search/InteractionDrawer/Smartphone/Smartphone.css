@@ -279,6 +279,15 @@
   z-index: 2;
 }
 
+.Smartphone__loading_message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 0.25rem;
+  font-size: 0.6rem;
+}
+
 @keyframes Smartphone__message {
   0% {
     opacity: 0;
