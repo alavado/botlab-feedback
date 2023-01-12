@@ -138,7 +138,7 @@ const InteractionDrawer = ({
               openExternalLink(interaction.appointments[0].url as string)
             }}
           >
-            <Icon icon="mdi:open-in-new" />
+            <Icon icon="mdi:arrow-top-right" />
             Ver cita en <br />
             {interaction?.appointments[0]?.schedulingSystem}
           </button>
