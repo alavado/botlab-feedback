@@ -213,7 +213,7 @@ const AccionesChat = ({ telefono, link }) => {
               className="AccionesChat__icono_boton"
               icon="mdi:whatsapp"
             />
-            Chatear por Whatsapp
+            Contactar por Whatsapp
           </button>
           {link && (
             <button

@@ -123,8 +123,9 @@ const InteractionDrawer = ({
           }}
         >
           <Icon icon="mdi:whatsapp" />
-          Chatear en <br />
-          Whatsapp
+          Contactar
+          <br />
+          por Whatsapp
         </button>
         {interaction?.appointments[0]?.url && (
           <button

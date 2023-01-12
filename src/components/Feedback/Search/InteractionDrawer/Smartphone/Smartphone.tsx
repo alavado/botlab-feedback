@@ -127,14 +127,36 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
             </div>
           </div>
           <div className="Smartphone__actions_bar">
-            <div className="Smartphone__avatar">
-              {interaction?.botName?.[0] || <Loader color="white" />}
+            <div
+              className="Smartphone__avatar"
+              style={
+                {
+                  '--avatar-hue':
+                    360 *
+                    (((
+                      interaction?.appointments?.[0].patientName.toLowerCase() ??
+                      'a'
+                    ).charCodeAt(0) -
+                      97) /
+                      25),
+                } as React.CSSProperties
+              }
+            >
+              {interaction?.appointments?.[0].patientName[0] || (
+                <Loader color="white" />
+              )}
             </div>
             <div className="Smartphone__receiver_name">
-              {interaction?.botName || <span>&nbsp;</span>}
+              {interaction?.appointments?.[0].patientName || (
+                <span>&nbsp;</span>
+              )}
             </div>
             <div className="Smartphone__receiver_status">
-              {interaction?.botName && <>en línea</>}
+              {interaction?.botName && (
+                <>
+                  <Icon icon="mdi:phone" /> {interaction?.phone}
+                </>
+              )}
             </div>
             <div className="Smartphone__actions"></div>
           </div>
@@ -147,7 +169,7 @@ const Smartphone = ({ interaction }: { interaction?: Interaction }) => {
                   <div
                     className={classNames({
                       Smartphone__message: true,
-                      'Smartphone__message--outbound': bubble.sender === 'USER',
+                      'Smartphone__message--outbound': bubble.sender === 'BOT',
                     })}
                   >
                     <span className="Smartphone__message_content">
