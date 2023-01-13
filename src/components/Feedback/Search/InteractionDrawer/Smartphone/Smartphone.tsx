@@ -11,6 +11,7 @@ import Loader from '../../../../Loader'
 import AttachmentMessage from './AttachmentMessage'
 import { hasAttachment } from './helpers'
 import './Smartphone.css'
+import SmartphoneNavBar from './SmartphoneNavBar'
 
 const formatChatMessage = (message: String) => {
   if (hasAttachment(message)) {
@@ -57,13 +58,7 @@ const Smartphone = ({
   futureInteractions?: Interaction[]
 }) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
-  const [time, setTime] = useState(new Date())
   const track = useAnalytics()
-
-  useEffect(() => {
-    const interval = setInterval(() => setTime(new Date()), 5_000)
-    return () => clearInterval(interval)
-  }, [])
 
   const setRandomPhoneColor = () =>
     setPhoneColor([
@@ -148,25 +143,10 @@ const Smartphone = ({
           }}
         />
         <div className="Smartphone__app_bar">
-          <div className="Smartphone__nav_bar">
-            <div className="Smartphone__nav_bar_time">
-              {format(time, 'H:mm')}
-            </div>
-            <div className="Smartphone__camera">
-              {currentInteraction ? (
-                <>
-                  {currentInteraction?.pollId} / {currentInteraction?.userId}
-                </>
-              ) : (
-                <>&nbsp;</>
-              )}
-            </div>
-            <div className="Smartphone__nav_bar_icons">
-              <Icon icon="mdi:wifi" />
-              <Icon icon="mdi:signal" />
-              <Icon icon="mdi:battery" />
-            </div>
-          </div>
+          <SmartphoneNavBar
+            pollId={currentInteraction?.pollId}
+            userId={currentInteraction?.userId}
+          />
           <div className="Smartphone__actions_bar">
             <div
               className="Smartphone__avatar"

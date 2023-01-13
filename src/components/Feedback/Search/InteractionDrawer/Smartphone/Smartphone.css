@@ -92,42 +92,6 @@
   z-index: 2;
 }
 
-.Smartphone__camera {
-  position: absolute;
-  width: 40%;
-  background-color: black;
-  left: calc(50% - 40% / 2);
-  top: 0;
-  padding: 0.25rem;
-  display: flex;
-  justify-content: center;
-  border-radius: 0 0 0.75rem 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.45rem;
-}
-
-.Smartphone__nav_bar {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.65rem;
-  padding: 0 1.1rem;
-  height: 1.25rem;
-  align-items: center;
-}
-
-.Smartphone__nav_bar_time {
-  font-weight: 600;
-  opacity: 0.9;
-  font-size: 0.55rem;
-}
-
-.Smartphone__nav_bar_icons {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
 .Smartphone__actions_bar {
   flex: 1;
   display: flex;

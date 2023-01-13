@@ -1,0 +1,35 @@
+.SmartphoneNavBar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  padding: 0 1.1rem;
+  height: 1.25rem;
+  align-items: center;
+}
+
+.SmartphoneNavBar__time {
+  font-weight: 600;
+  opacity: 0.9;
+  font-size: 0.55rem;
+}
+
+.SmartphoneNavBar__camera {
+  position: absolute;
+  width: 40%;
+  background-color: black;
+  left: calc(50% - 40% / 2);
+  top: 0;
+  padding: 0.25rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 0 0 0.75rem 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.45rem;
+}
+
+.SmartphoneNavBar__icons {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
