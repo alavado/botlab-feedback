@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { format, isSameDay } from 'date-fns'
 import es from 'date-fns/esm/locale/es/index.js'
@@ -11,7 +10,8 @@ import Loader from '../../../../Loader'
 import AttachmentMessage from './AttachmentMessage'
 import { hasAttachment } from './helpers'
 import './Smartphone.css'
-import SmartphoneNavBar from './SmartphoneNavBar'
+import SmartphoneActionBar from './SmartphoneActionBar'
+import SmartphoneNavBar from './SmartphoneStatusBar'
 
 const formatChatMessage = (message: String) => {
   if (hasAttachment(message)) {
@@ -147,84 +147,14 @@ const Smartphone = ({
             pollId={currentInteraction?.pollId}
             userId={currentInteraction?.userId}
           />
-          <div className="Smartphone__actions_bar">
-            <div
-              className="Smartphone__avatar"
-              style={
-                {
-                  '--avatar-hue':
-                    360 *
-                    (((
-                      currentInteraction?.appointments?.[0].patientName.toLowerCase() ??
-                      'a'
-                    ).charCodeAt(0) -
-                      97) /
-                      25),
-                } as React.CSSProperties
-              }
-            >
-              {currentInteraction?.appointments?.[0].patientName[0] || (
-                <Loader color="white" />
-              )}
-            </div>
-            <div className="Smartphone__receiver_name">
-              {(
-                <>
-                  {currentInteraction?.appointments?.[0].patientName}{' '}
-                  {currentInteraction &&
-                    currentInteraction.appointments.length > 1 && (
-                      <span>+{currentInteraction.appointments.length - 1}</span>
-                    )}
-                </>
-              ) || <span>&nbsp;</span>}
-              {currentInteraction?.appointments?.[0].patientName && (
-                <button
-                  className="Smartphone__copy_button"
-                  onClick={() => {
-                    track('Feedback', 'Smartphone', 'copy', {
-                      property: 'patientName',
-                      value: currentInteraction?.appointments?.[0].patientName,
-                    })
-                    navigator.clipboard.writeText(
-                      currentInteraction.appointments[0].patientName
-                    )
-                  }}
-                >
-                  <Icon icon="mdi:content-copy" /> Copiar
-                </button>
-              )}
-            </div>
-            <div className="Smartphone__receiver_status">
-              {currentInteraction?.phone && (
-                <>
-                  <span className="Smartphone__receiver_phone">
-                    <Icon icon="mdi:phone" /> {currentInteraction?.phone}
-                  </span>
-                </>
-              )}
-              {currentInteraction?.phone && (
-                <button
-                  className="Smartphone__copy_button"
-                  onClick={() => {
-                    track('Feedback', 'Smartphone', 'copy', {
-                      property: 'phone',
-                      value: currentInteraction?.phone,
-                    })
-                    navigator.clipboard.writeText(
-                      currentInteraction.phone as string
-                    )
-                  }}
-                >
-                  <Icon icon="mdi:content-copy" /> Copiar
-                </button>
-              )}
-            </div>
-            <div className="Smartphone__actions"></div>
-          </div>
+          <SmartphoneActionBar
+            contactName={currentInteraction?.appointments?.[0].patientName}
+            phone={currentInteraction?.phone}
+          />
         </div>
         <div className="Smartphone__messages_container">
           {currentInteraction ? (
-            chatBubbles.map((bubble) => {
+            chatBubbles.map((bubble, i: number) => {
               if ('content' in bubble.content) {
                 return (
                   <div
@@ -235,6 +165,7 @@ const Smartphone = ({
                       'Smartphone__message--focused': bubble.current,
                       'Smartphone__message--unfocused': !bubble.current,
                     })}
+                    key={`smartphone-bubble-${i}`}
                   >
                     <span className="Smartphone__message_content">
                       {formatChatMessage(bubble.content.content)}
@@ -251,6 +182,7 @@ const Smartphone = ({
                       Smartphone__date_bubble: true,
                       'Smartphone__date_bubble--current': bubble.current,
                     })}
+                    key={`smartphone-bubble-${i}`}
                   >
                     {format(bubble.content, 'iiii d MMMM yyyy', {
                       locale: es,

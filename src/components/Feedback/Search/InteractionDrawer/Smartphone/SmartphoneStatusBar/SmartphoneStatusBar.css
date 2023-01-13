@@ -1,4 +1,4 @@
-.SmartphoneNavBar {
+.SmartphoneStatusBar {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -8,13 +8,13 @@
   align-items: center;
 }
 
-.SmartphoneNavBar__time {
+.SmartphoneStatusBar__time {
   font-weight: 600;
   opacity: 0.9;
   font-size: 0.55rem;
 }
 
-.SmartphoneNavBar__camera {
+.SmartphoneStatusBar__camera {
   position: absolute;
   width: 40%;
   background-color: black;
@@ -28,7 +28,7 @@
   font-size: 0.45rem;
 }
 
-.SmartphoneNavBar__icons {
+.SmartphoneStatusBar__icons {
   display: flex;
   align-items: center;
   gap: 0.25rem;

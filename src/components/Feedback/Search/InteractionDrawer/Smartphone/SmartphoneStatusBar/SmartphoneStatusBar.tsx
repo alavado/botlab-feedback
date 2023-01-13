@@ -1,9 +1,9 @@
 import { Icon } from '@iconify/react'
 import { format } from 'date-fns'
 import { useEffect, useState } from 'react'
-import './SmartphoneNavBar.css'
+import './SmartphoneStatusBar.css'
 
-const SmartphoneNavBar = ({
+const SmartphoneStatusBar = ({
   pollId,
   userId,
 }: {
@@ -17,9 +17,9 @@ const SmartphoneNavBar = ({
     return () => clearInterval(interval)
   }, [])
   return (
-    <div className="SmartphoneNavBar">
-      <div className="SmartphoneNavBar__time">{format(time, 'H:mm')}</div>
-      <div className="SmartphoneNavBar__camera">
+    <div className="SmartphoneStatusBar">
+      <div className="SmartphoneStatusBar__time">{format(time, 'H:mm')}</div>
+      <div className="SmartphoneStatusBar__camera">
         {pollId ? (
           <>
             {pollId} / {userId}
@@ -28,7 +28,7 @@ const SmartphoneNavBar = ({
           <>&nbsp;</>
         )}
       </div>
-      <div className="SmartphoneNavBar__icons">
+      <div className="SmartphoneStatusBar__icons">
         <Icon icon="mdi:wifi" />
         <Icon icon="mdi:signal" />
         <Icon icon="mdi:battery" />
@@ -37,4 +37,4 @@ const SmartphoneNavBar = ({
   )
 }
 
-export default SmartphoneNavBar
+export default SmartphoneStatusBar

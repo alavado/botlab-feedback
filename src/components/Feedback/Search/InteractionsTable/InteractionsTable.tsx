@@ -127,8 +127,12 @@ const columns: ColumnDef<Interaction, any>[] = [
       info
         .getValue()
         .split(multiAppointmentDataSeparator)
-        .map((v: string) => (
-          <CopyDiv className="InteractionsTable__multi_cell" text={v} />
+        .map((v: string, i: number) => (
+          <CopyDiv
+            className="InteractionsTable__multi_cell"
+            text={v}
+            key={`cell-rut-${i}`}
+          />
         )),
   },
   {
@@ -143,8 +147,12 @@ const columns: ColumnDef<Interaction, any>[] = [
       info
         .getValue()
         .split(multiAppointmentDataSeparator)
-        .map((v: string) => (
-          <CopyDiv className="InteractionsTable__multi_cell" text={v} />
+        .map((v: string, i: number) => (
+          <CopyDiv
+            className="InteractionsTable__multi_cell"
+            text={v}
+            key={`cell-patient-${i}`}
+          />
         )),
   },
   {
@@ -172,11 +180,24 @@ const columns: ColumnDef<Interaction, any>[] = [
       info
         .getValue()
         .split(multiAppointmentDataSeparator)
-        .map((v: string) => {
+        .map((v: string, i: number) => {
           if (v === '00:00') {
-            return <div className="InteractionsTable__multi_cell">-</div>
+            return (
+              <div
+                className="InteractionsTable__multi_cell"
+                key={`cell-app_time-${i}`}
+              >
+                -
+              </div>
+            )
           }
-          return <CopyDiv className="InteractionsTable__multi_cell" text={v} />
+          return (
+            <CopyDiv
+              className="InteractionsTable__multi_cell"
+              text={v}
+              key={`cell-app_time-${i}`}
+            />
+          )
         }),
   },
   {
@@ -189,8 +210,12 @@ const columns: ColumnDef<Interaction, any>[] = [
       info
         .getValue()
         .split(multiAppointmentDataSeparator)
-        .map((v: string) => (
-          <CopyDiv className="InteractionsTable__multi_cell" text={v} />
+        .map((v: string, i: number) => (
+          <CopyDiv
+            className="InteractionsTable__multi_cell"
+            text={v}
+            key={`cell-app_id-${i}`}
+          />
         )),
   },
   {
@@ -327,8 +352,8 @@ function Filter({ column }: { column: Column<any, unknown> }) {
     <>
       {column.id === 'branch' && (
         <datalist>
-          {sortedUniqueValues.slice(0, 5000).map((value: any) => (
-            <option value={value} key={value} />
+          {sortedUniqueValues.slice(0, 5000).map((value: any, i) => (
+            <option value={value} key={`branch-${i}`} />
           ))}
         </datalist>
       )}
