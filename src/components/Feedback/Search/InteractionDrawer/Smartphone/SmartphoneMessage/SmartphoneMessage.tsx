@@ -43,23 +43,21 @@ const formatChatMessage = (message: String) => {
 
 const SmartphoneMessage = ({ bubble }: { bubble: any }) => {
   return (
-    
     <div
-    className={classNames({
-      Smartphone__message: true,
-      'Smartphone__message--outbound':
-        bubble.content.sender === 'BOT',
-      'Smartphone__message--focused': bubble.current,
-      'Smartphone__message--unfocused': !bubble.current,
-    })}
-  >
-    <span className="Smartphone__message_content">
-      {formatChatMessage(bubble.content.content)}
-    </span>
-    <span className="Smartphone__message_time">
-      {format(bubble.content.timestamp, 'H:mm')}
-    </span>
-  </div>
+      className={classNames({
+        Smartphone__message: true,
+        'Smartphone__message--outbound': bubble.content.sender === 'BOT',
+        'Smartphone__message--focused': bubble.current,
+        'Smartphone__message--unfocused': !bubble.current,
+      })}
+    >
+      <span className="Smartphone__message_content">
+        {formatChatMessage(bubble.content.content)}
+      </span>
+      <span className="Smartphone__message_time">
+        {format(bubble.content.timestamp, 'H:mm')}
+      </span>
+    </div>
   )
 }
 

@@ -21,7 +21,6 @@ const usuariosDeudores = [
   'Redental',
   'Beladent',
   'CEOLA Concepcion',
-  'CEOLA Valdivia',
   'Integral Linares',
   'Aquamed',
 ]
