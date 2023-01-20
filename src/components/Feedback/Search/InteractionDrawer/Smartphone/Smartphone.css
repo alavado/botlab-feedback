@@ -24,49 +24,6 @@
   transition: all 0.25s ease;
 }
 
-.Smartphone__button {
-  position: absolute;
-  content: '';
-  background: var(--phone-color);
-  filter: brightness(0.7);
-  width: 0.15rem;
-  border: none;
-  outline: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.Smartphone__button-l {
-  left: -0.7rem;
-  border-radius: 0.15rem 0 0 0.15rem;
-}
-
-.Smartphone__button-l1 {
-  top: 15%;
-  height: 4%;
-}
-
-.Smartphone__button-l2 {
-  top: 22%;
-  height: 7%;
-}
-
-.Smartphone__button-l3 {
-  top: 31%;
-  height: 7%;
-}
-
-.Smartphone__button-r {
-  left: unset;
-  right: -0.7rem;
-  border-radius: 0 0.15rem 0.15rem 0;
-}
-
-.Smartphone__button-r1 {
-  top: 25%;
-  height: 10%;
-}
-
 .Smartphone__screen::after {
   position: absolute;
   content: '';

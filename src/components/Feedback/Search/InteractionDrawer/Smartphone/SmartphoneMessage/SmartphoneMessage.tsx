@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 import Linkify from 'linkify-react'
 import { uniqueId } from 'lodash'
 import AttachmentMessage from '../AttachmentMessage'
+import { SmartphoneChatMessage } from '../Smartphone'
 import { hasAttachment } from './helpers'
 import './SmartphoneMessage.css'
 
@@ -41,21 +42,21 @@ const formatChatMessage = (message: String) => {
   )
 }
 
-const SmartphoneMessage = ({ bubble }: { bubble: any }) => {
+const SmartphoneMessage = ({ data }: { data: SmartphoneChatMessage }) => {
   return (
     <div
       className={classNames({
         Smartphone__message: true,
-        'Smartphone__message--outbound': bubble.content.sender === 'BOT',
-        'Smartphone__message--focused': bubble.current,
-        'Smartphone__message--unfocused': !bubble.current,
+        'Smartphone__message--outbound': data.message.sender === 'BOT',
+        'Smartphone__message--focused': data.current,
+        'Smartphone__message--unfocused': !data.current,
       })}
     >
       <span className="Smartphone__message_content">
-        {formatChatMessage(bubble.content.content)}
+        {formatChatMessage(data.message.content)}
       </span>
       <span className="Smartphone__message_time">
-        {format(bubble.content.timestamp, 'H:mm')}
+        {format(data.message.timestamp, 'H:mm')}
       </span>
     </div>
   )
