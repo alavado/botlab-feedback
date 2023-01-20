@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react'
-import { attachmentsToken } from '../helpers'
+import { attachmentsToken } from '../SmartphoneMessage/helpers'
 import './AttachmentMessage.css'
 
 const imagesExtensions = ['png', 'jpg', 'jpeg', 'gif', 'bmp']

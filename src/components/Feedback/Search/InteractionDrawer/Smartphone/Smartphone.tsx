@@ -1,52 +1,14 @@
 import classNames from 'classnames'
 import { format, isSameDay } from 'date-fns'
 import es from 'date-fns/esm/locale/es/index.js'
-import Linkify from 'linkify-react'
 import { useEffect, useMemo, useState } from 'react'
-import uuid from 'react-uuid'
 import { Interaction, Message } from '../../../../../api/types/servicio'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import Loader from '../../../../Loader'
-import AttachmentMessage from './AttachmentMessage'
-import { hasAttachment } from './helpers'
 import './Smartphone.css'
 import SmartphoneActionBar from './SmartphoneActionBar'
+import SmartphoneMessage from './SmartphoneMessage'
 import SmartphoneNavBar from './SmartphoneStatusBar'
-
-const formatChatMessage = (message: String) => {
-  if (hasAttachment(message)) {
-    return <AttachmentMessage message={message} />
-  }
-  const messageLines = message.split('\n')
-  return (
-    <>
-      {messageLines.map((line: String) => {
-        const boldParts = line.split('*')
-        return (
-          <>
-            <>
-              {boldParts.map((part, i) => (
-                <span
-                  key={uuid()}
-                  style={{ fontWeight: i % 2 === 0 ? 400 : 'bold' }}
-                >
-                  <Linkify
-                    options={{
-                      target: '_blank',
-                    }}
-                  >
-                    {part}
-                  </Linkify>
-                </span>
-              ))}
-            </>
-            <br />
-          </>
-        )
-      })}
-    </>
-  )
-}
 
 const Smartphone = ({
   pastInteractions,
@@ -157,23 +119,10 @@ const Smartphone = ({
             chatBubbles.map((bubble, i: number) => {
               if ('content' in bubble.content) {
                 return (
-                  <div
-                    className={classNames({
-                      Smartphone__message: true,
-                      'Smartphone__message--outbound':
-                        bubble.content.sender === 'BOT',
-                      'Smartphone__message--focused': bubble.current,
-                      'Smartphone__message--unfocused': !bubble.current,
-                    })}
+                  <SmartphoneMessage
+                    bubble={bubble}
                     key={`smartphone-bubble-${i}`}
-                  >
-                    <span className="Smartphone__message_content">
-                      {formatChatMessage(bubble.content.content)}
-                    </span>
-                    <span className="Smartphone__message_time">
-                      {format(bubble.content.timestamp, 'H:mm')}
-                    </span>
-                  </div>
+                  />
                 )
               } else {
                 return (
