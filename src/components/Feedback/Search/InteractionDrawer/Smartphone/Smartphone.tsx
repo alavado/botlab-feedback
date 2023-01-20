@@ -8,6 +8,7 @@ import './Smartphone.css'
 import SmartphoneActionBar from './SmartphoneActionBar'
 import SmartphoneButtons from './SmartphoneButtons'
 import SmartphoneMessage from './SmartphoneMessage'
+import SmartphoneMessagesDate from './SmartphoneMessagesDate'
 import SmartphoneNavBar from './SmartphoneStatusBar'
 
 export interface SmartphoneChatMessage {
@@ -15,7 +16,7 @@ export interface SmartphoneChatMessage {
   current: boolean
 }
 
-interface SmartphoneChatsDate {
+export interface SmartphoneChatsDate {
   date: Date
   current: boolean
 }
@@ -56,10 +57,8 @@ const Smartphone = ({
   }, [pastInteractions, currentInteraction, futureInteractions])
 
   useEffect(() => {
-    document
-      .querySelector('.Smartphone__date_bubble--current')
-      ?.scrollIntoView()
-  }, [currentInteraction?.userId])
+    document.querySelector('.SmartphoneMessagesDate--current')?.scrollIntoView()
+  }, [currentInteraction?.start])
 
   return (
     <div
@@ -87,30 +86,19 @@ const Smartphone = ({
         </div>
         <div className="Smartphone__messages_container">
           {currentInteraction ? (
-            chatElements.map((bubble, i: number) => {
-              if ('message' in bubble) {
-                return (
-                  <SmartphoneMessage
-                    data={bubble as SmartphoneChatMessage}
-                    key={`smartphone-bubble-${i}`}
-                  />
-                )
-              } else {
-                return (
-                  <div
-                    className={classNames({
-                      Smartphone__date_bubble: true,
-                      'Smartphone__date_bubble--current': bubble.current,
-                    })}
-                    key={`smartphone-bubble-${i}`}
-                  >
-                    {format(bubble.date, 'iiii d MMMM yyyy', {
-                      locale: es,
-                    })}
-                  </div>
-                )
-              }
-            })
+            chatElements.map((bubble, i: number) =>
+              'message' in bubble ? (
+                <SmartphoneMessage
+                  data={bubble}
+                  key={`smartphone-bubble-${i}`}
+                />
+              ) : (
+                <SmartphoneMessagesDate
+                  data={bubble}
+                  key={`smartphone-bubble-${i}`}
+                />
+              )
+            )
           ) : (
             <div className="Smartphone__loading_message">
               <Loader color="var(--color-principal)" />

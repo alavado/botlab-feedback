@@ -46,16 +46,16 @@ const SmartphoneMessage = ({ data }: { data: SmartphoneChatMessage }) => {
   return (
     <div
       className={classNames({
-        Smartphone__message: true,
-        'Smartphone__message--outbound': data.message.sender === 'BOT',
-        'Smartphone__message--focused': data.current,
-        'Smartphone__message--unfocused': !data.current,
+        SmartphoneMessage: true,
+        'SmartphoneMessage--outbound': data.message.sender === 'BOT',
+        'SmartphoneMessage--focused': data.current,
+        'SmartphoneMessage--unfocused': !data.current,
       })}
     >
-      <span className="Smartphone__message_content">
+      <span className="SmartphoneMessage__content">
         {formatChatMessage(data.message.content)}
       </span>
-      <span className="Smartphone__message_time">
+      <span className="SmartphoneMessage__time">
         {format(data.message.timestamp, 'H:mm')}
       </span>
     </div>

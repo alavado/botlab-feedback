@@ -1,0 +1,67 @@
+.SmartphoneMessage {
+  background-color: var(--whatsapp-fondo-mensajes-entrantes);
+  max-width: 80%;
+  padding: 0.45rem;
+  font-size: 0.65rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  min-width: 20%;
+  box-shadow: 0 0.05rem 0 0.05rem rgba(0, 0, 0, 0.075);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  align-self: flex-start;
+  justify-content: space-between;
+  gap: 0.15rem;
+  animation: SmartphoneMessage 0.25s ease;
+}
+
+.SmartphoneMessage::after {
+  position: absolute;
+  z-index: 100;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 0.45rem solid var(--whatsapp-fondo-mensajes-entrantes);
+  border-right: 0.45rem solid var(--whatsapp-fondo-mensajes-entrantes);
+  border-left: 0.45rem solid transparent;
+  border-bottom: 0.45rem solid transparent;
+  top: 0;
+  left: -0.4rem;
+}
+
+.SmartphoneMessage--outbound::after {
+  border-top: 0.45rem solid var(--whatsapp-fondo-mensajes-salientes);
+  border-right: 0.45rem solid transparent;
+  border-left: 0.45rem solid var(--whatsapp-fondo-mensajes-salientes);
+  border-bottom: 0.45rem solid transparent;
+  right: calc(-1 * 0.4rem);
+  left: auto;
+}
+
+.SmartphoneMessage--outbound {
+  background-color: white;
+  align-self: flex-end;
+  background-color: var(--whatsapp-fondo-mensajes-salientes);
+}
+
+.SmartphoneMessage a {
+  color: var(--color-principal);
+}
+
+.SmartphoneMessage__content {
+  word-break: break-word;
+}
+
+.SmartphoneMessage__time {
+  font-size: 0.5rem;
+  transform: translate(0.1rem, 0.32rem);
+  padding-left: 0.05rem;
+  opacity: 0.8;
+  position: relative;
+}
+
+.SmartphoneMessage--unfocused {
+  filter: saturate(10%) sepia(10%);
+  opacity: 0.9;
+}

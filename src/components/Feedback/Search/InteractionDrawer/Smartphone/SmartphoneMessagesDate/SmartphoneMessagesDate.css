@@ -1,0 +1,17 @@
+.SmartphoneMessagesDate {
+  align-self: center;
+  background-color: var(--whatsapp-fondo-fecha);
+  display: flex;
+  align-items: center;
+  font-size: 0.64rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.35rem;
+  box-shadow: 0 0.1rem 0 rgba(200, 200, 200);
+  color: var(--whatsapp-color-texto-fecha);
+  /* position: sticky; */
+  width: 100%;
+  top: 0;
+  z-index: 2;
+  justify-content: center;
+}
