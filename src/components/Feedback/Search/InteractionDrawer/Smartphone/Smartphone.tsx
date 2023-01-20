@@ -1,6 +1,4 @@
-import classNames from 'classnames'
-import { format, isSameDay } from 'date-fns'
-import es from 'date-fns/esm/locale/es/index.js'
+import { isSameDay } from 'date-fns'
 import { useEffect, useMemo, useState } from 'react'
 import { Interaction, Message } from '../../../../../api/types/servicio'
 import Loader from '../../../../Loader'
