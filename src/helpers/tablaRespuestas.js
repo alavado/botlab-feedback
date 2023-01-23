@@ -2,6 +2,16 @@ import { format } from 'date-fns'
 import { obtenerHeadersConTagsCalculados } from './tagsCalculados'
 import { extraerTextoHeader, formatearCampoRespuestas } from './respuestas'
 import { writeFile, utils } from 'xlsx-js-style'
+import _ from 'lodash'
+
+const extraerUltimoComentario = (respuesta) => {
+  let comentarios = _.cloneDeep(respuesta.reactions)
+  comentarios.sort((r1, r2) => (r1.created_at > r2.created_at ? -1 : 1))
+  if (comentarios[0]) {
+    return `${comentarios[0]?.reaction_emoji} ${comentarios[0]?.reaction_text}`
+  }
+  return ''
+}
 
 export const exportarTablaRespuestas = async (
   headers,
@@ -23,15 +33,26 @@ export const exportarTablaRespuestas = async (
     let headersXLSX
     let filasXLSX
     if (respuestas[0].phone) {
-      headersXLSX = ['Teléfono', ...headersAIncluir.map((h) => h.texto), 'Link']
+      headersXLSX = [
+        'Último Comentario',
+        'Teléfono',
+        ...headersAIncluir.map((h) => h.texto),
+        'Link',
+      ]
       filasXLSX = respuestas.map((r) => [
+        extraerUltimoComentario(r),
         formatearCampoRespuestas(r.phone, 'phone'),
         ...headersAIncluir.map((h) => extraerTextoHeader(h, r)),
         `https://feedback.cero.ai/chat/${pollId}/${r.user_id}`,
       ])
     } else {
-      headersXLSX = [...headersAIncluir.map((h) => h.texto), 'Link']
+      headersXLSX = [
+        'Último Comentario',
+        ...headersAIncluir.map((h) => h.texto),
+        'Link',
+      ]
       filasXLSX = respuestas.map((r) => [
+        extraerUltimoComentario(r),
         ...headersAIncluir.map((h) => extraerTextoHeader(h, r)),
         `https://feedback.cero.ai/chat/${pollId}/${r.user_id}`,
       ])
