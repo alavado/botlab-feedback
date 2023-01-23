@@ -174,3 +174,11 @@ export interface SearchAPIMultiAppointment {
   time_5: string
   user_id: number
 }
+
+export interface AnswerMediaAPIResponse {
+  status: string
+  data: {
+    url: string
+    content_type: string
+  }
+}

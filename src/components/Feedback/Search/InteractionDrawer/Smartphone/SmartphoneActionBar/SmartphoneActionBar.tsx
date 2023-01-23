@@ -13,9 +13,9 @@ const SmartphoneActionBar = ({
   const track = useAnalytics()
 
   return (
-    <div className="Smartphone__actions_bar">
+    <div className="SmartphoneActionBar">
       <div
-        className="Smartphone__avatar"
+        className="SmartphoneActionBar__avatar"
         style={
           {
             '--avatar-hue':
@@ -27,11 +27,11 @@ const SmartphoneActionBar = ({
       >
         {contactName?.[0] || <Loader color="white" />}
       </div>
-      <div className="Smartphone__receiver_name">
+      <div className="SmartphoneActionBar__receiver_name">
         {contactName}
         {contactName && (
           <button
-            className="Smartphone__copy_button"
+            className="SmartphoneActionBar__copy_button"
             onClick={() => {
               track('Feedback', 'Smartphone', 'copy', {
                 property: 'patientName',
@@ -44,17 +44,17 @@ const SmartphoneActionBar = ({
           </button>
         )}
       </div>
-      <div className="Smartphone__receiver_status">
+      <div className="SmartphoneActionBar__receiver_status">
         {phone && (
           <>
-            <span className="Smartphone__receiver_phone">
+            <span className="SmartphoneActionBar__receiver_phone">
               <Icon icon="mdi:phone" /> {phone}
             </span>
           </>
         )}
         {phone && (
           <button
-            className="Smartphone__copy_button"
+            className="SmartphoneActionBar__copy_button"
             onClick={() => {
               track('Feedback', 'Smartphone', 'copy', {
                 property: 'phone',
@@ -67,7 +67,7 @@ const SmartphoneActionBar = ({
           </button>
         )}
       </div>
-      <div className="Smartphone__actions"></div>
+      <div className="SmartphoneActionBar__actions"></div>
     </div>
   )
 }
