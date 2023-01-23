@@ -66,8 +66,6 @@ const Search = () => {
             pollId={activeInteraction.pollId}
             userId={activeInteraction.userId}
             start={activeInteraction.start}
-            onPreviousClick={() => {}}
-            onNextClick={() => {}}
             onCloseClick={() => {
               dispatch(hideDrawer())
               track('Feedback', 'Search', 'hideDrawer')

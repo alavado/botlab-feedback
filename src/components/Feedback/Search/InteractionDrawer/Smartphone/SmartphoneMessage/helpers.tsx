@@ -1,7 +1,7 @@
 import AttachmentMessage from './AttachmentMessage'
 import TextMessage from './TextMessage'
 
-const attachmentsToken = 'ATTACHMENT:'
+export const attachmentsToken = 'ATTACHMENT:'
 
 const hasAttachment = (message: String): Boolean => {
   return message.indexOf(attachmentsToken) >= 0

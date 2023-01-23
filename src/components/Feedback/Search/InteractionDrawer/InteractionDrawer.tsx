@@ -7,13 +7,12 @@ import { useHistory } from 'react-router-dom'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import useChatQuery from '../../../../api/hooks/useChatQuery'
 import Loader from '../../../Loader'
+import { openExternalLink } from './helpers'
 
 interface InteractionDrawerProps {
   pollId: number
   userId: number
   start: Date
-  onPreviousClick: MouseEventHandler
-  onNextClick: MouseEventHandler
   onCloseClick: MouseEventHandler
   originComponentName: string
 }
@@ -22,12 +21,10 @@ const InteractionDrawer = ({
   pollId,
   userId,
   start,
-  onPreviousClick,
-  onNextClick,
   onCloseClick,
   originComponentName,
 }: InteractionDrawerProps) => {
-  const { data, isLoading, isError } = useChatQuery({
+  const { data } = useChatQuery({
     pollId,
     userId,
     start,
@@ -40,23 +37,8 @@ const InteractionDrawer = ({
   const history = useHistory()
   const track = useAnalytics()
 
-  const openExternalLink = (url: string) => {
-    const el = document.createElement('a')
-    el.setAttribute('target', '_blank')
-    el.setAttribute('href', url)
-    el.style.display = 'none'
-    document.body.appendChild(el)
-    el.click()
-    document.body.removeChild(el)
-  }
-
   return (
     <Resizable
-      // defaultSize={{
-      //   width: window.innerWidth / 5,
-      //   height: 'auto',
-      // }}
-      // maxWidth={(3 * window.innerWidth) / 4}
       className="InteractionDrawer"
       enable={{
         top: false,
@@ -94,16 +76,7 @@ const InteractionDrawer = ({
               <Loader color="var(--color-texto)" />
             )}
           </div>
-          {/* <button onClick={onPreviousClick}>anterior</button>
-          <button onClick={onNextClick}>siguiente</button> */}
         </div>
-        {/* <h2>
-          {interaction
-            ? `Interacción: ${format(interaction.start, 'iiii dd/MM', {
-                locale: es,
-              })}`
-            : `Cargando...`}
-        </h2> */}
       </div>
       <div className="InteractionDrawer__phone_container">
         <Smartphone
@@ -154,21 +127,6 @@ const InteractionDrawer = ({
           </button>
         )}
       </div>
-      {/* <div className="InteractionDrawer__comments_container">
-        <h2>Comentarios</h2>
-        <p>No hay comentarios</p>
-      </div>
-      <div className="InteractionDrawer__data_container">
-        <p>Teléfono: {interaction?.phone}</p>
-        {interaction?.branch && <p>Sucursal: {interaction?.branch}</p>}
-        {interaction?.appointments.map((appointment) => (
-          <>
-            <p>{appointment.rut}</p>
-            <p>{appointment.patientName}</p>
-            <p>{format(appointment.datetime, 'HH:mm')}</p>
-          </>
-        ))}
-      </div> */}
     </Resizable>
   )
 }

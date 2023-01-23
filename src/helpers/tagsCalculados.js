@@ -305,47 +305,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_LISTA_DE_ESPERA_2):
         return juntaTagsEquivalentes(100, 101, '¿Agenda?')
 
-      case Number(process.env.REACT_APP_ID_POLL_OREMA):
-      case Number(process.env.REACT_APP_ID_POLL_LAS_CRUCES):
-      case Number(process.env.REACT_APP_ID_POLL_OYEDENTALVINA):
-      case Number(process.env.REACT_APP_ID_POLL_ACHS):
-        return juntarConfirmaYReagenda(0, 1)
-
-      case Number(process.env.REACT_APP_ID_POLL_VICHUQUEN):
-      case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CONCEPCION):
-      case Number(process.env.REACT_APP_ID_POLL_ROADENT):
-        return juntarConfirmaYReagenda(0, 2)
-
-      case Number(process.env.REACT_APP_ID_POLL_FACELAB):
-      case Number(process.env.REACT_APP_ID_POLL_VERSALLES):
-      case Number(process.env.REACT_APP_ID_POLL_TOBALABA):
-      case Number(process.env.REACT_APP_ID_POLL_ALTOSDELVALLE):
-      case Number(process.env.REACT_APP_ID_POLL_ANPALEX):
-      case Number(process.env.REACT_APP_ID_POLL_ORTODONCIA_CHILE):
-      case Number(process.env.REACT_APP_ID_POLL_RUBEN_ROSENBERG):
-      case Number(process.env.REACT_APP_ID_POLL_BASU):
-      case Number(process.env.REACT_APP_ID_POLL_DENTAL_SPA_CHILE):
-      case Number(process.env.REACT_APP_ID_POLL_AQUAMED):
-      case Number(process.env.REACT_APP_ID_POLL_SONRIE_ARICA):
-      case Number(process.env.REACT_APP_ID_POLL_SANTA_BLANCA_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_MEDISIS):
-      case Number(process.env.REACT_APP_ID_POLL_DENTALONE):
-      case Number(process.env.REACT_APP_ID_POLL_3DENTONCE16):
-      case Number(process.env.REACT_APP_ID_POLL_NATURALDENT):
-      case Number(process.env.REACT_APP_ID_POLL_EZIOCHIAPPE):
-      case Number(process.env.REACT_APP_ID_POLL_ALTOTOBALABA):
-      case Number(process.env.REACT_APP_ID_POLL_OYEDENTAL):
-      case Number(process.env.REACT_APP_ID_POLL_SPORTS_MEDICINA_DEPORTIVA):
-        return juntarConfirmaYReagenda(0, 4)
-
-      case Number(process.env.REACT_APP_ID_POLL_AYVDENTAL_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_OYEDENTAL_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_VENTUS_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_SANTIS_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_OAS_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_CENTAURO_RECORDATORIO):
-        return juntarConfirmaYReagenda(50, 104)
-
       case Number(process.env.REACT_APP_ID_POLL_ODONTOS):
       case Number(process.env.REACT_APP_ID_POLL_VENTUS):
       case Number(process.env.REACT_APP_ID_POLL_SANTIS):
