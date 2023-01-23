@@ -72,6 +72,7 @@ const Search = () => {
               dispatch(hideDrawer())
               track('Feedback', 'Search', 'hideDrawer')
             }}
+            originComponentName="Search"
           />
         )}
       </div>

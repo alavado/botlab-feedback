@@ -66,7 +66,7 @@ export interface InteractionStatus {
 
 export interface Message {
   timestamp: Date
-  content: String
+  content: string
   sender: 'BOT' | 'USER'
   type: 'TEXTO' | 'AUDIO' | 'IMAGEN' | 'VIDEO'
 }

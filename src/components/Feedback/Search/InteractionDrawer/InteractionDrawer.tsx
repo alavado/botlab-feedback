@@ -15,6 +15,7 @@ interface InteractionDrawerProps {
   onPreviousClick: MouseEventHandler
   onNextClick: MouseEventHandler
   onCloseClick: MouseEventHandler
+  originComponentName: string
 }
 
 const InteractionDrawer = ({
@@ -24,6 +25,7 @@ const InteractionDrawer = ({
   onPreviousClick,
   onNextClick,
   onCloseClick,
+  originComponentName,
 }: InteractionDrawerProps) => {
   const { data, isLoading, isError } = useChatQuery({
     pollId,
@@ -114,7 +116,7 @@ const InteractionDrawer = ({
         <button
           className="InteractionDrawer__legacy_button"
           onClick={() => {
-            track('Feedback', 'Search', 'openChatView')
+            track('Feedback', originComponentName, 'openChatView')
             history.push(
               `/chat/${currentInteraction?.pollId}/${currentInteraction?.userId}`,
               { from: '/busqueda' }
@@ -127,7 +129,7 @@ const InteractionDrawer = ({
         <button
           className="InteractionDrawer__legacy_button"
           onClick={() => {
-            track('Feedback', 'Search', 'openWhatsapp')
+            track('Feedback', originComponentName, 'openWhatsapp')
             openExternalLink(
               `https://web.whatsapp.com/send/?phone=${currentInteraction?.phone}`
             )
@@ -142,7 +144,7 @@ const InteractionDrawer = ({
           <button
             className="InteractionDrawer__legacy_button"
             onClick={() => {
-              track('Feedback', 'Search', 'openSchedulingSystem')
+              track('Feedback', originComponentName, 'openSchedulingSystem')
               openExternalLink(currentInteraction.appointments[0].url as string)
             }}
           >
