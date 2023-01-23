@@ -49,6 +49,9 @@ export const formatearFecha = (fecha, incluirHora = false) => {
 }
 
 export const formatearNombreEncuesta = (nombreCliente, nombreEncuesta) => {
+  if (!nombreCliente || !nombreEncuesta) {
+    return nombreEncuesta
+  }
   if (nombreCliente.includes('RedSalud')) {
     nombreCliente = 'RedSalud'
   }

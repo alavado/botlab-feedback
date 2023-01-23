@@ -9,10 +9,18 @@ import Scrambler from '../../../Scrambler/Scrambler'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import useAnalytics from '../../../../hooks/useAnalytics'
+import { formatearNombreEncuesta } from '../../../../helpers/respuestas'
 
-const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
+const ListaAlertas = ({
+  alertas,
+  idAlertasVisibles,
+  mostrarSucursal,
+  mostrarServicio,
+}) => {
   const { id } = useParams()
   const { verAlertas } = useSelector((state) => state.alertas)
+  const { nombreUsuario } = useSelector((state) => state.login)
+  const { tipos } = useSelector((state) => state.encuestas)
   const history = useHistory()
   const track = useAnalytics()
 
@@ -40,6 +48,8 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
       },
     }
   )
+
+  console.log(tipos, alertas)
 
   return (
     <>
@@ -88,6 +98,15 @@ const ListaAlertas = ({ alertas, idAlertasVisibles, mostrarSucursal }) => {
               <div className="ListaAlertas__mensaje">
                 <p>{obtenerEtiquetaAlerta(alerta.message)}</p>
                 <p className="ListaAlertas__subtitulo">
+                  {mostrarServicio && (
+                    <span>
+                      {formatearNombreEncuesta(
+                        nombreUsuario,
+                        tipos?.find((t) => t.id === alerta.poll_id)?.nombre
+                      )}{' '}
+                      •{' '}
+                    </span>
+                  )}{' '}
                   <Scrambler tipo="nombre">{alerta.nombrePaciente}</Scrambler>{' '}
                   {mostrarSucursal && alerta.sucursal && (
                     <span> • {alerta.sucursal}</span>

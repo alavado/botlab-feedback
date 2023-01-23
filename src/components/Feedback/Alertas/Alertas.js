@@ -296,6 +296,7 @@ const Alertas = () => {
           alertas={alertasEncuestaSeleccionada}
           idAlertasVisibles={idTabAlertasActivo}
           mostrarSucursal={sucursales.length > 1}
+          mostrarServicio={cuenta.indexOf('sotero') >= 0}
         />
       </div>
     </>
