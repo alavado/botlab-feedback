@@ -82,7 +82,7 @@ const AccionesChat = ({ telefono, link }) => {
   }
 
   const abrirWhatsappWeb = () => {
-    const link = `https://wa.me/${telefono}`
+    const link = `https://web.whatsapp.com/send/?phone=${telefono}`
     track('Feedback', 'Chat', 'abrirWhatsappWeb', { link })
     window.open(link, '_blank').focus()
   }
@@ -213,7 +213,7 @@ const AccionesChat = ({ telefono, link }) => {
               className="AccionesChat__icono_boton"
               icon="mdi:whatsapp"
             />
-            Contactar por Whatsapp
+            Contactar paciente por Whatsapp
           </button>
           {link && (
             <button
@@ -242,7 +242,7 @@ const AccionesChat = ({ telefono, link }) => {
               className="AccionesChat__icono_boton"
               icon="mdi:report"
             />
-            Reportar problema
+            Reportar problema a Cero
           </button>
         </>
       )}

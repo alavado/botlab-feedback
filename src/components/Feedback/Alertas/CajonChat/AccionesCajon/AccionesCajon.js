@@ -7,13 +7,12 @@ import { useParams } from 'react-router-dom'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const AccionesCajon = () => {
-
   const { id } = useParams()
   const { data: dataAlertas } = useQuery('alertas', getAlertas)
-  const alertaDestacada = dataAlertas.data.find(a => a.id === Number(id))
+  const alertaDestacada = dataAlertas.data.find((a) => a.id === Number(id))
   const { data, isLoading } = useQuery(
     ['chat', alertaDestacada.poll_id, alertaDestacada.user_id],
-    () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id),
+    () => chat2(alertaDestacada.poll_id, alertaDestacada.user_id)
   )
   const history = useHistory()
   const track = useAnalytics()
@@ -29,8 +28,14 @@ const AccionesCajon = () => {
       <button
         className="AccionesCajon__boton_accion"
         onClick={() => {
-          track('Feedback', 'Alertas', 'irADetalleChat', { idEncuesta: alertaDestacada.poll_id, idUsuario: alertaDestacada.user_id })
-          history.push(`/chat/${alertaDestacada.poll_id}/${alertaDestacada.user_id}`, { from: '/alertas' })
+          track('Feedback', 'Alertas', 'irADetalleChat', {
+            idEncuesta: alertaDestacada.poll_id,
+            idUsuario: alertaDestacada.user_id,
+          })
+          history.push(
+            `/chat/${alertaDestacada.poll_id}/${alertaDestacada.user_id}`,
+            { from: '/alertas' }
+          )
         }}
       >
         <InlineIcon icon="mdi:smartphone" />
@@ -39,7 +44,7 @@ const AccionesCajon = () => {
       <button
         className="AccionesCajon__boton_accion"
         onClick={() => {
-          const link = `https://wa.me/${telefono}`
+          const link = `https://web.whatsapp.com/send/?phone=${telefono}`
           track('Feedback', 'Alertas', 'abrirWhatsappWeb', { link })
           window.open(link, '_blank').focus()
         }}

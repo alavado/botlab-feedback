@@ -361,7 +361,10 @@ const MensajeContacto = ({ mensaje }) => {
         <p>{nombreContacto}</p>
         {telefonoContacto && (
           <a
-            href={`https://wa.me/${telefonoContacto.replace(/[^0-9]/g, '')}`}
+            href={`https://web.whatsapp.com/send/?phone=${telefonoContacto.replace(
+              /[^0-9]/g,
+              ''
+            )}`}
             target="_blank"
             rel="noreferrer noopener"
           >

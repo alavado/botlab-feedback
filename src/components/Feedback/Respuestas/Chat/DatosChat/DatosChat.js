@@ -164,12 +164,12 @@ const DatosChat = ({ cargando, datos, telefono }) => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`https://wa.me/${telefono}`}
+                href={`https://web.whatsapp.com/send/?phone=${telefono}`}
                 className="DatosChat__link_ws"
                 title="Continuar a chat WhatsApp"
                 onClick={() =>
                   track('Feedback', 'Chat', 'abrirWhatsappWebDesdeDatosChat', {
-                    link: `https://wa.me/${telefono}`,
+                    link: `https://web.whatsapp.com/send/?phone=${telefono}`,
                   })
                 }
               >

@@ -128,7 +128,9 @@ const InteractionDrawer = ({
           className="InteractionDrawer__legacy_button"
           onClick={() => {
             track('Feedback', 'Search', 'openWhatsapp')
-            openExternalLink(`https://wa.me/${currentInteraction?.phone}`)
+            openExternalLink(
+              `https://web.whatsapp.com/send/?phone=${currentInteraction?.phone}`
+            )
           }}
         >
           <Icon icon="mdi:whatsapp" />
