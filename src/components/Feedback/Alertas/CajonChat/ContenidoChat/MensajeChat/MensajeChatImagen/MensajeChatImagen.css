@@ -1,3 +1,76 @@
 .MensajeChatImagen {
   max-width: 15rem;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0.25rem;
+}
+
+.MensajeChatImagen__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  flex-direction: column;
+  color: white;
+  text-shadow: 0px 1px 3px var(--color-sombras);
+  font-weight: 600;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.MensajeChatImagen__overlay svg {
+  filter: drop-shadow(0px 1px 3px var(--color-sombras));
+  font-size: 2rem;
+  opacity: 1;
+}
+
+.MensajeChatImagen__overlay--hidden {
+  filter: none;
+  opacity: 0;
+  cursor: default;
+}
+
+.MensajeChatImagen__overlay--hidden svg {
+  opacity: 0;
+}
+
+.MensajeChatImagen__imagen {
+  max-width: 15rem;
+  transition: all 0.25s ease;
+}
+
+.MensajeChatImagen__imagen--blurred {
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  cursor: pointer;
+}
+
+.MensajeChatImagen__close {
+  position: absolute;
+  right: 0.25rem;
+  top: 0.25rem;
+  z-index: 3;
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.5s ease;
+  background: none;
+  border: none;
+  color: white;
+}
+
+.MensajeChatImagen__close svg {
+  filter: drop-shadow(0px 1px 3px var(--color-sombras));
+  font-size: 1.25rem;
+}
+
+.MensajeChatImagen__close--hidden {
+  opacity: 0;
 }

@@ -49,8 +49,6 @@ const ListaAlertas = ({
     }
   )
 
-  console.log(tipos, alertas)
-
   return (
     <>
       {alertas.map((tipoAlertas, indiceTipoAlerta) => (
