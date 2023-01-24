@@ -12,16 +12,38 @@ const SmartphoneActionBar = ({
 }) => {
   const track = useAnalytics()
 
+  const copyContactName = () => {
+    if (!contactName) {
+      return
+    }
+    track('Feedback', 'Smartphone', 'copy', {
+      property: 'patientName',
+      value: contactName,
+    })
+    navigator.clipboard.writeText(contactName)
+  }
+
+  const copyPhone = () => {
+    if (!phone) {
+      return
+    }
+    track('Feedback', 'Smartphone', 'copy', {
+      property: 'phone',
+      value: phone,
+    })
+    navigator.clipboard.writeText(phone + '')
+  }
+
+  const avatarHue =
+    360 * (((contactName?.[0].toLowerCase() ?? 'a').charCodeAt(0) - 97) / 25)
+
   return (
     <div className="SmartphoneActionBar">
       <div
         className="SmartphoneActionBar__avatar"
         style={
           {
-            '--avatar-hue':
-              360 *
-              (((contactName?.[0].toLowerCase() ?? 'a').charCodeAt(0) - 97) /
-                25),
+            '--avatar-hue': avatarHue,
           } as React.CSSProperties
         }
       >
@@ -29,20 +51,12 @@ const SmartphoneActionBar = ({
       </div>
       <div className="SmartphoneActionBar__receiver_name">
         {contactName}
-        {contactName && (
-          <button
-            className="SmartphoneActionBar__copy_button"
-            onClick={() => {
-              track('Feedback', 'Smartphone', 'copy', {
-                property: 'patientName',
-                value: contactName,
-              })
-              navigator.clipboard.writeText(contactName)
-            }}
-          >
-            <Icon icon="mdi:content-copy" /> Copiar
-          </button>
-        )}
+        <button
+          className="SmartphoneActionBar__copy_button"
+          onClick={copyContactName}
+        >
+          <Icon icon="mdi:content-copy" /> Copiar
+        </button>
       </div>
       <div className="SmartphoneActionBar__receiver_status">
         {phone && (
@@ -52,20 +66,12 @@ const SmartphoneActionBar = ({
             </span>
           </>
         )}
-        {phone && (
-          <button
-            className="SmartphoneActionBar__copy_button"
-            onClick={() => {
-              track('Feedback', 'Smartphone', 'copy', {
-                property: 'phone',
-                value: phone,
-              })
-              navigator.clipboard.writeText(phone + '')
-            }}
-          >
-            <Icon icon="mdi:content-copy" /> Copiar
-          </button>
-        )}
+        <button
+          className="SmartphoneActionBar__copy_button"
+          onClick={copyPhone}
+        >
+          <Icon icon="mdi:content-copy" /> Copiar
+        </button>
       </div>
       <div className="SmartphoneActionBar__actions"></div>
     </div>

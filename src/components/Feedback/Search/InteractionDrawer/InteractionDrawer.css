@@ -35,47 +35,12 @@
   padding-right: 0.25rem;
 }
 
-.InteractionDrawer__legacy_buttons_container {
+.InteractionDrawer__actions_container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding-top: 1rem;
   gap: 1rem;
-}
-
-.InteractionDrawer__legacy_button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 0.15rem;
-  border-radius: 0.35rem;
-  padding: 0.5rem;
-  color: var(--color-texto-claro);
-  background-color: var(--color-principal);
-  border: none;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.25s ease;
-  position: relative;
-  filter: none;
-  font-size: 0.6rem;
-  animation: aparece-boton-reacciones 0.2s ease both;
-  max-width: 5rem;
-  min-width: 5rem;
-}
-
-.InteractionDrawer__legacy_button:hover {
-  box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
-  filter: brightness(110%);
-}
-
-.InteractionDrawer__legacy_button:active {
-  filter: brightness(130%);
-}
-
-.InteractionDrawer__legacy_button svg {
-  font-size: 1.35rem;
 }
 
 .InteractionDrawer__top_bar_action_button {

@@ -2,12 +2,12 @@ import { isSameDay } from 'date-fns'
 import { useEffect, useMemo, useState } from 'react'
 import { Interaction, Message } from '../../../../../api/types/servicio'
 import Loader from '../../../../Loader'
-import './Smartphone.css'
 import SmartphoneActionBar from './SmartphoneActionBar'
 import SmartphoneButtons from './SmartphoneButtons'
 import SmartphoneMessage from './SmartphoneMessage'
 import SmartphoneMessagesDate from './SmartphoneMessagesDate'
 import SmartphoneNavBar from './SmartphoneStatusBar'
+import './Smartphone.css'
 
 export interface SmartphoneChatMessage {
   message: Message
@@ -68,10 +68,7 @@ const Smartphone = ({
       }
     >
       <div className="Smartphone__screen">
-        <SmartphoneButtons
-          phoneColor={phoneColor}
-          setPhoneColor={setPhoneColor}
-        />
+        <SmartphoneButtons setPhoneColor={setPhoneColor} />
         <div className="Smartphone__app_bar">
           <SmartphoneNavBar
             pollId={currentInteraction?.pollId}

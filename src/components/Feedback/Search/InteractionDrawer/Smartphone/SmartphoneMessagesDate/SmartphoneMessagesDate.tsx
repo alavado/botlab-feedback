@@ -5,6 +5,10 @@ import { SmartphoneChatsDate } from '../Smartphone'
 import './SmartphoneMessagesDate.css'
 
 const SmartphoneMessagesDate = ({ data }: { data: SmartphoneChatsDate }) => {
+  const formattedDate = format(data.date, 'iiii d MMMM yyyy', {
+    locale: es,
+  })
+
   return (
     <div
       className={classNames({
@@ -12,10 +16,7 @@ const SmartphoneMessagesDate = ({ data }: { data: SmartphoneChatsDate }) => {
         'SmartphoneMessagesDate--current': data.current,
       })}
     >
-      📅{' '}
-      {format(data.date, 'iiii d MMMM yyyy', {
-        locale: es,
-      })}
+      📅 {formattedDate}
     </div>
   )
 }

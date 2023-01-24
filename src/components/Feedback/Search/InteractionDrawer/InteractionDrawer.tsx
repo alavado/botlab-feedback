@@ -3,11 +3,9 @@ import { MouseEventHandler } from 'react'
 import './InteractionDrawer.css'
 import Smartphone from './Smartphone'
 import { Icon } from '@iconify/react'
-import { useHistory } from 'react-router-dom'
-import useAnalytics from '../../../../hooks/useAnalytics'
 import useChatQuery from '../../../../api/hooks/useChatQuery'
 import Loader from '../../../Loader'
-import { openExternalLink } from './helpers'
+import InteractionDrawerActions from './InteractionDrawerActions'
 
 interface InteractionDrawerProps {
   pollId: number
@@ -34,21 +32,11 @@ const InteractionDrawer = ({
   const currentInteraction = data?.currentInteraction
   const futureInteractions = data?.futureInteractions
 
-  const history = useHistory()
-  const track = useAnalytics()
-
   return (
     <Resizable
       className="InteractionDrawer"
       enable={{
-        top: false,
-        right: false,
-        bottom: false,
         left: true,
-        topRight: false,
-        bottomRight: false,
-        bottomLeft: false,
-        topLeft: false,
       }}
       maxWidth="90vw"
     >
@@ -85,47 +73,17 @@ const InteractionDrawer = ({
           futureInteractions={futureInteractions}
         />
       </div>
-      <div className="InteractionDrawer__legacy_buttons_container">
-        <button
-          className="InteractionDrawer__legacy_button"
-          onClick={() => {
-            track('Feedback', originComponentName, 'openChatView')
-            history.push(
-              `/chat/${currentInteraction?.pollId}/${currentInteraction?.userId}`,
-              { from: '/busqueda' }
-            )
-          }}
-        >
-          <Icon icon="mdi:cellphone" />
-          Ver en <br /> vista Chat
-        </button>
-        <button
-          className="InteractionDrawer__legacy_button"
-          onClick={() => {
-            track('Feedback', originComponentName, 'openWhatsapp')
-            openExternalLink(
-              `https://web.whatsapp.com/send/?phone=${currentInteraction?.phone}`
-            )
-          }}
-        >
-          <Icon icon="mdi:whatsapp" />
-          Contactar
-          <br />
-          por Whatsapp
-        </button>
-        {currentInteraction?.appointments[0]?.url && (
-          <button
-            className="InteractionDrawer__legacy_button"
-            onClick={() => {
-              track('Feedback', originComponentName, 'openSchedulingSystem')
-              openExternalLink(currentInteraction.appointments[0].url as string)
-            }}
-          >
-            <Icon icon="mdi:arrow-top-right" />
-            Ver cita en <br />
-            {currentInteraction?.appointments[0]?.schedulingSystem}
-          </button>
-        )}
+      <div className="InteractionDrawer__actions_container">
+        <InteractionDrawerActions
+          pollId={currentInteraction?.pollId}
+          userId={currentInteraction?.userId}
+          phone={currentInteraction?.phone}
+          schedulingSystemName={
+            currentInteraction?.appointments[0].schedulingSystem
+          }
+          schedulingSystemURL={currentInteraction?.appointments[0].url}
+          originComponentName={originComponentName}
+        />
       </div>
     </Resizable>
   )

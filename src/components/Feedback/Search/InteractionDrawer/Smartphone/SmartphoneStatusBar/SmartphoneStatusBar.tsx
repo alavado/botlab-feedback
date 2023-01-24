@@ -16,18 +16,14 @@ const SmartphoneStatusBar = ({
     const interval = setInterval(() => setTime(new Date()), 5_000)
     return () => clearInterval(interval)
   }, [])
+
+  const pollUserTitle = pollId ? `${pollId} / ${userId}` : ''
+  const formattedCurrentTime = format(time, 'H:mm')
+
   return (
     <div className="SmartphoneStatusBar">
-      <div className="SmartphoneStatusBar__time">{format(time, 'H:mm')}</div>
-      <div className="SmartphoneStatusBar__camera">
-        {pollId ? (
-          <>
-            {pollId} / {userId}
-          </>
-        ) : (
-          <>&nbsp;</>
-        )}
-      </div>
+      <div className="SmartphoneStatusBar__time">{formattedCurrentTime}</div>
+      <div className="SmartphoneStatusBar__camera">{pollUserTitle}</div>
       <div className="SmartphoneStatusBar__icons">
         <Icon icon="mdi:wifi" />
         <Icon icon="mdi:signal" />
