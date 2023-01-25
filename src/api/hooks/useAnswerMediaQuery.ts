@@ -13,15 +13,21 @@ const useAnswerMediaQuery = (
   },
   unknown
 > => {
-  return useQuery<any, any, any>(['answer_media', answerId], async () => {
-    const { data }: { data: AnswerMediaAPIResponse } = await get(
-      `${API_ROOT}/answer_media/${answerId}`
-    )
-    return {
-      url: data.data.url,
-      contentType: data.data.content_type,
+  return useQuery<any, any, any>(
+    ['answer_media', answerId],
+    async () => {
+      const { data }: { data: AnswerMediaAPIResponse } = await get(
+        `${API_ROOT}/answer_media/${answerId}`
+      )
+      return {
+        url: data.data.url,
+        contentType: data.data.content_type,
+      }
+    },
+    {
+      refetchOnWindowFocus: false,
     }
-  })
+  )
 }
 
 export default useAnswerMediaQuery

@@ -168,6 +168,7 @@ const conversationToInteraction = (
         content: message.message,
         timestamp: parseISO(message.timestamp),
         type: 'TEXTO',
+        id: message.type === 'bot' ? -1 : message.answer_id,
       })
     ),
     alerts: [],

@@ -6,7 +6,10 @@ import './SmartphoneMessage.css'
 
 const SmartphoneMessage = ({ data }: { data: SmartphoneChatMessage }) => {
   const messageTime = format(data.message.timestamp, 'H:mm')
-  const messageContent = getMessageContentComponent(data.message.content)
+  const messageContent = getMessageContentComponent(
+    data.message.content,
+    data.message.id
+  )
 
   return (
     <div
