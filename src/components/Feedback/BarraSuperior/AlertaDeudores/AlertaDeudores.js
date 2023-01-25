@@ -6,7 +6,6 @@ const usuariosDeudores = [
 
   'EzioChiappe',
   'Facelab',
-  '3DentOnce16',
   'Visum',
   'AltosDelValle',
   'Tabilo',
