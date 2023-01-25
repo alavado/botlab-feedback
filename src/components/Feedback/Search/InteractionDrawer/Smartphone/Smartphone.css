@@ -24,21 +24,6 @@
   transition: all 0.25s ease;
 }
 
-.Smartphone__screen::after {
-  position: absolute;
-  content: '';
-  background: linear-gradient(
-    -70deg,
-    rgba(255, 255, 255, 0.1),
-    transparent,
-    rgba(255, 255, 255, 0.1)
-  );
-  width: 100%;
-  height: 100%;
-  border-radius: 2rem;
-  pointer-events: none;
-}
-
 .Smartphone__app_bar {
   border-radius: 1.75rem 1.75rem 0 0;
   color: var(--color-texto);
