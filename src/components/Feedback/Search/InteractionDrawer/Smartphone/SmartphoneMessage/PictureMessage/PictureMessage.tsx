@@ -5,7 +5,7 @@ import useAnswerMediaQuery from '../../../../../../../api/hooks/useAnswerMediaQu
 import './PictureMessage.css'
 
 const PictureMessage = ({ answerId }: { answerId: number }) => {
-  const [visible, setVisible] = useState(false)
+  const [pictureVisible, setVisible] = useState(false)
   const { data, isLoading } = useAnswerMediaQuery(answerId)
 
   if (isLoading) {
@@ -17,18 +17,28 @@ const PictureMessage = ({ answerId }: { answerId: number }) => {
       <button
         className={classNames({
           PictureMessage__close_button: true,
-          'PictureMessage__close_button--visible': visible,
+          'PictureMessage__close_button--visible': pictureVisible,
         })}
         onClick={() => setVisible(false)}
         title="Ocultar imagen"
       >
         <Icon icon="mdi:eye-off" />
       </button>
+      <div
+        className={classNames({
+          PictureMessage__warning: true,
+          'PictureMessage__warning--visible': !pictureVisible,
+        })}
+      >
+        <Icon icon="mdi:eye-off" />
+        <p>Paciente envió imagen</p>
+        <p>Haz click para ver</p>
+      </div>
       <img
         onClick={() => setVisible(true)}
         className={classNames({
           PictureMessage__image: true,
-          'PictureMessage__image--visible': visible,
+          'PictureMessage__image--visible': pictureVisible,
         })}
         src={data?.url}
         alt="Imagen enviada por paciente"
