@@ -1,21 +1,21 @@
 .SelectorRangoFechas2 {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .SelectorRangoFechas2__label {
-  font-size: .75rem;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
-  gap: .25rem;
+  gap: 0.25rem;
   cursor: pointer;
   color: var(--color-texto);
 }
 
 .SelectorRangoFechas2__label svg {
   font-size: 1.1rem;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .SelectorRangoFechas2__contenedor_popup {
@@ -32,7 +32,7 @@
   background: transparent;
   border: 1px solid var(--color-bordes);
   color: var(--color-texto);
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 600;
   height: 2rem;
   display: flex;
@@ -48,14 +48,14 @@
 }
 
 .SelectorRangoFechas2__boton--retroceder {
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   border-radius: 1rem 0 0 1rem;
   border-right: none;
   font-size: 1rem;
 }
 
 .SelectorRangoFechas2__boton--avanzar {
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   border-radius: 0 1rem 1rem 0;
   border-left: none;
   font-size: 1rem;
@@ -65,22 +65,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   height: 1.75rem;
-  padding: 0 .6rem 0 .45rem;
+  padding: 0 0.6rem 0 0.45rem;
   color: var(--color-texto-claro);
   background-color: var(--color-principal);
   border: none;
   cursor: pointer;
   outline: none;
-  transition: all .25s ease;
+  transition: all 0.25s ease;
   position: relative;
   filter: none;
-  font-size: .75rem;
+  font-size: 0.75rem;
 }
 
 .SelectorRangoFechas2__boton_rango:hover {
-  box-shadow: .15rem .15rem .2rem rgba(0, 0, 0, .1);
+  box-shadow: 0.15rem 0.15rem 0.2rem rgba(0, 0, 0, 0.1);
   filter: brightness(110%);
 }
 
@@ -89,11 +89,23 @@
 }
 
 .SelectorRangoFechas2__boton_rango:disabled {
-  opacity: .5;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .SelectorRangoFechas2__icono {
-  margin-right: .25rem;
+  margin-right: 0.25rem;
   font-size: 1rem;
+}
+
+@media (max-width: 1000px) {
+  .SelectorRangoFechas2__label {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .SelectorRangoFechas2__boton_rango {
+    display: none;
+  }
 }

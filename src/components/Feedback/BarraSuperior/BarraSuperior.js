@@ -13,25 +13,31 @@ import { obtenerTiposEncuestasVisibles } from '../../../helpers/encuestasSecreta
 import AlertaDeudores from './AlertaDeudores'
 
 const BarraSuperior = () => {
-
-  const { respuestas } = useSelector(state => state.respuestas)
-  const { cuenta } = useSelector(state => state.login)
-  const { idEncuestaSeleccionada, tipos } = useSelector(state => state.encuestas)
+  const { respuestas } = useSelector((state) => state.respuestas)
+  const { cuenta } = useSelector((state) => state.login)
+  const { idEncuestaSeleccionada, tipos } = useSelector(
+    (state) => state.encuestas
+  )
   const dispatch = useDispatch()
 
   const tiposOrdenados = useMemo(() => {
-    const encuestaSeleccionada = tipos?.find(({ id }) => id === idEncuestaSeleccionada)
+    const encuestaSeleccionada = tipos?.find(
+      ({ id }) => id === idEncuestaSeleccionada
+    )
     if (!encuestaSeleccionada) {
       return tipos
     }
-    const encuestasCalculadas = obtenerPollsCalculadas(encuestaSeleccionada, respuestas)
+    const encuestasCalculadas = obtenerPollsCalculadas(
+      encuestaSeleccionada,
+      respuestas
+    )
     if (encuestasCalculadas.length === 0) {
       return tipos
     }
     let tiposEncuestas = [
       encuestaSeleccionada,
       ...encuestasCalculadas,
-      ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada)
+      ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada),
     ]
     return obtenerTiposEncuestasVisibles(cuenta, tiposEncuestas)
   }, [tipos, idEncuestaSeleccionada, respuestas, cuenta])
@@ -40,41 +46,55 @@ const BarraSuperior = () => {
     <div className="BarraSuperior">
       <AlertaPilotos />
       <AlertaDeudores />
-      {cuenta.includes('centauro') || (tiposOrdenados?.length < 5 && !cuenta.includes('redsalud'))
-        ? <Switch>
-            <Route path="/chat/:idEncuesta/:idUsuario" component={TabsEncuestas} />
-            <Route path="/busqueda" component={TabsEncuestas} />
-            <Route path="/uso" component={TabsEncuestas} />
-            <Route path="/preparaciones" component={TabsEncuestas} />
-            <Route path="/alertas" component={TabsEncuestas} />
-            <Route path="/tutoriales" component={TabsEncuestas} />
-            <Route path="/exportar" component={TabsEncuestas} />
-            <Route path="/" component={TabsEncuestas} />
-          </Switch>
-        : <Switch>
-            <Route path="/chat/:idEncuesta/:idUsuario" component={SelectorEncuesta} />
-            <Route path="/busqueda" component={SelectorEncuesta} />
-            <Route path="/uso" component={SelectorEncuesta} />
-            <Route path="/preparaciones" component={SelectorEncuesta} />
-            <Route path="/alertas" component={SelectorEncuesta} />
-            <Route path="/tutoriales" component={SelectorEncuesta} />
-            <Route path="/exportar" component={SelectorEncuesta} />
-            <Route path="/" component={SelectorEncuesta} />
-          </Switch>
-      }
-      {cuenta.endsWith('_cero') && (
+      {cuenta.includes('centauro') ||
+      (tiposOrdenados?.length < 5 && !cuenta.includes('redsalud')) ? (
         <Switch>
-          <Route exact path="/" component={() => (
-            <button
-              className="BarraSuperior__boton_enviador"
-              onClick={() => dispatch(activaEnviador())}
-            >
-              <InlineIcon icon="mdi:send" /> Contactar pacientes
-            </button>
-          )}/>
+          <Route
+            path="/chat/:idEncuesta/:idUsuario"
+            component={TabsEncuestas}
+          />
+          <Route path="/busqueda" component={TabsEncuestas} />
+          <Route path="/uso" component={TabsEncuestas} />
+          <Route path="/preparaciones" component={TabsEncuestas} />
+          <Route path="/alertas" component={TabsEncuestas} />
+          <Route path="/tutoriales" component={TabsEncuestas} />
+          <Route path="/exportar" component={TabsEncuestas} />
+          <Route path="/" component={TabsEncuestas} />
+        </Switch>
+      ) : (
+        <Switch>
+          <Route
+            path="/chat/:idEncuesta/:idUsuario"
+            component={SelectorEncuesta}
+          />
+          <Route path="/busqueda" component={SelectorEncuesta} />
+          <Route path="/uso" component={SelectorEncuesta} />
+          <Route path="/preparaciones" component={SelectorEncuesta} />
+          <Route path="/alertas" component={SelectorEncuesta} />
+          <Route path="/tutoriales" component={SelectorEncuesta} />
+          <Route path="/exportar" component={SelectorEncuesta} />
+          <Route path="/" component={SelectorEncuesta} />
         </Switch>
       )}
-      <MenuUsuario />
+      <div style={{ display: 'flex' }}>
+        {cuenta.endsWith('_cero') && (
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <button
+                  className="BarraSuperior__boton_enviador"
+                  onClick={() => dispatch(activaEnviador())}
+                >
+                  <InlineIcon icon="mdi:send" /> Contactar pacientes
+                </button>
+              )}
+            />
+          </Switch>
+        )}
+        <MenuUsuario />
+      </div>
     </div>
   )
 }
