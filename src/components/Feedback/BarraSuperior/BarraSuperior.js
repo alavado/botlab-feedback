@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import './BarraSuperior.css'
 import MenuUsuario from './MenuUsuario'

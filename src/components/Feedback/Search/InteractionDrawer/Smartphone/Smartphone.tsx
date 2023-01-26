@@ -1,4 +1,4 @@
-import { isSameDay } from 'date-fns'
+import { format, isSameDay } from 'date-fns'
 import { useEffect, useMemo, useState } from 'react'
 import { Interaction, Message } from '../../../../../api/types/servicio'
 import Loader from '../../../../Loader'
@@ -54,9 +54,18 @@ const Smartphone = ({
     return elements
   }, [pastInteractions, currentInteraction, futureInteractions])
 
-  useEffect(() => {
+  const scrollToCurrentInteraction = () =>
     document.querySelector('.SmartphoneMessagesDate--current')?.scrollIntoView()
-  }, [currentInteraction?.start])
+
+  const currentInteractionStart =
+    currentInteraction && format(currentInteraction?.start, 'yyyy-MM-dd')
+
+  useEffect(() => {
+    if (!currentInteractionStart) {
+      return
+    }
+    scrollToCurrentInteraction()
+  }, [currentInteractionStart])
 
   return (
     <div
