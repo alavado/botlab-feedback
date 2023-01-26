@@ -1,0 +1,25 @@
+.VCardMessage__top {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.VCardMessage__avatar {
+  font-size: 2rem;
+  color: var(--color-gris);
+}
+
+.VCardMessage__top {
+  border-bottom: 1px solid var(--color-bordes);
+  font-size: 0.7rem;
+  padding: 0.25rem 0;
+}
+
+.VCardMessage__link_whatsapp {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 1rem;
+}
