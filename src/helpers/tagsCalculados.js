@@ -305,87 +305,66 @@ export const obtenerTagsCalculados = (idEncuesta) => {
       case Number(process.env.REACT_APP_ID_POLL_REDSALUD_LISTA_DE_ESPERA_2):
         return juntaTagsEquivalentes(100, 101, '¿Agenda?')
 
-      case Number(process.env.REACT_APP_ID_POLL_ODONTOS):
-      case Number(process.env.REACT_APP_ID_POLL_VENTUS):
-      case Number(process.env.REACT_APP_ID_POLL_SANTIS):
-      case Number(process.env.REACT_APP_ID_POLL_ALPHA_SALUD_BIO_BIO):
-      case Number(process.env.REACT_APP_ID_POLL_DENTAL_MAS):
-      case Number(process.env.REACT_APP_ID_POLL_DENTAL_MAS_MXL):
-      case Number(process.env.REACT_APP_ID_POLL_DENTAL_MAS_JWARNER):
-      case Number(process.env.REACT_APP_ID_POLL_SPA_DENTAL):
-      case Number(process.env.REACT_APP_ID_POLL_UDENT):
-      case Number(process.env.REACT_APP_ID_POLL_VITALIA):
-      case Number(process.env.REACT_APP_ID_POLL_OAS):
-      case Number(process.env.REACT_APP_ID_POLL_EDERNA):
-      case Number(process.env.REACT_APP_ID_POLL_DENT_ALL_CLEAR):
-      case Number(process.env.REACT_APP_ID_POLL_BOKA):
-      case Number(process.env.REACT_APP_ID_POLL_COEPEJ):
-      case Number(process.env.REACT_APP_ID_POLL_EFIDENT):
-      case Number(process.env.REACT_APP_ID_POLL_BELADENT):
-      case Number(process.env.REACT_APP_ID_POLL_MARCHESANI):
-      case Number(process.env.REACT_APP_ID_POLL_CERRO_BLANCO):
-      case Number(process.env.REACT_APP_ID_POLL_SMILE_DESIGN):
-      case Number(process.env.REACT_APP_ID_POLL_BRACKET_CENTER):
-      case Number(process.env.REACT_APP_ID_POLL_DENTALSKI):
-      case Number(process.env.REACT_APP_ID_POLL_BEHAPPY):
-      case Number(process.env.REACT_APP_ID_POLL_CRD):
-      case Number(process.env.REACT_APP_ID_POLL_MENTA):
-      case Number(process.env.REACT_APP_ID_POLL_BIODENS):
-      case Number(process.env.REACT_APP_ID_POLL_MENTA_DEL_VALLE):
-      case Number(process.env.REACT_APP_ID_POLL_SMILERS):
-      case Number(process.env.REACT_APP_ID_POLL_ODONTO_CLINICA):
-      case Number(process.env.REACT_APP_ID_POLL_CTMELIPILLA):
-      case Number(process.env.REACT_APP_ID_POLL_DENTISTAS_TIJUANA):
-      case Number(process.env.REACT_APP_ID_POLL_KEMM):
-      case Number(process.env.REACT_APP_ID_POLL_MONTE_VITAL):
-      case Number(process.env.REACT_APP_ID_POLL_PROCLINIC):
-      case Number(process.env.REACT_APP_ID_POLL_SMILE_AND_MORE):
-      case Number(process.env.REACT_APP_ID_POLL_ODONTOSUR):
-      case Number(process.env.REACT_APP_ID_POLL_BIOREUMA):
-      case Number(process.env.REACT_APP_ID_POLL_ARAPROTEC):
-      case Number(process.env.REACT_APP_ID_POLL_ODONTOLOGIA_POR_ESPECIALISTAS):
-      case Number(process.env.REACT_APP_ID_POLL_SAN_BARTOLOME):
-      case Number(process.env.REACT_APP_ID_POLL_FNH):
-      case Number(process.env.REACT_APP_ID_POLL_DENTAL_TOTAL):
-      case Number(process.env.REACT_APP_ID_POLL_PEHUEN):
-      case Number(process.env.REACT_APP_ID_POLL_FAMILY_DENTAL_CARE):
-      case Number(process.env.REACT_APP_ID_POLL_SMILE_KIDS_CENTER):
-      case Number(process.env.REACT_APP_ID_POLL_AVARIA):
-      case Number(process.env.REACT_APP_ID_POLL_ORREGO_LUCO):
-      case Number(process.env.REACT_APP_ID_POLL_CSI):
-      case Number(process.env.REACT_APP_ID_POLL_DENTAL_REAGAN):
-      case Number(process.env.REACT_APP_ID_POLL_YOHANAN_THERAPEUTES):
-      case Number(process.env.REACT_APP_ID_POLL_180_GRADOS):
-      case Number(process.env.REACT_APP_ID_POLL_TU_SALUD_DENTAL):
-      case Number(process.env.REACT_APP_ID_POLL_SMILE_ACAPULCO):
-      case Number(process.env.REACT_APP_ID_POLL_ADICH):
-      case Number(process.env.REACT_APP_ID_POLL_ACADEMIA_DE_IMPLANTES):
-      case Number(process.env.REACT_APP_ID_POLL_CATH):
-      case Number(process.env.REACT_APP_ID_POLL_SOULS):
-      case Number(process.env.REACT_APP_ID_POLL_INMUNODENT):
-      case Number(process.env.REACT_APP_ID_POLL_180_GRADOS_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_TU_SALUD_DENTAL_RECONFIRMACION):
-      case Number(process.env.REACT_APP_ID_POLL_VISUM):
-      case Number(process.env.REACT_APP_ID_POLL_2020):
-      case Number(process.env.REACT_APP_ID_POLL_LE_CIEL):
-      case Number(process.env.REACT_APP_ID_POLL_AMANDA):
-      case Number(process.env.REACT_APP_ID_POLL_CORE):
-      case Number(process.env.REACT_APP_ID_POLL_CANOVAS):
-      case Number(process.env.REACT_APP_ID_POLL_CENTAURO):
-      case Number(process.env.REACT_APP_ID_POLL_IMAGINATE):
-      case Number(process.env.REACT_APP_ID_POLL_TABILO):
-      case Number(process.env.REACT_APP_ID_POLL_CSMI):
-      case Number(process.env.REACT_APP_ID_POLL_ALTA_ESPECIALIDAD_DENTAL):
-      case Number(process.env.REACT_APP_ID_POLL_BUKAL):
-      case Number(process.env.REACT_APP_ID_POLL_4EVER_SMILE):
-        return juntarConfirmaYReagenda(0, 104)
+      // case Number(process.env.REACT_APP_ID_POLL_SPA_DENTAL):
+      // case Number(process.env.REACT_APP_ID_POLL_UDENT):
+      // case Number(process.env.REACT_APP_ID_POLL_VITALIA):
+      // case Number(process.env.REACT_APP_ID_POLL_OAS):
+      // case Number(process.env.REACT_APP_ID_POLL_EDERNA):
+      // case Number(process.env.REACT_APP_ID_POLL_DENT_ALL_CLEAR):
+      // case Number(process.env.REACT_APP_ID_POLL_BOKA):
+      // case Number(process.env.REACT_APP_ID_POLL_COEPEJ):
+      // case Number(process.env.REACT_APP_ID_POLL_EFIDENT):
+      // case Number(process.env.REACT_APP_ID_POLL_BELADENT):
+      // case Number(process.env.REACT_APP_ID_POLL_MARCHESANI):
+      // case Number(process.env.REACT_APP_ID_POLL_CERRO_BLANCO):
+      // case Number(process.env.REACT_APP_ID_POLL_SMILE_DESIGN):
+      // case Number(process.env.REACT_APP_ID_POLL_BRACKET_CENTER):
+      // case Number(process.env.REACT_APP_ID_POLL_DENTALSKI):
+      // case Number(process.env.REACT_APP_ID_POLL_BEHAPPY):
+      // case Number(process.env.REACT_APP_ID_POLL_CRD):
+      // case Number(process.env.REACT_APP_ID_POLL_MENTA):
+      // case Number(process.env.REACT_APP_ID_POLL_BIODENS):
+      // case Number(process.env.REACT_APP_ID_POLL_MENTA_DEL_VALLE):
+      // case Number(process.env.REACT_APP_ID_POLL_SMILERS):
+      // case Number(process.env.REACT_APP_ID_POLL_ODONTO_CLINICA):
+      // case Number(process.env.REACT_APP_ID_POLL_CTMELIPILLA):
+      // case Number(process.env.REACT_APP_ID_POLL_DENTISTAS_TIJUANA):
+      // case Number(process.env.REACT_APP_ID_POLL_KEMM):
+      // case Number(process.env.REACT_APP_ID_POLL_MONTE_VITAL):
+      // case Number(process.env.REACT_APP_ID_POLL_PROCLINIC):
+      // case Number(process.env.REACT_APP_ID_POLL_SMILE_AND_MORE):
+      // case Number(process.env.REACT_APP_ID_POLL_ODONTOSUR):
+      // case Number(process.env.REACT_APP_ID_POLL_BIOREUMA):
+      // case Number(process.env.REACT_APP_ID_POLL_ARAPROTEC):
+      // case Number(process.env.REACT_APP_ID_POLL_ODONTOLOGIA_POR_ESPECIALISTAS):
+      // case Number(process.env.REACT_APP_ID_POLL_SAN_BARTOLOME):
+      // case Number(process.env.REACT_APP_ID_POLL_FNH):
+      // case Number(process.env.REACT_APP_ID_POLL_DENTAL_TOTAL):
+      // case Number(process.env.REACT_APP_ID_POLL_PEHUEN):
+      // case Number(process.env.REACT_APP_ID_POLL_FAMILY_DENTAL_CARE):
+      // case Number(process.env.REACT_APP_ID_POLL_SMILE_KIDS_CENTER):
+      // case Number(process.env.REACT_APP_ID_POLL_AVARIA):
+      // case Number(process.env.REACT_APP_ID_POLL_ORREGO_LUCO):
+      // case Number(process.env.REACT_APP_ID_POLL_CSI):
+      // case Number(process.env.REACT_APP_ID_POLL_DENTAL_REAGAN):
+      // case Number(process.env.REACT_APP_ID_POLL_YOHANAN_THERAPEUTES):
+      // case Number(process.env.REACT_APP_ID_POLL_180_GRADOS):
+      // case Number(process.env.REACT_APP_ID_POLL_TU_SALUD_DENTAL):
+      // case Number(process.env.REACT_APP_ID_POLL_SMILE_ACAPULCO):
+      // case Number(process.env.REACT_APP_ID_POLL_ADICH):
+      // case Number(process.env.REACT_APP_ID_POLL_ACADEMIA_DE_IMPLANTES):
+      // case Number(process.env.REACT_APP_ID_POLL_CATH):
+      // case Number(process.env.REACT_APP_ID_POLL_SOULS):
+      // case Number(process.env.REACT_APP_ID_POLL_INMUNODENT):
+      // case Number(process.env.REACT_APP_ID_POLL_180_GRADOS_RECONFIRMACION):
+      // case Number(process.env.REACT_APP_ID_POLL_TU_SALUD_DENTAL_RECONFIRMACION):
+      // case Number(process.env.REACT_APP_ID_POLL_VISUM):
+      // case Number(process.env.REACT_APP_ID_POLL_2020):
+      //   return juntarConfirmaYReagenda(0, 104)
 
-      case Number(process.env.REACT_APP_ID_POLL_DENTALSTUDIO):
-        return juntarConfirmaYReagendaAutomatico(0, 104, 204)
-
-      case Number(process.env.REACT_APP_ID_POLL_EVEREST1):
-      case Number(process.env.REACT_APP_ID_POLL_EVEREST2):
-        return juntarConfirmaYReagendaAutomatico(50, 104, 204)
+      // case Number(process.env.REACT_APP_ID_POLL_EVEREST1):
+      // case Number(process.env.REACT_APP_ID_POLL_EVEREST2):
+      //   return juntarConfirmaYReagendaAutomatico(50, 104, 204)
 
       case Number(process.env.REACT_APP_ID_POLL_FALP_CONVENIOS):
         return [
