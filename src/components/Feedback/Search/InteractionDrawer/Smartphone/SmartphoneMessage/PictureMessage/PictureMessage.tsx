@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useState } from 'react'
 import useAnswerMediaQuery from '../../../../../../../api/hooks/useAnswerMediaQuery'
+import Loader from '../../../../../../Loader'
 import './PictureMessage.css'
 
 const PictureMessage = ({ answerId }: { answerId: number }) => {
@@ -9,7 +10,7 @@ const PictureMessage = ({ answerId }: { answerId: number }) => {
   const { data, isLoading } = useAnswerMediaQuery(answerId)
 
   if (isLoading) {
-    return <p>cargando...</p>
+    return <Loader color="var(--color-principal)" />
   }
 
   return (

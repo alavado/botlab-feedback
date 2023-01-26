@@ -1,8 +1,8 @@
 import useAnswerMediaQuery from '../../../../../../../api/hooks/useAnswerMediaQuery'
 import Loader from '../../../../../../Loader'
-import './AudioMessage.css'
+import './VideoMessage.css'
 
-const AudioMessage = ({ answerId }: { answerId: number }) => {
+const VideoMessage = ({ answerId }: { answerId: number }) => {
   const { data, isLoading } = useAnswerMediaQuery(answerId)
 
   if (isLoading) {
@@ -10,10 +10,10 @@ const AudioMessage = ({ answerId }: { answerId: number }) => {
   }
 
   return (
-    <div className="AudioMessage">
-      <audio className="MensajeWhatsapp__audio" src={data?.url} controls />
+    <div className="VideoMessage">
+      <video src={data?.url} controls={true} />
     </div>
   )
 }
 
-export default AudioMessage
+export default VideoMessage

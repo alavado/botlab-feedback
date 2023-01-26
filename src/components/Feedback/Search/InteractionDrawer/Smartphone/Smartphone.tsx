@@ -58,7 +58,8 @@ const Smartphone = ({
     document.querySelector('.SmartphoneMessagesDate--current')?.scrollIntoView()
 
   const currentInteractionStart =
-    currentInteraction && format(currentInteraction?.start, 'yyyy-MM-dd')
+    currentInteraction &&
+    format(currentInteraction?.start, 'yyyy-MM-dd') + currentInteraction?.phone
 
   useEffect(() => {
     if (!currentInteractionStart) {

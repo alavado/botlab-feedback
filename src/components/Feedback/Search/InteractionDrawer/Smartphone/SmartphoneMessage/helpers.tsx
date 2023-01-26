@@ -2,6 +2,8 @@ import AttachmentMessage from './AttachmentMessage'
 import AudioMessage from './AudioMessage'
 import PictureMessage from './PictureMessage'
 import TextMessage from './TextMessage'
+import VCardMessage from './VCardMessage'
+import VideoMessage from './VideoMessage'
 
 export const attachmentsToken = 'ATTACHMENT:'
 
@@ -17,6 +19,14 @@ const isAudio = (message: String): Boolean => {
   return message === 'MEDIAAUDIOURL'
 }
 
+const isVideo = (message: String): Boolean => {
+  return message === 'MEDIAVIDEOURL'
+}
+
+const isVCard = (message: String): Boolean => {
+  return message === 'MEDIAVCARDURL'
+}
+
 export const getMessageContentComponent = (
   message: string,
   messageId: number
@@ -29,6 +39,12 @@ export const getMessageContentComponent = (
   }
   if (isAudio(message)) {
     return <AudioMessage answerId={messageId} />
+  }
+  if (isVideo(message)) {
+    return <VideoMessage answerId={messageId} />
+  }
+  if (isVCard(message)) {
+    return <VCardMessage answerId={messageId} />
   }
   return <TextMessage message={message} />
 }
