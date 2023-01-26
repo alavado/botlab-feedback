@@ -100,20 +100,20 @@ export const obtenerTagsCalculados = (idEncuesta) => {
                 : null,
           },
         ]
-      case 167: // confirmación norden
-        return [
-          ...juntaTagsEquivalentes(0, 1001, '¿Confirma?'),
-          {
-            texto: '¿Reagenda?',
-            tipo: 'REAGENDA',
-            f: (r) => r[104],
-          },
-          {
-            texto: 'Opción elegida',
-            tipo: 'OPEN',
-            f: (r) => r[6],
-          },
-        ]
+      // case 167: // confirmación norden
+      //   return [
+      //     ...juntaTagsEquivalentes(0, 1001, '¿Confirma?'),
+      //     {
+      //       texto: '¿Reagenda?',
+      //       tipo: 'REAGENDA',
+      //       f: (r) => r[104],
+      //     },
+      //     {
+      //       texto: 'Opción elegida',
+      //       tipo: 'OPEN',
+      //       f: (r) => r[6],
+      //     },
+      //   ]
       case 557: // agendamiento norden
         return [
           {
@@ -302,8 +302,8 @@ export const obtenerTagsCalculados = (idEncuesta) => {
           },
         ]
 
-      case Number(process.env.REACT_APP_ID_POLL_REDSALUD_LISTA_DE_ESPERA_2):
-        return juntaTagsEquivalentes(100, 101, '¿Agenda?')
+      // case Number(process.env.REACT_APP_ID_POLL_REDSALUD_LISTA_DE_ESPERA_2):
+      //   return juntaTagsEquivalentes(100, 101, '¿Agenda?')
 
       // case Number(process.env.REACT_APP_ID_POLL_SPA_DENTAL):
       // case Number(process.env.REACT_APP_ID_POLL_UDENT):
