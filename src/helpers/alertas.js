@@ -1,4 +1,4 @@
-export const obtenerIconoAlerta = mensaje => {
+export const obtenerIconoAlerta = (mensaje) => {
   switch (mensaje) {
     case 'Número equivocado':
       return 'mdi:cellphone-off'
@@ -14,12 +14,14 @@ export const obtenerIconoAlerta = mensaje => {
       return 'mdi:chat-processing'
     case 'Indica fallecimiento':
       return 'mdi:cross'
+    case 'Paciente quiere reagendar':
+      return 'mdi:calendar-arrow-right'
     default:
       return 'mdi:whatsapp'
   }
 }
 
-export const obtenerEtiquetaAlerta = mensaje => {
+export const obtenerEtiquetaAlerta = (mensaje) => {
   switch (mensaje) {
     case 'Mensaje post encuesta':
       return 'Mensaje post interacción'
@@ -28,7 +30,7 @@ export const obtenerEtiquetaAlerta = mensaje => {
   }
 }
 
-export const obtenerNombrePacienteAlerta = alerta => {
+export const obtenerNombrePacienteAlerta = (alerta) => {
   if (alerta.meta['Nombre']) {
     return alerta.meta['Nombre'] + (` ${alerta.meta['Apellidos']}` || '')
   }
@@ -44,7 +46,7 @@ export const obtenerNombrePacienteAlerta = alerta => {
   return '-'
 }
 
-export const obtenerSucursalAlerta = alerta => {
+export const obtenerSucursalAlerta = (alerta) => {
   if (alerta.meta['sucursal_name_1']) {
     return alerta.meta['sucursal_name_1']
   }

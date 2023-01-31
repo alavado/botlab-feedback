@@ -1,13 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
 export const mensajesAlertasVisibles = [
+  'Paciente quiere reagendar',
   'Número equivocado',
   'Paciente tiene pregunta o comentario',
   'Paciente reagenda post confirmación',
   'Paciente cancela post confirmación',
   'Paciente se arrepiente de cancelar su hora',
   'Mensaje post encuesta',
-  'Indica fallecimiento'
+  'Indica fallecimiento',
 ]
 
 const alertasSlice = createSlice({
@@ -15,7 +16,7 @@ const alertasSlice = createSlice({
   initialState: {
     recibirNotificaciones: false,
     verAlertas: mensajesAlertasVisibles,
-    sucursalSeleccionada: undefined
+    sucursalSeleccionada: undefined,
   },
   reducers: {
     activaNotificaciones(state, { payload }) {
@@ -25,7 +26,7 @@ const alertasSlice = createSlice({
       state.verAlertas = [...state.verAlertas, payload]
     },
     remueveAlertasVisibles(state, { payload }) {
-      state.verAlertas = state.verAlertas.filter(m => m !== payload)
+      state.verAlertas = state.verAlertas.filter((m) => m !== payload)
     },
     dejaSoloAlertasVisibles(state, { payload }) {
       state.verAlertas = [payload]
@@ -36,7 +37,7 @@ const alertasSlice = createSlice({
     seleccionarSucursal(state, { payload }) {
       state.sucursalSeleccionada = payload
     },
-  }
+  },
 })
 
 export const {
