@@ -123,7 +123,9 @@ const extractAppointments = (
             formatISO(start)
           ),
           rut: _.find(context, { target: rutTarget })?.value as string,
-          patientName: _.find(context, { target: nameTarget })?.value as string,
+          patientName: _.trim(
+            _.find(context, { target: nameTarget })?.value as string
+          ),
           url: getSchedulingSystemURL(conversation),
           schedulingSystem: inferSchedulingSystem(conversation),
         }
@@ -137,7 +139,7 @@ const extractAppointments = (
         formatISO(start)
       ),
       rut: _.find(context, { target: 'rut' })?.value as string,
-      patientName: _.find(context, { target: 'name' })?.value as string,
+      patientName: _.trim(_.find(context, { target: 'name' })?.value as string),
       url: getSchedulingSystemURL(conversation),
       schedulingSystem: inferSchedulingSystem(conversation),
     },
