@@ -5,23 +5,26 @@ import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 import { useSelector } from 'react-redux'
 import ConteoAlertas from './ConteoAlertas'
-import { tieneAccesoAAlertas, tieneAccesoAReportes } from '../../../helpers/permisos'
+import {
+  tieneAccesoAAlertas,
+  tieneAccesoAReportes,
+} from '../../../helpers/permisos'
 import useAnalytics from '../../../hooks/useAnalytics'
 
 const BarraLateral = () => {
-
-  const { cuenta } = useSelector(state => state.login)
+  const { cuenta } = useSelector((state) => state.login)
   const [feliz, setFeliz] = useState(false)
   const track = useAnalytics()
-  
+
   return (
     <div className="BarraLateral">
-      <Link
-        to="/"
-        className="BarraLateral__link_logo"
-      >
+      <Link to="/" className="BarraLateral__link_logo">
         <div className="BarraLateral__logo">
-          <img className="BarraLateral__logo_imagen" src={logo} alt="Logo Cero.ai" />
+          <img
+            className="BarraLateral__logo_imagen"
+            src={logo}
+            alt="Logo Cero.ai"
+          />
           {window.location.href.includes('qa') && <p>QA</p>}
           {window.location.href.includes('dev') && <p>DEV</p>}
         </div>
@@ -37,18 +40,18 @@ const BarraLateral = () => {
           <Icon icon="mdi:home" />
           <div className="BarraLateral__nombre_seccion">Respuestas</div>
         </NavLink>
-        {tieneAccesoAAlertas(cuenta) &&
+        {tieneAccesoAAlertas(cuenta) && (
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
             to="/alertas"
             onClick={() => track('Feedback', 'BarraLateral', 'verAlertas')}
           >
-            <ConteoAlertas setFeliz={setFeliz} />
+            {/* <ConteoAlertas setFeliz={setFeliz} /> */}
             <Icon icon={feliz ? 'mdi:robot-happy' : 'mdi:robot'} />
             <div className="BarraLateral__nombre_seccion">Alertas</div>
           </NavLink>
-        }
+        )}
         {/* <NavLink
           className="BarraLateral__link"
           activeClassName="BarraLateral__link--activo"

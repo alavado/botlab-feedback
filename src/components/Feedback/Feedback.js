@@ -19,6 +19,7 @@ import { cierraLaSesion } from '../../redux/ducks/login'
 import Novedades from '../Novedades'
 import Tutoriales from './Tutoriales'
 import Search from './Search'
+import Alerts from './Alerts'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
@@ -97,6 +98,9 @@ const Feedback = () => {
             <Route path="/busqueda">
               <></>
             </Route>
+            <Route path="/alertas">
+              <></>
+            </Route>
             <Route>
               <BarraSuperior />
             </Route>
@@ -116,7 +120,7 @@ const Feedback = () => {
                 <Alertas />
               </Route>
               <Route path="/alertas">
-                <Alertas />
+                <Alerts />
               </Route>
               <Route exact path="/busqueda">
                 <Search />

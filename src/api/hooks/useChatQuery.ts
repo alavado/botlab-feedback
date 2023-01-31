@@ -12,9 +12,7 @@ import {
   Message,
   SchedulingSystem,
 } from '../types/servicio'
-import { get, parseAPIDate } from './utils'
-
-const API_ROOT = process.env.REACT_APP_API_ROOT
+import { get, API_ROOT, parseAPIDate } from './utils'
 
 type chatAPIInteractionID = {
   pollId: number
