@@ -182,3 +182,22 @@ export interface AnswerMediaAPIResponse {
     content_type: string
   }
 }
+
+export interface PollsHeadersAPIResponse {
+  status: string
+  data: [
+    {
+      id: number
+      name: string
+      archived: boolean
+      enabled: boolean
+      headers: [
+        {
+          name: string
+          display_name: string
+          type: 'META' | 'YESNO' | 'INTERNAL' | 'RANGE' | 'OPEN'
+        }
+      ]
+    }
+  ]
+}

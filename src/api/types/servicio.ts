@@ -1,20 +1,15 @@
-export interface Servicio {
+export interface Service {
   id: number
-  nombre: string
-  horaInicio: string
-  habilitado: boolean
-  icono: string
-  propiedades: PropiedadServicio[]
-  sucursales: string[]
-  descripcion: string
+  name: string
+  headers: ServiceHeader[]
 }
 
-type TipoPropiedadServicio = 'META' | 'YESNO' | 'INTERNAL'
+type ServiceHeaderType = 'META' | 'YESNO' | 'INTERNAL' | 'RANGE' | 'OPEN'
 
-export interface PropiedadServicio {
-  id: string
-  nombre: string
-  tipo: TipoPropiedadServicio
+export interface ServiceHeader {
+  name: string
+  displayName: string
+  type: ServiceHeaderType
 }
 
 export interface Interaction {
@@ -46,7 +41,7 @@ export interface Pregunta {
   id: string
   texto: string
   respuesta: string
-  tipo: TipoPropiedadServicio
+  tipo: ServiceHeaderType
 }
 
 export type IDEstadoInteraccion =

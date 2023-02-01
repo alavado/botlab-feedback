@@ -22,3 +22,17 @@
   font-weight: bold;
   font-size: 0.8rem;
 }
+
+.Alerts__container {
+  display: flex;
+}
+
+.Alerts__aside {
+  display: flex;
+  flex-direction: column;
+}
+
+.Alerts__main {
+  display: flex;
+  flex-direction: column;
+}
