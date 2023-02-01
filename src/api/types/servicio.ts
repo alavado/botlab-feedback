@@ -81,14 +81,10 @@ export interface Alert {
   patientId: number
 }
 
-export type AlertType =
-  | 'Número equivocado'
-  | 'Paciente tiene pregunta o comentario'
-  | 'Paciente reagenda post confirmación'
-  | 'Paciente cancela post confirmación'
-  | 'Paciente se arrepiente de cancelar su hora'
-  | 'Mensaje post encuesta'
-  | 'Indica fallecimiento'
+export interface AlertType {
+  id: string
+  name: string
+}
 
 export interface Alerta {
   timestamp: Date

@@ -11,6 +11,7 @@ const BranchesFilter = () => {
 
   return (
     <div className="BranchesFilter">
+      <h3>Sucursales</h3>
       {branches?.map((branch) => (
         <div key={`BranchesFilter-${branch.name}`}>{branch.name}</div>
       ))}
