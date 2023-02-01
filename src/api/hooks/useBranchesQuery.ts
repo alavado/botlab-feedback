@@ -7,7 +7,10 @@ const useBranchesQuery = (): UseQueryResult<Branch[], unknown> => {
     'branches',
     async () => {
       const loginSlice: any = store.getState().login
-      return loginSlice.sucursales
+      return loginSlice.sucursales.map((sucursal: any) => ({
+        id: sucursal,
+        name: sucursal,
+      }))
     },
     {
       refetchOnMount: false,

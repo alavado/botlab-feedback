@@ -36,3 +36,20 @@
   display: flex;
   flex-direction: column;
 }
+
+.Alerts__drawer {
+  position: fixed;
+  height: 100%;
+  right: 0;
+  top: 0;
+  background: var(--color-fondo);
+  transition: right 0.35s ease-out, opacity 0.35s ease-out;
+  opacity: 1;
+  display: flex;
+  z-index: 2;
+}
+
+.Alerts__drawer--hidden {
+  right: -100%;
+  opacity: 0;
+}

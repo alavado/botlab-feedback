@@ -116,11 +116,14 @@ const Feedback = () => {
               <Route path="/chat">
                 <Respuestas />
               </Route>
+              <Route exact path="/alertas">
+                <Alerts />
+              </Route>
+              <Route path="/alertas/:serviceId/:patientId">
+                <Alerts />
+              </Route>
               <Route path="/alertas/:id">
                 <Alertas />
-              </Route>
-              <Route path="/alertas">
-                <Alerts />
               </Route>
               <Route exact path="/busqueda">
                 <Search />

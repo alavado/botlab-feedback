@@ -1,7 +1,7 @@
 import { Alerta } from './types/servicio'
 import { format, parseISO, addDays } from 'date-fns'
 import { useQuery, useQueryClient } from 'react-query'
-import { alertasAPIResponse } from './types/responses'
+import { AlertsAPIResponse } from './types/responses'
 import { get } from './hooks/utils'
 
 const API_ROOT = process.env.REACT_APP_API_ROOT
@@ -9,7 +9,7 @@ const API_ROOT = process.env.REACT_APP_API_ROOT
 const obtenerAlertas = async (diasAtras: number = 3): Promise<Alerta[]> => {
   const hoy = format(new Date(), 'yyyy-MM-dd')
   const hace7Dias = format(addDays(new Date(), -diasAtras), 'yyyy-MM-dd')
-  const response: alertasAPIResponse = (
+  const response: AlertsAPIResponse = (
     await get(
       `${API_ROOT}/polls/alerts?start_date=${hace7Dias}&end_date=${hoy}`
     )

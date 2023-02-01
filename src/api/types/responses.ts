@@ -103,7 +103,7 @@ export interface reactionsAPIResponse {
   ]
 }
 
-export interface alertasAPIResponse {
+export interface AlertsAPIResponse {
   status: string
   data: [
     {

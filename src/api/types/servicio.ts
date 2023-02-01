@@ -13,6 +13,7 @@ export interface ServiceHeader {
 }
 
 export interface Branch {
+  id: string
   name: string
 }
 
@@ -74,11 +75,12 @@ export interface Message {
 export interface Alert {
   id: number
   timestamp: Date
-  type: AlertType
   solved: boolean
   solvedBy?: string
+  typeId: string
   serviceId: number
   patientId: number
+  branchId: string
 }
 
 export interface AlertType {
