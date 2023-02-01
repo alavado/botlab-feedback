@@ -12,9 +12,13 @@ export interface ServiceHeader {
   type: ServiceHeaderType
 }
 
+export interface Branch {
+  name: string
+}
+
 export interface Interaction {
-  userId: number
-  pollId: number
+  patientId: number
+  serviceId: number
   start: Date
   appointments: Appointment[]
   branch?: string
@@ -66,6 +70,25 @@ export interface Message {
   type: 'TEXTO' | 'AUDIO' | 'IMAGEN' | 'VIDEO'
   id: number
 }
+
+export interface Alert {
+  id: number
+  timestamp: Date
+  type: AlertType
+  solved: boolean
+  solvedBy?: string
+  serviceId: number
+  patientId: number
+}
+
+export type AlertType =
+  | 'Número equivocado'
+  | 'Paciente tiene pregunta o comentario'
+  | 'Paciente reagenda post confirmación'
+  | 'Paciente cancela post confirmación'
+  | 'Paciente se arrepiente de cancelar su hora'
+  | 'Mensaje post encuesta'
+  | 'Indica fallecimiento'
 
 export interface Alerta {
   timestamp: Date

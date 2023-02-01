@@ -11,10 +11,6 @@ import novedades from './novedades'
 import alertas from './alertas'
 import { combineReducers } from 'redux'
 
-import servicio from './servicio'
-import interaccion from './interaccion'
-import sucursal from './sucursal'
-
 import search from './search'
 
 const rootReducer = combineReducers({
@@ -29,9 +25,6 @@ const rootReducer = combineReducers({
   reacciones,
   novedades,
   alertas,
-  servicio,
-  interaccion,
-  sucursal,
   search,
 })
 

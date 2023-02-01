@@ -9,10 +9,12 @@ const ServicesFilter = () => {
     return <Loader />
   }
 
+  console.log(services)
+
   return (
     <div className="ServicesFilter">
       {services?.map((service) => (
-        <div>{service.name}</div>
+        <div key={`ServicesFilter-${service.name}`}>{service.name}</div>
       ))}
     </div>
   )

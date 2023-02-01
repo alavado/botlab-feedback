@@ -17,8 +17,8 @@ const searchSingleAppointmentToInteraction = (
       parseISO(appointment.start),
       Number(process.env.REACT_APP_UTC_OFFSET)
     ),
-    userId: appointment.user_id,
-    pollId: appointment.poll_id,
+    patientId: appointment.user_id,
+    serviceId: appointment.poll_id,
     branch: appointment.sucursal_name,
     phone: appointment.phone,
     appointments: [
@@ -45,8 +45,8 @@ const searchMultiAppointmentToInteraction = (
       parseISO(appointment.start),
       Number(process.env.REACT_APP_UTC_OFFSET)
     ),
-    userId: appointment.user_id,
-    pollId: appointment.poll_id,
+    patientId: appointment.user_id,
+    serviceId: appointment.poll_id,
     branch: appointment.sucursal_name_1 || appointment.sucursal_name,
     phone: appointment.phone,
     appointments: Array(Number(appointment.n_appointments))

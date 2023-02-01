@@ -153,8 +153,8 @@ const conversationToInteraction = (
   const { pollId, userId, start } = interactionId
   const { context, messages } = conversation
   const interaction: Interaction = {
-    userId,
-    pollId,
+    patientId: userId,
+    serviceId: pollId,
     start: addHours(
       parseISO(conversation.start),
       Number(process.env.REACT_APP_UTC_OFFSET)

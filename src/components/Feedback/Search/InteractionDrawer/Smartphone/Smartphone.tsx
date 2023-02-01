@@ -81,8 +81,8 @@ const Smartphone = ({
         <SmartphoneButtons setPhoneColor={setPhoneColor} />
         <div className="Smartphone__app_bar">
           <SmartphoneNavBar
-            pollId={currentInteraction?.pollId}
-            userId={currentInteraction?.userId}
+            pollId={currentInteraction?.serviceId}
+            userId={currentInteraction?.patientId}
           />
           <SmartphoneActionBar
             contactName={currentInteraction?.appointments?.[0].patientName}

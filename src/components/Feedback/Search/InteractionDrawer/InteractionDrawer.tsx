@@ -75,8 +75,8 @@ const InteractionDrawer = ({
       </div>
       <div className="InteractionDrawer__actions_container">
         <InteractionDrawerActions
-          pollId={currentInteraction?.pollId}
-          userId={currentInteraction?.userId}
+          pollId={currentInteraction?.serviceId}
+          userId={currentInteraction?.patientId}
           phone={currentInteraction?.phone}
           schedulingSystemName={
             currentInteraction?.appointments[0].schedulingSystem
