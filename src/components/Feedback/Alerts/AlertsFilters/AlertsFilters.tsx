@@ -1,14 +1,10 @@
-import useServicesQuery from '../../../../api/hooks/useServicesQuery'
 import './AlertsFilters.css'
+import ServicesFilter from './ServicesFilter'
 
 const AlertsFilters = () => {
-  const { data } = useServicesQuery()
-
-  console.log(data)
-
   return (
     <div className="AlertsFilters">
-      <div>Servicios</div>
+      <ServicesFilter />
       <div>Sucursales</div>
       <div>Tipos de alertas</div>
     </div>

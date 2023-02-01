@@ -1,4 +1,3 @@
-import useAlertsQuery from '../../../api/hooks/useAlertsQuery'
 import MenuUsuario from '../BarraSuperior/MenuUsuario'
 import InteractionDrawer from '../Search/InteractionDrawer'
 import './Alerts.css'
@@ -8,10 +7,6 @@ import AlertsOptions from './AlertsOptions'
 import AlertsTabs from './AlertsTabs'
 
 const Alerts = () => {
-  const { data } = useAlertsQuery()
-
-  console.log(data)
-
   return (
     <div className="Alerts">
       <div className="Alerts__topbar">
