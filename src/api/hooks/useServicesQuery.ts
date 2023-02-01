@@ -21,7 +21,10 @@ const useServicesQuery = (): UseQueryResult<Service[], unknown> => {
         })
       )
     },
-    { refetchOnWindowFocus: false }
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
   )
 }
 

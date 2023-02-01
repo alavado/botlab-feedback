@@ -7,10 +7,14 @@ import { get, API_ROOT } from './utils'
 
 const alertsSinceDays = 3
 
-const useAlertsQuery = (): UseQueryResult<Alert[], unknown> => {
-  const TODAY = format(new Date(), 'yyyy-MM-dd')
+const useActiveAlertsQuery = ({
+  solved,
+}: {
+  solved: boolean
+}): UseQueryResult<Alert[], unknown> => {
+  const today = format(new Date(), 'yyyy-MM-dd')
   const daysAgo = format(addDays(new Date(), -alertsSinceDays), 'yyyy-MM-dd')
-  const url = `${API_ROOT}/polls/alerts?start_date=${daysAgo}&end_date=${TODAY}`
+  const url = `${API_ROOT}/polls/alerts?start_date=${daysAgo}&end_date=${today}`
   return useQuery<Alert[], any, any>(
     'alerts',
     async () => {
@@ -30,8 +34,9 @@ const useAlertsQuery = (): UseQueryResult<Alert[], unknown> => {
     },
     {
       refetchInterval: 30_000,
+      select: (data) => data.filter((alert) => alert.solved === solved),
     }
   )
 }
 
-export default useAlertsQuery
+export default useActiveAlertsQuery

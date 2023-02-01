@@ -13,7 +13,12 @@ const BranchesFilter = () => {
     <div className="BranchesFilter">
       <h3>Sucursales</h3>
       {branches?.map((branch) => (
-        <div key={`BranchesFilter-${branch.name}`}>{branch.name}</div>
+        <div key={`BranchesFilter-${branch.name}`}>
+          <label>
+            <input type="checkbox" />
+            {branch.name}
+          </label>
+        </div>
       ))}
     </div>
   )

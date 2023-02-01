@@ -13,7 +13,12 @@ const ServicesFilter = () => {
     <div className="ServicesFilter">
       <h3>Servicios</h3>
       {services?.map((service) => (
-        <div key={`ServicesFilter-${service.name}`}>{service.name}</div>
+        <div key={`ServicesFilter-${service.name}`}>
+          <label>
+            <input type="checkbox" />
+            {service.name}
+          </label>
+        </div>
       ))}
     </div>
   )

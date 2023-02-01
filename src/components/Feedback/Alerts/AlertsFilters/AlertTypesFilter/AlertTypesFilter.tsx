@@ -13,7 +13,12 @@ const AlertTypesFilter = () => {
     <div className="AlertTypesFilter">
       <h3>Tipos de alertas</h3>
       {alertTypes?.map((alertType) => (
-        <div key={`AlertTypesFilter-${alertType.name}`}>{alertType.name}</div>
+        <div key={`AlertTypesFilter-${alertType.name}`}>
+          <label>
+            <input type="checkbox" />
+            {alertType.name}
+          </label>
+        </div>
       ))}
     </div>
   )

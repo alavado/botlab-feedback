@@ -6,7 +6,6 @@ import './Alerts.css'
 import AlertsFilters from './AlertsFilters'
 import AlertsList from './AlertsList'
 import AlertsOptions from './AlertsOptions'
-import AlertsTabs from './AlertsTabs'
 
 const Alerts = () => {
   const { params }: { params: any } = useRouteMatch()
@@ -27,7 +26,6 @@ const Alerts = () => {
           <AlertsOptions />
         </aside>
         <main className="Alerts__main">
-          <AlertsTabs />
           <AlertsList />
         </main>
       </div>
@@ -37,13 +35,15 @@ const Alerts = () => {
           'Alerts__drawer--hidden': !patientId || !serviceId,
         })}
       >
-        <InteractionDrawer
-          pollId={serviceId}
-          userId={patientId}
-          onCloseClick={() => history.push('/alertas')}
-          originComponentName="Alertas"
-          start={new Date()}
-        />
+        {patientId && serviceId && (
+          <InteractionDrawer
+            pollId={serviceId}
+            userId={patientId}
+            onCloseClick={() => history.push('/alertas')}
+            originComponentName="Alerts"
+            start={new Date()}
+          />
+        )}
       </div>
     </div>
   )

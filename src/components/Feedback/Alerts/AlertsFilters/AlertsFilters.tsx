@@ -6,8 +6,8 @@ import ServicesFilter from './ServicesFilter'
 const AlertsFilters = () => {
   return (
     <div className="AlertsFilters">
-      <ServicesFilter />
       <BranchesFilter />
+      <ServicesFilter />
       <AlertTypesFilter />
     </div>
   )

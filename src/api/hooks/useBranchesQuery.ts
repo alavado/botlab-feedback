@@ -1,22 +1,20 @@
+import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
-import store from '../../redux/store'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/ducks'
 import { Branch } from '../types/servicio'
 
 const useBranchesQuery = (): UseQueryResult<Branch[], unknown> => {
-  return useQuery<any, any, any>(
-    'branches',
-    async () => {
-      const loginSlice: any = store.getState().login
-      return loginSlice.sucursales.map((sucursal: any) => ({
-        id: sucursal,
-        name: sucursal,
-      }))
-    },
-    {
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  )
+  const { sucursales } = useSelector((state: RootState) => state.login)
+  return useQuery<any, any, any>('branches', async () => {
+    const branchesNames = _.uniq(
+      (sucursales as string[]).map((s: any) => s.name)
+    )
+    return branchesNames.map((name: any) => ({
+      id: name,
+      name,
+    }))
+  })
 }
 
 export default useBranchesQuery

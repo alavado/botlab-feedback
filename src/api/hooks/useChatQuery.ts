@@ -31,6 +31,9 @@ const useChatQuery = (
   unknown
 > => {
   const { pollId, userId, start } = id
+  if (!pollId || !userId || !start) {
+    throw Error('Missing parameters')
+  }
   return useQuery<any, any, any>(
     ['interaction', pollId, userId, start],
     async () => {
@@ -43,6 +46,9 @@ const useChatQuery = (
         data.data.user.phone,
         data.data.bot.name
       )
+    },
+    {
+      refetchInterval: 10_000,
     }
   )
 }

@@ -1,14 +1,22 @@
+import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import useAlertsQuery from '../../../../api/hooks/useAlertsQuery'
+import useActiveAlertsQuery from '../../../../api/hooks/useActiveAlertsQuery'
+import Loader from '../../../Loader'
 import './AlertsList.css'
 
 const AlertsList = () => {
-  const { data } = useAlertsQuery()
-
+  const [showSolved, setShowSolved] = useState(false)
+  const { data, isLoading } = useActiveAlertsQuery({ solved: showSolved })
   const history = useHistory()
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <div className="AlertsList">
+      <button onClick={() => setShowSolved(true)}>Resueltas</button>
+      <button onClick={() => setShowSolved(false)}>No resueltas</button>
       {data.map((alert) => (
         <div
           onClick={() =>
