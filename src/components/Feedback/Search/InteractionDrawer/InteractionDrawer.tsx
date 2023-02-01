@@ -31,6 +31,7 @@ const InteractionDrawer = ({
   const pastInteractions = data?.pastInteractions
   const currentInteraction = data?.currentInteraction
   const futureInteractions = data?.futureInteractions
+  const alerts = data?.alerts
 
   return (
     <Resizable
@@ -71,6 +72,7 @@ const InteractionDrawer = ({
           pastInteractions={pastInteractions}
           currentInteraction={currentInteraction}
           futureInteractions={futureInteractions}
+          alerts={alerts}
         />
       </div>
       <div className="InteractionDrawer__actions_container">

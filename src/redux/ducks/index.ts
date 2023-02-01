@@ -12,6 +12,7 @@ import alertas from './alertas'
 import { combineReducers } from 'redux'
 
 import search from './search'
+import alerts from './alerts'
 
 const rootReducer = combineReducers({
   login,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   novedades,
   alertas,
   search,
+  alerts,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

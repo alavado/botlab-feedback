@@ -26,7 +26,6 @@ export interface Interaction {
   phone?: string
   messages?: Message[]
   comments?: Comment[]
-  alerts?: Alerta[]
   botName?: string
 }
 

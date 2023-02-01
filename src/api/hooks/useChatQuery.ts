@@ -7,11 +7,13 @@ import {
   metaTarget,
 } from '../types/responses'
 import {
+  Alert,
   Appointment,
   Interaction,
   Message,
   SchedulingSystem,
 } from '../types/servicio'
+import useActiveAlertsQuery from './useActiveAlertsQuery'
 import { get, API_ROOT, parseAPIDate } from './utils'
 
 type chatAPIInteractionID = {
@@ -27,6 +29,7 @@ const useChatQuery = (
     currentInteraction: Interaction
     pastInteractions: Interaction[]
     futureInteractions: Interaction[]
+    alerts: Alert[]
   },
   unknown
 > => {
@@ -34,21 +37,31 @@ const useChatQuery = (
   if (!pollId || !userId || !start) {
     throw Error('Missing parameters')
   }
+  const { data: solvedAlerts } = useActiveAlertsQuery({ solved: true })
+  const { data: unsolvedAlerts } = useActiveAlertsQuery({ solved: false })
+  const alerts = [
+    ...(solvedAlerts ? solvedAlerts : []),
+    ...(unsolvedAlerts ? unsolvedAlerts : []),
+  ].filter((alert) => alert.patientId === userId && alert.serviceId === pollId)
   return useQuery<any, any, any>(
     ['interaction', pollId, userId, start],
     async () => {
       const { data }: { data: chatAPIResponse } = await get(
         `${API_ROOT}/chat/${pollId}/${userId}`
       )
-      return splitInteractions(
-        id,
-        data.data.conversations,
-        data.data.user.phone,
-        data.data.bot.name
-      )
+      return {
+        ...splitInteractions(
+          id,
+          data.data.conversations,
+          data.data.user.phone,
+          data.data.bot.name
+        ),
+        alerts,
+      }
     },
     {
       refetchInterval: 10_000,
+      enabled: !!solvedAlerts && !!unsolvedAlerts,
     }
   )
 }
@@ -77,8 +90,13 @@ const splitInteractions = (
       pastInteractions: [],
       futureInteractions: conversations
         .slice(1)
-        .map((c) =>
-          conversationToInteraction(currentInteractionID, phone, botName, c)
+        .map((conversation) =>
+          conversationToInteraction(
+            currentInteractionID,
+            phone,
+            botName,
+            conversation
+          )
         ),
     }
   }
@@ -91,13 +109,23 @@ const splitInteractions = (
     ),
     pastInteractions: conversations
       .slice(0, currentConversationIndex)
-      .map((c) =>
-        conversationToInteraction(currentInteractionID, phone, botName, c)
+      .map((conversation) =>
+        conversationToInteraction(
+          currentInteractionID,
+          phone,
+          botName,
+          conversation
+        )
       ),
     futureInteractions: conversations
       .slice(currentConversationIndex + 1)
-      .map((c) =>
-        conversationToInteraction(currentInteractionID, phone, botName, c)
+      .map((conversation) =>
+        conversationToInteraction(
+          currentInteractionID,
+          phone,
+          botName,
+          conversation
+        )
       ),
   }
 }
@@ -177,7 +205,6 @@ const conversationToInteraction = (
         id: message.type === 'bot' ? -1 : message.answer_id,
       })
     ),
-    alerts: [],
     comments: [],
     botName,
   }

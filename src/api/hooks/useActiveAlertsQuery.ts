@@ -1,5 +1,4 @@
 import { addDays, format, parseISO } from 'date-fns'
-import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import { AlertsAPIResponse } from '../types/responses'
 import { Alert } from '../types/servicio'
@@ -28,7 +27,7 @@ const useActiveAlertsQuery = ({
           timestamp: parseISO(alert.utc_timestamp),
           serviceId: alert.poll_id,
           patientId: alert.user_id,
-          branchId: '',
+          branchId: alert.meta.sucursal_name || alert.meta.sucursal_name_1,
         })
       )
     },

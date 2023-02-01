@@ -11,6 +11,12 @@ export const get = async (url: string) => {
   return axios.get(url, { headers: { 'Api-Token': token } })
 }
 
+export const patch = async (url: string, params: any) => {
+  const { login }: any = store.getState()
+  const { token } = login
+  return axios.patch(url, params, { headers: { 'Api-Token': token } })
+}
+
 export const parseAPIDate = (
   appointmentDate: string,
   appointmentTime: string,

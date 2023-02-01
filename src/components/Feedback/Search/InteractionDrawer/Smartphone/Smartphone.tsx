@@ -1,6 +1,6 @@
 import { format, isSameDay } from 'date-fns'
 import { useEffect, useMemo, useState } from 'react'
-import { Interaction, Message } from '../../../../../api/types/servicio'
+import { Alert, Interaction, Message } from '../../../../../api/types/servicio'
 import Loader from '../../../../Loader'
 import SmartphoneActionBar from './SmartphoneActionBar'
 import SmartphoneButtons from './SmartphoneButtons'
@@ -8,6 +8,7 @@ import SmartphoneMessage from './SmartphoneMessage'
 import SmartphoneMessagesDate from './SmartphoneMessagesDate'
 import SmartphoneNavBar from './SmartphoneStatusBar'
 import './Smartphone.css'
+import SmartphoneAlert from './SmartphoneAlert'
 
 export interface SmartphoneChatMessage {
   message: Message
@@ -18,17 +19,25 @@ export interface SmartphoneChatsDate {
   date: Date
   current: boolean
 }
+export interface SmartphoneChatAlert {
+  alert: Alert
+}
 
-type SmartphoneChatElement = SmartphoneChatMessage | SmartphoneChatsDate
+type SmartphoneChatElement =
+  | SmartphoneChatMessage
+  | SmartphoneChatsDate
+  | SmartphoneChatAlert
 
 const Smartphone = ({
   pastInteractions,
   currentInteraction,
   futureInteractions,
+  alerts,
 }: {
   pastInteractions?: Interaction[]
   currentInteraction?: Interaction
   futureInteractions?: Interaction[]
+  alerts?: Alert[]
 }) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
 
@@ -38,11 +47,17 @@ const Smartphone = ({
     }
     const elements: SmartphoneChatElement[] = []
     const addElement =
-      (current: boolean) => (message: Message, i: number, arr: Message[]) => {
-        if (i === 0 || !isSameDay(arr[i - 1].timestamp, message.timestamp)) {
-          elements.push({ date: message.timestamp, current })
+      (current: boolean = true) =>
+      (stuff: Message | Alert, i: number, arr: Message[] | Alert[]) => {
+        if (i === 0 || !isSameDay(arr[i - 1].timestamp, stuff.timestamp)) {
+          elements.push({ date: stuff.timestamp, current })
         }
-        elements.push({ message, current })
+        if ('content' in stuff) {
+          elements.push({ message: stuff, current })
+        }
+        if ('solved' in stuff) {
+          elements.push({ alert: stuff })
+        }
       }
     pastInteractions?.forEach((interaction: Interaction) =>
       interaction.messages?.forEach(addElement(false))
@@ -51,8 +66,9 @@ const Smartphone = ({
     futureInteractions?.forEach((interaction: Interaction) =>
       interaction.messages?.forEach(addElement(false))
     )
+    alerts?.forEach(addElement())
     return elements
-  }, [pastInteractions, currentInteraction, futureInteractions])
+  }, [pastInteractions, currentInteraction, futureInteractions, alerts])
 
   const scrollToCurrentInteraction = () =>
     document.querySelector('.SmartphoneMessagesDate--current')?.scrollIntoView()
@@ -91,19 +107,31 @@ const Smartphone = ({
         </div>
         <div className="Smartphone__messages_container">
           {currentInteraction ? (
-            chatElements.map((bubble, i: number) =>
-              'message' in bubble ? (
-                <SmartphoneMessage
-                  data={bubble}
-                  key={`smartphone-bubble-${i}`}
-                />
-              ) : (
+            chatElements.map((bubble, i: number) => {
+              if ('message' in bubble) {
+                return (
+                  <SmartphoneMessage
+                    data={bubble}
+                    key={`smartphone-bubble-${i}`}
+                  />
+                )
+              }
+              if ('alert' in bubble) {
+                return (
+                  <SmartphoneAlert
+                    alertId={bubble.alert.id}
+                    label={bubble.alert.typeId}
+                    solved={bubble.alert.solved}
+                  />
+                )
+              }
+              return (
                 <SmartphoneMessagesDate
-                  data={bubble}
+                  data={bubble as SmartphoneChatsDate}
                   key={`smartphone-bubble-${i}`}
                 />
               )
-            )
+            })
           ) : (
             <div className="Smartphone__loading_message">
               <Loader color="var(--color-principal)" />
