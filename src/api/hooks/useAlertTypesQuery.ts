@@ -9,6 +9,7 @@ const alertNames = [
   'Paciente se arrepiente de cancelar su hora',
   'Mensaje post encuesta',
   'Indica fallecimiento',
+  'Paciente quiere reagendar',
 ]
 
 const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {

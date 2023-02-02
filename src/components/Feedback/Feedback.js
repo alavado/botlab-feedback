@@ -8,13 +8,11 @@ import Respuestas from './Respuestas'
 import './Feedback.css'
 import BarraLateral from './BarraLateral'
 import BarraSuperior from './BarraSuperior'
-import Busqueda from './Busqueda'
 import Login from '../Login'
 import { guardaHeaders, limpiaEncuestas } from '../../redux/ducks/encuestas'
 import ExportacionAvanzada from '../ExportacionAvanzada'
 import Uso from './Uso'
 import ErrorBoundary from '../../helpers/ErrorBoundary'
-import Alertas from './Alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import Novedades from '../Novedades'
 import Tutoriales from './Tutoriales'
@@ -122,14 +120,8 @@ const Feedback = () => {
               <Route path="/alertas/:serviceId/:patientId">
                 <Alerts />
               </Route>
-              <Route path="/alertas/:id">
-                <Alertas />
-              </Route>
               <Route exact path="/busqueda">
                 <Search />
-              </Route>
-              <Route path="/busqueda/:termino">
-                <Busqueda />
               </Route>
               <Route path="/exportar">
                 <ExportacionAvanzada />
@@ -138,9 +130,6 @@ const Feedback = () => {
                 <Uso />
               </Route>
               <Route path="/respuestas">
-                <Respuestas />
-              </Route>
-              <Route path="/tablero">
                 <Respuestas />
               </Route>
               <Route path="/tutoriales">

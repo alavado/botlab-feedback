@@ -4,7 +4,6 @@ import { Icon } from '@iconify/react'
 import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 import { useSelector } from 'react-redux'
-import ConteoAlertas from './ConteoAlertas'
 import {
   tieneAccesoAAlertas,
   tieneAccesoAReportes,
