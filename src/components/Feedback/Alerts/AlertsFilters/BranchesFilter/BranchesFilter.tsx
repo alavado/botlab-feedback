@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react'
 import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import useBranchesQuery from '../../../../../api/hooks/useBranchesQuery'
@@ -21,7 +22,10 @@ const BranchesFilter = () => {
 
   return (
     <div className="BranchesFilter">
-      <h3>Sucursales</h3>
+      <h3 className="BranchesFilter__title">
+        <Icon icon="mdi:map-marker" />
+        Sucursales
+      </h3>
       {branches?.map(({ id, name }) => {
         const branchHidden = _.includes(hiddenBranches, id)
         return (

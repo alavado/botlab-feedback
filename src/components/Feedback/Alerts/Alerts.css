@@ -31,6 +31,22 @@
 .Alerts__aside {
   display: flex;
   flex-direction: column;
+  position: relative;
+  max-height: calc(100vh - 2rem);
+  overflow-y: scroll;
+  padding-bottom: 4rem;
+}
+
+.Alerts__aside::-webkit-scrollbar {
+  border-radius: 0.1rem;
+  width: 0.35rem;
+  background-color: transparent;
+}
+
+.Alerts__aside::-webkit-scrollbar-thumb {
+  border-radius: 0.1rem;
+  width: 0.35rem;
+  background-color: var(--whatsapp-color-scrollbar-contenedor-mensajes);
 }
 
 .Alerts__main {

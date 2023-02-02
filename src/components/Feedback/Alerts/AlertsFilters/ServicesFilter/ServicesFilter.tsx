@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react'
 import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import useServicesQuery from '../../../../../api/hooks/useServicesQuery'
@@ -21,7 +22,10 @@ const ServicesFilter = () => {
 
   return (
     <div className="ServicesFilter">
-      <h3>Servicios</h3>
+      <h3 className="ServicesFilter__title">
+        <Icon icon="mdi:forum" />
+        Servicios
+      </h3>
       {services?.map(({ id, name }) => {
         const serviceHidden = _.includes(hiddenServices, id)
         return (

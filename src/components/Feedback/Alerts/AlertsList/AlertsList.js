@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react'
+import classNames from 'classnames'
 import { format } from 'date-fns'
 import { useMemo, useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -29,38 +30,47 @@ const AlertsList = () => {
     <div className="AlertsList">
       <div className="AlertsList__tabs">
         <button
-          className="AlertsList__tab_button"
+          className={classNames({
+            AlertsList__tab_button: true,
+            'AlertsList__tab_button--active': !showSolved,
+          })}
           onClick={() => setShowSolved(false)}
         >
-          <Icon icon="mdi:bell" />
-          <p>No resueltas</p>
-          <p>
+          <Icon className="AlertsList__tab_button_icon" icon="mdi:bell" />
+          <p className="AlertsList__tab_label">Pendientes</p>
+          <p className="AlertsList__tab_count">
             {pendingAlertsCount} alerta{pendingAlertsCount !== 1 ? 's' : ''}
           </p>
         </button>
         <button
-          className="AlertsList__tab_button"
+          className={classNames({
+            AlertsList__tab_button: true,
+            'AlertsList__tab_button--active': showSolved,
+          })}
           onClick={() => setShowSolved(true)}
         >
-          <Icon icon="mdi:bell-check" />
-          <p>Resueltas</p>
-          <p>
+          <Icon className="AlertsList__tab_button_icon" icon="mdi:bell-check" />
+          <p className="AlertsList__tab_label">Resueltas</p>
+          <p className="AlertsList__tab_count">
             {solvedAlertsCount} alerta{solvedAlertsCount !== 1 ? 's' : ''}
           </p>
         </button>
       </div>
-      {visibleAlerts.map((alert) => (
-        <div
-          className="AlertsList__alert"
-          onClick={() =>
-            history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
-          }
-        >
-          <Icon icon="mdi:bell" />
-          {format(alert.timestamp, 'HH:mm dd/MM')}
-          {alert.typeId}
-        </div>
-      ))}
+      <div className="AlertsList__container">
+        {visibleAlerts.map((alert) => (
+          <button
+            className="AlertsList__alert"
+            onClick={() =>
+              history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
+            }
+            key={alert.id}
+          >
+            <Icon icon="mdi:bell" />
+            {format(alert.timestamp, 'HH:mm dd/MM')}
+            {alert.typeId}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

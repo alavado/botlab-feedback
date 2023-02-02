@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react'
 import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import useAlertTypesQuery from '../../../../../api/hooks/useAlertTypesQuery'
@@ -17,7 +18,10 @@ const AlertTypesFilter = () => {
 
   return (
     <div className="AlertTypesFilter">
-      <h3>Tipos de alertas</h3>
+      <h3 className="AlertTypesFilter__title">
+        <Icon icon="mdi:bell-cog" />
+        Recibir alertas
+      </h3>
       {alertTypes?.map(({ id, name }) => {
         const alertTypeHidden = _.includes(hiddenAlertTypes, id)
         return (

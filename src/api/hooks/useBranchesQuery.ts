@@ -10,10 +10,13 @@ const useBranchesQuery = (): UseQueryResult<Branch[], unknown> => {
     const branchesNames = _.uniq(
       (sucursales as string[]).map((s: any) => s.name)
     )
-    return branchesNames.map((name: any) => ({
-      id: name,
-      name,
-    }))
+    return _.sortBy(
+      branchesNames.map((name: any) => ({
+        id: name,
+        name,
+      })),
+      'name'
+    )
   })
 }
 

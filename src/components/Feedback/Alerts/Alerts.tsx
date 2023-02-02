@@ -21,14 +21,14 @@ const Alerts = () => {
 
   return (
     <div className="Alerts">
-      <div className="Alerts__topbar">
+      <div className="Alerts__topbar" onClick={() => history.push('/alertas')}>
         <h2 className="Alerts__title">Alertas</h2>
         <MenuUsuario />
       </div>
       <div className="Alerts__container">
         <aside className="Alerts__aside">
           <AlertsFilters />
-          <AlertsOptions />
+          {/* <AlertsOptions /> */}
         </aside>
         <main className="Alerts__main">
           <AlertsList />

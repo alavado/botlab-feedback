@@ -1,3 +1,10 @@
 .AlertsFilters {
   font-size: 0.65rem;
 }
+
+.AlertsFilters label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}

@@ -1,3 +1,13 @@
 .BranchesFilter {
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.BranchesFilter__title {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }

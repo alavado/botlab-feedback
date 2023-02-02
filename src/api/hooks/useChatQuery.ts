@@ -40,10 +40,9 @@ const useChatQuery = (
     throw Error('Missing parameters')
   }
   const { data: activeAlerts } = useActiveAlertsQuery()
-  const alerts = [
-    ...(activeAlerts ? activeAlerts.pending : []),
-    ...(activeAlerts ? activeAlerts.solved : []),
-  ].filter(
+  const alerts = (
+    activeAlerts ? [...activeAlerts.pending, ...activeAlerts.solved] : []
+  ).filter(
     (alert) => alert.patientId === patientId && alert.serviceId === serviceId
   )
   return useQuery<any, any, any>(
@@ -88,11 +87,10 @@ const splitInteractions = (
         currentInteractionID,
         phone,
         botName,
-        conversations[0]
+        conversations.slice(-1)[0]
       ),
-      pastInteractions: [],
-      futureInteractions: conversations
-        .slice(1)
+      pastInteractions: conversations
+        .slice(0, -1)
         .map((conversation) =>
           conversationToInteraction(
             currentInteractionID,
@@ -101,6 +99,7 @@ const splitInteractions = (
             conversation
           )
         ),
+      futureInteractions: [],
     }
   }
   return {

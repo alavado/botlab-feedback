@@ -1,10 +1,12 @@
 import { addDays, format, parseISO } from 'date-fns'
 import _ from 'lodash'
+import { useCallback } from 'react'
 import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 import { AlertsAPIResponse } from '../types/responses'
 import { Alert } from '../types/servicio'
+import useAlertTypesQuery from './useAlertTypesQuery'
 import { get, API_ROOT } from './utils'
 
 const alertsSinceDays = 3
@@ -19,11 +21,19 @@ const useActiveAlertsQuery = (): UseQueryResult<
     hiddenServices,
     notificationsEnabled,
   } = useSelector((state: RootState) => state.alerts)
+  const { data: alertTypes } = useAlertTypesQuery()
 
-  const isAlertActive = (alert: Alert) =>
-    !_.includes(hiddenAlertTypes, alert.typeId) &&
-    !_.includes(hiddenBranches, alert.branchId) &&
-    !_.includes(hiddenServices, alert.serviceId)
+  const isAlertActive = useCallback(
+    (alert: Alert) => {
+      return (
+        !_.includes(hiddenAlertTypes, alert.typeId) &&
+        !_.includes(hiddenBranches, alert.branchId) &&
+        !_.includes(hiddenServices, alert.serviceId) &&
+        alertTypes?.some((t) => t.id === alert.typeId)
+      )
+    },
+    [hiddenAlertTypes, hiddenBranches, hiddenServices, alertTypes]
+  )
 
   const today = format(new Date(), 'yyyy-MM-dd')
   const daysAgo = format(addDays(new Date(), -alertsSinceDays), 'yyyy-MM-dd')
@@ -48,6 +58,8 @@ const useActiveAlertsQuery = (): UseQueryResult<
     },
     {
       refetchInterval: 30_000,
+      refetchIntervalInBackground: true,
+      enabled: !!alertTypes,
       select: (data) => {
         const activeAlerts = _.reverse(
           _.sortBy(data.filter(isAlertActive), 'timestamp')
@@ -72,7 +84,7 @@ const useActiveAlertsQuery = (): UseQueryResult<
         if (oldActiveAlerts && newAlerts.length > 0 && notificationsEnabled) {
           emitNotification()
         }
-        return newAlerts.length === 0
+        return !!oldData && newAlerts.length === 0
       },
     }
   )
