@@ -42,8 +42,8 @@ const Alerts = () => {
       >
         {patientId && serviceId && (
           <InteractionDrawer
-            pollId={Number(serviceId)}
-            userId={Number(patientId)}
+            serviceId={Number(serviceId)}
+            patientId={Number(patientId)}
             onCloseClick={() => history.push('/alertas')}
             originComponentName="Alerts"
             start={new Date()}

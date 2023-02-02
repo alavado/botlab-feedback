@@ -6,25 +6,26 @@ import { Icon } from '@iconify/react'
 import useChatQuery from '../../../../api/hooks/useChatQuery'
 import Loader from '../../../Loader'
 import InteractionDrawerActions from './InteractionDrawerActions'
+import { PatientId, ServiceId } from '../../../../api/types/servicio'
 
 interface InteractionDrawerProps {
-  pollId: number
-  userId: number
+  serviceId: ServiceId
+  patientId: PatientId
   start: Date
   onCloseClick: MouseEventHandler
   originComponentName: string
 }
 
 const InteractionDrawer = ({
-  pollId,
-  userId,
+  serviceId,
+  patientId,
   start,
   onCloseClick,
   originComponentName,
 }: InteractionDrawerProps) => {
   const { data } = useChatQuery({
-    pollId,
-    userId,
+    serviceId,
+    patientId,
     start,
   })
 
@@ -77,8 +78,8 @@ const InteractionDrawer = ({
       </div>
       <div className="InteractionDrawer__actions_container">
         <InteractionDrawerActions
-          pollId={currentInteraction?.serviceId}
-          userId={currentInteraction?.patientId}
+          serviceId={currentInteraction?.serviceId}
+          patientId={currentInteraction?.patientId}
           phone={currentInteraction?.phone}
           schedulingSystemName={
             currentInteraction?.appointments[0].schedulingSystem

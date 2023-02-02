@@ -103,3 +103,8 @@ export interface Comment {
   text: string
   emoji: string
 }
+
+export type BranchId = Branch['id']
+export type ServiceId = Service['id']
+export type AlertTypeId = AlertType['id']
+export type PatientId = Interaction['patientId']

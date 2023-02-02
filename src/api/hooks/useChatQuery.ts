@@ -17,8 +17,8 @@ import useActiveAlertsQuery from './useActiveAlertsQuery'
 import { get, API_ROOT, parseAPIDate } from './utils'
 
 type chatAPIInteractionID = {
-  pollId: number
-  userId: number
+  serviceId: number
+  patientId: number
   start: Date
 }
 
@@ -33,8 +33,8 @@ const useChatQuery = (
   },
   unknown
 > => {
-  const { pollId, userId, start } = id
-  if (!pollId || !userId || !start) {
+  const { serviceId, patientId, start } = id
+  if (!serviceId || !patientId || !start) {
     throw Error('Missing parameters')
   }
   const { data: solvedAlerts } = useActiveAlertsQuery({ solved: true })
@@ -42,12 +42,14 @@ const useChatQuery = (
   const alerts = [
     ...(solvedAlerts ? solvedAlerts : []),
     ...(unsolvedAlerts ? unsolvedAlerts : []),
-  ].filter((alert) => alert.patientId === userId && alert.serviceId === pollId)
+  ].filter(
+    (alert) => alert.patientId === patientId && alert.serviceId === serviceId
+  )
   return useQuery<any, any, any>(
-    ['interaction', pollId, userId, start],
+    ['interaction', serviceId, patientId, start],
     async () => {
       const { data }: { data: chatAPIResponse } = await get(
-        `${API_ROOT}/chat/${pollId}/${userId}`
+        `${API_ROOT}/chat/${serviceId}/${patientId}`
       )
       return {
         ...splitInteractions(
@@ -184,11 +186,11 @@ const conversationToInteraction = (
   botName: string,
   conversation: chatAPIConversation
 ): Interaction => {
-  const { pollId, userId, start } = interactionId
+  const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
   const interaction: Interaction = {
-    patientId: userId,
-    serviceId: pollId,
+    patientId: patientId,
+    serviceId: serviceId,
     start: addHours(
       parseISO(conversation.start),
       Number(process.env.REACT_APP_UTC_OFFSET)
