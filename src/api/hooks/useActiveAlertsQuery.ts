@@ -7,10 +7,12 @@ import {
   parseISO,
 } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { History } from 'history'
 import _ from 'lodash'
 import { useCallback } from 'react'
 import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { RootState } from '../../redux/ducks'
 import { AlertsAPIResponse } from '../types/responses'
 import { Alert } from '../types/servicio'
@@ -18,6 +20,7 @@ import useAlertTypesQuery from './useAlertTypesQuery'
 import useBranchesQuery from './useBranchesQuery'
 import useServicesQuery from './useServicesQuery'
 import { get, API_ROOT } from './utils'
+import logoFeedback from '../../assets/images/logo_cuadrado_notificaciones.png'
 
 const alertsSinceDays = 3
 
@@ -36,6 +39,7 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
   const { data: alertTypes } = useAlertTypesQuery()
   const { data: services } = useServicesQuery()
   const { data: branches } = useBranchesQuery()
+  const history = useHistory()
 
   const isAlertActive = useCallback(
     (alert: Alert) => {
@@ -121,7 +125,7 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
           (x) => x.id
         )
         if (oldActiveAlerts && newAlerts.length > 0 && notificationsEnabled) {
-          emitNotification()
+          emitNotification(history, newAlerts[0])
         }
         return !!oldData && newAlerts.length === 0
       },
@@ -139,13 +143,15 @@ const formatAlertTimestamp = (timestamp: Date): string => {
   return format(timestamp, 'iiii dd', { locale: es })
 }
 
-const emitNotification = () => {
+const emitNotification = (history: History, alert: Alert) => {
   let notification = new Notification('Feedback', {
-    body: `Feedback`,
+    body: alert.typeName,
     requireInteraction: true,
     silent: false,
+    icon: logoFeedback,
   })
   notification.onclick = () => {
+    history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
     window.focus()
   }
 }

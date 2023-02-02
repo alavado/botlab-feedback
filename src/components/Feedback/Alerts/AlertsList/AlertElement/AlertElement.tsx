@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useHistory } from 'react-router-dom'
+import useChangeAlertStatusMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
 import { Alert } from '../../../../../api/types/servicio'
 import './AlertElement.css'
 
@@ -11,6 +12,10 @@ const AlertElement = ({
   alert: Alert
   highlighted: boolean
 }) => {
+  const mutation = useChangeAlertStatusMutation({
+    alertId: alert.id,
+    solved: !alert.solved,
+  })
   const history = useHistory()
 
   return (
@@ -43,6 +48,7 @@ const AlertElement = ({
               .querySelector('.InteractionDrawer')
               ?.getBoundingClientRect().width,
           }}
+          onClick={() => mutation.mutate({})}
         >
           <Icon icon={alert.solved ? 'mdi:undo' : 'mdi:check'} /> Marcar{' '}
           {alert.solved ? 'pendiente' : 'resuelta'}
