@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import useActiveAlertsQuery from '../../../../api/hooks/useActiveAlertsQuery'
 import { Alert, PatientId, ServiceId } from '../../../../api/types/servicio'
 import Loader from '../../../Loader'
+import AlertElement from './AlertElement'
 import './AlertsList.css'
 
 const AlertsList = ({
@@ -66,32 +67,13 @@ const AlertsList = ({
       </div>
       <div className="AlertsList__container">
         {visibleAlerts.map((alert: Alert) => (
-          <button
-            className={classNames({
-              AlertsList__alert: true,
-              'AlertsList__alert--pending': !alert.solved,
-              'AlertsList__alert--solved': alert.solved,
-              'AlertsList__alert--selected':
-                selectedPatientId === alert.patientId &&
-                selectedServiceId === alert.serviceId,
-            })}
-            onClick={() =>
-              history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
+          <AlertElement
+            highlighted={
+              selectedPatientId === alert.patientId &&
+              selectedServiceId === alert.serviceId
             }
-            key={alert.id}
-          >
-            <Icon
-              className="AlertsList__alert_icon"
-              icon={alert.solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
-            />
-            <span className="AlertList__alert_time">
-              {alert.formattedTimestamp}
-            </span>
-            <span className="AlertList__alert_name">{alert.typeName}</span>
-            <span className="AlertList__alert_data">
-              {alert.patientName} • {alert.serviceName} • {alert.branchName}
-            </span>
-          </button>
+            alert={alert}
+          />
         ))}
       </div>
     </div>

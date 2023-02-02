@@ -127,7 +127,6 @@ const Smartphone = ({
                     alertId={bubble.alert.id}
                     label={bubble.alert.typeName || ''}
                     solved={bubble.alert.solved}
-                    alertTimestamp={bubble.alert.timestamp}
                   />
                 )
               }

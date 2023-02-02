@@ -25,13 +25,11 @@
   filter: saturate(50%) opacity(0.7);
 }
 
-.AlertsList__tab_button--solved,
-.AlertsList__alert--solved {
+.AlertsList__tab_button--solved {
   --alert-status-color: var(--solved-alerts-color);
 }
 
-.AlertsList__tab_button--pending,
-.AlertsList__alert--pending {
+.AlertsList__tab_button--pending {
   --alert-status-color: var(--pending-alerts-color);
 }
 
@@ -63,48 +61,4 @@
   flex-direction: column;
   max-height: calc(100vh - 5rem);
   overflow-y: scroll;
-}
-
-.AlertsList__alert {
-  padding: 0.6rem 0.75rem 0.6rem 1rem;
-  cursor: pointer;
-  font-size: 0.65rem;
-  background: none;
-  border: none;
-  border-bottom: 1px solid var(--color-bordes);
-  text-align: left;
-  display: grid;
-  grid-template: 1fr auto / auto 4rem 1fr;
-  place-items: center center;
-  gap: 0.15rem 1rem;
-  color: var(--color-texto);
-}
-
-.AlertsList__alert:hover {
-  background-color: var(--color-fila-destacada);
-}
-
-.AlertsList__alert_icon {
-  font-size: 0.9rem;
-  color: var(--alert-status-color);
-  grid-row: 1 / -1;
-}
-
-.AlertList__alert_time {
-  grid-row: 1 / -1;
-  place-self: center start;
-}
-
-.AlertList__alert_name {
-  place-self: end start;
-}
-
-.AlertList__alert_data {
-  place-self: start start;
-  font-size: 0.55rem;
-  opacity: 0.7;
-}
-
-.AlertsList__alert--selected {
-  background-color: var(--color-fila-muy-destacada);
 }
