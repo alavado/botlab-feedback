@@ -9,11 +9,10 @@ import { get, API_ROOT } from './utils'
 
 const alertsSinceDays = 3
 
-const useActiveAlertsQuery = ({
-  solved,
-}: {
-  solved: boolean
-}): UseQueryResult<Alert[], unknown> => {
+const useActiveAlertsQuery = (): UseQueryResult<
+  { pending: Alert[]; solved: Alert[] },
+  unknown
+> => {
   const {
     hiddenAlertTypes,
     hiddenBranches,
@@ -22,7 +21,6 @@ const useActiveAlertsQuery = ({
   } = useSelector((state: RootState) => state.alerts)
 
   const isAlertActive = (alert: Alert) =>
-    alert.solved === solved &&
     !_.includes(hiddenAlertTypes, alert.typeId) &&
     !_.includes(hiddenBranches, alert.branchId) &&
     !_.includes(hiddenServices, alert.serviceId)
@@ -50,21 +48,31 @@ const useActiveAlertsQuery = ({
     },
     {
       refetchInterval: 30_000,
-      select: (data) =>
-        _.reverse(_.sortBy(data.filter(isAlertActive), 'timestamp')),
+      select: (data) => {
+        const activeAlerts = _.reverse(
+          _.sortBy(data.filter(isAlertActive), 'timestamp')
+        )
+        return {
+          pending: activeAlerts.filter((a) => !a.solved),
+          solved: activeAlerts.filter((a) => a.solved),
+        }
+      },
       isDataEqual: (oldData, newData) => {
-        const oldActiveAlerts = oldData?.filter(isAlertActive)
-        const newActiveAlerts = newData?.filter(isAlertActive)
+        const newActiveAlerts = newData?.filter(
+          (alert) => isAlertActive(alert) && !alert.solved
+        )
+        const oldActiveAlerts = oldData?.filter(
+          (alert) => isAlertActive(alert) && !alert.solved
+        )
         const newAlerts = _.differenceBy(
-          oldActiveAlerts,
           newActiveAlerts,
+          oldActiveAlerts || [],
           (x) => x.id
         )
-        if (newAlerts.length > 0 && notificationsEnabled) {
+        if (oldActiveAlerts && newAlerts.length > 0 && notificationsEnabled) {
           emitNotification()
         }
-        console.log({ oldActiveAlerts, newActiveAlerts, newAlerts })
-        return newAlerts.length > 0
+        return newAlerts.length === 0
       },
     }
   )

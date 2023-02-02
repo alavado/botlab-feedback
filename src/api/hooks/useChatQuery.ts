@@ -11,19 +11,21 @@ import {
   Appointment,
   Interaction,
   Message,
+  PatientId,
   SchedulingSystem,
+  ServiceId,
 } from '../types/servicio'
 import useActiveAlertsQuery from './useActiveAlertsQuery'
 import { get, API_ROOT, parseAPIDate } from './utils'
 
-type chatAPIInteractionID = {
-  serviceId: number
-  patientId: number
+type InteractionID = {
+  serviceId: ServiceId
+  patientId: PatientId
   start: Date
 }
 
 const useChatQuery = (
-  id: chatAPIInteractionID
+  id: InteractionID
 ): UseQueryResult<
   {
     currentInteraction: Interaction
@@ -37,11 +39,10 @@ const useChatQuery = (
   if (!serviceId || !patientId || !start) {
     throw Error('Missing parameters')
   }
-  const { data: solvedAlerts } = useActiveAlertsQuery({ solved: true })
-  const { data: unsolvedAlerts } = useActiveAlertsQuery({ solved: false })
+  const { data: activeAlerts } = useActiveAlertsQuery()
   const alerts = [
-    ...(solvedAlerts ? solvedAlerts : []),
-    ...(unsolvedAlerts ? unsolvedAlerts : []),
+    ...(activeAlerts ? activeAlerts.pending : []),
+    ...(activeAlerts ? activeAlerts.solved : []),
   ].filter(
     (alert) => alert.patientId === patientId && alert.serviceId === serviceId
   )
@@ -63,13 +64,13 @@ const useChatQuery = (
     },
     {
       refetchInterval: 10_000,
-      enabled: !!solvedAlerts && !!unsolvedAlerts,
+      enabled: !!activeAlerts,
     }
   )
 }
 
 const splitInteractions = (
-  currentInteractionID: chatAPIInteractionID,
+  currentInteractionID: InteractionID,
   conversations: chatAPIConversation[],
   phone: string,
   botName: string
@@ -181,7 +182,7 @@ const extractAppointments = (
 }
 
 const conversationToInteraction = (
-  interactionId: chatAPIInteractionID,
+  interactionId: InteractionID,
   phone: string,
   botName: string,
   conversation: chatAPIConversation
