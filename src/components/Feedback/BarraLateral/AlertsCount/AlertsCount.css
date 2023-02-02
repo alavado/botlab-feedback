@@ -1,0 +1,15 @@
+.AlertsCount {
+  position: absolute;
+  right: 0.35rem;
+  top: 0.25rem;
+  font-size: 0.5rem;
+  font-weight: bold;
+  background-color: var(--pending-alerts-color);
+  border-radius: 9in;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

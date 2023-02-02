@@ -9,6 +9,7 @@ import {
   tieneAccesoAReportes,
 } from '../../../helpers/permisos'
 import useAnalytics from '../../../hooks/useAnalytics'
+import AlertsCount from './AlertsCount'
 
 const BarraLateral = () => {
   const { cuenta } = useSelector((state) => state.login)
@@ -46,6 +47,7 @@ const BarraLateral = () => {
             to="/alertas"
             onClick={() => track('Feedback', 'BarraLateral', 'verAlertas')}
           >
+            <AlertsCount />
             {/* <ConteoAlertas setFeliz={setFeliz} /> */}
             <Icon icon={feliz ? 'mdi:bell-check' : 'mdi:bell'} />
             <div className="BarraLateral__nombre_seccion">Alertas</div>

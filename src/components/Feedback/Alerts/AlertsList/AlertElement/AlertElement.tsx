@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useHistory } from 'react-router-dom'
+import useBranchesQuery from '../../../../../api/hooks/useBranchesQuery'
 import useChangeAlertStatusMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
 import { Alert } from '../../../../../api/types/servicio'
 import './AlertElement.css'
@@ -17,6 +18,7 @@ const AlertElement = ({
     solved: !alert.solved,
   })
   const history = useHistory()
+  const { data: branches } = useBranchesQuery()
 
   return (
     <button
@@ -38,7 +40,8 @@ const AlertElement = ({
       <span className="AlertElement__time">{alert.formattedTimestamp}</span>
       <span className="AlertElement__name">{alert.typeName}</span>
       <span className="AlertElement__data">
-        {alert.patientName} • {alert.serviceName} • {alert.branchName}
+        {alert.patientName} • {alert.serviceName}{' '}
+        {branches && branches.length > 1 && <>• {alert.branchName}</>}
       </span>
       {highlighted && (
         <button

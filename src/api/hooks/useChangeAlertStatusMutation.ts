@@ -19,23 +19,22 @@ const useChangeAlertStatusMutation = ({
     {
       onMutate: async () => {
         await queryClient.cancelQueries('alerts')
-        const alertasAntes = queryClient.getQueryData('alerts') as Alert[]
-        const nuevaAlerta = alertasAntes.find((a) => a.id === alertId)
-        if (nuevaAlerta) {
-          nuevaAlerta.solved = solved
+        const alertsBeforeMutation = queryClient.getQueryData(
+          'alerts'
+        ) as Alert[]
+        const mutatedAlert = alertsBeforeMutation.find((a) => a.id === alertId)
+        if (mutatedAlert) {
+          mutatedAlert.solved = solved
         }
-        const nuevasAlertas = {
-          ...alertasAntes,
-          data: [...alertasAntes.filter((a) => a.id !== alertId), nuevaAlerta],
-        }
-        queryClient.setQueryData('alerts', () => nuevasAlertas)
-        return { alertasAntes }
+        const alertsWithMutatedAlert = [
+          ...alertsBeforeMutation.filter((a) => a.id !== alertId),
+          mutatedAlert,
+        ]
+        queryClient.setQueryData('alerts', () => alertsWithMutatedAlert)
+        return { alertsBeforeMutation }
       },
-      onError: (err, nuevaAlerta, context) => {
-        // queryClient.setQueryData('alerts', context.alertasAntes)
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries('alerts')
+      onError: (err, nuevaAlerta, context: any) => {
+        queryClient.setQueryData('alerts', context.alertsBeforeMutation)
       },
     }
   )

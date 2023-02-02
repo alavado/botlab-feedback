@@ -22,7 +22,7 @@ import useServicesQuery from './useServicesQuery'
 import { get, API_ROOT } from './utils'
 import logoFeedback from '../../assets/images/logo_cuadrado_notificaciones.png'
 
-const alertsSinceDays = 3
+const alertsSinceDays = 2
 
 export interface ActiveAlerts {
   pending: Alert[]
