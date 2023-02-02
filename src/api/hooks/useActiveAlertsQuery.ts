@@ -1,4 +1,4 @@
-import { addDays, format, parseISO } from 'date-fns'
+import { addDays, format, isToday, isYesterday, parseISO } from 'date-fns'
 import _ from 'lodash'
 import { useCallback } from 'react'
 import { useQuery, UseQueryResult } from 'react-query'
@@ -47,11 +47,17 @@ const useActiveAlertsQuery = (): UseQueryResult<
         (alert): Alert => ({
           id: alert.id,
           typeId: alert.message,
+          typeName: alertTypes?.find((t) => t.id === alert.message)?.name,
           solved: alert.dismissed,
           solvedBy: alert.dismissal_by,
           timestamp: parseISO(alert.utc_timestamp),
+          formattedTimestamp: formatAlertTimestamp(alert.utc_timestamp),
           serviceId: Number(alert.poll_id),
           patientId: Number(alert.user_id),
+          patientName:
+            alert.meta.name ||
+            alert.meta.patient_name ||
+            alert.meta.patient_name_1,
           branchId: alert.meta.sucursal_name || alert.meta.sucursal_name_1,
         })
       )
@@ -88,6 +94,17 @@ const useActiveAlertsQuery = (): UseQueryResult<
       },
     }
   )
+}
+
+const formatAlertTimestamp = (timestamp: string): string => {
+  const dateTime = parseISO(timestamp)
+  if (isToday(dateTime)) {
+    return 'hoy, ' + format(parseISO(timestamp), 'HH:mm')
+  }
+  if (isYesterday(dateTime)) {
+    return 'ayer, ' + format(parseISO(timestamp), 'HH:mm')
+  }
+  return format(parseISO(timestamp), 'dd/MM')
 }
 
 const emitNotification = () => {

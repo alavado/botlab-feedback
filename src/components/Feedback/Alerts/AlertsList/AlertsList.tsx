@@ -1,9 +1,9 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
-import { format } from 'date-fns'
 import { useMemo, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import useActiveAlertsQuery from '../../../../api/hooks/useActiveAlertsQuery'
+import { Alert } from '../../../../api/types/servicio'
 import Loader from '../../../Loader'
 import './AlertsList.css'
 
@@ -33,10 +33,11 @@ const AlertsList = () => {
           className={classNames({
             AlertsList__tab_button: true,
             'AlertsList__tab_button--active': !showSolved,
+            'AlertsList__tab_button--pending': true,
           })}
           onClick={() => setShowSolved(false)}
         >
-          <Icon className="AlertsList__tab_button_icon" icon="mdi:bell" />
+          <Icon className="AlertsList__tab_button_icon" icon="mdi:bell-ring" />
           <p className="AlertsList__tab_label">Pendientes</p>
           <p className="AlertsList__tab_count">
             {pendingAlertsCount} alerta{pendingAlertsCount !== 1 ? 's' : ''}
@@ -46,6 +47,7 @@ const AlertsList = () => {
           className={classNames({
             AlertsList__tab_button: true,
             'AlertsList__tab_button--active': showSolved,
+            'AlertsList__tab_button--solved': true,
           })}
           onClick={() => setShowSolved(true)}
         >
@@ -57,17 +59,24 @@ const AlertsList = () => {
         </button>
       </div>
       <div className="AlertsList__container">
-        {visibleAlerts.map((alert) => (
+        {visibleAlerts.map((alert: Alert) => (
           <button
-            className="AlertsList__alert"
+            className={classNames({
+              AlertsList__alert: true,
+              'AlertsList__alert--pending': !alert.solved,
+              'AlertsList__alert--solved': alert.solved,
+            })}
             onClick={() =>
               history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
             }
             key={alert.id}
           >
-            <Icon icon="mdi:bell" />
-            {format(alert.timestamp, 'HH:mm dd/MM')}
-            {alert.typeId}
+            <Icon
+              className="AlertsList__alert_icon"
+              icon={alert.solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
+            />
+            <span>{alert.formattedTimestamp}</span>
+            <span>{alert.typeName}</span>
           </button>
         ))}
       </div>

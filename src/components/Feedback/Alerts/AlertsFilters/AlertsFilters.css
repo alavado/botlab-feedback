@@ -1,5 +1,9 @@
 .AlertsFilters {
   font-size: 0.65rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .AlertsFilters label {

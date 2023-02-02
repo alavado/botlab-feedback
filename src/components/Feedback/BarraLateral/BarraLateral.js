@@ -47,7 +47,7 @@ const BarraLateral = () => {
             onClick={() => track('Feedback', 'BarraLateral', 'verAlertas')}
           >
             {/* <ConteoAlertas setFeliz={setFeliz} /> */}
-            <Icon icon={feliz ? 'mdi:robot-happy' : 'mdi:robot'} />
+            <Icon icon={feliz ? 'mdi:bell-check' : 'mdi:bell'} />
             <div className="BarraLateral__nombre_seccion">Alertas</div>
           </NavLink>
         )}

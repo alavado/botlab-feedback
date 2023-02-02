@@ -74,10 +74,13 @@ export interface Message {
 export interface Alert {
   id: number
   timestamp: Date
+  formattedTimestamp: string
   solved: boolean
   solvedBy?: string
-  typeId: string
+  typeId: AlertType['id']
+  typeName?: AlertType['name']
   serviceId: number
+  patientName: string
   patientId: number
   branchId: string
 }
