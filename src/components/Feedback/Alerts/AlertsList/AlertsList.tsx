@@ -3,11 +3,17 @@ import classNames from 'classnames'
 import { useMemo, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import useActiveAlertsQuery from '../../../../api/hooks/useActiveAlertsQuery'
-import { Alert } from '../../../../api/types/servicio'
+import { Alert, PatientId, ServiceId } from '../../../../api/types/servicio'
 import Loader from '../../../Loader'
 import './AlertsList.css'
 
-const AlertsList = () => {
+const AlertsList = ({
+  selectedPatientId,
+  selectedServiceId,
+}: {
+  selectedPatientId?: PatientId
+  selectedServiceId?: ServiceId
+}) => {
   const [showSolved, setShowSolved] = useState(false)
   const { data, isLoading } = useActiveAlertsQuery()
   const history = useHistory()
@@ -65,6 +71,9 @@ const AlertsList = () => {
               AlertsList__alert: true,
               'AlertsList__alert--pending': !alert.solved,
               'AlertsList__alert--solved': alert.solved,
+              'AlertsList__alert--selected':
+                selectedPatientId === alert.patientId &&
+                selectedServiceId === alert.serviceId,
             })}
             onClick={() =>
               history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)

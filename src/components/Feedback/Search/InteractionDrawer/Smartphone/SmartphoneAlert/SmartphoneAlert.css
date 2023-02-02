@@ -1,0 +1,67 @@
+.SmartphoneAlert {
+  color: var(--color-texto-claro);
+  align-self: center;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.5rem 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  box-shadow: 0 0.05rem 0 0.05rem rgba(0, 0, 0, 0.075);
+  transition: all 0.25s ease;
+}
+
+.SmartphoneAlert--solved {
+  background-color: var(--solved-alerts-color);
+}
+
+.SmartphoneAlert--pending {
+  background-color: var(--pending-alerts-color);
+}
+
+.SmartphoneAlert__title {
+  font-size: 0.55rem;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  gap: 0.25rem;
+}
+
+.SmartphoneAlert__title svg {
+  font-size: 0.75rem;
+}
+
+.SmartphoneAlert__message {
+  font-size: 0.65rem;
+  align-self: flex-start;
+  margin: 0.5rem 0 0.35rem 0;
+}
+
+.SmartphoneAlert__button {
+  background: var(--color-principal);
+  border: none;
+  color: var(--color-texto-claro);
+  font-size: 0.65rem;
+  border-radius: 0.25rem;
+  padding: 0.35rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin: 0.25rem 0 0.25rem 0;
+}
+
+.SmartphoneAlert__button:hover {
+  box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
+  filter: brightness(110%);
+}
+
+.SmartphoneAlert__bottom {
+  font-size: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.SmartphoneAlert__time {
+  align-self: flex-end;
+  transform: translateX(0.2rem);
+}

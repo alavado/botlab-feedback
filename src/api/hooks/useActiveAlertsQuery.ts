@@ -1,4 +1,11 @@
-import { addDays, format, isToday, isYesterday, parseISO } from 'date-fns'
+import {
+  addDays,
+  addHours,
+  format,
+  isToday,
+  isYesterday,
+  parseISO,
+} from 'date-fns'
 import { es } from 'date-fns/locale'
 import _ from 'lodash'
 import { useCallback } from 'react'
@@ -14,10 +21,12 @@ import { get, API_ROOT } from './utils'
 
 const alertsSinceDays = 3
 
-const useActiveAlertsQuery = (): UseQueryResult<
-  { pending: Alert[]; solved: Alert[] },
-  unknown
-> => {
+export interface ActiveAlerts {
+  pending: Alert[]
+  solved: Alert[]
+}
+
+const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
   const {
     hiddenAlertTypes,
     hiddenBranches,
@@ -48,7 +57,7 @@ const useActiveAlertsQuery = (): UseQueryResult<
     'alerts',
     async () => {
       const { data }: { data: AlertsAPIResponse } = await get(url)
-      return data.data.map((alert): Alert => {
+      const allAlerts = data.data.map((alert): Alert => {
         const typeName = alertTypes?.find((t) => t.id === alert.message)?.name
         const serviceName = services?.find((t) => t.id === alert.poll_id)?.name
         const patientName =
@@ -57,14 +66,18 @@ const useActiveAlertsQuery = (): UseQueryResult<
           alert.meta.patient_name_1
         const branchId = alert.meta.sucursal_name || alert.meta.sucursal_name_1
         const branchName = branches?.find((b) => b.id === branchId)?.name
+        const timestamp = addHours(
+          parseISO(alert.utc_timestamp),
+          Number(process.env.REACT_APP_UTC_OFFSET as string)
+        )
         return {
           id: alert.id,
           typeId: alert.message,
           typeName,
           solved: alert.dismissed,
           solvedBy: alert.dismissal_by,
-          timestamp: parseISO(alert.utc_timestamp),
-          formattedTimestamp: formatAlertTimestamp(alert.utc_timestamp),
+          timestamp,
+          formattedTimestamp: formatAlertTimestamp(timestamp),
           serviceId: alert.poll_id,
           serviceName,
           patientId: alert.user_id,
@@ -73,6 +86,14 @@ const useActiveAlertsQuery = (): UseQueryResult<
           branchName,
         }
       })
+      const alertsPerPatient = _.groupBy(allAlerts, (alert) => [
+        alert.patientId,
+        alert.serviceId,
+      ])
+      const onlyLatestAlertPerPatient = _.values(alertsPerPatient).map(
+        (arr) => arr.slice(-1)[0]
+      )
+      return onlyLatestAlertPerPatient
     },
     {
       refetchInterval: 30_000,
@@ -108,15 +129,14 @@ const useActiveAlertsQuery = (): UseQueryResult<
   )
 }
 
-const formatAlertTimestamp = (timestamp: string): string => {
-  const dateTime = parseISO(timestamp)
-  if (isToday(dateTime)) {
-    return 'hoy, ' + format(parseISO(timestamp), 'HH:mm')
+const formatAlertTimestamp = (timestamp: Date): string => {
+  if (isToday(timestamp)) {
+    return 'hoy, ' + format(timestamp, 'HH:mm')
   }
-  if (isYesterday(dateTime)) {
-    return 'ayer, ' + format(parseISO(timestamp), 'HH:mm')
+  if (isYesterday(timestamp)) {
+    return 'ayer, ' + format(timestamp, 'HH:mm')
   }
-  return format(parseISO(timestamp), 'iiii dd', { locale: es })
+  return format(timestamp, 'iiii dd', { locale: es })
 }
 
 const emitNotification = () => {

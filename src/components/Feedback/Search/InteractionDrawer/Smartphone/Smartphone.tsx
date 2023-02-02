@@ -125,7 +125,7 @@ const Smartphone = ({
                 return (
                   <SmartphoneAlert
                     alertId={bubble.alert.id}
-                    label={bubble.alert.typeId}
+                    label={bubble.alert.typeName || ''}
                     solved={bubble.alert.solved}
                     alertTimestamp={bubble.alert.timestamp}
                   />

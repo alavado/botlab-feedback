@@ -1,3 +1,5 @@
+import { Icon } from '@iconify/react'
+import classNames from 'classnames'
 import { format } from 'date-fns'
 import useChangeAlertMutation from '../../../../../../api/hooks/useChangeAlertStatusMutation'
 import './SmartphoneAlert.css'
@@ -16,13 +18,32 @@ const SmartphoneAlert = ({
   const mutation = useChangeAlertMutation({ alertId, solved: !solved })
 
   return (
-    <div className="SmartphoneAlert">
-      <p>{format(alertTimestamp, 'hh:mm dd/MM')}</p>
-      <p>{label}</p>
-      <p>{solved ? 'Alerta resuelta ok' : 'Alerta sin resolver'}</p>
-      <button onClick={() => mutation.mutate({})}>
-        {solved ? 'Marcar como no resuelta' : 'Marcar como resuelta'}
+    <div
+      className={classNames({
+        SmartphoneAlert: true,
+        'SmartphoneAlert--solved': solved,
+        'SmartphoneAlert--pending': !solved,
+      })}
+    >
+      <p className="SmartphoneAlert__title">
+        <Icon icon={solved ? 'mdi:bell-check' : 'mdi:bell-ring'} /> Alerta{' '}
+        {solved ? 'resuelta' : 'pendiente'}
+      </p>
+      <p className="SmartphoneAlert__message">{label}</p>
+      <button
+        className="SmartphoneAlert__button"
+        onClick={() => mutation.mutate({})}
+      >
+        {solved
+          ? 'Marcar alerta como pendiente'
+          : 'Marcar alerta como resuelta'}
       </button>
+      <div className="SmartphoneAlert__bottom">
+        <span></span>
+        <span className="SmartphoneAlert__time">
+          {format(alertTimestamp, 'HH:mm')}
+        </span>
+      </div>
     </div>
   )
 }

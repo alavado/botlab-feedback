@@ -16,8 +16,8 @@ const Alerts = () => {
   const { params }: { params: AlertsRouteParams } = useRouteMatch()
   const history = useHistory()
 
-  const patientId = params?.patientId
-  const serviceId = params?.serviceId
+  const patientId = params && Number(params?.patientId)
+  const serviceId = params && Number(params?.serviceId)
 
   return (
     <div className="Alerts">
@@ -31,7 +31,10 @@ const Alerts = () => {
           {/* <AlertsOptions /> */}
         </aside>
         <main className="Alerts__main">
-          <AlertsList />
+          <AlertsList
+            selectedPatientId={patientId}
+            selectedServiceId={serviceId}
+          />
         </main>
       </div>
       <div
@@ -42,8 +45,8 @@ const Alerts = () => {
       >
         {patientId && serviceId && (
           <InteractionDrawer
-            serviceId={Number(serviceId)}
-            patientId={Number(patientId)}
+            serviceId={serviceId}
+            patientId={patientId}
             onCloseClick={() => history.push('/alertas')}
             originComponentName="Alerts"
             start={new Date()}
