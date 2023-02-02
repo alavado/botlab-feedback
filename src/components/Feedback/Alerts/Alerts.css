@@ -25,6 +25,7 @@
 
 .Alerts__container {
   display: flex;
+  flex: 1;
 }
 
 .Alerts__aside {
@@ -35,6 +36,8 @@
 .Alerts__main {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  border-left: 1px solid var(--color-bordes);
 }
 
 .Alerts__drawer {

@@ -15,6 +15,10 @@ const BranchesFilter = () => {
     return <Loader />
   }
 
+  if (branches && branches?.length <= 1) {
+    return null
+  }
+
   return (
     <div className="BranchesFilter">
       <h3>Sucursales</h3>

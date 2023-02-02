@@ -14,13 +14,23 @@ const useActiveAlertsQuery = ({
 }: {
   solved: boolean
 }): UseQueryResult<Alert[], unknown> => {
-  const { hiddenAlertTypes, hiddenBranches, hiddenServices } = useSelector(
-    (state: RootState) => state.alerts
-  )
+  const {
+    hiddenAlertTypes,
+    hiddenBranches,
+    hiddenServices,
+    notificationsEnabled,
+  } = useSelector((state: RootState) => state.alerts)
+
+  const isAlertActive = (alert: Alert) =>
+    alert.solved === solved &&
+    !_.includes(hiddenAlertTypes, alert.typeId) &&
+    !_.includes(hiddenBranches, alert.branchId) &&
+    !_.includes(hiddenServices, alert.serviceId)
 
   const today = format(new Date(), 'yyyy-MM-dd')
   const daysAgo = format(addDays(new Date(), -alertsSinceDays), 'yyyy-MM-dd')
   const url = `${API_ROOT}/polls/alerts?start_date=${daysAgo}&end_date=${today}`
+
   return useQuery<Alert[], any, any>(
     'alerts',
     async () => {
@@ -41,15 +51,34 @@ const useActiveAlertsQuery = ({
     {
       refetchInterval: 30_000,
       select: (data) =>
-        data.filter(
-          (alert) =>
-            alert.solved === solved &&
-            !_.includes(hiddenAlertTypes, alert.typeId) &&
-            !_.includes(hiddenBranches, alert.branchId) &&
-            !_.includes(hiddenServices, alert.serviceId)
-        ),
+        _.reverse(_.sortBy(data.filter(isAlertActive), 'timestamp')),
+      isDataEqual: (oldData, newData) => {
+        const oldActiveAlerts = oldData?.filter(isAlertActive)
+        const newActiveAlerts = newData?.filter(isAlertActive)
+        const newAlerts = _.differenceBy(
+          oldActiveAlerts,
+          newActiveAlerts,
+          (x) => x.id
+        )
+        if (newAlerts.length > 0 && notificationsEnabled) {
+          emitNotification()
+        }
+        console.log({ oldActiveAlerts, newActiveAlerts, newAlerts })
+        return newAlerts.length > 0
+      },
     }
   )
+}
+
+const emitNotification = () => {
+  let notification = new Notification('Feedback', {
+    body: `Feedback`,
+    requireInteraction: true,
+    silent: false,
+  })
+  notification.onclick = () => {
+    window.focus()
+  }
 }
 
 export default useActiveAlertsQuery

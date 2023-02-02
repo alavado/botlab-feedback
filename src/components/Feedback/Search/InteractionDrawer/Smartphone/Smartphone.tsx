@@ -13,6 +13,7 @@ import SmartphoneAlert from './SmartphoneAlert'
 export interface SmartphoneChatMessage {
   message: Message
   current: boolean
+  date: Date
 }
 
 export interface SmartphoneChatsDate {
@@ -20,6 +21,7 @@ export interface SmartphoneChatsDate {
   current: boolean
 }
 export interface SmartphoneChatAlert {
+  date: Date
   alert: Alert
 }
 
@@ -48,18 +50,18 @@ const Smartphone = ({
     const elements: SmartphoneChatElement[] = []
     const addElement =
       (current: boolean = true) =>
-      (stuff: Message | Alert, i: number, arr: Message[] | Alert[]) => {
+      (stuff: Message | Alert) => {
         if (
-          !('solved' in stuff) &&
-          (i === 0 || !isSameDay(arr[i - 1].timestamp, stuff.timestamp))
+          elements.length === 0 ||
+          !isSameDay(elements.slice(-1)[0].date, stuff.timestamp)
         ) {
           elements.push({ date: stuff.timestamp, current })
         }
         if ('content' in stuff) {
-          elements.push({ message: stuff, current })
+          elements.push({ message: stuff, date: stuff.timestamp, current })
         }
         if ('solved' in stuff) {
-          elements.push({ alert: stuff })
+          elements.push({ alert: stuff, date: stuff.timestamp })
         }
       }
     pastInteractions?.forEach((interaction: Interaction) =>
@@ -125,6 +127,7 @@ const Smartphone = ({
                     alertId={bubble.alert.id}
                     label={bubble.alert.typeId}
                     solved={bubble.alert.solved}
+                    alertTimestamp={bubble.alert.timestamp}
                   />
                 )
               }

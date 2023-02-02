@@ -5,6 +5,7 @@ interface AlertsState {
   hiddenBranches: BranchId[]
   hiddenServices: ServiceId[]
   hiddenAlertTypes: AlertTypeId[]
+  notificationsEnabled: boolean
 }
 
 const alertsSlice = createSlice({
@@ -13,6 +14,7 @@ const alertsSlice = createSlice({
     hiddenBranches: [],
     hiddenServices: [],
     hiddenAlertTypes: [],
+    notificationsEnabled: true,
   } as AlertsState,
   reducers: {
     hideBranch(state, action: PayloadAction<BranchId>) {
@@ -39,6 +41,12 @@ const alertsSlice = createSlice({
         (alertTypeId) => alertTypeId !== action.payload
       )
     },
+    disableNotifications(state) {
+      state.notificationsEnabled = false
+    },
+    enableNotifications(state) {
+      state.notificationsEnabled = true
+    },
   },
 })
 
@@ -49,6 +57,8 @@ export const {
   showService,
   hideAlertType,
   showAlertType,
+  disableNotifications,
+  enableNotifications,
 } = alertsSlice.actions
 
 export default alertsSlice.reducer

@@ -15,6 +15,10 @@ const ServicesFilter = () => {
     return <Loader />
   }
 
+  if (services && services?.length <= 1) {
+    return null
+  }
+
   return (
     <div className="ServicesFilter">
       <h3>Servicios</h3>
