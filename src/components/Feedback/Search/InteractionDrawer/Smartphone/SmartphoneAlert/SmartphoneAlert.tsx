@@ -1,4 +1,4 @@
-import useChangeAlertMutation from '../../../../../../api/hooks/useChangeAlertMutation'
+import useChangeAlertMutation from '../../../../../../api/hooks/useChangeAlertStatusMutation'
 import './SmartphoneAlert.css'
 
 const SmartphoneAlert = ({

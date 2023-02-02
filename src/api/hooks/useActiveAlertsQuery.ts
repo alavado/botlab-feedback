@@ -25,8 +25,8 @@ const useActiveAlertsQuery = ({
           solved: alert.dismissed,
           solvedBy: alert.dismissal_by,
           timestamp: parseISO(alert.utc_timestamp),
-          serviceId: alert.poll_id,
-          patientId: alert.user_id,
+          serviceId: Number(alert.poll_id),
+          patientId: Number(alert.user_id),
           branchId: alert.meta.sucursal_name || alert.meta.sucursal_name_1,
         })
       )

@@ -7,8 +7,13 @@ import AlertsFilters from './AlertsFilters'
 import AlertsList from './AlertsList'
 import AlertsOptions from './AlertsOptions'
 
+interface AlertsRouteParams {
+  patientId?: string
+  serviceId?: string
+}
+
 const Alerts = () => {
-  const { params }: { params: any } = useRouteMatch()
+  const { params }: { params: AlertsRouteParams } = useRouteMatch()
   const history = useHistory()
 
   const patientId = params?.patientId
@@ -37,8 +42,8 @@ const Alerts = () => {
       >
         {patientId && serviceId && (
           <InteractionDrawer
-            pollId={serviceId}
-            userId={patientId}
+            pollId={Number(serviceId)}
+            userId={Number(patientId)}
             onCloseClick={() => history.push('/alertas')}
             originComponentName="Alerts"
             start={new Date()}

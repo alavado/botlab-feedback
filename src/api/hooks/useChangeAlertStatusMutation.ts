@@ -1,7 +1,7 @@
 import { useMutation, UseMutationResult } from 'react-query'
 import { patch, API_ROOT } from './utils'
 
-const useChangeAlertMutation = ({
+const useChangeAlertStatusMutation = ({
   alertId,
   solved,
 }: {
@@ -15,4 +15,4 @@ const useChangeAlertMutation = ({
   })
 }
 
-export default useChangeAlertMutation
+export default useChangeAlertStatusMutation

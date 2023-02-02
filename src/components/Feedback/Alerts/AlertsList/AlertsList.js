@@ -15,8 +15,8 @@ const AlertsList = () => {
 
   return (
     <div className="AlertsList">
-      <button onClick={() => setShowSolved(true)}>Resueltas</button>
       <button onClick={() => setShowSolved(false)}>No resueltas</button>
+      <button onClick={() => setShowSolved(true)}>Resueltas</button>
       {data.map((alert) => (
         <div
           onClick={() =>

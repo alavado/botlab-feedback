@@ -49,7 +49,10 @@ const Smartphone = ({
     const addElement =
       (current: boolean = true) =>
       (stuff: Message | Alert, i: number, arr: Message[] | Alert[]) => {
-        if (i === 0 || !isSameDay(arr[i - 1].timestamp, stuff.timestamp)) {
+        if (
+          !('solved' in stuff) &&
+          (i === 0 || !isSameDay(arr[i - 1].timestamp, stuff.timestamp))
+        ) {
           elements.push({ date: stuff.timestamp, current })
         }
         if ('content' in stuff) {
