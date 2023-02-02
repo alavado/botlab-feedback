@@ -75,8 +75,13 @@ const AlertsList = () => {
               className="AlertsList__alert_icon"
               icon={alert.solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
             />
-            <span>{alert.formattedTimestamp}</span>
-            <span>{alert.typeName}</span>
+            <span className="AlertList__alert_time">
+              {alert.formattedTimestamp}
+            </span>
+            <span className="AlertList__alert_name">{alert.typeName}</span>
+            <span className="AlertList__alert_data">
+              {alert.patientName} • {alert.serviceName} • {alert.branchName}
+            </span>
           </button>
         ))}
       </div>

@@ -77,12 +77,14 @@ export interface Alert {
   formattedTimestamp: string
   solved: boolean
   solvedBy?: string
-  typeId: AlertType['id']
+  typeId: AlertTypeId
   typeName?: AlertType['name']
-  serviceId: number
+  serviceId: ServiceId
+  serviceName?: Service['name']
   patientName: string
-  patientId: number
-  branchId: string
+  patientId: PatientId
+  branchId: Branch['id']
+  branchName?: Branch['name']
 }
 
 export interface AlertType {
