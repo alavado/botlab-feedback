@@ -3,10 +3,18 @@ import { parse, parseISO, startOfDay } from 'date-fns'
 import { es } from 'date-fns/locale'
 import store from '../../redux/store'
 
+export const API_ROOT = process.env.REACT_APP_API_ROOT
+
 export const get = async (url: string) => {
   const { login }: any = store.getState()
   const { token } = login
   return axios.get(url, { headers: { 'Api-Token': token } })
+}
+
+export const patch = async (url: string, params: any) => {
+  const { login }: any = store.getState()
+  const { token } = login
+  return axios.patch(url, params, { headers: { 'Api-Token': token } })
 }
 
 export const parseAPIDate = (

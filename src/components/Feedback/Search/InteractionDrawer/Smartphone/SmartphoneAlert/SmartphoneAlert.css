@@ -1,0 +1,65 @@
+.SmartphoneAlert {
+  color: var(--color-texto);
+  align-self: flex-start;
+  width: 95%;
+  display: grid;
+  grid-template: auto auto / auto auto 1fr;
+  grid-auto-flow: column;
+  gap: 0.2rem 0.45rem;
+  border-radius: 0.25rem;
+  padding-left: 0.5rem;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.SmartphoneAlert--solved {
+  --alert-color: var(--solved-alerts-color);
+}
+
+.SmartphoneAlert--pending {
+  --alert-color: var(--pending-alerts-color);
+}
+
+.SmartphoneAlert__icon {
+  font-size: 1.35rem;
+  grid-row: 1 / -1;
+  color: var(--alert-color);
+  place-self: center center;
+  filter: drop-shadow(0 0.1rem 0.1rem var(--color-sombras));
+}
+
+.SmartphoneAlert__title {
+  font-size: 0.55rem;
+  color: var(--alert-color);
+  place-self: start start;
+  font-weight: bold;
+}
+
+.SmartphoneAlert__message {
+  font-size: 0.6rem;
+  place-self: end start;
+  text-align: left;
+}
+
+.SmartphoneAlert__button {
+  background: var(--color-principal);
+  border: none;
+  color: var(--color-texto-claro);
+  font-size: 0.65rem;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin: 0.25rem 0 0.25rem 0;
+  grid-row: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 7rem;
+}
+
+.SmartphoneAlert__button:hover {
+  box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
+  filter: brightness(110%);
+}

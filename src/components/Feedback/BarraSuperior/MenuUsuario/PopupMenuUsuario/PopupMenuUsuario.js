@@ -19,6 +19,7 @@ import { createPortal } from 'react-dom'
 import { activaModal } from '../../../../../redux/ducks/novedades'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import { setTerm } from '../../../../../redux/ducks/search'
+import { useQueryClient } from 'react-query'
 
 const PopupMenuUsuario = ({ visible, esconder }) => {
   const { esquema } = useSelector((state) => state.opciones)
@@ -26,6 +27,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const track = useAnalytics()
+  const queryClient = useQueryClient()
 
   const esc = useCallback((e) => e.key === 'Escape' && esconder(), [esconder])
 
@@ -165,6 +167,7 @@ const PopupMenuUsuario = ({ visible, esconder }) => {
               dispatch(fijaFilaTablaDestacada())
               dispatch(setTerm(''))
               dispatch(cierraLaSesion())
+              queryClient.clear()
             }}
           >
             <InlineIcon

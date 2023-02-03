@@ -8,7 +8,6 @@ const usuariosDeudores = [
   'Facelab',
   'Visum',
   'AltosDelValle',
-  'Tabilo',
   'Tobalaba',
   'Made',
   'Cesmed',

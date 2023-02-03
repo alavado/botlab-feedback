@@ -35,7 +35,7 @@ const SmartphoneActionBar = ({
   }
 
   const avatarHue =
-    360 * (((contactName?.[0].toLowerCase() ?? 'a').charCodeAt(0) - 97) / 25)
+    360 * (((contactName?.[0]?.toLowerCase() ?? 'a').charCodeAt(0) - 97) / 25)
 
   return (
     <div className="SmartphoneActionBar">

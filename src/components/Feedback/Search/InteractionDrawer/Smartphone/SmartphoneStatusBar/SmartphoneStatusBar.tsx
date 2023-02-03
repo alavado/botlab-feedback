@@ -1,14 +1,15 @@
 import { Icon } from '@iconify/react'
 import { format } from 'date-fns'
 import { useEffect, useState } from 'react'
+import { PatientId, ServiceId } from '../../../../../../api/types/servicio'
 import './SmartphoneStatusBar.css'
 
 const SmartphoneStatusBar = ({
-  pollId,
-  userId,
+  serviceId,
+  patientId,
 }: {
-  pollId?: Number
-  userId?: Number
+  serviceId?: ServiceId
+  patientId?: PatientId
 }) => {
   const [time, setTime] = useState(new Date())
 
@@ -17,7 +18,7 @@ const SmartphoneStatusBar = ({
     return () => clearInterval(interval)
   }, [])
 
-  const pollUserTitle = pollId ? `${pollId} / ${userId}` : ''
+  const pollUserTitle = serviceId ? `${serviceId} / ${patientId}` : ''
   const formattedCurrentTime = format(time, 'H:mm')
 
   return (

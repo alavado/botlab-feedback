@@ -8,17 +8,16 @@ import Respuestas from './Respuestas'
 import './Feedback.css'
 import BarraLateral from './BarraLateral'
 import BarraSuperior from './BarraSuperior'
-import Busqueda from './Busqueda'
 import Login from '../Login'
 import { guardaHeaders, limpiaEncuestas } from '../../redux/ducks/encuestas'
 import ExportacionAvanzada from '../ExportacionAvanzada'
 import Uso from './Uso'
 import ErrorBoundary from '../../helpers/ErrorBoundary'
-import Alertas from './Alertas'
 import { cierraLaSesion } from '../../redux/ducks/login'
 import Novedades from '../Novedades'
 import Tutoriales from './Tutoriales'
 import Search from './Search'
+import Alerts from './Alerts'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
@@ -97,6 +96,9 @@ const Feedback = () => {
             <Route path="/busqueda">
               <></>
             </Route>
+            <Route path="/alertas">
+              <></>
+            </Route>
             <Route>
               <BarraSuperior />
             </Route>
@@ -112,17 +114,14 @@ const Feedback = () => {
               <Route path="/chat">
                 <Respuestas />
               </Route>
-              <Route path="/alertas/:id">
-                <Alertas />
+              <Route exact path="/alertas">
+                <Alerts />
               </Route>
-              <Route path="/alertas">
-                <Alertas />
+              <Route path="/alertas/:serviceId/:patientId">
+                <Alerts />
               </Route>
               <Route exact path="/busqueda">
                 <Search />
-              </Route>
-              <Route path="/busqueda/:termino">
-                <Busqueda />
               </Route>
               <Route path="/exportar">
                 <ExportacionAvanzada />
@@ -131,9 +130,6 @@ const Feedback = () => {
                 <Uso />
               </Route>
               <Route path="/respuestas">
-                <Respuestas />
-              </Route>
-              <Route path="/tablero">
                 <Respuestas />
               </Route>
               <Route path="/tutoriales">

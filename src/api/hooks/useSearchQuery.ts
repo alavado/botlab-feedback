@@ -7,7 +7,7 @@ import {
   SearchAPISingleAppointment,
 } from '../types/responses'
 import { Appointment, Interaction } from '../types/servicio'
-import { get, parseAPIDate } from './utils'
+import { get, parseAPIDate, API_ROOT } from './utils'
 
 const searchSingleAppointmentToInteraction = (
   appointment: SearchAPISingleAppointment
@@ -17,8 +17,8 @@ const searchSingleAppointmentToInteraction = (
       parseISO(appointment.start),
       Number(process.env.REACT_APP_UTC_OFFSET)
     ),
-    userId: appointment.user_id,
-    pollId: appointment.poll_id,
+    patientId: appointment.user_id,
+    serviceId: appointment.poll_id,
     branch: appointment.sucursal_name,
     phone: appointment.phone,
     appointments: [
@@ -45,8 +45,8 @@ const searchMultiAppointmentToInteraction = (
       parseISO(appointment.start),
       Number(process.env.REACT_APP_UTC_OFFSET)
     ),
-    userId: appointment.user_id,
-    pollId: appointment.poll_id,
+    patientId: appointment.user_id,
+    serviceId: appointment.poll_id,
     branch: appointment.sucursal_name_1 || appointment.sucursal_name,
     phone: appointment.phone,
     appointments: Array(Number(appointment.n_appointments))
@@ -84,7 +84,7 @@ const useSearchQuery = (
     if (!term) {
       return []
     }
-    const { data } = await get(`https://api.botlab.cl/answers_es?query=${term}`)
+    const { data } = await get(`${API_ROOT}/answers_es?query=${term}`)
     const interactions = data.data.map((searchResult: any): Interaction => {
       const nAppointments = Number(searchResult.n_appointments || 1)
       return nAppointments > 1

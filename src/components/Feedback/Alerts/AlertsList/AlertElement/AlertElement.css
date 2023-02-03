@@ -1,0 +1,76 @@
+.AlertElement {
+  padding: 0.6rem 0.75rem 0.6rem 1rem;
+  cursor: pointer;
+  font-size: 0.65rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--color-bordes);
+  text-align: left;
+  display: grid;
+  grid-template: 1fr auto / auto 4rem 1fr;
+  place-items: center center;
+  gap: 0.15rem 0.75rem;
+  color: var(--color-texto);
+  position: relative;
+}
+
+.AlertElement--solved {
+  --alert-status-color: var(--solved-alerts-color);
+}
+
+.AlertElement--pending {
+  --alert-status-color: var(--pending-alerts-color);
+}
+
+.AlertElement:hover {
+  background-color: var(--color-fila-destacada);
+}
+
+.AlertElement_icon {
+  font-size: 0.9rem;
+  color: var(--alert-status-color);
+  grid-row: 1 / -1;
+}
+
+.AlertElement__time {
+  grid-row: 1 / -1;
+  place-self: center start;
+}
+
+.AlertElement__name {
+  place-self: end start;
+}
+
+.AlertElement__data {
+  place-self: start start;
+  font-size: 0.55rem;
+  opacity: 0.75;
+}
+
+.AlertElement--selected {
+  background-color: var(--color-fila-muy-destacada);
+}
+
+.AlertElement__solve_alert_button {
+  position: absolute;
+  background: var(--color-principal);
+  border: none;
+  color: var(--color-texto-claro);
+  font-size: 0.65rem;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin: 0.25rem 0 0.25rem 0;
+  grid-row: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 7rem;
+}
+
+.AlertElement__solve_alert_button:hover {
+  box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
+  filter: brightness(110%);
+}
