@@ -69,3 +69,8 @@
   gap: 0.25rem;
   min-width: 7rem;
 }
+
+.AlertElement__solve_alert_button:hover {
+  box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
+  filter: brightness(110%);
+}

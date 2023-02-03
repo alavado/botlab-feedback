@@ -1,4 +1,4 @@
-import { format, isSameDay } from 'date-fns'
+import { format, isSameDay, startOfDay } from 'date-fns'
 import { useEffect, useMemo, useState } from 'react'
 import { Alert, Interaction, Message } from '../../../../../api/types/servicio'
 import Loader from '../../../../Loader'
@@ -9,6 +9,7 @@ import SmartphoneMessagesDate from './SmartphoneMessagesDate'
 import SmartphoneNavBar from './SmartphoneStatusBar'
 import './Smartphone.css'
 import SmartphoneAlert from './SmartphoneAlert'
+import _ from 'lodash'
 
 export interface SmartphoneChatMessage {
   message: Message
@@ -55,7 +56,7 @@ const Smartphone = ({
           elements.length === 0 ||
           !isSameDay(elements.slice(-1)[0].date, stuff.timestamp)
         ) {
-          elements.push({ date: stuff.timestamp, current })
+          elements.push({ date: startOfDay(stuff.timestamp), current })
         }
         if ('content' in stuff) {
           elements.push({ message: stuff, date: stuff.timestamp, current })
@@ -72,7 +73,7 @@ const Smartphone = ({
       interaction.messages?.forEach(addElement(false))
     )
     alerts?.forEach(addElement())
-    return elements
+    return _.sortBy(elements, 'timestamp')
   }, [pastInteractions, currentInteraction, futureInteractions, alerts])
 
   const scrollToCurrentInteraction = () =>
