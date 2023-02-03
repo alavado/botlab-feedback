@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 import logo from '../../../assets/images/logo-cero.svg'
@@ -13,7 +12,6 @@ import AlertsCount from './AlertsCount'
 
 const BarraLateral = () => {
   const { cuenta } = useSelector((state) => state.login)
-  const [feliz, setFeliz] = useState(false)
   const track = useAnalytics()
 
   return (
@@ -48,8 +46,7 @@ const BarraLateral = () => {
             onClick={() => track('Feedback', 'BarraLateral', 'verAlertas')}
           >
             <AlertsCount />
-            {/* <ConteoAlertas setFeliz={setFeliz} /> */}
-            <Icon icon={feliz ? 'mdi:bell-check' : 'mdi:bell'} />
+            <Icon icon="mdi:bell" />
             <div className="BarraLateral__nombre_seccion">Alertas</div>
           </NavLink>
         )}

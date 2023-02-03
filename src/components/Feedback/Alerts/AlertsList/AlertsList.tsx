@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useMemo, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import useActiveAlertsQuery from '../../../../api/hooks/useActiveAlertsQuery'
 import { Alert, PatientId, ServiceId } from '../../../../api/types/servicio'
 import Loader from '../../../Loader'
@@ -17,7 +16,6 @@ const AlertsList = ({
 }) => {
   const [showSolved, setShowSolved] = useState(false)
   const { data, isLoading } = useActiveAlertsQuery()
-  const history = useHistory()
 
   const visibleAlerts = useMemo(() => {
     if (!data) {

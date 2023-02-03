@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import useBranchesQuery from '../../../../../api/hooks/useBranchesQuery'
 import useChangeAlertStatusMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
 import { Alert } from '../../../../../api/types/servicio'
@@ -19,6 +19,9 @@ const AlertElement = ({
   })
   const history = useHistory()
   const { data: branches } = useBranchesQuery()
+  const params: any = useRouteMatch()
+
+  console.log(params)
 
   return (
     <button
@@ -28,9 +31,16 @@ const AlertElement = ({
         'AlertElement--solved': alert.solved,
         'AlertElement--selected': highlighted,
       })}
-      onClick={() =>
-        history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
-      }
+      onClick={() => {
+        if (
+          (params.params && Number(params.params?.patientId)) !==
+            alert.patientId ||
+          (params.params && Number(params.params?.serviceId)) !==
+            alert.serviceId
+        ) {
+          history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
+        }
+      }}
       key={alert.id}
     >
       <Icon
