@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import useChangeAlertMutation from '../../../../../../api/hooks/useChangeAlertStatusMutation'
+import useAnalytics from '../../../../../../hooks/useAnalytics'
 import './SmartphoneAlert.css'
 
 const SmartphoneAlert = ({
@@ -13,6 +14,7 @@ const SmartphoneAlert = ({
   solved: boolean
 }) => {
   const mutation = useChangeAlertMutation({ alertId, solved: !solved })
+  const track = useAnalytics()
 
   return (
     <div
@@ -32,7 +34,17 @@ const SmartphoneAlert = ({
       </p>
       <button
         className="SmartphoneAlert__button"
-        onClick={() => mutation.mutate({})}
+        onClick={() => {
+          mutation.mutate({})
+          track(
+            'Feedback',
+            'Smartphone',
+            solved ? 'markAlertAsPending' : 'markAlertAsSolved',
+            {
+              alert,
+            }
+          )
+        }}
       >
         {solved ? (
           <>

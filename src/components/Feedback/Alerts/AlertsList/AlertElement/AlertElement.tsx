@@ -4,6 +4,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom'
 import useBranchesQuery from '../../../../../api/hooks/useBranchesQuery'
 import useChangeAlertStatusMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
 import { Alert } from '../../../../../api/types/servicio'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 import './AlertElement.css'
 
 const AlertElement = ({
@@ -20,6 +21,17 @@ const AlertElement = ({
   const history = useHistory()
   const { data: branches } = useBranchesQuery()
   const { params }: any = useRouteMatch()
+  const track = useAnalytics()
+
+  const changeAlertState = () => {
+    track(
+      'Feedback',
+      'Alerts',
+      alert.solved ? 'markAlertAsPending' : 'markAlertAsSolved',
+      { alert }
+    )
+    mutation.mutate({})
+  }
 
   return (
     <button
@@ -35,6 +47,9 @@ const AlertElement = ({
           (params && Number(params?.serviceId)) !== alert.serviceId
         ) {
           history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
+          track('Feedback', 'Alerts', 'alertElementClick', {
+            alert,
+          })
         }
       }}
       key={alert.id}
@@ -57,7 +72,10 @@ const AlertElement = ({
               .querySelector('.InteractionDrawer')
               ?.getBoundingClientRect().width,
           }}
-          onClick={() => mutation.mutate({})}
+          onClick={(e) => {
+            e.stopPropagation()
+            changeAlertState()
+          }}
         >
           <Icon icon={alert.solved ? 'mdi:undo' : 'mdi:check'} /> Marcar{' '}
           {alert.solved ? 'pendiente' : 'resuelta'}
