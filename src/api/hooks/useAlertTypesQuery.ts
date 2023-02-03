@@ -29,7 +29,7 @@ const alertTypes = [
   },
   {
     id: 'Indica fallecimiento',
-    name: 'Fallecimiento',
+    name: 'Indica fallecimiento',
   },
   {
     id: 'Paciente quiere reagendar',
