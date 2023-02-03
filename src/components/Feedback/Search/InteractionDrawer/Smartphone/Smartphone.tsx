@@ -73,7 +73,7 @@ const Smartphone = ({
       interaction.messages?.forEach(addElement(false))
     )
     alerts?.forEach(addElement())
-    return _.sortBy(elements, 'timestamp')
+    return _.sortBy(elements, 'date')
   }, [pastInteractions, currentInteraction, futureInteractions, alerts])
 
   const scrollToCurrentInteraction = () =>

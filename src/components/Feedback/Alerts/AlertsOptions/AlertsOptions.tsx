@@ -36,7 +36,7 @@ const AlertsOptions = () => {
               : dispatch(enableNotifications())
           }
         />{' '}
-        Notificaciones activadas
+        Recibir notificaciones
       </label>
     </div>
   )
