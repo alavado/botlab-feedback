@@ -1,4 +1,4 @@
-export const tieneAccesoAReportes = cuenta => {
+export const tieneAccesoAReportes = (cuenta) => {
   if (!cuenta.startsWith('centauro') && !cuenta.startsWith('centraldental')) {
     return true
   }
@@ -15,9 +15,8 @@ export const tieneAccesoAReportes = cuenta => {
   ].includes(cuenta)
 }
 
-export const tieneAccesoAAlertas = cuenta => {
+export const tieneAccesoAAlertas = (cuenta) => {
   const cuentasSinAlertas = [
-  
     // Redsalud
     'redsalud',
     'redsalud_botlab',
@@ -34,6 +33,10 @@ export const tieneAccesoAAlertas = cuenta => {
   return !cuentasSinAlertas.includes(cuenta.toLowerCase())
 }
 
-export const esRedSalud = cuenta => {
+export const esRedSalud = (cuenta) => {
   return cuenta.indexOf('redsalud') >= 0
+}
+
+export const showAlertDismissedBy = (cuenta) => {
+  return cuenta.toLowerCase().indexOf('farr') >= 0
 }

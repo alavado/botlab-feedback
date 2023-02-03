@@ -80,7 +80,7 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
           typeId: alert.message,
           typeName,
           solved: alert.dismissed,
-          solvedBy: alert.dismissal_by,
+          solvedBy: alert.dismissal_by_username,
           timestamp,
           formattedTimestamp: formatAlertTimestamp(timestamp),
           serviceId: alert.poll_id,
@@ -101,7 +101,7 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
       return onlyLatestAlertPerPatient
     },
     {
-      refetchInterval: 30_000,
+      refetchInterval: 10_000,
       refetchIntervalInBackground: true,
       enabled: !!alertTypes && !!services,
       select: (data) => {

@@ -1,10 +1,13 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
+import { useSelector } from 'react-redux'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import useBranchesQuery from '../../../../../api/hooks/useBranchesQuery'
 import useChangeAlertStatusMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
 import { Alert } from '../../../../../api/types/servicio'
+import { showAlertDismissedBy } from '../../../../../helpers/permisos'
 import useAnalytics from '../../../../../hooks/useAnalytics'
+import { RootState } from '../../../../../redux/ducks'
 import './AlertElement.css'
 
 const AlertElement = ({
@@ -22,6 +25,7 @@ const AlertElement = ({
   const { data: branches } = useBranchesQuery()
   const { params }: any = useRouteMatch()
   const track = useAnalytics()
+  const { cuenta } = useSelector((state: RootState) => state.login)
 
   const changeAlertState = () => {
     track(
@@ -54,10 +58,15 @@ const AlertElement = ({
       }}
       key={alert.id}
     >
-      <Icon
-        className="AlertElement_icon"
-        icon={alert.solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
-      />
+      <span className="AlertElement__icon_container">
+        <Icon
+          className="AlertElement_icon"
+          icon={alert.solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
+        />
+        {alert.solved && showAlertDismissedBy(cuenta) && (
+          <span className="AlertElement__solvedBy">{alert.solvedBy}</span>
+        )}
+      </span>
       <span className="AlertElement__time">{alert.formattedTimestamp}</span>
       <span className="AlertElement__name">{alert.typeName}</span>
       <span className="AlertElement__data">

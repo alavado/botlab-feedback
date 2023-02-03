@@ -26,10 +26,25 @@
   background-color: var(--color-fila-destacada);
 }
 
+.AlertElement__icon_container {
+  grid-row: 1 / -1;
+  position: relative;
+}
+
 .AlertElement_icon {
   font-size: 0.9rem;
   color: var(--alert-status-color);
-  grid-row: 1 / -1;
+}
+
+.AlertElement__solvedBy {
+  font-size: 0.45rem;
+  position: absolute;
+  left: calc(100% - 0.25rem);
+  top: -0.5rem;
+  background-color: var(--solved-alerts-color);
+  color: white;
+  padding: 0.05rem 0.2rem;
+  border-radius: 0.25rem;
 }
 
 .AlertElement__time {
