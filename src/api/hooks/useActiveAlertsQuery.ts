@@ -67,7 +67,8 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
         const patientName =
           alert.meta.name ||
           alert.meta.patient_name ||
-          alert.meta.patient_name_1
+          alert.meta.patient_name_1 ||
+          alert.meta.Nombre
         const branchId = alert.meta.sucursal_name || alert.meta.sucursal_name_1
         const branchName = branches?.find((b) => b.id === branchId)?.name
         const timestamp = addHours(

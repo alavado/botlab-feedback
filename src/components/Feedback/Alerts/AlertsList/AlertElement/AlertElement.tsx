@@ -19,9 +19,7 @@ const AlertElement = ({
   })
   const history = useHistory()
   const { data: branches } = useBranchesQuery()
-  const params: any = useRouteMatch()
-
-  console.log(params)
+  const { params }: any = useRouteMatch()
 
   return (
     <button
@@ -33,10 +31,8 @@ const AlertElement = ({
       })}
       onClick={() => {
         if (
-          (params.params && Number(params.params?.patientId)) !==
-            alert.patientId ||
-          (params.params && Number(params.params?.serviceId)) !==
-            alert.serviceId
+          (params && Number(params?.patientId)) !== alert.patientId ||
+          (params && Number(params?.serviceId)) !== alert.serviceId
         ) {
           history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
         }

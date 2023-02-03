@@ -5,7 +5,7 @@ import InteractionDrawer from '../Search/InteractionDrawer'
 import './Alerts.css'
 import AlertsFilters from './AlertsFilters'
 import AlertsList from './AlertsList'
-import AlertsOptions from './AlertsOptions'
+// import AlertsOptions from './AlertsOptions'
 
 interface AlertsRouteParams {
   patientId?: string
