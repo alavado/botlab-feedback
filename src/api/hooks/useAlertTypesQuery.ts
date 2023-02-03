@@ -21,7 +21,7 @@ const alertTypes = [
   },
   {
     id: 'Paciente se arrepiente de cancelar su hora',
-    name: 'Se arrepiente de cancelar su hora',
+    name: 'Se arrepiente de cancelar hora',
   },
   {
     id: 'Mensaje post encuesta',

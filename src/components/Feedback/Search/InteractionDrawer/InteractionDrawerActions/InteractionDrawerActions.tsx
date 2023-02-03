@@ -27,7 +27,9 @@ const InteractionDrawerActions = ({
 
   const openChatView = () => {
     track('Feedback', originComponentName, 'openChatView')
-    history.push(`/chat/${serviceId}/${patientId}`, { from: '/busqueda' })
+    history.push(`/chat/${serviceId}/${patientId}`, {
+      from: originComponentName === 'Search' ? '/busqueda' : '/alertas',
+    })
   }
 
   const openWhatsapp = () => {
