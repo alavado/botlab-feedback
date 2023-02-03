@@ -8,7 +8,6 @@ import enviador from './enviador'
 import cero from './cero'
 import reacciones from './reacciones'
 import novedades from './novedades'
-import alertas from './alertas'
 import { combineReducers } from 'redux'
 
 import search from './search'
@@ -25,7 +24,6 @@ const rootReducer = combineReducers({
   cero,
   reacciones,
   novedades,
-  alertas,
   search,
   alerts,
 })

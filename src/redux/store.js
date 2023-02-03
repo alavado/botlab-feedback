@@ -10,7 +10,6 @@ const states = [
   'cero',
   'reacciones',
   'novedades',
-  'alertas',
   'alerts',
 ]
 
