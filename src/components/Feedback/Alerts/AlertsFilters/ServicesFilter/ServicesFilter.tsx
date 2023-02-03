@@ -29,18 +29,16 @@ const ServicesFilter = () => {
       {services?.map(({ id, name }) => {
         const serviceHidden = _.includes(hiddenServices, id)
         return (
-          <div key={`AlertTypesFilter-${name}`}>
-            <label>
-              <input
-                type="checkbox"
-                checked={!serviceHidden}
-                onChange={() =>
-                  dispatch(serviceHidden ? showService(id) : hideService(id))
-                }
-              />
-              {name}
-            </label>
-          </div>
+          <label key={`AlertTypesFilter-${name}`}>
+            <input
+              type="checkbox"
+              checked={!serviceHidden}
+              onChange={() =>
+                dispatch(serviceHidden ? showService(id) : hideService(id))
+              }
+            />
+            {name}
+          </label>
         )
       })}
     </div>

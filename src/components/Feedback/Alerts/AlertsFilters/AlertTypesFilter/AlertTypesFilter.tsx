@@ -25,20 +25,18 @@ const AlertTypesFilter = () => {
       {alertTypes?.map(({ id, name }) => {
         const alertTypeHidden = _.includes(hiddenAlertTypes, id)
         return (
-          <div key={`AlertTypesFilter-${name}`}>
-            <label>
-              <input
-                type="checkbox"
-                checked={!alertTypeHidden}
-                onChange={() =>
-                  dispatch(
-                    alertTypeHidden ? showAlertType(id) : hideAlertType(id)
-                  )
-                }
-              />
-              {name}
-            </label>
-          </div>
+          <label key={`AlertTypesFilter-${name}`}>
+            <input
+              type="checkbox"
+              checked={!alertTypeHidden}
+              onChange={() =>
+                dispatch(
+                  alertTypeHidden ? showAlertType(id) : hideAlertType(id)
+                )
+              }
+            />
+            {name}
+          </label>
         )
       })}
     </div>

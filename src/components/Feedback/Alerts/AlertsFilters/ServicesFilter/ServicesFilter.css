@@ -5,6 +5,7 @@
   gap: 0.5rem;
   border: 1px solid var(--color-bordes);
   border-radius: 0.5rem;
+  font-size: 0.65rem;
 }
 
 .ServicesFilter__title {

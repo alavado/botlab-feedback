@@ -1,3 +1,5 @@
+import { Icon } from '@iconify/react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../redux/ducks'
 import {
@@ -12,8 +14,18 @@ const AlertsOptions = () => {
   )
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (notificationsEnabled) {
+      Notification.requestPermission()
+    }
+  }, [notificationsEnabled])
+
   return (
     <div className="AlertsOptions">
+      <h3 className="AlertsOptions__title">
+        <Icon icon="mdi:cog" />
+        Opciones
+      </h3>
       <label>
         <input
           type="checkbox"

@@ -29,18 +29,16 @@ const BranchesFilter = () => {
       {branches?.map(({ id, name }) => {
         const branchHidden = _.includes(hiddenBranches, id)
         return (
-          <div key={`AlertTypesFilter-${name}`}>
-            <label>
-              <input
-                type="checkbox"
-                checked={!branchHidden}
-                onChange={() =>
-                  dispatch(branchHidden ? showBranch(id) : hideBranch(id))
-                }
-              />
-              {name}
-            </label>
-          </div>
+          <label key={`AlertTypesFilter-${name}`}>
+            <input
+              type="checkbox"
+              checked={!branchHidden}
+              onChange={() =>
+                dispatch(branchHidden ? showBranch(id) : hideBranch(id))
+              }
+            />
+            {name}
+          </label>
         )
       })}
     </div>

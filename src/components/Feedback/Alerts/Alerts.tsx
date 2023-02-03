@@ -1,11 +1,12 @@
 import classNames from 'classnames'
+import { useEffect } from 'react'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import MenuUsuario from '../BarraSuperior/MenuUsuario'
 import InteractionDrawer from '../Search/InteractionDrawer'
 import './Alerts.css'
 import AlertsFilters from './AlertsFilters'
 import AlertsList from './AlertsList'
-// import AlertsOptions from './AlertsOptions'
+import AlertsOptions from './AlertsOptions'
 
 interface AlertsRouteParams {
   patientId?: string
@@ -19,6 +20,10 @@ const Alerts = () => {
   const patientId = params && Number(params?.patientId)
   const serviceId = params && Number(params?.serviceId)
 
+  useEffect(() => {
+    Notification.requestPermission()
+  }, [])
+
   return (
     <div className="Alerts">
       <div className="Alerts__topbar" onClick={() => history.push('/alertas')}>
@@ -28,7 +33,7 @@ const Alerts = () => {
       <div className="Alerts__container">
         <aside className="Alerts__aside">
           <AlertsFilters />
-          {/* <AlertsOptions /> */}
+          <AlertsOptions />
         </aside>
         <main className="Alerts__main">
           <AlertsList
