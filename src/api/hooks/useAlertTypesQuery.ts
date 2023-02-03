@@ -9,19 +9,19 @@ const alertTypes = [
   },
   {
     id: 'Paciente tiene pregunta o comentario',
-    name: 'Paciente tiene pregunta o comentario',
+    name: 'Pregunta o comentario',
   },
   {
     id: 'Paciente reagenda post confirmación',
-    name: 'Paciente reagenda post confirmación',
+    name: 'Reagenda post confirmación',
   },
   {
     id: 'Paciente cancela post confirmación',
-    name: 'Paciente cancela post confirmación',
+    name: 'Cancela post confirmación',
   },
   {
     id: 'Paciente se arrepiente de cancelar su hora',
-    name: 'Paciente se arrepiente de cancelar su hora',
+    name: 'Se arrepiente de cancelar su hora',
   },
   {
     id: 'Mensaje post encuesta',
@@ -33,7 +33,7 @@ const alertTypes = [
   },
   {
     id: 'Paciente quiere reagendar',
-    name: 'Paciente quiere reagendar',
+    name: 'Quiere reagendar',
   },
 ]
 
