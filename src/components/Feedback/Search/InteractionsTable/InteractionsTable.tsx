@@ -248,8 +248,8 @@ const isSameInteraction = (
     return false
   }
   return (
-    i1.pollId === i2.pollId &&
-    i1.userId === i2.userId &&
+    i1.serviceId === i2.serviceId &&
+    i1.patientId === i2.patientId &&
     isSameDay(i1.appointments[0].datetime, i2.appointments[0].datetime)
   )
 }

@@ -1,32 +1,31 @@
-export interface Servicio {
+export interface Service {
   id: number
-  nombre: string
-  horaInicio: string
-  habilitado: boolean
-  icono: string
-  propiedades: PropiedadServicio[]
-  sucursales: string[]
-  descripcion: string
+  name: string
+  headers: ServiceHeader[]
 }
 
-type TipoPropiedadServicio = 'META' | 'YESNO' | 'INTERNAL'
+type ServiceHeaderType = 'META' | 'YESNO' | 'INTERNAL' | 'RANGE' | 'OPEN'
 
-export interface PropiedadServicio {
+export interface ServiceHeader {
+  name: string
+  displayName: string
+  type: ServiceHeaderType
+}
+
+export interface Branch {
   id: string
-  nombre: string
-  tipo: TipoPropiedadServicio
+  name: string
 }
 
 export interface Interaction {
-  userId: number
-  pollId: number
+  patientId: number
+  serviceId: number
   start: Date
   appointments: Appointment[]
   branch?: string
   phone?: string
   messages?: Message[]
   comments?: Comment[]
-  alerts?: Alerta[]
   botName?: string
 }
 
@@ -46,7 +45,7 @@ export interface Pregunta {
   id: string
   texto: string
   respuesta: string
-  tipo: TipoPropiedadServicio
+  tipo: ServiceHeaderType
 }
 
 export type IDEstadoInteraccion =
@@ -72,6 +71,27 @@ export interface Message {
   id: number
 }
 
+export interface Alert {
+  id: number
+  timestamp: Date
+  formattedTimestamp: string
+  solved: boolean
+  solvedBy?: string
+  typeId: AlertTypeId
+  typeName?: AlertType['name']
+  serviceId: ServiceId
+  serviceName?: Service['name']
+  patientName: string
+  patientId: PatientId
+  branchId: Branch['id']
+  branchName?: Branch['name']
+}
+
+export interface AlertType {
+  id: string
+  name: string
+}
+
 export interface Alerta {
   timestamp: Date
   texto: string
@@ -88,3 +108,8 @@ export interface Comment {
   text: string
   emoji: string
 }
+
+export type BranchId = Branch['id']
+export type ServiceId = Service['id']
+export type AlertTypeId = AlertType['id']
+export type PatientId = Interaction['patientId']

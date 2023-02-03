@@ -103,7 +103,7 @@ export interface reactionsAPIResponse {
   ]
 }
 
-export interface alertasAPIResponse {
+export interface AlertsAPIResponse {
   status: string
   data: [
     {
@@ -181,4 +181,23 @@ export interface AnswerMediaAPIResponse {
     url: string
     content_type: string
   }
+}
+
+export interface PollsHeadersAPIResponse {
+  status: string
+  data: [
+    {
+      id: number
+      name: string
+      archived: boolean
+      enabled: boolean
+      headers: [
+        {
+          name: string
+          display_name: string
+          type: 'META' | 'YESNO' | 'INTERNAL' | 'RANGE' | 'OPEN'
+        }
+      ]
+    }
+  ]
 }

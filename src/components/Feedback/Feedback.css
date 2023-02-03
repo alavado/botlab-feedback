@@ -1,6 +1,7 @@
 .Feedback {
   flex: 1;
   display: flex;
+  --topbar-height: 2rem;
 }
 
 .Feedback__contenedor {

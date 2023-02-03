@@ -1,8 +1,6 @@
 import { useQuery, UseQueryResult } from 'react-query'
 import { AnswerMediaAPIResponse } from '../types/responses'
-import { get } from './utils'
-
-const API_ROOT = process.env.REACT_APP_API_ROOT
+import { API_ROOT, get } from './utils'
 
 const useAnswerMediaQuery = (
   answerId: number

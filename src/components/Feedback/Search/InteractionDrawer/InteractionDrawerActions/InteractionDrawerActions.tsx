@@ -1,12 +1,13 @@
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router-dom'
+import { ServiceId } from '../../../../../api/types/servicio'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import { openExternalLink } from '../helpers'
 import './InteractionDrawerActions.css'
 
 interface InteractionDrawerActionsProps {
-  pollId?: number
-  userId?: number
+  serviceId?: ServiceId
+  patientId?: number
   phone?: string
   schedulingSystemName?: string
   schedulingSystemURL?: string
@@ -14,8 +15,8 @@ interface InteractionDrawerActionsProps {
 }
 
 const InteractionDrawerActions = ({
-  pollId,
-  userId,
+  serviceId,
+  patientId,
   phone,
   schedulingSystemName,
   schedulingSystemURL,
@@ -26,7 +27,7 @@ const InteractionDrawerActions = ({
 
   const openChatView = () => {
     track('Feedback', originComponentName, 'openChatView')
-    history.push(`/chat/${pollId}/${userId}`, { from: '/busqueda' })
+    history.push(`/chat/${serviceId}/${patientId}`, { from: '/busqueda' })
   }
 
   const openWhatsapp = () => {

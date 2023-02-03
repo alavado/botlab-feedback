@@ -63,8 +63,8 @@ const Search = () => {
       >
         {activeInteraction && (
           <InteractionDrawer
-            pollId={activeInteraction.pollId}
-            userId={activeInteraction.userId}
+            serviceId={activeInteraction.serviceId}
+            patientId={activeInteraction.patientId}
             start={activeInteraction.start}
             onCloseClick={() => {
               dispatch(hideDrawer())

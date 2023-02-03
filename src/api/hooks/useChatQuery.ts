@@ -7,50 +7,69 @@ import {
   metaTarget,
 } from '../types/responses'
 import {
+  Alert,
   Appointment,
   Interaction,
   Message,
+  PatientId,
   SchedulingSystem,
+  ServiceId,
 } from '../types/servicio'
-import { get, parseAPIDate } from './utils'
+import useActiveAlertsQuery from './useActiveAlertsQuery'
+import { get, API_ROOT, parseAPIDate } from './utils'
 
-const API_ROOT = process.env.REACT_APP_API_ROOT
-
-type chatAPIInteractionID = {
-  pollId: number
-  userId: number
+type InteractionID = {
+  serviceId: ServiceId
+  patientId: PatientId
   start: Date
 }
 
 const useChatQuery = (
-  id: chatAPIInteractionID
+  id: InteractionID
 ): UseQueryResult<
   {
     currentInteraction: Interaction
     pastInteractions: Interaction[]
     futureInteractions: Interaction[]
+    alerts: Alert[]
   },
   unknown
 > => {
-  const { pollId, userId, start } = id
+  const { serviceId, patientId, start } = id
+  if (!serviceId || !patientId || !start) {
+    throw Error('Missing parameters')
+  }
+  const { data: activeAlerts } = useActiveAlertsQuery()
+  const alerts = (
+    activeAlerts ? [...activeAlerts.pending, ...activeAlerts.solved] : []
+  ).filter(
+    (alert) => alert.patientId === patientId && alert.serviceId === serviceId
+  )
   return useQuery<any, any, any>(
-    ['interaction', pollId, userId, start],
+    ['interaction', serviceId, patientId, start],
     async () => {
       const { data }: { data: chatAPIResponse } = await get(
-        `${API_ROOT}/chat/${pollId}/${userId}`
+        `${API_ROOT}/chat/${serviceId}/${patientId}`
       )
-      return splitInteractions(
-        id,
-        data.data.conversations,
-        data.data.user.phone,
-        data.data.bot.name
-      )
+      return {
+        ...splitInteractions(
+          id,
+          data.data.conversations,
+          data.data.user.phone,
+          data.data.bot.name
+        ),
+        alerts,
+      }
+    },
+    {
+      refetchInterval: 30_000,
+      enabled: !!activeAlerts,
     }
   )
 }
 
 const splitInteractions = (
-  currentInteractionID: chatAPIInteractionID,
+  currentInteractionID: InteractionID,
   conversations: chatAPIConversation[],
   phone: string,
   botName: string
@@ -68,14 +87,19 @@ const splitInteractions = (
         currentInteractionID,
         phone,
         botName,
-        conversations[0]
+        conversations.slice(-1)[0]
       ),
-      pastInteractions: [],
-      futureInteractions: conversations
-        .slice(1)
-        .map((c) =>
-          conversationToInteraction(currentInteractionID, phone, botName, c)
+      pastInteractions: conversations
+        .slice(0, -1)
+        .map((conversation) =>
+          conversationToInteraction(
+            currentInteractionID,
+            phone,
+            botName,
+            conversation
+          )
         ),
+      futureInteractions: [],
     }
   }
   return {
@@ -87,13 +111,23 @@ const splitInteractions = (
     ),
     pastInteractions: conversations
       .slice(0, currentConversationIndex)
-      .map((c) =>
-        conversationToInteraction(currentInteractionID, phone, botName, c)
+      .map((conversation) =>
+        conversationToInteraction(
+          currentInteractionID,
+          phone,
+          botName,
+          conversation
+        )
       ),
     futureInteractions: conversations
       .slice(currentConversationIndex + 1)
-      .map((c) =>
-        conversationToInteraction(currentInteractionID, phone, botName, c)
+      .map((conversation) =>
+        conversationToInteraction(
+          currentInteractionID,
+          phone,
+          botName,
+          conversation
+        )
       ),
   }
 }
@@ -147,16 +181,16 @@ const extractAppointments = (
 }
 
 const conversationToInteraction = (
-  interactionId: chatAPIInteractionID,
+  interactionId: InteractionID,
   phone: string,
   botName: string,
   conversation: chatAPIConversation
 ): Interaction => {
-  const { pollId, userId, start } = interactionId
+  const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
   const interaction: Interaction = {
-    userId,
-    pollId,
+    patientId: patientId,
+    serviceId: serviceId,
     start: addHours(
       parseISO(conversation.start),
       Number(process.env.REACT_APP_UTC_OFFSET)
@@ -173,7 +207,6 @@ const conversationToInteraction = (
         id: message.type === 'bot' ? -1 : message.answer_id,
       })
     ),
-    alerts: [],
     comments: [],
     botName,
   }
