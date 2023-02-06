@@ -20,7 +20,8 @@ import useAlertTypesQuery from './useAlertTypesQuery'
 import useBranchesQuery from './useBranchesQuery'
 import useServicesQuery from './useServicesQuery'
 import { get, API_ROOT } from './utils'
-import logoFeedback from '../../assets/images/logo_cuadrado_notificaciones.png'
+import logo from '../../assets/images/logo_cuadrado_notificaciones.png'
+import useAnalytics from '../../hooks/useAnalytics'
 
 const alertsSinceDays = 3
 
@@ -40,6 +41,7 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
   const { data: services } = useServicesQuery()
   const { data: branches } = useBranchesQuery()
   const history = useHistory()
+  const track = useAnalytics()
 
   const isAlertActive = useCallback(
     (alert: Alert) => {
@@ -127,7 +129,7 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
           (x) => x.id
         )
         if (oldActiveAlerts && newAlerts.length > 0 && notificationsEnabled) {
-          emitNotification(history, newAlerts[0])
+          emitNotification(history, newAlerts[0], track)
         }
         return !!oldData && newAlerts.length === 0
       },
@@ -145,15 +147,16 @@ const formatAlertTimestamp = (timestamp: Date): string => {
   return format(timestamp, 'iiii dd', { locale: es })
 }
 
-const emitNotification = (history: History, alert: Alert) => {
+const emitNotification = (history: History, alert: Alert, track: any) => {
   let notification = new Notification('Feedback', {
     body: alert.typeName,
     requireInteraction: true,
     silent: false,
-    icon: logoFeedback,
+    icon: logo,
   })
   notification.onclick = () => {
     history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
+    track('Feedback', 'Alerts', 'notificationClick')
     window.focus()
   }
 }
