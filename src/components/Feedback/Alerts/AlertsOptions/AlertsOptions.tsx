@@ -2,10 +2,7 @@ import { Icon } from '@iconify/react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../redux/ducks'
-import {
-  disableNotifications,
-  enableNotifications,
-} from '../../../../redux/ducks/alerts'
+import { toggleNotifications } from '../../../../redux/ducks/alerts'
 import './AlertsOptions.css'
 
 const AlertsOptions = () => {
@@ -30,11 +27,7 @@ const AlertsOptions = () => {
         <input
           type="checkbox"
           checked={notificationsEnabled}
-          onChange={() =>
-            notificationsEnabled
-              ? dispatch(disableNotifications())
-              : dispatch(enableNotifications())
-          }
+          onChange={() => dispatch(toggleNotifications())}
         />{' '}
         Recibir notificaciones
       </label>

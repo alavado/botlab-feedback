@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import _ from 'lodash'
 import { AlertTypeId, BranchId, ServiceId } from '../../api/types/servicio'
 
 interface AlertsState {
@@ -17,48 +18,26 @@ const alertsSlice = createSlice({
     notificationsEnabled: true,
   } as AlertsState,
   reducers: {
-    hideBranch(state, action: PayloadAction<BranchId>) {
-      state.hiddenBranches.push(action.payload)
+    toggleBranch(state, action: PayloadAction<BranchId>) {
+      state.hiddenBranches = _.xor(state.hiddenBranches, [action.payload])
     },
-    showBranch(state, action: PayloadAction<BranchId>) {
-      state.hiddenBranches = state.hiddenBranches.filter(
-        (branchId) => branchId !== action.payload
-      )
+    toggleService(state, action: PayloadAction<ServiceId>) {
+      state.hiddenServices = _.xor(state.hiddenServices, [action.payload])
     },
-    hideService(state, action: PayloadAction<ServiceId>) {
-      state.hiddenServices.push(action.payload)
+    toggleAlertType(state, action: PayloadAction<AlertTypeId>) {
+      state.hiddenAlertTypes = _.xor(state.hiddenAlertTypes, [action.payload])
     },
-    showService(state, action: PayloadAction<ServiceId>) {
-      state.hiddenServices = state.hiddenServices.filter(
-        (serviceId) => serviceId !== action.payload
-      )
-    },
-    hideAlertType(state, action: PayloadAction<AlertTypeId>) {
-      state.hiddenAlertTypes.push(action.payload)
-    },
-    showAlertType(state, action: PayloadAction<AlertTypeId>) {
-      state.hiddenAlertTypes = state.hiddenAlertTypes.filter(
-        (alertTypeId) => alertTypeId !== action.payload
-      )
-    },
-    disableNotifications(state) {
-      state.notificationsEnabled = false
-    },
-    enableNotifications(state) {
-      state.notificationsEnabled = true
+    toggleNotifications(state) {
+      state.notificationsEnabled = !state.notificationsEnabled
     },
   },
 })
 
 export const {
-  hideBranch,
-  showBranch,
-  hideService,
-  showService,
-  hideAlertType,
-  showAlertType,
-  disableNotifications,
-  enableNotifications,
+  toggleBranch,
+  toggleService,
+  toggleAlertType,
+  toggleNotifications,
 } = alertsSlice.actions
 
 export default alertsSlice.reducer

@@ -65,7 +65,7 @@ const AlertElement = ({
   useEffect(() => {
     const updateButtonPositionInterval = setInterval(
       () => setButtonRightPosition(getDrawerRight()),
-      100
+      50
     )
     return () => clearInterval(updateButtonPositionInterval)
   }, [])

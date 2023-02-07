@@ -43,7 +43,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   gap: 0.5rem;
-  padding: 0.35rem 0.5rem 25vh 0.5rem;
+  padding: 0.35rem 0.5rem 50vh 0.5rem;
   scrollbar-width: 0.35rem;
   scrollbar-color: var(--whatsapp-color-scrollbar-contenedor-mensajes)
     var(--color-fondo);
