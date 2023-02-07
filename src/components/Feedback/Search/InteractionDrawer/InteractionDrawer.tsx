@@ -47,6 +47,7 @@ const InteractionDrawer = ({
           <button
             className="InteractionDrawer__top_bar_action_button"
             onClick={onCloseClick}
+            title="Cerrar"
           >
             <Icon icon="mdi:chevron-double-right" />
           </button>

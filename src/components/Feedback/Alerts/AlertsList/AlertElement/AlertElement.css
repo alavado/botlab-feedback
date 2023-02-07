@@ -83,9 +83,19 @@
   justify-content: center;
   gap: 0.25rem;
   min-width: 7rem;
+  animation: AlertElement__solve_alert_button--appears 0.25s ease both;
 }
 
 .AlertElement__solve_alert_button:hover {
   box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
   filter: brightness(110%);
+}
+
+@keyframes AlertElement__solve_alert_button--appears {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

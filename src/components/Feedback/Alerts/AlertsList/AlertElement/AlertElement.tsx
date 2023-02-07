@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import useBranchesQuery from '../../../../../api/hooks/useBranchesQuery'
@@ -22,15 +23,22 @@ const AlertElement = ({
   alert: Alert
   highlighted: boolean
 }) => {
+  const getDrawerRight = () =>
+    document.querySelector('.InteractionDrawer')?.getBoundingClientRect()
+      .width || 0
+
   const mutation = useChangeAlertStatusMutation({
     alertId: alert.id,
     solved: !alert.solved,
   })
+  const [buttonRightPosition, setButtonRightPosition] = useState(
+    getDrawerRight()
+  )
   const history = useHistory()
   const { data: branches } = useBranchesQuery()
   const { params }: any = useRouteMatch()
-  const track = useAnalytics()
   const { cuenta } = useSelector((state: RootState) => state.login)
+  const track = useAnalytics()
 
   const changeAlertState = () => {
     track(
@@ -53,6 +61,14 @@ const AlertElement = ({
       })
     }
   }
+
+  useEffect(() => {
+    const updateButtonPositionInterval = setInterval(
+      () => setButtonRightPosition(getDrawerRight()),
+      100
+    )
+    return () => clearInterval(updateButtonPositionInterval)
+  }, [])
 
   const { patientName, serviceName, branchName } = alert
   const alertData =
@@ -86,9 +102,7 @@ const AlertElement = ({
         <button
           className="AlertElement__solve_alert_button"
           style={{
-            right: document
-              .querySelector('.InteractionDrawer')
-              ?.getBoundingClientRect().width,
+            right: buttonRightPosition,
           }}
           onClick={(e) => {
             e.stopPropagation()
