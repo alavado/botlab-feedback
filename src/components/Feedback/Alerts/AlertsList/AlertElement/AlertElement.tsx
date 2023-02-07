@@ -8,6 +8,11 @@ import { Alert } from '../../../../../api/types/servicio'
 import { showAlertDismissedBy } from '../../../../../helpers/permisos'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import { RootState } from '../../../../../redux/ducks'
+import {
+  getAlertButtonIcon,
+  getAlertButtonLabel,
+  getAlertButtonTitle,
+} from '../../helpers'
 import './AlertElement.css'
 
 const AlertElement = ({
@@ -37,6 +42,23 @@ const AlertElement = ({
     mutation.mutate({})
   }
 
+  const openAlertChat = () => {
+    if (
+      (params && Number(params?.patientId)) !== alert.patientId ||
+      (params && Number(params?.serviceId)) !== alert.serviceId
+    ) {
+      history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
+      track('Feedback', 'Alerts', 'alertElementClick', {
+        alert,
+      })
+    }
+  }
+
+  const { patientName, serviceName, branchName } = alert
+  const alertData =
+    `${patientName} • ${serviceName}` +
+    (branches && branches.length > 1 ? ` • ${branchName}` : '')
+
   return (
     <button
       className={classNames({
@@ -45,34 +67,21 @@ const AlertElement = ({
         'AlertElement--solved': alert.solved,
         'AlertElement--selected': highlighted,
       })}
-      onClick={() => {
-        if (
-          (params && Number(params?.patientId)) !== alert.patientId ||
-          (params && Number(params?.serviceId)) !== alert.serviceId
-        ) {
-          history.push(`/alertas/${alert.serviceId}/${alert.patientId}`)
-          track('Feedback', 'Alerts', 'alertElementClick', {
-            alert,
-          })
-        }
-      }}
+      onClick={openAlertChat}
       key={alert.id}
     >
       <span className="AlertElement__icon_container">
         <Icon
-          className="AlertElement_icon"
+          className="AlertElement__icon"
           icon={alert.solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
         />
-        {alert.solved && showAlertDismissedBy(cuenta) && (
+        {showAlertDismissedBy(cuenta) && alert.solved && (
           <span className="AlertElement__solvedBy">{alert.solvedBy}</span>
         )}
       </span>
       <span className="AlertElement__time">{alert.formattedTimestamp}</span>
       <span className="AlertElement__name">{alert.typeName}</span>
-      <span className="AlertElement__data">
-        {alert.patientName} • {alert.serviceName}{' '}
-        {branches && branches.length > 1 && <>• {alert.branchName}</>}
-      </span>
+      <span className="AlertElement__data">{alertData}</span>
       {highlighted && (
         <button
           className="AlertElement__solve_alert_button"
@@ -85,9 +94,10 @@ const AlertElement = ({
             e.stopPropagation()
             changeAlertState()
           }}
+          title={getAlertButtonTitle(alert.solved)}
         >
-          <Icon icon={alert.solved ? 'mdi:undo' : 'mdi:check'} /> Marcar{' '}
-          {alert.solved ? 'pendiente' : 'resuelta'}
+          <Icon icon={getAlertButtonIcon(alert.solved)} />{' '}
+          {getAlertButtonLabel(alert.solved)}
         </button>
       )}
     </button>

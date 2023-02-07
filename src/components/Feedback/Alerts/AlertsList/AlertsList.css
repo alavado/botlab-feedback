@@ -25,6 +25,10 @@
   filter: saturate(50%) opacity(0.7);
 }
 
+.AlertsList__tab_button:hover {
+  background: var(--color-fila-destacada);
+}
+
 .AlertsList__tab_button--solved {
   --alert-status-color: var(--solved-alerts-color);
 }

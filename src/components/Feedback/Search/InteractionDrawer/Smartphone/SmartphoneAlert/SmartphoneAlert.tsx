@@ -1,7 +1,13 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
+import { useCallback } from 'react'
 import useChangeAlertMutation from '../../../../../../api/hooks/useChangeAlertStatusMutation'
 import useAnalytics from '../../../../../../hooks/useAnalytics'
+import {
+  getAlertButtonIcon,
+  getAlertButtonLabel,
+  getAlertButtonTitle,
+} from '../../../../Alerts/helpers'
 import './SmartphoneAlert.css'
 
 const SmartphoneAlert = ({
@@ -15,6 +21,18 @@ const SmartphoneAlert = ({
 }) => {
   const mutation = useChangeAlertMutation({ alertId, solved: !solved })
   const track = useAnalytics()
+
+  const changeAlertSolvedStatus = useCallback(() => {
+    mutation.mutate({})
+    track(
+      'Feedback',
+      'Smartphone',
+      solved ? 'markAlertAsPending' : 'markAlertAsSolved',
+      {
+        alert,
+      }
+    )
+  }, [solved, track, mutation])
 
   return (
     <div
@@ -34,27 +52,10 @@ const SmartphoneAlert = ({
       </p>
       <button
         className="SmartphoneAlert__button"
-        onClick={() => {
-          mutation.mutate({})
-          track(
-            'Feedback',
-            'Smartphone',
-            solved ? 'markAlertAsPending' : 'markAlertAsSolved',
-            {
-              alert,
-            }
-          )
-        }}
+        onClick={changeAlertSolvedStatus}
+        title={getAlertButtonTitle(solved)}
       >
-        {solved ? (
-          <>
-            <Icon icon="mdi:undo" /> Marcar pendiente
-          </>
-        ) : (
-          <>
-            <Icon icon="mdi:check" /> Marcar resuelta
-          </>
-        )}
+        <Icon icon={getAlertButtonIcon(solved)} /> {getAlertButtonLabel(solved)}
       </button>
     </div>
   )

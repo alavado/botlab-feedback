@@ -22,7 +22,7 @@
   --alert-status-color: var(--pending-alerts-color);
 }
 
-.AlertElement:hover {
+.AlertElement:not(.AlertElement--selected):hover {
   background-color: var(--color-fila-destacada);
 }
 
@@ -31,7 +31,7 @@
   position: relative;
 }
 
-.AlertElement_icon {
+.AlertElement__icon {
   font-size: 0.9rem;
   color: var(--alert-status-color);
 }
