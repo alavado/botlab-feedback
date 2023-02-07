@@ -29,6 +29,8 @@
 .AlertElement__icon_container {
   grid-row: 1 / -1;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .AlertElement__icon {

@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux'
 import Chat from './Chat'
 import TablaRespuestas from './TablaRespuestas'
 import EnviadorRepuestas from './EnviadorRepuestas'
-import TableroRespuestas from './TableroRespuestas'
 import './Respuestas.css'
 
 const Respuestas = () => {
-
-  const { idEncuestaSeleccionada: idEncuesta } = useSelector(state => state.encuestas)
+  const { idEncuestaSeleccionada: idEncuesta } = useSelector(
+    (state) => state.encuestas
+  )
 
   return (
     <div className="Respuestas">
@@ -19,9 +19,6 @@ const Respuestas = () => {
         </Route>
         <Route exact path="/respuestas">
           <TablaRespuestas />
-        </Route>
-        <Route exact path="/tablero">
-          <TableroRespuestas />
         </Route>
         <Route path="/chat/:idEncuesta/:idUsuario">
           <Chat />

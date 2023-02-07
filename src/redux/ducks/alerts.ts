@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import _ from 'lodash'
-import { AlertTypeId, BranchId, ServiceId } from '../../api/types/servicio'
+import {
+  AlertTypeId,
+  BranchId,
+  Service,
+  ServiceId,
+} from '../../api/types/servicio'
 
 interface AlertsState {
   hiddenBranches: BranchId[]
@@ -30,6 +35,27 @@ const alertsSlice = createSlice({
     toggleNotifications(state) {
       state.notificationsEnabled = !state.notificationsEnabled
     },
+    hideBranchesOrShowIfAllHidden(state, action: PayloadAction<BranchId[]>) {
+      if (state.hiddenBranches.length !== action.payload.length) {
+        state.hiddenBranches = action.payload
+      } else {
+        state.hiddenBranches = []
+      }
+    },
+    hideServicesOrShowIfAllHidden(state, action: PayloadAction<ServiceId[]>) {
+      if (state.hiddenServices.length !== action.payload.length) {
+        state.hiddenServices = action.payload
+      } else {
+        state.hiddenServices = []
+      }
+    },
+    hideAlertTypeShowIfAllHidden(state, action: PayloadAction<AlertTypeId[]>) {
+      if (state.hiddenAlertTypes.length !== action.payload.length) {
+        state.hiddenAlertTypes = action.payload
+      } else {
+        state.hiddenAlertTypes = []
+      }
+    },
   },
 })
 
@@ -38,6 +64,9 @@ export const {
   toggleService,
   toggleAlertType,
   toggleNotifications,
+  hideBranchesOrShowIfAllHidden,
+  hideServicesOrShowIfAllHidden,
+  hideAlertTypeShowIfAllHidden,
 } = alertsSlice.actions
 
 export default alertsSlice.reducer

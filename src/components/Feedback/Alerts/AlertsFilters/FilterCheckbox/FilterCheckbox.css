@@ -1,0 +1,58 @@
+.FilterCheckbox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.45rem;
+  cursor: pointer;
+  font-size: 0.65rem;
+  padding: 0.35rem 0.5rem;
+  background: none;
+  border: none;
+  color: var(--color-texto);
+}
+
+.FilterCheckbox--title {
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.FilterCheckbox__label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.FilterCheckbox__square {
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: var(--color-fondo);
+  box-shadow: 0 0 0 1px var(--color-principal);
+  border-radius: 0.1rem;
+  color: var(--color-texto-claro);
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.FilterCheckbox__square_check {
+  font-size: 0.65rem;
+}
+
+.FilterCheckbox--filled .FilterCheckbox__square {
+  background-color: var(--color-principal-claro);
+}
+
+.FilterCheckbox--filled:hover .FilterCheckbox__square {
+  background-color: var(--color-principal);
+}
+
+.FilterCheckbox__count {
+  margin-left: auto;
+  font-weight: normal;
+  opacity: 0.6;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
