@@ -43,6 +43,10 @@
   background-color: var(--color-principal-claro);
 }
 
+.FilterCheckbox:hover .FilterCheckbox__square {
+  box-shadow: 0 0 0 3px var(--color-principal);
+}
+
 .FilterCheckbox--filled:hover .FilterCheckbox__square {
   background-color: var(--color-principal);
 }
