@@ -6,7 +6,7 @@ import {
   SearchAPIMultiAppointment,
   SearchAPISingleAppointment,
 } from '../types/responses'
-import { Appointment, Interaction } from '../types/servicio'
+import { Appointment, Interaction } from '../types/types'
 import { get, parseAPIDate, API_ROOT } from './utils'
 
 const searchSingleAppointmentToInteraction = (

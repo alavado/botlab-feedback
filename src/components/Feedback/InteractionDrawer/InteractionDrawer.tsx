@@ -3,10 +3,11 @@ import { MouseEventHandler } from 'react'
 import './InteractionDrawer.css'
 import Smartphone from './Smartphone'
 import { Icon } from '@iconify/react'
-import useChatQuery from '../../../../api/hooks/useChatQuery'
-import Loader from '../../../Loader'
+import useChatQuery from '../../../api/hooks/useChatQuery'
+import Loader from '../../Loader'
 import InteractionDrawerActions from './InteractionDrawerActions'
-import { PatientId, ServiceId } from '../../../../api/types/servicio'
+import { PatientId, ServiceId } from '../../../api/types/types'
+import InteractionComments from './InteractionComments'
 
 interface InteractionDrawerProps {
   serviceId: ServiceId
@@ -88,6 +89,13 @@ const InteractionDrawer = ({
           schedulingSystemURL={currentInteraction?.appointments[0].url}
           originComponentName={originComponentName}
         />
+        {currentInteraction && (
+          <InteractionComments
+            serviceId={currentInteraction.serviceId}
+            patientId={currentInteraction.patientId}
+            interactionStart={currentInteraction.start}
+          />
+        )}
       </div>
     </Resizable>
   )

@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
-import useVCardQuery from '../../../../../../../api/hooks/useVCardQuery'
-import Loader from '../../../../../../Loader'
+import useVCardQuery from '../../../../../../api/hooks/useVCardQuery'
+import Loader from '../../../../../Loader'
 import './VCardMessage.css'
 
 const VCardMessage = ({ answerId }: { answerId: number }) => {

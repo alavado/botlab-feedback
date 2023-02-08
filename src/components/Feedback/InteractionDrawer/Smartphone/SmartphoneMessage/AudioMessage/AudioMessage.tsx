@@ -1,5 +1,5 @@
-import useAnswerMediaQuery from '../../../../../../../api/hooks/useAnswerMediaQuery'
-import Loader from '../../../../../../Loader'
+import useAnswerMediaQuery from '../../../../../../api/hooks/useAnswerMediaQuery'
+import Loader from '../../../../../Loader'
 import './AudioMessage.css'
 
 const AudioMessage = ({ answerId }: { answerId: number }) => {

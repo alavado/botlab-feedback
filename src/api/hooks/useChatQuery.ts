@@ -14,7 +14,7 @@ import {
   PatientId,
   SchedulingSystem,
   ServiceId,
-} from '../types/servicio'
+} from '../types/types'
 import useActiveAlertsQuery from './useActiveAlertsQuery'
 import { get, API_ROOT, parseAPIDate } from './utils'
 

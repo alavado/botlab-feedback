@@ -5,7 +5,7 @@ import {
   BranchId,
   Service,
   ServiceId,
-} from '../../api/types/servicio'
+} from '../../api/types/types'
 
 interface AlertsState {
   hiddenBranches: BranchId[]

@@ -1,5 +1,5 @@
-import useAnswerMediaQuery from '../../../../../../../api/hooks/useAnswerMediaQuery'
-import Loader from '../../../../../../Loader'
+import useAnswerMediaQuery from '../../../../../../api/hooks/useAnswerMediaQuery'
+import Loader from '../../../../../Loader'
 import './VideoMessage.css'
 
 const VideoMessage = ({ answerId }: { answerId: number }) => {

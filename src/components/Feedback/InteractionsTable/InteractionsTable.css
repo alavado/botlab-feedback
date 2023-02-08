@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 0.5rem - var(--search-topbar-height));
+  height: calc(100vh - 0.5rem - var(--topbar-height));
   overflow-y: scroll;
 }
 

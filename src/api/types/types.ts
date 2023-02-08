@@ -35,7 +35,6 @@ export interface Appointment {
   id?: string
   rut: string
   patientName: string
-  status?: InteractionStatus
   datetime: Date
   url?: string
   schedulingSystem?: SchedulingSystem
@@ -46,21 +45,6 @@ export interface Pregunta {
   texto: string
   respuesta: string
   tipo: ServiceHeaderType
-}
-
-export type IDEstadoInteraccion =
-  | 'CUALQUIERA'
-  | 'PENDIENTE'
-  | 'CONFIRMADA'
-  | 'CANCELADA'
-  | 'REAGENDADA'
-
-export interface InteractionStatus {
-  id: IDEstadoInteraccion
-  descripcion?: string
-  explicacion?: string
-  icono: string
-  color: string
 }
 
 export interface Message {
@@ -90,16 +74,6 @@ export interface Alert {
 export interface AlertType {
   id: string
   name: string
-}
-
-export interface Alerta {
-  timestamp: Date
-  texto: string
-  resuelta: boolean
-  resueltaPor?: string
-  id: number
-  idServicio: number
-  idUsuario: number
 }
 
 export interface Comment {

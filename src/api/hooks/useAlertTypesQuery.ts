@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
-import { AlertType } from '../types/servicio'
+import { AlertType } from '../types/types'
 
 const alertTypes = [
   {

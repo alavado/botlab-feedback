@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { format } from 'date-fns'
 import { useEffect, useState } from 'react'
-import { PatientId, ServiceId } from '../../../../../../api/types/servicio'
+import { PatientId, ServiceId } from '../../../../../api/types/types'
 import './SmartphoneStatusBar.css'
 
 const SmartphoneStatusBar = ({

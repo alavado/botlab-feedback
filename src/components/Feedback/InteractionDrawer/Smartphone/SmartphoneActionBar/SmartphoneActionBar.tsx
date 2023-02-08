@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
-import useAnalytics from '../../../../../../hooks/useAnalytics'
-import Loader from '../../../../../Loader'
+import useAnalytics from '../../../../../hooks/useAnalytics'
+import Loader from '../../../../Loader'
 import './SmartphoneActionBar.css'
 
 const SmartphoneActionBar = ({

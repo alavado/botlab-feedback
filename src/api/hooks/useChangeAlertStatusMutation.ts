@@ -1,5 +1,5 @@
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
-import { Alert } from '../types/servicio'
+import { Alert } from '../types/types'
 import { patch, API_ROOT } from './utils'
 
 const useChangeAlertStatusMutation = ({

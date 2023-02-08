@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router-dom'
-import { ServiceId } from '../../../../../api/types/servicio'
-import useAnalytics from '../../../../../hooks/useAnalytics'
+import { ServiceId } from '../../../../api/types/types'
+import useAnalytics from '../../../../hooks/useAnalytics'
 import { openExternalLink } from '../helpers'
 import './InteractionDrawerActions.css'
 

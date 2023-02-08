@@ -6,11 +6,11 @@ import {
   setActiveInteraction,
   showDrawer,
 } from '../../../redux/ducks/search'
-import InteractionDrawer from './InteractionDrawer'
+import InteractionDrawer from '../InteractionDrawer'
 import SearchInput from './SearchInput'
-import InteractionsTable from './InteractionsTable'
+import InteractionsTable from '../InteractionsTable'
 import './Search.css'
-import { Interaction } from '../../../api/types/servicio'
+import { Interaction } from '../../../api/types/types'
 import useAnalytics from '../../../hooks/useAnalytics'
 import useSearchQuery from '../../../api/hooks/useSearchQuery'
 import { Icon } from '@iconify/react'

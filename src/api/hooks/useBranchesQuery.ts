@@ -2,7 +2,7 @@ import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
-import { Branch } from '../types/servicio'
+import { Branch } from '../types/types'
 
 const useBranchesQuery = (): UseQueryResult<Branch[], unknown> => {
   const { sucursales } = useSelector((state: RootState) => state.login)

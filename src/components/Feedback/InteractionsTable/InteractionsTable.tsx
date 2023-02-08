@@ -15,7 +15,7 @@ import {
   sortingFns,
 } from '@tanstack/react-table'
 import { format } from 'date-fns/esm'
-import { Interaction } from '../../../../api/types/servicio'
+import { Interaction } from '../../../api/types/types'
 import './InteractionsTable.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
@@ -28,7 +28,7 @@ import classNames from 'classnames'
 import { isSameDay } from 'date-fns'
 import { Icon } from '@iconify/react'
 import es from 'date-fns/esm/locale/es/index.js'
-import useAnalytics from '../../../../hooks/useAnalytics'
+import useAnalytics from '../../../hooks/useAnalytics'
 
 const columnHelper = createColumnHelper<Interaction>()
 

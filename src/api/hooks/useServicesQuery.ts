@@ -3,7 +3,7 @@ import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 import { PollsHeadersAPIResponse } from '../types/responses'
-import { Service } from '../types/servicio'
+import { Service } from '../types/types'
 import { get, API_ROOT } from './utils'
 
 const useServicesQuery = (): UseQueryResult<Service[], unknown> => {

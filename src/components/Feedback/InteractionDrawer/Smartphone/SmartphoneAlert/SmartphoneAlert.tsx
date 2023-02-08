@@ -1,13 +1,13 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useCallback } from 'react'
-import useChangeAlertMutation from '../../../../../../api/hooks/useChangeAlertStatusMutation'
-import useAnalytics from '../../../../../../hooks/useAnalytics'
+import useChangeAlertMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 import {
   getAlertButtonIcon,
   getAlertButtonLabel,
   getAlertButtonTitle,
-} from '../../../../Alerts/helpers'
+} from '../../../Alerts/helpers'
 import './SmartphoneAlert.css'
 
 const SmartphoneAlert = ({

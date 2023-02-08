@@ -1,4 +1,4 @@
-import useAnalytics from '../../../../../../hooks/useAnalytics'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 import './SmartphoneButtons.css'
 
 const phoneColorLightningVariation = 5

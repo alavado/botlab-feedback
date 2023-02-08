@@ -91,7 +91,7 @@ export interface chatAPIResponse {
   }
 }
 
-export interface reactionsAPIResponse {
+export interface ReactionsAPIResponse {
   status: string
   data: [
     {

@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useState } from 'react'
-import useAnswerMediaQuery from '../../../../../../../api/hooks/useAnswerMediaQuery'
-import Loader from '../../../../../../Loader'
+import useAnswerMediaQuery from '../../../../../../api/hooks/useAnswerMediaQuery'
+import Loader from '../../../../../Loader'
 import './PictureMessage.css'
 
 const PictureMessage = ({ answerId }: { answerId: number }) => {
