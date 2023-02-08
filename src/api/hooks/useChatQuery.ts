@@ -1,4 +1,4 @@
-import { addHours, formatISO, isSameDay, parseISO } from 'date-fns'
+import { formatISO, isSameDay, parseISO } from 'date-fns'
 import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import {
@@ -191,10 +191,7 @@ const conversationToInteraction = (
   const interaction: Interaction = {
     patientId: patientId,
     serviceId: serviceId,
-    start: addHours(
-      parseISO(conversation.start),
-      Number(process.env.REACT_APP_UTC_OFFSET)
-    ),
+    start: parseISO(conversation.start),
     appointments: extractAppointments(start, conversation),
     branch: _.find(context, { target: 'sucursal_name' })?.value,
     phone,

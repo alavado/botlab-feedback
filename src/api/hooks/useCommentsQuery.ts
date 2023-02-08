@@ -1,4 +1,4 @@
-import { addHours, format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { useQuery, UseQueryResult } from 'react-query'
 import { ReactionsAPIResponse } from '../types/responses'
 import { Comment, PatientId, ServiceId } from '../types/types'
@@ -13,18 +13,21 @@ const useCommentsQuery = ({
   patientId: PatientId
   interactionStart: Date
 }): UseQueryResult<Comment[], unknown> => {
-  //https://api.botlab.cl/reactions/167/4369318?start=2023-02-08+09:00:00
-  //https://api.botlab.cl/reactions/167/4369318/?start=2023-02-08+06:00:00
-  const start = format(addHours(interactionStart, 3), "yyyy-MM-dd'+'HH:mm:ss")
+  const start = format(interactionStart, "yyyy-MM-dd'+'HH:mm:ss")
   return useQuery<any, any, any>(
     ['comments', serviceId, patientId, interactionStart],
     async () => {
       const { data }: { data: ReactionsAPIResponse } = await get(
         `${API_ROOT}/reactions/${serviceId}/${patientId}?start=${start}`
       )
-      console.log(data)
-      return {}
-    }
+      return data.data.map((comment) => ({
+        id: comment.id,
+        timestamp: parseISO(comment.created_at),
+        text: comment.reaction_text,
+        emoji: comment.reaction_emoji,
+      }))
+    },
+    { refetchInterval: 10_000 }
   )
 }
 
