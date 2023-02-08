@@ -31,7 +31,6 @@ const InteractionDrawer = ({
     start,
   })
   const { data: alerts } = useAlertsForPatientQuery({ serviceId, patientId })
-  console.log({ alerts })
 
   const pastInteractions = data?.pastInteractions
   const currentInteraction = data?.currentInteraction
@@ -91,13 +90,13 @@ const InteractionDrawer = ({
           schedulingSystemURL={currentInteraction?.appointments[0].url}
           originComponentName={originComponentName}
         />
-        {currentInteraction && (
+        {/* {currentInteraction && (
           <InteractionComments
             serviceId={currentInteraction.serviceId}
             patientId={currentInteraction.patientId}
             interactionStart={currentInteraction.start}
           />
-        )}
+        )} */}
       </div>
     </Resizable>
   )

@@ -22,6 +22,7 @@ const useChangeAlertStatusMutation = ({
     },
     {
       onMutate: async () => {
+        // refactorear esto
         await queryClient.cancelQueries('interaction')
         await queryClient.cancelQueries('alerts')
         const alertsBeforeMutation = queryClient.getQueryData(
