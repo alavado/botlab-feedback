@@ -4,6 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import useAlertTypesQuery from '../../../../api/hooks/useAlertTypesQuery'
 import useBranchesQuery from '../../../../api/hooks/useBranchesQuery'
 import useServicesQuery from '../../../../api/hooks/useServicesQuery'
+import {
+  AlertType,
+  AlertTypeId,
+  Branch,
+  BranchId,
+  Service,
+  ServiceId,
+} from '../../../../api/types/servicio'
 import { RootState } from '../../../../redux/ducks'
 import {
   hideAlertTypeShowIfAllHidden,
@@ -17,12 +25,6 @@ import Loader from '../../../Loader'
 import './AlertsFilters.css'
 import FilterCheckbox from './FilterCheckbox'
 
-type AlertFilterItem = {
-  label: string
-  hidden: boolean
-  onChange: MouseEventHandler
-}
-
 type AlertFilterSection = {
   icon: string
   title: string
@@ -31,6 +33,51 @@ type AlertFilterSection = {
   someChecked: boolean
   countLabel: string
   items: AlertFilterItem[]
+}
+
+type AlertFilterItem = {
+  label: string
+  hidden: boolean
+  onChange: MouseEventHandler
+}
+
+const buildFilterItemsList = ({
+  icon,
+  title,
+  itemGender,
+  filter,
+  onTitleClick,
+  onItemChange,
+}: {
+  icon: string
+  title: string
+  itemGender: 'a' | 'o'
+  filter:
+    | { all: Branch[]; exclude: BranchId[] }
+    | { all: Service[]; exclude: ServiceId[] }
+    | { all: AlertType[]; exclude: AlertTypeId[] }
+  onTitleClick: MouseEventHandler
+  onItemChange: Function
+}) => {
+  const checkedCount = filter.all.length - filter.exclude.length
+  return {
+    icon,
+    title,
+    allChecked: filter.exclude.length === 0,
+    someChecked: filter.exclude.length < filter.all.length,
+    countLabel: `${checkedCount} seleccionad${itemGender}${
+      checkedCount !== 1 ? 's' : ''
+    }`,
+    onTitleClick: onTitleClick,
+    items: filter.all.map(({ id, name }) => {
+      const hidden = _.includes(filter.exclude, id)
+      return {
+        label: name,
+        hidden,
+        onChange: onItemChange(id),
+      }
+    }),
+  }
 }
 
 const AlertsFilters = () => {
@@ -46,66 +93,33 @@ const AlertsFilters = () => {
     if (!alertTypes || !branches || !services) {
       return null
     }
-    const checkedAlertTypesCount = alertTypes.length - hiddenAlertTypes.length
-    const alertTypeItems = {
+    const alertTypeItems = buildFilterItemsList({
       icon: 'mdi:bell-cog',
       title: 'Recibir alertas',
-      allChecked: hiddenAlertTypes.length === 0,
-      someChecked: hiddenAlertTypes.length < alertTypes.length,
-      countLabel: `${checkedAlertTypesCount} seleccionada${
-        checkedAlertTypesCount !== 1 ? 's' : ''
-      }`,
+      itemGender: 'a',
+      filter: { all: alertTypes, exclude: hiddenAlertTypes },
       onTitleClick: () =>
         dispatch(hideAlertTypeShowIfAllHidden(alertTypes.map((t) => t.id))),
-      items: alertTypes.map(({ id, name }) => {
-        const hidden = _.includes(hiddenAlertTypes, id)
-        return {
-          label: name,
-          hidden,
-          onChange: () => dispatch(toggleAlertType(id)),
-        }
-      }),
-    }
-    const checkedBranchesCount = branches.length - hiddenBranches.length
-    const branchesItems = {
+      onItemChange: (id: AlertTypeId) => () => dispatch(toggleAlertType(id)),
+    })
+    const branchesItems = buildFilterItemsList({
       icon: 'mdi:map-marker',
       title: 'Sucursales',
+      itemGender: 'a',
+      filter: { all: branches, exclude: hiddenBranches },
       onTitleClick: () =>
         dispatch(hideBranchesOrShowIfAllHidden(branches.map((b) => b.id))),
-      allChecked: hiddenBranches.length === 0,
-      someChecked: hiddenBranches.length < branches.length,
-      countLabel: `${checkedBranchesCount} seleccionada${
-        checkedBranchesCount !== 1 ? 's' : ''
-      }`,
-      items: branches.map(({ id, name }) => {
-        const hidden = _.includes(hiddenBranches, id)
-        return {
-          label: name,
-          hidden,
-          onChange: () => dispatch(toggleBranch(id)),
-        }
-      }),
-    }
-    const checkedServicesCount = services.length - hiddenServices.length
-    const servicesItems = {
+      onItemChange: (id: BranchId) => () => dispatch(toggleBranch(id)),
+    })
+    const servicesItems = buildFilterItemsList({
       icon: 'mdi:forum',
       title: 'Servicios',
+      itemGender: 'o',
+      filter: { all: services, exclude: hiddenServices },
       onTitleClick: () =>
         dispatch(hideServicesOrShowIfAllHidden(services.map((s) => s.id))),
-      allChecked: hiddenServices.length === 0,
-      someChecked: hiddenServices.length < services.length,
-      countLabel: `${checkedServicesCount} seleccionado${
-        checkedServicesCount !== 1 ? 's' : ''
-      }`,
-      items: services.map(({ id, name }) => {
-        const hidden = _.includes(hiddenServices, id)
-        return {
-          label: name,
-          hidden,
-          onChange: () => dispatch(toggleService(id)),
-        }
-      }),
-    }
+      onItemChange: (id: ServiceId) => () => dispatch(toggleService(id)),
+    })
     return [alertTypeItems, branchesItems, servicesItems].filter(
       (f) => f.items.length > 1
     )
