@@ -106,7 +106,9 @@ const AlertsFilters = () => {
         }
       }),
     }
-    return [alertTypeItems, branchesItems, servicesItems]
+    return [alertTypeItems, branchesItems, servicesItems].filter(
+      (f) => f.items.length > 1
+    )
   }, [
     hiddenAlertTypes,
     hiddenBranches,
