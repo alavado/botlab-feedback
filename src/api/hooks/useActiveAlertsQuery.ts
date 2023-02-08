@@ -131,7 +131,7 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
         if (oldActiveAlerts && newAlerts.length > 0 && notificationsEnabled) {
           emitNotification(history, newAlerts[0], track)
         }
-        return !!oldData && newAlerts.length === 0
+        return false
       },
     }
   )
