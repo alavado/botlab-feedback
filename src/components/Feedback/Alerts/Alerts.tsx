@@ -26,7 +26,7 @@ const Alerts = () => {
 
   return (
     <div className="Alerts">
-      <div className="Alerts__topbar" onClick={() => history.push('/alertas')}>
+      <div className="Alerts__topbar">
         <h2 className="Alerts__title">Alertas</h2>
         <MenuUsuario />
       </div>
