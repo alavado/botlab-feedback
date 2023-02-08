@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useCallback } from 'react'
 import useChangeAlertMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
+import { Alert, PatientId, ServiceId } from '../../../../../api/types/types'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import {
   getAlertButtonIcon,
@@ -10,16 +11,13 @@ import {
 } from '../../../Alerts/helpers'
 import './SmartphoneAlert.css'
 
-const SmartphoneAlert = ({
-  label,
-  alertId,
-  solved,
-}: {
-  label: string
-  alertId: number
-  solved: boolean
-}) => {
-  const mutation = useChangeAlertMutation({ alertId, solved: !solved })
+const SmartphoneAlert = ({ alert }: { alert: Alert }) => {
+  const mutation = useChangeAlertMutation({
+    alertId: alert.id,
+    serviceId: alert.serviceId,
+    patientId: alert.patientId,
+    solved: !alert.solved,
+  })
   const track = useAnalytics()
 
   const changeAlertSolvedStatus = useCallback(() => {
@@ -27,35 +25,36 @@ const SmartphoneAlert = ({
     track(
       'Feedback',
       'Smartphone',
-      solved ? 'markAlertAsPending' : 'markAlertAsSolved',
+      alert.solved ? 'markAlertAsPending' : 'markAlertAsSolved',
       {
         alert,
       }
     )
-  }, [solved, track, mutation])
+  }, [alert, track, mutation])
 
   return (
     <div
       className={classNames({
         SmartphoneAlert: true,
-        'SmartphoneAlert--solved': solved,
-        'SmartphoneAlert--pending': !solved,
+        'SmartphoneAlert--solved': alert.solved,
+        'SmartphoneAlert--pending': !alert.solved,
       })}
     >
       <Icon
         className="SmartphoneAlert__icon"
-        icon={solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
+        icon={alert.solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
       />
-      <p className="SmartphoneAlert__message">{label}</p>
+      <p className="SmartphoneAlert__message">{alert.typeName}</p>
       <p className="SmartphoneAlert__title">
-        Alerta {solved ? 'resuelta' : 'pendiente'}
+        Alerta {alert.solved ? 'resuelta' : 'pendiente'}
       </p>
       <button
         className="SmartphoneAlert__button"
         onClick={changeAlertSolvedStatus}
-        title={getAlertButtonTitle(solved)}
+        title={getAlertButtonTitle(alert.solved)}
       >
-        <Icon icon={getAlertButtonIcon(solved)} /> {getAlertButtonLabel(solved)}
+        <Icon icon={getAlertButtonIcon(alert.solved)} />{' '}
+        {getAlertButtonLabel(alert.solved)}
       </button>
     </div>
   )

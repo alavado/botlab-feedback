@@ -7,7 +7,6 @@ import {
   metaTarget,
 } from '../types/responses'
 import {
-  Alert,
   Appointment,
   Interaction,
   Message,
@@ -15,7 +14,6 @@ import {
   SchedulingSystem,
   ServiceId,
 } from '../types/types'
-import useActiveAlertsQuery from './useActiveAlertsQuery'
 import { get, API_ROOT, parseAPIDate } from './utils'
 
 type InteractionID = {
@@ -31,39 +29,25 @@ const useChatQuery = (
     currentInteraction: Interaction
     pastInteractions: Interaction[]
     futureInteractions: Interaction[]
-    alerts: Alert[]
   },
   unknown
 > => {
   const { serviceId, patientId, start } = id
-  if (!serviceId || !patientId || !start) {
-    throw Error('Missing parameters')
-  }
-  const { data: activeAlerts } = useActiveAlertsQuery()
-  const alerts = (
-    activeAlerts ? [...activeAlerts.pending, ...activeAlerts.solved] : []
-  ).filter(
-    (alert) => alert.patientId === patientId && alert.serviceId === serviceId
-  )
   return useQuery<any, any, any>(
     ['interaction', serviceId, patientId, start],
     async () => {
       const { data }: { data: chatAPIResponse } = await get(
         `${API_ROOT}/chat/${serviceId}/${patientId}`
       )
-      return {
-        ...splitInteractions(
-          id,
-          data.data.conversations,
-          data.data.user.phone,
-          data.data.bot.name
-        ),
-        alerts,
-      }
+      return splitInteractions(
+        id,
+        data.data.conversations,
+        data.data.user.phone,
+        data.data.bot.name
+      )
     },
     {
       refetchInterval: 30_000,
-      enabled: !!activeAlerts,
     }
   )
 }

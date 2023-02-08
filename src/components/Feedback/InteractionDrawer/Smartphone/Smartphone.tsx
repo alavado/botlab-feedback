@@ -123,13 +123,7 @@ const Smartphone = ({
                 )
               }
               if ('alert' in bubble) {
-                return (
-                  <SmartphoneAlert
-                    alertId={bubble.alert.id}
-                    label={bubble.alert.typeName || ''}
-                    solved={bubble.alert.solved}
-                  />
-                )
+                return <SmartphoneAlert alert={bubble.alert} />
               }
               return (
                 <SmartphoneMessagesDate

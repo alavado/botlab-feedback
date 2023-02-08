@@ -29,6 +29,8 @@ const AlertElement = ({
 
   const mutation = useChangeAlertStatusMutation({
     alertId: alert.id,
+    serviceId: alert.serviceId,
+    patientId: alert.patientId,
     solved: !alert.solved,
   })
   const [buttonRightPosition, setButtonRightPosition] = useState(

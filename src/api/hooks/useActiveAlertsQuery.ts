@@ -66,12 +66,7 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
       const allAlerts = data.data.map((alert): Alert => {
         const typeName = alertTypes?.find((t) => t.id === alert.message)?.name
         const serviceName = services?.find((t) => t.id === alert.poll_id)?.name
-        const patientName =
-          alert.meta.name ||
-          alert.meta.patient_name ||
-          alert.meta.patient_name_1 ||
-          alert.meta.Nombre ||
-          alert.meta['Nombre 1']
+        const patientName = getPatientNameFromAlertMeta(alert.meta)
         const branchId = alert.meta.sucursal_name || alert.meta.sucursal_name_1
         const branchName = branches?.find((b) => b.id === branchId)?.name
         const timestamp = addHours(
@@ -104,7 +99,7 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
       return onlyLatestAlertPerPatient
     },
     {
-      refetchInterval: 10_000,
+      refetchInterval: 5_000,
       refetchIntervalInBackground: true,
       enabled: !!alertTypes && !!services,
       select: (data) => {
@@ -134,6 +129,16 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
         return false
       },
     }
+  )
+}
+
+const getPatientNameFromAlertMeta = (meta: any) => {
+  return (
+    meta.name ||
+    meta.patient_name ||
+    meta.patient_name_1 ||
+    meta.Nombre ||
+    meta['Nombre 1']
   )
 }
 

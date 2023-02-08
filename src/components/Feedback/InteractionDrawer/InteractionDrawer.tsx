@@ -8,6 +8,7 @@ import Loader from '../../Loader'
 import InteractionDrawerActions from './InteractionDrawerActions'
 import { PatientId, ServiceId } from '../../../api/types/types'
 import InteractionComments from './InteractionComments'
+import useAlertsForPatientQuery from '../../../api/hooks/useAlertsForPatientQuery'
 
 interface InteractionDrawerProps {
   serviceId: ServiceId
@@ -29,11 +30,12 @@ const InteractionDrawer = ({
     patientId,
     start,
   })
+  const { data: alerts } = useAlertsForPatientQuery({ serviceId, patientId })
+  console.log({ alerts })
 
   const pastInteractions = data?.pastInteractions
   const currentInteraction = data?.currentInteraction
   const futureInteractions = data?.futureInteractions
-  const alerts = data?.alerts
 
   return (
     <Resizable
