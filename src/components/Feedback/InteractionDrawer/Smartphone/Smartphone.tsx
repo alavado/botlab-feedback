@@ -16,6 +16,8 @@ import './Smartphone.css'
 import SmartphoneAlert from './SmartphoneAlert'
 import _ from 'lodash'
 import SmartphoneComment from './SmartphoneComment'
+import useCommentsQuery from '../../../../api/hooks/useCommentsQuery'
+import useAlertsForPatientQuery from '../../../../api/hooks/useAlertsForPatientQuery'
 
 export interface SmartphoneChatMessage {
   message: Message
@@ -46,16 +48,21 @@ const Smartphone = ({
   pastInteractions,
   currentInteraction,
   futureInteractions,
-  comments,
-  alerts,
 }: {
   pastInteractions?: Interaction[]
   currentInteraction?: Interaction
   futureInteractions?: Interaction[]
-  comments?: Comment[]
-  alerts?: Alert[]
 }) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
+  const { data: comments } = useCommentsQuery({
+    serviceId: currentInteraction?.serviceId,
+    patientId: currentInteraction?.patientId,
+    interactionStart: currentInteraction?.start,
+  })
+  const { data: alerts } = useAlertsForPatientQuery({
+    serviceId: currentInteraction?.serviceId,
+    patientId: currentInteraction?.patientId,
+  })
 
   const chatElements: SmartphoneChatElement[] = useMemo(() => {
     if (!currentInteraction || !currentInteraction.messages) {

@@ -18,14 +18,19 @@ const useAlertsForPatientQuery = ({
   serviceId,
   patientId,
 }: {
-  serviceId: ServiceId
-  patientId: PatientId
+  serviceId?: ServiceId
+  patientId?: PatientId
 }): UseQueryResult<Alert[], unknown> => {
   const { data: activeAlerts } = useActiveAlertsQuery()
 
   return useQuery<Alert[], any, any>(
     ['alerts', serviceId, patientId],
-    async () => getActiveAlertsForPatient(activeAlerts, serviceId, patientId),
+    async () => {
+      if (!serviceId || !patientId) {
+        return []
+      }
+      return getActiveAlertsForPatient(activeAlerts, serviceId, patientId)
+    },
     {
       enabled: !!activeAlerts,
     }

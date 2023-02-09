@@ -9,14 +9,17 @@ const useCommentsQuery = ({
   patientId,
   interactionStart,
 }: {
-  serviceId: ServiceId
-  patientId: PatientId
-  interactionStart: Date
+  serviceId?: ServiceId
+  patientId?: PatientId
+  interactionStart?: Date
 }): UseQueryResult<Comment[], unknown> => {
-  const start = format(interactionStart, "yyyy-MM-dd'+'HH:mm:ss")
   return useQuery<any, any, any>(
     ['comments', serviceId, patientId, interactionStart],
     async () => {
+      if (!serviceId || !patientId || !interactionStart) {
+        return []
+      }
+      const start = format(interactionStart, "yyyy-MM-dd'+'HH:mm:ss")
       const { data }: { data: ReactionsAPIResponse } = await get(
         `${API_ROOT}/reactions/${serviceId}/${patientId}?start=${start}`
       )

@@ -9,7 +9,6 @@ import InteractionDrawerActions from './InteractionDrawerActions'
 import { PatientId, ServiceId } from '../../../api/types/types'
 import InteractionComments from './InteractionComments'
 import useAlertsForPatientQuery from '../../../api/hooks/useAlertsForPatientQuery'
-import useCommentsQuery from '../../../api/hooks/useCommentsQuery'
 
 interface InteractionDrawerProps {
   serviceId: ServiceId
@@ -31,7 +30,6 @@ const InteractionDrawer = ({
     patientId,
     start,
   })
-  const { data: alerts } = useAlertsForPatientQuery({ serviceId, patientId })
 
   const pastInteractions = data?.pastInteractions
   const currentInteraction = data?.currentInteraction
@@ -77,7 +75,6 @@ const InteractionDrawer = ({
           pastInteractions={pastInteractions}
           currentInteraction={currentInteraction}
           futureInteractions={futureInteractions}
-          alerts={alerts}
         />
       </div>
       <div className="InteractionDrawer__actions_container">

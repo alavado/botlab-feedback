@@ -10,10 +10,10 @@ const SmartphoneComment = ({ comment }: { comment: Comment }) => {
       <div className="SmartphoneComment__icon_container">
         <InteractionCommentIcon emoji={comment.emoji as Emoji} />
       </div>
-      <p className="SmartphoneComment__text">{comment.text}</p>
       <p className="SmartphoneComment__time">
-        Comentario, {format(comment.timestamp, 'HH:mm')}
+        {format(comment.timestamp, 'HH:mm')}
       </p>
+      <p className="SmartphoneComment__text">{comment.text}</p>
     </div>
   )
 }

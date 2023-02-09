@@ -1,29 +1,13 @@
 .SmartphoneComment {
   display: flex;
-  align-self: flex-end;
+  align-self: flex-start;
   justify-content: flex-end;
   align-items: center;
   gap: 0.25rem;
-  position: relative;
-  margin-bottom: 0.75rem;
+  font-size: 0.65rem;
+  padding-left: 0.25rem;
 }
 
 .SmartphoneComment__icon_container {
   place-self: flex-start;
-}
-
-.SmartphoneComment__text {
-  font-size: 0.75rem;
-  max-width: 10rem;
-  text-align: right;
-}
-
-.SmartphoneComment__time {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0.15rem);
-  font-size: 0.5rem;
-  opacity: 0.8;
-  width: 6rem;
-  text-align: right;
 }
