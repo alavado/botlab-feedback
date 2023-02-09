@@ -10,6 +10,7 @@
   padding-left: 0.5rem;
   text-align: center;
   transition: all 0.25s ease;
+  position: relative;
 }
 
 .SmartphoneAlert--solved {
@@ -22,9 +23,7 @@
 
 .SmartphoneAlert__icon {
   font-size: 1.35rem;
-  grid-row: 1 / -1;
   color: var(--alert-color);
-  place-self: center center;
   filter: drop-shadow(0 0.1rem 0.1rem var(--color-sombras));
 }
 
@@ -62,4 +61,18 @@
 .SmartphoneAlert__button:hover {
   box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
   filter: brightness(110%);
+}
+
+.SmartphoneAlert__icon_container {
+  position: relative;
+  grid-row: 1 / -1;
+  place-self: center center;
+  transform: translateY(-0.2rem);
+}
+
+.SmartphoneAlert__time {
+  position: absolute;
+  top: 100%;
+  font-size: 0.5rem;
+  opacity: 0.8;
 }

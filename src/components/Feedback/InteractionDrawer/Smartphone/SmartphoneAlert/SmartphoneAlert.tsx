@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
+import { format } from 'date-fns'
 import { useCallback } from 'react'
 import useChangeAlertMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
 import { Alert } from '../../../../../api/types/types'
@@ -40,10 +41,15 @@ const SmartphoneAlert = ({ alert }: { alert: Alert }) => {
         'SmartphoneAlert--pending': !alert.solved,
       })}
     >
-      <Icon
-        className="SmartphoneAlert__icon"
-        icon={alert.solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
-      />
+      <div className="SmartphoneAlert__icon_container">
+        <Icon
+          className="SmartphoneAlert__icon"
+          icon={alert.solved ? 'mdi:bell-check' : 'mdi:bell-ring'}
+        />
+        <div className="SmartphoneAlert__time">
+          {format(alert.timestamp, 'HH:mm')}
+        </div>
+      </div>
       <p className="SmartphoneAlert__message">{alert.typeName}</p>
       <p className="SmartphoneAlert__title">
         Alerta {alert.solved ? 'resuelta' : 'pendiente'}

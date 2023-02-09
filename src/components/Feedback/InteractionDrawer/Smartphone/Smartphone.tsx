@@ -1,6 +1,11 @@
 import { format, isSameDay, startOfDay } from 'date-fns'
 import { useEffect, useMemo, useState } from 'react'
-import { Alert, Interaction, Message } from '../../../../api/types/types'
+import {
+  Alert,
+  Comment,
+  Interaction,
+  Message,
+} from '../../../../api/types/types'
 import Loader from '../../../Loader'
 import SmartphoneActionBar from './SmartphoneActionBar'
 import SmartphoneButtons from './SmartphoneButtons'
@@ -10,6 +15,7 @@ import SmartphoneNavBar from './SmartphoneStatusBar'
 import './Smartphone.css'
 import SmartphoneAlert from './SmartphoneAlert'
 import _ from 'lodash'
+import SmartphoneComment from './SmartphoneComment'
 
 export interface SmartphoneChatMessage {
   message: Message
@@ -25,21 +31,28 @@ export interface SmartphoneChatAlert {
   date: Date
   alert: Alert
 }
+export interface SmartphoneChatComment {
+  date: Date
+  comment: Comment
+}
 
 type SmartphoneChatElement =
   | SmartphoneChatMessage
   | SmartphoneChatsDate
   | SmartphoneChatAlert
+  | SmartphoneChatComment
 
 const Smartphone = ({
   pastInteractions,
   currentInteraction,
   futureInteractions,
+  comments,
   alerts,
 }: {
   pastInteractions?: Interaction[]
   currentInteraction?: Interaction
   futureInteractions?: Interaction[]
+  comments?: Comment[]
   alerts?: Alert[]
 }) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
@@ -51,7 +64,7 @@ const Smartphone = ({
     const elements: SmartphoneChatElement[] = []
     const addElement =
       (current: boolean = true) =>
-      (stuff: Message | Alert) => {
+      (stuff: Message | Alert | Comment) => {
         if (
           elements.length === 0 ||
           !isSameDay(elements.slice(-1)[0].date, stuff.timestamp)
@@ -64,6 +77,9 @@ const Smartphone = ({
         if ('solved' in stuff) {
           elements.push({ alert: stuff, date: stuff.timestamp })
         }
+        if ('emoji' in stuff) {
+          elements.push({ comment: stuff, date: stuff.timestamp })
+        }
       }
     pastInteractions?.forEach((interaction: Interaction) =>
       interaction.messages?.forEach(addElement(false))
@@ -73,8 +89,15 @@ const Smartphone = ({
       interaction.messages?.forEach(addElement(false))
     )
     alerts?.forEach(addElement())
+    comments?.forEach(addElement())
     return _.sortBy(elements, 'date')
-  }, [pastInteractions, currentInteraction, futureInteractions, alerts])
+  }, [
+    pastInteractions,
+    currentInteraction,
+    futureInteractions,
+    alerts,
+    comments,
+  ])
 
   const scrollToCurrentInteraction = () =>
     document.querySelector('.SmartphoneMessagesDate--current')?.scrollIntoView()
@@ -124,6 +147,9 @@ const Smartphone = ({
               }
               if ('alert' in bubble) {
                 return <SmartphoneAlert alert={bubble.alert} />
+              }
+              if ('comment' in bubble) {
+                return <SmartphoneComment comment={bubble.comment} />
               }
               return (
                 <SmartphoneMessagesDate

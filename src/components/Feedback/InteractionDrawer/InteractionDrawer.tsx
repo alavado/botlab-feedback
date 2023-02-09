@@ -9,6 +9,7 @@ import InteractionDrawerActions from './InteractionDrawerActions'
 import { PatientId, ServiceId } from '../../../api/types/types'
 import InteractionComments from './InteractionComments'
 import useAlertsForPatientQuery from '../../../api/hooks/useAlertsForPatientQuery'
+import useCommentsQuery from '../../../api/hooks/useCommentsQuery'
 
 interface InteractionDrawerProps {
   serviceId: ServiceId
