@@ -13,6 +13,7 @@ import InteractionCommentIcon from '../InteractionCommentIcon'
 import { Icon } from '@iconify/react'
 import useAddCommentMutation from '../../../../../api/hooks/useAddCommentMutation'
 import { PatientId, ServiceId } from '../../../../../api/types/types'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const emojis = Object.keys(emojiMap)
 
@@ -22,12 +23,14 @@ const NewCommentPopup = ({
   patientId,
   isOpen,
   close,
+  originComponentName,
 }: {
   interactionStart: Date
   serviceId: ServiceId
   patientId: PatientId
   isOpen: boolean
   close: MouseEventHandler
+  originComponentName: string
 }) => {
   const [selectedEmoji, setSelectedEmoji] = useState(emojis[0])
   const [text, setText] = useState('')
@@ -39,6 +42,7 @@ const NewCommentPopup = ({
     serviceId,
     text,
   })
+  const track = useAnalytics()
 
   useEffect(() => {
     textRef?.current?.focus()
@@ -46,6 +50,10 @@ const NewCommentPopup = ({
 
   const addComment = (e: FormEvent) => {
     e.preventDefault()
+    track('Feedback', originComponentName, 'addComment', {
+      selectedEmoji,
+      text,
+    })
     mutate({})
   }
 
@@ -77,6 +85,7 @@ const NewCommentPopup = ({
                   'NewCommentPopup__emoji_button--selected':
                     emoji === selectedEmoji,
                 })}
+                type="button"
                 onClick={() => {
                   setSelectedEmoji(emoji)
                   textRef?.current?.focus()

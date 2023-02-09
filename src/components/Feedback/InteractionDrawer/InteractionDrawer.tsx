@@ -92,6 +92,7 @@ const InteractionDrawer = ({
             serviceId={currentInteraction.serviceId}
             patientId={currentInteraction.patientId}
             interactionStart={currentInteraction.start}
+            originComponentName={originComponentName}
           />
         )}
       </div>

@@ -59,7 +59,7 @@
   width: 100%;
   margin-bottom: 0.5rem;
   border-radius: 0.15rem;
-  box-shadow: 0 0 0 2px var(--color-bordes);
+  box-shadow: 0 0 0 2px var(--color-texto);
   border: none;
   outline: none;
   font-size: 0.65rem;

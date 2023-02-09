@@ -14,10 +14,12 @@ const InteractionComments = ({
   serviceId,
   patientId,
   interactionStart,
+  originComponentName,
 }: {
   serviceId: ServiceId
   patientId: PatientId
   interactionStart: Date
+  originComponentName: string
 }) => {
   const [isNewCommentModalOpen, setIsNewCommentModalOpen] = useState(false)
   const { data: comments, isLoading } = useCommentsQuery({
@@ -75,6 +77,7 @@ const InteractionComments = ({
         patientId={patientId}
         isOpen={isNewCommentModalOpen}
         close={() => setIsNewCommentModalOpen(false)}
+        originComponentName={originComponentName}
       />
     </div>
   )
