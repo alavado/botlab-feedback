@@ -1,16 +1,21 @@
 import classNames from 'classnames'
 import { parseISO } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
-import { formatearCampoRespuestas, formatearFecha } from '../../../../../../helpers/respuestas'
+import {
+  formatearCampoRespuestas,
+  formatearFecha,
+} from '../../../../../../helpers/respuestas'
 import Scrambler from '../../../../../Scrambler'
 import { fijaFilaTablaDestacada } from '../../../../../../redux/ducks/respuestas'
 import TagRespuesta from '../../TagRespuesta'
 import './FilaTablaRespuestas.css'
 import useAnalytics from '../../../../../../hooks/useAnalytics'
+import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionCommentIcon'
 
 const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
-
-  const { columnaDestacada, filaTablaDestacada } = useSelector(state => state.respuestas)
+  const { columnaDestacada, filaTablaDestacada } = useSelector(
+    (state) => state.respuestas
+  )
   const dispatch = useDispatch()
   const track = useAnalytics()
 
@@ -27,8 +32,11 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
 
   let respuestaManipulada = { ...respuesta }
   if (respuesta.n_appointments) {
-    Object.keys(respuesta).forEach(h => {
-      if (h.match(/_[0-9]$/) && Number(h.slice(-1)) > respuesta.n_appointments) {
+    Object.keys(respuesta).forEach((h) => {
+      if (
+        h.match(/_[0-9]$/) &&
+        Number(h.slice(-1)) > respuesta.n_appointments
+      ) {
         respuestaManipulada[h] = ''
       }
     })
@@ -37,47 +45,78 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
   let fechaAgregadaLegible = ''
 
   if (ultimaReaccion) {
-    fechaAgregadaLegible = formatearFecha(parseISO(ultimaReaccion.created_at), true)
+    fechaAgregadaLegible = formatearFecha(
+      parseISO(ultimaReaccion.created_at),
+      true
+    )
   }
-  
+
   return (
     <tr
       className={classNames({
-        "FilaTablaRespuestas": true,
-        "FilaTablaRespuestas--destacada": indice === filaTablaDestacada
+        FilaTablaRespuestas: true,
+        'FilaTablaRespuestas--destacada': indice === filaTablaDestacada,
       })}
       onClick={clickEnFila}
-      title={indice === filaTablaDestacada ? 'Este fue el último chat que revisaste' : ''}
+      title={
+        indice === filaTablaDestacada
+          ? 'Este fue el último chat que revisaste'
+          : ''
+      }
     >
       <td className="FilaTablaRespuestas__celda FilaTablaRespuestas__celda--sin-padding">
         {ultimaReaccion && (
           <span className="FilaTablaRespuestas__contenedor_reaccion">
-            {ultimaReaccion.reaction_emoji}
+            <InteractionCommentIcon emoji={ultimaReaccion.reaction_emoji} />
             {ultimaReaccion.reaction_text && (
               <span
                 className="FilaTablaRespuestas__contenedor_reaccion_indicador_comentario"
-                onMouseEnter={() => track('Feedback', 'Respuestas', 'verPopupComentario', { texto: ultimaReaccion.reaction_text, emoji: ultimaReaccion.reaction_emoji })}
+                onMouseEnter={() =>
+                  track('Feedback', 'Respuestas', 'verPopupComentario', {
+                    texto: ultimaReaccion.reaction_text,
+                    emoji: ultimaReaccion.reaction_emoji,
+                  })
+                }
               >
-                {ultimaReaccion.reaction_text} <span style={{ fontStyle: 'italic', opacity: .8, paddingLeft: '.2rem' }}>{fechaAgregadaLegible}</span>
+                {ultimaReaccion.reaction_text}{' '}
+                <span
+                  style={{
+                    fontStyle: 'italic',
+                    opacity: 0.8,
+                    paddingLeft: '.2rem',
+                  }}
+                >
+                  {fechaAgregadaLegible}
+                </span>
               </span>
             )}
           </span>
         )}
       </td>
       {headers.map(({ nombre, f, texto }, j) => {
-        let valorHeader = f ? f(respuestaManipulada) : respuestaManipulada[nombre]
+        let valorHeader = f
+          ? f(respuestaManipulada)
+          : respuestaManipulada[nombre]
         return (
           <td
             key={`celda-respuesta-${indice}-${j}`}
             className={classNames({
-              'FilaTablaRespuestas__celda': true,
-              'FilaTablaRespuestas__celda--destacada': columnaDestacada === j
+              FilaTablaRespuestas__celda: true,
+              'FilaTablaRespuestas__celda--destacada': columnaDestacada === j,
             })}
           >
-            {valorHeader && valorHeader.tag !== undefined
-              ? <span className="FilaTablaRespuestas__contenedor_tag" title={valorHeader.text}><TagRespuesta tag={valorHeader.tag} pregunta={texto} /></span>
-              : <Scrambler tipo={nombre}>{formatearCampoRespuestas(valorHeader, nombre)}</Scrambler>
-            }
+            {valorHeader && valorHeader.tag !== undefined ? (
+              <span
+                className="FilaTablaRespuestas__contenedor_tag"
+                title={valorHeader.text}
+              >
+                <TagRespuesta tag={valorHeader.tag} pregunta={texto} />
+              </span>
+            ) : (
+              <Scrambler tipo={nombre}>
+                {formatearCampoRespuestas(valorHeader, nombre)}
+              </Scrambler>
+            )}
           </td>
         )
       })}

@@ -4,6 +4,8 @@ import { es } from 'date-fns/locale'
 import useCommentsQuery from '../../../../api/hooks/useCommentsQuery'
 import { PatientId, ServiceId } from '../../../../api/types/types'
 import Loader from '../../../Loader'
+import InteractionCommentIcon from './InteractionCommentIcon'
+import { Emoji } from './InteractionCommentIcon/emojis'
 import './InteractionComments.css'
 
 const InteractionComments = ({
@@ -34,7 +36,7 @@ const InteractionComments = ({
           comments?.map((comment) => (
             <div className="InteractionComments__comment">
               <div className="InteractionComments__comment_icon">
-                {comment.emoji}
+                <InteractionCommentIcon emoji={comment.emoji as Emoji} />
               </div>
               <div className="InteractionComments__comment_time">
                 {format(comment.timestamp, 'HH:mm')}
