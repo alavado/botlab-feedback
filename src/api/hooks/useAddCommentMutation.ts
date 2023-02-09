@@ -30,7 +30,21 @@ const useAddCommentMutation = ({
     },
     {
       onMutate: async () => {
-        // refactorear esto
+        queryClient.cancelQueries('comments')
+        const commentsKey = ['comments', serviceId, patientId, interactionStart]
+        const previousComments = queryClient.getQueryData(
+          commentsKey
+        ) as Comment[]
+        queryClient.setQueryData(commentsKey, [
+          ...previousComments,
+          {
+            id: '-',
+            timestamp: new Date(),
+            text,
+            emoji,
+          },
+        ])
+        // ['comments', serviceId, patientId, interactionStart]
       },
       onError: (err, newComment, context: any) => {},
     }

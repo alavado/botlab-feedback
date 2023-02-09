@@ -1,11 +1,5 @@
 import './NewCommentPopup.css'
-import {
-  FormEvent,
-  MouseEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { Emoji, emojiMap } from '../InteractionCommentIcon/emojis'
@@ -29,7 +23,7 @@ const NewCommentPopup = ({
   serviceId: ServiceId
   patientId: PatientId
   isOpen: boolean
-  close: MouseEventHandler
+  close: Function
   originComponentName: string
 }) => {
   const [selectedEmoji, setSelectedEmoji] = useState(emojis[0])
@@ -55,6 +49,7 @@ const NewCommentPopup = ({
       text,
     })
     mutate({})
+    close()
   }
 
   return (
@@ -66,7 +61,11 @@ const NewCommentPopup = ({
     >
       <OutsideClickHandler onOutsideClick={(e: any) => close(e)}>
         <form className="NewCommentPopup__content" onSubmit={addComment}>
-          <button className="NewCommentPopup__close" onClick={close}>
+          <button
+            className="NewCommentPopup__close"
+            type="button"
+            onClick={() => close()}
+          >
             <Icon icon="mdi:close" />
           </button>
           <h3 className="NewCommentPopup__label">Nuevo comentario</h3>
