@@ -1,7 +1,8 @@
+import { format } from 'date-fns'
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { Emoji } from '../../components/Feedback/InteractionDrawer/InteractionComments/InteractionCommentIcon/emojis'
 import { PatientId, ServiceId } from '../types/types'
-import { patch, API_ROOT } from './utils'
+import { API_ROOT, post } from './utils'
 
 const useAddCommentMutation = ({
   serviceId,
@@ -20,8 +21,8 @@ const useAddCommentMutation = ({
   const url = `${API_ROOT}/reactions/${serviceId}/${patientId}`
   return useMutation<any, any, any>(
     async () => {
-      const { data } = await patch(url, {
-        start: interactionStart,
+      const { data } = await post(url, {
+        start: format(interactionStart, 'yyyy-MM-dd HH:mm:ss'),
         text,
         emoji,
       })

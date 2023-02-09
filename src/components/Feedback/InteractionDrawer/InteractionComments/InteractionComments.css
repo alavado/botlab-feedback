@@ -86,3 +86,9 @@
 .InteractionComments__add_comment_button svg {
   font-size: 1.15rem;
 }
+
+.InteractionComments__no_comments {
+  padding: 0.25rem 0;
+  font-size: 0.65rem;
+  opacity: 0.8;
+}

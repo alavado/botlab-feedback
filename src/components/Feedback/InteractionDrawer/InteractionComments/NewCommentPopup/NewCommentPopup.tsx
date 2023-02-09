@@ -1,26 +1,53 @@
 import './NewCommentPopup.css'
-import { MouseEventHandler, useEffect, useRef, useState } from 'react'
+import {
+  FormEvent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import classNames from 'classnames'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { Emoji, emojiMap } from '../InteractionCommentIcon/emojis'
 import InteractionCommentIcon from '../InteractionCommentIcon'
 import { Icon } from '@iconify/react'
+import useAddCommentMutation from '../../../../../api/hooks/useAddCommentMutation'
+import { PatientId, ServiceId } from '../../../../../api/types/types'
 
 const emojis = Object.keys(emojiMap)
 
 const NewCommentPopup = ({
+  interactionStart,
+  serviceId,
+  patientId,
   isOpen,
   close,
 }: {
+  interactionStart: Date
+  serviceId: ServiceId
+  patientId: PatientId
   isOpen: boolean
   close: MouseEventHandler
 }) => {
   const [selectedEmoji, setSelectedEmoji] = useState(emojis[0])
+  const [text, setText] = useState('')
   const textRef = useRef<HTMLInputElement>(null)
+  const { mutate, isLoading } = useAddCommentMutation({
+    emoji: selectedEmoji as Emoji,
+    interactionStart,
+    patientId,
+    serviceId,
+    text,
+  })
 
   useEffect(() => {
     textRef?.current?.focus()
   }, [isOpen])
+
+  const addComment = (e: FormEvent) => {
+    e.preventDefault()
+    mutate({})
+  }
 
   return (
     <div
@@ -30,12 +57,17 @@ const NewCommentPopup = ({
       })}
     >
       <OutsideClickHandler onOutsideClick={(e: any) => close(e)}>
-        <div className="NewCommentPopup__content">
+        <form className="NewCommentPopup__content" onSubmit={addComment}>
           <button className="NewCommentPopup__close" onClick={close}>
             <Icon icon="mdi:close" />
           </button>
           <h3 className="NewCommentPopup__label">Nuevo comentario</h3>
-          <input className="NewCommentPopup__input" ref={textRef} />
+          <input
+            className="NewCommentPopup__input"
+            ref={textRef}
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+          />
           <h3 className="NewCommentPopup__label">Selecciona ícono</h3>
           <div className="NewCommentPopup__emojis_container">
             {emojis.map((emoji: string, i) => (
@@ -56,13 +88,14 @@ const NewCommentPopup = ({
             ))}
           </div>
           <button
+            type="submit"
             className="InteractionComments__add_comment_button"
-            onClick={close}
+            disabled={isLoading}
           >
             <Icon icon="mdi:comment-plus" />
             Agregar comentario
           </button>
-        </div>
+        </form>
       </OutsideClickHandler>
     </div>
   )

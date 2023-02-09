@@ -36,7 +36,7 @@ const InteractionComments = ({
         {isLoading ? (
           <Loader />
         ) : comments?.length === 0 ? (
-          <p>No hay comentarios</p>
+          <p className="InteractionComments__no_comments">No hay comentarios</p>
         ) : (
           comments?.map((comment) => (
             <div className="InteractionComments__comment">
@@ -70,6 +70,9 @@ const InteractionComments = ({
         </button>
       )}
       <NewCommentPopup
+        interactionStart={interactionStart}
+        serviceId={serviceId}
+        patientId={patientId}
         isOpen={isNewCommentModalOpen}
         close={() => setIsNewCommentModalOpen(false)}
       />
