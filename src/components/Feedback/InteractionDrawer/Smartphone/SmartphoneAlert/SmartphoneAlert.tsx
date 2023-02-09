@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useCallback } from 'react'
 import useChangeAlertMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
-import { Alert, PatientId, ServiceId } from '../../../../../api/types/types'
+import { Alert } from '../../../../../api/types/types'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import {
   getAlertButtonIcon,
