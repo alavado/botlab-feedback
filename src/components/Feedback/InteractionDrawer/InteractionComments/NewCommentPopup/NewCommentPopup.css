@@ -1,0 +1,102 @@
+.NewCommentPopup {
+  padding: 1rem;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 101;
+  pointer-events: none;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.NewCommentPopup--visible {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.NewCommentPopup--visible .NewCommentPopup__content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.NewCommentPopup__content {
+  padding: 1rem;
+  background-color: var(--color-fondo);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.15rem 0.25rem var(--color-sombras);
+  position: relative;
+  transform: translateY(0.25rem);
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.NewCommentPopup__close {
+  position: absolute;
+  right: 0.1rem;
+  top: 0.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.65rem;
+  opacity: 0.8;
+}
+
+.NewCommentPopup__label {
+  font-weight: bold;
+  font-size: 0.65rem;
+}
+
+.NewCommentPopup__input {
+  padding: 0.25rem 0.5rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  border-radius: 0.15rem;
+  box-shadow: 0 0 0 2px var(--color-bordes);
+  border: none;
+  outline: none;
+  font-size: 0.65rem;
+}
+
+.NewCommentPopup__input:focus {
+  box-shadow: 0 0 0 2px var(--color-texto);
+}
+
+.NewCommentPopup__emojis_container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.1rem;
+  margin: 0.1rem 0 0.25rem 0;
+}
+
+.NewCommentPopup__emoji_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  aspect-ratio: 1 / 1;
+  transition: all 0.15s ease;
+}
+
+.NewCommentPopup__emoji_button--selected {
+  box-shadow: 0 0 0 2px var(--color-principal);
+  transform: scale(1.1);
+  background: var(--color-fondo);
+  z-index: 2;
+}
+
+.NewCommentPopup__emoji_button:not(
+    .NewCommentPopup__emoji_button--selected
+  ):hover {
+  transform: scale(1.2);
+}

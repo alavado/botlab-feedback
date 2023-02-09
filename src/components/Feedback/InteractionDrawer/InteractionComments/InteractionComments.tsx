@@ -1,12 +1,14 @@
 import { Icon } from '@iconify/react'
 import { format, isToday, isYesterday } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { useState } from 'react'
 import useCommentsQuery from '../../../../api/hooks/useCommentsQuery'
 import { PatientId, ServiceId } from '../../../../api/types/types'
 import Loader from '../../../Loader'
 import InteractionCommentIcon from './InteractionCommentIcon'
 import { Emoji } from './InteractionCommentIcon/emojis'
 import './InteractionComments.css'
+import NewCommentPopup from './NewCommentPopup'
 
 const InteractionComments = ({
   serviceId,
@@ -17,6 +19,7 @@ const InteractionComments = ({
   patientId: PatientId
   interactionStart: Date
 }) => {
+  const [isNewCommentModalOpen, setIsNewCommentModalOpen] = useState(false)
   const { data: comments, isLoading } = useCommentsQuery({
     serviceId,
     patientId,
@@ -32,6 +35,8 @@ const InteractionComments = ({
       <div className="InteractionComments__comments_container">
         {isLoading ? (
           <Loader />
+        ) : comments?.length === 0 ? (
+          <p>No hay comentarios</p>
         ) : (
           comments?.map((comment) => (
             <div className="InteractionComments__comment">
@@ -55,10 +60,19 @@ const InteractionComments = ({
           ))
         )}
       </div>
-      <button className="InteractionComments__add_comment_button">
-        <Icon icon="mdi:comment-plus" />
-        Agregar comentario
-      </button>
+      {!isNewCommentModalOpen && (
+        <button
+          className="InteractionComments__add_comment_button"
+          onClick={() => setIsNewCommentModalOpen(true)}
+        >
+          <Icon icon="mdi:comment-plus" />
+          Agregar comentario
+        </button>
+      )}
+      <NewCommentPopup
+        isOpen={isNewCommentModalOpen}
+        close={() => setIsNewCommentModalOpen(false)}
+      />
     </div>
   )
 }

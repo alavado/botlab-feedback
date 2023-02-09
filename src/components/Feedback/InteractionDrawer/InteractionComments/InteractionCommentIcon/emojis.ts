@@ -23,27 +23,7 @@ type EmojiIconData = {
   altText: string
 }
 
-const emojiMap = {
-  '😊': {
-    icon: happyEmojiImage,
-    altText: 'Feliz',
-  },
-  '🙄': {
-    icon: patienceEmojiImage,
-    altText: 'Paciencia',
-  },
-  '😴': {
-    icon: sleepingEmojiImage,
-    altText: 'Durmiendo',
-  },
-  '👍': {
-    icon: okEmojiImage,
-    altText: 'Bien',
-  },
-  '👎': {
-    icon: notOkEmojiImage,
-    altText: 'Mal',
-  },
+export const emojiMap = {
   '✅': {
     icon: checkEmojiImage,
     altText: 'OK',
@@ -63,6 +43,26 @@ const emojiMap = {
   '👀': {
     icon: lookEmojiImage,
     altText: 'Echando un vistazo',
+  },
+  '😊': {
+    icon: happyEmojiImage,
+    altText: 'Feliz',
+  },
+  '🙄': {
+    icon: patienceEmojiImage,
+    altText: 'Paciencia',
+  },
+  '😴': {
+    icon: sleepingEmojiImage,
+    altText: 'Durmiendo',
+  },
+  '👍': {
+    icon: okEmojiImage,
+    altText: 'Bien',
+  },
+  '👎': {
+    icon: notOkEmojiImage,
+    altText: 'Mal',
   },
   '🔴': {
     icon: circleRedEmojiImage,
