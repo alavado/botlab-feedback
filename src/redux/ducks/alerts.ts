@@ -1,17 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import _ from 'lodash'
-import {
-  AlertTypeId,
-  BranchId,
-  Service,
-  ServiceId,
-} from '../../api/types/types'
+import { AlertTypeId, BranchId, ServiceId } from '../../api/types/types'
 
 interface AlertsState {
   hiddenBranches: BranchId[]
   hiddenServices: ServiceId[]
   hiddenAlertTypes: AlertTypeId[]
   notificationsEnabled: boolean
+  settingsHidden: boolean
 }
 
 const alertsSlice = createSlice({
@@ -21,6 +17,7 @@ const alertsSlice = createSlice({
     hiddenServices: [],
     hiddenAlertTypes: [],
     notificationsEnabled: true,
+    settingsHidden: false,
   } as AlertsState,
   reducers: {
     toggleBranch(state, action: PayloadAction<BranchId>) {
@@ -56,6 +53,12 @@ const alertsSlice = createSlice({
         state.hiddenAlertTypes = []
       }
     },
+    hideSettings(state) {
+      state.settingsHidden = true
+    },
+    showSettings(state) {
+      state.settingsHidden = false
+    },
   },
 })
 
@@ -67,6 +70,8 @@ export const {
   hideBranchesOrShowIfAllHidden,
   hideServicesOrShowIfAllHidden,
   hideAlertTypeShowIfAllHidden,
+  hideSettings,
+  showSettings,
 } = alertsSlice.actions
 
 export default alertsSlice.reducer
