@@ -64,7 +64,7 @@
 @keyframes AlertsSidebar__appears {
   0% {
     opacity: 0;
-    transform: translate(0.5rem, -0.5rem) rotate(150deg);
+    transform: translate(0.5rem, -0.75rem) rotate(150deg);
   }
   100% {
     opacity: 1;

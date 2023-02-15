@@ -29,6 +29,15 @@ export interface Interaction {
   botName?: string
 }
 
+export interface InteractionExtraData {
+  data: [
+    {
+      label: string
+      value: string
+    }
+  ]
+}
+
 export type SchedulingSystem = 'Dentalink' | 'Medilink' | 'Otro'
 
 export interface Appointment {
@@ -38,13 +47,6 @@ export interface Appointment {
   datetime: Date
   url?: string
   schedulingSystem?: SchedulingSystem
-}
-
-export interface Pregunta {
-  id: string
-  texto: string
-  respuesta: string
-  tipo: ServiceHeaderType
 }
 
 export interface Message {

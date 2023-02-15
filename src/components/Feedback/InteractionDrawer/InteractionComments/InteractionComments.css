@@ -5,6 +5,7 @@
   gap: 0.5rem;
   border-top: 1px solid var(--color-bordes);
   padding-top: 1rem;
+  width: 100%;
 }
 
 .InteractionComments__title {

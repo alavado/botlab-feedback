@@ -8,6 +8,7 @@ import Loader from '../../Loader'
 import InteractionDrawerActions from './InteractionDrawerActions'
 import { PatientId, ServiceId } from '../../../api/types/types'
 import InteractionComments from './InteractionComments'
+import InteractionData from './InteractionData'
 
 interface InteractionDrawerProps {
   serviceId: ServiceId
@@ -88,12 +89,19 @@ const InteractionDrawer = ({
           originComponentName={originComponentName}
         />
         {currentInteraction && (
-          <InteractionComments
-            serviceId={currentInteraction.serviceId}
-            patientId={currentInteraction.patientId}
-            interactionStart={currentInteraction.start}
-            originComponentName={originComponentName}
-          />
+          <>
+            <InteractionComments
+              serviceId={currentInteraction.serviceId}
+              patientId={currentInteraction.patientId}
+              interactionStart={currentInteraction.start}
+              originComponentName={originComponentName}
+            />
+            <InteractionData
+              serviceId={currentInteraction.serviceId}
+              patientId={currentInteraction.patientId}
+              interactionStart={currentInteraction.start}
+            />
+          </>
         )}
       </div>
     </Resizable>
