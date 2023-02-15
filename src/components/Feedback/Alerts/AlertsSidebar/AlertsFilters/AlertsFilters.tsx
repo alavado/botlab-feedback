@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import { MouseEventHandler, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import useAlertTypesQuery from '../../../../api/hooks/useAlertTypesQuery'
-import useBranchesQuery from '../../../../api/hooks/useBranchesQuery'
-import useServicesQuery from '../../../../api/hooks/useServicesQuery'
+import useAlertTypesQuery from '../../../../../api/hooks/useAlertTypesQuery'
+import useBranchesQuery from '../../../../../api/hooks/useBranchesQuery'
+import useServicesQuery from '../../../../../api/hooks/useServicesQuery'
 import {
   AlertType,
   AlertTypeId,
@@ -11,8 +11,8 @@ import {
   BranchId,
   Service,
   ServiceId,
-} from '../../../../api/types/types'
-import { RootState } from '../../../../redux/ducks'
+} from '../../../../../api/types/types'
+import { RootState } from '../../../../../redux/ducks'
 import {
   hideAlertTypeShowIfAllHidden,
   hideBranchesOrShowIfAllHidden,
@@ -20,8 +20,8 @@ import {
   toggleAlertType,
   toggleBranch,
   toggleService,
-} from '../../../../redux/ducks/alerts'
-import Loader from '../../../Loader'
+} from '../../../../../redux/ducks/alerts'
+import Loader from '../../../../Loader'
 import './AlertsFilters.css'
 import FilterCheckbox from './FilterCheckbox'
 
@@ -65,7 +65,7 @@ const buildFilterItemsList = ({
     title,
     allChecked: filter.exclude.length === 0,
     someChecked: filter.exclude.length < filter.all.length,
-    countLabel: `${checkedCount} seleccionad${itemGender}${
+    countLabel: `${checkedCount}/${filter.all.length} seleccionad${itemGender}${
       checkedCount !== 1 ? 's' : ''
     }`,
     onTitleClick: onTitleClick,

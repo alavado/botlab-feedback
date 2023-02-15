@@ -61,3 +61,7 @@
   gap: 0.25rem;
   padding-left: 1rem;
 }
+
+.FilterCheckbox__count svg {
+  font-size: 0.65rem;
+}

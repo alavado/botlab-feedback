@@ -4,9 +4,9 @@ import { useHistory, useRouteMatch } from 'react-router-dom'
 import MenuUsuario from '../BarraSuperior/MenuUsuario'
 import InteractionDrawer from '../InteractionDrawer'
 import './Alerts.css'
-import AlertsFilters from './AlertsFilters'
 import AlertsList from './AlertsList'
-import AlertsOptions from './AlertsOptions'
+import AlertsSidebar from './AlertsSidebar'
+import ToggleSidebarButton from './ToggleSidebarButton'
 
 interface AlertsRouteParams {
   patientId?: string
@@ -27,14 +27,14 @@ const Alerts = () => {
   return (
     <div className="Alerts">
       <div className="Alerts__topbar">
-        <h2 className="Alerts__title">Alertas</h2>
+        <div className="Alerts__topbar_left">
+          <h2 className="Alerts__title">Alertas</h2>
+          <ToggleSidebarButton />
+        </div>
         <MenuUsuario />
       </div>
       <div className="Alerts__container">
-        <aside className="Alerts__aside">
-          <AlertsFilters />
-          <AlertsOptions />
-        </aside>
+        <AlertsSidebar />
         <main className="Alerts__main">
           <AlertsList
             selectedPatientId={patientId}
