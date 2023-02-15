@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'

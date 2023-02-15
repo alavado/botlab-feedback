@@ -1,21 +1,23 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
+import useAnalytics from '../../../../hooks/useAnalytics'
 import { RootState } from '../../../../redux/ducks'
-import { toggleAlertsSettings } from '../../../../redux/ducks/alerts'
+import { hideSettings } from '../../../../redux/ducks/alerts'
 import AlertsFilters from './AlertsFilters'
 import AlertsOptions from './AlertsOptions'
 import './AlertsSidebar.css'
 
 const AlertsSidebar = () => {
-  const { sidebarHidden } = useSelector((state: RootState) => state.alerts)
+  const { settingsHidden } = useSelector((state: RootState) => state.alerts)
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   return (
     <aside
       className={classNames({
         AlertsSidebar: true,
-        'AlertsSidebar--hidden': sidebarHidden,
+        'AlertsSidebar--hidden': settingsHidden,
       })}
     >
       <div className="AlertsSidebar__top">
@@ -25,7 +27,10 @@ const AlertsSidebar = () => {
         </span>
         <button
           className="AlertsSidebar__close_button"
-          onClick={() => dispatch(toggleAlertsSettings())}
+          onClick={() => {
+            track('Feedback', 'Alerts', 'hideAlertSettings')
+            dispatch(hideSettings())
+          }}
           title="Cerrar configuración"
         >
           <Icon icon="mdi:close" />
