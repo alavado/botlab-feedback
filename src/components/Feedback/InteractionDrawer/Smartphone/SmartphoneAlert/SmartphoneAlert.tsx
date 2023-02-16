@@ -40,6 +40,7 @@ const SmartphoneAlert = ({ alert }: { alert: Alert }) => {
         'SmartphoneAlert--solved': alert.solved,
         'SmartphoneAlert--pending': !alert.solved,
       })}
+      title="Alerta (visible solo en Feedback)"
     >
       <div className="SmartphoneAlert__icon_container">
         <Icon

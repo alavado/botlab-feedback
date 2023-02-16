@@ -6,7 +6,10 @@ import './SmartphoneComment.css'
 
 const SmartphoneComment = ({ comment }: { comment: Comment }) => {
   return (
-    <div className="SmartphoneComment">
+    <div
+      className="SmartphoneComment"
+      title="Comentario (visible solo en Feedback)"
+    >
       <div className="SmartphoneComment__icon_container">
         <InteractionCommentIcon emoji={comment.emoji as Emoji} />
       </div>
