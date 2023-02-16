@@ -70,6 +70,7 @@ const NewCommentPopup = ({
           </button>
           <h3 className="NewCommentPopup__label">Nuevo comentario</h3>
           <input
+            maxLength={128}
             className="NewCommentPopup__input"
             ref={textRef}
             onChange={(e) => setText(e.target.value)}
