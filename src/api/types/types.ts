@@ -27,15 +27,12 @@ export interface Interaction {
   messages?: Message[]
   comments?: Comment[]
   botName?: string
+  meta: InteractionMeta[]
 }
 
-export interface InteractionExtraData {
-  data: [
-    {
-      label: string
-      value: string
-    }
-  ]
+export interface InteractionMeta {
+  label: string
+  value: string
 }
 
 export type SchedulingSystem = 'Dentalink' | 'Medilink' | 'Otro'

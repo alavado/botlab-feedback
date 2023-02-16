@@ -190,6 +190,10 @@ const conversationToInteraction = (
     ),
     comments: [],
     botName,
+    meta: context.map((meta) => ({
+      label: meta.title,
+      value: meta.value,
+    })),
   }
   return interaction
 }
