@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const reaccionesSlice = createSlice({
-  name: 'opciones',
+  name: 'reacciones',
   initialState: {
     reaccionesGuardadas: [
       {
