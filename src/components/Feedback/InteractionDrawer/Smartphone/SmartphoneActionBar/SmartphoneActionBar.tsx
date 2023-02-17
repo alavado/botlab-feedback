@@ -49,16 +49,18 @@ const SmartphoneActionBar = ({
       >
         {contactName?.[0] || <Loader color="white" />}
       </div>
-      <div className="SmartphoneActionBar__receiver_name">
+      <div
+        className="SmartphoneActionBar__receiver_name"
+        onClick={copyContactName}
+        title={`Copiar "${contactName}"`}
+      >
         {contactName}
-        <button
-          className="SmartphoneActionBar__copy_button"
-          onClick={copyContactName}
-        >
-          <Icon icon="mdi:content-copy" /> Copiar
-        </button>
       </div>
-      <div className="SmartphoneActionBar__receiver_status">
+      <div
+        className="SmartphoneActionBar__receiver_status"
+        onClick={copyPhone}
+        title={`Copiar "${phone}"`}
+      >
         {phone && (
           <>
             <span className="SmartphoneActionBar__receiver_phone">
@@ -66,12 +68,6 @@ const SmartphoneActionBar = ({
             </span>
           </>
         )}
-        <button
-          className="SmartphoneActionBar__copy_button"
-          onClick={copyPhone}
-        >
-          <Icon icon="mdi:content-copy" /> Copiar
-        </button>
       </div>
       <div className="SmartphoneActionBar__actions"></div>
     </div>

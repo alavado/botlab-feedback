@@ -70,6 +70,9 @@ const NewCommentPopup = ({
           </button>
           <h3 className="NewCommentPopup__label">Nuevo comentario</h3>
           <input
+            id="new-comment-text"
+            autoComplete="on"
+            name="new-comment-text"
             maxLength={128}
             className="NewCommentPopup__input"
             ref={textRef}

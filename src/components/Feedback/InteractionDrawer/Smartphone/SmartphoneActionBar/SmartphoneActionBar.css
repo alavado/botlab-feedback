@@ -37,42 +37,12 @@
   text-overflow: ellipsis;
   max-width: 100%;
   border-bottom: 1px dashed transparent;
+  overflow: hidden;
 }
 
 .SmartphoneActionBar__receiver_name:hover {
   border-bottom: 1px dashed var(--color-texto);
-}
-
-.SmartphoneActionBar__copy_button {
-  left: 100%;
-  top: -0.2rem;
-  height: 1.2rem;
-  opacity: 0;
   cursor: pointer;
-  border: none;
-  background: none;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  color: var(--color-texto);
-  background-color: var(--color-fila-destacada);
-  box-shadow: 0 0.05rem 0.1rem var(--color-sombras);
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  z-index: 2;
-}
-
-*:hover > .SmartphoneActionBar__copy_button {
-  opacity: 1;
-}
-
-.SmartphoneActionBar__copy_button:hover {
-  filter: brightness(105%);
-}
-
-.SmartphoneActionBar__copy_button:active {
-  opacity: 0.8 !important;
 }
 
 .SmartphoneActionBar__receiver_status {
@@ -86,6 +56,7 @@
 
 .SmartphoneActionBar__receiver_status:hover {
   border-bottom: 1px dashed var(--color-texto);
+  cursor: pointer;
 }
 
 .SmartphoneActionBar__receiver_phone {
