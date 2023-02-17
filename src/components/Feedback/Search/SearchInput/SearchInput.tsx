@@ -51,6 +51,11 @@ const SearchInput = ({
           }}
           debounceTimeout={300}
           onChangeCapture={() => setDebouncing(true)}
+          onPaste={(e: any) =>
+            track('Feedback', 'Search', 'paste', {
+              text: e.clipboardData.getData('text'),
+            })
+          }
           id="SearchInput__input"
           className="SearchInput__input"
           placeholder="Buscar"
