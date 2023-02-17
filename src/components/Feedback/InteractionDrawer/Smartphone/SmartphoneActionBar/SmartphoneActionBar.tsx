@@ -52,22 +52,29 @@ const SmartphoneActionBar = ({
       <div
         className="SmartphoneActionBar__receiver_name"
         onClick={copyContactName}
-        title={`Copiar "${contactName}"`}
       >
         {contactName}
+        <button
+          className="SmartphoneActionBar__copy_button"
+          title={`Copiar "${contactName}"`}
+        >
+          Copiar
+        </button>
       </div>
       <div
         className="SmartphoneActionBar__receiver_status"
         onClick={copyPhone}
         title={`Copiar "${phone}"`}
       >
-        {phone && (
-          <>
-            <span className="SmartphoneActionBar__receiver_phone">
-              <Icon icon="mdi:phone" /> {phone}
-            </span>
-          </>
-        )}
+        <span className="SmartphoneActionBar__receiver_phone">
+          <Icon icon="mdi:phone" /> {phone}
+        </span>
+        <button
+          className="SmartphoneActionBar__copy_button"
+          title={`Copiar "${phone}"`}
+        >
+          Copiar
+        </button>
       </div>
       <div className="SmartphoneActionBar__actions"></div>
     </div>
