@@ -9,8 +9,8 @@
 }
 
 .DatosChat__icono_volver {
-  margin-right: .5rem;
-  font-size: .85rem;
+  margin-right: 0.5rem;
+  font-size: 0.85rem;
 }
 
 .DatosChat__botones_navegacion {
@@ -20,7 +20,7 @@
 
 .DatosChat__link_atras {
   font-weight: 600;
-  font-size: .7rem;
+  font-size: 0.7rem;
   display: flex;
   align-items: flex-end;
   background: none;
@@ -59,7 +59,7 @@
 
 .DatosChat__icono_siguiente,
 .DatosChat__icono_anterior {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .DatosChat__link_anterior:hover,
@@ -69,23 +69,23 @@
 
 .DatosChat__link_anterior:disabled,
 .DatosChat__link_siguiente:disabled {
-  filter: saturate(0%) opacity(.4);
+  filter: saturate(0%) opacity(0.4);
 }
 
 .DatosChat__posicion {
   font-weight: 600;
-  font-size: .7rem;
+  font-size: 0.7rem;
   display: flex;
   justify-content: center;
-  padding: 0 .75rem;
+  padding: 0 0.75rem;
 }
 
 .DatosChat__titulo {
   font-weight: bold;
   font-size: 1.35rem;
   font-family: 'Raleway';
-  margin-top: .75rem;
-  margin-bottom: .75rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .DatosChat__contenedor_datos {
@@ -95,26 +95,26 @@
 }
 
 .DatosChat__contenedor_datos::-webkit-scrollbar {
-  width: .6em;
-  height: .6em;
+  width: 0.6rem;
+  height: 0.6rem;
   background-color: var(--color-fondo);
 }
 
 .DatosChat__contenedor_datos::-webkit-scrollbar-thumb {
-  border-radius: .25em;
+  border-radius: 0.25rem;
   background-color: var(--color-principal);
 }
 
 .DatosChat__contenedor_header {
   min-height: 2.75rem;
-  padding: .5rem 0 .5rem .25rem;
+  padding: 0.5rem 0 0.5rem 0.25rem;
   display: flex;
-  font-size: .7rem;
+  font-size: 0.7rem;
   line-height: 1.15;
   border-bottom: 1px solid var(--color-bordes);
   align-items: center;
   position: relative;
-  animation: aparece-contenedor-datos .25s ease both;
+  animation: aparece-contenedor-datos 0.25s ease both;
   z-index: 2;
 }
 
@@ -128,15 +128,15 @@
 
 .DatosChat__nombre_header {
   font-weight: 600;
-  min-width: 12em;
-  max-width: 12em;
+  min-width: 12rem;
+  max-width: 12rem;
   padding-right: 1rem;
 }
 
 .DatosChat__link_ws {
   color: var(--color-whatsapp);
-  margin-left: .35rem;
-  font-size: .8rem;
+  margin-left: 0.35rem;
+  font-size: 0.8rem;
 }
 
 .DatosChat__valor_header {
@@ -152,16 +152,16 @@
   border: none;
   background: none;
   position: absolute;
-  right: .25rem;
+  right: 0.25rem;
   display: flex;
   opacity: 0;
   align-items: center;
-  gap: .25rem;
+  gap: 0.25rem;
   color: var(--color-principal);
   background-color: var(--color-fila-destacada);
-  box-shadow: 0 .05rem .1rem var(--color-sombras);
-  padding: .25rem;
-  border-radius: .25rem;
+  box-shadow: 0 0.05rem 0.1rem var(--color-sombras);
+  padding: 0.25rem;
+  border-radius: 0.25rem;
 }
 
 .DatosChat__boton_copiar:hover {
@@ -169,7 +169,7 @@
 }
 
 .DatosChat__boton_copiar:active {
-  opacity: .8 !important;
+  opacity: 0.8 !important;
 }
 
 @keyframes aparece-contenedor-datos {
@@ -184,7 +184,7 @@
 @media (max-width: 1240px) {
   .DatosChat__navegacion {
     flex-direction: column;
-    gap: .25rem;
+    gap: 0.25rem;
   }
 
   .DatosChat__titulo {
@@ -194,6 +194,6 @@
   .DatosChat__contenedor_header {
     flex-direction: column;
     align-items: flex-start;
-    gap: .25rem;
+    gap: 0.25rem;
   }
 }
