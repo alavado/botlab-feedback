@@ -3,24 +3,24 @@ import './AlertaDeudores.css'
 
 const usuariosDeudores = [
   // 'BiobioSalud'
-
+  'Vitalia',
+  'AltoTobalaba',
+  'LasCruces',
+  'Redental',
+  'AltosDelValle',
   'EzioChiappe',
   'Facelab',
-  'Visum',
-  'AltosDelValle',
-  'Tobalaba',
-  'Made',
-  'Cesmed',
-  'AyVDental',
-  'SantaBlanca',
-  'LeCiel',
-  'Maitenes',
-  'DentalStudio',
-  'Redental',
+  'CATH',
+  'BDental',
   'Beladent',
-  'CEOLA Concepcion',
-  'Integral Linares',
-  'Aquamed',
+  'IntegralLinares',
+  'Made',
+  'OrregoLuco',
+  'AyVDental',
+  'SonrieArica',
+  'OYEDental',
+  'Amanda',
+  'Maitenes',
 ]
 
 const AlertaDeudores = () => {
