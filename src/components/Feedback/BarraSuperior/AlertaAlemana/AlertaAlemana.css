@@ -33,16 +33,13 @@
 }
 
 .AlertaAlemana__link {
-  background: var(--color-principal);
-  color: var(--color-texto-claro);
-  padding: 0.2rem 0.65rem;
-  margin-left: 0.5rem;
   display: flex;
   align-items: center;
   font-size: 0.65rem;
   font-weight: 500;
   transition: all 0.15s ease;
   border-radius: 0.25rem;
+  text-decoration: underline;
 }
 
 .AlertaAlemana__link:hover {
