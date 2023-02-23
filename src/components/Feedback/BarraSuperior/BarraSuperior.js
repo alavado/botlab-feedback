@@ -11,6 +11,7 @@ import TabsEncuestas from './TabsEncuestas'
 import { obtenerPollsCalculadas } from '../../../helpers/pollsCalculadas'
 import { obtenerTiposEncuestasVisibles } from '../../../helpers/encuestasSecretas'
 import AlertaDeudores from './AlertaDeudores'
+import AlertaAlemana from './AlertaAlemana'
 
 const BarraSuperior = () => {
   const { respuestas } = useSelector((state) => state.respuestas)
@@ -46,6 +47,7 @@ const BarraSuperior = () => {
     <div className="BarraSuperior">
       <AlertaPilotos />
       <AlertaDeudores />
+      <AlertaAlemana />
       {cuenta.includes('centauro') ||
       (tiposOrdenados?.length < 5 && !cuenta.includes('redsalud')) ? (
         <Switch>
