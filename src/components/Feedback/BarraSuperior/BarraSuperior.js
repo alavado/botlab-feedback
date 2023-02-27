@@ -47,7 +47,7 @@ const BarraSuperior = () => {
     <div className="BarraSuperior">
       <AlertaPilotos />
       <AlertaDeudores />
-      <AlertaAlemana />
+      {/* <AlertaAlemana /> */}
       {cuenta.includes('centauro') ||
       (tiposOrdenados?.length < 5 && !cuenta.includes('redsalud')) ? (
         <Switch>
