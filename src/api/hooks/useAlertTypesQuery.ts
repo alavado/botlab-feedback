@@ -1,5 +1,7 @@
 import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/ducks'
 import { AlertType } from '../types/types'
 
 const alertTypes = [
@@ -35,11 +37,22 @@ const alertTypes = [
     id: 'Paciente quiere reagendar',
     name: 'Quiere reagendar',
   },
+  {
+    id: 'Derivación de examen o procedimiento',
+    name: 'Derivación',
+  },
 ]
 
 const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
+  const { nombreUsuario } = useSelector((state: RootState) => state.login)
   return useQuery<AlertType[], any, any>('alertTypes', async () => {
-    return _.sortBy(alertTypes, 'name')
+    let filteredAlertTypes = alertTypes
+    if (nombreUsuario !== 'NucleoSalud' && nombreUsuario !== 'Sanasalud') {
+      filteredAlertTypes = filteredAlertTypes.filter(
+        (t) => t.id !== 'Derivación de examen o procedimiento'
+      )
+    }
+    return _.sortBy(filteredAlertTypes, 'name')
   })
 }
 
