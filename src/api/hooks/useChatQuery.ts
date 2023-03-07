@@ -170,6 +170,7 @@ const conversationToInteraction = (
   botName: string,
   conversation: chatAPIConversation
 ): Interaction => {
+  console.log(conversation)
   const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
   const interaction: Interaction = {
