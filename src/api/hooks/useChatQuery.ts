@@ -201,9 +201,13 @@ const conversationToInteraction = (
 const getSchedulingSystemURL = (
   conversation: chatAPIConversation
 ): string | undefined => {
-  return conversation.context.find((v) =>
-    ['dentalink_link', 'medilink_link'].includes(v.target)
-  )?.value
+  try {
+    return conversation.context.find((v) =>
+      ['dentalink_link', 'medilink_link'].includes(v.target)
+    )?.value
+  } catch (e) {
+    return undefined
+  }
 }
 
 const inferSchedulingSystem = (
