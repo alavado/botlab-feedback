@@ -170,7 +170,6 @@ const conversationToInteraction = (
   botName: string,
   conversation: chatAPIConversation
 ): Interaction => {
-  console.log(conversation)
   const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
   const interaction: Interaction = {
@@ -207,6 +206,7 @@ const getSchedulingSystemURL = (
       ['dentalink_link', 'medilink_link'].includes(v.target)
     )?.value
   } catch (e) {
+    console.log(e)
     return undefined
   }
 }
@@ -214,17 +214,13 @@ const getSchedulingSystemURL = (
 const inferSchedulingSystem = (
   conversation: chatAPIConversation
 ): SchedulingSystem => {
-  try {
-    if (conversation.context.find((v) => v.target === 'dentalink_link')) {
-      return 'Dentalink'
-    }
-    if (conversation.context.find((v) => v.target === 'medilink_link')) {
-      return 'Medilink'
-    }
-    return 'Otro'
-  } catch (e) {
-    return 'Otro'
+  if (conversation.context.find((v) => v.target === 'dentalink_link')) {
+    return 'Dentalink'
   }
+  if (conversation.context.find((v) => v.target === 'medilink_link')) {
+    return 'Medilink'
+  }
+  return 'Otro'
 }
 
 export default useChatQuery
