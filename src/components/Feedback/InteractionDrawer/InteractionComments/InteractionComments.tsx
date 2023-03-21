@@ -31,14 +31,14 @@ const InteractionComments = ({
   return (
     <div className="InteractionComments">
       <h3 className="InteractionComments__title">
-        <Icon icon="mdi:comment-text-outline" />
-        Comentarios
+        <Icon icon="mdi:note-text-outline" />
+        Notas
       </h3>
       <div className="InteractionComments__comments_container">
         {isLoading ? (
           <Loader />
         ) : comments?.length === 0 ? (
-          <p className="InteractionComments__no_comments">No hay comentarios</p>
+          <p className="InteractionComments__no_comments">No hay notas</p>
         ) : (
           comments?.map((comment) => (
             <div className="InteractionComments__comment">
@@ -67,8 +67,8 @@ const InteractionComments = ({
           className="InteractionComments__add_comment_button"
           onClick={() => setIsNewCommentModalOpen(true)}
         >
-          <Icon icon="mdi:comment-plus" />
-          Agregar comentario
+          <Icon icon="mdi:note-plus-outline" />
+          Agregar nota
         </button>
       )}
       <NewCommentPopup

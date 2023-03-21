@@ -71,7 +71,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
               setConteo(e.target.value.length)
             }}
             ref={inputRef}
-            placeholder="Escribe un comentario..."
+            placeholder="Escribe una nota..."
             onKeyUp={(e) => e.stopPropagation()}
             onFocus={() => {
               setSeleccionandoEmoji(false)

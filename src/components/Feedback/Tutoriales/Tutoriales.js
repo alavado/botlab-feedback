@@ -47,7 +47,7 @@ const videos = [
     id: 'reportar-problemas',
   },
   {
-    titulo: 'Agregar comentarios a un chat',
+    titulo: 'Agregar notas a un chat',
     duracion: '1:03',
     link: 'https://player.vimeo.com/video/707569196?autoplay=1',
     thumbnail: 'https://vumbnail.com/707569196_small.jpg',
@@ -84,21 +84,22 @@ const videos = [
 ]
 
 const Tutoriales = () => {
-
   return (
     <div className="Tutoriales">
       <h1 className="Tutoriales__titulo">Tutoriales</h1>
       <div className="Tutoriales__contenedor">
         <div className="Tutoriales__video">
           <Switch>
-            {videos.map(video => (
+            {videos.map((video) => (
               <Route
                 path={`/tutoriales/${video.id}`}
                 key={`ruta-tutorial-${video.id}`}
               >
                 <div className="Tutoriales__contenedor_video_con_titulo">
                   <h2 className="Tutoriales__contenedor_video_titulo">
-                    <Icon icon="mdi:information" />Estás viendo: <span style={{ fontWeight: 'bold' }}>{video.titulo}</span>
+                    <Icon icon="mdi:information" />
+                    Estás viendo:{' '}
+                    <span style={{ fontWeight: 'bold' }}>{video.titulo}</span>
                   </h2>
                   <iframe
                     title={video.titulo}
@@ -106,8 +107,7 @@ const Tutoriales = () => {
                     frameBorder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
-                  >
-                  </iframe>
+                  ></iframe>
                 </div>
               </Route>
             ))}
@@ -127,7 +127,9 @@ const Tutoriales = () => {
         <div>
           <div className="Tutoriales__titulo_playlist">
             <p>Tutoriales de Feedback</p>
-            <p className="Tutoriales__conteo_playlist">{videos.length} videos</p>
+            <p className="Tutoriales__conteo_playlist">
+              {videos.length} videos
+            </p>
           </div>
           <div className="Tutoriales__botones">
             {videos.map((video, i) => (
@@ -138,13 +140,19 @@ const Tutoriales = () => {
                 activeClassName="Tutoriales__boton--activo"
               >
                 <p className="Tutoriales__miniatura_numero">
-                  <InlineIcon className="Tutoriales__miniatura_play" icon="mdi:play" /> <span className="Tutoriales__miniatura_n">{i + 1}</span>
+                  <InlineIcon
+                    className="Tutoriales__miniatura_play"
+                    icon="mdi:play"
+                  />{' '}
+                  <span className="Tutoriales__miniatura_n">{i + 1}</span>
                 </p>
                 <div
                   className="Tutoriales__miniatura"
                   style={{ backgroundImage: `url(${video.thumbnail})` }}
                 >
-                  <p className="Tutoriales__miniatura_duracion">{video.duracion}</p>
+                  <p className="Tutoriales__miniatura_duracion">
+                    {video.duracion}
+                  </p>
                 </div>
                 <p className="Tutoriales__titulo_miniatura">{video.titulo}</p>
                 <p className="Tutoriales__autor">Jorge Pérez</p>

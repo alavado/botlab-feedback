@@ -68,7 +68,7 @@ const NewCommentPopup = ({
           >
             <Icon icon="mdi:close" />
           </button>
-          <h3 className="NewCommentPopup__label">Nuevo comentario</h3>
+          <h3 className="NewCommentPopup__label">Agregar nota</h3>
           <input
             id="new-comment-text"
             autoComplete="on"
@@ -104,8 +104,8 @@ const NewCommentPopup = ({
             className="InteractionComments__add_comment_button"
             disabled={isLoading}
           >
-            <Icon icon="mdi:comment-plus" />
-            Agregar comentario
+            <Icon icon="mdi:note-plus-outline" />
+            Agregar nota
           </button>
         </form>
       </OutsideClickHandler>

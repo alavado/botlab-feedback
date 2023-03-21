@@ -46,7 +46,7 @@ const InteractionDrawerActions = ({
   }
 
   return (
-    <>
+    <div className="InteractionDrawerActions">
       <button
         className="InteractionDrawerActions__button"
         onClick={openChatView}
@@ -70,7 +70,7 @@ const InteractionDrawerActions = ({
           Ver cita en {schedulingSystemName}
         </button>
       )}
-    </>
+    </div>
   )
 }
 

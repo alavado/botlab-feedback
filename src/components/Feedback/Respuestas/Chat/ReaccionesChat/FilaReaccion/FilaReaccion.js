@@ -46,7 +46,7 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
       <div className="FilaReaccion__texto_reaccion">
         {reaccion.reaction_text || (
           <p className="FilaReaccion__texto_reaccion_sin_comentario">
-            Sin comentario
+            Sin texto
           </p>
         )}
       </div>
@@ -54,7 +54,7 @@ const FilaReaccion = ({ reaccion, refrescar }) => {
       <div className="FilaReaccion__acciones">
         <button
           className="FilaReaccion__boton_eliminar"
-          title="Eliminar este comentario"
+          title="Eliminar esta nota"
           onClick={clickEnBorrar}
           disabled={eliminando}
         >

@@ -53,7 +53,7 @@ const InteractionDrawer = ({
             <Icon icon="mdi:chevron-double-right" />
           </button>
           <div className="InteractionDrawer__top_bar_data">
-            {currentInteraction ? (
+            {/* {currentInteraction ? (
               <>
                 <span>
                   <Icon icon="mdi:user" />{' '}
@@ -66,7 +66,7 @@ const InteractionDrawer = ({
               </>
             ) : (
               <Loader color="var(--color-texto)" />
-            )}
+            )} */}
           </div>
         </div>
       </div>
