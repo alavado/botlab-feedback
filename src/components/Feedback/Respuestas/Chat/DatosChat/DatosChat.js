@@ -66,7 +66,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
     track,
   ])
 
-  const datosFixMulcitas = useMemo(() => {
+  const datosFixMulticitas = useMemo(() => {
     if (!datos) {
       return undefined
     }
@@ -204,7 +204,7 @@ const DatosChat = ({ cargando, datos, telefono }) => {
               <Icon icon="mdi:content-copy" /> Copiar
             </button>
           </div>
-          {datosFixMulcitas.map(
+          {datosFixMulticitas.map(
             ({ value: nombre, title: texto, target }, i) => (
               <div
                 key={`header-chat-${i}`}
