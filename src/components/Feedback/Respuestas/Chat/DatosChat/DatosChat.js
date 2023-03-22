@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Icon, InlineIcon } from '@iconify/react'
@@ -65,6 +65,21 @@ const DatosChat = ({ cargando, datos, telefono }) => {
     haySiguienteChat,
     track,
   ])
+
+  const datosFixMulcitas = useMemo(() => {
+    if (!datos) {
+      return undefined
+    }
+    const nCitas = datos.find((d) => d.title === 'N Citas')?.value
+    if (!nCitas) {
+      return datos
+    }
+    return datos.filter(
+      (d) =>
+        d.target.search(/_[0-9]$/) < 0 ||
+        Number(d.target.slice(-1)[0]) <= nCitas
+    )
+  }, [datos])
 
   useEffect(() => {
     const teclasMagicas = (e) => {
@@ -189,31 +204,33 @@ const DatosChat = ({ cargando, datos, telefono }) => {
               <Icon icon="mdi:content-copy" /> Copiar
             </button>
           </div>
-          {datos.map(({ value: nombre, title: texto, target }, i) => (
-            <div
-              key={`header-chat-${i}`}
-              className="DatosChat__contenedor_header"
-            >
-              <div className="DatosChat__nombre_header">{texto}</div>
-              <div className="DatosChat__valor_header">
-                <Scrambler propagar={true} tipo={target}>
-                  {nombre}
-                </Scrambler>
-              </div>
-              <button
-                className="DatosChat__boton_copiar"
-                onClick={() => {
-                  track('Feedback', 'Chat', 'copia', {
-                    campo: texto,
-                    valor: nombre,
-                  })
-                  navigator.clipboard.writeText(nombre)
-                }}
+          {datosFixMulcitas.map(
+            ({ value: nombre, title: texto, target }, i) => (
+              <div
+                key={`header-chat-${i}`}
+                className="DatosChat__contenedor_header"
               >
-                <Icon icon="mdi:content-copy" /> Copiar
-              </button>
-            </div>
-          ))}
+                <div className="DatosChat__nombre_header">{texto}</div>
+                <div className="DatosChat__valor_header">
+                  <Scrambler propagar={true} tipo={target}>
+                    {nombre}
+                  </Scrambler>
+                </div>
+                <button
+                  className="DatosChat__boton_copiar"
+                  onClick={() => {
+                    track('Feedback', 'Chat', 'copia', {
+                      campo: texto,
+                      valor: nombre,
+                    })
+                    navigator.clipboard.writeText(nombre)
+                  }}
+                >
+                  <Icon icon="mdi:content-copy" /> Copiar
+                </button>
+              </div>
+            )
+          )}
         </div>
       ) : (
         <LoaderChat />
