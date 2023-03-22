@@ -142,7 +142,10 @@ const Chat = () => {
         }
         telefono={telefono ? `+${telefono}` : ''}
       />
-      <RespuestasChat tags={conversaciones?.[indiceConversacion]?.tags} />
+      <RespuestasChat
+        datos={conversaciones?.[indiceConversacion]?.context}
+        tags={conversaciones?.[indiceConversacion]?.tags}
+      />
       <div>
         <ReaccionesChat start={conversaciones?.[indiceConversacion]?.start} />
         {accionesHabilitadas && (
