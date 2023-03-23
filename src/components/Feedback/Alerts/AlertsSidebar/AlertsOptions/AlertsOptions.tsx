@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'
 import { toggleNotifications } from '../../../../../redux/ducks/alerts'
+import FilterCheckbox from '../AlertsFilters/FilterCheckbox'
 import './AlertsOptions.css'
 
 const AlertsOptions = () => {
@@ -18,14 +19,11 @@ const AlertsOptions = () => {
 
   return (
     <div className="AlertsOptions">
-      <label>
-        <input
-          type="checkbox"
-          checked={notificationsEnabled}
-          onChange={() => dispatch(toggleNotifications())}
-        />{' '}
-        Recibir notificaciones
-      </label>
+      <FilterCheckbox
+        checked={notificationsEnabled}
+        onClick={() => dispatch(toggleNotifications())}
+        label="Recibir notificaciones"
+      />
     </div>
   )
 }
