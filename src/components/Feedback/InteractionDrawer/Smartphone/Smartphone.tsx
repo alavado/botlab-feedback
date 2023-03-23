@@ -72,12 +72,6 @@ const Smartphone = ({
     const addElement =
       (current: boolean = true) =>
       (stuff: Message | Alert | Comment) => {
-        if (
-          elements.length === 0 ||
-          !isSameDay(elements.slice(-1)[0].date, stuff.timestamp)
-        ) {
-          elements.push({ date: startOfDay(stuff.timestamp), current })
-        }
         if ('content' in stuff) {
           elements.push({ message: stuff, date: stuff.timestamp, current })
         }
@@ -97,7 +91,14 @@ const Smartphone = ({
     )
     alerts?.forEach(addElement())
     comments?.forEach(addElement())
-    return _.sortBy(elements, 'date')
+    let elementsWithDates: SmartphoneChatElement[] = []
+    _.sortBy(elements, 'date').forEach((el, i) => {
+      if (i === 0 || !isSameDay(elements[i - 1].date, el.date)) {
+        elementsWithDates.push({ date: startOfDay(el.date), current: true })
+      }
+      elementsWithDates.push(el)
+    })
+    return elementsWithDates
   }, [
     pastInteractions,
     currentInteraction,
