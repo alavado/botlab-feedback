@@ -94,7 +94,10 @@ const Smartphone = ({
     let elementsWithDates: SmartphoneChatElement[] = []
     _.sortBy(elements, 'date').forEach((el, i) => {
       if (i === 0 || !isSameDay(elements[i - 1].date, el.date)) {
-        elementsWithDates.push({ date: startOfDay(el.date), current: true })
+        elementsWithDates.push({
+          date: startOfDay(el.date),
+          current: isSameDay(currentInteraction.start, el.date),
+        })
       }
       elementsWithDates.push(el)
     })
