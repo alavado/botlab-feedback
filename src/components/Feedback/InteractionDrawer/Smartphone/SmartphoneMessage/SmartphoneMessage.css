@@ -65,3 +65,18 @@
   filter: saturate(10%) sepia(10%);
   opacity: 0.9;
 }
+
+.SmartphoneMessage__tag {
+  position: absolute;
+  right: -0.35rem;
+  top: -0.35rem;
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+  font-size: 0.45rem;
+  z-index: 2;
+  padding: 0.1rem 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  border-radius: 0.15rem;
+}

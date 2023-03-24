@@ -52,6 +52,7 @@ export interface Message {
   sender: 'BOT' | 'USER'
   type: 'TEXTO' | 'AUDIO' | 'IMAGEN' | 'VIDEO'
   id: number
+  tag?: string
 }
 
 export interface Alert {

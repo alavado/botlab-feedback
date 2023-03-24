@@ -8,9 +8,7 @@ import classNames from 'classnames'
 import './CelularWhatsapp.css'
 import { fijaChatExpandido } from '../../../../../redux/ducks/opciones'
 import { Icon } from '@iconify/react'
-import SelectorConversacion from './SelectorConversacion'
 import { useHistory } from 'react-router'
-import { toggleDebugging } from '../../../../../redux/ducks/cero'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const CelularWhatsapp = ({
@@ -53,16 +51,6 @@ const CelularWhatsapp = ({
       contenedorMensajes.current.focus({ preventScroll: true })
     }
   }, [conversaciones])
-
-  useEffect(() => {
-    const teclasMagicas = (e) => {
-      if (e.code === 'Digit0') {
-        dispatch(toggleDebugging())
-      }
-    }
-    window.addEventListener('keyup', teclasMagicas)
-    return () => window.removeEventListener('keyup', teclasMagicas)
-  }, [dispatch])
 
   return (
     <div

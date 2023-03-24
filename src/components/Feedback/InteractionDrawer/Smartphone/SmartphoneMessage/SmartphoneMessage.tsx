@@ -1,5 +1,8 @@
+import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { format } from 'date-fns'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../redux/ducks'
 import { SmartphoneChatMessage } from '../Smartphone'
 import { getMessageContentComponent } from './helpers'
 import './SmartphoneMessage.css'
@@ -10,6 +13,8 @@ const SmartphoneMessage = ({ data }: { data: SmartphoneChatMessage }) => {
     data.message.content,
     data.message.id
   )
+
+  const { debugging } = useSelector((state: RootState) => state.cero)
 
   return (
     <div
@@ -22,6 +27,11 @@ const SmartphoneMessage = ({ data }: { data: SmartphoneChatMessage }) => {
     >
       <span className="SmartphoneMessage__content">{messageContent}</span>
       <span className="SmartphoneMessage__time">{messageTime}</span>
+      {debugging && data.message.sender === 'USER' && (
+        <span className="SmartphoneMessage__tag">
+          <Icon icon="mdi:robot" /> {data.message.tag}
+        </span>
+      )}
     </div>
   )
 }

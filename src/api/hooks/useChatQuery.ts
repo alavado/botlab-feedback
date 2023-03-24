@@ -186,6 +186,7 @@ const conversationToInteraction = (
         timestamp: parseISO(message.timestamp),
         type: 'TEXTO',
         id: message.type === 'bot' ? -1 : message.answer_id,
+        tag: message.type === 'user' ? message.tag : undefined,
       })
     ),
     comments: [],

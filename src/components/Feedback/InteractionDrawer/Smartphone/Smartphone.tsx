@@ -73,7 +73,11 @@ const Smartphone = ({
       (current: boolean = true) =>
       (stuff: Message | Alert | Comment) => {
         if ('content' in stuff) {
-          elements.push({ message: stuff, date: stuff.timestamp, current })
+          elements.push({
+            message: stuff,
+            date: stuff.timestamp,
+            current,
+          })
         }
         if ('solved' in stuff) {
           elements.push({ alert: stuff, date: stuff.timestamp })

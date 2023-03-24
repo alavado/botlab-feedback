@@ -18,6 +18,7 @@ import Novedades from '../Novedades'
 import Tutoriales from './Tutoriales'
 import Search from './Search'
 import Alerts from './Alerts'
+import { toggleDebugging } from '../../redux/ducks/cero'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
@@ -27,6 +28,16 @@ const Feedback = () => {
   )
   const { idEncuestaSeleccionada } = useSelector((state) => state.encuestas)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const teclasMagicas = (e) => {
+      if (e.code === 'Digit0') {
+        dispatch(toggleDebugging())
+      }
+    }
+    window.addEventListener('keyup', teclasMagicas)
+    return () => window.removeEventListener('keyup', teclasMagicas)
+  }, [dispatch])
 
   useEffect(() => {
     if (
