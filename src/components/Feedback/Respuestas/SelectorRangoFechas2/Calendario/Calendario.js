@@ -1,6 +1,19 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
-import { addDays, addMonths, endOfMonth, endOfWeek, format, isFuture, isSameDay, isSameMonth, isSunday, isToday, startOfMonth, startOfWeek } from 'date-fns'
+import {
+  addDays,
+  addMonths,
+  endOfMonth,
+  endOfWeek,
+  format,
+  isFuture,
+  isSameDay,
+  isSameMonth,
+  isSunday,
+  isToday,
+  startOfMonth,
+  startOfWeek,
+} from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useMemo, useState } from 'react'
 import OutsideClickHandler from 'react-outside-click-handler'
@@ -8,7 +21,6 @@ import useAnalytics from '../../../../../hooks/useAnalytics'
 import './Calendario.css'
 
 const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
-
   const [mes, setMes] = useState(endOfWeek(fechaSeleccionada, { locale: es }))
   const track = useAnalytics()
 
@@ -29,7 +41,7 @@ const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
         <div className="Calendario__selector_mes">
           <button
             onClick={() => {
-              setMes(mes => addMonths(mes, -1))
+              setMes((mes) => addMonths(mes, -1))
               track('Feedback', 'Respuestas', 'calendarioNuevoMesAnterior')
             }}
             className="Calendario__boton_selector_mes"
@@ -40,7 +52,7 @@ const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
           {format(mes, 'MMMM yyyy', { locale: es })}
           <button
             onClick={() => {
-              setMes(mes => addMonths(mes, 1))
+              setMes((mes) => addMonths(mes, 1))
               track('Feedback', 'Respuestas', 'calendarioNuevoMesSiguiente')
             }}
             disabled={isSameMonth(mes, new Date())}
@@ -63,11 +75,18 @@ const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
           {fechas.map((f, i) => (
             <button
               className={classNames({
-                "Calendario__boton_dia": true,
-                "Calendario__boton_dia--hoy": isToday(f),
-                "Calendario__boton_dia--seleccionado": isSameDay(f, fechaSeleccionada),
-                "Calendario__boton_dia--otro-mes": !isSameMonth(mes, f),
-                "Calendario__boton_dia--feriado": isSunday(f)
+                Calendario__boton_dia: true,
+                'Calendario__boton_dia--hoy': isToday(f),
+                'Calendario__boton_dia--seleccionado': isSameDay(
+                  f,
+                  fechaSeleccionada
+                ),
+                'Calendario__boton_dia--futuro': isFuture(f),
+                'Calendario__boton_dia--otro-mes': !isSameMonth(
+                  f,
+                  fechaSeleccionada
+                ),
+                'Calendario__boton_dia--feriado': isSunday(f),
               })}
               key={`boton-calendario-${i}`}
               onClick={() => {
@@ -80,8 +99,8 @@ const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
               {format(f, 'd')}
             </button>
           ))}
-          </div>
         </div>
+      </div>
     </OutsideClickHandler>
   )
 }
