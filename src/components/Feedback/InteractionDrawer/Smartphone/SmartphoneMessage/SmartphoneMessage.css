@@ -70,7 +70,8 @@
   position: absolute;
   right: -0.35rem;
   top: -0.35rem;
-  background-color: var(--color-principal);
+  background-color: var(--color-principal-claro);
+  box-shadow: 0 0 0.25rem var(--color-sombras);
   color: var(--color-texto-claro);
   font-size: 0.45rem;
   z-index: 2;
@@ -79,4 +80,16 @@
   align-items: center;
   gap: 0.15rem;
   border-radius: 0.15rem;
+  animation: SmartphoneMessage__tag_show 0.25s ease both;
+}
+
+@keyframes SmartphoneMessage__tag_show {
+  0% {
+    opacity: 0;
+    transform: translateX(-0.1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
