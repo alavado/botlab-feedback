@@ -13,50 +13,62 @@ export const tiposExportacion = [
   {
     nombre: 'CSV',
     extension: 'csv',
-    icono: 'mdi:file-delimited'
+    icono: 'mdi:file-delimited',
   },
   {
     nombre: 'Excel',
     extension: 'xlsx',
-    icono: 'mdi:microsoft-excel'
-  }
+    icono: 'mdi:microsoft-excel',
+  },
 ]
 
 const ExportacionAvanzada = () => {
-
-  const { fechaInicio, fechaTermino } = useSelector(state => state.respuestas)
-  const { nombreUsuario } = useSelector(state => state.login)
+  const { fechaInicio, fechaTermino } = useSelector((state) => state.respuestas)
+  const { nombreUsuario } = useSelector((state) => state.login)
   const [inicio, setInicio] = useState(fechaInicio)
   const [termino, setTermino] = useState(fechaTermino)
   const [email, setEmail] = useState('')
   const [exportando, setExportando] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
   const [error, setError] = useState()
-  const [indiceExtensionSeleccionado, setIndiceExtensionSeleccionado] = useState(0)
-  const { tipos } = useSelector(state => state.encuestas)
-  const [idEncuestaSeleccionada, setIdEncuestaSeleccionada] = useState(tipos?.[0].id)
+  const [indiceExtensionSeleccionado, setIndiceExtensionSeleccionado] =
+    useState(0)
+  const { tipos } = useSelector((state) => state.encuestas)
+  const [idEncuestaSeleccionada, setIdEncuestaSeleccionada] = useState(
+    tipos?.[0].id
+  )
   const emailRef = useRef()
   const track = useAnalytics()
 
-  const exportar = e => {
+  const exportar = (e) => {
     e.preventDefault()
     if (exportando) {
       return
     }
     setExportando(true)
-    exportarRespuestas(idEncuestaSeleccionada, inicio, termino, email, tiposExportacion[indiceExtensionSeleccionado].extension)
-      .then(() => {
-        track('Feedback', 'Reporte', 'exportar', {
-          idEncuestaSeleccionada,
-          inicio,
-          termino,
-          email,
-          extension: tiposExportacion[indiceExtensionSeleccionado].extension
+    try {
+      exportarRespuestas(
+        idEncuestaSeleccionada,
+        inicio,
+        termino,
+        email,
+        tiposExportacion[indiceExtensionSeleccionado].extension
+      )
+        .then(() => {
+          track('Feedback', 'Reporte', 'exportar', {
+            idEncuestaSeleccionada,
+            inicio,
+            termino,
+            email,
+            extension: tiposExportacion[indiceExtensionSeleccionado].extension,
+          })
+          setExportando(false)
+          setModalVisible(true)
         })
-        setExportando(false)
-        setModalVisible(true)
-      })
-      .catch(err => setError(err))
+        .catch((err) => setError(err))
+    } catch (e) {
+      setError(`Error: ${e.message}`)
+    }
   }
 
   useEffect(() => emailRef.current?.focus(), [])
@@ -81,7 +93,13 @@ const ExportacionAvanzada = () => {
 
   return (
     <div className="ExportacionAvanzada">
-      {tiposExportacion.map((t, i) => (<Icon key={`preload-icono-${i}`} icon={t.icono} style={{ display: 'none' }} />))}
+      {tiposExportacion.map((t, i) => (
+        <Icon
+          key={`preload-icono-${i}`}
+          icon={t.icono}
+          style={{ display: 'none' }}
+        />
+      ))}
       <ModalExportacionAvanzada
         email={email}
         visible={modalVisible}
@@ -92,19 +110,18 @@ const ExportacionAvanzada = () => {
           <h1 className="ExportacionAvanzada__titulo">Reporte completo</h1>
           <div className="ExportacionAvanzada__explicacion">
             <p>
-              Este módulo permite exportar la lista de chats
-              de un servicio a una planilla de datos.
+              Este módulo permite exportar la lista de chats de un servicio a
+              una planilla de datos.
               <br />
               <br />
               Recibirás la planilla en el email ingresado.
             </p>
             <div className="ExportacionAvanzada__diagrama">
-              <Icon icon={tiposExportacion[indiceExtensionSeleccionado].icono} />
-              <Icon icon="mdi:arrow-right-thick" />
               <Icon
-                onClick={() => emailRef.current.focus()}
-                icon="mdi:email"
+                icon={tiposExportacion[indiceExtensionSeleccionado].icono}
               />
+              <Icon icon="mdi:arrow-right-thick" />
+              <Icon onClick={() => emailRef.current.focus()} icon="mdi:email" />
             </div>
           </div>
           <form
@@ -112,10 +129,7 @@ const ExportacionAvanzada = () => {
             onSubmit={exportar}
           >
             <div className="ExportacionAvanzada__campo">
-              <label
-                className="ExportacionAvanzada__label"
-                htmlFor="email"
-              >
+              <label className="ExportacionAvanzada__label" htmlFor="email">
                 E-mail
               </label>
               <input
@@ -123,45 +137,36 @@ const ExportacionAvanzada = () => {
                 type="email"
                 id="email"
                 required
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 value={email}
                 ref={emailRef}
                 placeholder="Ingresa tu e-mail"
               />
             </div>
             <div className="ExportacionAvanzada__campo">
-              <label
-                className="ExportacionAvanzada__label"
-                htmlFor="servicio"
-              >
+              <label className="ExportacionAvanzada__label" htmlFor="servicio">
                 Servicio
               </label>
               <select
                 id="servicio"
-                onChange={e => setIdEncuestaSeleccionada(e.target.value)}
+                onChange={(e) => setIdEncuestaSeleccionada(e.target.value)}
                 className="ExportacionAvanzada__input"
               >
-                {tipos.map(t => (
-                  <option
-                    key={`option-tipo-${t.id}`}
-                    value={t.id}
-                  >
+                {tipos.map((t) => (
+                  <option key={`option-tipo-${t.id}`} value={t.id}>
                     {formatearNombreEncuesta(nombreUsuario, t.nombre)}
                   </option>
                 ))}
               </select>
             </div>
             <div className="ExportacionAvanzada__campo">
-              <label
-                className="ExportacionAvanzada__label"
-                htmlFor="periodo"
-              >
+              <label className="ExportacionAvanzada__label" htmlFor="periodo">
                 Rango de fechas
               </label>
               <div className="ExportacionAvanzada__contenedor_rango">
                 <ReactDatePicker
                   selected={inicio}
-                  onChange={f => setInicio(f)}
+                  onChange={(f) => setInicio(f)}
                   dateFormat="d MMMM yyyy"
                   locale="es"
                   className="SelectorRangoFechas__datepicker"
@@ -170,7 +175,7 @@ const ExportacionAvanzada = () => {
                 -
                 <ReactDatePicker
                   selected={termino}
-                  onChange={f => setTermino(f)}
+                  onChange={(f) => setTermino(f)}
                   dateFormat="d MMMM yyyy"
                   locale="es"
                   className="SelectorRangoFechas__datepicker"
@@ -179,10 +184,7 @@ const ExportacionAvanzada = () => {
               </div>
             </div>
             <div className="ExportacionAvanzada__campo">
-              <label
-                className="ExportacionAvanzada__label"
-                htmlFor="periodo"
-              >
+              <label className="ExportacionAvanzada__label" htmlFor="periodo">
                 Formato
               </label>
               <div className="ExportacionAvanzada__contenedor_rango">
@@ -196,7 +198,8 @@ const ExportacionAvanzada = () => {
                       type="radio"
                       radioGroup="formato"
                       checked={indiceExtensionSeleccionado === i}
-                    /> {tipo.nombre}
+                    />{' '}
+                    {tipo.nombre}
                   </label>
                 ))}
               </div>
@@ -206,10 +209,14 @@ const ExportacionAvanzada = () => {
               type="submit"
               disabled={exportando}
             >
-              {exportando
-                ? <><div className="ExportacionAvanzada__loader_exportando" /> Generando...</>
-                : <>Generar reporte</>
-              }
+              {exportando ? (
+                <>
+                  <div className="ExportacionAvanzada__loader_exportando" />{' '}
+                  Generando...
+                </>
+              ) : (
+                <>Generar reporte</>
+              )}
             </button>
             {error}
           </form>
