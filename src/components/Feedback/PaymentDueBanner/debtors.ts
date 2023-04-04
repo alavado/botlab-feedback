@@ -6,7 +6,6 @@ type Debtor = {
 }
 
 const debtorsData = `
-  Medisis;              2023-04-11
   LasCruces;            2023-04-11
   CEOLA Vina;           2023-04-11
   3DentOnce16;          2023-04-11
