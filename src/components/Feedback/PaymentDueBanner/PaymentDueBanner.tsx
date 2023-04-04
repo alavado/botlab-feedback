@@ -13,7 +13,7 @@ const PaymentDueBanner = () => {
     return null
   }
 
-  const daysLeft = differenceInDays(debtor.dueDate, new Date())
+  const daysLeft = 1 + differenceInDays(debtor.dueDate, new Date())
   const message =
     daysLeft > 0
       ? `Su empresa tiene facturas pendientes de pago. El servicio será suspendido en ${daysLeft} ${
