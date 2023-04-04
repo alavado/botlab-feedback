@@ -28,7 +28,12 @@ const ResumenRespuestas = ({ cargando }) => {
   )
   const track = useAnalytics()
 
-  const tagsAMostrar = ['YES', 'NO', 'REAGENDA', 'OUT']
+  const tagsAMostrar = [
+    { tag: 'YES', alias: [] },
+    { tag: 'NO', alias: ['FALLECIO_OTRO'] },
+    { tag: 'REAGENDA', alias: [] },
+    { tag: 'OUT', alias: [] },
+  ]
 
   const conteosTags = useMemo(() => {
     if (cargando) {
@@ -42,7 +47,9 @@ const ResumenRespuestas = ({ cargando }) => {
           const tagRespuesta = headersConTagsCalculados
             ? primerHeaderYESNO.f(respuesta)?.tag
             : respuesta[primerHeaderYESNO.nombre]?.tag
-          const indice = tagsAMostrar.find((t) => t === tagRespuesta)
+          const indice = tagsAMostrar.find(
+            (t) => t.tag === tagRespuesta || t.alias.includes(tagRespuesta)
+          )?.tag
           indice && (prev[indice] = prev[indice] ? prev[indice] + 1 : 1)
           return prev
         }, {})
@@ -93,7 +100,7 @@ const ResumenRespuestas = ({ cargando }) => {
             </div>
             <table className="ResumenRespuestas__detalle_tabla">
               <tbody>
-                {tagsAMostrar.map((tag) => {
+                {tagsAMostrar.map(({ tag }) => {
                   const porcentaje = (100 * conteosTags[tag]) / total || 0
                   return (
                     <tr

@@ -27,6 +27,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--no',
     color: 'var(--color-no)',
   },
+  FALLECIO_OTRO: {
+    texto: 'No',
+    titulo: 'Cancelaciones',
+    icono: 'mdi:close',
+    clase: 'TagRespuesta TagRespuesta--no',
+    color: 'var(--color-no)',
+  },
   REAGENDA: {
     texto: 'Reagenda',
     titulo: 'Reagendamientos',
