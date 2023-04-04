@@ -19,6 +19,7 @@ import Tutoriales from './Tutoriales'
 import Search from './Search'
 import Alerts from './Alerts'
 import { toggleDebugging } from '../../redux/ducks/cero'
+import PaymentDueBanner from './PaymentDueBanner/PaymentDueBanner'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
@@ -100,6 +101,7 @@ const Feedback = () => {
           </Route>
         </Switch>
         <div className="Feedback__contenedor">
+          <PaymentDueBanner />
           <Switch>
             <Route path="/interaccion">
               <></>

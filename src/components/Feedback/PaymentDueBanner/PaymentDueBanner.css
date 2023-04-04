@@ -1,0 +1,15 @@
+.PaymentDueBanner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2000;
+  background-color: var(--color-secundario);
+  width: 100%;
+  height: 1rem;
+  color: var(--color-texto-claro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: bold;
+}
