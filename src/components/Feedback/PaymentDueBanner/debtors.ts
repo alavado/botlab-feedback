@@ -30,7 +30,6 @@ const debtorsData = `
   FARR;                 2023-04-11
   SantaBlanca;          2023-04-11
   Everest;              2023-04-11
-  FALP;                 2023-04-11
   NucleoSalud;          2023-04-11
   Maitenes;             2023-04-11
   Sanasalud;            2023-04-11
