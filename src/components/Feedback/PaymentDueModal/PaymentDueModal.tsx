@@ -29,11 +29,11 @@ const PaymentDueModal = () => {
         <p>
           Su factura por el servicio del mes de{' '}
           {format(addMonths(new Date(), -2), 'MMMM', { locale: es })} vence en{' '}
-          {daysLeft} {daysLeft !== 1 ? 'días' : 'día'}
+          {daysLeft} {daysLeft !== 1 ? 'días' : 'día'}.
         </p>
         <p>
           Para evitar una suspensión del servicio comuníquese con
-          finanzas@cero.ai o al +569 4277 3233
+          finanzas@cero.ai o al +569 4277 3233.
         </p>
         <button
           className="PaymentDueModal__button"
