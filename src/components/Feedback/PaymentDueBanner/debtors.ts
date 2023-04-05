@@ -24,7 +24,6 @@ const debtorsData = `
   Integral Linares;     2023-04-11
   2020;                 2023-04-11
   BrisasSalud;          2023-04-11
-  FARR;                 2023-04-11
   SantaBlanca;          2023-04-11
   Everest;              2023-04-11
   NucleoSalud;          2023-04-11
