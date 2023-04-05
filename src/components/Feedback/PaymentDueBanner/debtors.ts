@@ -7,7 +7,6 @@ type Debtor = {
 
 const debtorsData = `
   LasCruces;            2023-04-11
-  CEOLA Vina;           2023-04-11
   3DentOnce16;          2023-04-11
   Falcon;               2023-04-11
   CEOLA Temuco;         2023-04-11
@@ -25,7 +24,6 @@ const debtorsData = `
   Integral Linares;     2023-04-11
   2020;                 2023-04-11
   BrisasSalud;          2023-04-11
-  ClinicaAstra;         2023-04-11
   FARR;                 2023-04-11
   SantaBlanca;          2023-04-11
   Everest;              2023-04-11
