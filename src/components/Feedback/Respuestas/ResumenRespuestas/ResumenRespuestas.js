@@ -29,10 +29,10 @@ const ResumenRespuestas = ({ cargando }) => {
   const track = useAnalytics()
 
   const tagsAMostrar = [
-    { tag: 'YES', alias: [] },
-    { tag: 'NO', alias: ['FALLECIO_OTRO'] },
+    { tag: 'YES', alias: ['YA_CONFIRMO', 'YA_ESTA_AHI'] },
+    { tag: 'NO', alias: ['FALLECIO_OTRO', 'YA_REAGENDO'] },
     { tag: 'REAGENDA', alias: [] },
-    { tag: 'OUT', alias: [] },
+    { tag: 'OUT', alias: ['YA_RESPONDIO', 'CONFIRMA_DESPUES'] },
   ]
 
   const conteosTags = useMemo(() => {
