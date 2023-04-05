@@ -6,7 +6,6 @@ type Debtor = {
 }
 
 const debtorsData = `
-  LasCruces;            2023-04-11
   3DentOnce16;          2023-04-11
   Falcon;               2023-04-11
   CEOLA Temuco;         2023-04-11
