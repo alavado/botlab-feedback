@@ -20,6 +20,7 @@ import Search from './Search'
 import Alerts from './Alerts'
 import { toggleDebugging } from '../../redux/ducks/cero'
 import PaymentDueBanner from './PaymentDueBanner/PaymentDueBanner'
+import PaymentDueModal from './PaymentDueModal/PaymentDueModal'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
@@ -101,6 +102,7 @@ const Feedback = () => {
           </Route>
         </Switch>
         <div className="Feedback__contenedor">
+          <PaymentDueModal />
           <PaymentDueBanner />
           <Switch>
             <Route path="/interaccion">
