@@ -7,12 +7,14 @@ import { useState } from 'react'
 import { es } from 'date-fns/locale'
 
 const PaymentDueModal = () => {
-  const { nombreUsuario } = useSelector((state: RootState) => state.login)
+  const { nombreUsuario, cuenta } = useSelector(
+    (state: RootState) => state.login
+  )
   const [visible, setVisible] = useState(true)
 
   const debtor = isDebtor(nombreUsuario as string)
 
-  if (!debtor || !visible) {
+  if (!debtor || !visible || cuenta?.endsWith('_cero')) {
     return null
   }
 

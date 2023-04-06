@@ -6,11 +6,13 @@ import { format, addMonths, differenceInDays } from 'date-fns'
 import { es } from 'date-fns/locale'
 
 const PaymentDueBanner = () => {
-  const { nombreUsuario } = useSelector((state: RootState) => state.login)
+  const { nombreUsuario, cuenta } = useSelector(
+    (state: RootState) => state.login
+  )
 
   const debtor = isDebtor(nombreUsuario as string)
 
-  if (!debtor) {
+  if (!debtor || cuenta?.endsWith('_cero')) {
     return null
   }
 
