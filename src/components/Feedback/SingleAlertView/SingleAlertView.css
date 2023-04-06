@@ -1,0 +1,40 @@
+.SingleAlertView {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.SingleAlertView__messages_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  max-width: 33%;
+}
+
+.SingleAlertView__message {
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.65rem;
+  max-width: 50%;
+  line-height: 1.25;
+}
+
+.SingleAlertView__message--bot {
+  align-self: flex-start;
+}
+
+.SingleAlertView__message--user {
+  align-self: flex-end;
+}
+
+.SingleAlertView__alert {
+  align-self: center;
+  margin: 1rem 0;
+  background-color: yellow;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: bold;
+}

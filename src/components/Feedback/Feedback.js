@@ -21,6 +21,7 @@ import Alerts from './Alerts'
 import { toggleDebugging } from '../../redux/ducks/cero'
 import PaymentDueBanner from './PaymentDueBanner/PaymentDueBanner'
 import PaymentDueModal from './PaymentDueModal/PaymentDueModal'
+import SingleAlertView from './SingleAlertView/SingleAlertView'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
@@ -93,70 +94,77 @@ const Feedback = () => {
 
   return (
     <ErrorBoundary>
-      <div className="Feedback">
-        {errorCargandoRespuestas}
-        <Novedades />
-        <Switch>
-          <Route>
-            <BarraLateral />
-          </Route>
-        </Switch>
-        <div className="Feedback__contenedor">
-          <PaymentDueModal />
-          <PaymentDueBanner />
-          <Switch>
-            <Route path="/interaccion">
-              <></>
-            </Route>
-            <Route path="/busqueda">
-              <></>
-            </Route>
-            <Route path="/alertas">
-              <></>
-            </Route>
-            <Route>
-              <BarraSuperior />
-            </Route>
-          </Switch>
-          <div className="Feedback__contenedor_central">
+      <Switch>
+        <Route path="/alerta/:serviceId/:patientId/:alertId">
+          <SingleAlertView />
+        </Route>
+        <Route>
+          <div className="Feedback">
+            {errorCargandoRespuestas}
+            <Novedades />
             <Switch>
-              <Route exact path="/">
-                <Respuestas />
-              </Route>
-              <Route path="/respuestas">
-                <Respuestas />
-              </Route>
-              <Route path="/chat">
-                <Respuestas />
-              </Route>
-              <Route exact path="/alertas">
-                <Alerts />
-              </Route>
-              <Route path="/alertas/:serviceId/:patientId">
-                <Alerts />
-              </Route>
-              <Route exact path="/busqueda">
-                <Search />
-              </Route>
-              <Route path="/exportar">
-                <ExportacionAvanzada />
-              </Route>
-              <Route path="/uso">
-                <Uso />
-              </Route>
-              <Route path="/respuestas">
-                <Respuestas />
-              </Route>
-              <Route path="/tutoriales">
-                <Tutoriales />
-              </Route>
-              <Route path="/">
-                <Respuestas />
+              <Route>
+                <BarraLateral />
               </Route>
             </Switch>
+            <div className="Feedback__contenedor">
+              <PaymentDueModal />
+              <PaymentDueBanner />
+              <Switch>
+                <Route path="/interaccion">
+                  <></>
+                </Route>
+                <Route path="/busqueda">
+                  <></>
+                </Route>
+                <Route path="/alertas">
+                  <></>
+                </Route>
+                <Route>
+                  <BarraSuperior />
+                </Route>
+              </Switch>
+              <div className="Feedback__contenedor_central">
+                <Switch>
+                  <Route exact path="/">
+                    <Respuestas />
+                  </Route>
+                  <Route path="/respuestas">
+                    <Respuestas />
+                  </Route>
+                  <Route path="/chat">
+                    <Respuestas />
+                  </Route>
+                  <Route exact path="/alertas">
+                    <Alerts />
+                  </Route>
+                  <Route path="/alertas/:serviceId/:patientId">
+                    <Alerts />
+                  </Route>
+                  <Route exact path="/busqueda">
+                    <Search />
+                  </Route>
+                  <Route path="/exportar">
+                    <ExportacionAvanzada />
+                  </Route>
+                  <Route path="/uso">
+                    <Uso />
+                  </Route>
+                  <Route path="/respuestas">
+                    <Respuestas />
+                  </Route>
+                  <Route path="/tutoriales">
+                    <Tutoriales />
+                  </Route>
+                  <Route path="/">
+                    <Respuestas />
+                  </Route>
+                </Switch>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </Route>
+      </Switch>
     </ErrorBoundary>
   )
 }
