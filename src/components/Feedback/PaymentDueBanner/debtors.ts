@@ -27,7 +27,6 @@ const debtorsData = `
   EzioChiappe;          2023-04-11
   Integral Linares;     2023-04-11
   2020;                 2023-04-11
-  Everest;              2023-04-11
   NucleoSalud;          2023-04-11
   Maitenes;             2023-04-11
   Sanasalud;            2023-04-11
