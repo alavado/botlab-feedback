@@ -14,7 +14,6 @@ const debtorsData = `
   CEOLA Concepcion;     2023-04-11
   COP;                  2023-04-11
   Vitasalud;            2023-04-11
-  Aquamed;              2023-04-11
   CTMelipilla;          2023-04-11
   Cegin;                2023-04-11
   Vitales;              2023-04-11
