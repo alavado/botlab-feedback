@@ -17,8 +17,6 @@ const SingleAlertView = () => {
   }: { params: SingleAlertRouteParams } = useRouteMatch()
   const { data } = useSingleAlertQuery(serviceId, patientId, alertId)
 
-  console.log({ data })
-
   const { messagesBeforeAlert, messagesAfterAlert } = useMemo(() => {
     if (!data) {
       return { messagesBeforeAlert: [], messagesAfterAlert: [] }
@@ -35,6 +33,10 @@ const SingleAlertView = () => {
     return { messagesBeforeAlert, messagesAfterAlert }
   }, [data])
 
+  if (!data) {
+    return null
+  }
+
   return (
     <div className="SingleAlertView">
       <div className="SingleAlertView__messages_container">
@@ -50,7 +52,7 @@ const SingleAlertView = () => {
           </p>
         ))}
         <p className="SingleAlertView__alert">
-          Alerta: {data.alertData.data.message}
+          Alerta: {data?.alertData.data.message}
         </p>
         {messagesAfterAlert.map((m: any) => (
           <p
