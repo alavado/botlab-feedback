@@ -20,7 +20,6 @@ const debtorsData = `
   CTMelipilla;          2023-04-11
   Cegin;                2023-04-11
   Vitales;              2023-04-11
-  EzioChiappe;          2023-04-11
   Integral Linares;     2023-04-11
   NucleoSalud;          2023-04-11
   Maitenes;             2023-04-11
