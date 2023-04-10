@@ -24,6 +24,9 @@ const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
       return normalizar(tagCalculado.f(r).text).indexOf(terminoNormalizado) >= 0
     }
   }
+  if (nombreHeader === 'sucursal_name') {
+    return r.respuestaNormalizada[nombreHeader] === terminoNormalizado
+  }
   return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
 }
 
