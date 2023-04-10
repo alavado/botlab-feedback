@@ -14,7 +14,6 @@ type Debtor = {
 const debtorsData = `
   3DentOnce16;          2023-04-11
   Falcon;               2023-04-11
-  Citymed;              2023-04-11
   uandes;               2023-04-11
   CEOLA Concepcion;     2023-04-11
   Vitasalud;            2023-04-11
