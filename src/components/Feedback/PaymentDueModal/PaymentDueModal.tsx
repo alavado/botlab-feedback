@@ -20,7 +20,7 @@ const PaymentDueModal = () => {
 
   const daysLeft = 1 + differenceInDays(debtor.dueDate, new Date())
 
-  if (daysLeft <= 0) {
+  if (daysLeft < 1) {
     return null
   }
 
