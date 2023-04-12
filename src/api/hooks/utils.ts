@@ -23,6 +23,20 @@ export const patch = async (url: string, params: any) => {
   return axios.patch(url, params, { headers: { 'Api-Token': token } })
 }
 
+export const del = async (url: string, data: any) => {
+  const { login }: any = store.getState()
+  const { token } = login
+  return axios({
+    url,
+    method: 'delete',
+    data,
+    headers: {
+      'Api-Token': token,
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
 export const parseAPIDate = (
   appointmentDate: string,
   appointmentTime: string,

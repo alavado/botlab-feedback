@@ -47,6 +47,9 @@ const useAddCommentMutation = ({
         // ['comments', serviceId, patientId, interactionStart]
       },
       onError: (err, newComment, context: any) => {},
+      onSuccess: (data, variables, context) => {
+        console.log({ data, variables, context })
+      },
     }
   )
 }

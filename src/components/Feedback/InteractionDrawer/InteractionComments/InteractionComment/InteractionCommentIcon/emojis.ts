@@ -27,78 +27,97 @@ export const emojiMap = {
   '✅': {
     icon: checkEmojiImage,
     altText: 'OK',
+    disabled: false,
   },
   '❌': {
     icon: crossEmojiImage,
     altText: 'Cruz',
+    disabled: false,
   },
   '🔁': {
     icon: repeatEmojiImage,
     altText: 'Repetir',
+    disabled: false,
   },
   '⏳': {
     icon: waitEmojiImage,
     altText: 'En espera',
+    disabled: false,
   },
   '👀': {
     icon: lookEmojiImage,
     altText: 'Echando un vistazo',
+    disabled: false,
   },
   '😊': {
     icon: happyEmojiImage,
     altText: 'Feliz',
+    disabled: false,
   },
   '🙄': {
     icon: patienceEmojiImage,
     altText: 'Paciencia',
+    disabled: true,
   },
   '😴': {
     icon: sleepingEmojiImage,
     altText: 'Durmiendo',
+    disabled: false
   },
   '👍': {
     icon: okEmojiImage,
     altText: 'Bien',
+    disabled: false
   },
   '👎': {
     icon: notOkEmojiImage,
     altText: 'Mal',
+    disabled: false
   },
   '🔴': {
     icon: circleRedEmojiImage,
     altText: 'Círculo rojo',
+    disabled: false
   },
   '🟠': {
     icon: circleOrangeEmojiImage,
     altText: 'Círculo naranja',
+    disabled: false
   },
   '🟡': {
     icon: circleYellowEmojiImage,
     altText: 'Círculo amarillo',
+    disabled: false
   },
   '🟢': {
     icon: circleGreenEmojiImage,
     altText: 'Círculo verde',
+    disabled: false
   },
   '🔵': {
     icon: circleBlueEmojiImage,
     altText: 'Círculo azul',
+    disabled: false
   },
   '🟣': {
     icon: circleVioletEmojiImage,
     altText: 'Círculo violeta',
+    disabled: true,
   },
   '🟤': {
     icon: circleBrownEmojiImage,
     altText: 'Círculo café',
+    disabled: true,
   },
   '⚫': {
     icon: circleBlackEmojiImage,
     altText: 'Círculo negro',
+    disabled: true,
   },
   '⚪': {
     icon: circleWhiteEmojiImage,
     altText: 'Círculo blanco',
+    disabled: true,
   },
 }
 

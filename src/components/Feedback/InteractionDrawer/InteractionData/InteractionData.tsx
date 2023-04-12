@@ -30,8 +30,11 @@ const InteractionData = ({
         Datos de la cita
       </h3>
       {data ? (
-        data.map((d) => (
-          <div className="InteractionData__data_container">
+        data.map((d, i) => (
+          <div
+            className="InteractionData__data_container"
+            key={`interaction-data-${i}`}
+          >
             <h4 className="InteractionData__data_label">{d.label}</h4>
             <p
               className="InteractionData__data_value"

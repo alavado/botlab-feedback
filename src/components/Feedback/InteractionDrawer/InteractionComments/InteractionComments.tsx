@@ -6,6 +6,7 @@ import Loader from '../../../Loader'
 import InteractionComment from './InteractionComment/InteractionComment'
 import NewCommentPopup from './NewCommentPopup'
 import './InteractionComments.css'
+import { Emoji } from './InteractionComment/InteractionCommentIcon/emojis'
 
 const InteractionComments = ({
   serviceId,
@@ -38,7 +39,16 @@ const InteractionComments = ({
           <p className="InteractionComments__no_comments">No hay notas</p>
         ) : (
           comments?.map((comment, i) => (
-            <InteractionComment comment={comment} key={`comment-${i}`} />
+            <InteractionComment
+              serviceId={serviceId}
+              patientId={patientId}
+              id={comment.id}
+              timestamp={comment.timestamp}
+              emoji={comment.emoji as Emoji}
+              text={comment.text}
+              key={`comment-${i}`}
+              originComponentName={originComponentName}
+            />
           ))
         )}
       </div>

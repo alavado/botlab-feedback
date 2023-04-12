@@ -1,6 +1,6 @@
 .Smartphone {
   height: 90vh;
-  aspect-ratio: 9 / 18.5;
+  aspect-ratio: 9 / 17.5;
   width: auto;
   display: flex;
   align-items: center;
@@ -42,7 +42,7 @@
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-  gap: 0.5rem;
+  gap: 0.35rem;
   padding: 0.35rem 0.5rem 50vh 0.5rem;
   scrollbar-width: 0.35rem;
   scrollbar-color: var(--whatsapp-color-scrollbar-contenedor-mensajes)

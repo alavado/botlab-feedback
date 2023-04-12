@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'
 import { guardaReaccion } from '../../../../../redux/ducks/reacciones'
 
-const emojis = Object.keys(emojiMap)
+const emojis = Object.keys(emojiMap).filter((emoji: string) => !emojiMap[emoji as Emoji].disabled)
 
 const NewCommentPopup = ({
   interactionStart,
@@ -121,6 +121,7 @@ const NewCommentPopup = ({
             </h3>
             {reaccionesGuardadas.slice(0, 5).map(({ comentario, emoji }, i) => (
               <button
+                key={`comment-suggestion-${i}`}
                 type="button"
                 className="NewCommentPopup__quick_note_button"
                 onClick={() => {

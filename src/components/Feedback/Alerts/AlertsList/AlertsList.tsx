@@ -64,13 +64,14 @@ const AlertsList = ({
         </button>
       </div>
       <div className="AlertsList__container">
-        {visibleAlerts.map((alert: Alert) => (
+        {visibleAlerts.map((alert: Alert, i) => (
           <AlertElement
             highlighted={
               selectedPatientId === alert.patientId &&
               selectedServiceId === alert.serviceId
             }
             alert={alert}
+            key={`alert-element-${i}`}
           />
         ))}
       </div>
