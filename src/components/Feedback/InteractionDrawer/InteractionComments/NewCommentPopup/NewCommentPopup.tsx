@@ -1,5 +1,5 @@
 import './NewCommentPopup.css'
-import { FormEvent, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { Emoji, emojiMap } from '../InteractionCommentIcon/emojis'
@@ -8,6 +8,8 @@ import { Icon } from '@iconify/react'
 import useAddCommentMutation from '../../../../../api/hooks/useAddCommentMutation'
 import { PatientId, ServiceId } from '../../../../../api/types/types'
 import useAnalytics from '../../../../../hooks/useAnalytics'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../redux/ducks'
 
 const emojis = Object.keys(emojiMap)
 
@@ -37,17 +39,24 @@ const NewCommentPopup = ({
     text,
   })
   const track = useAnalytics()
+  const { reaccionesGuardadas } = useSelector(
+    (state: RootState) => state.reacciones
+  )
 
   useEffect(() => {
     textRef?.current?.focus()
   }, [isOpen])
 
-  const addComment = (e: FormEvent) => {
-    e.preventDefault()
-    track('Feedback', originComponentName, 'addComment', {
-      selectedEmoji,
-      text,
-    })
+  const addComment = (text: string, emoji: Emoji, isQuick: boolean = false) => {
+    track(
+      'Feedback',
+      originComponentName,
+      isQuick ? 'addQuickComment' : 'addComment',
+      {
+        selectedEmoji,
+        text,
+      }
+    )
     mutate({})
     close()
   }
@@ -60,7 +69,13 @@ const NewCommentPopup = ({
       })}
     >
       <OutsideClickHandler onOutsideClick={(e: any) => close(e)}>
-        <form className="NewCommentPopup__content" onSubmit={addComment}>
+        <form
+          className="NewCommentPopup__content"
+          onSubmit={(e) => {
+            e.preventDefault()
+            addComment(text, selectedEmoji as Emoji)
+          }}
+        >
           <button
             className="NewCommentPopup__close"
             type="button"
@@ -107,6 +122,21 @@ const NewCommentPopup = ({
             <Icon icon="mdi:note-plus-outline" />
             Agregar nota
           </button>
+          <div className="NewCommentPopup__quick_notes_container">
+            <h3 className="NewCommentPopup__label">
+              <Icon icon="mdi:note" /> Agregar nota rápida
+            </h3>
+            {reaccionesGuardadas.map(({ comentario, emoji }, i) => (
+              <button
+                type="button"
+                className="NewCommentPopup__quick_note_button"
+                onClick={() => addComment(comentario, emoji as Emoji, true)}
+              >
+                <p>{emoji}</p>
+                <p>{comentario}</p>
+              </button>
+            ))}
+          </div>
         </form>
       </OutsideClickHandler>
     </div>
