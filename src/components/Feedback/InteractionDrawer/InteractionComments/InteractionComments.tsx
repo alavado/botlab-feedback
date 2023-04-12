@@ -52,15 +52,13 @@ const InteractionComments = ({
           ))
         )}
       </div>
-      {!isNewCommentModalOpen && (
-        <button
-          className="InteractionComments__add_comment_button"
-          onClick={() => setIsNewCommentModalOpen(true)}
-        >
-          <Icon icon="mdi:note-plus-outline" />
-          Agregar nota
-        </button>
-      )}
+      <button
+        className="InteractionComments__add_comment_button"
+        onClick={() => setIsNewCommentModalOpen(true)}
+      >
+        <Icon icon="mdi:note-plus-outline" />
+        Agregar nota
+      </button>
       <NewCommentPopup
         interactionStart={interactionStart}
         serviceId={serviceId}
