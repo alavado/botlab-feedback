@@ -145,6 +145,12 @@ html {
   font-size: 16px;
 }
 
+@media (min-width: 1921px) {
+  html {
+    font-size: 24px;
+  }
+}
+
 @media (orientation: portrait) {
   html {
     font-size: 24px;
