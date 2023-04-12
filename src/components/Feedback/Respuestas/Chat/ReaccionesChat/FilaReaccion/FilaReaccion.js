@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 import { eliminaReaccionDeRespuesta } from '../../../../../../redux/ducks/respuestas'
 import useAnalytics from '../../../../../../hooks/useAnalytics'
 import { formatearFecha } from '../../../../../../helpers/respuestas'
-import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionCommentIcon'
+import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionComment/InteractionCommentIcon'
 
 const FilaReaccion = ({ reaccion, refrescar }) => {
   const { idEncuesta, idUsuario } = useParams()

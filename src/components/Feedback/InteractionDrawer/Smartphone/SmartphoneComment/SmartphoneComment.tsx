@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { Comment } from '../../../../../api/types/types'
-import InteractionCommentIcon from '../../InteractionComments/InteractionCommentIcon'
-import { Emoji } from '../../InteractionComments/InteractionCommentIcon/emojis'
+import InteractionCommentIcon from '../../InteractionComments/InteractionComment/InteractionCommentIcon'
+import { Emoji } from '../../InteractionComments/InteractionComment/InteractionCommentIcon/emojis'
 import './SmartphoneComment.css'
 
 const SmartphoneComment = ({ comment }: { comment: Comment }) => {

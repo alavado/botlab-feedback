@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionCommentIcon'
+import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionComment/InteractionCommentIcon'
 import './SelectorEmoji.css'
 
 const categoriasEmojis = [

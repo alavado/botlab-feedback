@@ -10,7 +10,7 @@ import { fijaFilaTablaDestacada } from '../../../../../../redux/ducks/respuestas
 import TagRespuesta from '../../TagRespuesta'
 import './FilaTablaRespuestas.css'
 import useAnalytics from '../../../../../../hooks/useAnalytics'
-import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionCommentIcon'
+import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionComment/InteractionCommentIcon'
 
 const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
   const { columnaDestacada, filaTablaDestacada } = useSelector(

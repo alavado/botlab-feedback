@@ -25,35 +25,6 @@
   flex-direction: column;
 }
 
-.InteractionComments__comment {
-  display: grid;
-  grid-template: auto / 1.25rem 2rem 5rem;
-  place-items: center start;
-  gap: 0.25rem;
-  font-size: 0.65rem;
-  min-height: 2rem;
-}
-
-.InteractionComments__comment_time {
-  position: relative;
-}
-
-.InteractionComments__comment_icon {
-  font-size: 1rem;
-}
-
-.InteractionComments__comment_content {
-  line-height: 1.25;
-}
-
-.InteractionComments__comment_day {
-  position: absolute;
-  bottom: calc(100% + 0.15rem);
-  left: 0;
-  font-size: 0.45rem;
-  opacity: 0.5;
-}
-
 .InteractionComments__add_comment_button {
   display: flex;
   align-items: center;

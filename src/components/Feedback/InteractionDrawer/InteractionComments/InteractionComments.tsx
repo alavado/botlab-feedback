@@ -1,14 +1,11 @@
 import { Icon } from '@iconify/react'
-import { format, isToday, isYesterday } from 'date-fns'
-import { es } from 'date-fns/locale'
 import { useState } from 'react'
 import useCommentsQuery from '../../../../api/hooks/useCommentsQuery'
 import { PatientId, ServiceId } from '../../../../api/types/types'
 import Loader from '../../../Loader'
-import InteractionCommentIcon from './InteractionCommentIcon'
-import { Emoji } from './InteractionCommentIcon/emojis'
-import './InteractionComments.css'
+import InteractionComment from './InteractionComment/InteractionComment'
 import NewCommentPopup from './NewCommentPopup'
+import './InteractionComments.css'
 
 const InteractionComments = ({
   serviceId,
@@ -40,25 +37,8 @@ const InteractionComments = ({
         ) : comments?.length === 0 ? (
           <p className="InteractionComments__no_comments">No hay notas</p>
         ) : (
-          comments?.map((comment) => (
-            <div className="InteractionComments__comment">
-              <div className="InteractionComments__comment_icon">
-                <InteractionCommentIcon emoji={comment.emoji as Emoji} />
-              </div>
-              <div className="InteractionComments__comment_time">
-                {format(comment.timestamp, 'HH:mm')}
-                {!isToday(comment.timestamp) && (
-                  <div className="InteractionComments__comment_day">
-                    {isYesterday(comment.timestamp)
-                      ? 'ayer'
-                      : format(comment.timestamp, 'd MMM', { locale: es })}
-                  </div>
-                )}
-              </div>
-              <div className="InteractionComments__comment_content">
-                {comment.text}
-              </div>
-            </div>
+          comments?.map((comment, i) => (
+            <InteractionComment comment={comment} key={`comment-${i}`} />
           ))
         )}
       </div>

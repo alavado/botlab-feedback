@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
-import { Emoji } from '../../components/Feedback/InteractionDrawer/InteractionComments/InteractionCommentIcon/emojis'
+import { Emoji } from '../../components/Feedback/InteractionDrawer/InteractionComments/InteractionComment/InteractionCommentIcon/emojis'
 import { PatientId, ServiceId } from '../types/types'
 import { API_ROOT, post } from './utils'
 

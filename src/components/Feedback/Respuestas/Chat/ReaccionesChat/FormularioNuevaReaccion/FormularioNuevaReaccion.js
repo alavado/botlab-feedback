@@ -9,7 +9,7 @@ import {
 import { InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import useAnalytics from '../../../../../../hooks/useAnalytics'
-import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionCommentIcon'
+import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionComment/InteractionCommentIcon'
 
 const FormularioNuevaReaccion = ({ agregarNota }) => {
   const [emoji, setEmoji] = useState('✅')

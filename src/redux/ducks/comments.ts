@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import _ from 'lodash'
-import { Emoji } from '../../components/Feedback/InteractionDrawer/InteractionComments/InteractionCommentIcon/emojis'
+import { Emoji } from '../../components/Feedback/InteractionDrawer/InteractionComments/InteractionComment/InteractionCommentIcon/emojis'
 
 interface CommentsState {
   suggestions: CommentSuggestion[]
