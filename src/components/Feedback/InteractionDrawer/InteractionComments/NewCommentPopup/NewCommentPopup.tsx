@@ -1,5 +1,5 @@
 import './NewCommentPopup.css'
-import { useEffect, useRef, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { Emoji, emojiMap } from '../InteractionCommentIcon/emojis'
@@ -8,8 +8,9 @@ import { Icon } from '@iconify/react'
 import useAddCommentMutation from '../../../../../api/hooks/useAddCommentMutation'
 import { PatientId, ServiceId } from '../../../../../api/types/types'
 import useAnalytics from '../../../../../hooks/useAnalytics'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'
+import { guardaReaccion } from '../../../../../redux/ducks/reacciones'
 
 const emojis = Object.keys(emojiMap)
 
@@ -39,6 +40,7 @@ const NewCommentPopup = ({
     text,
   })
   const track = useAnalytics()
+  const dispatch = useDispatch()
   const { reaccionesGuardadas } = useSelector(
     (state: RootState) => state.reacciones
   )
@@ -47,17 +49,14 @@ const NewCommentPopup = ({
     textRef?.current?.focus()
   }, [isOpen])
 
-  const addComment = (text: string, emoji: Emoji, isQuick: boolean = false) => {
-    track(
-      'Feedback',
-      originComponentName,
-      isQuick ? 'addQuickComment' : 'addComment',
-      {
-        selectedEmoji,
-        text,
-      }
-    )
+  const addComment = (e: FormEvent) => {
+    e.preventDefault()
+    track('Feedback', originComponentName, 'addComment', {
+      selectedEmoji,
+      text,
+    })
     mutate({})
+    dispatch(guardaReaccion({ comentario: text, emoji: selectedEmoji }))
     close()
   }
 
@@ -69,13 +68,7 @@ const NewCommentPopup = ({
       })}
     >
       <OutsideClickHandler onOutsideClick={(e: any) => close(e)}>
-        <form
-          className="NewCommentPopup__content"
-          onSubmit={(e) => {
-            e.preventDefault()
-            addComment(text, selectedEmoji as Emoji)
-          }}
-        >
+        <form className="NewCommentPopup__content" onSubmit={addComment}>
           <button
             className="NewCommentPopup__close"
             type="button"
@@ -83,7 +76,7 @@ const NewCommentPopup = ({
           >
             <Icon icon="mdi:close" />
           </button>
-          <h3 className="NewCommentPopup__label">Agregar nota</h3>
+          <h3 className="NewCommentPopup__label">Ingresa texto</h3>
           <input
             id="new-comment-text"
             autoComplete="on"
@@ -124,15 +117,24 @@ const NewCommentPopup = ({
           </button>
           <div className="NewCommentPopup__quick_notes_container">
             <h3 className="NewCommentPopup__label">
-              <Icon icon="mdi:note" /> Agregar nota rápida
+              <Icon icon="mdi:note" /> Reusar nota
             </h3>
-            {reaccionesGuardadas.map(({ comentario, emoji }, i) => (
+            {reaccionesGuardadas.slice(0, 5).map(({ comentario, emoji }, i) => (
               <button
                 type="button"
                 className="NewCommentPopup__quick_note_button"
-                onClick={() => addComment(comentario, emoji as Emoji, true)}
+                onClick={() => {
+                  setText(comentario)
+                  setSelectedEmoji(emoji)
+                  track('Feedback', originComponentName, 'quickCommentClick', {
+                    selectedEmoji: emoji,
+                    text: comentario,
+                  })
+                }}
               >
-                <p>{emoji}</p>
+                <p className="NewCommentPopup__quick_note_button_emoji">
+                  {emoji}
+                </p>
                 <p>{comentario}</p>
               </button>
             ))}

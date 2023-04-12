@@ -53,6 +53,7 @@
 .NewCommentPopup__label {
   font-weight: bold;
   font-size: 0.65rem;
+  margin-bottom: 0.15rem;
 }
 
 .NewCommentPopup__input {
@@ -72,7 +73,7 @@
 
 .NewCommentPopup__emojis_container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 0.1rem;
   margin: 0.1rem 0 0.25rem 0;
 }
@@ -103,7 +104,7 @@
 }
 
 .NewCommentPopup__quick_notes_container {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 0.5rem;
@@ -112,12 +113,25 @@
 }
 
 .NewCommentPopup__quick_note_button {
-  max-width: 10rem;
+  max-width: 14rem;
   font-size: 0.65rem;
   display: flex;
   text-align: left;
+  gap: 0.25rem;
   border: none;
   padding: 0.25rem;
   cursor: pointer;
   box-shadow: 0 0 0.25rem var(--color-sombras);
+}
+
+.NewCommentPopup__quick_note_button_emoji {
+  width: 1.25rem;
+}
+
+.NewCommentPopup__quick_note_button:hover {
+  filter: brightness(95%);
+}
+
+.NewCommentPopup__quick_note_button:active {
+  filter: brightness(85%);
 }
