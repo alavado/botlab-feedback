@@ -145,21 +145,21 @@ html {
   font-size: 16px;
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 1921px) {
   html {
-    font-size: 20px;
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1367px) and (max-resolution: 96dpi) {
+  html {
+    font-size: 22px;
   }
 }
 
 @media screen and (min-device-width: 1400px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
   html {
     font-size: 24px;
-  }
-}
-
-@media screen and (min-device-width: 1920px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
-  html {
-    font-size: 30px;
   }
 }
 
