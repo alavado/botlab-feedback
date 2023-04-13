@@ -142,10 +142,10 @@ a {
 }
 
 html {
-  font-size: 16px;
+  font-size: clamp(0.75rem, -0.75rem + 3vw, 1.5rem);
 }
 
-@media (min-width: 1921px) {
+/* @media (min-width: 1921px) {
   html {
     font-size: 24px;
   }
@@ -161,7 +161,7 @@ html {
   html {
     font-size: 24px;
   }
-}
+} */
 
 @media (orientation: portrait) {
   html {
