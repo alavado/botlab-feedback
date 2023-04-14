@@ -9,9 +9,11 @@ import {
 } from '../../../helpers/permisos'
 import useAnalytics from '../../../hooks/useAnalytics'
 import AlertsCount from './AlertsCount'
+import useIsLabeler from '../../../hooks/useIsLabeler'
 
 const BarraLateral = () => {
   const { cuenta } = useSelector((state) => state.login)
+  const isLabeler = useIsLabeler()
   const track = useAnalytics()
 
   return (
@@ -58,16 +60,18 @@ const BarraLateral = () => {
         <Icon icon={preparaciones} />
         <div className="BarraLateral__nombre_seccion">Preparaciones</div>
         </NavLink> */}
-        <NavLink
-          className="BarraLateral__link"
-          activeClassName="BarraLateral__link--activo"
-          to="/busqueda"
-          onClick={() => track('Feedback', 'BarraLateral', 'verBusqueda')}
-        >
-          <Icon icon="mdi:search" />
-          <div className="BarraLateral__nombre_seccion">Búsqueda</div>
-        </NavLink>
-        {tieneAccesoAReportes(cuenta) && (
+        {!isLabeler && (
+          <NavLink
+            className="BarraLateral__link"
+            activeClassName="BarraLateral__link--activo"
+            to="/busqueda"
+            onClick={() => track('Feedback', 'BarraLateral', 'verBusqueda')}
+          >
+            <Icon icon="mdi:search" />
+            <div className="BarraLateral__nombre_seccion">Búsqueda</div>
+          </NavLink>
+        )}
+        {tieneAccesoAReportes(cuenta) && !isLabeler && (
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
@@ -78,26 +82,30 @@ const BarraLateral = () => {
             <div className="BarraLateral__nombre_seccion">Reporte</div>
           </NavLink>
         )}
-        <NavLink
-          className="BarraLateral__link"
-          activeClassName="BarraLateral__link--activo"
-          to="/uso"
-          onClick={() => track('Feedback', 'BarraLateral', 'verUso')}
-        >
-          <Icon icon="mdi:wallet" />
-          <div className="BarraLateral__nombre_seccion">Uso</div>
-        </NavLink>
-        <div className="BarraLateral__fondo">
+        {!isLabeler && (
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
-            to="/tutoriales"
-            onClick={() => track('Feedback', 'BarraLateral', 'verTutoriales')}
+            to="/uso"
+            onClick={() => track('Feedback', 'BarraLateral', 'verUso')}
           >
-            <Icon icon="mdi:play-box-multiple" />
-            <div className="BarraLateral__nombre_seccion">Tutoriales</div>
+            <Icon icon="mdi:wallet" />
+            <div className="BarraLateral__nombre_seccion">Uso</div>
           </NavLink>
-        </div>
+        )}
+        {!isLabeler && (
+          <div className="BarraLateral__fondo">
+            <NavLink
+              className="BarraLateral__link"
+              activeClassName="BarraLateral__link--activo"
+              to="/tutoriales"
+              onClick={() => track('Feedback', 'BarraLateral', 'verTutoriales')}
+            >
+              <Icon icon="mdi:play-box-multiple" />
+              <div className="BarraLateral__nombre_seccion">Tutoriales</div>
+            </NavLink>
+          </div>
+        )}
       </div>
     </div>
   )
