@@ -7,6 +7,7 @@ import InteractionComment from './InteractionComment/InteractionComment'
 import NewCommentPopup from './NewCommentPopup'
 import './InteractionComments.css'
 import { Emoji } from './InteractionComment/InteractionCommentIcon/emojis'
+import useIsLabeler from '../../../../hooks/useIsLabeler'
 
 const InteractionComments = ({
   serviceId,
@@ -25,6 +26,7 @@ const InteractionComments = ({
     patientId,
     interactionStart,
   })
+  const isLabeler = useIsLabeler()
 
   return (
     <div className="InteractionComments">
@@ -52,13 +54,15 @@ const InteractionComments = ({
           ))
         )}
       </div>
-      <button
-        className="InteractionComments__add_comment_button"
-        onClick={() => setIsNewCommentModalOpen(true)}
-      >
-        <Icon icon="mdi:note-plus-outline" />
-        Agregar nota
-      </button>
+      {!isLabeler && (
+        <button
+          className="InteractionComments__add_comment_button"
+          onClick={() => setIsNewCommentModalOpen(true)}
+        >
+          <Icon icon="mdi:note-plus-outline" />
+          Agregar nota
+        </button>
+      )}
       <NewCommentPopup
         interactionStart={interactionStart}
         serviceId={serviceId}

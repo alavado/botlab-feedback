@@ -5,6 +5,7 @@ import { useCallback } from 'react'
 import useChangeAlertMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
 import { Alert } from '../../../../../api/types/types'
 import useAnalytics from '../../../../../hooks/useAnalytics'
+import useIsLabeler from '../../../../../hooks/useIsLabeler'
 import {
   getAlertButtonIcon,
   getAlertButtonLabel,
@@ -20,6 +21,7 @@ const SmartphoneAlert = ({ alert }: { alert: Alert }) => {
     solved: !alert.solved,
   })
   const track = useAnalytics()
+  const isLabeler = useIsLabeler()
 
   const changeAlertSolvedStatus = useCallback(() => {
     mutation.mutate({})
@@ -55,14 +57,16 @@ const SmartphoneAlert = ({ alert }: { alert: Alert }) => {
       <p className="SmartphoneAlert__title">
         Alerta {alert.solved ? 'resuelta' : 'pendiente'}
       </p>
-      <button
-        className="SmartphoneAlert__button"
-        onClick={changeAlertSolvedStatus}
-        title={getAlertButtonTitle(alert.solved)}
-      >
-        <Icon icon={getAlertButtonIcon(alert.solved)} />{' '}
-        {getAlertButtonLabel(alert.solved)}
-      </button>
+      {!isLabeler && (
+        <button
+          className="SmartphoneAlert__button"
+          onClick={changeAlertSolvedStatus}
+          title={getAlertButtonTitle(alert.solved)}
+        >
+          <Icon icon={getAlertButtonIcon(alert.solved)} />{' '}
+          {getAlertButtonLabel(alert.solved)}
+        </button>
+      )}
     </div>
   )
 }

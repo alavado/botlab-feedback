@@ -12,6 +12,7 @@ import ReaccionesChat from './ReaccionesChat'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import Draggable from 'react-draggable'
 import ReactJson from 'react-json-view'
+import useIsLabeler from '../../../../hooks/useIsLabeler'
 
 const msHabilitacionReporteSlack = 0
 
@@ -30,6 +31,7 @@ const Chat = () => {
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } =
     useSelector((state) => state.respuestas)
   const track = useAnalytics()
+  const isLabeler = useIsLabeler()
 
   const actualizarMensajes = useCallback(() => {
     setConversaciones(undefined)
@@ -148,7 +150,7 @@ const Chat = () => {
       />
       <div>
         <ReaccionesChat start={conversaciones?.[indiceConversacion]?.start} />
-        {accionesHabilitadas && (
+        {accionesHabilitadas && !isLabeler && (
           <AccionesChat telefono={telefono} link={link} />
         )}
       </div>
