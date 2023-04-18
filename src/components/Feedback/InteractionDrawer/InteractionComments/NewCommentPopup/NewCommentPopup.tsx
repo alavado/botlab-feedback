@@ -2,7 +2,10 @@ import './NewCommentPopup.css'
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import OutsideClickHandler from 'react-outside-click-handler'
-import { Emoji, emojiMap } from '../InteractionComment/InteractionCommentIcon/emojis'
+import {
+  Emoji,
+  emojiMap,
+} from '../InteractionComment/InteractionCommentIcon/emojis'
 import InteractionCommentIcon from '../InteractionComment/InteractionCommentIcon'
 import { Icon } from '@iconify/react'
 import useAddCommentMutation from '../../../../../api/hooks/useAddCommentMutation'
@@ -12,7 +15,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'
 import { guardaReaccion } from '../../../../../redux/ducks/reacciones'
 
-const emojis = Object.keys(emojiMap).filter((emoji: string) => !emojiMap[emoji as Emoji].disabled)
+const emojis = Object.keys(emojiMap).filter(
+  (emoji: string) => !emojiMap[emoji as Emoji].disabled
+)
 
 const NewCommentPopup = ({
   interactionStart,
@@ -76,18 +81,7 @@ const NewCommentPopup = ({
           >
             <Icon icon="mdi:close" />
           </button>
-          <h3 className="NewCommentPopup__label">Ingresa texto</h3>
-          <input
-            id="new-comment-text"
-            autoComplete="on"
-            name="new-comment-text"
-            maxLength={128}
-            className="NewCommentPopup__input"
-            ref={textRef}
-            onChange={(e) => setText(e.target.value)}
-            value={text}
-          />
-          <h3 className="NewCommentPopup__label">Selecciona ícono</h3>
+          {/* <h3 className="NewCommentPopup__label">Selecciona ícono</h3> */}
           <div className="NewCommentPopup__emojis_container">
             {emojis.map((emoji: string, i) => (
               <button
@@ -107,6 +101,17 @@ const NewCommentPopup = ({
               </button>
             ))}
           </div>
+          <h3 className="NewCommentPopup__label">Escribe tu nota</h3>
+          <input
+            id="new-comment-text"
+            autoComplete="on"
+            name="new-comment-text"
+            maxLength={128}
+            className="NewCommentPopup__input"
+            ref={textRef}
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+          />
           <button
             type="submit"
             className="InteractionComments__add_comment_button"
@@ -116,8 +121,8 @@ const NewCommentPopup = ({
             Agregar nota
           </button>
           <div className="NewCommentPopup__quick_notes_container">
-            <h3 className="NewCommentPopup__label">
-              <Icon icon="mdi:note" /> Reusar nota
+            <h3 className="NewCommentPopup__label NewCommentPopup__label--quick_notes_title">
+              <Icon icon="mdi:lightbulb-on" /> Sugerencias
             </h3>
             {reaccionesGuardadas.slice(0, 5).map(({ comentario, emoji }, i) => (
               <button
