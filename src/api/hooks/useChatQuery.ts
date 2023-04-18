@@ -3,6 +3,7 @@ import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import {
   chatAPIConversation,
+  chatAPIConversationContextField,
   chatAPIResponse,
   metaTarget,
 } from '../types/responses'
@@ -116,6 +117,44 @@ const splitInteractions = (
   }
 }
 
+const getPatientName = (
+  context: chatAPIConversationContextField[],
+  appointmentIndex?: number
+) => {
+  if (!appointmentIndex) {
+    const nameTarget = `name` as metaTarget
+    const nameMeta = _.find(context, { target: nameTarget })
+    if (!nameMeta) {
+      let givenNameTarget = `Nombre` as metaTarget
+      let familyNameTarget = `Apellidos` as metaTarget
+      const givenName = _.trim(
+        _.find(context, { target: givenNameTarget })?.value || ''
+      )
+      const familyName = _.trim(
+        _.find(context, { target: familyNameTarget })?.value || ''
+      )
+      return _.startCase(_.lowerCase(`${givenName} ${familyName}`))
+    } else {
+      return _.startCase(_.lowerCase(_.trim(nameMeta.value as string)))
+    }
+  }
+  const nameTarget = `patient_name_${appointmentIndex}` as metaTarget
+  const nameMeta = _.find(context, { target: nameTarget })
+  if (!nameMeta) {
+    let givenNameTarget = `Nombre ${appointmentIndex}` as metaTarget
+    let familyNameTarget = `Apellidos ${appointmentIndex}` as metaTarget
+    const givenName = _.trim(
+      _.find(context, { target: givenNameTarget })?.value || ''
+    )
+    const familyName = _.trim(
+      _.find(context, { target: familyNameTarget })?.value || ''
+    )
+    return _.startCase(_.lowerCase(`${givenName} ${familyName}`))
+  } else {
+    return _.startCase(_.lowerCase(_.trim(nameMeta.value as string)))
+  }
+}
+
 const extractAppointments = (
   start: Date,
   conversation: chatAPIConversation
@@ -132,7 +171,6 @@ const extractAppointments = (
         const dateTarget = `date_${appointmentIndex}` as metaTarget
         const timeTarget = `time_${appointmentIndex}` as metaTarget
         const rutTarget = `rut_${appointmentIndex}` as metaTarget
-        const nameTarget = `patient_name_${appointmentIndex}` as metaTarget
         return {
           datetime: parseAPIDate(
             (_.find(context, { target: dateTarget })?.value ||
@@ -141,9 +179,7 @@ const extractAppointments = (
             formatISO(start)
           ),
           rut: _.find(context, { target: rutTarget })?.value as string,
-          patientName: _.trim(
-            _.find(context, { target: nameTarget })?.value as string
-          ),
+          patientName: getPatientName(context, appointmentIndex),
           url: getSchedulingSystemURL(conversation),
           schedulingSystem: inferSchedulingSystem(conversation),
         }
@@ -157,7 +193,7 @@ const extractAppointments = (
         formatISO(start)
       ),
       rut: _.find(context, { target: 'rut' })?.value as string,
-      patientName: _.trim(_.find(context, { target: 'name' })?.value as string),
+      patientName: getPatientName(context),
       url: getSchedulingSystemURL(conversation),
       schedulingSystem: inferSchedulingSystem(conversation),
     },

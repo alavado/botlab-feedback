@@ -51,7 +51,6 @@
 }
 
 .NewCommentPopup__label {
-  font-weight: bold;
   font-size: 0.65rem;
   margin-bottom: 0.15rem;
 }
@@ -67,14 +66,15 @@
   width: 100%;
   margin-bottom: 0.5rem;
   border-radius: 0.15rem;
-  box-shadow: 0 0 0 2px var(--color-texto);
+  box-shadow: 0 0 0 1px var(--color-texto);
   border: none;
   outline: none;
   font-size: 0.65rem;
+  transition: all 0.25s ease;
 }
 
 .NewCommentPopup__input:focus {
-  box-shadow: 0 0 0 2px var(--color-texto);
+  box-shadow: 0 0 0 0.1rem var(--color-principal);
 }
 
 .NewCommentPopup__emojis_container {

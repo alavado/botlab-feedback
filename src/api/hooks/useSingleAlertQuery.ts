@@ -1,21 +1,6 @@
-import { formatISO, isSameDay, parseISO } from 'date-fns'
-import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
-import {
-  chatAPIConversation,
-  chatAPIResponse,
-  metaTarget,
-} from '../types/responses'
-import {
-  Appointment,
-  Interaction,
-  Message,
-  PatientId,
-  SchedulingSystem,
-  ServiceId,
-} from '../types/types'
-import { get, API_ROOT, parseAPIDate } from './utils'
-import useChatQuery from './useChatQuery'
+import { chatAPIResponse } from '../types/responses'
+import { get, API_ROOT } from './utils'
 
 const useSingleAlertQuery = (
   serviceId: string,

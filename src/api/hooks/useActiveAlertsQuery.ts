@@ -133,13 +133,15 @@ const useActiveAlertsQuery = (): UseQueryResult<ActiveAlerts, unknown> => {
 }
 
 const getPatientNameFromAlertMeta = (meta: any) => {
-  return (
-    meta.name ||
-    meta.patient_name ||
-    meta.patient_name_1 ||
-    meta.Nombre ||
-    meta['Nombre 1']
-  )
+  let name = ''
+  if (meta.Nombre) {
+    name = `${meta.Nombre} ${meta.Apellidos}`
+  } else if (meta['Nombre 1']) {
+    name = `${meta['Nombre 1']} ${meta['Apellidos 1']}`
+  } else {
+    name = meta.name || meta.patient_name || meta.patient_name_1
+  }
+  return _.startCase(_.lowerCase(name))
 }
 
 const formatAlertTimestamp = (timestamp: Date): string => {
