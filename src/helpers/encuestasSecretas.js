@@ -10,7 +10,6 @@ export const obtenerTiposEncuestasVisibles = (cuenta, tipos) => {
         233, // Sanasalud Reactivación (deshabilitado)
         374, // FALP Convenios
         457, // Alemana Seguros
-        736, // HCVM Waitlist
       ].includes(t.id)
   )
 }
