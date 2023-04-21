@@ -127,6 +127,8 @@
 }
 
 .DatosChat__nombre_header {
+  display: flex;
+  gap: 0.25rem;
   font-weight: 600;
   min-width: 12rem;
   max-width: 12rem;
@@ -170,6 +172,41 @@
 
 .DatosChat__boton_copiar:active {
   opacity: 0.8 !important;
+}
+
+.DatosChat__contenedor_reintentos {
+  position: relative;
+  cursor: help;
+  display: flex;
+  align-items: center;
+}
+
+.DatosChat__icono_reintentos {
+  color: var(--color-secundario);
+  font-size: 0.9rem;
+}
+
+.DatosChat__reintentos {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: calc(100% + 0.25rem);
+  top: -1rem;
+  opacity: 0;
+  transition: all 0.25s ease;
+  pointer-events: none;
+  background-color: var(--color-secundario);
+  color: var(--color-texto-claro);
+  white-space: nowrap;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0.25rem var(--color-sombras);
+}
+
+.DatosChat__contenedor_reintentos:hover .DatosChat__reintentos {
+  opacity: 1;
+  z-index: 10;
 }
 
 @keyframes aparece-contenedor-datos {

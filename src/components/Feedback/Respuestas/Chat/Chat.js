@@ -18,6 +18,7 @@ const msHabilitacionReporteSlack = 0
 
 const Chat = () => {
   const [conversaciones, setConversaciones] = useState()
+  const [phoneHistories, setPhoneHistories] = useState()
   const [telefono, setTelefono] = useState()
   const [nombreBot, setNombreBot] = useState()
   const [indiceConversacion, setIndiceConversacion] = useState()
@@ -39,11 +40,12 @@ const Chat = () => {
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
         const {
-          data: { conversations, user, bot },
+          data: { conversations, phone_histories, user, bot },
         } = data
         setNombreBot(bot.name)
         setTelefono(user ? user.phone : '')
         setConversaciones(conversations)
+        setPhoneHistories(phone_histories)
         setIndiceConversacion(conversations.length - 1)
         setJsonChat(data)
       })
@@ -129,6 +131,7 @@ const Chat = () => {
       )}
       <DatosChat
         datos={conversaciones?.[indiceConversacion]?.context}
+        intentos={phoneHistories?.[indiceConversacion]}
         telefono={telefono}
         cargando={cargando}
       />
