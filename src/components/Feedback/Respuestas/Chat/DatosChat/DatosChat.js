@@ -180,8 +180,8 @@ const DatosChat = ({ cargando, datos, telefono, intentos }) => {
                     icon="mdi:info"
                   />
                   <div className="DatosChat__reintentos">
-                    Los siguientes números asociados a la cita no tienen
-                    WhatsApp{' '}
+                    Los siguientes números asociados a la cita
+                    <br /> no tienen WhatsApp{' '}
                     {intentos.length > 1 ? 'estos números' : 'este número'}:
                     {intentos.map((intento, i) => (
                       <div className={`intento-${i}`}>
