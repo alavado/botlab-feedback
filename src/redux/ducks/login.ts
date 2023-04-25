@@ -14,13 +14,11 @@ const loginSlice = createSlice({
   initialState: {} as LoginState,
   reducers: {
     guardaToken(state, action) {
-      console.log(action)
       const {
         access_token: token,
         client: nombreUsuario,
         cuenta
       } = action.payload
-      console.log(token)
       state.sucursales = []//_.uniq(_.flatten(polls.map((p: any) => p.sucursales)))
       state.token = token
       state.fechaToken = new Date()
