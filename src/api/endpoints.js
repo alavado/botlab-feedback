@@ -18,7 +18,7 @@ export const headers = () => {
 export const headersRespuestas = (idEncuesta) => {
   const token = store.getState().login.token
   return axios.get(`${API_ROOT}/answer_headers/${idEncuesta}`, {
-    headers: { 'Api-Token': token },
+    headers: { authorization: `Bearer ${token}` },
   })
 }
 
@@ -46,7 +46,10 @@ export const crearEncuestas = ({ idEncuesta, datos }) => {
       data: datos,
     },
     {
-      headers: { 'Api-Token': token, 'Content-Type': 'application/json' },
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     }
   )
 }
@@ -85,7 +88,7 @@ export const exportarRespuestas = (
     { date_start, date_end, email, attachment_extension },
     {
       headers: {
-        'Api-Token': token,
+        authorization: `Bearer ${token}`,
         'Api-UTC-Offset': -240,
       },
     }
@@ -96,7 +99,7 @@ export const obtenerReacciones = (idEncuesta, idUsuario, start) => {
   const token = store.getState().login.token
   const url = `${API_ROOT}/reactions/${idEncuesta}/${idUsuario}`
   return axios.get(url, {
-    headers: { 'Api-Token': token },
+    headers: { authorization: `Bearer ${token}` },
     params: { start },
   })
 }
@@ -123,7 +126,7 @@ export const eliminarReaccion = (idEncuesta, idUsuario, idReaccion) => {
     method: 'delete',
     data: { id: idReaccion },
     headers: {
-      'Api-Token': token,
+      authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   })
@@ -136,7 +139,7 @@ export const obtenerContenidoMultimedia = (idRespuesta) => {
     url,
     method: 'get',
     headers: {
-      'Api-Token': token,
+      authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   })

@@ -31,7 +31,7 @@ export const del = async (url: string, data: any) => {
     method: 'delete',
     data,
     headers: {
-      'Api-Token': token,
+      authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   })
