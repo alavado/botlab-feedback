@@ -6,7 +6,7 @@ const API_ROOT = process.env.REACT_APP_API_ROOT
 
 export const login = (username, password) => {
   const auth = { username, password }
-  return axios.get(`${API_ROOT}/token`, { auth })
+  return axios.post(`${API_ROOT}/auth/login`, { auth })
 }
 
 export const headers = () => {
