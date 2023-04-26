@@ -15,7 +15,7 @@ const loginSlice = createSlice({
   reducers: {
     guardaToken(state, action) {
       const {
-        access_token: token,
+        token,
         client: nombreUsuario,
         cuenta
       } = action.payload
