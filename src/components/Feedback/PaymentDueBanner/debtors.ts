@@ -12,6 +12,39 @@ type Debtor = {
 // `
 
 const debtorsData = `
+  Vitalia;              2023-05-12
+  Medisis;              2023-05-12
+  DentalStudio;         2023-05-12
+  Marchesani;           2023-05-12
+  LasCruces;            2023-05-12
+  Beladent;             2023-05-12
+  Facelab;              2023-05-12
+  CEOLA Temuco;         2023-05-12
+  Integral Linares;     2023-05-12
+  CEOLA Vina;           2023-05-12
+  EzioChiappe;          2023-05-12
+  Made;                 2023-05-12
+  Falcon;               2023-05-12
+  CEOLA Valdivia;       2023-05-12
+  SonrieArica;          2023-05-12
+  Citymed;              2023-05-12
+  Bioreuma;             2023-05-12
+  COP;                  2023-05-12
+  ADICH;                2023-05-12
+  Aquamed;              2023-05-12
+  YohananTherapeutes;   2023-05-12
+  Vitales;              2023-05-12
+  UTC;                  2023-05-12
+  CEOLA Concepcion;     2023-05-12
+  uandes;               2023-05-12
+  Vitasalud;            2023-05-12
+  ClinicaAstra;         2023-05-12
+  OYEDental;            2023-05-12
+  FARR;                 2023-05-12
+  Everest;              2023-05-12
+  SantaBlanca;          2023-05-12
+  NucleoSalud;          2023-05-12
+  FALP;                 2023-05-13
 `
 
 const debtors = debtorsData
