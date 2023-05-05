@@ -38,7 +38,6 @@ const debtorsData = `
   CEOLA Concepcion;     2023-05-12
   uandes;               2023-05-12
   Vitasalud;            2023-05-12
-  ClinicaAstra;         2023-05-12
   OYEDental;            2023-05-12
   FARR;                 2023-05-12
   Everest;              2023-05-12
