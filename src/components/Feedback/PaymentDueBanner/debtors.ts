@@ -29,7 +29,6 @@ const debtorsData = `
   Bioreuma;             2023-05-12
   COP;                  2023-05-12
   ADICH;                2023-05-12
-  YohananTherapeutes;   2023-05-12
   Vitales;              2023-05-12
   UTC;                  2023-05-12
   CEOLA Concepcion;     2023-05-12
