@@ -22,7 +22,6 @@ const debtorsData = `
   Integral Linares;     2023-05-12
   CEOLA Vina;           2023-05-12
   EzioChiappe;          2023-05-12
-  Made;                 2023-05-12
   Falcon;               2023-05-12
   CEOLA Valdivia;       2023-05-12
   SonrieArica;          2023-05-12
