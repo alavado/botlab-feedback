@@ -17,14 +17,11 @@ const debtorsData = `
   DentalStudio;         2023-05-12
   LasCruces;            2023-05-12
   Beladent;             2023-05-12
-  Facelab;              2023-05-12
   CEOLA Temuco;         2023-05-12
   Integral Linares;     2023-05-12
   CEOLA Vina;           2023-05-12
-  EzioChiappe;          2023-05-12
   Falcon;               2023-05-12
   CEOLA Valdivia;       2023-05-12
-  SonrieArica;          2023-05-12
   Citymed;              2023-05-12
   Bioreuma;             2023-05-12
   COP;                  2023-05-12
