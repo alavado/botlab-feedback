@@ -16,7 +16,6 @@ const debtorsData = `
   DentalStudio;         2023-05-12
   LasCruces;            2023-05-12
   Beladent;             2023-05-12
-  CEOLA Temuco;         2023-05-12
   Integral Linares;     2023-05-12
   CEOLA Vina;           2023-05-12
   Falcon;               2023-05-12
