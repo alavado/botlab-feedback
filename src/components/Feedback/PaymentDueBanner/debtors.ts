@@ -35,7 +35,6 @@ const debtorsData = `
   uandes;               2023-05-12
   Vitasalud;            2023-05-12
   OYEDental;            2023-05-12
-  FARR;                 2023-05-12
   SantaBlanca;          2023-05-12
   NucleoSalud;          2023-05-12
   FALP;                 2023-05-13
