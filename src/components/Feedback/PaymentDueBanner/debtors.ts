@@ -12,7 +12,6 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  Vitalia;              2023-05-12
   Medisis;              2023-05-12
   DentalStudio;         2023-05-12
   LasCruces;            2023-05-12
