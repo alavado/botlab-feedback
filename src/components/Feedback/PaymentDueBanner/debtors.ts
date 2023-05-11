@@ -25,7 +25,6 @@ const debtorsData = `
   COP;                  2023-05-13
   ADICH;                2023-05-13
   Vitales;              2023-05-13
-  UTC;                  2023-05-13
   CEOLA Concepcion;     2023-05-13
   uandes;               2023-05-13
   Vitasalud;            2023-05-13
