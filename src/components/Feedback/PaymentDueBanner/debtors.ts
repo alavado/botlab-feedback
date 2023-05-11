@@ -17,7 +17,6 @@ const debtorsData = `
   LasCruces;            2023-05-13
   Beladent;             2023-05-13
   Integral Linares;     2023-05-13
-  CEOLA Vina;           2023-05-13
   Falcon;               2023-05-13
   CEOLA Valdivia;       2023-05-13
   Citymed;              2023-05-13
