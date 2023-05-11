@@ -12,27 +12,27 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  Medisis;              2023-05-12
-  DentalStudio;         2023-05-12
-  LasCruces;            2023-05-12
-  Beladent;             2023-05-12
-  Integral Linares;     2023-05-12
-  CEOLA Vina;           2023-05-12
-  Falcon;               2023-05-12
-  CEOLA Valdivia;       2023-05-12
-  Citymed;              2023-05-12
-  Bioreuma;             2023-05-12
-  COP;                  2023-05-12
-  ADICH;                2023-05-12
-  Vitales;              2023-05-12
-  UTC;                  2023-05-12
-  CEOLA Concepcion;     2023-05-12
-  uandes;               2023-05-12
-  Vitasalud;            2023-05-12
-  OYEDental;            2023-05-12
-  SantaBlanca;          2023-05-12
-  NucleoSalud;          2023-05-12
-  FALP;                 2023-05-13
+  Medisis;              2023-05-13
+  DentalStudio;         2023-05-13
+  LasCruces;            2023-05-13
+  Beladent;             2023-05-13
+  Integral Linares;     2023-05-13
+  CEOLA Vina;           2023-05-13
+  Falcon;               2023-05-13
+  CEOLA Valdivia;       2023-05-13
+  Citymed;              2023-05-13
+  Bioreuma;             2023-05-13
+  COP;                  2023-05-13
+  ADICH;                2023-05-13
+  Vitales;              2023-05-13
+  UTC;                  2023-05-13
+  CEOLA Concepcion;     2023-05-13
+  uandes;               2023-05-13
+  Vitasalud;            2023-05-13
+  OYEDental;            2023-05-13
+  SantaBlanca;          2023-05-13
+  NucleoSalud;          2023-05-13
+  FALP;                 2023-05-14
 `
 
 const debtors = debtorsData
