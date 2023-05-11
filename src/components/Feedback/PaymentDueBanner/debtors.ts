@@ -27,7 +27,6 @@ const debtorsData = `
   Vitales;              2023-05-13
   CEOLA Concepcion;     2023-05-13
   uandes;               2023-05-13
-  Vitasalud;            2023-05-13
   OYEDental;            2023-05-13
   SantaBlanca;          2023-05-13
   FALP;                 2023-05-14
