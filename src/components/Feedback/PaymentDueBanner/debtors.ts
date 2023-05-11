@@ -17,14 +17,12 @@ const debtorsData = `
   LasCruces;            2023-05-13
   Beladent;             2023-05-13
   Integral Linares;     2023-05-13
-  CEOLA Vina;           2023-05-13
   Falcon;               2023-05-13
   CEOLA Valdivia;       2023-05-13
   Citymed;              2023-05-13
   Bioreuma;             2023-05-13
   COP;                  2023-05-13
   ADICH;                2023-05-13
-  Vitales;              2023-05-13
   CEOLA Concepcion;     2023-05-13
   uandes;               2023-05-13
   OYEDental;            2023-05-13
