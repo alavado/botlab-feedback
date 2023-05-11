@@ -19,7 +19,7 @@ const PaymentDueBanner = () => {
   const daysLeft = 1 + differenceInDays(debtor.dueDate, new Date())
 
   const message =
-    daysLeft > 1
+    daysLeft > 0
       ? `Recordatorio!  Su factura por el servicio del mes de ${format(
           addMonths(new Date(), -2),
           'MMMM',
