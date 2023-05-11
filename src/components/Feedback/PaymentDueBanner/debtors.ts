@@ -31,7 +31,6 @@ const debtorsData = `
   Vitasalud;            2023-05-13
   OYEDental;            2023-05-13
   SantaBlanca;          2023-05-13
-  NucleoSalud;          2023-05-13
   FALP;                 2023-05-14
 `
 
