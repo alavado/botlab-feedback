@@ -14,7 +14,6 @@ type Debtor = {
 const debtorsData = `
   Medisis;              2023-05-13
   DentalStudio;         2023-05-13
-  LasCruces;            2023-05-13
   Beladent;             2023-05-13
   Integral Linares;     2023-05-13
   Falcon;               2023-05-13
