@@ -22,7 +22,6 @@ const debtorsData = `
   COP;                  2023-05-13
   OYEDental;            2023-05-13
   SantaBlanca;          2023-05-13
-  CTMelipilla;          2023-05-13
 `
 
 const debtors = debtorsData
