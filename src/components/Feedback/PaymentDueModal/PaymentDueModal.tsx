@@ -19,6 +19,7 @@ const PaymentDueModal = () => {
   }
 
   const daysLeft = 1 + differenceInDays(debtor.dueDate, new Date())
+  const month = format(addMonths(new Date(), -2), 'MMMM', { locale: es })
 
   return (
     <div className="PaymentDueModal">
@@ -26,14 +27,12 @@ const PaymentDueModal = () => {
         <h2 className="PaymentDueModal__title">Recordatorio</h2>
         {daysLeft > 0 ? (
           <p>
-            Su factura por el servicio del mes de{' '}
-            {format(addMonths(new Date(), -2), 'MMMM', { locale: es })} vence en{' '}
-            {daysLeft} {daysLeft !== 1 ? 'días' : 'día'}.
+            Su factura por el servicio del mes de {month} vence en {daysLeft}{' '}
+            {daysLeft !== 1 ? 'días' : 'día'}.
           </p>
         ) : (
           <p>
-            Su factura por el servicio del mes de{' '}
-            {format(addMonths(new Date(), -2), 'MMMM', { locale: es })} se
+            Recordatorio! Su factura por el servicio del mes de {month} se
             encuentra vencida.
           </p>
         )}
