@@ -19,20 +19,23 @@ const PaymentDueModal = () => {
   }
 
   const daysLeft = 1 + differenceInDays(debtor.dueDate, new Date())
-
-  if (daysLeft < 1) {
-    return null
-  }
+  const month = format(addMonths(new Date(), -2), 'MMMM', { locale: es })
 
   return (
     <div className="PaymentDueModal">
       <div className="PaymentDueModal__content">
         <h2 className="PaymentDueModal__title">Recordatorio</h2>
-        <p>
-          Su factura por el servicio del mes de{' '}
-          {format(addMonths(new Date(), -2), 'MMMM', { locale: es })} vence en{' '}
-          {daysLeft} {daysLeft !== 1 ? 'días' : 'día'}.
-        </p>
+        {daysLeft > 0 ? (
+          <p>
+            Su factura por el servicio del mes de {month} vence en {daysLeft}{' '}
+            {daysLeft !== 1 ? 'días' : 'día'}.
+          </p>
+        ) : (
+          <p>
+            Recordatorio! Su factura por el servicio del mes de {month} se
+            encuentra vencida.
+          </p>
+        )}
         <p>
           Para evitar una suspensión del servicio comuníquese con
           finanzas@cero.ai o al +569 4277 3233.

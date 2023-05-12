@@ -12,6 +12,15 @@ type Debtor = {
 // `
 
 const debtorsData = `
+  Beladent;             2023-05-13
+  Integral Linares;     2023-05-13
+  Falcon;               2023-05-13
+  CEOLA Valdivia;       2023-05-13
+  Citymed;              2023-05-13
+  Bioreuma;             2023-05-13
+  COP;                  2023-05-13
+  OYEDental;            2023-05-13
+  SantaBlanca;          2023-05-13
 `
 
 const debtors = debtorsData
