@@ -12,7 +12,6 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  DentalStudio;         2023-05-13
   Beladent;             2023-05-13
   Integral Linares;     2023-05-13
   Falcon;               2023-05-13
