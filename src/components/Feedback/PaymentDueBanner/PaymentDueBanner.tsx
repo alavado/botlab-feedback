@@ -21,7 +21,7 @@ const PaymentDueBanner = () => {
 
   const message =
     daysLeft > 0
-      ? `Recordatorio!  Su factura por el servicio del mes de ${month} vence en ${daysLeft} ${
+      ? `Recordatorio! Su factura por el servicio del mes de ${month} vence en ${daysLeft} ${
           daysLeft !== 1 ? 'días' : 'día'
         }. Para evitar una suspensión del servicio comuníquese con finanzas@cero.ai o al +569 4277 3233`
       : `Recordatorio! Su factura por el servicio del mes de ${month} se encuentra vencida. Para evitar una suspensión del servicio comuníquese con +56 94277 3233 o en finanzas@cero.ai`

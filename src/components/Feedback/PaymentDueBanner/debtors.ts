@@ -12,7 +12,6 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  Medisis;              2023-05-13
   DentalStudio;         2023-05-13
   Beladent;             2023-05-13
   Integral Linares;     2023-05-13
@@ -21,12 +20,9 @@ const debtorsData = `
   Citymed;              2023-05-13
   Bioreuma;             2023-05-13
   COP;                  2023-05-13
-  ADICH;                2023-05-13
-  CEOLA Concepcion;     2023-05-13
   uandes;               2023-05-13
   OYEDental;            2023-05-13
   SantaBlanca;          2023-05-13
-  FALP;                 2023-05-14
 `
 
 const debtors = debtorsData
