@@ -7,6 +7,7 @@ interface LoginState {
   fechaToken?: Date
   nombreUsuario?: string
   cuenta?: string
+  idCliente?: number
 }
 
 const loginSlice = createSlice({
@@ -20,6 +21,7 @@ const loginSlice = createSlice({
       state.fechaToken = new Date()
       state.nombreUsuario = nombreUsuario
       state.cuenta = cuenta
+      state.idCliente = polls[0].client_id
     },
     cierraLaSesion(state) {
       state.token = undefined

@@ -1,0 +1,95 @@
+.Dashboard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-texto);
+  --topbar-height: 2rem;
+  position: relative;
+  max-height: 100vh;
+}
+
+.Dashboard__topbar {
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  background-color: var(--color-barra-superior);
+  border-bottom: 1px solid var(--color-bordes);
+  gap: 1rem;
+}
+
+.Dashboard__topbar_left {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.Dashboard__title {
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.Dashboard__container {
+  display: grid;
+  grid-template: auto 1fr / auto 1fr auto;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.Dashboard__top_filters {
+  padding: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  grid-column: 1 / -1;
+}
+
+.Dashboard__sidebar {
+  padding: 0.5rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-right: 1px solid var(--color-bordes);
+  min-width: 10rem;
+}
+
+.Dashboard__filter_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Dashboard__filter_checkbox_container {
+  display: flex;
+  align-items: center;
+}
+
+.Dashboard__chart {
+  padding: 2rem 0.5rem;
+  flex: 1;
+}
+
+.Dashboard__big_numbers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.Dashboard__big_number {
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.Dashboard__big_numbers figure {
+  font-size: 4rem;
+  font-weight: bold;
+}

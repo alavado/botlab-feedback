@@ -22,6 +22,7 @@ import { toggleDebugging } from '../../redux/ducks/cero'
 import PaymentDueBanner from './PaymentDueBanner/PaymentDueBanner'
 import PaymentDueModal from './PaymentDueModal/PaymentDueModal'
 import SingleAlertView from './SingleAlertView/SingleAlertView'
+import Dashboard from './Dashboard'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
@@ -120,6 +121,9 @@ const Feedback = () => {
                 <Route path="/alertas">
                   <></>
                 </Route>
+                <Route path="/dashboard">
+                  <></>
+                </Route>
                 <Route>
                   <BarraSuperior />
                 </Route>
@@ -143,6 +147,9 @@ const Feedback = () => {
                   </Route>
                   <Route exact path="/busqueda">
                     <Search />
+                  </Route>
+                  <Route path="/dashboard">
+                    <Dashboard />
                   </Route>
                   <Route path="/exportar">
                     <ExportacionAvanzada />

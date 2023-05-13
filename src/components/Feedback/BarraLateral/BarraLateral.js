@@ -71,6 +71,17 @@ const BarraLateral = () => {
             <div className="BarraLateral__nombre_seccion">Búsqueda</div>
           </NavLink>
         )}
+        {!isLabeler && (
+          <NavLink
+            className="BarraLateral__link"
+            activeClassName="BarraLateral__link--activo"
+            to="/dashboard"
+            onClick={() => track('Feedback', 'BarraLateral', 'verDashboard')}
+          >
+            <Icon icon="mdi:chart-areaspline" />
+            <div className="BarraLateral__nombre_seccion">Dashboard</div>
+          </NavLink>
+        )}
         {tieneAccesoAReportes(cuenta) && !isLabeler && (
           <NavLink
             className="BarraLateral__link"
