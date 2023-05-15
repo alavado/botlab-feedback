@@ -7,7 +7,7 @@ import { Service } from '../types/types'
 import { get, API_ROOT } from './utils'
 
 const useServicesQuery = (): UseQueryResult<Service[], unknown> => {
-  const url = `${API_ROOT}/polls_headers`
+  const url = `${API_ROOT}/polls_headers/`
   const { nombreUsuario } = useSelector((state: RootState) => state.login)
   return useQuery<any, any, any>(
     'services',

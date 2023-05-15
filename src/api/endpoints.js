@@ -11,7 +11,7 @@ export const login = (username, password) => {
 
 export const headers = () => {
   const token = store.getState().login.token
-  const url = `${API_ROOT}/polls_headers`
+  const url = `${API_ROOT}/polls_headers/`
   return axios.get(url, { headers: { authorization: `Bearer ${token}` } })
 }
 
