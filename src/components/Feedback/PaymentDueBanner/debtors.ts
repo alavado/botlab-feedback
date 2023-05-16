@@ -17,9 +17,12 @@ const debtorsData = `
   Falcon;               2023-05-13
   CEOLA Valdivia;       2023-05-13
   Citymed;              2023-05-13
+<<<<<<< HEAD
   COP;                  2023-05-13
+=======
+  Bioreuma;             2023-05-13
+>>>>>>> 11d54287c9065a4bee593e65f2da0104145b707b
   OYEDental;            2023-05-13
-  SantaBlanca;          2023-05-13
 `
 
 const debtors = debtorsData
