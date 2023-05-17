@@ -15,7 +15,6 @@ const debtorsData = `
   Integral Linares;     2023-05-13
   Falcon;               2023-05-13
   CEOLA Valdivia;       2023-05-13
-  Citymed;              2023-05-13
   COP;                  2023-05-13
   OYEDental;            2023-05-13
 `
