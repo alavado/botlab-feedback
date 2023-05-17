@@ -17,6 +17,7 @@ const debtorsData = `
   CEOLA Valdivia;       2023-05-13
   COP;                  2023-05-13
   OYEDental;            2023-05-13
+  Interclínica;         2023-05-20
 `
 
 const debtors = debtorsData
