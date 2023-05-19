@@ -25,7 +25,6 @@ const loginSlice = createSlice({
       state.fechaToken = new Date()
       state.nombreUsuario = nombreUsuario
       state.cuenta = cuenta
-      state.idCliente = polls[0].client_id
     },
     cierraLaSesion(state) {
       state.token = undefined
