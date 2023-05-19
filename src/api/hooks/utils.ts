@@ -8,19 +8,19 @@ export const API_ROOT = process.env.REACT_APP_API_ROOT
 export const get = async (url: string) => {
   const { login }: any = store.getState()
   const { token } = login
-  return axios.get(url, { headers: { 'Api-Token': token } })
+  return axios.get(url, { headers: { 'authorization': `Bearer ${token}` } })
 }
 
 export const post = async (url: string, params: any) => {
   const { login }: any = store.getState()
   const { token } = login
-  return axios.post(url, params, { headers: { 'Api-Token': token } })
+  return axios.post(url, params, { headers: { 'authorization': `Bearer ${token}` } })
 }
 
 export const patch = async (url: string, params: any) => {
   const { login }: any = store.getState()
   const { token } = login
-  return axios.patch(url, params, { headers: { 'Api-Token': token } })
+  return axios.patch(url, params, { headers: { 'authorization': `Bearer ${token}` } })
 }
 
 export const del = async (url: string, data: any) => {
@@ -31,7 +31,7 @@ export const del = async (url: string, data: any) => {
     method: 'delete',
     data,
     headers: {
-      'Api-Token': token,
+      authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   })
