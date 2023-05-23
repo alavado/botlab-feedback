@@ -335,6 +335,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--si',
     color: '',
   },
+  UNREACHABLE: {
+    texto: 'No tiene Whatsapp',
+    titulo: 'No tiene Whatsapp',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta TagRespuesta--is_unreachable',
+    color: '',
+  },
 }
 
 const diccionarioTags = (tag) =>
