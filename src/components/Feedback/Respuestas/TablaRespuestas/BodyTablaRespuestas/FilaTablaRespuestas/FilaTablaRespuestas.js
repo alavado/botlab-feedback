@@ -110,9 +110,6 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
                 className="FilaTablaRespuestas__contenedor_tag"
                 title={valorHeader.text}
               >
-                {j === 0 && respuesta.is_unreachable?.whatsapp && (
-                  <TagRespuesta tag="UNREACHABLE" pregunta="" />
-                )}
                 <TagRespuesta tag={valorHeader.tag} pregunta={texto} />
               </span>
             ) : (

@@ -53,8 +53,7 @@
 }
 
 .TagRespuesta--is_unreachable {
-  background-color: transparent;
-  box-shadow: none;
+  background-color: rgb(250, 250, 250);
   color: var(--color-secundario) !important;
 }
 
