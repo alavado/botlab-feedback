@@ -33,10 +33,6 @@
   background-color: var(--color-reagendado);
 }
 
-.TagRespuesta--unreachable {
-  opacity: 0;
-}
-
 .TagRespuesta--vacia {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -54,6 +50,12 @@
   font-weight: 600;
   background-color: var(--color-si);
   color: var(--color-texto-tag) !important;
+}
+
+.TagRespuesta--is_unreachable {
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--color-secundario) !important;
 }
 
 /* .TagRespuesta--nota {
