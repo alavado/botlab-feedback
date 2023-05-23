@@ -10,7 +10,6 @@ import { fijaChatExpandido } from '../../../../../redux/ducks/opciones'
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router'
 import useAnalytics from '../../../../../hooks/useAnalytics'
-import TagRespuesta from '../../TablaRespuestas/TagRespuesta'
 
 const CelularWhatsapp = ({
   conversaciones,
@@ -32,17 +31,6 @@ const CelularWhatsapp = ({
       : []
   }, [conversaciones])
 
-  const irAConversacion = (indice) => {
-    if (indice !== indiceConversacion) {
-      track('Feedback', 'Chat', 'clickEnConversacion')
-      seleccionarConversacion(indice)
-      const conversacion = document.getElementById(
-        `contenedor-conversacion-${indice}`
-      )
-      conversacion.scrollIntoView()
-    }
-  }
-
   useEffect(() => {
     if (conversaciones?.length > 0) {
       const conversacion = document.getElementById(
@@ -60,11 +48,6 @@ const CelularWhatsapp = ({
         'CelularWhatsapp--expandido': chatExpandido,
       })}
     >
-      {/* <SelectorConversacion
-        conversaciones={conversaciones}
-        indiceConversacionSeleccionada={indiceConversacion}
-        seleccionarConversacion={irAConversacion}
-      /> */}
       <div className="CelularWhatsapp__celular">
         <div className="CelularWhatsapp__datos_extra">
           {history.location.pathname.slice(6)}
@@ -114,7 +97,6 @@ const CelularWhatsapp = ({
                   >
                     {c.is_unreachable?.whatsapp ? (
                       <div className="CelularWhatsapp__sin_whatsapp">
-                        <TagRespuesta tag="UNREACHABLE" />
                         <p>
                           Para esta cita no habrá respuesta porque paciente no
                           tiene Whatsapp
