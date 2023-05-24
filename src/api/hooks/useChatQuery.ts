@@ -2,10 +2,10 @@ import { formatISO, isSameDay, parseISO } from 'date-fns'
 import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import {
-  chatAPIConversation,
-  chatAPIConversationContextField,
-  chatAPIResponse,
-  metaTarget,
+  ChatAPIConversation,
+  ChatAPIConversationContextField,
+  ChatAPIResponse,
+  MetaTarget,
 } from '../types/responses'
 import {
   Appointment,
@@ -37,7 +37,7 @@ const useChatQuery = (
   return useQuery<any, any, any>(
     ['interaction', serviceId, patientId, start],
     async () => {
-      const { data }: { data: chatAPIResponse } = await get(
+      const { data }: { data: ChatAPIResponse } = await get(
         `${API_ROOT}/chat/${serviceId}/${patientId}`
       )
       return splitInteractions(
@@ -55,7 +55,7 @@ const useChatQuery = (
 
 const splitInteractions = (
   currentInteractionID: InteractionID,
-  conversations: chatAPIConversation[],
+  conversations: ChatAPIConversation[],
   phone: string,
   botName: string
 ): {
@@ -118,15 +118,15 @@ const splitInteractions = (
 }
 
 const getPatientName = (
-  context: chatAPIConversationContextField[],
+  context: ChatAPIConversationContextField[],
   appointmentIndex?: number
 ) => {
   if (!appointmentIndex) {
-    const nameTarget = `name` as metaTarget
+    const nameTarget = `name` as MetaTarget
     const nameMeta = _.find(context, { target: nameTarget })
     if (!nameMeta) {
-      let givenNameTarget = `Nombre` as metaTarget
-      let familyNameTarget = `Apellidos` as metaTarget
+      let givenNameTarget = `Nombre` as MetaTarget
+      let familyNameTarget = `Apellidos` as MetaTarget
       const givenName = _.trim(
         _.find(context, { target: givenNameTarget })?.value || ''
       )
@@ -138,11 +138,11 @@ const getPatientName = (
       return _.startCase(_.lowerCase(_.trim(nameMeta.value as string)))
     }
   }
-  const nameTarget = `patient_name_${appointmentIndex}` as metaTarget
+  const nameTarget = `patient_name_${appointmentIndex}` as MetaTarget
   const nameMeta = _.find(context, { target: nameTarget })
   if (!nameMeta) {
-    let givenNameTarget = `Nombre ${appointmentIndex}` as metaTarget
-    let familyNameTarget = `Apellidos ${appointmentIndex}` as metaTarget
+    let givenNameTarget = `Nombre ${appointmentIndex}` as MetaTarget
+    let familyNameTarget = `Apellidos ${appointmentIndex}` as MetaTarget
     const givenName = _.trim(
       _.find(context, { target: givenNameTarget })?.value || ''
     )
@@ -157,7 +157,7 @@ const getPatientName = (
 
 const extractAppointments = (
   start: Date,
-  conversation: chatAPIConversation
+  conversation: ChatAPIConversation
 ): Appointment[] => {
   const { context } = conversation
   const appointmentsCount: number = Number(
@@ -168,9 +168,9 @@ const extractAppointments = (
       .fill(0)
       .map((n, i: number) => {
         const appointmentIndex = i + 1
-        const dateTarget = `date_${appointmentIndex}` as metaTarget
-        const timeTarget = `time_${appointmentIndex}` as metaTarget
-        const rutTarget = `rut_${appointmentIndex}` as metaTarget
+        const dateTarget = `date_${appointmentIndex}` as MetaTarget
+        const timeTarget = `time_${appointmentIndex}` as MetaTarget
+        const rutTarget = `rut_${appointmentIndex}` as MetaTarget
         return {
           datetime: parseAPIDate(
             (_.find(context, { target: dateTarget })?.value ||
@@ -204,7 +204,7 @@ const conversationToInteraction = (
   interactionId: InteractionID,
   phone: string,
   botName: string,
-  conversation: chatAPIConversation
+  conversation: ChatAPIConversation
 ): Interaction => {
   const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
@@ -236,7 +236,7 @@ const conversationToInteraction = (
 }
 
 const getSchedulingSystemURL = (
-  conversation: chatAPIConversation
+  conversation: ChatAPIConversation
 ): string | undefined => {
   try {
     return conversation.context.find((v) =>
@@ -249,7 +249,7 @@ const getSchedulingSystemURL = (
 }
 
 const inferSchedulingSystem = (
-  conversation: chatAPIConversation
+  conversation: ChatAPIConversation
 ): SchedulingSystem => {
   if (conversation.context.find((v) => v.target === 'dentalink_link')) {
     return 'Dentalink'

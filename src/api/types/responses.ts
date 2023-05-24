@@ -1,4 +1,4 @@
-interface chatAPIUserMessage {
+interface ChatAPIUserMessage {
   answer_id: number
   message: string
   question_id: number
@@ -7,15 +7,15 @@ interface chatAPIUserMessage {
   type: 'user'
 }
 
-interface chatAPIBotMessage {
+interface ChatAPIBotMessage {
   timestamp: string
   message: string
   type: 'bot'
 }
 
-export type chatAPIMessage = chatAPIUserMessage | chatAPIBotMessage
+export type ChatAPIMessage = ChatAPIUserMessage | ChatAPIBotMessage
 
-export type metaTarget =
+export type MetaTarget =
   | 'id_cita'
   | 'rut'
   | 'name'
@@ -52,16 +52,16 @@ export type metaTarget =
   | 'date_5'
   | 'time_5'
 
-export interface chatAPIConversationContextField {
-  target: metaTarget
+export interface ChatAPIConversationContextField {
+  target: MetaTarget
   title: string
   value: string
 }
 
-export interface chatAPIConversation {
+export interface ChatAPIConversation {
   start: string
-  context: chatAPIConversationContextField[]
-  messages: chatAPIMessage[]
+  context: ChatAPIConversationContextField[]
+  messages: ChatAPIMessage[]
   reactions: [any]
   tags: [
     {
@@ -72,14 +72,14 @@ export interface chatAPIConversation {
   ]
 }
 
-export interface chatAPIResponse {
+export interface ChatAPIResponse {
   status: string
   data: {
     bot: {
       name: string
       phone: string
     }
-    conversations: chatAPIConversation[]
+    conversations: ChatAPIConversation[]
     user: {
       id: number
       outsider: boolean
@@ -183,6 +183,8 @@ export interface AnswerMediaAPIResponse {
   }
 }
 
+export type TagType = 'META' | 'YESNO' | 'INTERNAL' | 'RANGE' | 'OPEN'
+
 export interface PollsHeadersAPIResponse {
   status: string
   data: [
@@ -195,7 +197,7 @@ export interface PollsHeadersAPIResponse {
         {
           name: string
           display_name: string
-          type: 'META' | 'YESNO' | 'INTERNAL' | 'RANGE' | 'OPEN'
+          type: TagType
         }
       ]
     }
