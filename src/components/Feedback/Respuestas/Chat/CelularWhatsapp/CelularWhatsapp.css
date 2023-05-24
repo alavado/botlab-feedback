@@ -204,6 +204,7 @@
   text-align: center;
   align-items: center;
   margin-top: 0.5rem;
+  opacity: 0;
 }
 
 .CelularWhatsapp__sin_whatsapp svg {

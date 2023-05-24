@@ -97,10 +97,7 @@ const CelularWhatsapp = ({
                   >
                     {c.is_unreachable?.whatsapp ? (
                       <div className="CelularWhatsapp__sin_whatsapp">
-                        <p>
-                          Para esta cita no habrá respuesta porque paciente no
-                          tiene Whatsapp
-                        </p>
+                        <p></p>
                       </div>
                     ) : mensajes.length > 0 ? (
                       mensajes.map((mensaje, i) => (
