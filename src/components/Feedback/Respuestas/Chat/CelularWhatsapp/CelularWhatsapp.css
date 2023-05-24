@@ -204,20 +204,22 @@
   text-align: center;
   align-items: center;
   margin-top: 0.5rem;
-  opacity: 0;
-}
-
-.CelularWhatsapp__sin_whatsapp svg {
-  margin-left: 1.25rem;
-}
-
-.CelularWhatsapp__sin_whatsapp p {
   background-color: var(--color-fondo);
   font-size: 0.8rem;
   padding: 1rem;
   border-radius: 0.25rem;
   line-height: 1.15;
   box-shadow: 0 0 0.25rem var(--color-sombras);
+}
+
+.CelularWhatsapp__sin_whatsapp_icono {
+  font-size: 1rem;
+  color: var(--color-secundario);
+}
+
+.CelularWhatsapp__sin_whatsapp_fecha {
+  opacity: 0.75;
+  font-size: 0.6rem;
 }
 
 @keyframes aparece-celular {
