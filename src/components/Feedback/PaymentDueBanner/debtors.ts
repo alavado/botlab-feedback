@@ -12,7 +12,6 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  Integral Linares;     2023-05-13
   OYEDental;            2023-05-13
   Interclínica;         2023-05-20
 `
