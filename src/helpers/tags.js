@@ -336,8 +336,8 @@ const tags = {
     color: '',
   },
   UNREACHABLE: {
-    texto: 'No tiene Whatsapp',
-    titulo: 'No tiene Whatsapp',
+    texto: 'Whatsapp',
+    titulo: 'Whatsapp',
     icono: 'mdi:alert',
     clase: 'TagRespuesta TagRespuesta--is_unreachable',
     color: '',
