@@ -13,6 +13,7 @@ import { combineReducers } from 'redux'
 import search from './search'
 import alerts from './alerts'
 import comments from './comments'
+import answers from './answers'
 
 const rootReducer = combineReducers({
   login,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   search,
   alerts,
   comments,
+  answers,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

@@ -203,3 +203,31 @@ export interface PollsHeadersAPIResponse {
     }
   ]
 }
+
+interface FixedAnswersAPIResponseKeys {
+  user_id: number
+  started: string
+  phone: string
+  start: string
+  latest_alert: unknown
+  is_unreachable: {
+    whatsapp: boolean
+  }
+  reactions: [
+    {
+      id: number
+      reaction_emoji: string
+      reaction_text: string
+      created_at: string
+    }
+  ]
+}
+
+export type AnswersAPIResponse = {
+  status: string
+  data: [
+    FixedAnswersAPIResponseKeys & {
+      [key: string]: unknown
+    }
+  ]
+}
