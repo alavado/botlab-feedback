@@ -1,8 +1,8 @@
 import { UseQueryResult, useQuery } from 'react-query'
 import { Interaction, ServiceId } from '../types/types'
-import { AnswersAPIResponse } from '../types/responses'
-import { API_ROOT, get } from './utils'
-import { format, parseISO } from 'date-fns'
+import { AnswersAPIResponse, AnswersAPIResponseRow } from '../types/responses'
+import { API_ROOT, get, parseAPIDate } from './utils'
+import { addHours, format, parseISO } from 'date-fns'
 
 const useInteractionsQuery = ({
   serviceId,
@@ -24,23 +24,53 @@ const useInteractionsQuery = ({
         return []
       }
       const { data }: { data: AnswersAPIResponse } = await get(url)
-      return data.data.map(
-        (answer: AnswersAPIResponse['data'][number]): Interaction => {
-          return {
-            appointments: [],
-            meta: [],
-            patientId: answer.user_id,
-            serviceId: serviceId,
-            start: parseISO(answer.start),
-          }
-        }
-      )
+      return data.data.map((answer: AnswersAPIResponseRow): Interaction => {
+        const nAppointments = Number(answer.n_appointments || 1)
+        return nAppointments === 1
+          ? answerSingleAppointmentToInteraction(answer, serviceId)
+          : answerSingleAppointmentToInteraction(answer, serviceId)
+      })
     },
     {
       refetchOnWindowFocus: false,
       refetchInterval: 120_000,
     }
   )
+}
+
+const answerSingleAppointmentToInteraction = (
+  appointment: AnswersAPIResponseRow,
+  serviceId: ServiceId
+): Interaction => {
+  return {
+    start: addHours(
+      parseISO(appointment.start),
+      Number(process.env.REACT_APP_UTC_OFFSET)
+    ),
+    patientId: appointment.user_id,
+    serviceId,
+    branch: appointment.sucursal_name as string | undefined,
+    phone: appointment.phone,
+    appointments: [
+      {
+        datetime: parseAPIDate(
+          appointment.date,
+          appointment.time,
+          appointment.start
+        ),
+        patientName: appointment.name as string,
+        rut: appointment.rut as string,
+        id: appointment.id_cita as string,
+        url: (appointment.dentalink_link || appointment.medilink_link) as
+          | string
+          | undefined,
+      },
+    ],
+    meta: Object.keys(appointment).map((header) => ({
+      header,
+      value: appointment[header],
+    })),
+  }
 }
 
 export default useInteractionsQuery

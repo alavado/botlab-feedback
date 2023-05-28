@@ -209,6 +209,8 @@ interface FixedAnswersAPIResponseKeys {
   started: string
   phone: string
   start: string
+  date: string
+  time: string
   latest_alert: unknown
   is_unreachable: {
     whatsapp: boolean
@@ -223,11 +225,13 @@ interface FixedAnswersAPIResponseKeys {
   ]
 }
 
+export type APITag = { tag: 'YES' | 'NO'; text: string }
+
+export type AnswersAPIResponseRow = FixedAnswersAPIResponseKeys & {
+  [key: string]: string | APITag
+}
+
 export type AnswersAPIResponse = {
   status: string
-  data: [
-    FixedAnswersAPIResponseKeys & {
-      [key: string]: unknown
-    }
-  ]
+  data: [AnswersAPIResponseRow]
 }

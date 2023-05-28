@@ -2,23 +2,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import useServicesQuery from '../../../api/hooks/useServicesQuery'
 import MenuUsuario from '../BarraSuperior/MenuUsuario/MenuUsuario'
 import './Answers.css'
-import { RootState } from '../../../redux/ducks'
 import useInteractionsQuery from '../../../api/hooks/useInteractionsQuery'
 import InteractionsLegacyTable from './InteractionsLegacyTable/InteractionsLegacyTable'
 import { selectService } from '../../../redux/ducks/answers'
+import useActiveServiceQuery from '../../../api/hooks/useActiveServiceQuery'
+import { addDays } from 'date-fns'
+import Loader from '../../Loader/Loader'
 
 const Answers = () => {
   const { data: services, isLoading } = useServicesQuery()
-  const { activeServiceId } = useSelector((state: RootState) => state.answers)
+  const { data: activeService } = useActiveServiceQuery()
   const { data: interactions, isLoading: loadingInteractions } =
     useInteractionsQuery({
-      serviceId: activeServiceId,
-      startDate: new Date(),
-      endDate: new Date(),
+      serviceId: activeService?.id,
+      startDate: addDays(new Date(), -2),
+      endDate: addDays(new Date(), -2),
     })
   const dispatch = useDispatch()
-
-  console.log({ interactions })
 
   return (
     <div className="Answers">
@@ -29,16 +29,25 @@ const Answers = () => {
         <MenuUsuario />
       </div>
       <main className="Answers__main">
-        <div>
-          {services?.map((service) => (
-            <button onClick={() => dispatch(selectService(service.id))}>
-              {service.name}
-            </button>
-          ))}
+        <div className="Answers__services_tabs">
+          {isLoading ? (
+            <p>cargando...</p>
+          ) : (
+            services?.map((service) => (
+              <button onClick={() => dispatch(selectService(service.id))}>
+                {service.name}
+              </button>
+            ))
+          )}
         </div>
-        <div>
-          {interactions && (
-            <InteractionsLegacyTable interactions={interactions} />
+        <div className="Answers__dashboard"></div>
+        <div className="Answers__table_container">
+          {loadingInteractions && <Loader />}
+          {interactions && activeService && (
+            <InteractionsLegacyTable
+              service={activeService}
+              interactions={interactions}
+            />
           )}
         </div>
       </main>

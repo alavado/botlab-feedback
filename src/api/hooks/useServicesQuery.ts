@@ -14,17 +14,23 @@ const useServicesQuery = (): UseQueryResult<Service[], unknown> => {
     async () => {
       const { data }: { data: PollsHeadersAPIResponse } = await get(url)
       return _.sortBy(
-        data.data.map(
-          (service): Service => ({
+        data.data.map((service): Service => {
+          const tagHeaders = service.headers.filter(
+            (h) => !_.isNaN(Number(h.name))
+          )
+          const nonTagHeaders = service.headers.filter((h) =>
+            _.isNaN(Number(h.name))
+          )
+          return {
             id: service.id,
             name: service.name.replace(`${nombreUsuario} `, ''),
-            headers: service.headers.map((header) => ({
+            headers: [...tagHeaders, ...nonTagHeaders].map((header) => ({
               name: header.name,
               displayName: header.display_name,
               type: header.type,
             })),
-          })
-        ),
+          }
+        }),
         'name'
       )
     },

@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { Icon } from '@iconify/react'
 import useInteractionDataQuery from '../../../../api/hooks/useInteractionDataQuery'
 import { PatientId, ServiceId } from '../../../../api/types/types'
@@ -35,19 +36,19 @@ const InteractionData = ({
             className="InteractionData__data_container"
             key={`interaction-data-${i}`}
           >
-            <h4 className="InteractionData__data_label">{d.label}</h4>
+            <h4 className="InteractionData__data_label">{d.header}</h4>
             <p
               className="InteractionData__data_value"
               title={`Copiar "${d.value}"`}
               onClick={() => {
                 track('Feedback', originComponentName, 'copy', {
-                  property: d.label,
+                  property: d.header,
                   value: d.value,
                 })
                 navigator.clipboard.writeText(d.value + '')
               }}
             >
-              {d.value}
+              {_.isString(d.value) ? d.value : d.value.tag}
             </p>
           </div>
         ))

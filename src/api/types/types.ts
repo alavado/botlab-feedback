@@ -19,7 +19,7 @@ export interface Branch {
 
 export interface Interaction {
   patientId: number
-  serviceId: number
+  serviceId: ServiceId
   start: Date
   appointments: Appointment[]
   branch?: string
@@ -30,9 +30,14 @@ export interface Interaction {
   meta: InteractionMeta[]
 }
 
+export type Tag = {
+  tag: 'YES' | 'NO'
+  text: string
+}
+
 export interface InteractionMeta {
-  label: string
-  value: string
+  header: string
+  value: string | Tag
 }
 
 export type SchedulingSystem = 'Dentalink' | 'Medilink' | 'Otro'

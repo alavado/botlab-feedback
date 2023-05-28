@@ -9,6 +9,28 @@ import {
 import { Appointment, Interaction } from '../types/types'
 import { get, parseAPIDate, API_ROOT } from './utils'
 
+const useSearchQuery = (
+  term: String
+): UseQueryResult<Interaction[], unknown> => {
+  return useQuery(['search', term], async () => {
+    if (!term) {
+      return []
+    }
+    const { data } = await get(`${API_ROOT}/answers_es?query=${term}`)
+    const interactions = data.data.map((searchResult: any): Interaction => {
+      const nAppointments = Number(searchResult.n_appointments || 1)
+      return nAppointments > 1
+        ? searchMultiAppointmentToInteraction(
+            searchResult as SearchAPIMultiAppointment
+          )
+        : searchSingleAppointmentToInteraction(
+            searchResult as SearchAPISingleAppointment
+          )
+    })
+    return _.orderBy(interactions, 'start', 'desc')
+  })
+}
+
 const searchSingleAppointmentToInteraction = (
   appointment: SearchAPISingleAppointment
 ): Interaction => {
@@ -77,28 +99,6 @@ const searchMultiAppointmentToInteraction = (
       }),
     meta: [],
   }
-}
-
-const useSearchQuery = (
-  term: String
-): UseQueryResult<Interaction[], unknown> => {
-  return useQuery(['search', term], async () => {
-    if (!term) {
-      return []
-    }
-    const { data } = await get(`${API_ROOT}/answers_es?query=${term}`)
-    const interactions = data.data.map((searchResult: any): Interaction => {
-      const nAppointments = Number(searchResult.n_appointments || 1)
-      return nAppointments > 1
-        ? searchMultiAppointmentToInteraction(
-            searchResult as SearchAPIMultiAppointment
-          )
-        : searchSingleAppointmentToInteraction(
-            searchResult as SearchAPISingleAppointment
-          )
-    })
-    return _.orderBy(interactions, 'start', 'desc')
-  })
 }
 
 export default useSearchQuery

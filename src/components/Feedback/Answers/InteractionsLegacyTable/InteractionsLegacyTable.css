@@ -1,0 +1,29 @@
+.InteractionsLegacyTable {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.6rem;
+}
+
+.InteractionsLegacyTable__headers {
+  display: flex;
+  background-color: var(--color-bordes);
+  grid-auto-columns: auto;
+  grid-auto-flow: column;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.InteractionsLegacyTable__header {
+  white-space: nowrap;
+  padding: 0.25rem 0;
+  flex: 1;
+}
+
+.InteractionsLegacyTable__row {
+  display: flex;
+  border-bottom: 1px solid var(--color-bordes);
+}
+
+.InteractionsLegacyTable__row > div {
+  flex: 1;
+}
