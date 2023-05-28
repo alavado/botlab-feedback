@@ -225,10 +225,23 @@ interface FixedAnswersAPIResponseKeys {
   ]
 }
 
-export type APITag = { tag: 'YES' | 'NO'; text: string }
+export type APITag =
+  | 'YES'
+  | 'NO'
+  | 'REAGENDA'
+  | 'OUT'
+  | 'PHONE:YES'
+  | 'PHONE:NO'
+
+export type APITagWithText = {
+  tag: APITag
+  text: string
+}
+
+export type APIMetaValue = string | number | APITagWithText
 
 export type AnswersAPIResponseRow = FixedAnswersAPIResponseKeys & {
-  [key: string]: string | APITag
+  [key: string]: APIMetaValue
 }
 
 export type AnswersAPIResponse = {

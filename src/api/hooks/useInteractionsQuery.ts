@@ -1,8 +1,15 @@
 import { UseQueryResult, useQuery } from 'react-query'
-import { Interaction, ServiceId } from '../types/types'
-import { AnswersAPIResponse, AnswersAPIResponseRow } from '../types/responses'
+import { Interaction, ServiceId, Tag, TagWithText } from '../types/types'
+import {
+  APIMetaValue,
+  APITag,
+  APITagWithText,
+  AnswersAPIResponse,
+  AnswersAPIResponseRow,
+} from '../types/responses'
 import { API_ROOT, get, parseAPIDate } from './utils'
 import { addHours, format, parseISO } from 'date-fns'
+import _, { isObject } from 'lodash'
 
 const useInteractionsQuery = ({
   serviceId,
@@ -68,9 +75,29 @@ const answerSingleAppointmentToInteraction = (
     ],
     meta: Object.keys(appointment).map((header) => ({
       header,
-      value: appointment[header],
+      value: processMeta(appointment[header]),
     })),
   }
+}
+
+const processMeta = (meta: APIMetaValue): string | TagWithText => {
+  if (!_.isString(meta) && !_.isNumber(meta) && meta) {
+    return {
+      tag: mapTag(meta.tag),
+      text: meta.text,
+    }
+  }
+  return meta + ''
+}
+
+const mapTag = (tag: APITag): Tag => {
+  switch (tag) {
+    case 'PHONE:YES':
+      return 'YES'
+    case 'PHONE:NO':
+      return 'NO'
+  }
+  return tag
 }
 
 export default useInteractionsQuery

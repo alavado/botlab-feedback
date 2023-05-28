@@ -30,14 +30,16 @@ export interface Interaction {
   meta: InteractionMeta[]
 }
 
-export type Tag = {
-  tag: 'YES' | 'NO'
+export type Tag = 'YES' | 'NO' | 'REAGENDA' | 'OUT'
+
+export type TagWithText = {
+  tag: Tag
   text: string
 }
 
 export interface InteractionMeta {
   header: string
-  value: string | Tag
+  value: string | TagWithText
 }
 
 export type SchedulingSystem = 'Dentalink' | 'Medilink' | 'Otro'

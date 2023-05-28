@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import useServicesQuery from '../../../api/hooks/useServicesQuery'
 import MenuUsuario from '../BarraSuperior/MenuUsuario/MenuUsuario'
 import './Answers.css'
@@ -8,9 +8,11 @@ import { selectService } from '../../../redux/ducks/answers'
 import useActiveServiceQuery from '../../../api/hooks/useActiveServiceQuery'
 import { addDays } from 'date-fns'
 import Loader from '../../Loader/Loader'
+import { Icon } from '@iconify/react'
+import classNames from 'classnames'
 
 const Answers = () => {
-  const { data: services, isLoading } = useServicesQuery()
+  const { data: services, isLoading: loadingServices } = useServicesQuery()
   const { data: activeService } = useActiveServiceQuery()
   const { data: interactions, isLoading: loadingInteractions } =
     useInteractionsQuery({
@@ -30,17 +32,31 @@ const Answers = () => {
       </div>
       <main className="Answers__main">
         <div className="Answers__services_tabs">
-          {isLoading ? (
-            <p>cargando...</p>
+          {loadingServices ? (
+            <Loader />
           ) : (
             services?.map((service) => (
-              <button onClick={() => dispatch(selectService(service.id))}>
-                {service.name}
+              <button
+                key={`tab-service-${service.id}`}
+                onClick={() => dispatch(selectService(service.id))}
+                className={classNames({
+                  Answers__service_tab: true,
+                  'Answers__service_tab--active':
+                    activeService?.id === service.id,
+                })}
+              >
+                <Icon
+                  className="Answers__tab_button_icon"
+                  icon="mdi:whatsapp"
+                />
+                <p className="Answers__tab_label">{service.name}</p>
               </button>
             ))
           )}
         </div>
-        <div className="Answers__dashboard"></div>
+        <div className="Answers__sidebar">
+          <div className="Answers__dashboard">85%</div>
+        </div>
         <div className="Answers__table_container">
           {loadingInteractions && <Loader />}
           {interactions && activeService && (
