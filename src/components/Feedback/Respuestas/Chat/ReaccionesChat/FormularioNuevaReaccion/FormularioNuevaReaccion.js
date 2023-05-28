@@ -111,7 +111,7 @@ const FormularioNuevaReaccion = ({ agregarNota }) => {
               type="submit"
             >
               {/* <InlineIcon style={{ fontSize: '.8rem' }} icon={iconoConfirmar} /> */}
-              <p>Agregar</p>
+              <InlineIcon icon="mdi:note-add-outline" /> Agregar nota
             </button>
           </form>
         </div>
