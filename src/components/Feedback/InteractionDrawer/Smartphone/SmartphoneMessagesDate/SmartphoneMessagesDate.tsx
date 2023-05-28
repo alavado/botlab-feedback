@@ -3,6 +3,7 @@ import { format, isToday, isYesterday } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { SmartphoneChatsDate } from '../Smartphone'
 import './SmartphoneMessagesDate.css'
+import { Icon } from '@iconify/react'
 
 const SmartphoneMessagesDate = ({ data }: { data: SmartphoneChatsDate }) => (
   <div
@@ -11,12 +12,12 @@ const SmartphoneMessagesDate = ({ data }: { data: SmartphoneChatsDate }) => (
       'SmartphoneMessagesDate--current': data.current,
     })}
   >
-    📅 {formatDate(data.date)}
+    <Icon icon="mdi:calendar" /> {formatDate(data.date)}
   </div>
 )
 
 const formatDate = (date: Date) => {
-  let formattedDate = format(date, 'iiii d MMMM yyyy', {
+  let formattedDate = format(date, "iiii d MMMM 'de' yyyy", {
     locale: es,
   })
 

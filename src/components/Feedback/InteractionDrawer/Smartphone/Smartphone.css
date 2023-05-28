@@ -1,10 +1,11 @@
 .Smartphone {
-  height: 90vh;
-  aspect-ratio: 9 / 17.5;
+  height: calc(100vh - 4rem);
+  aspect-ratio: 9 / 18;
   width: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  --border-width: 0.75rem;
 }
 
 .Smartphone__screen {
@@ -12,12 +13,16 @@
   height: calc(100% - 1rem);
   border-radius: 1.75rem;
   background-color: var(--whatsapp-color-celular);
-  box-shadow: 0 0 0 0.3rem black, 0 0 0 0.4rem var(--phone-color),
-    0 0 0 0.45rem rgba(255, 255, 255, 0.7), 0 0 0 0.55rem var(--phone-color),
-    -0.02rem -0.02rem 0 0.325rem var(--whatsapp-color-brillo-celular),
-    0.03rem 0.03rem 0 0.325rem var(--whatsapp-color-brillo-2-celular),
-    0 0.05rem 0.25rem 0.55rem var(--color-sombras),
-    0 0.25rem 0.25rem 0.5rem var(--color-sombras);
+  box-shadow: 0 0 0 calc(var(--border-width) * 0.3) black,
+    0 0 0 calc(var(--border-width) * 0.4) var(--phone-color),
+    0 0 0 calc(var(--border-width) * 0.45) rgba(255, 255, 255, 0.7),
+    0 0 0 calc(var(--border-width) * 0.55) var(--phone-color),
+    -0.02rem -0.02rem 0 calc(var(--border-width) * 0.325)
+      var(--whatsapp-color-brillo-celular),
+    0.03rem 0.03rem 0 calc(var(--border-width) * 0.325)
+      var(--whatsapp-color-brillo-2-celular),
+    0 0.05rem 0.25rem calc(var(--border-width) * 0.55) var(--color-sombras),
+    0 0.25rem 0.25rem calc(var(--border-width) * 0.55) var(--color-sombras);
   display: flex;
   flex-direction: column;
   position: relative;

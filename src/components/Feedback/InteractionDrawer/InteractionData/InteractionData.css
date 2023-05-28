@@ -6,6 +6,7 @@
   width: 100%;
   padding-top: 1rem;
   padding-left: 0.5rem;
+  padding-bottom: 33vh;
 }
 
 .InteractionData__title {
@@ -37,6 +38,7 @@
   text-overflow: ellipsis;
   align-self: flex-start;
   border-bottom: 1px dashed transparent;
+  line-height: 1.25;
 }
 
 .InteractionData__data_value:hover {

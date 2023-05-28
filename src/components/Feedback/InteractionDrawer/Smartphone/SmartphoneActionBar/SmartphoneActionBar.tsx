@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import Loader from '../../../../Loader'
 import './SmartphoneActionBar.css'
@@ -67,7 +66,7 @@ const SmartphoneActionBar = ({
         title={`Copiar "${phone}"`}
       >
         <span className="SmartphoneActionBar__receiver_phone">
-          <Icon icon="mdi:phone" /> {phone}
+          {phone && <>+{phone}</>}
         </span>
         <button
           className="SmartphoneActionBar__copy_button"

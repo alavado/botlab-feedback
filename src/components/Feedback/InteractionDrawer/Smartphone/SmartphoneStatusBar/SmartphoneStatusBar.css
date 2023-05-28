@@ -10,7 +10,7 @@
 
 .SmartphoneStatusBar__time {
   font-weight: 600;
-  opacity: 0.9;
+  opacity: 0.75;
   font-size: 0.55rem;
 }
 
@@ -32,4 +32,5 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  opacity: 0.75;
 }
