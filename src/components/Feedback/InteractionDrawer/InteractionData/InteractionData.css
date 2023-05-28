@@ -26,6 +26,7 @@
   flex-direction: column;
   gap: 0.25rem;
   font-size: 0.65rem;
+  justify-content: center;
 }
 
 .InteractionData__data_label {
@@ -33,7 +34,7 @@
 }
 
 .InteractionData__data_value {
-  max-width: 25ch;
+  max-width: 30ch;
   overflow: hidden;
   text-overflow: ellipsis;
   align-self: flex-start;

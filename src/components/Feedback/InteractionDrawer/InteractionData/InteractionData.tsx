@@ -48,7 +48,9 @@ const InteractionData = ({
                 navigator.clipboard.writeText(d.value + '')
               }}
             >
-              {_.isString(d.value) ? d.value : d.value.tag}
+              {_.isString(d.value) || _.isNumber(d.value)
+                ? d.value
+                : d.value.tag}
             </p>
           </div>
         ))
