@@ -109,7 +109,7 @@ const Dashboard = () => {
     }))
   }, [rawData])
 
-  if (!data || isEmpty(propertiesFilters)) {
+  if (!data) {
     return null
   }
 
