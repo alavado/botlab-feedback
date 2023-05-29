@@ -16,12 +16,13 @@ const useDashboardDataQuery = ({
 }): UseQueryResult<any, unknown> => {
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
+  const { idCliente } = useSelector((state: RootState) => state.login)
 
   return useQuery<any, any, any>(
     ['dashboard', start, end],
     async () => {
       const { data } = await axios.get(
-        `https://dashboard-api-ysuyrps2hq-tl.a.run.app/client/5/metrics?start_date=${start}&end_date=${end}`
+        `https://dashboard-api-ysuyrps2hq-tl.a.run.app/client/${idCliente}/metrics?start_date=${start}&end_date=${end}`
       )
       // console.log(data)
       // return Object.keys(data).map((date: any) => ({
