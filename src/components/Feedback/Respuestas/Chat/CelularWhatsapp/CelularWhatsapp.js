@@ -96,7 +96,7 @@ const CelularWhatsapp = ({
                       }
                     }}
                   >
-                    {false && c.is_unreachable?.whatsapp ? (
+                    {c.is_unreachable?.whatsapp ? (
                       <div className="CelularWhatsapp__sin_whatsapp">
                         <Icon
                           icon="mdi:alert"

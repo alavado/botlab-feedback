@@ -31,7 +31,7 @@ const tags = {
     texto: 'Sí',
     titulo: 'Confirmaciones',
     icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--si',
+    clase: 'TagRespuesta TagRespuesta--no',
     color: 'var(--color-si)',
   },
   'PHONE:NO': {
@@ -350,8 +350,8 @@ const tags = {
     color: '',
   },
   UNREACHABLE: {
-    texto: 'Whatsapp',
-    titulo: 'Whatsapp',
+    texto: 'No tiene Whatsapp',
+    titulo: 'No tiene Whatsapp',
     icono: 'mdi:alert',
     clase: 'TagRespuesta TagRespuesta--is_unreachable',
     color: '',

@@ -55,7 +55,6 @@
 .TagRespuesta--is_unreachable {
   background-color: rgb(250, 250, 250);
   color: var(--color-secundario) !important;
-  opacity: 0;
 }
 
 /* .TagRespuesta--nota {
