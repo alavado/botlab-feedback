@@ -1,0 +1,9 @@
+.TagLabel {
+  color: var(--color-texto-tag);
+  font-size: 0.65rem;
+  padding: 0.2rem 0.5rem 0.2rem 0.25rem;
+  display: flex;
+  gap: 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}

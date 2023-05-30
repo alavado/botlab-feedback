@@ -13,7 +13,7 @@ const InteractionsLegacyTable = ({
   return (
     <div className="InteractionsLegacyTable">
       <div className="InteractionsLegacyTable__row InteractionsLegacyTable__row--headers">
-        <div className="InteractionsLegacyTable__row_cell InteractionsLegacyTable__row_cell--header">
+        <div className="InteractionsLegacyTable__row_cell InteractionsLegacyTable__row_cell--header InteractionsLegacyTable__row_cell--notes-header">
           <Icon icon="mdi:note" />
         </div>
         {service.headers.map((header) => (
@@ -27,7 +27,7 @@ const InteractionsLegacyTable = ({
       </div>
       {interactions.slice(0, 50).map((i: Interaction, n) => (
         <div key={`row-${n}`} className="InteractionsLegacyTable__row">
-          <div className="InteractionsLegacyTable__row_cell"></div>
+          <div className="InteractionsLegacyTable__row_cell InteractionsLegacyTable__row_cell--notes-cell"></div>
           {service.headers.map((header, m) => {
             const metaValue = i.meta.find((m) => m.header === header.name)
             return (

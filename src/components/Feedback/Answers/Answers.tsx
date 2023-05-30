@@ -10,6 +10,7 @@ import { addDays } from 'date-fns'
 import Loader from '../../Loader/Loader'
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
+import MiniDashboard from './MiniDashboard'
 
 const Answers = () => {
   const { data: services, isLoading: loadingServices } = useServicesQuery()
@@ -55,7 +56,7 @@ const Answers = () => {
           )}
         </div>
         <div className="Answers__sidebar">
-          <div className="Answers__dashboard">85%</div>
+          <MiniDashboard />
         </div>
         <div className="Answers__table_container">
           {loadingInteractions && <Loader />}

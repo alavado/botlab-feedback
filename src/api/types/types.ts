@@ -30,7 +30,7 @@ export interface Interaction {
   meta: InteractionMeta[]
 }
 
-export type Tag = 'YES' | 'NO' | 'REAGENDA' | 'OUT'
+export type Tag = 'YES' | 'NO' | 'REAGENDA' | 'OUT' | 'SIN RESPUESTA'
 
 export type TagWithText = {
   tag: Tag

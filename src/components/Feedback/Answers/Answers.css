@@ -101,13 +101,6 @@
   width: 10rem;
 }
 
-.Answers__dashboard {
-  border-radius: 0.25rem;
-  background-color: var(--color-mini-dasdhboard-1);
-  height: 10rem;
-  margin: 0.25rem;
-}
-
 .Answers__table_container {
   max-height: calc(100vh - 5rem);
   overflow: auto;

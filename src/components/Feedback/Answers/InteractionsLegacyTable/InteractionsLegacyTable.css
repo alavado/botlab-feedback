@@ -35,3 +35,13 @@
   text-transform: uppercase;
   background-color: var(--color-fondo);
 }
+
+.InteractionsLegacyTable__row_cell--notes-header {
+  max-width: 2rem;
+  min-width: 2rem;
+}
+
+.InteractionsLegacyTable__row_cell--notes-cell {
+  max-width: 2rem;
+  min-width: 2rem;
+}
