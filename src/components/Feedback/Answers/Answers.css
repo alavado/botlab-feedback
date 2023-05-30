@@ -41,8 +41,10 @@
 .Answers__services_tabs {
   grid-column: 1 / -1;
   display: flex;
-  height: 1.5rem;
+  height: 1.75rem;
   background-color: var(--color-barra-superior);
+  max-width: calc(100vw - 5rem);
+  overflow-x: hidden;
 }
 
 .Answers__services_tabs::before {
@@ -69,16 +71,22 @@
   border-radius: 0.25rem 0.25rem 0 0;
   border: 1px solid transparent;
   border-bottom: 1px solid var(--color-bordes);
+  /* max-width: 7rem; */
+  transition: all 0.26s ease;
 }
 
 .Answers__tab_button_icon {
   font-size: 0.65rem;
   color: var(--color-whatsapp);
+  min-width: 0.75rem;
 }
 
 .Answers__tab_label {
   font-size: 0.6rem;
   font-weight: 600;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: left;
   white-space: nowrap;
 }
 
@@ -86,6 +94,7 @@
   background-color: var(--color-fondo);
   border: 1px solid var(--color-bordes);
   border-bottom: 1px solid transparent;
+  max-width: 20rem;
 }
 
 .Answers__sidebar {

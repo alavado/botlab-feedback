@@ -27,9 +27,7 @@ const InteractionsLegacyTable = ({
       </div>
       {interactions.slice(0, 50).map((i: Interaction, n) => (
         <div key={`row-${n}`} className="InteractionsLegacyTable__row">
-          <div className="InteractionsLegacyTable__row_cell">
-            <Icon icon="mdi:note" />
-          </div>
+          <div className="InteractionsLegacyTable__row_cell"></div>
           {service.headers.map((header, m) => {
             const metaValue = i.meta.find((m) => m.header === header.name)
             return (
