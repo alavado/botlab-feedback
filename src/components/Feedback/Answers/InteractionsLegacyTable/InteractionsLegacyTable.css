@@ -2,6 +2,24 @@
   display: flex;
   flex-direction: column;
   font-size: 0.65rem;
+  position: relative;
+}
+
+.InteractionsLegacyTable__drawer {
+  position: fixed;
+  height: 100%;
+  right: 0;
+  top: 0;
+  background: var(--color-fondo);
+  transition: right 0.35s ease-out, opacity 0.35s ease-out;
+  opacity: 1;
+  display: flex;
+  z-index: 2;
+}
+
+.InteractionsLegacyTable__drawer--hidden {
+  right: -100%;
+  opacity: 0;
 }
 
 .InteractionsLegacyTable__row {
@@ -10,6 +28,12 @@
   padding: 0.35rem 0;
   align-items: center;
   width: fit-content;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.InteractionsLegacyTable__row:hover {
+  background-color: var(--color-fila-destacada);
 }
 
 .InteractionsLegacyTable__row--headers {
@@ -18,12 +42,19 @@
   background-color: var(--color-fondo);
 }
 
+.InteractionsLegacyTable__row--headers:hover {
+  background-color: inherit;
+}
+
 .InteractionsLegacyTable__row_cell {
   padding-left: 0.25rem;
   flex: 1;
-  min-width: 8rem;
-  max-width: 8rem;
+  min-width: 7rem;
+  max-width: 7rem;
   line-height: 1.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .InteractionsLegacyTable__row_cell--header {
@@ -37,11 +68,22 @@
 }
 
 .InteractionsLegacyTable__row_cell--notes-header {
-  max-width: 2rem;
-  min-width: 2rem;
+  max-width: 1.75rem;
+  min-width: 1.75rem;
+  justify-content: center;
 }
 
 .InteractionsLegacyTable__row_cell--notes-cell {
-  max-width: 2rem;
-  min-width: 2rem;
+  max-width: 1.75rem;
+  min-width: 1.75rem;
+}
+
+.InteractionsLegacyTable__row_cell--tag-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.InteractionsLegacyTable__row--active,
+.InteractionsLegacyTable__row--active:hover {
+  background-color: var(--color-fila-muy-destacada);
 }

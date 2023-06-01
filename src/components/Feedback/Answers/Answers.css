@@ -99,6 +99,7 @@
 
 .Answers__sidebar {
   width: 10rem;
+  border-right: 1px solid var(--color-bordes);
 }
 
 .Answers__table_container {

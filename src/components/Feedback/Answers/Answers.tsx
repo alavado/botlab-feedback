@@ -6,7 +6,6 @@ import useInteractionsQuery from '../../../api/hooks/useInteractionsQuery'
 import InteractionsLegacyTable from './InteractionsLegacyTable/InteractionsLegacyTable'
 import { selectService } from '../../../redux/ducks/answers'
 import useActiveServiceQuery from '../../../api/hooks/useActiveServiceQuery'
-import { addDays } from 'date-fns'
 import Loader from '../../Loader/Loader'
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
@@ -18,8 +17,8 @@ const Answers = () => {
   const { data: interactions, isLoading: loadingInteractions } =
     useInteractionsQuery({
       serviceId: activeService?.id,
-      startDate: addDays(new Date(), -2),
-      endDate: addDays(new Date(), -2),
+      startDate: new Date(),
+      endDate: new Date(),
     })
   const dispatch = useDispatch()
 
@@ -27,7 +26,7 @@ const Answers = () => {
     <div className="Answers">
       <div className="Answers__topbar">
         <div className="Answers__topbar_left">
-          <h2 className="Answers__title">Respuestas</h2>
+          <h2 className="Answers__title">Interacciones</h2>
         </div>
         <MenuUsuario />
       </div>

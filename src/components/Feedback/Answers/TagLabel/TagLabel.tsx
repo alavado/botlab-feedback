@@ -7,6 +7,10 @@ import { getPresentationForTag } from './utils'
 const TagLabel = ({ tag }: { tag: Tag | unknown }) => {
   const { colorVar, icon, label } = getPresentationForTag({ tag })
 
+  if (!label) {
+    return null
+  }
+
   return (
     <div
       className="TagLabel"

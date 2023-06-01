@@ -6,6 +6,13 @@ export const getPresentationForTag = ({
   tag: Tag | unknown
 }): { icon: string; label: string; colorVar: string } => {
   if (!isTag(tag)) {
+    if (!tag) {
+      return {
+        icon: '',
+        label: '',
+        colorVar: '',
+      }
+    }
     return {
       icon: 'mdi:question-mark',
       label: 'Otro',
@@ -46,7 +53,7 @@ export const getPresentationForTag = ({
     default:
       return {
         icon: 'mdi:question-mark',
-        label: 'Otro',
+        label: tag,
         colorVar: '--color-out',
       }
   }

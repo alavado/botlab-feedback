@@ -15,9 +15,9 @@ const useServicesQuery = (): UseQueryResult<Service[], unknown> => {
       const { data }: { data: PollsHeadersAPIResponse } = await get(url)
       return _.sortBy(
         data.data.map((service): Service => {
-          const tagHeaders = service.headers.filter(
-            (h) => !_.isNaN(Number(h.name))
-          )
+          const tagHeaders = service.headers
+            .filter((h) => !_.isNaN(Number(h.name)))
+            .slice(0, 1)
           const nonTagHeaders = service.headers.filter((h) =>
             _.isNaN(Number(h.name))
           )
