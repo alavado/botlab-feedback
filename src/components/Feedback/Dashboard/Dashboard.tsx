@@ -1,18 +1,24 @@
 import { Icon } from '@iconify/react'
 import { addDays, format, parseISO, startOfMonth, startOfWeek } from 'date-fns'
-import _, { isEmpty } from 'lodash'
+import _ from 'lodash'
 import { useMemo, useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import useDashboardDataQuery from '../../../api/hooks/useDashboardDataQuery'
 import MenuUsuario from '../BarraSuperior/MenuUsuario'
 import './Dashboard.css'
+import Loader from '../../Loader/Loader'
 
 type DashboardGroupByFilter = 'DAY' | 'WEEK' | 'MONTH'
 
 const Dashboard = () => {
   const [startDate, setStartDate] = useState(addDays(new Date(), -1))
   const [endDate, setEndDate] = useState(new Date())
-  const { data: rawData } = useDashboardDataQuery({
+  const {
+    data: rawData,
+    isLoading,
+    isError,
+    error,
+  } = useDashboardDataQuery({
     startDate,
     endDate,
   })
@@ -109,8 +115,12 @@ const Dashboard = () => {
     }))
   }, [rawData])
 
-  if (!data) {
-    return null
+  if (isLoading) {
+    return <Loader />
+  }
+
+  if (isError) {
+    return <p>{'' + error}</p>
   }
 
   return (
