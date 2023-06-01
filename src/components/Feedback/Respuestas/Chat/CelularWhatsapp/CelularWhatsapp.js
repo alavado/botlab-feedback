@@ -10,7 +10,7 @@ import { fijaChatExpandido } from '../../../../../redux/ducks/opciones'
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router'
 import useAnalytics from '../../../../../hooks/useAnalytics'
-import { format, parseISO } from 'date-fns'
+import MensajeSinWhatsapp from './MensajeSinWhatsapp/MensajeSinWhatsapp'
 
 const CelularWhatsapp = ({
   conversaciones,
@@ -19,6 +19,7 @@ const CelularWhatsapp = ({
   actualizarMensajes,
   nombrePaciente,
   telefono,
+  intentos,
 }) => {
   const { chatExpandido } = useSelector((state) => state.opciones)
   const contenedorMensajes = useRef()
@@ -96,20 +97,8 @@ const CelularWhatsapp = ({
                       }
                     }}
                   >
-                    {false && c.is_unreachable?.whatsapp ? (
-                      <div className="CelularWhatsapp__sin_whatsapp">
-                        <Icon
-                          icon="mdi:alert"
-                          className="CelularWhatsapp__sin_whatsapp_icono"
-                        />
-                        <p>
-                          Para esta cita no habrá respuesta porque paciente no
-                          tiene Whatsapp
-                        </p>
-                        <p className="CelularWhatsapp__sin_whatsapp_fecha">
-                          {format(parseISO(c.start), 'hh:mm dd/MM/yy')}
-                        </p>
-                      </div>
+                    {c.is_unreachable?.whatsapp ? (
+                      <MensajeSinWhatsapp start={c.start} intentos={intentos} />
                     ) : mensajes.length > 0 ? (
                       mensajes.map((mensaje, i) => (
                         <MensajeWhatsapp

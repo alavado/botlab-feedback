@@ -1,0 +1,104 @@
+.MensajeSinWhatsapp {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.5rem;
+  background-color: #fff;
+  font-size: 0.8rem;
+  padding: 1.5rem 1rem 1rem 1rem;
+  line-height: 1.25;
+  border: 2px solid var(--color-bordes);
+  position: relative;
+}
+
+.MensajeSinWhatsapp__iconos {
+  display: flex;
+  font-size: 2rem;
+  color: var(--color-texto);
+  flex-direction: column;
+  flex: 1;
+}
+
+.MensajeSinWhatsapp__imagen {
+  width: 4.5rem;
+}
+
+.MensajeSinWhatsapp__fecha {
+  opacity: 0.75;
+  font-size: 0.45rem;
+  position: absolute;
+  right: 0.35rem;
+  text-align: right;
+  bottom: 0.25rem;
+}
+
+.MensajeSinWhatsapp__titulo {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.MensajeSinWhatsapp__boton_explicacion {
+  position: absolute;
+  right: 0.25rem;
+  top: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.45rem;
+  opacity: 0.6;
+}
+
+.MensajeSinWhatsapp__boton_explicacion:hover {
+  opacity: 1;
+}
+
+.MensajeSinWhatsapp__contenido {
+  font-size: 0.65rem;
+  line-height: 1.25;
+}
+
+.MensajeSinWhatsapp__lista_telefonos {
+  margin-top: 0.25rem;
+  margin-left: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.MensajeSinWhatsapp__dialogo {
+  width: 30ch;
+  border-radius: 0.25rem;
+  border: none;
+  box-shadow: 0 0 0.25rem var(--color-sombras);
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+.MensajeSinWhatsapp__dialogo_contenido {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.65rem;
+  line-height: 1.5;
+}
+
+.MensajeSinWhatsapp__boton_cerrar_dialogo {
+  font-size: 0.75rem;
+  gap: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-claro);
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s ease;
+  position: relative;
+  z-index: 2;
+  font-weight: 500;
+  padding: 0.25rem 1rem;
+  border-radius: 0.25rem;
+}
