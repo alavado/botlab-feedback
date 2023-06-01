@@ -50,6 +50,12 @@ export const getPresentationForTag = ({
         label: 'Sin respuesta',
         colorVar: '--color-unanswered',
       }
+    case 'UNREACHABLE':
+      return {
+        icon: 'mdi:alert',
+        label: 'Sin Whatsapp',
+        colorVar: '--color-no',
+      }
     default:
       return {
         icon: 'mdi:question-mark',

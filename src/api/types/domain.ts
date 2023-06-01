@@ -30,10 +30,23 @@ export interface Interaction {
   meta: InteractionMeta[]
 }
 
-export type Tag = 'YES' | 'NO' | 'REAGENDA' | 'OUT' | 'SIN RESPUESTA'
+export type Tag =
+  | 'YES'
+  | 'NO'
+  | 'REAGENDA'
+  | 'OUT'
+  | 'SIN RESPUESTA'
+  | 'UNREACHABLE'
 
 export const isTag = (stuff: any): stuff is Tag => {
-  return ['YES', 'NO', 'REAGENDA', 'OUT', 'SIN RESPUESTA'].includes(stuff)
+  return [
+    'YES',
+    'NO',
+    'REAGENDA',
+    'OUT',
+    'SIN RESPUESTA',
+    'UNREACHABLE',
+  ].includes(stuff)
 }
 
 export type TagWithText = {
