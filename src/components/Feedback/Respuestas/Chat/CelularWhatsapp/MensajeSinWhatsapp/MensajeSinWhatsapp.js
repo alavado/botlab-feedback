@@ -2,18 +2,41 @@ import { Icon } from '@iconify/react'
 import './MensajeSinWhatsapp.css'
 import { format, parseISO } from 'date-fns'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
+import TagRespuesta from '../../../TablaRespuestas/TagRespuesta/TagRespuesta'
+import imagenUnreachable from '../../../../../../assets/images/unreachable.png'
 
 const MensajeSinWhatsapp = ({ start, intentos }) => {
   return (
     <div className="MensajeSinWhatsapp">
-      <button className="MensajeSinWhatsapp__boton_explicacion">
+      <dialog className="MensajeSinWhatsapp__dialogo" open={false}>
+        <div className="MensajeSinWhatsapp__dialogo_contenido">
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <TagRespuesta tag="UNREACHABLE" />
+          </div>
+          <p>
+            Desde ahora en Feedback estamos marcando los números de teléfono de
+            pacientes que no usan WhatsApp
+          </p>
+          <form method="dialog">
+            <button className="MensajeSinWhatsapp__boton_cerrar_dialogo">
+              ¡Entendido!
+            </button>
+          </form>
+        </div>
+      </dialog>
+      <button
+        className="MensajeSinWhatsapp__boton_explicacion"
+        onClick={() =>
+          document.querySelector('.MensajeSinWhatsapp__dialogo').showModal()
+        }
+      >
         ¿Qué es esto?
       </button>
       <div className="MensajeSinWhatsapp__iconos">
-        <Icon icon="mdi:whatsapp" className="MensajeSinWhatsapp__icono" />
-        <Icon
-          icon="mdi:emoticon-sad-outline"
-          className="MensajeSinWhatsapp__icono"
+        <img
+          className="MensajeSinWhatsapp__imagen"
+          src={imagenUnreachable}
+          alt="No pudimos contactar a este paciente"
         />
       </div>
       <div>
