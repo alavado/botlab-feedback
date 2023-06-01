@@ -19,6 +19,7 @@ const CelularWhatsapp = ({
   actualizarMensajes,
   nombrePaciente,
   telefono,
+  intentos,
 }) => {
   const { chatExpandido } = useSelector((state) => state.opciones)
   const contenedorMensajes = useRef()
@@ -97,7 +98,7 @@ const CelularWhatsapp = ({
                     }}
                   >
                     {c.is_unreachable?.whatsapp ? (
-                      <MensajeSinWhatsapp start={c.start} />
+                      <MensajeSinWhatsapp start={c.start} intentos={intentos} />
                     ) : mensajes.length > 0 ? (
                       mensajes.map((mensaje, i) => (
                         <MensajeWhatsapp

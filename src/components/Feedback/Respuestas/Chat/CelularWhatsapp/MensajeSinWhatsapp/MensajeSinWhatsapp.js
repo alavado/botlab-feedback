@@ -1,8 +1,9 @@
 import { Icon } from '@iconify/react'
 import './MensajeSinWhatsapp.css'
 import { format, parseISO } from 'date-fns'
+import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
 
-const MensajeSinWhatsapp = ({ start }) => {
+const MensajeSinWhatsapp = ({ start, intentos }) => {
   return (
     <div className="MensajeSinWhatsapp">
       <button className="MensajeSinWhatsapp__boton_explicacion">
@@ -19,12 +20,26 @@ const MensajeSinWhatsapp = ({ start }) => {
         <h3 className="MensajeSinWhatsapp__titulo">
           No pudimos contactar a este paciente
         </h3>
-        <p>Ninguno de sus números asociados tiene Whatsapp</p>
-        <li>{}</li>
-        <p className="MensajeSinWhatsapp__fecha">
-          {format(parseISO(start), 'hh:mm dd/MM/yy')}
+        <p className="MensajeSinWhatsapp__contenido">
+          {intentos?.length > 1 ? (
+            <>
+              <span>Ninguno de sus números asociados tiene Whatsapp:</span>
+              <ol className="MensajeSinWhatsapp__lista_telefonos">
+                {intentos?.map((intento, i) => (
+                  <li key={`MensajeSinWhatsapp__lista_telefonos-${i}`}>
+                    {formatearCampoRespuestas(intento.phone, 'phone')}
+                  </li>
+                ))}
+              </ol>
+            </>
+          ) : (
+            <>El número asociado no tiene Whatsapp</>
+          )}
         </p>
       </div>
+      <p className="MensajeSinWhatsapp__fecha">
+        {format(parseISO(start), 'hh:mm')}
+      </p>
     </div>
   )
 }

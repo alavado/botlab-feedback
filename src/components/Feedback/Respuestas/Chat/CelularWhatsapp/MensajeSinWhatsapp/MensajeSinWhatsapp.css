@@ -3,31 +3,32 @@
   gap: 1rem;
   align-items: center;
   margin-top: 0.5rem;
-  background-color: var(--color-fondo);
+  background-color: var(--color-unreachable);
   font-size: 0.8rem;
   padding: 1.5rem 1rem 1rem 1rem;
-  border-radius: 0.25rem;
-  line-height: 1.15;
-  box-shadow: 0 0 0.25rem var(--color-sombras);
+  line-height: 1.25;
+  border-radius: 0.5rem;
   position: relative;
 }
 
 .MensajeSinWhatsapp__iconos {
   display: flex;
-  font-size: 1.75rem;
-}
-
-.MensajeSinWhatsapp__icono {
-  color: var(--color-secundario);
+  font-size: 2rem;
+  color: var(--color-texto);
 }
 
 .MensajeSinWhatsapp__fecha {
   opacity: 0.75;
-  font-size: 0.6rem;
+  font-size: 0.45rem;
+  position: absolute;
+  right: 0.35rem;
+  text-align: right;
+  bottom: 0.25rem;
 }
 
 .MensajeSinWhatsapp__titulo {
   font-weight: bold;
+  margin-bottom: 0.25rem;
 }
 
 .MensajeSinWhatsapp__boton_explicacion {
@@ -43,4 +44,17 @@
 
 .MensajeSinWhatsapp__boton_explicacion:hover {
   opacity: 1;
+}
+
+.MensajeSinWhatsapp__contenido {
+  font-size: 0.65rem;
+  line-height: 1.25;
+}
+
+.MensajeSinWhatsapp__lista_telefonos {
+  margin-top: 0.25rem;
+  margin-left: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
