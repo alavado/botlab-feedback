@@ -23,6 +23,7 @@ import PaymentDueBanner from './PaymentDueBanner/PaymentDueBanner'
 import PaymentDueModal from './PaymentDueModal/PaymentDueModal'
 import SingleAlertView from './SingleAlertView/SingleAlertView'
 import Dashboard from './Dashboard'
+import DashboardLegacy from './DashboardLegacy/DashboardLegacy'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
@@ -124,6 +125,9 @@ const Feedback = () => {
                 <Route path="/dashboard">
                   <></>
                 </Route>
+                <Route path="/dashboard-legacy">
+                  <></>
+                </Route>
                 <Route>
                   <BarraSuperior />
                 </Route>
@@ -150,6 +154,9 @@ const Feedback = () => {
                   </Route>
                   <Route path="/dashboard">
                     <Dashboard />
+                  </Route>
+                  <Route path="/dashboard-legacy">
+                    <DashboardLegacy />
                   </Route>
                   <Route path="/exportar">
                     <ExportacionAvanzada />
