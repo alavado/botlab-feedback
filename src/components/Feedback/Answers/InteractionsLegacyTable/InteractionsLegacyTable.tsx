@@ -1,5 +1,5 @@
 import './InteractionsLegacyTable.css'
-import { Interaction, Service } from '../../../../api/types/types'
+import { Interaction, Service } from '../../../../api/types/domain'
 import _ from 'lodash'
 import { Icon } from '@iconify/react'
 

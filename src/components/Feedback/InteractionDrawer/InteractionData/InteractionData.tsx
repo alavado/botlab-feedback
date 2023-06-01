@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { Icon } from '@iconify/react'
 import useInteractionDataQuery from '../../../../api/hooks/useInteractionDataQuery'
-import { PatientId, ServiceId } from '../../../../api/types/types'
+import { PatientId, ServiceId } from '../../../../api/types/domain'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import Loader from '../../../Loader'
 import './InteractionData.css'

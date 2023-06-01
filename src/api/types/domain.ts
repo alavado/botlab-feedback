@@ -32,6 +32,10 @@ export interface Interaction {
 
 export type Tag = 'YES' | 'NO' | 'REAGENDA' | 'OUT' | 'SIN RESPUESTA'
 
+export const isTag = (stuff: any): stuff is Tag => {
+  return ['YES', 'NO', 'REAGENDA', 'OUT', 'SIN RESPUESTA'].includes(stuff)
+}
+
 export type TagWithText = {
   tag: Tag
   text: string

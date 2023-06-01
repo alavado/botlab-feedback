@@ -5,7 +5,7 @@ import Smartphone from './Smartphone'
 import { Icon } from '@iconify/react'
 import useChatQuery from '../../../api/hooks/useChatQuery'
 import InteractionDrawerActions from './InteractionDrawerActions'
-import { PatientId, ServiceId } from '../../../api/types/types'
+import { PatientId, ServiceId } from '../../../api/types/domain'
 import InteractionComments from './InteractionComments'
 import InteractionData from './InteractionData'
 

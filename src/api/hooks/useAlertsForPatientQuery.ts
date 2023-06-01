@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
-import { Alert, PatientId, ServiceId } from '../types/types'
+import { Alert, PatientId, ServiceId } from '../types/domain'
 import useActiveAlertsQuery, { ActiveAlerts } from './useActiveAlertsQuery'
 
 const getActiveAlertsForPatient = (

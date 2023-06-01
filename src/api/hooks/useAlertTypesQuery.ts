@@ -2,7 +2,7 @@ import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
-import { AlertType } from '../types/types'
+import { AlertType } from '../types/domain'
 
 const alertTypes = [
   {

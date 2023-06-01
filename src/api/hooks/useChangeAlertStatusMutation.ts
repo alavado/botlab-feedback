@@ -1,5 +1,5 @@
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
-import { Alert, AlertId, PatientId, ServiceId } from '../types/types'
+import { Alert, AlertId, PatientId, ServiceId } from '../types/domain'
 import { patch, API_ROOT } from './utils'
 
 const useChangeAlertStatusMutation = ({

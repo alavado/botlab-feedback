@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
-import { CommentId, PatientId, ServiceId } from '../types/types'
+import { CommentId, PatientId, ServiceId } from '../types/domain'
 import { API_ROOT, del } from './utils'
 
 const useDeleteCommentMutation = ({

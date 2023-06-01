@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
 import useCommentsQuery from '../../../../api/hooks/useCommentsQuery'
-import { PatientId, ServiceId } from '../../../../api/types/types'
+import { PatientId, ServiceId } from '../../../../api/types/domain'
 import Loader from '../../../Loader'
 import InteractionComment from './InteractionComment/InteractionComment'
 import NewCommentPopup from './NewCommentPopup'

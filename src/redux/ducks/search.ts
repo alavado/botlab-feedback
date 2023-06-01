@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Interaction } from '../../api/types/types'
+import { Interaction } from '../../api/types/domain'
 
 interface SearchState {
   term: string

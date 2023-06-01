@@ -15,7 +15,7 @@ import {
   sortingFns,
 } from '@tanstack/react-table'
 import { format } from 'date-fns/esm'
-import { Interaction } from '../../../api/types/types'
+import { Interaction } from '../../../api/types/domain'
 import './InteractionsTable.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
 

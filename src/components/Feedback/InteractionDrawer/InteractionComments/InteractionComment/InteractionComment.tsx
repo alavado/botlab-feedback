@@ -2,7 +2,11 @@ import { Icon } from '@iconify/react'
 import { format, isToday, isYesterday } from 'date-fns'
 import { es } from 'date-fns/locale'
 import useDeleteCommentMutation from '../../../../../api/hooks/useDeleteCommentMutation'
-import { CommentId, PatientId, ServiceId } from '../../../../../api/types/types'
+import {
+  CommentId,
+  PatientId,
+  ServiceId,
+} from '../../../../../api/types/domain'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import './InteractionComment.css'
 import InteractionCommentIcon from './InteractionCommentIcon'

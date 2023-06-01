@@ -1,10 +1,17 @@
-import { Tag } from '../../../../api/types/types'
+import { Tag, isTag } from '../../../../api/types/domain'
 
 export const getPresentationForTag = ({
   tag,
 }: {
-  tag: Tag
+  tag: Tag | unknown
 }): { icon: string; label: string; colorVar: string } => {
+  if (!isTag(tag)) {
+    return {
+      icon: 'mdi:question-mark',
+      label: 'Otro',
+      colorVar: '--color-out',
+    }
+  }
   switch (tag) {
     case 'YES':
       return {
