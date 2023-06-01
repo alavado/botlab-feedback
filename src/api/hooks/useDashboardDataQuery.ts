@@ -1,5 +1,11 @@
 import axios from 'axios'
-import { addDays, differenceInDays, format, parseISO } from 'date-fns'
+import {
+  addDays,
+  differenceInDays,
+  format,
+  isSameDay,
+  parseISO,
+} from 'date-fns'
 import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
@@ -39,8 +45,8 @@ const useDashboardDataQuery = ({
       const maxDate = endDate
 
       while (differenceInDays(maxDate, currentDate) >= 0) {
-        const dateExists = counts.some(
-          (c: DashboardDayCount) => c.date === currentDate
+        const dateExists = counts.some((c: DashboardDayCount) =>
+          isSameDay(c.date, currentDate)
         )
         if (!dateExists) {
           counts.push({
@@ -51,7 +57,9 @@ const useDashboardDataQuery = ({
         }
         currentDate = addDays(currentDate, 1)
       }
-      return counts
+      return counts.sort((d1: DashboardDayCount, d2: DashboardDayCount) =>
+        d1.date < d2.date ? -1 : 1
+      )
     },
     { refetchOnWindowFocus: false }
   )
