@@ -33,11 +33,10 @@ const useDashboardDataQuery = ({
       if (_.isEmpty(data.citas)) {
         return []
       }
-      const counts: DashboardDayCount[] = Object.keys(data.citas).map(
-        (d: any) => ({
-          date: parseISO(d),
-          total: data.citas[d].carga,
-          answered: data.citas[d].respuesta,
+      const counts: DashboardDayCount[] = data.citas.map((d: any) => ({
+          date: parseISO(d.fecha_cita),
+          total: d.carga,
+          answered: d.respuesta,
         })
       )
 
