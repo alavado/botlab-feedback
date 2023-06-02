@@ -358,13 +358,24 @@ const tags = {
   },
 }
 
-const diccionarioTags = (tag) =>
-  tags[tag] || {
-    texto: tag,
-    titulo: tag,
-    icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--vacia',
-    color: 'var(--color-bordes)',
+const diccionarioTags = (tag) => {
+  let tagEnDiccionario = tags[tag]
+  if (tagEnDiccionario) {
+    tagEnDiccionario = {
+      ...tagEnDiccionario,
+      id: 'TAG' + tagEnDiccionario.texto + 'TAG',
+    }
   }
+  return (
+    tagEnDiccionario || {
+      id: '',
+      texto: tag,
+      titulo: tag,
+      icono: 'mdi:check',
+      clase: 'TagRespuesta TagRespuesta--vacia',
+      color: 'var(--color-bordes)',
+    }
+  )
+}
 
 export default diccionarioTags

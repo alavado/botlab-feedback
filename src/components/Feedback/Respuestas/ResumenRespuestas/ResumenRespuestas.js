@@ -122,7 +122,7 @@ const ResumenRespuestas = ({ cargando }) => {
                             )
                             dispatch(
                               agregaFiltro({
-                                busqueda: diccionarioTags(tag).texto,
+                                busqueda: diccionarioTags(tag).id,
                                 nombreHeader: primerTag.nombre,
                                 textoHeader: primerTag.texto,
                                 idEncuesta: idEncuestaSeleccionada,
