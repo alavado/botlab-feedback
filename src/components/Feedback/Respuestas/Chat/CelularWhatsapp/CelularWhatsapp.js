@@ -27,7 +27,7 @@ const CelularWhatsapp = ({
   const dispatch = useDispatch()
   const history = useHistory()
   const track = useAnalytics()
-  const { cuenta } = useSelector((state) => state.login)
+  const { nombreUsuario: cuenta } = useSelector((state) => state.login)
 
   const todosLosMensajes = useMemo(() => {
     return conversaciones
