@@ -54,8 +54,11 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   )
   useEffect(() => {
     if (activo) {
-      filtroRef.current.value =
-        (filtro?.busqueda?.length === 1 && filtro.busqueda[0]) || ''
+      let busqueda = filtro?.busqueda?.length === 1 && filtro.busqueda[0]
+      if (busqueda && busqueda.startsWith('TAG')) {
+        busqueda = busqueda.slice(3).slice(0, -3)
+      }
+      filtroRef.current.value = busqueda || ''
       filtroRef.current.focus()
     }
   }, [filtro, activo])
