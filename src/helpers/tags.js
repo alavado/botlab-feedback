@@ -279,6 +279,20 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: '',
   },
+  YA_CANCELO: {
+    texto: 'No',
+    titulo: 'Paciente indica que ya cenceló su cita',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: '',
+  },
+  YA_CONFIRMO: {
+    texto: 'Sí',
+    titulo: 'Paciente indica que ya confirmó su cita',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: '',
+  },
   CONTRADICCION: {
     texto: 'Contradicción',
     titulo: 'Paciente indica que hay información contradictoria',
