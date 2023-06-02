@@ -19,6 +19,7 @@
   --color-reagendado: #d2c8f4;
   --color-texto-tag: #2d3748;
   --color-unanswered: white;
+  --color-unreachable: rgb(250, 250, 250);
 
   --color-fondo: white;
   --color-texto-claro: white;
@@ -106,6 +107,7 @@
   --color-reagenda: #ebf8ff;
   --color-reagendado: #ebf8ff;
   --color-texto-tag: #1a202c;
+  --color-unreachable: rgb(250, 250, 250);
 
   --whatsapp-fondo-barra-estado: #1f2c34;
   --whatsapp-fondo-barra-superior: #1f2c34;

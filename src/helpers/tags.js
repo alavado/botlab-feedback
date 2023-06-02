@@ -27,6 +27,20 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--no',
     color: 'var(--color-no)',
   },
+  'PHONE:YES': {
+    texto: 'Sí',
+    titulo: 'Confirmaciones',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--no',
+    color: 'var(--color-si)',
+  },
+  'PHONE:NO': {
+    texto: 'No',
+    titulo: 'Cancelaciones',
+    icono: 'mdi:close',
+    clase: 'TagRespuesta TagRespuesta--no',
+    color: 'var(--color-no)',
+  },
   FALLECIO_OTRO: {
     texto: 'No',
     titulo: 'Cancelaciones',
@@ -336,21 +350,46 @@ const tags = {
     color: '',
   },
   UNREACHABLE: {
-    texto: 'Whatsapp',
-    titulo: 'Whatsapp',
+    texto: 'No tiene Whatsapp',
+    titulo: 'No tiene Whatsapp',
     icono: 'mdi:alert',
     clase: 'TagRespuesta TagRespuesta--is_unreachable',
     color: '',
   },
+  EQUIVOCADO: {
+    texto: 'Equivocado',
+    titulo: 'Equivocado',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta  TagRespuesta--vacia',
+    color: '',
+  },
+  FALLECIO: {
+    texto: 'Falleció',
+    titulo: 'Falleció',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta  TagRespuesta--vacia',
+    color: '',
+  },
 }
 
-const diccionarioTags = (tag) =>
-  tags[tag] || {
-    texto: tag,
-    titulo: tag,
-    icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--vacia',
-    color: 'var(--color-bordes)',
+const diccionarioTags = (tag) => {
+  let tagEnDiccionario = tags[tag]
+  if (tagEnDiccionario) {
+    tagEnDiccionario = {
+      ...tagEnDiccionario,
+      id: 'TAG' + tagEnDiccionario.texto + 'TAG',
+    }
   }
+  return (
+    tagEnDiccionario || {
+      id: '',
+      texto: tag,
+      titulo: tag,
+      icono: 'mdi:check',
+      clase: 'TagRespuesta TagRespuesta--vacia',
+      color: 'var(--color-bordes)',
+    }
+  )
+}
 
 export default diccionarioTags

@@ -17,7 +17,7 @@ const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
   if (tagCalculado) {
     const tagEnDiccionario = diccionarioTags(tagCalculado.f(r).tag)
     if (tagEnDiccionario) {
-      return normalizar(tagEnDiccionario.texto).indexOf(terminoNormalizado) >= 0
+      return normalizar(tagEnDiccionario.id).indexOf(terminoNormalizado) >= 0
     } else if (!isNaN(tagCalculado.f(r).tag)) {
       return normalizar(tagCalculado.f(r).tag).indexOf(terminoNormalizado) >= 0
     } else {
@@ -113,7 +113,7 @@ const sliceRespuestas = createSlice({
             if (typeof r[k] === 'string') {
               slug = normalizar(r[k])
             } else if (r[k]?.tag) {
-              slug = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
+              slug = normalizar(diccionarioTags(r[k].tag)?.id || r[k].tag)
             }
             return prev + slug
           }, '')
@@ -121,7 +121,7 @@ const sliceRespuestas = createSlice({
             if (typeof r[k] === 'string') {
               prev[k] = normalizar(r[k])
             } else if (r[k]?.tag || r[k]?.tag === '') {
-              prev[k] = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
+              prev[k] = normalizar(diccionarioTags(r[k].tag)?.id || r[k].tag)
             }
             return prev
           }, {})
