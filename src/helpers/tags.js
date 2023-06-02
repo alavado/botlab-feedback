@@ -356,6 +356,20 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--is_unreachable',
     color: '',
   },
+  EQUIVOCADO: {
+    texto: 'Equivocado',
+    titulo: 'Equivocado',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta  TagRespuesta--vacia',
+    color: '',
+  },
+  FALLECIO: {
+    texto: 'Falleció',
+    titulo: 'Falleció',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta  TagRespuesta--vacia',
+    color: '',
+  },
 }
 
 const diccionarioTags = (tag) => {
