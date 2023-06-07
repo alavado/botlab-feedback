@@ -17,6 +17,11 @@ export interface Branch {
   name: string
 }
 
+export type InteractionTag =
+  | 'UNREACHABLE_WHATSAPP'
+  | 'SENT_WHATSAPP'
+  | 'ANSWERED_WHATSAPP'
+
 export interface Interaction {
   patientId: number
   serviceId: ServiceId
@@ -27,7 +32,8 @@ export interface Interaction {
   messages?: Message[]
   comments?: Comment[]
   botName?: string
-  meta: InteractionMeta[]
+  extraData: InteractionExtraData[]
+  tags: InteractionTag[]
 }
 
 export type Tag =
@@ -54,7 +60,7 @@ export type TagWithText = {
   text: string
 }
 
-export interface InteractionMeta {
+export interface InteractionExtraData {
   header: string
   value: string | TagWithText
 }

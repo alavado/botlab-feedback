@@ -1,4 +1,4 @@
-import useAnswerMediaQuery from '../../../../../../api/hooks/useAnswerMediaQuery'
+import useAnswerMediaQuery from '../../../../../../api/hooks/useChatAnswerMediaQuery'
 import Loader from '../../../../../Loader'
 import './AudioMessage.css'
 

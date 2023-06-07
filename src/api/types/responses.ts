@@ -70,6 +70,7 @@ export interface ChatAPIConversation {
       tag: string
     }
   ]
+  is_unreachable: { whatsapp: boolean }
 }
 
 export interface ChatAPIResponse {

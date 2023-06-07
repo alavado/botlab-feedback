@@ -227,10 +227,15 @@ const conversationToInteraction = (
     ),
     comments: [],
     botName,
-    meta: context.map((meta) => ({
+    extraData: context.map((meta) => ({
       header: meta.title,
       value: meta.value,
     })),
+    tags: [
+      conversation.is_unreachable.whatsapp
+        ? 'UNREACHABLE_WHATSAPP'
+        : 'SENT_WHATSAPP',
+    ],
   }
   return interaction
 }

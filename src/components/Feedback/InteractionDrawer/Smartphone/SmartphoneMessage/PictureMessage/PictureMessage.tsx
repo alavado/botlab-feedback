@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { useState } from 'react'
-import useAnswerMediaQuery from '../../../../../../api/hooks/useAnswerMediaQuery'
+import useAnswerMediaQuery from '../../../../../../api/hooks/useChatAnswerMediaQuery'
 import Loader from '../../../../../Loader'
 import './PictureMessage.css'
 

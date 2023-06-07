@@ -56,7 +56,8 @@ const searchSingleAppointmentToInteraction = (
         url: appointment.dentalink_link || appointment.medilink_link,
       },
     ],
-    meta: [],
+    extraData: [],
+    tags: [],
   }
 }
 
@@ -97,7 +98,8 @@ const searchMultiAppointmentToInteraction = (
           ] as string,
         }
       }),
-    meta: [],
+    extraData: [],
+    tags: [],
   }
 }
 

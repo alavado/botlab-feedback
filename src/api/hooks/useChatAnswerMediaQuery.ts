@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from 'react-query'
 import { AnswerMediaAPIResponse } from '../types/responses'
 import { API_ROOT, get } from './utils'
 
-const useAnswerMediaQuery = (
+const useChatAnswerMediaQuery = (
   answerId: number
 ): UseQueryResult<
   {
@@ -28,4 +28,4 @@ const useAnswerMediaQuery = (
   )
 }
 
-export default useAnswerMediaQuery
+export default useChatAnswerMediaQuery

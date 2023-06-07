@@ -62,7 +62,7 @@ const InteractionsLegacyTable = ({
         >
           <div className="InteractionsLegacyTable__row_cell InteractionsLegacyTable__row_cell--notes-cell"></div>
           {service.headers.map((header, m) => {
-            const metaValue = i.meta.find((m) => m.header === header.name)
+            const metaValue = i.extraData.find((m) => m.header === header.name)
             return (
               <div
                 key={`cell-${n}-${m}`}

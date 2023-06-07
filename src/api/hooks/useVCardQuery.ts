@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQuery, UseQueryResult } from 'react-query'
-import useAnswerMediaQuery from './useAnswerMediaQuery'
+import useAnswerMediaQuery from './useChatAnswerMediaQuery'
 
 interface VCardData {
   phone?: string

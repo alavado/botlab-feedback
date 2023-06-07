@@ -3,13 +3,12 @@ import { Interaction, ServiceId, Tag, TagWithText } from '../types/domain'
 import {
   APIMetaValue,
   APITag,
-  APITagWithText,
   AnswersAPIResponse,
   AnswersAPIResponseRow,
 } from '../types/responses'
 import { API_ROOT, get, parseAPIDate } from './utils'
 import { addHours, format, parseISO } from 'date-fns'
-import _, { isObject } from 'lodash'
+import _ from 'lodash'
 
 const useInteractionsQuery = ({
   serviceId,
@@ -73,10 +72,11 @@ const answerSingleAppointmentToInteraction = (
           | undefined,
       },
     ],
-    meta: Object.keys(appointment).map((header) => ({
+    extraData: Object.keys(appointment).map((header) => ({
       header,
       value: processMeta(appointment[header]),
     })),
+    tags: [],
   }
 }
 
