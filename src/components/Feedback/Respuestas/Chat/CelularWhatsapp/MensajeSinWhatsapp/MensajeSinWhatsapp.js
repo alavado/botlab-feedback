@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react'
 import './MensajeSinWhatsapp.css'
 import { format, parseISO } from 'date-fns'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
