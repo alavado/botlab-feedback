@@ -1,37 +1,37 @@
 import { useDispatch } from 'react-redux'
 import useServicesQuery from '../../../api/hooks/useServicesQuery'
 import MenuUsuario from '../BarraSuperior/MenuUsuario/MenuUsuario'
-import './Answers.css'
+import './Interactions.css'
 import useInteractionsQuery from '../../../api/hooks/useInteractionsQuery'
 import InteractionsLegacyTable from './InteractionsLegacyTable/InteractionsLegacyTable'
 import { selectService } from '../../../redux/ducks/answers'
 import useActiveServiceQuery from '../../../api/hooks/useActiveServiceQuery'
-import { addDays } from 'date-fns'
 import Loader from '../../Loader/Loader'
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
+import MiniDashboard from './MiniDashboard'
 
-const Answers = () => {
+const Interactions = () => {
   const { data: services, isLoading: loadingServices } = useServicesQuery()
   const { data: activeService } = useActiveServiceQuery()
   const { data: interactions, isLoading: loadingInteractions } =
     useInteractionsQuery({
       serviceId: activeService?.id,
-      startDate: addDays(new Date(), -2),
-      endDate: addDays(new Date(), -2),
+      startDate: new Date(),
+      endDate: new Date(),
     })
   const dispatch = useDispatch()
 
   return (
-    <div className="Answers">
-      <div className="Answers__topbar">
-        <div className="Answers__topbar_left">
-          <h2 className="Answers__title">Respuestas</h2>
+    <div className="Interactions">
+      <div className="Interactions__topbar">
+        <div className="Interactions__topbar_left">
+          <h2 className="Interactions__title">Interacciones</h2>
         </div>
         <MenuUsuario />
       </div>
-      <main className="Answers__main">
-        <div className="Answers__services_tabs">
+      <main className="Interactions__main">
+        <div className="Interactions__services_tabs">
           {loadingServices ? (
             <Loader />
           ) : (
@@ -40,24 +40,24 @@ const Answers = () => {
                 key={`tab-service-${service.id}`}
                 onClick={() => dispatch(selectService(service.id))}
                 className={classNames({
-                  Answers__service_tab: true,
-                  'Answers__service_tab--active':
+                  Interactions__service_tab: true,
+                  'Interactions__service_tab--active':
                     activeService?.id === service.id,
                 })}
               >
                 <Icon
-                  className="Answers__tab_button_icon"
+                  className="Interactions__tab_button_icon"
                   icon="mdi:whatsapp"
                 />
-                <p className="Answers__tab_label">{service.name}</p>
+                <p className="Interactions__tab_label">{service.name}</p>
               </button>
             ))
           )}
         </div>
-        <div className="Answers__sidebar">
-          <div className="Answers__dashboard">85%</div>
+        <div className="Interactions__sidebar">
+          <MiniDashboard />
         </div>
-        <div className="Answers__table_container">
+        <div className="Interactions__table_container">
           {loadingInteractions && <Loader />}
           {interactions && activeService && (
             <InteractionsLegacyTable
@@ -71,4 +71,4 @@ const Answers = () => {
   )
 }
 
-export default Answers
+export default Interactions

@@ -14,7 +14,7 @@ import {
   PatientId,
   SchedulingSystem,
   ServiceId,
-} from '../types/types'
+} from '../types/domain'
 import { get, API_ROOT, parseAPIDate } from './utils'
 
 type InteractionID = {

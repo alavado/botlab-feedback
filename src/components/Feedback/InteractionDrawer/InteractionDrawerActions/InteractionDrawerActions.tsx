@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router-dom'
-import { ServiceId } from '../../../../api/types/types'
+import { ServiceId } from '../../../../api/types/domain'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import useIsLabeler from '../../../../hooks/useIsLabeler'
 import { openExternalLink } from '../helpers'
@@ -56,14 +56,15 @@ const InteractionDrawerActions = ({
         <Icon icon="mdi:cellphone" />
         Ver en vista Chat
       </button>
-      {!isLabeler && 
-      <button
-        className="InteractionDrawerActions__button"
-        onClick={openWhatsapp}
-      >
-        <Icon icon="mdi:whatsapp" />
-        Contactar por Whatsapp
-      </button>}
+      {!isLabeler && (
+        <button
+          className="InteractionDrawerActions__button"
+          onClick={openWhatsapp}
+        >
+          <Icon icon="mdi:whatsapp" />
+          Contactar por Whatsapp
+        </button>
+      )}
       {schedulingSystemURL && !isLabeler && (
         <button
           className="InteractionDrawerActions__button"

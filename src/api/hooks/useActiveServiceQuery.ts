@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
-import { Service } from '../types/types'
+import { Service } from '../types/domain'
 import useServicesQuery from './useServicesQuery'
 
 const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {

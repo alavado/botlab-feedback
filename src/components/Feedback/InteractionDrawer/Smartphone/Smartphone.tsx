@@ -5,7 +5,7 @@ import {
   Comment,
   Interaction,
   Message,
-} from '../../../../api/types/types'
+} from '../../../../api/types/domain'
 import Loader from '../../../Loader'
 import SmartphoneActionBar from './SmartphoneActionBar'
 import SmartphoneButtons from './SmartphoneButtons'

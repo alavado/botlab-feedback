@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { Emoji } from '../../components/Feedback/InteractionDrawer/InteractionComments/InteractionComment/InteractionCommentIcon/emojis'
-import { PatientId, ServiceId } from '../types/types'
+import { PatientId, ServiceId } from '../types/domain'
 import { API_ROOT, post } from './utils'
 
 const useAddCommentMutation = ({

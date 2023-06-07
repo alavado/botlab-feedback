@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import _ from 'lodash'
-import { AlertTypeId, BranchId, ServiceId } from '../../api/types/types'
+import { AlertTypeId, BranchId, ServiceId } from '../../api/types/domain'
 
 interface AlertsState {
   hiddenBranches: BranchId[]

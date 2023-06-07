@@ -9,7 +9,7 @@ import {
 import InteractionCommentIcon from '../InteractionComment/InteractionCommentIcon'
 import { Icon } from '@iconify/react'
 import useAddCommentMutation from '../../../../../api/hooks/useAddCommentMutation'
-import { PatientId, ServiceId } from '../../../../../api/types/types'
+import { PatientId, ServiceId } from '../../../../../api/types/domain'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'

@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from 'react-query'
-import { InteractionMeta, PatientId, ServiceId } from '../types/types'
+import { InteractionMeta, PatientId, ServiceId } from '../types/domain'
 import useChatQuery from './useChatQuery'
 
 const useInteractionDataQuery = ({

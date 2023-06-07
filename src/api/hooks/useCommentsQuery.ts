@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns'
 import { useQuery, UseQueryResult } from 'react-query'
 import { ReactionsAPIResponse } from '../types/responses'
-import { Comment, PatientId, ServiceId } from '../types/types'
+import { Comment, PatientId, ServiceId } from '../types/domain'
 import { API_ROOT, get } from './utils'
 
 const useCommentsQuery = ({

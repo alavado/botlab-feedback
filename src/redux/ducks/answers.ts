@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ServiceId } from '../../api/types/types'
+import { ServiceId } from '../../api/types/domain'
 
 interface AnswersState {
   activeServiceId: ServiceId | undefined
