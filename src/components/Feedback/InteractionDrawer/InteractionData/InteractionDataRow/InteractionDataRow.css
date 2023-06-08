@@ -1,0 +1,29 @@
+.InteractionDataRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  justify-content: center;
+}
+
+.InteractionDataRow__label {
+  font-weight: 600;
+}
+
+.InteractionDataRow__value {
+  max-width: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-self: flex-start;
+  border-bottom: 1px dashed transparent;
+  line-height: 1.25;
+}
+
+.InteractionDataRow__value:hover {
+  cursor: pointer;
+  border-bottom-color: var(--color-gris);
+}
+
+.InteractionDataRow__value:active {
+  background-color: var(--color-bordes);
+}
