@@ -61,5 +61,6 @@
 
 .InteractionsLegacyTableRow--active,
 .InteractionsLegacyTableRow--active:hover {
-  background-color: var(--color-fila-muy-destacada);
+  background-color: var(--color-fondo);
+  z-index: 2;
 }

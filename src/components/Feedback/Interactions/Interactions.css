@@ -100,6 +100,9 @@
 .Interactions__sidebar {
   width: 10rem;
   border-right: 1px solid var(--color-bordes);
+  z-index: 4;
+  background-color: var(--color-fondo);
+  border-radius: 0 0.5rem 0 0;
 }
 
 .Interactions__table_container {

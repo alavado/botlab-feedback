@@ -10,6 +10,8 @@ import Loader from '../../Loader/Loader'
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import MiniDashboard from './MiniDashboard'
+import InteractionDrawerCover from '../InteractionDrawer/InteractionDrawerCover/InteractionDrawerCover'
+import { useRouteMatch } from 'react-router-dom'
 
 const Interactions = () => {
   const { data: services, isLoading: loadingServices } = useServicesQuery()
@@ -21,9 +23,11 @@ const Interactions = () => {
       endDate: new Date(),
     })
   const dispatch = useDispatch()
+  const { params }: any = useRouteMatch()
 
   return (
     <div className="Interactions">
+      <InteractionDrawerCover visible={params?.patientId} />
       <div className="Interactions__topbar">
         <div className="Interactions__topbar_left">
           <h2 className="Interactions__title">Interacciones</h2>

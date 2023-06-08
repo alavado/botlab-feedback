@@ -14,19 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.InteractionDrawer__top_bar_data {
-  font-size: 0.65rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.InteractionDrawer__top_bar_data span {
-  display: flex;
-  align-items: center;
-  gap: 0.15rem;
+  padding-right: 0.5rem;
 }
 
 .InteractionDrawer__top_bar_actions {
@@ -70,6 +58,7 @@
   align-items: center;
   color: var(--color-texto);
   cursor: pointer;
+  gap: 0.1rem;
 }
 
 .InteractionDrawer__phone_container {

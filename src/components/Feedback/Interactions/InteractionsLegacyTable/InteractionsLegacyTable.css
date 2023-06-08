@@ -14,7 +14,7 @@
   transition: right 0.35s ease-out, opacity 0.35s ease-out;
   opacity: 1;
   display: flex;
-  z-index: 2;
+  z-index: 4;
 }
 
 .InteractionsLegacyTable__drawer--hidden {

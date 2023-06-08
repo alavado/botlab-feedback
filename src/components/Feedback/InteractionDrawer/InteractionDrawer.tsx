@@ -8,6 +8,7 @@ import InteractionDrawerActions from './InteractionDrawerActions'
 import { InteractionId } from '../../../api/types/domain'
 import InteractionComments from './InteractionComments'
 import InteractionData from './InteractionData'
+import useAnalytics from '../../../hooks/useAnalytics'
 
 interface InteractionDrawerProps {
   interactionId: InteractionId
@@ -25,6 +26,7 @@ const InteractionDrawer = ({
   const pastInteractions = data?.pastInteractions
   const currentInteraction = data?.currentInteraction
   const futureInteractions = data?.futureInteractions
+  const track = useAnalytics()
 
   return (
     <Resizable
@@ -38,27 +40,24 @@ const InteractionDrawer = ({
         <div className="InteractionDrawer__top_bar_actions">
           <button
             className="InteractionDrawer__top_bar_action_button"
-            onClick={onCloseClick}
+            onClick={(e) => {
+              onCloseClick(e)
+              track('Feedback', 'InteractionDrawer', 'closeWithChevron')
+            }}
             title="Cerrar"
           >
             <Icon icon="mdi:chevron-double-right" />
           </button>
-          <div className="InteractionDrawer__top_bar_data">
-            {/* {currentInteraction ? (
-              <>
-                <span>
-                  <Icon icon="mdi:user" />{' '}
-                  {currentInteraction?.appointments[0]?.patientName}{' '}
-                </span>{' '}
-                •
-                <span>
-                  <Icon icon="mdi:phone" /> {currentInteraction?.phone}
-                </span>
-              </>
-            ) : (
-              <Loader color="var(--color-texto)" />
-            )} */}
-          </div>
+          <button
+            className="InteractionDrawer__top_bar_action_button"
+            onClick={(e) => {
+              onCloseClick(e)
+              track('Feedback', 'InteractionDrawer', 'closeWithCross')
+            }}
+            title="Cerrar"
+          >
+            <Icon icon="mdi:close" />
+          </button>
         </div>
       </div>
       <div className="InteractionDrawer__phone_container">
