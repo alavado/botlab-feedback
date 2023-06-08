@@ -172,7 +172,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                       <InlineIcon
                         icon={
                           filtro?.busqueda?.includes(
-                            diccionarioTags(nivel).texto
+                            'TAG' + diccionarioTags(nivel).texto + 'TAG'
                           )
                             ? 'mdi:checkbox-marked'
                             : 'mdi:checkbox-blank-outline'
