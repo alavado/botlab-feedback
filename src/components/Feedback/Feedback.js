@@ -24,6 +24,7 @@ import PaymentDueModal from './PaymentDueModal/PaymentDueModal'
 import SingleAlertView from './SingleAlertView/SingleAlertView'
 import Dashboard from './Dashboard'
 import DashboardLegacy from './DashboardLegacy/DashboardLegacy'
+import Interactions from './Interactions'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
@@ -113,9 +114,6 @@ const Feedback = () => {
               <PaymentDueModal />
               <PaymentDueBanner />
               <Switch>
-                <Route path="/interaccion">
-                  <></>
-                </Route>
                 <Route path="/busqueda">
                   <></>
                 </Route>
@@ -126,6 +124,9 @@ const Feedback = () => {
                   <></>
                 </Route>
                 <Route path="/dashboard-legacy">
+                  <></>
+                </Route>
+                <Route path="/interacciones">
                   <></>
                 </Route>
                 <Route>
@@ -139,6 +140,12 @@ const Feedback = () => {
                   </Route>
                   <Route path="/respuestas">
                     <Respuestas />
+                  </Route>
+                  <Route exact path="/interacciones">
+                    <Interactions />
+                  </Route>
+                  <Route path="/interacciones/:serviceId/:patientId">
+                    <Interactions />
                   </Route>
                   <Route path="/chat">
                     <Respuestas />

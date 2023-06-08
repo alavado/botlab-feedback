@@ -5,7 +5,7 @@ import {
   Comment,
   Interaction,
   Message,
-} from '../../../../api/types/types'
+} from '../../../../api/types/domain'
 import Loader from '../../../Loader'
 import SmartphoneActionBar from './SmartphoneActionBar'
 import SmartphoneButtons from './SmartphoneButtons'
@@ -18,6 +18,8 @@ import _ from 'lodash'
 import SmartphoneComment from './SmartphoneComment'
 import useCommentsQuery from '../../../../api/hooks/useCommentsQuery'
 import useAlertsForPatientQuery from '../../../../api/hooks/useAlertsForPatientQuery'
+import SmartphoneUnreachableMessage from './SmartphoneUnreachableMessage/SmartphoneUnreachableMessage'
+import useCanSeeUnreachables from '../../../../api/hooks/useCanSeeUnreachables'
 
 export interface SmartphoneChatMessage {
   message: Message
@@ -25,7 +27,7 @@ export interface SmartphoneChatMessage {
   date: Date
 }
 
-export interface SmartphoneChatsDate {
+export interface SmartphoneChatDate {
   date: Date
   current: boolean
 }
@@ -37,12 +39,17 @@ export interface SmartphoneChatComment {
   date: Date
   comment: Comment
 }
+export interface SmartphoneChatUnreachableMessage {
+  date: Date
+  unreachableExplanation: string
+}
 
 type SmartphoneChatElement =
   | SmartphoneChatMessage
-  | SmartphoneChatsDate
+  | SmartphoneChatDate
   | SmartphoneChatAlert
   | SmartphoneChatComment
+  | SmartphoneChatUnreachableMessage
 
 const Smartphone = ({
   pastInteractions,
@@ -55,14 +62,13 @@ const Smartphone = ({
 }) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
   const { data: comments } = useCommentsQuery({
-    serviceId: currentInteraction?.serviceId,
-    patientId: currentInteraction?.patientId,
-    interactionStart: currentInteraction?.start,
+    interactionId: currentInteraction?.id,
   })
   const { data: alerts } = useAlertsForPatientQuery({
-    serviceId: currentInteraction?.serviceId,
-    patientId: currentInteraction?.patientId,
+    serviceId: currentInteraction?.id.serviceId,
+    patientId: currentInteraction?.id.patientId,
   })
+  const canSeeUnreachables = useCanSeeUnreachables()
 
   const chatElements: SmartphoneChatElement[] = useMemo(() => {
     if (!currentInteraction || !currentInteraction.messages) {
@@ -86,13 +92,43 @@ const Smartphone = ({
           elements.push({ comment: stuff, date: stuff.timestamp })
         }
       }
-    pastInteractions?.forEach((interaction: Interaction) =>
-      interaction.messages?.forEach(addElement(false))
-    )
-    currentInteraction.messages.forEach(addElement(true))
-    futureInteractions?.forEach((interaction: Interaction) =>
-      interaction.messages?.forEach(addElement(false))
-    )
+    pastInteractions?.forEach((interaction: Interaction) => {
+      if (
+        canSeeUnreachables &&
+        interaction.tags.includes('UNREACHABLE_WHATSAPP')
+      ) {
+        elements.push({
+          date: interaction.id.start,
+          unreachableExplanation: 'blabla',
+        })
+      } else {
+        interaction.messages?.forEach(addElement(false))
+      }
+    })
+    if (
+      canSeeUnreachables &&
+      currentInteraction.tags.includes('UNREACHABLE_WHATSAPP')
+    ) {
+      elements.push({
+        date: currentInteraction.id.start,
+        unreachableExplanation: 'blabla',
+      })
+    } else {
+      currentInteraction.messages?.forEach(addElement(true))
+    }
+    futureInteractions?.forEach((interaction: Interaction) => {
+      if (
+        canSeeUnreachables &&
+        interaction.tags.includes('UNREACHABLE_WHATSAPP')
+      ) {
+        elements.push({
+          date: interaction.id.start,
+          unreachableExplanation: 'blabla',
+        })
+      } else {
+        interaction.messages?.forEach(addElement(false))
+      }
+    })
     alerts?.forEach(addElement())
     comments?.forEach(addElement())
     let elementsWithDates: SmartphoneChatElement[] = []
@@ -100,7 +136,7 @@ const Smartphone = ({
       if (i === 0 || !isSameDay(elements[i - 1].date, el.date)) {
         elementsWithDates.push({
           date: startOfDay(el.date),
-          current: isSameDay(currentInteraction.start, el.date),
+          current: isSameDay(currentInteraction.id.start, el.date),
         })
       }
       elementsWithDates.push(el)
@@ -112,6 +148,7 @@ const Smartphone = ({
     futureInteractions,
     alerts,
     comments,
+    canSeeUnreachables,
   ])
 
   const scrollToCurrentInteraction = () =>
@@ -119,7 +156,8 @@ const Smartphone = ({
 
   const currentInteractionStart =
     currentInteraction &&
-    format(currentInteraction?.start, 'yyyy-MM-dd') + currentInteraction?.phone
+    format(currentInteraction?.id.start, 'yyyy-MM-dd') +
+      currentInteraction?.phone
 
   useEffect(() => {
     if (!currentInteractionStart) {
@@ -141,8 +179,8 @@ const Smartphone = ({
         <SmartphoneButtons setPhoneColor={setPhoneColor} />
         <div className="Smartphone__app_bar">
           <SmartphoneNavBar
-            serviceId={currentInteraction?.serviceId}
-            patientId={currentInteraction?.patientId}
+            serviceId={currentInteraction?.id.serviceId}
+            patientId={currentInteraction?.id.patientId}
           />
           <SmartphoneActionBar
             contactName={currentInteraction?.appointments?.[0].patientName}
@@ -166,9 +204,12 @@ const Smartphone = ({
               if ('comment' in bubble) {
                 return <SmartphoneComment comment={bubble.comment} />
               }
+              if ('unreachableExplanation' in bubble) {
+                return <SmartphoneUnreachableMessage />
+              }
               return (
                 <SmartphoneMessagesDate
-                  data={bubble as SmartphoneChatsDate}
+                  data={bubble as SmartphoneChatDate}
                   key={`smartphone-bubble-${i}`}
                 />
               )

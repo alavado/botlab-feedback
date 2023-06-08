@@ -2,29 +2,22 @@ import { formatISO, isSameDay, parseISO } from 'date-fns'
 import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import {
-  chatAPIConversation,
-  chatAPIConversationContextField,
-  chatAPIResponse,
-  metaTarget,
+  ChatAPIConversation,
+  ChatAPIConversationContextField,
+  ChatAPIResponse,
+  MetaTarget,
 } from '../types/responses'
 import {
   Appointment,
   Interaction,
+  InteractionId,
   Message,
-  PatientId,
   SchedulingSystem,
-  ServiceId,
-} from '../types/types'
+} from '../types/domain'
 import { get, API_ROOT, parseAPIDate } from './utils'
 
-type InteractionID = {
-  serviceId: ServiceId
-  patientId: PatientId
-  start: Date
-}
-
 const useChatQuery = (
-  id: InteractionID
+  interactionId?: InteractionId
 ): UseQueryResult<
   {
     currentInteraction: Interaction
@@ -33,15 +26,18 @@ const useChatQuery = (
   },
   unknown
 > => {
-  const { serviceId, patientId, start } = id
   return useQuery<any, any, any>(
-    ['interaction', serviceId, patientId, start],
+    ['interaction', interactionId],
     async () => {
-      const { data }: { data: chatAPIResponse } = await get(
+      if (!interactionId) {
+        return []
+      }
+      const { serviceId, patientId } = interactionId
+      const { data }: { data: ChatAPIResponse } = await get(
         `${API_ROOT}/chat/${serviceId}/${patientId}`
       )
       return splitInteractions(
-        id,
+        interactionId,
         data.data.conversations,
         data.data.user.phone,
         data.data.bot.name
@@ -54,8 +50,8 @@ const useChatQuery = (
 }
 
 const splitInteractions = (
-  currentInteractionID: InteractionID,
-  conversations: chatAPIConversation[],
+  currentInteractionID: InteractionId,
+  conversations: ChatAPIConversation[],
   phone: string,
   botName: string
 ): {
@@ -118,15 +114,15 @@ const splitInteractions = (
 }
 
 const getPatientName = (
-  context: chatAPIConversationContextField[],
+  context: ChatAPIConversationContextField[],
   appointmentIndex?: number
 ) => {
   if (!appointmentIndex) {
-    const nameTarget = `name` as metaTarget
+    const nameTarget = `name` as MetaTarget
     const nameMeta = _.find(context, { target: nameTarget })
     if (!nameMeta) {
-      let givenNameTarget = `Nombre` as metaTarget
-      let familyNameTarget = `Apellidos` as metaTarget
+      let givenNameTarget = `Nombre` as MetaTarget
+      let familyNameTarget = `Apellidos` as MetaTarget
       const givenName = _.trim(
         _.find(context, { target: givenNameTarget })?.value || ''
       )
@@ -138,11 +134,11 @@ const getPatientName = (
       return _.startCase(_.lowerCase(_.trim(nameMeta.value as string)))
     }
   }
-  const nameTarget = `patient_name_${appointmentIndex}` as metaTarget
+  const nameTarget = `patient_name_${appointmentIndex}` as MetaTarget
   const nameMeta = _.find(context, { target: nameTarget })
   if (!nameMeta) {
-    let givenNameTarget = `Nombre ${appointmentIndex}` as metaTarget
-    let familyNameTarget = `Apellidos ${appointmentIndex}` as metaTarget
+    let givenNameTarget = `Nombre ${appointmentIndex}` as MetaTarget
+    let familyNameTarget = `Apellidos ${appointmentIndex}` as MetaTarget
     const givenName = _.trim(
       _.find(context, { target: givenNameTarget })?.value || ''
     )
@@ -157,7 +153,7 @@ const getPatientName = (
 
 const extractAppointments = (
   start: Date,
-  conversation: chatAPIConversation
+  conversation: ChatAPIConversation
 ): Appointment[] => {
   const { context } = conversation
   const appointmentsCount: number = Number(
@@ -168,9 +164,9 @@ const extractAppointments = (
       .fill(0)
       .map((n, i: number) => {
         const appointmentIndex = i + 1
-        const dateTarget = `date_${appointmentIndex}` as metaTarget
-        const timeTarget = `time_${appointmentIndex}` as metaTarget
-        const rutTarget = `rut_${appointmentIndex}` as metaTarget
+        const dateTarget = `date_${appointmentIndex}` as MetaTarget
+        const timeTarget = `time_${appointmentIndex}` as MetaTarget
+        const rutTarget = `rut_${appointmentIndex}` as MetaTarget
         return {
           datetime: parseAPIDate(
             (_.find(context, { target: dateTarget })?.value ||
@@ -201,17 +197,19 @@ const extractAppointments = (
 }
 
 const conversationToInteraction = (
-  interactionId: InteractionID,
+  interactionId: InteractionId,
   phone: string,
   botName: string,
-  conversation: chatAPIConversation
+  conversation: ChatAPIConversation
 ): Interaction => {
   const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
   const interaction: Interaction = {
-    patientId: patientId,
-    serviceId: serviceId,
-    start: parseISO(conversation.start),
+    id: {
+      patientId: patientId,
+      serviceId: serviceId,
+      start: parseISO(conversation.start),
+    },
     appointments: extractAppointments(start, conversation),
     branch: _.find(context, { target: 'sucursal_name' })?.value,
     phone,
@@ -227,16 +225,21 @@ const conversationToInteraction = (
     ),
     comments: [],
     botName,
-    meta: context.map((meta) => ({
-      label: meta.title,
+    extraData: context.map((meta) => ({
+      header: meta.title,
       value: meta.value,
     })),
+    tags: [
+      conversation.is_unreachable.whatsapp
+        ? 'UNREACHABLE_WHATSAPP'
+        : 'SENT_WHATSAPP',
+    ],
   }
   return interaction
 }
 
 const getSchedulingSystemURL = (
-  conversation: chatAPIConversation
+  conversation: ChatAPIConversation
 ): string | undefined => {
   try {
     return conversation.context.find((v) =>
@@ -249,7 +252,7 @@ const getSchedulingSystemURL = (
 }
 
 const inferSchedulingSystem = (
-  conversation: chatAPIConversation
+  conversation: ChatAPIConversation
 ): SchedulingSystem => {
   if (conversation.context.find((v) => v.target === 'dentalink_link')) {
     return 'Dentalink'

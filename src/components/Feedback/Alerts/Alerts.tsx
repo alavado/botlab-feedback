@@ -7,6 +7,7 @@ import './Alerts.css'
 import AlertsList from './AlertsList'
 import AlertsSidebar from './AlertsSidebar'
 import ToggleSidebarButton from './ToggleSidebarButton'
+import InteractionDrawerCover from '../InteractionDrawer/InteractionDrawerCover'
 
 interface AlertsRouteParams {
   patientId?: string
@@ -26,6 +27,25 @@ const Alerts = () => {
 
   return (
     <div className="Alerts">
+      <InteractionDrawerCover visible={!!patientId && !!serviceId} />
+      <div
+        className={classNames({
+          Alerts__drawer: true,
+          'Alerts__drawer--hidden': !patientId || !serviceId,
+        })}
+      >
+        {patientId && serviceId && (
+          <InteractionDrawer
+            interactionId={{
+              serviceId,
+              patientId,
+              start: new Date(),
+            }}
+            onCloseClick={() => history.push('/alertas')}
+            originComponentName="Alerts"
+          />
+        )}
+      </div>
       <div className="Alerts__topbar">
         <div className="Alerts__topbar_left">
           <h2 className="Alerts__title">Alertas</h2>
@@ -41,22 +61,6 @@ const Alerts = () => {
             selectedServiceId={serviceId}
           />
         </main>
-      </div>
-      <div
-        className={classNames({
-          Alerts__drawer: true,
-          'Alerts__drawer--hidden': !patientId || !serviceId,
-        })}
-      >
-        {patientId && serviceId && (
-          <InteractionDrawer
-            serviceId={serviceId}
-            patientId={patientId}
-            onCloseClick={() => history.push('/alertas')}
-            originComponentName="Alerts"
-            start={new Date()}
-          />
-        )}
       </div>
     </div>
   )

@@ -1,14 +1,13 @@
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router-dom'
-import { ServiceId } from '../../../../api/types/types'
+import { InteractionId } from '../../../../api/types/domain'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import useIsLabeler from '../../../../hooks/useIsLabeler'
 import { openExternalLink } from '../helpers'
 import './InteractionDrawerActions.css'
 
 interface InteractionDrawerActionsProps {
-  serviceId?: ServiceId
-  patientId?: number
+  interactionId?: InteractionId
   phone?: string
   schedulingSystemName?: string
   schedulingSystemURL?: string
@@ -16,8 +15,7 @@ interface InteractionDrawerActionsProps {
 }
 
 const InteractionDrawerActions = ({
-  serviceId,
-  patientId,
+  interactionId,
   phone,
   schedulingSystemName,
   schedulingSystemURL,
@@ -29,9 +27,12 @@ const InteractionDrawerActions = ({
 
   const openChatView = () => {
     track('Feedback', originComponentName, 'openChatView')
-    history.push(`/chat/${serviceId}/${patientId}`, {
-      from: originComponentName === 'Search' ? '/busqueda' : '/alertas',
-    })
+    history.push(
+      `/chat/${interactionId?.serviceId}/${interactionId?.patientId}`,
+      {
+        from: originComponentName === 'Search' ? '/busqueda' : '/alertas',
+      }
+    )
   }
 
   const openWhatsapp = () => {
@@ -56,14 +57,15 @@ const InteractionDrawerActions = ({
         <Icon icon="mdi:cellphone" />
         Ver en vista Chat
       </button>
-      {!isLabeler && 
-      <button
-        className="InteractionDrawerActions__button"
-        onClick={openWhatsapp}
-      >
-        <Icon icon="mdi:whatsapp" />
-        Contactar por Whatsapp
-      </button>}
+      {!isLabeler && (
+        <button
+          className="InteractionDrawerActions__button"
+          onClick={openWhatsapp}
+        >
+          <Icon icon="mdi:whatsapp" />
+          Contactar por Whatsapp
+        </button>
+      )}
       {schedulingSystemURL && !isLabeler && (
         <button
           className="InteractionDrawerActions__button"

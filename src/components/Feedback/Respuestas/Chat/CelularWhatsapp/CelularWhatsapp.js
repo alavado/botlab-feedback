@@ -10,6 +10,8 @@ import { fijaChatExpandido } from '../../../../../redux/ducks/opciones'
 import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router'
 import useAnalytics from '../../../../../hooks/useAnalytics'
+import MensajeSinWhatsapp from './MensajeSinWhatsapp/MensajeSinWhatsapp'
+import { tieneAccesoAUNREACHABLES } from '../../../../../helpers/permisos'
 
 const CelularWhatsapp = ({
   conversaciones,
@@ -18,29 +20,20 @@ const CelularWhatsapp = ({
   actualizarMensajes,
   nombrePaciente,
   telefono,
+  intentos,
 }) => {
   const { chatExpandido } = useSelector((state) => state.opciones)
   const contenedorMensajes = useRef()
   const dispatch = useDispatch()
   const history = useHistory()
   const track = useAnalytics()
+  const { nombreUsuario: cuenta } = useSelector((state) => state.login)
 
   const todosLosMensajes = useMemo(() => {
     return conversaciones
       ? conversaciones.reduce((arr, c) => [...arr, ...c.messages], [])
       : []
   }, [conversaciones])
-
-  const irAConversacion = (indice) => {
-    if (indice !== indiceConversacion) {
-      track('Feedback', 'Chat', 'clickEnConversacion')
-      seleccionarConversacion(indice)
-      const conversacion = document.getElementById(
-        `contenedor-conversacion-${indice}`
-      )
-      conversacion.scrollIntoView()
-    }
-  }
 
   useEffect(() => {
     if (conversaciones?.length > 0) {
@@ -59,11 +52,6 @@ const CelularWhatsapp = ({
         'CelularWhatsapp--expandido': chatExpandido,
       })}
     >
-      {/* <SelectorConversacion
-        conversaciones={conversaciones}
-        indiceConversacionSeleccionada={indiceConversacion}
-        seleccionarConversacion={irAConversacion}
-      /> */}
       <div className="CelularWhatsapp__celular">
         <div className="CelularWhatsapp__datos_extra">
           {history.location.pathname.slice(6)}
@@ -111,7 +99,10 @@ const CelularWhatsapp = ({
                       }
                     }}
                   >
-                    {mensajes.length > 0 ? (
+                    {c.is_unreachable?.whatsapp &&
+                    tieneAccesoAUNREACHABLES(cuenta) ? (
+                      <MensajeSinWhatsapp start={c.start} intentos={intentos} />
+                    ) : mensajes.length > 0 ? (
                       mensajes.map((mensaje, i) => (
                         <MensajeWhatsapp
                           mensaje={mensaje}

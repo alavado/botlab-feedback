@@ -1,6 +1,7 @@
 .InteractionDrawerActions {
   padding-left: 0.25rem;
   display: flex;
+  min-width: 25ch;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;

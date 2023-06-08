@@ -33,6 +33,15 @@ export const tieneAccesoAAlertas = (cuenta) => {
   return !cuentasSinAlertas.includes(cuenta.toLowerCase())
 }
 
+export const tieneAccesoAUNREACHABLES = (cuenta) => {
+  const cuentasSinAcceso = [
+    // Redsalud
+    'sanasalud',
+    'sanasalud_cero',
+  ]
+  return !cuentasSinAcceso.includes(cuenta.toLowerCase())
+}
+
 export const esRedSalud = (cuenta) => {
   return cuenta.indexOf('redsalud') >= 0
 }

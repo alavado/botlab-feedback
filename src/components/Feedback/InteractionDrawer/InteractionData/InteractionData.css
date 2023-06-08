@@ -6,6 +6,7 @@
   width: 100%;
   padding-top: 1rem;
   padding-left: 0.5rem;
+  padding-bottom: 33vh;
 }
 
 .InteractionData__title {
@@ -18,32 +19,4 @@
 
 .InteractionData__title svg {
   font-size: 1rem;
-}
-
-.InteractionData__data_container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.65rem;
-}
-
-.InteractionData__data_label {
-  font-weight: 600;
-}
-
-.InteractionData__data_value {
-  max-width: 25ch;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  align-self: flex-start;
-  border-bottom: 1px dashed transparent;
-}
-
-.InteractionData__data_value:hover {
-  cursor: pointer;
-  border-bottom-color: var(--color-gris);
-}
-
-.InteractionData__data_value:active {
-  background-color: var(--color-bordes);
 }

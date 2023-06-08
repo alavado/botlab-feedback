@@ -6,19 +6,43 @@ import {
   SearchAPIMultiAppointment,
   SearchAPISingleAppointment,
 } from '../types/responses'
-import { Appointment, Interaction } from '../types/types'
+import { Appointment, Interaction } from '../types/domain'
 import { get, parseAPIDate, API_ROOT } from './utils'
+
+const useSearchQuery = (
+  term: String
+): UseQueryResult<Interaction[], unknown> => {
+  return useQuery(['search', term], async () => {
+    if (!term) {
+      return []
+    }
+    const { data } = await get(`${API_ROOT}/answers_es?query=${term}`)
+    const interactions = data.data.map((searchResult: any): Interaction => {
+      const nAppointments = Number(searchResult.n_appointments || 1)
+      return nAppointments > 1
+        ? searchMultiAppointmentToInteraction(
+            searchResult as SearchAPIMultiAppointment
+          )
+        : searchSingleAppointmentToInteraction(
+            searchResult as SearchAPISingleAppointment
+          )
+    })
+    return _.orderBy(interactions, 'start', 'desc')
+  })
+}
 
 const searchSingleAppointmentToInteraction = (
   appointment: SearchAPISingleAppointment
 ): Interaction => {
   return {
-    start: addHours(
-      parseISO(appointment.start),
-      Number(process.env.REACT_APP_UTC_OFFSET)
-    ),
-    patientId: appointment.user_id,
-    serviceId: appointment.poll_id,
+    id: {
+      patientId: appointment.user_id,
+      serviceId: appointment.poll_id,
+      start: addHours(
+        parseISO(appointment.start),
+        Number(process.env.REACT_APP_UTC_OFFSET)
+      ),
+    },
     branch: appointment.sucursal_name,
     phone: appointment.phone,
     appointments: [
@@ -34,7 +58,8 @@ const searchSingleAppointmentToInteraction = (
         url: appointment.dentalink_link || appointment.medilink_link,
       },
     ],
-    meta: [],
+    extraData: [],
+    tags: [],
   }
 }
 
@@ -42,12 +67,14 @@ const searchMultiAppointmentToInteraction = (
   appointment: SearchAPIMultiAppointment
 ): Interaction => {
   return {
-    start: addHours(
-      parseISO(appointment.start),
-      Number(process.env.REACT_APP_UTC_OFFSET)
-    ),
-    patientId: appointment.user_id,
-    serviceId: appointment.poll_id,
+    id: {
+      patientId: appointment.user_id,
+      serviceId: appointment.poll_id,
+      start: addHours(
+        parseISO(appointment.start),
+        Number(process.env.REACT_APP_UTC_OFFSET)
+      ),
+    },
     branch: appointment.sucursal_name_1 || appointment.sucursal_name,
     phone: appointment.phone,
     appointments: Array(Number(appointment.n_appointments))
@@ -75,30 +102,9 @@ const searchMultiAppointmentToInteraction = (
           ] as string,
         }
       }),
-    meta: [],
+    extraData: [],
+    tags: [],
   }
-}
-
-const useSearchQuery = (
-  term: String
-): UseQueryResult<Interaction[], unknown> => {
-  return useQuery(['search', term], async () => {
-    if (!term) {
-      return []
-    }
-    const { data } = await get(`${API_ROOT}/answers_es?query=${term}`)
-    const interactions = data.data.map((searchResult: any): Interaction => {
-      const nAppointments = Number(searchResult.n_appointments || 1)
-      return nAppointments > 1
-        ? searchMultiAppointmentToInteraction(
-            searchResult as SearchAPIMultiAppointment
-          )
-        : searchSingleAppointmentToInteraction(
-            searchResult as SearchAPISingleAppointment
-          )
-    })
-    return _.orderBy(interactions, 'start', 'desc')
-  })
 }
 
 export default useSearchQuery

@@ -1,30 +1,22 @@
 import { useQuery, UseQueryResult } from 'react-query'
-import { InteractionMeta, PatientId, ServiceId } from '../types/types'
+import { InteractionExtraData, InteractionId } from '../types/domain'
 import useChatQuery from './useChatQuery'
 
 const useInteractionDataQuery = ({
-  serviceId,
-  patientId,
-  interactionStart,
+  interactionId,
 }: {
-  serviceId: ServiceId
-  patientId: PatientId
-  interactionStart: Date
-}): UseQueryResult<InteractionMeta[], unknown> => {
-  const { data } = useChatQuery({
-    serviceId,
-    patientId,
-    start: interactionStart,
-  })
+  interactionId?: InteractionId
+}): UseQueryResult<InteractionExtraData[], unknown> => {
+  const { data } = useChatQuery(interactionId)
 
   return useQuery<any, any, any>(
-    ['interaction-data', serviceId, patientId, interactionStart],
+    ['interaction-data', interactionId],
     async () => {
       if (!data) {
         return []
       }
       const { currentInteraction } = data
-      return currentInteraction.meta
+      return currentInteraction.extraData
     },
     { enabled: !!data }
   )

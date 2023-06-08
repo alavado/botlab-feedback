@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from 'react-query'
-import { chatAPIResponse } from '../types/responses'
+import { ChatAPIResponse } from '../types/responses'
 import { get, API_ROOT } from './utils'
 
 const useSingleAlertQuery = (
@@ -11,7 +11,7 @@ const useSingleAlertQuery = (
     ['alert', alertId],
     async () => {
       const { data: alertData } = await get(`${API_ROOT}/alerts/${alertId}`)
-      const { data: chatData }: { data: chatAPIResponse } = await get(
+      const { data: chatData }: { data: ChatAPIResponse } = await get(
         `${API_ROOT}/chat/${serviceId}/${patientId}`
       )
       return {

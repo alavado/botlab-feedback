@@ -65,7 +65,8 @@
 }
 
 .AlertElement--selected {
-  background-color: var(--color-fila-muy-destacada);
+  background-color: var(--color-fondo);
+  z-index: 3;
 }
 
 .AlertElement__solve_alert_button {
@@ -85,7 +86,7 @@
   justify-content: center;
   gap: 0.25rem;
   min-width: 7rem;
-  animation: AlertElement__solve_alert_button--appears 0.25s ease both;
+  animation: AlertElement__solve_alert_button--appears 0.25s 0.25s ease both;
 }
 
 .AlertElement__solve_alert_button:hover {
@@ -96,8 +97,10 @@
 @keyframes AlertElement__solve_alert_button--appears {
   0% {
     opacity: 0;
+    pointer-events: none;
   }
   100% {
     opacity: 1;
+    pointer-events: all;
   }
 }

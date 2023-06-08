@@ -1,10 +1,13 @@
 .SmartphoneMessage {
   background-color: var(--whatsapp-fondo-mensajes-entrantes);
-  max-width: 80%;
-  padding: 0.45rem;
-  font-size: 0.65rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
+  max-width: 85%;
+  padding: 0.4rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.75rem;
+  padding-right: 1rem;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  border-radius: 0.35rem;
   min-width: 20%;
   box-shadow: 0 0.05rem 0 0.05rem rgba(0, 0, 0, 0.075);
   position: relative;
@@ -14,6 +17,7 @@
   justify-content: space-between;
   gap: 0.15rem;
   animation: SmartphoneMessage 0.25s ease;
+  font-family: 'Roboto';
 }
 
 .SmartphoneMessage::after {
@@ -58,7 +62,9 @@
   transform: translate(0.1rem, 0.32rem);
   padding-left: 0.05rem;
   opacity: 0.8;
-  position: relative;
+  position: absolute;
+  right: 0.4rem;
+  bottom: 0.45rem;
 }
 
 .SmartphoneMessage--unfocused {

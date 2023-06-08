@@ -18,6 +18,8 @@
   --color-reagenda: #d2c8f4;
   --color-reagendado: #d2c8f4;
   --color-texto-tag: #2d3748;
+  --color-unanswered: white;
+  --color-unreachable: rgb(250, 250, 250);
 
   --color-fondo: white;
   --color-texto-claro: white;
@@ -105,6 +107,7 @@
   --color-reagenda: #ebf8ff;
   --color-reagendado: #ebf8ff;
   --color-texto-tag: #1a202c;
+  --color-unreachable: rgb(250, 250, 250);
 
   --whatsapp-fondo-barra-estado: #1f2c34;
   --whatsapp-fondo-barra-superior: #1f2c34;
@@ -113,7 +116,7 @@
   --whatsapp-fondo-mensajes-entrantes: #1f2c34;
   --whatsapp-color-texto: rgba(255, 255, 255, 0.8);
   --whatsapp-fondo-fecha: #212e36;
-  --whatsapp-color-texto-fecha: rgba(255, 255, 255, 0.7);
+  --whatsapp-color-texto-fecha: rgba(255, 255, 255, 0.75);
   --whatsapp-color-celular: #010101;
   --whatsapp-color-borde-celular: #222;
   --whatsapp-color-brillo-celular: #222;

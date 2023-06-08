@@ -20,7 +20,6 @@ const Chat = () => {
   const [conversaciones, setConversaciones] = useState()
   const [phoneHistories, setPhoneHistories] = useState()
   const [telefono, setTelefono] = useState()
-  const [nombreBot, setNombreBot] = useState()
   const [indiceConversacion, setIndiceConversacion] = useState()
   const [cargando, setCargando] = useState(false)
   const [jsonChat, setJsonChat] = useState({})
@@ -40,9 +39,8 @@ const Chat = () => {
     chatAPI(idEncuesta, idUsuario)
       .then(({ data }) => {
         const {
-          data: { conversations, phone_histories, user, bot },
+          data: { conversations, phone_histories, user },
         } = data
-        setNombreBot(bot.name)
         setTelefono(user ? user.phone : '')
         setConversaciones(conversations)
         setPhoneHistories(phone_histories)
@@ -146,6 +144,7 @@ const Chat = () => {
           )?.value
         }
         telefono={telefono ? `+${telefono}` : ''}
+        intentos={phoneHistories?.[indiceConversacion]}
       />
       <RespuestasChat
         datos={conversaciones?.[indiceConversacion]?.context}

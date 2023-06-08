@@ -1,4 +1,4 @@
-interface chatAPIUserMessage {
+interface ChatAPIUserMessage {
   answer_id: number
   message: string
   question_id: number
@@ -7,15 +7,15 @@ interface chatAPIUserMessage {
   type: 'user'
 }
 
-interface chatAPIBotMessage {
+interface ChatAPIBotMessage {
   timestamp: string
   message: string
   type: 'bot'
 }
 
-export type chatAPIMessage = chatAPIUserMessage | chatAPIBotMessage
+export type ChatAPIMessage = ChatAPIUserMessage | ChatAPIBotMessage
 
-export type metaTarget =
+export type MetaTarget =
   | 'id_cita'
   | 'rut'
   | 'name'
@@ -52,16 +52,16 @@ export type metaTarget =
   | 'date_5'
   | 'time_5'
 
-export interface chatAPIConversationContextField {
-  target: metaTarget
+export interface ChatAPIConversationContextField {
+  target: MetaTarget
   title: string
   value: string
 }
 
-export interface chatAPIConversation {
+export interface ChatAPIConversation {
   start: string
-  context: chatAPIConversationContextField[]
-  messages: chatAPIMessage[]
+  context: ChatAPIConversationContextField[]
+  messages: ChatAPIMessage[]
   reactions: [any]
   tags: [
     {
@@ -70,16 +70,17 @@ export interface chatAPIConversation {
       tag: string
     }
   ]
+  is_unreachable: { whatsapp: boolean }
 }
 
-export interface chatAPIResponse {
+export interface ChatAPIResponse {
   status: string
   data: {
     bot: {
       name: string
       phone: string
     }
-    conversations: chatAPIConversation[]
+    conversations: ChatAPIConversation[]
     user: {
       id: number
       outsider: boolean
@@ -183,6 +184,8 @@ export interface AnswerMediaAPIResponse {
   }
 }
 
+export type TagType = 'META' | 'YESNO' | 'INTERNAL' | 'RANGE' | 'OPEN'
+
 export interface PollsHeadersAPIResponse {
   status: string
   data: [
@@ -195,9 +198,54 @@ export interface PollsHeadersAPIResponse {
         {
           name: string
           display_name: string
-          type: 'META' | 'YESNO' | 'INTERNAL' | 'RANGE' | 'OPEN'
+          type: TagType
         }
       ]
     }
   ]
+}
+
+interface FixedAnswersAPIResponseKeys {
+  user_id: number
+  started: string
+  phone: string
+  start: string
+  date: string
+  time: string
+  latest_alert: unknown
+  is_unreachable: {
+    whatsapp: boolean
+  }
+  reactions: [
+    {
+      id: number
+      reaction_emoji: string
+      reaction_text: string
+      created_at: string
+    }
+  ]
+}
+
+export type APITag =
+  | 'YES'
+  | 'NO'
+  | 'REAGENDA'
+  | 'OUT'
+  | 'PHONE:YES'
+  | 'PHONE:NO'
+
+export type APITagWithText = {
+  tag: APITag
+  text: string
+}
+
+export type APIMetaValue = string | number | APITagWithText
+
+export type AnswersAPIResponseRow = FixedAnswersAPIResponseKeys & {
+  [key: string]: APIMetaValue
+}
+
+export type AnswersAPIResponse = {
+  status: string
+  data: [AnswersAPIResponseRow]
 }

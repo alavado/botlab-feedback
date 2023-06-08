@@ -17,22 +17,56 @@ export interface Branch {
   name: string
 }
 
-export interface Interaction {
+export type InteractionTag =
+  | 'UNREACHABLE_WHATSAPP'
+  | 'SENT_WHATSAPP'
+  | 'ANSWERED_WHATSAPP'
+
+export interface InteractionId {
+  serviceId: ServiceId
   patientId: number
-  serviceId: number
   start: Date
+}
+
+export interface Interaction {
+  id: InteractionId
   appointments: Appointment[]
   branch?: string
   phone?: string
   messages?: Message[]
   comments?: Comment[]
   botName?: string
-  meta: InteractionMeta[]
+  extraData: InteractionExtraData[]
+  tags: InteractionTag[]
 }
 
-export interface InteractionMeta {
-  label: string
-  value: string
+export type Tag =
+  | 'YES'
+  | 'NO'
+  | 'REAGENDA'
+  | 'OUT'
+  | 'SIN RESPUESTA'
+  | 'UNREACHABLE'
+
+export const isTag = (stuff: any): stuff is Tag => {
+  return [
+    'YES',
+    'NO',
+    'REAGENDA',
+    'OUT',
+    'SIN RESPUESTA',
+    'UNREACHABLE',
+  ].includes(stuff)
+}
+
+export type TagWithText = {
+  tag: Tag
+  text: string
+}
+
+export interface InteractionExtraData {
+  header: string
+  value: string | TagWithText
 }
 
 export type SchedulingSystem = 'Dentalink' | 'Medilink' | 'Otro'
@@ -86,6 +120,6 @@ export interface Comment {
 export type BranchId = Branch['id']
 export type ServiceId = Service['id']
 export type AlertTypeId = AlertType['id']
-export type PatientId = Interaction['patientId']
+export type PatientId = InteractionId['patientId']
 export type AlertId = Alert['id']
 export type CommentId = Comment['id']
