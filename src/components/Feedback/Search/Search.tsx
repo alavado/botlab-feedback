@@ -15,6 +15,7 @@ import useAnalytics from '../../../hooks/useAnalytics'
 import useSearchQuery from '../../../api/hooks/useSearchQuery'
 import { Icon } from '@iconify/react'
 import MenuUsuario from '../BarraSuperior/MenuUsuario'
+import InteractionDrawerCover from '../InteractionDrawer/InteractionDrawerCover/InteractionDrawerCover'
 
 const Search = () => {
   const {
@@ -34,6 +35,7 @@ const Search = () => {
 
   return (
     <div className="Search">
+      <InteractionDrawerCover visible={drawerVisible} />
       <div className="Search__topbar">
         <SearchInput showLoader={isLoading} defaultValue={searchTerm} />
         <MenuUsuario />

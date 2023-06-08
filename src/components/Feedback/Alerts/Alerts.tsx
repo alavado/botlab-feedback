@@ -7,6 +7,7 @@ import './Alerts.css'
 import AlertsList from './AlertsList'
 import AlertsSidebar from './AlertsSidebar'
 import ToggleSidebarButton from './ToggleSidebarButton'
+import InteractionDrawerCover from '../InteractionDrawer/InteractionDrawerCover'
 
 interface AlertsRouteParams {
   patientId?: string
@@ -26,22 +27,7 @@ const Alerts = () => {
 
   return (
     <div className="Alerts">
-      <div className="Alerts__topbar">
-        <div className="Alerts__topbar_left">
-          <h2 className="Alerts__title">Alertas</h2>
-          <ToggleSidebarButton />
-        </div>
-        <MenuUsuario />
-      </div>
-      <div className="Alerts__container">
-        <AlertsSidebar />
-        <main className="Alerts__main">
-          <AlertsList
-            selectedPatientId={patientId}
-            selectedServiceId={serviceId}
-          />
-        </main>
-      </div>
+      <InteractionDrawerCover visible={!!patientId && !!serviceId} />
       <div
         className={classNames({
           Alerts__drawer: true,
@@ -59,6 +45,22 @@ const Alerts = () => {
             originComponentName="Alerts"
           />
         )}
+      </div>
+      <div className="Alerts__topbar">
+        <div className="Alerts__topbar_left">
+          <h2 className="Alerts__title">Alertas</h2>
+          <ToggleSidebarButton />
+        </div>
+        <MenuUsuario />
+      </div>
+      <div className="Alerts__container">
+        <AlertsSidebar />
+        <main className="Alerts__main">
+          <AlertsList
+            selectedPatientId={patientId}
+            selectedServiceId={serviceId}
+          />
+        </main>
       </div>
     </div>
   )
