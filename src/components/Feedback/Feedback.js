@@ -112,16 +112,13 @@ const Feedback = () => {
               <PaymentDueModal />
               <PaymentDueBanner />
               <Switch>
-                <Route path="/interaccion">
-                  <></>
-                </Route>
                 <Route path="/busqueda">
                   <></>
                 </Route>
                 <Route path="/alertas">
                   <></>
                 </Route>
-                <Route path="/respuestas2">
+                <Route path="/interacciones">
                   <></>
                 </Route>
                 <Route>
@@ -136,7 +133,10 @@ const Feedback = () => {
                   <Route path="/respuestas">
                     <Respuestas />
                   </Route>
-                  <Route path="/respuestas2">
+                  <Route exact path="/interacciones">
+                    <Interactions />
+                  </Route>
+                  <Route path="/interacciones/:serviceId/:patientId">
                     <Interactions />
                   </Route>
                   <Route path="/chat">

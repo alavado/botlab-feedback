@@ -1,84 +1,73 @@
 import './InteractionsLegacyTable.css'
-import { Interaction, Service } from '../../../../api/types/domain'
-import _ from 'lodash'
+import { Interaction } from '../../../../api/types/domain'
 import { Icon } from '@iconify/react'
-import TagLabel from '../TagLabel/TagLabel'
 import classNames from 'classnames'
 import InteractionDrawer from '../../InteractionDrawer/InteractionDrawer'
-import { useState } from 'react'
+import InteractionsLegacyTableRow from './InteractionsLegacyTableRow/InteractionsLegacyTableRow'
+import useActiveServiceQuery from '../../../../api/hooks/useActiveServiceQuery'
+import { useHistory, useRouteMatch } from 'react-router-dom'
+import { useMemo } from 'react'
 
 const InteractionsLegacyTable = ({
-  service,
   interactions,
 }: {
-  service: Service
   interactions: Interaction[]
 }) => {
-  const [activeInteraction, setActiveInteraction] = useState<
-    Interaction | undefined
-  >()
+  const { data: service } = useActiveServiceQuery()
+  const { params }: any = useRouteMatch()
+  const history = useHistory()
+
+  const activeInteraction: Interaction | undefined = useMemo(() => {
+    const { patientId, serviceId } = params
+    if (!patientId || !serviceId) {
+      return undefined
+    }
+    return interactions.find(
+      (i) =>
+        i.id.patientId === Number(patientId) &&
+        i.id.serviceId === Number(serviceId)
+    )
+  }, [params, interactions])
 
   return (
     <div className="InteractionsLegacyTable">
       <div
         className={classNames({
           InteractionsLegacyTable__drawer: true,
-          'InteractionsLegacyTable__drawer--hidden': !activeInteraction,
+          'InteractionsLegacyTable__drawer--hidden': !params?.patientId,
         })}
       >
         {activeInteraction && (
           <InteractionDrawer
             interactionId={activeInteraction.id}
-            onCloseClick={() => setActiveInteraction(undefined)}
+            onCloseClick={() => history.push('/interacciones')}
             originComponentName="InteractionsLegacyTable"
           />
         )}
       </div>
-      <div className="InteractionsLegacyTable__row InteractionsLegacyTable__row--headers">
-        <div className="InteractionsLegacyTable__row_cell InteractionsLegacyTable__row_cell--header InteractionsLegacyTable__row_cell--notes-header">
+      {/* <!--- jiji ---> */}
+      <div className="InteractionsLegacyTableRow InteractionsLegacyTableRow--headers">
+        <div className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--header InteractionsLegacyTableRow__cell--notes-header">
           <Icon icon="mdi:note" />
         </div>
-        {service.headers.map((header) => (
+        {service?.headers.map((header) => (
           <div
             key={`header-${header.name}`}
-            className="InteractionsLegacyTable__row_cell InteractionsLegacyTable__row_cell--header"
+            className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--header"
           >
             <div>{header.displayName}</div>
           </div>
         ))}
       </div>
       {interactions.slice(0, 50).map((i: Interaction, n) => (
-        <div
-          key={`row-${n}`}
-          className={classNames({
-            InteractionsLegacyTable__row: true,
-            'InteractionsLegacyTable__row--active':
-              i.id.patientId === activeInteraction?.id.patientId &&
-              i.id.serviceId === activeInteraction.id.serviceId,
-          })}
-          onClick={() => setActiveInteraction(i)}
-        >
-          <div className="InteractionsLegacyTable__row_cell InteractionsLegacyTable__row_cell--notes-cell"></div>
-          {service.headers.map((header, m) => {
-            const metaValue = i.extraData.find((m) => m.header === header.name)
-            return (
-              <div
-                key={`cell-${n}-${m}`}
-                className={classNames({
-                  InteractionsLegacyTable__row_cell: true,
-                  'InteractionsLegacyTable__row_cell--tag-container':
-                    !_.isString(metaValue?.value),
-                })}
-              >
-                {_.isString(metaValue?.value) ? (
-                  metaValue?.value
-                ) : (
-                  <TagLabel tag={metaValue?.value.tag} />
-                )}
-              </div>
-            )
-          })}
-        </div>
+        <InteractionsLegacyTableRow
+          interaction={i}
+          highlighted={
+            i.id.patientId === activeInteraction?.id.patientId &&
+            i.id.serviceId === activeInteraction?.id.serviceId
+          }
+          key={`InteractionsLegacyTableRow-${n}`}
+        />
       ))}
     </div>
   )

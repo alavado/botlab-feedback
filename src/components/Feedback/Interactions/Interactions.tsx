@@ -60,10 +60,7 @@ const Interactions = () => {
         <div className="Interactions__table_container">
           {loadingInteractions && <Loader />}
           {interactions && activeService && (
-            <InteractionsLegacyTable
-              service={activeService}
-              interactions={interactions}
-            />
+            <InteractionsLegacyTable interactions={interactions} />
           )}
         </div>
       </main>

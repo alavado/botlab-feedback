@@ -11,7 +11,7 @@
 }
 
 .InteractionDataRow__value {
-  max-width: 30ch;
+  max-width: 25ch;
   overflow: hidden;
   text-overflow: ellipsis;
   align-self: flex-start;
