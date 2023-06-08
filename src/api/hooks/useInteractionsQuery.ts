@@ -49,12 +49,14 @@ const answerSingleAppointmentToInteraction = (
   serviceId: ServiceId
 ): Interaction => {
   return {
-    start: addHours(
-      parseISO(appointment.start),
-      Number(process.env.REACT_APP_UTC_OFFSET)
-    ),
-    patientId: appointment.user_id,
-    serviceId,
+    id: {
+      patientId: appointment.user_id,
+      serviceId,
+      start: addHours(
+        parseISO(appointment.start),
+        Number(process.env.REACT_APP_UTC_OFFSET)
+      ),
+    },
     branch: appointment.sucursal_name as string | undefined,
     phone: appointment.phone,
     appointments: [

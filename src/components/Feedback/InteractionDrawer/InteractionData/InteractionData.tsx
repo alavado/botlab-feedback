@@ -1,26 +1,20 @@
 import _ from 'lodash'
 import { Icon } from '@iconify/react'
 import useInteractionDataQuery from '../../../../api/hooks/useInteractionDataQuery'
-import { PatientId, ServiceId } from '../../../../api/types/domain'
+import { InteractionId } from '../../../../api/types/domain'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import Loader from '../../../Loader'
 import './InteractionData.css'
 
 const InteractionData = ({
-  serviceId,
-  patientId,
-  interactionStart,
+  interactionId,
   originComponentName,
 }: {
-  serviceId: ServiceId
-  patientId: PatientId
-  interactionStart: Date
+  interactionId?: InteractionId
   originComponentName: string
 }) => {
   const { data } = useInteractionDataQuery({
-    serviceId,
-    patientId,
-    interactionStart,
+    interactionId,
   })
   const track = useAnalytics()
 

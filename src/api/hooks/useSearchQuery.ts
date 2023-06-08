@@ -35,12 +35,14 @@ const searchSingleAppointmentToInteraction = (
   appointment: SearchAPISingleAppointment
 ): Interaction => {
   return {
-    start: addHours(
-      parseISO(appointment.start),
-      Number(process.env.REACT_APP_UTC_OFFSET)
-    ),
-    patientId: appointment.user_id,
-    serviceId: appointment.poll_id,
+    id: {
+      patientId: appointment.user_id,
+      serviceId: appointment.poll_id,
+      start: addHours(
+        parseISO(appointment.start),
+        Number(process.env.REACT_APP_UTC_OFFSET)
+      ),
+    },
     branch: appointment.sucursal_name,
     phone: appointment.phone,
     appointments: [
@@ -65,12 +67,14 @@ const searchMultiAppointmentToInteraction = (
   appointment: SearchAPIMultiAppointment
 ): Interaction => {
   return {
-    start: addHours(
-      parseISO(appointment.start),
-      Number(process.env.REACT_APP_UTC_OFFSET)
-    ),
-    patientId: appointment.user_id,
-    serviceId: appointment.poll_id,
+    id: {
+      patientId: appointment.user_id,
+      serviceId: appointment.poll_id,
+      start: addHours(
+        parseISO(appointment.start),
+        Number(process.env.REACT_APP_UTC_OFFSET)
+      ),
+    },
     branch: appointment.sucursal_name_1 || appointment.sucursal_name,
     phone: appointment.phone,
     appointments: Array(Number(appointment.n_appointments))

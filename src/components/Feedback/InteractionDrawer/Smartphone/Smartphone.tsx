@@ -62,13 +62,11 @@ const Smartphone = ({
 }) => {
   const [phoneColor, setPhoneColor] = useState([0, 0, 10])
   const { data: comments } = useCommentsQuery({
-    serviceId: currentInteraction?.serviceId,
-    patientId: currentInteraction?.patientId,
-    interactionStart: currentInteraction?.start,
+    interactionId: currentInteraction?.id,
   })
   const { data: alerts } = useAlertsForPatientQuery({
-    serviceId: currentInteraction?.serviceId,
-    patientId: currentInteraction?.patientId,
+    serviceId: currentInteraction?.id.serviceId,
+    patientId: currentInteraction?.id.patientId,
   })
   const canSeeUnreachables = useCanSeeUnreachables()
 
@@ -100,7 +98,7 @@ const Smartphone = ({
         interaction.tags.includes('UNREACHABLE_WHATSAPP')
       ) {
         elements.push({
-          date: interaction.start,
+          date: interaction.id.start,
           unreachableExplanation: 'blabla',
         })
       } else {
@@ -112,7 +110,7 @@ const Smartphone = ({
       currentInteraction.tags.includes('UNREACHABLE_WHATSAPP')
     ) {
       elements.push({
-        date: currentInteraction.start,
+        date: currentInteraction.id.start,
         unreachableExplanation: 'blabla',
       })
     } else {
@@ -124,7 +122,7 @@ const Smartphone = ({
         interaction.tags.includes('UNREACHABLE_WHATSAPP')
       ) {
         elements.push({
-          date: interaction.start,
+          date: interaction.id.start,
           unreachableExplanation: 'blabla',
         })
       } else {
@@ -138,7 +136,7 @@ const Smartphone = ({
       if (i === 0 || !isSameDay(elements[i - 1].date, el.date)) {
         elementsWithDates.push({
           date: startOfDay(el.date),
-          current: isSameDay(currentInteraction.start, el.date),
+          current: isSameDay(currentInteraction.id.start, el.date),
         })
       }
       elementsWithDates.push(el)
@@ -158,7 +156,8 @@ const Smartphone = ({
 
   const currentInteractionStart =
     currentInteraction &&
-    format(currentInteraction?.start, 'yyyy-MM-dd') + currentInteraction?.phone
+    format(currentInteraction?.id.start, 'yyyy-MM-dd') +
+      currentInteraction?.phone
 
   useEffect(() => {
     if (!currentInteractionStart) {
@@ -180,8 +179,8 @@ const Smartphone = ({
         <SmartphoneButtons setPhoneColor={setPhoneColor} />
         <div className="Smartphone__app_bar">
           <SmartphoneNavBar
-            serviceId={currentInteraction?.serviceId}
-            patientId={currentInteraction?.patientId}
+            serviceId={currentInteraction?.id.serviceId}
+            patientId={currentInteraction?.id.patientId}
           />
           <SmartphoneActionBar
             contactName={currentInteraction?.appointments?.[0].patientName}

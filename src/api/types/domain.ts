@@ -22,10 +22,14 @@ export type InteractionTag =
   | 'SENT_WHATSAPP'
   | 'ANSWERED_WHATSAPP'
 
-export interface Interaction {
-  patientId: number
+export interface InteractionId {
   serviceId: ServiceId
+  patientId: number
   start: Date
+}
+
+export interface Interaction {
+  id: InteractionId
   appointments: Appointment[]
   branch?: string
   phone?: string
@@ -116,6 +120,6 @@ export interface Comment {
 export type BranchId = Branch['id']
 export type ServiceId = Service['id']
 export type AlertTypeId = AlertType['id']
-export type PatientId = Interaction['patientId']
+export type PatientId = InteractionId['patientId']
 export type AlertId = Alert['id']
 export type CommentId = Comment['id']

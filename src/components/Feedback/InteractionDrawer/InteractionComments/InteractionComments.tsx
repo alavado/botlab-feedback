@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
 import useCommentsQuery from '../../../../api/hooks/useCommentsQuery'
-import { PatientId, ServiceId } from '../../../../api/types/domain'
+import { InteractionId } from '../../../../api/types/domain'
 import Loader from '../../../Loader'
 import InteractionComment from './InteractionComment/InteractionComment'
 import NewCommentPopup from './NewCommentPopup'
@@ -10,22 +10,14 @@ import { Emoji } from './InteractionComment/InteractionCommentIcon/emojis'
 import useIsLabeler from '../../../../hooks/useIsLabeler'
 
 const InteractionComments = ({
-  serviceId,
-  patientId,
-  interactionStart,
+  interactionId,
   originComponentName,
 }: {
-  serviceId: ServiceId
-  patientId: PatientId
-  interactionStart: Date
+  interactionId?: InteractionId
   originComponentName: string
 }) => {
   const [isNewCommentModalOpen, setIsNewCommentModalOpen] = useState(false)
-  const { data: comments, isLoading } = useCommentsQuery({
-    serviceId,
-    patientId,
-    interactionStart,
-  })
+  const { data: comments, isLoading } = useCommentsQuery({ interactionId })
   const isLabeler = useIsLabeler()
 
   return (
@@ -35,15 +27,15 @@ const InteractionComments = ({
         Notas
       </h3>
       <div className="InteractionComments__comments_container">
-        {isLoading ? (
+        {isLoading || !interactionId ? (
           <Loader />
         ) : comments?.length === 0 ? (
           <p className="InteractionComments__no_comments">No hay notas</p>
         ) : (
           comments?.map((comment, i) => (
             <InteractionComment
-              serviceId={serviceId}
-              patientId={patientId}
+              patientId={interactionId.patientId}
+              serviceId={interactionId.serviceId}
               id={comment.id}
               timestamp={comment.timestamp}
               emoji={comment.emoji as Emoji}
@@ -63,14 +55,14 @@ const InteractionComments = ({
           Agregar nota
         </button>
       )}
-      <NewCommentPopup
-        interactionStart={interactionStart}
-        serviceId={serviceId}
-        patientId={patientId}
-        isOpen={isNewCommentModalOpen}
-        close={() => setIsNewCommentModalOpen(false)}
-        originComponentName={originComponentName}
-      />
+      {interactionId && (
+        <NewCommentPopup
+          interactionId={interactionId}
+          isOpen={isNewCommentModalOpen}
+          close={() => setIsNewCommentModalOpen(false)}
+          originComponentName={originComponentName}
+        />
+      )}
     </div>
   )
 }

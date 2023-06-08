@@ -1,28 +1,24 @@
 import { format } from 'date-fns'
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { Emoji } from '../../components/Feedback/InteractionDrawer/InteractionComments/InteractionComment/InteractionCommentIcon/emojis'
-import { PatientId, ServiceId } from '../types/domain'
+import { InteractionId } from '../types/domain'
 import { API_ROOT, post } from './utils'
 
 const useAddCommentMutation = ({
-  serviceId,
-  patientId,
-  interactionStart,
+  interactionId,
   text,
   emoji,
 }: {
-  serviceId: ServiceId
-  patientId: PatientId
-  interactionStart: Date
+  interactionId: InteractionId
   text: string
   emoji: Emoji
 }): UseMutationResult<unknown, unknown> => {
   const queryClient = useQueryClient()
-  const url = `${API_ROOT}/reactions/${serviceId}/${patientId}`
+  const url = `${API_ROOT}/reactions/${interactionId.serviceId}/${interactionId.patientId}`
   return useMutation<any, any, any>(
     async () => {
       const { data } = await post(url, {
-        start: format(interactionStart, 'yyyy-MM-dd HH:mm:ss'),
+        start: format(interactionId.start, 'yyyy-MM-dd HH:mm:ss'),
         text,
         emoji,
       })
@@ -31,7 +27,7 @@ const useAddCommentMutation = ({
     {
       onMutate: async () => {
         queryClient.cancelQueries('comments')
-        const commentsKey = ['comments', serviceId, patientId, interactionStart]
+        const commentsKey = ['comments', interactionId]
         const previousComments = queryClient.getQueryData(
           commentsKey
         ) as Comment[]

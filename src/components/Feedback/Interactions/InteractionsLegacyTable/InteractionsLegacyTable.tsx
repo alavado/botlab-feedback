@@ -28,10 +28,8 @@ const InteractionsLegacyTable = ({
       >
         {activeInteraction && (
           <InteractionDrawer
-            patientId={activeInteraction.patientId}
+            interactionId={activeInteraction.id}
             onCloseClick={() => setActiveInteraction(undefined)}
-            start={activeInteraction.start}
-            serviceId={activeInteraction.serviceId}
             originComponentName="InteractionsLegacyTable"
           />
         )}
@@ -55,8 +53,8 @@ const InteractionsLegacyTable = ({
           className={classNames({
             InteractionsLegacyTable__row: true,
             'InteractionsLegacyTable__row--active':
-              i.patientId === activeInteraction?.patientId &&
-              i.serviceId === activeInteraction.serviceId,
+              i.id.patientId === activeInteraction?.id.patientId &&
+              i.id.serviceId === activeInteraction.id.serviceId,
           })}
           onClick={() => setActiveInteraction(i)}
         >

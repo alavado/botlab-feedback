@@ -94,7 +94,7 @@ const columns: ColumnDef<Interaction, any>[] = [
   }),
   {
     id: 'start',
-    accessorFn: (row) => format(row.start, 'dd/MM/yy HH:mm'),
+    accessorFn: (row) => format(row.id.start, 'dd/MM/yy HH:mm'),
     header: 'Fecha interacción',
     filterFn: 'fuzzy',
     sortingFn: fuzzySort,
@@ -248,8 +248,8 @@ const isSameInteraction = (
     return false
   }
   return (
-    i1.serviceId === i2.serviceId &&
-    i1.patientId === i2.patientId &&
+    i1.id.serviceId === i2.id.serviceId &&
+    i1.id.patientId === i2.id.patientId &&
     isSameDay(i1.appointments[0].datetime, i2.appointments[0].datetime)
   )
 }

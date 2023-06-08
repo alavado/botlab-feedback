@@ -10,21 +10,14 @@ import {
 import {
   Appointment,
   Interaction,
+  InteractionId,
   Message,
-  PatientId,
   SchedulingSystem,
-  ServiceId,
 } from '../types/domain'
 import { get, API_ROOT, parseAPIDate } from './utils'
 
-type InteractionID = {
-  serviceId: ServiceId
-  patientId: PatientId
-  start: Date
-}
-
 const useChatQuery = (
-  id: InteractionID
+  interactionId?: InteractionId
 ): UseQueryResult<
   {
     currentInteraction: Interaction
@@ -33,15 +26,18 @@ const useChatQuery = (
   },
   unknown
 > => {
-  const { serviceId, patientId, start } = id
   return useQuery<any, any, any>(
-    ['interaction', serviceId, patientId, start],
+    ['interaction', interactionId],
     async () => {
+      if (!interactionId) {
+        return []
+      }
+      const { serviceId, patientId } = interactionId
       const { data }: { data: ChatAPIResponse } = await get(
         `${API_ROOT}/chat/${serviceId}/${patientId}`
       )
       return splitInteractions(
-        id,
+        interactionId,
         data.data.conversations,
         data.data.user.phone,
         data.data.bot.name
@@ -54,7 +50,7 @@ const useChatQuery = (
 }
 
 const splitInteractions = (
-  currentInteractionID: InteractionID,
+  currentInteractionID: InteractionId,
   conversations: ChatAPIConversation[],
   phone: string,
   botName: string
@@ -201,7 +197,7 @@ const extractAppointments = (
 }
 
 const conversationToInteraction = (
-  interactionId: InteractionID,
+  interactionId: InteractionId,
   phone: string,
   botName: string,
   conversation: ChatAPIConversation
@@ -209,9 +205,11 @@ const conversationToInteraction = (
   const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
   const interaction: Interaction = {
-    patientId: patientId,
-    serviceId: serviceId,
-    start: parseISO(conversation.start),
+    id: {
+      patientId: patientId,
+      serviceId: serviceId,
+      start: parseISO(conversation.start),
+    },
     appointments: extractAppointments(start, conversation),
     branch: _.find(context, { target: 'sucursal_name' })?.value,
     phone,

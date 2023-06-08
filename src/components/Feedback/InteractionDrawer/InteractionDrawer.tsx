@@ -5,30 +5,22 @@ import Smartphone from './Smartphone'
 import { Icon } from '@iconify/react'
 import useChatQuery from '../../../api/hooks/useChatQuery'
 import InteractionDrawerActions from './InteractionDrawerActions'
-import { PatientId, ServiceId } from '../../../api/types/domain'
+import { InteractionId } from '../../../api/types/domain'
 import InteractionComments from './InteractionComments'
 import InteractionData from './InteractionData'
 
 interface InteractionDrawerProps {
-  serviceId: ServiceId
-  patientId: PatientId
-  start: Date
+  interactionId: InteractionId
   onCloseClick: MouseEventHandler
   originComponentName: string
 }
 
 const InteractionDrawer = ({
-  serviceId,
-  patientId,
-  start,
+  interactionId,
   onCloseClick,
   originComponentName,
 }: InteractionDrawerProps) => {
-  const { data } = useChatQuery({
-    serviceId,
-    patientId,
-    start,
-  })
+  const { data } = useChatQuery(interactionId)
 
   const pastInteractions = data?.pastInteractions
   const currentInteraction = data?.currentInteraction
@@ -78,8 +70,7 @@ const InteractionDrawer = ({
       </div>
       <div className="InteractionDrawer__actions_container">
         <InteractionDrawerActions
-          serviceId={currentInteraction?.serviceId}
-          patientId={currentInteraction?.patientId}
+          interactionId={currentInteraction?.id}
           phone={currentInteraction?.phone}
           schedulingSystemName={
             currentInteraction?.appointments[0].schedulingSystem
@@ -87,22 +78,14 @@ const InteractionDrawer = ({
           schedulingSystemURL={currentInteraction?.appointments[0].url}
           originComponentName={originComponentName}
         />
-        {currentInteraction && (
-          <>
-            <InteractionComments
-              serviceId={currentInteraction.serviceId}
-              patientId={currentInteraction.patientId}
-              interactionStart={currentInteraction.start}
-              originComponentName={originComponentName}
-            />
-            <InteractionData
-              serviceId={currentInteraction.serviceId}
-              patientId={currentInteraction.patientId}
-              interactionStart={currentInteraction.start}
-              originComponentName={originComponentName}
-            />
-          </>
-        )}
+        <InteractionComments
+          interactionId={currentInteraction?.id}
+          originComponentName={originComponentName}
+        />
+        <InteractionData
+          interactionId={currentInteraction?.id}
+          originComponentName={originComponentName}
+        />
       </div>
     </Resizable>
   )

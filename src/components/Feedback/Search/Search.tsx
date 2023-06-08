@@ -63,9 +63,7 @@ const Search = () => {
       >
         {activeInteraction && (
           <InteractionDrawer
-            serviceId={activeInteraction.serviceId}
-            patientId={activeInteraction.patientId}
-            start={activeInteraction.start}
+            interactionId={activeInteraction.id}
             onCloseClick={() => {
               dispatch(hideDrawer())
               track('Feedback', 'Search', 'hideDrawer')
