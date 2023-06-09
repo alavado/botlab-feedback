@@ -65,7 +65,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
       }
       return metricsData
     },
-    { refetchOnWindowFocus: false, enabled: !!metricsData }
+    { enabled: !!metricsData }
   )
 }
 

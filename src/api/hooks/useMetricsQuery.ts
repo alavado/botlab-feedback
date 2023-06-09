@@ -41,8 +41,7 @@ const useMetricsQuery = ({
         answered: d.respuesta,
       }))
       return fillInEmptyDays({ start, end, counts })
-    },
-    { refetchOnWindowFocus: false }
+    }
   )
 }
 

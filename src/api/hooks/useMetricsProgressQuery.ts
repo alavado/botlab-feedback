@@ -74,7 +74,7 @@ const useMetricsProgressQuery = ({
           }
       }
     },
-    { refetchOnWindowFocus: false, enabled: !!metricsData }
+    { enabled: !!metricsData }
   )
 }
 
