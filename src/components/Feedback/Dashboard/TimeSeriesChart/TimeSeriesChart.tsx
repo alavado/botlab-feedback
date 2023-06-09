@@ -86,7 +86,7 @@ const TimeSeriesChart = ({
             backgroundColor: getMetricHexColor('TOTAL'),
           },
           {
-            label: 'Respondidas',
+            label: 'Con respuesta',
             data: data.map((d: DailyMetrics) => d.answered),
             borderColor: getMetricHexColor('ANSWERED'),
             backgroundColor: getMetricHexColor('ANSWERED'),
