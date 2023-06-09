@@ -40,23 +40,7 @@ const useMetricsQuery = ({
         total: d.carga,
         answered: d.respuesta,
       }))
-      let iterationDate = start
-      while (differenceInDays(end, iterationDate) >= 0) {
-        const dateExists = counts.some((c: DailyMetrics) =>
-          isSameDay(c.date, iterationDate)
-        )
-        if (!dateExists) {
-          counts.push({
-            date: iterationDate,
-            total: 0,
-            answered: 0,
-          })
-        }
-        iterationDate = addDays(iterationDate, 1)
-      }
-      return counts.sort((d1: DailyMetrics, d2: DailyMetrics) =>
-        d1.date < d2.date ? -1 : 1
-      )
+      return fillInEmptyDays({ start, end, counts })
     },
     { refetchOnWindowFocus: false }
   )
@@ -85,6 +69,32 @@ const buildMetricsURL = ({
     }
   })
   return url.toString()
+}
+
+const fillInEmptyDays = ({
+  start,
+  end,
+  counts,
+}: {
+  start: Date
+  end: Date
+  counts: DailyMetrics[]
+}) => {
+  let iterationDate = start
+  while (differenceInDays(end, iterationDate) >= 0) {
+    const dateExists = counts.some((c: DailyMetrics) =>
+      isSameDay(c.date, iterationDate)
+    )
+    if (!dateExists) {
+      counts.push({
+        date: iterationDate,
+        total: 0,
+        answered: 0,
+      })
+    }
+    iterationDate = addDays(iterationDate, 1)
+  }
+  return _.sortBy(counts, 'date')
 }
 
 export default useMetricsQuery

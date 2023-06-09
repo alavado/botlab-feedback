@@ -19,8 +19,6 @@ const DashboardDataSelectors = () => {
   } = useSelector((state: RootState) => state.dashboard)
   const dispatch = useDispatch()
 
-  console.log({ skipEmptyDays })
-
   return (
     <div className="DashboardDataSelectors">
       <div className="DashboardDataSelectors__field_container">
