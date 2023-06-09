@@ -21,6 +21,12 @@ const TimeSeriesChart = () => {
     return <p>{error.toString()}</p>
   }
 
+  const maxValue = Math.max(...data.map((d: DailyMetrics) => d.total))
+  const order = Math.pow(10, Math.floor(Math.log10(350)))
+  const maxTick = order * Math.ceil(maxValue / order)
+  const tickCount = 10
+  const stepSize = maxTick / tickCount
+
   return (
     <Line
       options={{
@@ -48,7 +54,7 @@ const TimeSeriesChart = () => {
               text: 'Citas',
             },
             ticks: {
-              stepSize: 1,
+              stepSize,
             },
           },
         },
@@ -70,12 +76,16 @@ const TimeSeriesChart = () => {
             data: data.map((d: DailyMetrics) => d.total),
             borderColor: getMetricHexColor('TOTAL'),
             backgroundColor: getMetricHexColor('TOTAL'),
+            pointHitRadius: 25,
+            borderWidth: 4,
           },
           {
             label: 'Con respuesta',
             data: data.map((d: DailyMetrics) => d.answered),
             borderColor: getMetricHexColor('ANSWERED'),
             backgroundColor: getMetricHexColor('ANSWERED'),
+            pointHitRadius: 25,
+            borderWidth: 4,
           },
         ],
       }}
