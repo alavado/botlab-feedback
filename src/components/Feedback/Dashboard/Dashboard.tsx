@@ -1,89 +1,18 @@
-import { Icon } from '@iconify/react'
-import {
-  addDays,
-  format,
-  isSameDay,
-  parseISO,
-  startOfMonth,
-  startOfWeek,
-} from 'date-fns'
-import { useMemo, useState } from 'react'
-import { Line } from 'react-chartjs-2'
-import useDashboardDataQuery, {
-  DashboardDayCount,
-} from '../../../api/hooks/useDashboardDataQuery'
+import { addDays, format, parseISO } from 'date-fns'
+import { useState } from 'react'
 import MenuUsuario from '../BarraSuperior/MenuUsuario'
+import TimeSeriesChart from './TimeSeriesChart/TimeSeriesChart'
+import { MetricsTimeSeriesGroupByUnit } from '../../../api/hooks/useMetricsTimeSeriesQuery'
+import ProgressDonut from './ProgressDonut'
 import './Dashboard.css'
-import Loader from '../../Loader/Loader'
-import { es } from 'date-fns/locale'
-
-type DashboardGroupByFilter = 'DAY' | 'WEEK' | 'MONTH'
+import DownloadDashboardDataButton from './DownloadDashboardDataButton/DownloadDashboardDataButton'
 
 const Dashboard = () => {
-  const [startDate, setStartDate] = useState(addDays(new Date(), -1))
+  const [startDate, setStartDate] = useState(addDays(new Date(), -7))
   const [endDate, setEndDate] = useState(new Date())
-  const {
-    data: dailyData,
-    isLoading,
-    isError,
-    error,
-  } = useDashboardDataQuery({
-    startDate,
-    endDate,
-  })
-  const [groupByFilter, setGroupByFilter] =
-    useState<DashboardGroupByFilter>('DAY')
-
-  const data = useMemo(() => {
-    if (!dailyData) {
-      return null
-    }
-    if (groupByFilter === 'WEEK') {
-      const weeklyData: DashboardDayCount[] = []
-      dailyData.forEach((day: DashboardDayCount) => {
-        const weekStart = startOfWeek(day.date)
-        if (!weeklyData.find((w) => isSameDay(w.date, weekStart))) {
-          weeklyData.push({
-            date: weekStart,
-            total: 0,
-            answered: 0,
-          })
-        }
-        const i = weeklyData.findIndex((w) => isSameDay(w.date, weekStart))
-        weeklyData[i].total += day.total
-        weeklyData[i].answered += day.answered
-      })
-      return weeklyData
-    }
-    if (groupByFilter === 'MONTH') {
-      const monthlyData: DashboardDayCount[] = []
-      dailyData.forEach((day: DashboardDayCount) => {
-        const monthStart = startOfMonth(day.date)
-        if (!monthlyData.find((m) => isSameDay(m.date, monthStart))) {
-          monthlyData.push({
-            date: monthStart,
-            total: 0,
-            answered: 0,
-          })
-        }
-        const i = monthlyData.findIndex((m) => isSameDay(m.date, monthStart))
-        monthlyData[i].total += day.total
-        monthlyData[i].answered += day.answered
-      })
-      return monthlyData
-    }
-    return dailyData
-  }, [dailyData, groupByFilter])
-
-  console.log({ data })
-
-  if (isLoading) {
-    return <Loader />
-  }
-
-  if (isError) {
-    return <p>{'' + error}</p>
-  }
+  const [groupDataBy, setGroupDataBy] =
+    useState<MetricsTimeSeriesGroupByUnit>('DAY')
+  const [skipNoContactDays, setSkipNoContactDays] = useState(false)
 
   return (
     <div className="Dashboard">
@@ -94,97 +23,78 @@ const Dashboard = () => {
         <MenuUsuario />
       </div>
       <div className="Dashboard__container">
-        <div className="Dashboard__top_filters">
-          <div>
-            Fecha inicio:{' '}
+        <div className="Dashboard__sidebar">
+          <div className="Dashboard__field_container">
+            <label className="Dashboard__field_label">Desde</label>
             <input
               type="date"
+              className="Dashboard__input"
               value={format(startDate, 'yyyy-MM-dd')}
               onChange={(e) => setStartDate(parseISO(e.target.value))}
             />
           </div>
-          <div>
-            Fecha termino:{' '}
+          <div className="Dashboard__field_container">
+            <label className="Dashboard__field_label">Hasta</label>
             <input
               type="date"
+              className="Dashboard__input"
               value={format(endDate, 'yyyy-MM-dd')}
               onChange={(e) => setEndDate(parseISO(e.target.value))}
             />
           </div>
-          <div>
-            Agrupar datos:
+          <div className="Dashboard__field_container">
+            <label className="Dashboard__field_label">Agrupar por</label>
             <select
               onChange={(e) =>
-                setGroupByFilter(e.target.value as DashboardGroupByFilter)
+                setGroupDataBy(e.target.value as MetricsTimeSeriesGroupByUnit)
               }
+              className="Dashboard__input"
             >
-              <option value="DAY">Por día</option>
-              <option value="WEEK">Por semana</option>
-              <option value="MONTH">Por mes</option>
+              <option value="DAY">Día</option>
+              <option value="WEEK">Semana</option>
+              <option value="MONTH">Mes</option>
             </select>
           </div>
-        </div>
-        <div className="Dashboard__sidebar">
-          En construcción <Icon icon="mdi:account-hard-hat" />
-        </div>
-        <div className="Dashboard__chart">
-          <Line
-            options={{
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: 'top' as const,
-                },
-              },
-              scales: {
-                x: {
-                  title: {
-                    display: true,
-                    text: 'Día',
-                  },
-                },
-                y: {
-                  min: 0,
-                  title: {
-                    display: true,
-                    text: 'Citas',
-                  },
-                  ticks: {
-                    stepSize: 1,
-                  },
-                },
-              },
-            }}
-            data={{
-              labels: data.map((d: DashboardDayCount) => {
-                switch (groupByFilter) {
-                  case 'WEEK':
-                    return 'Semana del ' + format(d.date, 'dd/MM')
-                  case 'MONTH':
-                    return format(d.date, 'MMMM', { locale: es })
-                  default:
-                    return format(d.date, 'dd/MM')
-                }
-              }),
-              datasets: [
-                {
-                  label: 'Total',
-                  data: data.map((d: DashboardDayCount) => d.total),
-                  borderColor: 'rgb(255, 99, 132)',
-                  backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                },
-                {
-                  label: 'Respondidas',
-                  data: data.map((d: DashboardDayCount) => d.answered),
-                  borderColor: 'rgb(53, 162, 235)',
-                  backgroundColor: 'rgba(53, 162, 235, 0.5)',
-                },
-              ],
-            }}
+          <div className="Dashboard__checkbox_container">
+            <input
+              type="checkbox"
+              id="no-contact-days-checkbox"
+              checked={!skipNoContactDays}
+              onChange={(e) => setSkipNoContactDays(!e.target.checked)}
+            />
+            <label
+              className="Dashboard__field_label"
+              htmlFor="no-contact-days-checkbox"
+            >
+              Considerar días sin contacto
+            </label>
+          </div>
+          <DownloadDashboardDataButton
+            startDate={startDate}
+            endDate={endDate}
           />
         </div>
-        <div className="Dashboard__big_numbers">
+        <div className="Dashboard__top_charts">
+          <ProgressDonut
+            startDate={startDate}
+            endDate={endDate}
+            metric="TOTAL"
+          />
+          <ProgressDonut
+            startDate={startDate}
+            endDate={endDate}
+            metric="ANSWERED"
+          />
+        </div>
+        <div className="Dashboard__chart">
+          <TimeSeriesChart
+            startDate={startDate}
+            endDate={endDate}
+            groupBy={groupDataBy}
+            skipNoContactDays={skipNoContactDays}
+          />
+        </div>
+        {/* <div className="Dashboard__big_numbers">
           <div
             className="Dashboard__big_number"
             style={{ backgroundColor: 'rgba(255, 99, 132, 1)' }}
@@ -203,7 +113,7 @@ const Dashboard = () => {
             </figure>
             <p>Respondidas</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

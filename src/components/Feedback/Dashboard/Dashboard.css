@@ -3,9 +3,11 @@
   display: flex;
   flex-direction: column;
   color: var(--color-texto);
-  --topbar-height: 2rem;
   position: relative;
   max-height: 100vh;
+  --topbar-height: 2rem;
+  --dashboard-total-color: var(--color-principal);
+  --dashboard-answered-color: #6af657;
 }
 
 .Dashboard__topbar {
@@ -32,16 +34,9 @@
 
 .Dashboard__container {
   display: grid;
-  grid-template: auto 1fr / auto 1fr auto;
+  grid-template: auto 1fr / auto 1fr;
   gap: 0.5rem;
   flex: 1;
-}
-
-.Dashboard__top_filters {
-  padding: 0.5rem;
-  display: flex;
-  gap: 1rem;
-  grid-column: 1 / -1;
 }
 
 .Dashboard__sidebar {
@@ -52,44 +47,46 @@
   gap: 1rem;
   border-right: 1px solid var(--color-bordes);
   min-width: 10rem;
+  grid-row: span 2;
+  font-size: 0.6rem;
 }
 
-.Dashboard__filter_container {
+.Dashboard__field_label {
+  font-size: 0.55rem;
+}
+
+.Dashboard__field_container {
   display: flex;
   flex-direction: column;
+  gap: 0.15rem;
 }
 
-.Dashboard__filter_checkbox_container {
+.Dashboard__checkbox_container {
+  display: flex;
+  gap: 0.15rem;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Dashboard__checkbox_container * {
+  cursor: pointer;
+}
+
+.Dashboard__input {
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--color-bordes);
+  cursor: pointer;
+}
+
+.Dashboard__top_charts {
   display: flex;
   align-items: center;
+  gap: 3rem;
+  padding: 2rem;
 }
 
 .Dashboard__chart {
-  padding: 2rem 0.5rem;
+  padding: 0 2.5rem 2.5rem 0.5rem;
   flex: 1;
-}
-
-.Dashboard__big_numbers {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  padding: 0.5rem;
-  text-align: center;
-  padding-top: 2rem;
-}
-
-.Dashboard__big_number {
-  background-color: var(--color-principal);
-  color: var(--color-texto-claro);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.Dashboard__big_numbers figure {
-  font-size: 4rem;
-  font-weight: bold;
 }

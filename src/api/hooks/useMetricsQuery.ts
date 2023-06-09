@@ -11,21 +11,21 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 import _ from 'lodash'
 
-export type DashboardDayCount = { date: Date; total: number; answered: number }
+export type DailyMetrics = { date: Date; total: number; answered: number }
 
-const useDashboardDataQuery = ({
+const useMetricsQuery = ({
   startDate,
   endDate,
 }: {
   startDate: Date
   endDate: Date
-}): UseQueryResult<any, DashboardDayCount[]> => {
+}): UseQueryResult<DailyMetrics[], any> => {
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
   const { idCliente } = useSelector((state: RootState) => state.login)
 
   return useQuery<any, any, any>(
-    ['dashboard', start, end],
+    ['metrics', start, end],
     async () => {
       const { data } = await axios.get(
         `https://dashboard-api-ysuyrps2hq-tl.a.run.app/client/${idCliente}/metrics2?start_date=${start}&end_date=${end}`
@@ -33,30 +33,27 @@ const useDashboardDataQuery = ({
       if (_.isEmpty(data.citas)) {
         return []
       }
-      const counts: DashboardDayCount[] = data.citas.map((d: any) => ({
-          date: parseISO(d.fecha_cita),
-          total: d.carga,
-          answered: d.respuesta,
-        })
-      )
+      const counts: DailyMetrics[] = data.citas.map((d: any) => ({
+        date: parseISO(d.fecha_cita),
+        total: d.carga,
+        answered: d.respuesta,
+      }))
 
-      let currentDate = startDate
-      const maxDate = endDate
-
-      while (differenceInDays(maxDate, currentDate) >= 0) {
-        const dateExists = counts.some((c: DashboardDayCount) =>
-          isSameDay(c.date, currentDate)
+      let iterationDate = startDate
+      while (differenceInDays(endDate, iterationDate) >= 0) {
+        const dateExists = counts.some((c: DailyMetrics) =>
+          isSameDay(c.date, iterationDate)
         )
         if (!dateExists) {
           counts.push({
-            date: currentDate,
+            date: iterationDate,
             total: 0,
             answered: 0,
           })
         }
-        currentDate = addDays(currentDate, 1)
+        iterationDate = addDays(iterationDate, 1)
       }
-      return counts.sort((d1: DashboardDayCount, d2: DashboardDayCount) =>
+      return counts.sort((d1: DailyMetrics, d2: DailyMetrics) =>
         d1.date < d2.date ? -1 : 1
       )
     },
@@ -64,4 +61,4 @@ const useDashboardDataQuery = ({
   )
 }
 
-export default useDashboardDataQuery
+export default useMetricsQuery

@@ -1,0 +1,42 @@
+.ProgressDonut {
+  height: 6.5rem;
+  width: 6.5rem;
+  border-radius: 9in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  --donut-batter-pipe-girth: 0.85rem;
+  box-shadow: 0 0 0 var(--donut-batter-pipe-girth) var(--donut-material);
+  white-space: nowrap;
+  position: relative;
+}
+
+.ProgressDonut::before {
+  content: '';
+  top: calc(-1 * 1.1 * var(--donut-batter-pipe-girth));
+  left: calc(-1 * 1.1 * var(--donut-batter-pipe-girth));
+  width: calc(100% + 2 * 1.1 * var(--donut-batter-pipe-girth));
+  height: calc(100% + 2 * 1.1 * var(--donut-batter-pipe-girth));
+  background: conic-gradient(transparent var(--donut-leftover), white 0 100%);
+  position: absolute;
+  z-index: 1;
+}
+
+.ProgressDonut__title {
+  font-weight: 800;
+  font-size: 1.4rem;
+  z-index: 2;
+}
+
+.ProgressDonut__figure {
+  z-index: 2;
+}
+
+.ProgressDonut__label {
+  font-size: 0.7rem;
+  z-index: 2;
+}

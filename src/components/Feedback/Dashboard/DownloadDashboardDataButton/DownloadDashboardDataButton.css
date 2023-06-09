@@ -1,0 +1,20 @@
+.DownloadDashboardDataButton {
+  margin-top: auto;
+  margin-bottom: 1rem;
+  background: var(--color-principal);
+  border: none;
+  color: var(--color-texto-claro);
+  font-size: 0.65rem;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.DownloadDashboardDataButton svg {
+  font-size: 1rem;
+}
