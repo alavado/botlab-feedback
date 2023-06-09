@@ -10,25 +10,27 @@ import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 import _ from 'lodash'
+import { DashboardFilter } from '../../redux/ducks/dashboard'
 
 export type DailyMetrics = { date: Date; total: number; answered: number }
 
 const useMetricsQuery = ({
-  startDate,
-  endDate,
+  start,
+  end,
 }: {
-  startDate: Date
-  endDate: Date
+  start: Date
+  end: Date
 }): UseQueryResult<DailyMetrics[], any> => {
-  const start = format(startDate, 'yyyy-MM-dd')
-  const end = format(endDate, 'yyyy-MM-dd')
-  const { idCliente } = useSelector((state: RootState) => state.login)
+  const startStr = format(start, 'yyyy-MM-dd')
+  const endStr = format(end, 'yyyy-MM-dd')
+  const { idCliente: clientId } = useSelector((state: RootState) => state.login)
+  const { filters } = useSelector((state: RootState) => state.dashboard)
 
   return useQuery<any, any, any>(
-    ['metrics', start, end],
+    ['metrics', clientId, startStr, endStr, filters],
     async () => {
       const { data } = await axios.get(
-        `https://dashboard-api-ysuyrps2hq-tl.a.run.app/client/${idCliente}/metrics2?start_date=${start}&end_date=${end}`
+        buildMetricsURL({ clientId, start: startStr, end: endStr, filters })
       )
       if (_.isEmpty(data.citas)) {
         return []
@@ -38,9 +40,8 @@ const useMetricsQuery = ({
         total: d.carga,
         answered: d.respuesta,
       }))
-
-      let iterationDate = startDate
-      while (differenceInDays(endDate, iterationDate) >= 0) {
+      let iterationDate = start
+      while (differenceInDays(end, iterationDate) >= 0) {
         const dateExists = counts.some((c: DailyMetrics) =>
           isSameDay(c.date, iterationDate)
         )
@@ -59,6 +60,31 @@ const useMetricsQuery = ({
     },
     { refetchOnWindowFocus: false }
   )
+}
+
+const buildMetricsURL = ({
+  clientId,
+  start,
+  end,
+  filters,
+}: {
+  clientId?: number
+  start: string
+  end: string
+  filters: DashboardFilter[]
+}): string => {
+  let url = new URL(
+    `https://dashboard-api-ysuyrps2hq-tl.a.run.app/client/${clientId}/metrics2`
+  )
+  const params = url.searchParams
+  params.append('start_date', start)
+  params.append('end_date', end)
+  filters.forEach((filter) => {
+    if (!_.isEmpty(filter.values)) {
+      params.append(filter.property.id, filter.values[0])
+    }
+  })
+  return url.toString()
 }
 
 export default useMetricsQuery

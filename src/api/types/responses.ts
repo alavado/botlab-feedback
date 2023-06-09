@@ -226,6 +226,16 @@ interface FixedAnswersAPIResponseKeys {
   ]
 }
 
+export interface FiltersAPIResponse {
+  filters: [
+    {
+      display_name: string
+      filter_name: string
+      values: null | string[]
+    }
+  ]
+}
+
 export type APITag =
   | 'YES'
   | 'NO'

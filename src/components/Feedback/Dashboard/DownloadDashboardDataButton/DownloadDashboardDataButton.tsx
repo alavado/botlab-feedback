@@ -6,10 +6,10 @@ import { RootState } from '../../../../redux/ducks'
 import { useSelector } from 'react-redux'
 
 const DownloadDashboardDataButton = () => {
-  const { startDate, endDate } = useSelector(
+  const { start: startDate, end: endDate } = useSelector(
     (state: RootState) => state.dashboard
   )
-  const { data } = useMetricsQuery({ startDate, endDate })
+  const { data } = useMetricsQuery({ start: startDate, end: endDate })
 
   if (!data) {
     return null

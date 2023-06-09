@@ -7,12 +7,18 @@ import { RootState } from '../../redux/ducks'
 export type MetricsTimeSeriesGroupByUnit = 'DAY' | 'WEEK' | 'MONTH'
 
 const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
-  const { startDate, endDate, groupBy, skipEmptyDays } = useSelector(
-    (state: RootState) => state.dashboard
-  )
+  const {
+    start: startDate,
+    end: endDate,
+    groupBy,
+    skipEmptyDays,
+  } = useSelector((state: RootState) => state.dashboard)
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
-  const { data: metricsData } = useMetricsQuery({ startDate, endDate })
+  const { data: metricsData } = useMetricsQuery({
+    start: startDate,
+    end: endDate,
+  })
 
   return useQuery<any, any, any>(
     ['dashboard-ts', start, end, groupBy, skipEmptyDays],

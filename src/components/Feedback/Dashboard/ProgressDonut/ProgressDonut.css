@@ -21,7 +21,10 @@
   left: calc(-1 * 1.1 * var(--donut-batter-pipe-girth));
   width: calc(100% + 2 * 1.1 * var(--donut-batter-pipe-girth));
   height: calc(100% + 2 * 1.1 * var(--donut-batter-pipe-girth));
-  background: conic-gradient(transparent var(--donut-leftover), white 0 100%);
+  background: conic-gradient(
+    transparent var(--donut-leftover),
+    var(--color-fondo) 0 100%
+  );
   position: absolute;
   z-index: 1;
 }

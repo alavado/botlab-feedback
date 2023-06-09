@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux'
-import './DashboardDataSelectors.css'
 import { RootState } from '../../../../redux/ducks'
 import { format, parseISO } from 'date-fns'
 import {
@@ -9,11 +8,15 @@ import {
   setStartDate,
 } from '../../../../redux/ducks/dashboard'
 import { MetricsTimeSeriesGroupByUnit } from '../../../../api/hooks/useMetricsTimeSeriesQuery'
+import './DashboardDataSelectors.css'
 
 const DashboardDataSelectors = () => {
-  const { startDate, endDate, skipEmptyDays } = useSelector(
-    (state: RootState) => state.dashboard
-  )
+  const {
+    start: startDate,
+    end: endDate,
+    groupBy,
+    skipEmptyDays,
+  } = useSelector((state: RootState) => state.dashboard)
   const dispatch = useDispatch()
 
   return (
@@ -48,9 +51,15 @@ const DashboardDataSelectors = () => {
           }
           className="DashboardDataSelectors__input"
         >
-          <option value="DAY">Día</option>
-          <option value="WEEK">Semana</option>
-          <option value="MONTH">Mes</option>
+          <option selected={groupBy === 'DAY'} value="DAY">
+            Día
+          </option>
+          <option selected={groupBy === 'WEEK'} value="WEEK">
+            Semana
+          </option>
+          <option selected={groupBy === 'MONTH'} value="MONTH">
+            Mes
+          </option>
         </select>
       </div>
       <div className="DashboardDataSelectors__checkbox_container">
@@ -59,6 +68,7 @@ const DashboardDataSelectors = () => {
           id="no-contact-days-checkbox"
           checked={!skipEmptyDays}
           onChange={(e) => setSkipEmptyDays(!e.target.checked)}
+          disabled={groupBy !== 'DAY'}
         />
         <label
           className="DashboardDataSelectors__field_label"

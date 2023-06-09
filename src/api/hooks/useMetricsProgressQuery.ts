@@ -18,10 +18,13 @@ const useMetricsProgressQuery = ({
 }: {
   metric: ProgressMetric
 }): UseQueryResult<ProgressMetricData, any> => {
-  const { startDate, endDate } = useSelector(
+  const { start: startDate, end: endDate } = useSelector(
     (state: RootState) => state.dashboard
   )
-  const { data: metricsData } = useMetricsQuery({ startDate, endDate })
+  const { data: metricsData } = useMetricsQuery({
+    start: startDate,
+    end: endDate,
+  })
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
 
