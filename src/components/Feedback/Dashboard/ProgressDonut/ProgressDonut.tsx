@@ -6,20 +6,8 @@ import Loader from '../../../Loader/Loader'
 import './ProgressDonut.css'
 import { getMetricHexColor } from '../utils'
 
-const ProgressDonut = ({
-  startDate,
-  endDate,
-  metric,
-}: {
-  startDate: Date
-  endDate: Date
-  metric: ProgressMetric
-}) => {
-  const { data, isLoading } = useMetricsProgressQuery({
-    startDate,
-    endDate,
-    metric,
-  })
+const ProgressDonut = ({ metric }: { metric: ProgressMetric }) => {
+  const { data, isLoading } = useMetricsProgressQuery({ metric })
 
   if (isLoading) {
     return <Loader />

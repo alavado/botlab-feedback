@@ -1,26 +1,21 @@
 import { format, isSameDay, startOfMonth, startOfWeek } from 'date-fns'
 import { useQuery, UseQueryResult } from 'react-query'
 import useMetricsQuery, { DailyMetrics } from './useMetricsQuery'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/ducks'
 
 export type MetricsTimeSeriesGroupByUnit = 'DAY' | 'WEEK' | 'MONTH'
 
-const useMetricsTimeSeriesQuery = ({
-  startDate,
-  endDate,
-  groupBy,
-  skipNoContactDays,
-}: {
-  startDate: Date
-  endDate: Date
-  groupBy: MetricsTimeSeriesGroupByUnit
-  skipNoContactDays: boolean
-}): UseQueryResult<DailyMetrics[], any> => {
+const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
+  const { startDate, endDate, groupBy, skipEmptyDays } = useSelector(
+    (state: RootState) => state.dashboard
+  )
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
   const { data: metricsData } = useMetricsQuery({ startDate, endDate })
 
   return useQuery<any, any, any>(
-    ['dashboard-ts', start, end, groupBy, skipNoContactDays],
+    ['dashboard-ts', start, end, groupBy, skipEmptyDays],
     async () => {
       if (!metricsData) {
         return []
@@ -59,7 +54,7 @@ const useMetricsTimeSeriesQuery = ({
         })
         return monthlyData
       }
-      if (skipNoContactDays) {
+      if (skipEmptyDays) {
         return metricsData.filter((d) => d.total > 0)
       }
       return metricsData

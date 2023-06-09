@@ -1,7 +1,8 @@
 import { format } from 'date-fns'
 import { useQuery, UseQueryResult } from 'react-query'
-import _ from 'lodash'
 import useMetricsQuery, { DailyMetrics } from './useMetricsQuery'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/ducks'
 
 export type ProgressMetric = 'TOTAL' | 'ANSWERED'
 
@@ -13,17 +14,16 @@ type ProgressMetricData = {
 }
 
 const useMetricsProgressQuery = ({
-  startDate,
-  endDate,
   metric,
 }: {
-  startDate: Date
-  endDate: Date
   metric: ProgressMetric
 }): UseQueryResult<ProgressMetricData, any> => {
+  const { startDate, endDate } = useSelector(
+    (state: RootState) => state.dashboard
+  )
+  const { data: metricsData } = useMetricsQuery({ startDate, endDate })
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
-  const { data: metricsData } = useMetricsQuery({ startDate, endDate })
 
   return useQuery<any, any, any>(
     ['dashboard-progress', start, end, metric],
@@ -37,11 +37,11 @@ const useMetricsProgressQuery = ({
         }
       }
       const total = metricsData.reduce(
-        (acc: number, v: DailyMetrics) => acc + v.total,
+        (a: number, v: DailyMetrics) => a + v.total,
         0
       )
       const answered = metricsData.reduce(
-        (acc: number, v: DailyMetrics) => acc + v.answered,
+        (a: number, v: DailyMetrics) => a + v.answered,
         0
       )
       switch (metric) {

@@ -44,39 +44,11 @@
   padding-right: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
   border-right: 1px solid var(--color-bordes);
   min-width: 10rem;
   grid-row: span 2;
   font-size: 0.6rem;
-}
-
-.Dashboard__field_label {
-  font-size: 0.55rem;
-}
-
-.Dashboard__field_container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.Dashboard__checkbox_container {
-  display: flex;
-  gap: 0.15rem;
-  align-items: center;
-  cursor: pointer;
-}
-
-.Dashboard__checkbox_container * {
-  cursor: pointer;
-}
-
-.Dashboard__input {
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  border: 1px solid var(--color-bordes);
-  cursor: pointer;
 }
 
 .Dashboard__top_charts {
@@ -86,7 +58,7 @@
   padding: 2rem;
 }
 
-.Dashboard__chart {
+.Dashboard__chart_container {
   padding: 0 2.5rem 2.5rem 0.5rem;
   flex: 1;
 }

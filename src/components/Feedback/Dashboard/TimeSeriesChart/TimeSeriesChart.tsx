@@ -4,28 +4,14 @@ import { DailyMetrics } from '../../../../api/hooks/useMetricsQuery'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import Loader from '../../../Loader/Loader'
-import useDashboardTimeSeriesQuery, {
-  MetricsTimeSeriesGroupByUnit,
-} from '../../../../api/hooks/useMetricsTimeSeriesQuery'
+import useDashboardTimeSeriesQuery from '../../../../api/hooks/useMetricsTimeSeriesQuery'
 import { getDataGroupingXLabel, getMetricHexColor } from '../utils'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../redux/ducks'
 
-const TimeSeriesChart = ({
-  startDate,
-  endDate,
-  groupBy,
-  skipNoContactDays,
-}: {
-  startDate: Date
-  endDate: Date
-  groupBy: MetricsTimeSeriesGroupByUnit
-  skipNoContactDays: boolean
-}) => {
-  const { data, isLoading, isError, error } = useDashboardTimeSeriesQuery({
-    startDate,
-    endDate,
-    groupBy,
-    skipNoContactDays,
-  })
+const TimeSeriesChart = () => {
+  const { groupBy } = useSelector((state: RootState) => state.dashboard)
+  const { data, isLoading, isError, error } = useDashboardTimeSeriesQuery()
 
   if (isLoading || !data) {
     return <Loader />

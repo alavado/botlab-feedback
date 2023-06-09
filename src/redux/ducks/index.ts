@@ -14,6 +14,7 @@ import search from './search'
 import alerts from './alerts'
 import comments from './comments'
 import answers from './answers'
+import dashboard from './dashboard'
 
 const rootReducer = combineReducers({
   login,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   alerts,
   comments,
   answers,
+  dashboard,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
