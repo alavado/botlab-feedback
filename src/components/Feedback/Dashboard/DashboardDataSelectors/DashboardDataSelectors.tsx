@@ -19,6 +19,8 @@ const DashboardDataSelectors = () => {
   } = useSelector((state: RootState) => state.dashboard)
   const dispatch = useDispatch()
 
+  console.log({ skipEmptyDays })
+
   return (
     <div className="DashboardDataSelectors">
       <div className="DashboardDataSelectors__field_container">
@@ -50,24 +52,19 @@ const DashboardDataSelectors = () => {
             )
           }
           className="DashboardDataSelectors__input"
+          value={groupBy}
         >
-          <option selected={groupBy === 'DAY'} value="DAY">
-            Día
-          </option>
-          <option selected={groupBy === 'WEEK'} value="WEEK">
-            Semana
-          </option>
-          <option selected={groupBy === 'MONTH'} value="MONTH">
-            Mes
-          </option>
+          <option value="DAY">Día</option>
+          <option value="WEEK">Semana</option>
+          <option value="MONTH">Mes</option>
         </select>
       </div>
       <div className="DashboardDataSelectors__checkbox_container">
         <input
           type="checkbox"
           id="no-contact-days-checkbox"
-          checked={!skipEmptyDays}
-          onChange={(e) => setSkipEmptyDays(!e.target.checked)}
+          checked={groupBy !== 'DAY' || !skipEmptyDays}
+          onChange={(e) => dispatch(setSkipEmptyDays(!e.target.checked))}
           disabled={groupBy !== 'DAY'}
         />
         <label

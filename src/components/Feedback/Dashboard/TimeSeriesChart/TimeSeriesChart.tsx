@@ -22,7 +22,7 @@ const TimeSeriesChart = () => {
   }
 
   const maxValue = Math.max(...data.map((d: DailyMetrics) => d.total))
-  const order = Math.pow(10, Math.floor(Math.log10(350)))
+  const order = Math.pow(10, Math.floor(Math.log10(maxValue)))
   const maxTick = order * Math.ceil(maxValue / order)
   const tickCount = 10
   const stepSize = maxTick / tickCount
