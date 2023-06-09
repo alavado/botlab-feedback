@@ -55,6 +55,7 @@ const TimeSeriesChart = () => {
             },
             ticks: {
               stepSize,
+              callback: (val) => val.toLocaleString('de-DE'),
             },
           },
         },
@@ -72,7 +73,7 @@ const TimeSeriesChart = () => {
         }),
         datasets: [
           {
-            label: 'Citas',
+            label: 'Total de Citas',
             data: data.map((d: DailyMetrics) => d.total),
             borderColor: getMetricHexColor('TOTAL'),
             backgroundColor: getMetricHexColor('TOTAL'),
