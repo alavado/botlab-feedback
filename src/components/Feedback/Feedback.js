@@ -133,10 +133,13 @@ const Feedback = () => {
                   <Route path="/respuestas">
                     <Respuestas />
                   </Route>
-                  <Route exact path="/interacciones">
+                  <Route path="/interacciones/:serviceId/:patientId">
                     <Interactions />
                   </Route>
-                  <Route path="/interacciones/:serviceId/:patientId">
+                  <Route path="/interacciones/:serviceId">
+                    <Interactions />
+                  </Route>
+                  <Route exact path="/interacciones">
                     <Interactions />
                   </Route>
                   <Route path="/chat">

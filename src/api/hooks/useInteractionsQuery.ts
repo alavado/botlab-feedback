@@ -9,18 +9,20 @@ import {
 import { API_ROOT, get, parseAPIDate } from './utils'
 import { addHours, format, parseISO } from 'date-fns'
 import _ from 'lodash'
+import { useRouteMatch } from 'react-router-dom'
 
 const useInteractionsQuery = ({
-  serviceId,
   startDate,
   endDate,
 }: {
-  serviceId: ServiceId | undefined
   startDate: Date
   endDate: Date
 }): UseQueryResult<Interaction[], unknown> => {
   const startDateString = format(startDate, 'yyyy-MM-dd')
   const endDateString = format(endDate, 'yyyy-MM-dd')
+  const {
+    params: { serviceId },
+  }: any = useRouteMatch()
   const url = `${API_ROOT}/answers/${serviceId}?fecha_inicio=${startDateString}%2000%3A00&fecha_termino=${endDateString}%2023%3A59`
 
   return useQuery<Interaction[], any, any>(
