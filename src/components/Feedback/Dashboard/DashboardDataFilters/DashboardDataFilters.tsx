@@ -25,6 +25,7 @@ const DashboardDataFilters = () => {
           {property.label}
           {property.kind === MetricFilterByAppointmentPropertyKind.LEVELS ? (
             <select
+              className="DashboardDataFilters__input"
               onChange={(e) => {
                 const value = e.target.value
                 if (value === 'ALL') {
@@ -39,7 +40,6 @@ const DashboardDataFilters = () => {
                   )
                 }
               }}
-              className="DashboardDataFilters__input"
             >
               <option value="ALL">Todas</option>
               {property.values.map((v, i) => (

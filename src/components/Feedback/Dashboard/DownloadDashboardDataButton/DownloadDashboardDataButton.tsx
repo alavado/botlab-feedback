@@ -9,17 +9,19 @@ const DownloadDashboardDataButton = () => {
   const { start: startDate, end: endDate } = useSelector(
     (state: RootState) => state.dashboard
   )
-  const { data } = useMetricsQuery({ start: startDate, end: endDate })
-
-  if (!data) {
-    return null
-  }
+  const { data, isLoading } = useMetricsQuery({
+    start: startDate,
+    end: endDate,
+  })
 
   return (
     <button
       className="DownloadDashboardDataButton"
-      onClick={() => downloadDashboardData({ startDate, endDate, data })}
+      onClick={() =>
+        data && downloadDashboardData({ startDate, endDate, data })
+      }
       title="Descargar datos en formato Excel"
+      disabled={isLoading || !data}
     >
       <Icon icon="mdi:download" />
       Descargar

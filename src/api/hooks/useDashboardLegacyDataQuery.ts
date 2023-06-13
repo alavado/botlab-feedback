@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { addDays, differenceInDays, format, parseISO } from 'date-fns'
-import _, { max, min } from 'lodash'
+import { max, min } from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'

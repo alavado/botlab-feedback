@@ -18,7 +18,7 @@ const ProgressDonut = ({ metric }: { metric: ProgressMetric }) => {
       className="ProgressDonut"
       style={
         {
-          '--donut-leftover': `${data?.fillPercentage}%`,
+          '--donut-leftover': `${data?.fillPercentage || 0}%`,
           '--donut-material': getMetricHexColor(metric),
         } as CSSProperties
       }

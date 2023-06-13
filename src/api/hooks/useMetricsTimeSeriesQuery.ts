@@ -60,10 +60,9 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
         })
         return monthlyData
       }
-      if (skipEmptyDays) {
-        return metricsData.filter((d) => d.total > 0)
-      }
-      return metricsData
+      return skipEmptyDays
+        ? metricsData.filter((d) => d.total > 0)
+        : metricsData
     },
     { enabled: !!metricsData }
   )

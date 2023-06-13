@@ -1,16 +1,11 @@
 import axios from 'axios'
-import {
-  addDays,
-  differenceInDays,
-  format,
-  isSameDay,
-  parseISO,
-} from 'date-fns'
+import { addDays, format, isSameDay, parseISO } from 'date-fns'
 import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 import _ from 'lodash'
 import { DashboardFilter } from '../../redux/ducks/dashboard'
+import assert from 'assert'
 
 export type DailyMetrics = { date: Date; total: number; answered: number }
 
@@ -80,7 +75,7 @@ const fillInEmptyDays = ({
   counts: DailyMetrics[]
 }) => {
   let iterationDate = start
-  while (differenceInDays(end, iterationDate) >= 0) {
+  while (!isSameDay(end, iterationDate)) {
     const dateExists = counts.some((c: DailyMetrics) =>
       isSameDay(c.date, iterationDate)
     )
