@@ -4,7 +4,10 @@ import { InteractionId } from '../../../../api/types/domain'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import useIsLabeler from '../../../../hooks/useIsLabeler'
 import { openExternalLink } from '../helpers'
+import logo from '../../../../assets/images/logo_blanco.png'
 import './InteractionDrawerActions.css'
+import ReportIssueDialog from './ReportIssueDialog/ReportIssueDialog'
+import { useState } from 'react'
 
 interface InteractionDrawerActionsProps {
   interactionId?: InteractionId
@@ -24,9 +27,9 @@ const InteractionDrawerActions = ({
   const history = useHistory()
   const track = useAnalytics()
   const isLabeler = useIsLabeler()
+  const [issueDialogVisible, setIssueDialogVisible] = useState(false)
 
   const openChatView = () => {
-    track('Feedback', originComponentName, 'openChatView')
     history.push(
       `/chat/${interactionId?.serviceId}/${interactionId?.patientId}`,
       {
@@ -36,7 +39,6 @@ const InteractionDrawerActions = ({
   }
 
   const openWhatsapp = () => {
-    track('Feedback', originComponentName, 'openWhatsapp')
     openExternalLink(`https://web.whatsapp.com/send/?phone=${phone}`)
   }
 
@@ -44,36 +46,70 @@ const InteractionDrawerActions = ({
     if (!schedulingSystemURL) {
       return
     }
-    track('Feedback', originComponentName, 'openSchedulingSystem')
     openExternalLink(schedulingSystemURL)
   }
 
   return (
     <div className="InteractionDrawerActions">
+      <ReportIssueDialog
+        visible={issueDialogVisible}
+        onClose={() => setIssueDialogVisible(false)}
+        originComponentName={originComponentName}
+      />
       <button
         className="InteractionDrawerActions__button"
-        onClick={openChatView}
+        onClick={() => {
+          openChatView()
+          track('Feedback', originComponentName, 'openChatView')
+        }}
       >
         <Icon icon="mdi:cellphone" />
         Ver en vista Chat
       </button>
       {!isLabeler && (
-        <button
-          className="InteractionDrawerActions__button"
-          onClick={openWhatsapp}
-        >
-          <Icon icon="mdi:whatsapp" />
-          Contactar por Whatsapp
-        </button>
+        <>
+          <button
+            className="InteractionDrawerActions__button"
+            onClick={() => {
+              track('Feedback', originComponentName, 'openWhatsapp')
+              openWhatsapp()
+            }}
+          >
+            <Icon icon="mdi:whatsapp" />
+            Contactar por Whatsapp
+          </button>
+        </>
       )}
       {schedulingSystemURL && !isLabeler && (
         <button
           className="InteractionDrawerActions__button"
-          onClick={openSchedulingSystem}
+          onClick={() => {
+            track('Feedback', originComponentName, 'openSchedulingSystem')
+            openSchedulingSystem()
+          }}
         >
           <Icon icon="mdi:arrow-top-right" />
           Ver cita en {schedulingSystemName}
         </button>
+      )}
+      {!isLabeler && (
+        <>
+          <button
+            className="InteractionDrawerActions__button"
+            onClick={() => {
+              track('Feedback', originComponentName, 'openReportIssueDialog')
+              setIssueDialogVisible(true)
+            }}
+          >
+            <Icon icon="mdi:alert" />
+            Reportar problema a{' '}
+            <img
+              className="InteractionDrawerActions__cero"
+              src={logo}
+              alt="CERO"
+            />
+          </button>
+        </>
       )}
     </div>
   )

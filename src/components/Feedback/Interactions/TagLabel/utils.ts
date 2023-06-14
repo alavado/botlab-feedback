@@ -28,7 +28,7 @@ export const getPresentationForTag = ({
       }
     case 'NO':
       return {
-        icon: 'mdi:cancel',
+        icon: 'mdi:close',
         label: 'No',
         colorVar: '--color-no',
       }
