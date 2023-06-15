@@ -19,6 +19,8 @@ const Interactions = () => {
   const { data: activeService } = useActiveServiceQuery()
   const history = useHistory()
 
+  console.log({interactions})
+
   return (
     <div className="Interactions">
       <InteractionDrawerCover visible={params?.patientId} />

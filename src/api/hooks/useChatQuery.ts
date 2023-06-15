@@ -14,7 +14,7 @@ import {
   Message,
   SchedulingSystem,
 } from '../types/domain'
-import { get, API_ROOT, parseAPIDate } from './utils'
+import { get, API_ROOT, parseAPIDate, getStatusFromChatConversation } from './utils'
 
 const useChatQuery = (
   interactionId?: InteractionId
@@ -178,6 +178,7 @@ const extractAppointments = (
           patientName: getPatientName(context, appointmentIndex),
           url: getSchedulingSystemURL(conversation),
           schedulingSystem: inferSchedulingSystem(conversation),
+          status: getStatusFromChatConversation(conversation)
         }
       })
   }
@@ -192,6 +193,7 @@ const extractAppointments = (
       patientName: getPatientName(context),
       url: getSchedulingSystemURL(conversation),
       schedulingSystem: inferSchedulingSystem(conversation),
+      status: getStatusFromChatConversation(conversation)
     },
   ]
 }
@@ -229,11 +231,7 @@ const conversationToInteraction = (
       header: meta.title,
       value: meta.value,
     })),
-    tags: [
-      conversation.is_unreachable.whatsapp
-        ? 'UNREACHABLE_WHATSAPP'
-        : 'SENT_WHATSAPP',
-    ],
+    tags: [],
   }
   return interaction
 }

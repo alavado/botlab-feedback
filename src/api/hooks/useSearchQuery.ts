@@ -7,7 +7,7 @@ import {
   SearchAPISingleAppointment,
 } from '../types/responses'
 import { Appointment, Interaction } from '../types/domain'
-import { get, parseAPIDate, API_ROOT } from './utils'
+import { get, parseAPIDate, API_ROOT, getStatusFromSearchRow } from './utils'
 
 const useSearchQuery = (
   term: String
@@ -56,6 +56,7 @@ const searchSingleAppointmentToInteraction = (
         rut: appointment.rut,
         id: appointment.id_cita,
         url: appointment.dentalink_link || appointment.medilink_link,
+        status: getStatusFromSearchRow(appointment)
       },
     ],
     extraData: [],
@@ -100,6 +101,7 @@ const searchMultiAppointmentToInteraction = (
           id: appointment[
             `id_cita_${index}` as keyof SearchAPIMultiAppointment
           ] as string,
+          status: getStatusFromSearchRow(appointment)
         }
       }),
     extraData: [],

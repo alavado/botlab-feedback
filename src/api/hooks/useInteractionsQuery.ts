@@ -6,7 +6,7 @@ import {
   AnswersAPIResponse,
   AnswersAPIResponseRow,
 } from '../types/responses'
-import { API_ROOT, get, parseAPIDate } from './utils'
+import { API_ROOT, get, getInteractionTags, getStatusFromAnswersResponseRow, parseAPIDate } from './utils'
 import { addHours, format, parseISO } from 'date-fns'
 import _ from 'lodash'
 import { useRouteMatch } from 'react-router-dom'
@@ -44,40 +44,40 @@ const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
 }
 
 const answerSingleAppointmentToInteraction = (
-  appointment: AnswersAPIResponseRow,
+  apiAppointment: AnswersAPIResponseRow,
   serviceId: ServiceId
 ): Interaction => {
+  const appointment = {
+    datetime: parseAPIDate(
+      apiAppointment.date,
+      apiAppointment.time,
+      apiAppointment.start
+    ),
+    patientName: apiAppointment.name as string,
+    rut: apiAppointment.rut as string,
+    id: apiAppointment.id_cita as string,
+    url: (apiAppointment.dentalink_link || apiAppointment.medilink_link) as
+      | string
+      | undefined,
+    status: getStatusFromAnswersResponseRow(apiAppointment),
+  }
   return {
     id: {
-      patientId: appointment.user_id,
+      patientId: apiAppointment.user_id,
       serviceId,
       start: addHours(
-        parseISO(appointment.start),
+        parseISO(apiAppointment.start),
         Number(process.env.REACT_APP_UTC_OFFSET)
       ),
     },
-    branch: appointment.sucursal_name as string | undefined,
-    phone: appointment.phone,
-    appointments: [
-      {
-        datetime: parseAPIDate(
-          appointment.date,
-          appointment.time,
-          appointment.start
-        ),
-        patientName: appointment.name as string,
-        rut: appointment.rut as string,
-        id: appointment.id_cita as string,
-        url: (appointment.dentalink_link || appointment.medilink_link) as
-          | string
-          | undefined,
-      },
-    ],
-    extraData: Object.keys(appointment).map((header) => ({
+    branch: apiAppointment.sucursal_name as string | undefined,
+    phone: apiAppointment.phone,
+    appointments: [appointment],
+    extraData: Object.keys(apiAppointment).map((header) => ({
       header,
-      value: processMeta(appointment[header]),
+      value: processMeta(apiAppointment[header]),
     })),
-    tags: [],
+    tags: getInteractionTags([appointment]),
   }
 }
 
