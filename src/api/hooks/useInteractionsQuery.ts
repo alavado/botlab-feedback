@@ -10,16 +10,13 @@ import { API_ROOT, get, parseAPIDate } from './utils'
 import { addHours, format, parseISO } from 'date-fns'
 import _ from 'lodash'
 import { useRouteMatch } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/ducks'
 
-const useInteractionsQuery = ({
-  startDate,
-  endDate,
-}: {
-  startDate: Date
-  endDate: Date
-}): UseQueryResult<Interaction[], unknown> => {
-  const startDateString = format(startDate, 'yyyy-MM-dd')
-  const endDateString = format(endDate, 'yyyy-MM-dd')
+const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
+  const { range } = useSelector((state: RootState) => state.interactions)
+  const startDateString = format(range.start, 'yyyy-MM-dd')
+  const endDateString = format(range.end, 'yyyy-MM-dd')
   const {
     params: { serviceId },
   }: any = useRouteMatch()

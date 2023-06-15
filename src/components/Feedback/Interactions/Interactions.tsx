@@ -14,10 +14,7 @@ import useActiveServiceQuery from '../../../api/hooks/useActiveServiceQuery'
 const Interactions = () => {
   const { data: services, isLoading: loadingServices } = useServicesQuery()
   const { data: interactions, isLoading: loadingInteractions } =
-    useInteractionsQuery({
-      startDate: new Date(),
-      endDate: new Date(),
-    })
+    useInteractionsQuery()
   const { params }: any = useRouteMatch()
   const { data: activeService } = useActiveServiceQuery()
   const history = useHistory()
