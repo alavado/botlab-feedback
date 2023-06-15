@@ -29,12 +29,12 @@ const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
         return []
       }
       const { data }: { data: AnswersAPIResponse } = await get(url)
-      return data.data.map((answer: AnswersAPIResponseRow): Interaction => {
+      return _.sortBy(data.data.map((answer: AnswersAPIResponseRow): Interaction => {
         const nAppointments = Number(answer.n_appointments || 1)
         return nAppointments === 1
           ? answerSingleAppointmentToInteraction(answer, serviceId)
           : answerSingleAppointmentToInteraction(answer, serviceId)
-      })
+      }), (i) => i.appointments[0].datetime)
     },
     {
       refetchOnWindowFocus: false,
