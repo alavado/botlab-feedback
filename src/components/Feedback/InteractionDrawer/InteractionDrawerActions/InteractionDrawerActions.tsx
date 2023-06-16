@@ -6,7 +6,7 @@ import useIsLabeler from '../../../../hooks/useIsLabeler'
 import { openExternalLink } from '../helpers'
 import logo from '../../../../assets/images/logo_blanco.png'
 import './InteractionDrawerActions.css'
-import ReportIssueDialog from './ReportIssueDialog/ReportIssueDialog'
+import ReportIssueDialog from './IssueSubmissionDialog/IssueSubmissionDialog'
 import { useState } from 'react'
 
 interface InteractionDrawerActionsProps {

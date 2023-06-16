@@ -1,4 +1,4 @@
-.ReportIssueDialog {
+.IssueSubmissionDialog {
   position: absolute;
   z-index: 5;
   background-color: var(--color-fondo);
@@ -19,12 +19,12 @@
   transition: all 0.1s ease;
 }
 
-.ReportIssueDialog--visible {
+.IssueSubmissionDialog--visible {
   pointer-events: all;
   opacity: 1;
 }
 
-.ReportIssueDialog__close_button {
+.IssueSubmissionDialog__close_button {
   position: absolute;
   right: 0.1rem;
   top: 0.1rem;
@@ -35,16 +35,16 @@
   opacity: 0.5;
 }
 
-.ReportIssueDialog__title {
+.IssueSubmissionDialog__title {
   font-size: 0.8rem;
 }
 
-.ReportIssueDialog__logo {
+.IssueSubmissionDialog__logo {
   width: 2.25rem;
   transform: translate(0.1rem, 0.1rem);
 }
 
-.ReportIssueDialog__input {
+.IssueSubmissionDialog__input {
   width: 100%;
   padding: 0.75rem;
   aspect-ratio: 1 / 1;
@@ -54,7 +54,7 @@
   border: 1px solid var(--color-bordes);
 }
 
-.ReportIssueDialog__submit_button {
+.IssueSubmissionDialog__submit_button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,15 +74,15 @@
   width: 100%;
 }
 
-.ReportIssueDialog__submit_button:hover {
+.IssueSubmissionDialog__submit_button:hover {
   box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
   filter: brightness(110%);
 }
 
-.ReportIssueDialog__submit_button:active {
+.IssueSubmissionDialog__submit_button:active {
   filter: brightness(130%);
 }
 
-.ReportIssueDialog__submit_button svg {
+.IssueSubmissionDialog__submit_button svg {
   font-size: 0.85rem;
 }

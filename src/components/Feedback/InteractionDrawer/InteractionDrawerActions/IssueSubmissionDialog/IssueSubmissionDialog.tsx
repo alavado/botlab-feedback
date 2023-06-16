@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import './ReportIssueDialog.css'
+import './IssueSubmissionDialog.css'
 import useReportIssueMutation from '../../../../../api/hooks/useReportIssueMutation'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import logoCero from '../../../../../assets/images/logo.png'
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 
-const ReportIssueDialog = ({
+const IssueSubmissionDialog = ({
   originComponentName,
   visible,
   onClose,
@@ -24,18 +24,18 @@ const ReportIssueDialog = ({
     inputRef.current?.focus()
   }, [visible])
 
-  const reportIssue = () => {
-    onClose()
+  const reportIssue = async () => {
     mutate({
       description,
     })
+    onClose()
   }
 
   return (
     <form
       className={classNames({
-        ReportIssueDialog: true,
-        'ReportIssueDialog--visible': visible,
+        IssueSubmissionDialog: true,
+        'IssueSubmissionDialog--visible': visible,
       })}
       onSubmit={(e) => {
         e.preventDefault()
@@ -44,28 +44,28 @@ const ReportIssueDialog = ({
       }}
     >
       <button
-        className="ReportIssueDialog__close_button"
+        className="IssueSubmissionDialog__close_button"
         onClick={() => onClose()}
         type="button"
       >
         <Icon icon="mdi:close" />
       </button>
-      <h2 className="ReportIssueDialog__title">
+      <h2 className="IssueSubmissionDialog__title">
         Reportar problema a{' '}
-        <img src={logoCero} alt="CERO" className="ReportIssueDialog__logo" />
+        <img src={logoCero} alt="CERO" className="IssueSubmissionDialog__logo" />
       </h2>
       <textarea
-        className="ReportIssueDialog__input"
+        className="IssueSubmissionDialog__input"
         ref={inputRef}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Por favor descríbenos el problema que encontraste en esta interacción"
       />
-      <button className="ReportIssueDialog__submit_button" type="submit">
+      <button className="IssueSubmissionDialog__submit_button" type="submit">
         <Icon icon="mdi:alert" /> Reportar problema
       </button>
     </form>
   )
 }
 
-export default ReportIssueDialog
+export default IssueSubmissionDialog
