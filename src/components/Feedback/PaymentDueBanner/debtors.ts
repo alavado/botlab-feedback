@@ -12,8 +12,22 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  OYEDental;            2023-05-13
-  Interclínica;         2023-05-20
+  Interclínica;          2023-04-11
+  Maitenes;          2023-04-11
+  uandes;          2023-04-11
+  Almendrales;          2023-04-11
+  CEOLAConcepcion;          2023-04-11
+  CEOLAValdivia;          2023-04-11
+  Citymed;          2023-04-11
+  COP;          2023-04-11
+  CTMelipilla;          2023-04-11
+  Everest;          2023-04-11
+  SantaBlanca;          2023-04-11
+  LasCruces;          2023-04-11
+  Vitalia;          2023-04-11
+  YohananTherapeutes;          2023-04-11
+  OYEDental;          2023-04-11
+  UTC;          2023-04-11
 `
 
 const debtors = debtorsData
