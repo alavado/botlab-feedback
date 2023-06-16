@@ -6,6 +6,10 @@ import { AlertType } from '../types/domain'
 
 const alertTypes = [
   {
+    id: 'Equivocado: Entrega número correcto',
+    name: 'Número equivocado: envía corrección',
+  },
+  {
     id: 'Número equivocado',
     name: 'Número equivocado',
   },
