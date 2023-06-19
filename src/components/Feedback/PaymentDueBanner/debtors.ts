@@ -19,7 +19,6 @@ const debtorsData = `
   CEOLAConcepcion;          2023-04-11
   CEOLAValdivia;          2023-04-11
   Citymed;          2023-04-11
-  COP;          2023-04-11
   CTMelipilla;          2023-04-11
   Everest;          2023-04-11
   SantaBlanca;          2023-04-11
