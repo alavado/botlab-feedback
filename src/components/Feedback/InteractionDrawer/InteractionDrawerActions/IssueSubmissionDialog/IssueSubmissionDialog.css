@@ -1,6 +1,6 @@
 .IssueSubmissionDialog {
   position: absolute;
-  z-index: 5;
+  z-index: 1000;
   background-color: var(--color-fondo);
   padding: 1rem;
   box-shadow: 0 0 0.15rem var(--color-sombras), 0 0 0.5rem var(--color-sombras);
