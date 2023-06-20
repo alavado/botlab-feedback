@@ -22,7 +22,6 @@ const debtorsData = `
   CTMelipilla;          2023-04-11
   Everest;          2023-04-11
   SantaBlanca;          2023-04-11
-  Vitalia;          2023-04-11
   YohananTherapeutes;          2023-04-11
   UTC;          2023-04-11
   KinderSonrisa;          2023-04-11
