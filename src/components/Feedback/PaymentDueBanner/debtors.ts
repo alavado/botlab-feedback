@@ -25,6 +25,9 @@ const debtorsData = `
   Vitalia;          2023-04-11
   YohananTherapeutes;          2023-04-11
   UTC;          2023-04-11
+  KinderSonrisa;          2023-04-11
+  Isamédica;          2023-04-11
+  Facelab;          2023-04-11
 `
 
 const debtors = debtorsData
