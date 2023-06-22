@@ -10,7 +10,6 @@ import InteractionComments from './InteractionComments'
 import InteractionData from './InteractionData'
 import useAnalytics from '../../../hooks/useAnalytics'
 import { useIsMutating } from 'react-query'
-import Loader from '../../Loader/Loader'
 
 interface InteractionDrawerProps {
   interactionId: InteractionId

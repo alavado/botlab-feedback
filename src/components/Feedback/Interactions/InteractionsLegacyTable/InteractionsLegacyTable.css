@@ -3,6 +3,7 @@
   flex-direction: column;
   font-size: 0.65rem;
   position: relative;
+  height: 100%;
 }
 
 .InteractionsLegacyTable__drawer {
@@ -14,10 +15,16 @@
   transition: right 0.35s ease-out, opacity 0.35s ease-out;
   opacity: 1;
   display: flex;
-  z-index: 4;
+  z-index: 3;
 }
 
 .InteractionsLegacyTable__drawer--hidden {
   right: -100%;
   opacity: 0;
+}
+
+.InteractionsLegacyTable__table_container {
+  max-height: calc(100vh - 5rem);
+  max-width: calc(100vw - 12.75rem);
+  overflow: auto;
 }
