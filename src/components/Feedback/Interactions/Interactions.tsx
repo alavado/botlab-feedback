@@ -1,6 +1,5 @@
 import useServicesQuery from '../../../api/hooks/useServicesQuery'
 import MenuUsuario from '../BarraSuperior/MenuUsuario/MenuUsuario'
-import './Interactions.css'
 import useInteractionsQuery from '../../../api/hooks/useInteractionsQuery'
 import InteractionsLegacyTable from './InteractionsLegacyTable/InteractionsLegacyTable'
 import Loader from '../../Loader/Loader'
@@ -10,16 +9,29 @@ import MiniDashboard from './MiniDashboard'
 import InteractionDrawerCover from '../InteractionDrawer/InteractionDrawerCover/InteractionDrawerCover'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import useActiveServiceQuery from '../../../api/hooks/useActiveServiceQuery'
+import './Interactions.css'
+import { useEffect } from 'react'
 
 const Interactions = () => {
   const { data: services, isLoading: loadingServices } = useServicesQuery()
   const { data: interactions, isLoading: loadingInteractions } =
     useInteractionsQuery()
   const { params }: any = useRouteMatch()
-  const { data: activeService } = useActiveServiceQuery()
+  const { data: activeService, isLoading: loadingActiveService } =
+    useActiveServiceQuery()
   const history = useHistory()
 
-  console.log({interactions})
+  useEffect(() => {
+    if (
+      !loadingActiveService &&
+      !activeService &&
+      services &&
+      services.length > 0
+    ) {
+      const firstService = services[0]
+      history.push(`/interacciones/${firstService.id}`)
+    }
+  }, [loadingActiveService, services, activeService, history])
 
   return (
     <div className="Interactions">

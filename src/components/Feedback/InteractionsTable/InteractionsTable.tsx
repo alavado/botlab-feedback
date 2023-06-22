@@ -290,7 +290,7 @@ const InteractionsTable = ({
         <thead className="InteractionsTable__thead">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
+              {headerGroup.headers.map((header: any) => (
                 <th key={header.id} className="InteractionsTable__th">
                   {header.isPlaceholder
                     ? null

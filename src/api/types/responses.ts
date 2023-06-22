@@ -186,6 +186,12 @@ export interface AnswerMediaAPIResponse {
 
 export type TagType = 'META' | 'YESNO' | 'INTERNAL' | 'RANGE' | 'OPEN'
 
+export interface PollsHeadersAPIHeader {
+  name: string
+  display_name: string
+  type: TagType
+}
+
 export interface PollsHeadersAPIResponse {
   status: string
   data: [
@@ -194,13 +200,7 @@ export interface PollsHeadersAPIResponse {
       name: string
       archived: boolean
       enabled: boolean
-      headers: [
-        {
-          name: string
-          display_name: string
-          type: TagType
-        }
-      ]
+      headers: PollsHeadersAPIHeader[]
     }
   ]
 }
