@@ -14,7 +14,7 @@ export type DashboardFilter = {
 interface DashboardState {
   start: Date
   end: Date
-  skipEmptyDays: boolean
+  includeWeekends: boolean
   groupBy: MetricsTimeSeriesGroupByUnit
   filters: DashboardFilter[]
 }
@@ -27,7 +27,7 @@ const Dashboard = createSlice({
   initialState: {
     start: addDays(new Date(), -pastDaysInitialRange),
     end: new Date(),
-    skipEmptyDays: false,
+    includeWeekends: true,
     groupBy: initialGrouping,
     filters: [],
   } as DashboardState,
@@ -38,8 +38,8 @@ const Dashboard = createSlice({
     setEndDate(state, action: PayloadAction<Date>) {
       state.end = action.payload
     },
-    setSkipEmptyDays(state, action: PayloadAction<boolean>) {
-      state.skipEmptyDays = action.payload
+    setIncludeWeekends(state, action: PayloadAction<boolean>) {
+      state.includeWeekends = action.payload
     },
     setGroupByUnit(state, action: PayloadAction<MetricsTimeSeriesGroupByUnit>) {
       state.groupBy = action.payload
@@ -116,7 +116,7 @@ const Dashboard = createSlice({
 export const {
   setStartDate,
   setEndDate,
-  setSkipEmptyDays,
+  setIncludeWeekends,
   setGroupByUnit,
   addFilter,
   removeFilter,

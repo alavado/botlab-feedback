@@ -1,4 +1,11 @@
-import { format, isSameDay, startOfMonth, startOfWeek } from 'date-fns'
+import {
+  format,
+  isSameDay,
+  isSaturday,
+  isSunday,
+  startOfMonth,
+  startOfWeek,
+} from 'date-fns'
 import { useQuery, UseQueryResult } from 'react-query'
 import useMetricsQuery, { DailyMetrics } from './useMetricsQuery'
 import { useSelector } from 'react-redux'
@@ -11,7 +18,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
     start: startDate,
     end: endDate,
     groupBy,
-    skipEmptyDays,
+    includeWeekends,
   } = useSelector((state: RootState) => state.dashboard)
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
@@ -21,7 +28,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
   })
 
   return useQuery<any, any, any>(
-    ['dashboard-ts', start, end, groupBy, skipEmptyDays],
+    ['dashboard-ts', start, end, groupBy, includeWeekends],
     async () => {
       if (!metricsData) {
         return []
@@ -60,9 +67,9 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
         })
         return monthlyData
       }
-      return skipEmptyDays
-        ? metricsData.filter((d) => d.total > 0)
-        : metricsData
+      return includeWeekends
+        ? metricsData
+        : metricsData.filter((d) => !isSaturday(d.date) && !isSunday(d.date))
     },
     { enabled: !!metricsData }
   )

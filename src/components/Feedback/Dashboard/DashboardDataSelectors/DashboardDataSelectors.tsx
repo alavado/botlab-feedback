@@ -4,7 +4,7 @@ import { format, parseISO } from 'date-fns'
 import {
   setEndDate,
   setGroupByUnit,
-  setSkipEmptyDays,
+  setIncludeWeekends,
   setStartDate,
 } from '../../../../redux/ducks/dashboard'
 import { MetricsTimeSeriesGroupByUnit } from '../../../../api/hooks/useMetricsTimeSeriesQuery'
@@ -15,7 +15,7 @@ const DashboardDataSelectors = () => {
     start: startDate,
     end: endDate,
     groupBy,
-    skipEmptyDays,
+    includeWeekends,
   } = useSelector((state: RootState) => state.dashboard)
   const dispatch = useDispatch()
 
@@ -57,29 +57,36 @@ const DashboardDataSelectors = () => {
           onChange={(e) => dispatch(setEndDate(parseISO(e.target.value)))}
         />
       </div>
-      <div className="DashboardDataSelectors__checkbox_container">
-        <input
-          type="checkbox"
-          id="no-contact-days-checkbox"
-          checked={groupBy !== 'DAY' || !skipEmptyDays}
-          onChange={(e) => dispatch(setSkipEmptyDays(!e.target.checked))}
-          disabled={groupBy !== 'DAY'}
-        />
-        <label
-          className="DashboardDataSelectors__field_label"
-          htmlFor="no-contact-days-checkbox"
-        >
-          Incluir fines de semana
-        </label>
-      </div>
-      <div className="DashboardDataSelectors__checkbox_container">
-        <input type="checkbox" />
-        <label className="DashboardDataSelectors__field_label">Sábado</label>
-      </div>
-      <div className="DashboardDataSelectors__checkbox_container">
-        <input type="checkbox" />
-        <label className="DashboardDataSelectors__field_label">Domingo</label>
-      </div>
+      {groupBy === 'DAY' && (
+        <>
+          <div className="DashboardDataSelectors__checkbox_container">
+            <input
+              type="checkbox"
+              id="no-contact-days-checkbox"
+              checked={includeWeekends}
+              onChange={(e) => dispatch(setIncludeWeekends(e.target.checked))}
+            />
+            <label
+              className="DashboardDataSelectors__field_label"
+              htmlFor="no-contact-days-checkbox"
+            >
+              Incluir fines de semana
+            </label>
+          </div>
+          <div className="DashboardDataSelectors__checkbox_container">
+            <input type="checkbox" />
+            <label className="DashboardDataSelectors__field_label">
+              Sábado
+            </label>
+          </div>
+          <div className="DashboardDataSelectors__checkbox_container">
+            <input type="checkbox" />
+            <label className="DashboardDataSelectors__field_label">
+              Domingo
+            </label>
+          </div>
+        </>
+      )}
     </div>
   )
 }
