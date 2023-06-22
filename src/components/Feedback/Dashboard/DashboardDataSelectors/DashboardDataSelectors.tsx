@@ -22,24 +22,6 @@ const DashboardDataSelectors = () => {
   return (
     <div className="DashboardDataSelectors">
       <div className="DashboardDataSelectors__field_container">
-        <label className="DashboardDataSelectors__field_label">Desde</label>
-        <input
-          type="date"
-          className="DashboardDataSelectors__input"
-          value={format(startDate, 'yyyy-MM-dd')}
-          onChange={(e) => dispatch(setStartDate(parseISO(e.target.value)))}
-        />
-      </div>
-      <div className="DashboardDataSelectors__field_container">
-        <label className="DashboardDataSelectors__field_label">Hasta</label>
-        <input
-          type="date"
-          className="DashboardDataSelectors__input"
-          value={format(endDate, 'yyyy-MM-dd')}
-          onChange={(e) => dispatch(setEndDate(parseISO(e.target.value)))}
-        />
-      </div>
-      <div className="DashboardDataSelectors__field_container">
         <label className="DashboardDataSelectors__field_label">
           Agrupar por
         </label>
@@ -57,6 +39,24 @@ const DashboardDataSelectors = () => {
           <option value="MONTH">Mes</option>
         </select>
       </div>
+      <div className="DashboardDataSelectors__field_container">
+        <label className="DashboardDataSelectors__field_label">Desde</label>
+        <input
+          type="date"
+          className="DashboardDataSelectors__input"
+          value={format(startDate, 'yyyy-MM-dd')}
+          onChange={(e) => dispatch(setStartDate(parseISO(e.target.value)))}
+        />
+      </div>
+      <div className="DashboardDataSelectors__field_container">
+        <label className="DashboardDataSelectors__field_label">Hasta</label>
+        <input
+          type="date"
+          className="DashboardDataSelectors__input"
+          value={format(endDate, 'yyyy-MM-dd')}
+          onChange={(e) => dispatch(setEndDate(parseISO(e.target.value)))}
+        />
+      </div>
       <div className="DashboardDataSelectors__checkbox_container">
         <input
           type="checkbox"
@@ -69,8 +69,16 @@ const DashboardDataSelectors = () => {
           className="DashboardDataSelectors__field_label"
           htmlFor="no-contact-days-checkbox"
         >
-          Considerar días sin contacto
+          Incluir fines de semana
         </label>
+      </div>
+      <div className="DashboardDataSelectors__checkbox_container">
+        <input type="checkbox" />
+        <label className="DashboardDataSelectors__field_label">Sábado</label>
+      </div>
+      <div className="DashboardDataSelectors__checkbox_container">
+        <input type="checkbox" />
+        <label className="DashboardDataSelectors__field_label">Domingo</label>
       </div>
     </div>
   )

@@ -29,7 +29,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
       if (groupBy === 'WEEK') {
         const weeklyData: DailyMetrics[] = []
         metricsData.forEach((day: DailyMetrics) => {
-          const weekStart = startOfWeek(day.date)
+          const weekStart = startOfWeek(day.date, { weekStartsOn: 1 })
           if (!weeklyData.find((w) => isSameDay(w.date, weekStart))) {
             weeklyData.push({
               date: weekStart,
