@@ -18,7 +18,8 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
     start: startDate,
     end: endDate,
     groupBy,
-    includeWeekends,
+    includeSaturdays,
+    includeSundays,
   } = useSelector((state: RootState) => state.dashboard)
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
@@ -28,7 +29,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
   })
 
   return useQuery<any, any, any>(
-    ['dashboard-ts', start, end, groupBy, includeWeekends],
+    ['dashboard-ts', start, end, groupBy, includeSaturdays, includeSundays],
     async () => {
       if (!metricsData) {
         return []
@@ -67,9 +68,18 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
         })
         return monthlyData
       }
-      return includeWeekends
-        ? metricsData
-        : metricsData.filter((d) => !isSaturday(d.date) && !isSunday(d.date))
+      let filteredMetricsData = metricsData
+      if (!includeSaturdays) {
+        filteredMetricsData = filteredMetricsData.filter(
+          (d) => !isSaturday(d.date)
+        )
+      }
+      if (!includeSundays) {
+        filteredMetricsData = filteredMetricsData.filter(
+          (d) => !isSunday(d.date)
+        )
+      }
+      return filteredMetricsData
     },
     { enabled: !!metricsData }
   )

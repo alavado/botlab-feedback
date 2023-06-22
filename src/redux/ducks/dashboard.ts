@@ -15,6 +15,8 @@ interface DashboardState {
   start: Date
   end: Date
   includeWeekends: boolean
+  includeSaturdays: boolean
+  includeSundays: boolean
   groupBy: MetricsTimeSeriesGroupByUnit
   filters: DashboardFilter[]
 }
@@ -28,6 +30,8 @@ const Dashboard = createSlice({
     start: addDays(new Date(), -pastDaysInitialRange),
     end: new Date(),
     includeWeekends: true,
+    includeSaturdays: true,
+    includeSundays: true,
     groupBy: initialGrouping,
     filters: [],
   } as DashboardState,
@@ -40,6 +44,16 @@ const Dashboard = createSlice({
     },
     setIncludeWeekends(state, action: PayloadAction<boolean>) {
       state.includeWeekends = action.payload
+      state.includeSaturdays = action.payload
+      state.includeSundays = action.payload
+    },
+    setIncludeSaturdays(state, action: PayloadAction<boolean>) {
+      state.includeSaturdays = action.payload
+      state.includeWeekends = action.payload || state.includeSundays
+    },
+    setIncludeSundays(state, action: PayloadAction<boolean>) {
+      state.includeSundays = action.payload
+      state.includeWeekends = action.payload || state.includeSaturdays
     },
     setGroupByUnit(state, action: PayloadAction<MetricsTimeSeriesGroupByUnit>) {
       state.groupBy = action.payload
@@ -117,6 +131,8 @@ export const {
   setStartDate,
   setEndDate,
   setIncludeWeekends,
+  setIncludeSaturdays,
+  setIncludeSundays,
   setGroupByUnit,
   addFilter,
   removeFilter,

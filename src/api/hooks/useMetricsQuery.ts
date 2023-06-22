@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 import _ from 'lodash'
 import { DashboardFilter } from '../../redux/ducks/dashboard'
-import assert from 'assert'
 
 export type DailyMetrics = { date: Date; total: number; answered: number }
 
