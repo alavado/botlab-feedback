@@ -20,6 +20,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
     timeUnit,
     includeSaturdays,
     includeSundays,
+    filters,
   } = useSelector((state: RootState) => state.dashboard)
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
@@ -29,7 +30,15 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
   })
 
   return useQuery<any, any, any>(
-    ['dashboard-ts', start, end, timeUnit, includeSaturdays, includeSundays],
+    [
+      'dashboard-ts',
+      filters,
+      start,
+      end,
+      timeUnit,
+      includeSaturdays,
+      includeSundays,
+    ],
     async () => {
       if (!metricsData) {
         return []
