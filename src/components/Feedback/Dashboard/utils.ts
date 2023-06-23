@@ -65,12 +65,12 @@ export const downloadDashboardData = ({
 }
 
 export const downloadDashboardScreenshot = async () => {
-  const nodoContenedor = document.getElementsByClassName(
+  const mainContainer = document.getElementsByClassName(
     'Feedback__contenedor_central'
   )[0] as HTMLElement
-  const blob = await toBlob(nodoContenedor, {
-    width: nodoContenedor.scrollWidth,
-    height: nodoContenedor.scrollHeight,
+  const blob = await toBlob(mainContainer, {
+    width: mainContainer.scrollWidth,
+    height: mainContainer.scrollHeight,
   })
   const a = document.createElement('a')
   document.body.appendChild(a)

@@ -18,10 +18,10 @@ const DownloadDashboardDataButton = () => {
     <button
       className="DownloadDashboardDataButton"
       onClick={downloadDashboardScreenshot}
-      title="Descargar datos en formato Excel"
+      title="Descargar captura del dashboard"
       disabled={isLoading || !data}
     >
-      <Icon icon="mdi:download" />
+      <Icon icon="mdi:download-box" />
       Descargar
     </button>
   )
