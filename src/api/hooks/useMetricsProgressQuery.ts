@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, isSaturday, isSunday } from 'date-fns'
 import { useQuery, UseQueryResult } from 'react-query'
 import useMetricsQuery, { DailyMetrics } from './useMetricsQuery'
 import { useSelector } from 'react-redux'
@@ -18,9 +18,12 @@ const useMetricsProgressQuery = ({
 }: {
   metric: ProgressMetric
 }): UseQueryResult<ProgressMetricData, any> => {
-  const { start: startDate, end: endDate } = useSelector(
-    (state: RootState) => state.dashboard
-  )
+  const {
+    start: startDate,
+    end: endDate,
+    includeSaturdays,
+    includeSundays,
+  } = useSelector((state: RootState) => state.dashboard)
   const { data: metricsData } = useMetricsQuery({
     start: startDate,
     end: endDate,
@@ -29,7 +32,14 @@ const useMetricsProgressQuery = ({
   const end = format(endDate, 'yyyy-MM-dd')
 
   return useQuery<any, any, any>(
-    ['dashboard-progress', start, end, metric],
+    [
+      'dashboard-progress',
+      start,
+      end,
+      metric,
+      includeSaturdays,
+      includeSundays,
+    ],
     (): ProgressMetricData => {
       if (!metricsData) {
         return {
@@ -39,11 +49,22 @@ const useMetricsProgressQuery = ({
           fillPercentage: 0,
         }
       }
-      const total = metricsData.reduce(
+      let filteredMetricsData = metricsData
+      if (!includeSaturdays) {
+        filteredMetricsData = filteredMetricsData.filter(
+          (d) => !isSaturday(d.date)
+        )
+      }
+      if (!includeSundays) {
+        filteredMetricsData = filteredMetricsData.filter(
+          (d) => !isSunday(d.date)
+        )
+      }
+      const total = filteredMetricsData.reduce(
         (a: number, v: DailyMetrics) => a + v.total,
         0
       )
-      const answered = metricsData.reduce(
+      const answered = filteredMetricsData.reduce(
         (a: number, v: DailyMetrics) => a + v.answered,
         0
       )
