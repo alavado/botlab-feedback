@@ -41,12 +41,11 @@
 
 .Dashboard__sidebar {
   padding: 0.5rem;
-  padding-right: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   border-right: 1px solid var(--color-bordes);
-  min-width: 10rem;
+  min-width: 12rem;
   grid-row: span 2;
   font-size: 0.6rem;
 }

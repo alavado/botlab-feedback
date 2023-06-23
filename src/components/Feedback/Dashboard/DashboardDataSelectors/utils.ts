@@ -3,6 +3,7 @@ import {
   endOfWeek,
   parse,
   parseISO,
+  setYear,
   startOfMonth,
   startOfWeek,
 } from 'date-fns'
@@ -44,8 +45,8 @@ export const getDateFromFormattedDate = (
       return endOfMonth(monthDate)
     case 'WEEK':
       const [year, week] = formattedDate.split('-W')
-      const yearDate = parse(year, 'yyyy', new Date())
-      const yearAndWeekDate = parse(week, 'II', yearDate)
+      const weekDate = parse(week, 'II', new Date())
+      const yearAndWeekDate = setYear(weekDate, Number(year))
       if (bound === 'START') {
         startOfWeek(yearAndWeekDate)
       }
