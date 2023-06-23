@@ -1,8 +1,9 @@
-import { format } from 'date-fns'
+import { format, formatISO } from 'date-fns'
 import { DailyMetrics } from '../../../api/hooks/useMetricsQuery'
 import { MetricsTimeSeriesTimeUnit } from '../../../api/hooks/useMetricsTimeSeriesQuery'
 import { utils, writeFile } from 'xlsx-js-style'
 import { ProgressMetric } from '../../../api/hooks/useMetricsProgressQuery'
+import { toBlob } from 'html-to-image'
 
 export const getDataGroupingXLabel = (
   groupBy: MetricsTimeSeriesTimeUnit
@@ -61,4 +62,22 @@ export const downloadDashboardData = ({
   })
   utils.book_append_sheet(workbook, worksheet, 'Dashboard')
   writeFile(workbook, xlsxFileName)
+}
+
+export const downloadDashboardScreenshot = async () => {
+  const nodoContenedor = document.getElementsByClassName(
+    'Feedback__contenedor_central'
+  )[0] as HTMLElement
+  const blob = await toBlob(nodoContenedor, {
+    width: nodoContenedor.scrollWidth,
+    height: nodoContenedor.scrollHeight,
+  })
+  const a = document.createElement('a')
+  document.body.appendChild(a)
+  const fileName = `Feedback-Dashboard-${formatISO(new Date())}.png`
+  const url = window.URL.createObjectURL(blob as Blob)
+  a.href = url
+  a.download = fileName
+  a.click()
+  window.URL.revokeObjectURL(url)
 }
