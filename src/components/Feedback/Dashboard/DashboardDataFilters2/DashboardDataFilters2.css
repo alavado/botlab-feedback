@@ -1,0 +1,14 @@
+.DashboardDataFilters2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+}
+
+.DashboardDataFilters2__title {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-weight: bold;
+  font-size: 0.65rem;
+}

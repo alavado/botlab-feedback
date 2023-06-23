@@ -5,6 +5,7 @@ import DownloadDashboardDataButton from './DownloadDashboardDataButton/DownloadD
 import DashboardDataSelectors from './DashboardDataSelectors/DashboardDataSelectors'
 import DashboardDataFilters from './DashboardDataFilters/DashboardDataFilters'
 import './Dashboard.css'
+import DashboardDataFilters2 from './DashboardDataFilters2/DashboardDataFilters2'
 
 const Dashboard = () => {
   return (
@@ -18,7 +19,8 @@ const Dashboard = () => {
       <div className="Dashboard__container">
         <div className="Dashboard__sidebar">
           <DashboardDataSelectors />
-          <DashboardDataFilters />
+          {/* <DashboardDataFilters /> */}
+          <DashboardDataFilters2 />
           <DownloadDashboardDataButton />
         </div>
         <div className="Dashboard__top_charts">
