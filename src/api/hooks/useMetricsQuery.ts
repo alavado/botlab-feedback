@@ -6,7 +6,13 @@ import { RootState } from '../../redux/ducks'
 import _ from 'lodash'
 import { DashboardFilter } from '../../redux/ducks/dashboard'
 
-export type DailyMetrics = { date: Date; total: number; answered: number }
+export type DailyMetrics = {
+  date: Date
+  total: number
+  answered: number
+  confirmed: number
+  cancelled: number
+}
 
 const useMetricsQuery = ({
   start,
@@ -29,11 +35,15 @@ const useMetricsQuery = ({
       if (_.isEmpty(data.citas)) {
         return []
       }
-      const counts: DailyMetrics[] = data.citas.map((d: any) => ({
-        date: parseISO(d.fecha_cita),
-        total: d.carga,
-        answered: d.respuesta,
-      }))
+      const counts: DailyMetrics[] = data.citas.map(
+        (d: any): DailyMetrics => ({
+          date: parseISO(d.fecha_cita),
+          total: d.carga,
+          answered: d.respuesta,
+          confirmed: d.confirma,
+          cancelled: d.anula,
+        })
+      )
       return fillInEmptyDays({ start, end, counts })
     },
     {
@@ -87,6 +97,8 @@ const fillInEmptyDays = ({
         date: iterationDate,
         total: 0,
         answered: 0,
+        confirmed: 0,
+        cancelled: 0,
       })
     }
     iterationDate = addDays(iterationDate, 1)

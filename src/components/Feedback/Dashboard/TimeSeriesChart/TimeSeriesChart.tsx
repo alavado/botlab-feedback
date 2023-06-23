@@ -90,6 +90,22 @@ const TimeSeriesChart = () => {
             pointHitRadius: 25,
             borderWidth: 4,
           },
+          {
+            label: 'Confirmadas',
+            data: data.map((d: DailyMetrics) => d.confirmed),
+            borderColor: getMetricHexColor('CONFIRMED'),
+            backgroundColor: getMetricHexColor('CONFIRMED'),
+            pointHitRadius: 25,
+            borderWidth: 4,
+          },
+          {
+            label: 'Anuladas',
+            data: data.map((d: DailyMetrics) => d.cancelled),
+            borderColor: getMetricHexColor('CANCELLED'),
+            backgroundColor: getMetricHexColor('CANCELLED'),
+            pointHitRadius: 25,
+            borderWidth: 4,
+          },
         ],
       }}
     />

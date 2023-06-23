@@ -4,7 +4,7 @@ import useMetricsQuery, { DailyMetrics } from './useMetricsQuery'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 
-export type ProgressMetric = 'TOTAL' | 'ANSWERED'
+export type ProgressMetric = 'TOTAL' | 'ANSWERED' | 'CONFIRMED' | 'CANCELLED'
 
 type ProgressMetricData = {
   title: string
@@ -49,43 +49,38 @@ const useMetricsProgressQuery = ({
           fillPercentage: 0,
         }
       }
-      let filteredMetricsData = metricsData
-      if (!includeSaturdays) {
-        filteredMetricsData = filteredMetricsData.filter(
-          (d) => !isSaturday(d.date)
-        )
-      }
-      if (!includeSundays) {
-        filteredMetricsData = filteredMetricsData.filter(
-          (d) => !isSunday(d.date)
-        )
-      }
-      const total = filteredMetricsData.reduce(
-        (a: number, v: DailyMetrics) => a + v.total,
-        0
-      )
-      const answered = filteredMetricsData.reduce(
-        (a: number, v: DailyMetrics) => a + v.answered,
-        0
-      )
+      let filteredMetricsData = filterMetrics({
+        data: metricsData,
+        filters: [
+          (d: DailyMetrics) => !isSaturday(d.date),
+          (d: DailyMetrics) => !isSunday(d.date),
+        ],
+      })
       switch (metric) {
         case 'TOTAL':
-          return {
-            title: 'Total',
-            count: total.toLocaleString('de-DE'),
+          return buildProgressMetricData({
+            data: filteredMetricsData,
+            metricKey: 'total',
             label: 'Citas',
-            fillPercentage: 100,
-          }
+          })
         case 'ANSWERED':
-          const percentage = total > 0 ? (100 * answered) / total : 0
-          return {
-            title:
-              percentage.toLocaleString('de-DE', { maximumFractionDigits: 0 }) +
-              '%',
-            count: answered.toLocaleString('de-DE'),
-            label: 'Con respuesta',
-            fillPercentage: percentage,
-          }
+          return buildProgressMetricData({
+            data: filteredMetricsData,
+            metricKey: 'answered',
+            label: 'Con Respuesta',
+          })
+        case 'CONFIRMED':
+          return buildProgressMetricData({
+            data: filteredMetricsData,
+            metricKey: 'confirmed',
+            label: 'Confirmadas',
+          })
+        case 'CANCELLED':
+          return buildProgressMetricData({
+            data: filteredMetricsData,
+            metricKey: 'cancelled',
+            label: 'Anuladas',
+          })
         default:
           return {
             title: '',
@@ -97,6 +92,54 @@ const useMetricsProgressQuery = ({
     },
     { enabled: !!metricsData }
   )
+}
+
+const filterMetrics = ({
+  data,
+  filters,
+}: {
+  data: DailyMetrics[]
+  filters: ((f: DailyMetrics) => boolean)[]
+}): DailyMetrics[] => {
+  let filteredMetricsData = data
+  filters.forEach((f) => {
+    filteredMetricsData = filteredMetricsData.filter(f)
+  })
+  return filteredMetricsData
+}
+
+const buildProgressMetricData = ({
+  data,
+  metricKey,
+  label,
+}: {
+  data: DailyMetrics[]
+  metricKey: 'total' | 'answered' | 'confirmed' | 'cancelled'
+  label: string
+}): ProgressMetricData => {
+  const metricCount = data.reduce(
+    (a: number, v: DailyMetrics) => a + v[metricKey],
+    0
+  )
+  if (metricKey === 'total') {
+    return {
+      title: 'Total',
+      count: metricCount.toLocaleString('de-DE'),
+      label,
+      fillPercentage: 100,
+    }
+  }
+  const total = data.reduce((a: number, v: DailyMetrics) => a + v.total, 0)
+  const percentage = total > 0 ? (100 * metricCount) / total : 0
+  return {
+    title:
+      percentage.toLocaleString('de-DE', {
+        maximumFractionDigits: 0,
+      }) + '%',
+    count: metricCount.toLocaleString('de-DE'),
+    label,
+    fillPercentage: percentage,
+  }
 }
 
 export default useMetricsProgressQuery
