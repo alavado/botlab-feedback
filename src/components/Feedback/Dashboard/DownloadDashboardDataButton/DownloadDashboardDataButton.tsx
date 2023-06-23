@@ -4,6 +4,7 @@ import './DownloadDashboardDataButton.css'
 import useMetricsQuery from '../../../../api/hooks/useMetricsQuery'
 import { RootState } from '../../../../redux/ducks'
 import { useSelector } from 'react-redux'
+import { toBlob } from 'html-to-image'
 
 const DownloadDashboardDataButton = () => {
   const { start: startDate, end: endDate } = useSelector(
@@ -17,9 +18,18 @@ const DownloadDashboardDataButton = () => {
   return (
     <button
       className="DownloadDashboardDataButton"
-      onClick={() =>
-        data && downloadDashboardData({ startDate, endDate, data })
-      }
+      onClick={async () => {
+        if (!data) {
+          return
+        }
+        const nodoContenedor = document.getElementsByClassName(
+          'Feedback__contenedor_central'
+        )[0] as HTMLElement
+        const blob = await toBlob(nodoContenedor, {
+          width: nodoContenedor.scrollWidth,
+          height: nodoContenedor.scrollHeight,
+        })
+      }}
       title="Descargar datos en formato Excel"
       disabled={isLoading || !data}
     >

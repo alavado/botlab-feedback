@@ -24,8 +24,7 @@ const InteractionsLegacyTable = ({
     }
     return interactions.find(
       (i) =>
-        i.id.patientId === Number(patientId) &&
-        i.id.serviceId === Number(serviceId)
+        i.id.patientId === Number(patientId) && i.id.serviceId === serviceId
     )
   }, [params, interactions])
 
@@ -40,7 +39,7 @@ const InteractionsLegacyTable = ({
         {activeInteraction && (
           <InteractionDrawer
             interactionId={activeInteraction.id}
-            onCloseClick={() => history.push('/interacciones')}
+            onCloseClick={() => history.push(`/interacciones/${service?.id}`)}
             originComponentName="InteractionsLegacyTable"
           />
         )}

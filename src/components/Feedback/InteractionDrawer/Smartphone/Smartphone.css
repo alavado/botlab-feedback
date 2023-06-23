@@ -67,6 +67,10 @@
   background-color: var(--whatsapp-color-scrollbar-contenedor-mensajes);
 }
 
+.Smartphone__element_not_current {
+  filter: saturate(10%) sepia(10%);
+}
+
 .Smartphone__loading_message {
   display: flex;
   flex-direction: column;

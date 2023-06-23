@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { toBlob } from 'html-to-image'
 
-const obtenerEmoticonTipoReporte = tipo => {
+const obtenerEmoticonTipoReporte = (tipo) => {
   switch (tipo) {
     case 'Bot se equivoca':
       return `🤖`
@@ -12,68 +12,89 @@ const obtenerEmoticonTipoReporte = tipo => {
   }
 }
 
-export const reportarASlack = async (usuario, cuenta, nombreEncuestaSeleccionada, tipo, descripcion) => {
-
+export const reportarASlack = async (
+  usuario,
+  cuenta,
+  nombreEncuestaSeleccionada,
+  tipo,
+  descripcion
+) => {
   const data = {
-    'text': `Feedback: Reporte desde ${usuario}`,
-    'blocks': [
+    text: `Feedback: Reporte desde ${usuario}`,
+    blocks: [
       {
-        'type': 'section',
-        'text': {
-          'type': 'mrkdwn',
-          'text': `Reporte desde *${usuario}*`
-        }
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `Reporte desde *${usuario}*`,
+        },
       },
       {
-        'type': 'section',
-        'fields': [
+        type: 'section',
+        fields: [
           {
-            'type': 'mrkdwn',
-            'text': `*Tipo*\n${tipo} ${obtenerEmoticonTipoReporte(tipo)} `
+            type: 'mrkdwn',
+            text: `*Tipo*\n${tipo} ${obtenerEmoticonTipoReporte(tipo)} `,
           },
           {
-            'type': 'mrkdwn',
-            'text': `*Cuenta*\n${cuenta}`
+            type: 'mrkdwn',
+            text: `*Cuenta*\n${cuenta}`,
           },
           {
-            'type': 'mrkdwn',
-            'text': `*Encuesta*\n${nombreEncuestaSeleccionada}`
+            type: 'mrkdwn',
+            text: `*Servicio*\n${nombreEncuestaSeleccionada}`,
           },
           {
-            'type': 'mrkdwn',
-            'text': `*URL*\n${window.location.href}`
+            type: 'mrkdwn',
+            text: `*URL*\n${window.location.href}`,
           },
           {
-            'type': 'mrkdwn',
-            'text': `*Descripción*\n${descripcion}`
-          }
-        ]
-      }
+            type: 'mrkdwn',
+            text: `*Descripción*\n${descripcion}`,
+          },
+        ],
+      },
     ],
   }
 
-  const nodoContenedor = document.getElementsByClassName('Feedback__contenedor_central')[0]
-  const blobFB = await toBlob(nodoContenedor, { width: nodoContenedor.scrollWidth, height: nodoContenedor.scrollHeight })
-
-  const nodoContenedorMensajes = document.getElementsByClassName('CelularWhatsapp__contenedor_mensajes')[0]
-  document.querySelectorAll('.CelularWhatsapp__contenedor_conversacion:not(.CelularWhatsapp__contenedor_conversacion--seleccionada)').forEach(nodo => {
-    nodo.style.display = 'none'
+  const nodoContenedor = document.getElementsByClassName(
+    'Feedback__contenedor_central'
+  )[0]
+  const blobFB = await toBlob(nodoContenedor, {
+    width: nodoContenedor.scrollWidth,
+    height: nodoContenedor.scrollHeight,
   })
+
+  const nodoContenedorMensajes = document.getElementsByClassName(
+    'CelularWhatsapp__contenedor_mensajes'
+  )[0]
+  document
+    .querySelectorAll(
+      '.CelularWhatsapp__contenedor_conversacion:not(.CelularWhatsapp__contenedor_conversacion--seleccionada)'
+    )
+    .forEach((nodo) => {
+      nodo.style.display = 'none'
+    })
   const prevMaxHeight = nodoContenedorMensajes.style.maxHeight
   nodoContenedorMensajes.style.overflow = 'visible'
   nodoContenedorMensajes.style.maxHeight = 'auto'
-  const blob = await toBlob(nodoContenedorMensajes, { width: nodoContenedorMensajes.scrollWidth, height: nodoContenedorMensajes.scrollHeight })
+  const blob = await toBlob(nodoContenedorMensajes, {
+    width: nodoContenedorMensajes.scrollWidth,
+    height: nodoContenedorMensajes.scrollHeight,
+  })
   nodoContenedorMensajes.style.overflow = 'auto'
   nodoContenedorMensajes.style.maxHeight = prevMaxHeight
-  document.querySelectorAll('.CelularWhatsapp__contenedor_conversacion').forEach(nodo => {
-    nodo.style.display = 'block'
-  })
+  document
+    .querySelectorAll('.CelularWhatsapp__contenedor_conversacion')
+    .forEach((nodo) => {
+      nodo.style.display = 'block'
+    })
 
   const fieldsPostData = new FormData()
   fieldsPostData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
   fieldsPostData.append(
     'channel',
-    (cuenta.endsWith('cero') || cuenta.endsWith('botlab'))
+    cuenta.endsWith('cero') || cuenta.endsWith('botlab')
       ? process.env.REACT_APP_SLACK_INTERNAL_CHANNEL_ID
       : process.env.REACT_APP_SLACK_CHANNEL_ID
   )
@@ -83,14 +104,14 @@ export const reportarASlack = async (usuario, cuenta, nombreEncuestaSeleccionada
   const fieldsData = await axios({
     method: 'post',
     url: 'https://slack.com/api/chat.postMessage',
-    data: fieldsPostData
+    data: fieldsPostData,
   })
   const fieldsTimestamp = fieldsData.data.message.ts
   const formData = new FormData()
   formData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
   formData.append(
     'channels',
-    (cuenta.endsWith('cero') || cuenta.endsWith('botlab'))
+    cuenta.endsWith('cero') || cuenta.endsWith('botlab')
       ? process.env.REACT_APP_SLACK_INTERNAL_CHANNEL_ID
       : process.env.REACT_APP_SLACK_CHANNEL_ID
   )
@@ -100,14 +121,14 @@ export const reportarASlack = async (usuario, cuenta, nombreEncuestaSeleccionada
     method: 'post',
     url: process.env.REACT_APP_SLACK_FILE_UPLOAD_URL,
     data: formData,
-    headers: { "Content-Type": "multipart/form-data" }
+    headers: { 'Content-Type': 'multipart/form-data' },
   })
   formData.append('file', blob)
   await axios({
     method: 'post',
     url: process.env.REACT_APP_SLACK_FILE_UPLOAD_URL,
     data: formData,
-    headers: { "Content-Type": "multipart/form-data" }
+    headers: { 'Content-Type': 'multipart/form-data' },
   })
   return fieldsTimestamp
 }
@@ -117,7 +138,7 @@ export const agregarMensajeAHilo = async (ts, texto, cuenta) => {
   formData.append('token', process.env.REACT_APP_OAUTH2_TOKEN)
   formData.append(
     'channel',
-    (cuenta.endsWith('cero') || cuenta.endsWith('botlab'))
+    cuenta.endsWith('cero') || cuenta.endsWith('botlab')
       ? process.env.REACT_APP_SLACK_INTERNAL_CHANNEL_ID
       : process.env.REACT_APP_SLACK_CHANNEL_ID
   )
@@ -127,6 +148,6 @@ export const agregarMensajeAHilo = async (ts, texto, cuenta) => {
   await axios({
     method: 'post',
     url: 'https://slack.com/api/chat.postMessage',
-    data: formData
+    data: formData,
   })
 }

@@ -1,0 +1,30 @@
+.IssueSubmissionAck {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.6rem;
+  font-weight: bold;
+  background-color: var(--color-secundario);
+  color: var(--color-texto-claro);
+  padding: 0.15rem 0.5rem 0.15rem 0.75rem;
+  border-radius: 9in;
+  box-shadow: 0 0.1rem 0.15rem var(--color-sombras);
+  transition: all 0.25s ease;
+  opacity: 0;
+  transform: translateY(0.25rem);
+}
+
+.IssueSubmissionAck--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.IssueSubmissionAck__close_button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-texto-claro);
+  padding: 0;
+  display: flex;
+  align-items: center;
+}

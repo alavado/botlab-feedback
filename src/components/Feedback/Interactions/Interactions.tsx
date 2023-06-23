@@ -1,29 +1,25 @@
-import { useDispatch } from 'react-redux'
 import useServicesQuery from '../../../api/hooks/useServicesQuery'
 import MenuUsuario from '../BarraSuperior/MenuUsuario/MenuUsuario'
 import './Interactions.css'
 import useInteractionsQuery from '../../../api/hooks/useInteractionsQuery'
 import InteractionsLegacyTable from './InteractionsLegacyTable/InteractionsLegacyTable'
-import { selectService } from '../../../redux/ducks/answers'
-import useActiveServiceQuery from '../../../api/hooks/useActiveServiceQuery'
 import Loader from '../../Loader/Loader'
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import MiniDashboard from './MiniDashboard'
 import InteractionDrawerCover from '../InteractionDrawer/InteractionDrawerCover/InteractionDrawerCover'
-import { useRouteMatch } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
+import useActiveServiceQuery from '../../../api/hooks/useActiveServiceQuery'
 
 const Interactions = () => {
   const { data: services, isLoading: loadingServices } = useServicesQuery()
-  const { data: activeService } = useActiveServiceQuery()
   const { data: interactions, isLoading: loadingInteractions } =
-    useInteractionsQuery({
-      serviceId: activeService?.id,
-      startDate: new Date(),
-      endDate: new Date(),
-    })
-  const dispatch = useDispatch()
+    useInteractionsQuery()
   const { params }: any = useRouteMatch()
+  const { data: activeService } = useActiveServiceQuery()
+  const history = useHistory()
+
+  console.log({interactions})
 
   return (
     <div className="Interactions">
@@ -42,7 +38,7 @@ const Interactions = () => {
             services?.map((service) => (
               <button
                 key={`tab-service-${service.id}`}
-                onClick={() => dispatch(selectService(service.id))}
+                onClick={() => history.push(`/interacciones/${service.id}`)}
                 className={classNames({
                   Interactions__service_tab: true,
                   'Interactions__service_tab--active':

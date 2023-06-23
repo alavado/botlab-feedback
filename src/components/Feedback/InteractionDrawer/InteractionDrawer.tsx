@@ -9,6 +9,7 @@ import { InteractionId } from '../../../api/types/domain'
 import InteractionComments from './InteractionComments'
 import InteractionData from './InteractionData'
 import useAnalytics from '../../../hooks/useAnalytics'
+import IssueSubmissionAck from './IssueSubmissionAck'
 
 interface InteractionDrawerProps {
   interactionId: InteractionId
@@ -22,7 +23,6 @@ const InteractionDrawer = ({
   originComponentName,
 }: InteractionDrawerProps) => {
   const { data } = useChatQuery(interactionId)
-
   const pastInteractions = data?.pastInteractions
   const currentInteraction = data?.currentInteraction
   const futureInteractions = data?.futureInteractions
@@ -48,6 +48,7 @@ const InteractionDrawer = ({
           >
             <Icon icon="mdi:chevron-double-right" />
           </button>
+          <IssueSubmissionAck />
           <button
             className="InteractionDrawer__top_bar_action_button"
             onClick={(e) => {

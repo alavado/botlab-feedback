@@ -38,10 +38,10 @@ const useMetricsQuery = ({
       const counts: DailyMetrics[] = data.citas.map(
         (d: any): DailyMetrics => ({
           date: parseISO(d.fecha_cita),
-          total: d.carga,
-          answered: d.respuesta,
-          confirmed: d.confirma,
-          cancelled: d.anula,
+          total: d.carga || 0,
+          answered: d.respuesta || 0,
+          confirmed: d.confirma || 0,
+          cancelled: d.anula || 0,
         })
       )
       return fillInEmptyDays({ start, end, counts })

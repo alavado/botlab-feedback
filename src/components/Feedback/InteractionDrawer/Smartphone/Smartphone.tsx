@@ -136,7 +136,9 @@ const Smartphone = ({
       if (i === 0 || !isSameDay(elements[i - 1].date, el.date)) {
         elementsWithDates.push({
           date: startOfDay(el.date),
-          current: isSameDay(currentInteraction.id.start, el.date),
+          current: !!currentInteraction.messages?.some((m) =>
+            isSameDay(m.timestamp, el.date)
+          ),
         })
       }
       elementsWithDates.push(el)
@@ -152,7 +154,11 @@ const Smartphone = ({
   ])
 
   const scrollToCurrentInteraction = () =>
-    document.querySelector('.SmartphoneMessagesDate--current')?.scrollIntoView()
+    document
+      .querySelector(
+        '.SmartphoneMessagesDate:not(.Smartphone__element_not_current)'
+      )
+      ?.scrollIntoView()
 
   const currentInteractionStart =
     currentInteraction &&

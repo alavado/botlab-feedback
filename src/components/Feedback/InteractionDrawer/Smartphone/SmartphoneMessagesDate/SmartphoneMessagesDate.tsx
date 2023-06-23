@@ -9,7 +9,7 @@ const SmartphoneMessagesDate = ({ data }: { data: SmartphoneChatDate }) => (
   <div
     className={classNames({
       SmartphoneMessagesDate: true,
-      'SmartphoneMessagesDate--current': data.current,
+      Smartphone__element_not_current: !data.current,
     })}
   >
     <Icon icon="mdi:calendar" /> {formatDate(data.date)}

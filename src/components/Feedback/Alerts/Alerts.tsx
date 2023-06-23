@@ -27,6 +27,19 @@ const Alerts = () => {
 
   return (
     <div className="Alerts">
+      <dialog className="MensajeSinWhatsapp__dialogo" open={false}>
+        <div className="MensajeSinWhatsapp__dialogo_contenido">
+          <p>
+            Desde ahora en Feedback estamos marcando los números de teléfono de
+            pacientes que no usan WhatsApp
+          </p>
+          <form method="dialog">
+            <button className="MensajeSinWhatsapp__boton_cerrar_dialogo">
+              ¡Entendido!
+            </button>
+          </form>
+        </div>
+      </dialog>
       <InteractionDrawerCover visible={!!patientId && !!serviceId} />
       <div
         className={classNames({

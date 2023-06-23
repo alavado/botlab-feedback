@@ -18,9 +18,13 @@ export interface Branch {
 }
 
 export type InteractionTag =
+  | 'UNANSWERED_WHATSAPP'
   | 'UNREACHABLE_WHATSAPP'
-  | 'SENT_WHATSAPP'
   | 'ANSWERED_WHATSAPP'
+  | 'CONFIRMED_WHATSAPP'
+  | 'CANCELLED_WHATSAPP'
+  | 'RESCHEDULED_WHATSAPP'
+  | 'OTHER'
 
 export interface InteractionId {
   serviceId: ServiceId
@@ -70,6 +74,12 @@ export interface InteractionExtraData {
 }
 
 export type SchedulingSystem = 'Dentalink' | 'Medilink' | 'Otro'
+export type AppointmentStatus =
+  | 'SCHEDULED'
+  | 'CONFIRMED'
+  | 'CANCELLED'
+  | 'RESCHEDULED'
+  | 'OTHER'
 
 export interface Appointment {
   id?: string
@@ -78,6 +88,7 @@ export interface Appointment {
   datetime: Date
   url?: string
   schedulingSystem?: SchedulingSystem
+  status: AppointmentStatus
 }
 
 export interface Message {

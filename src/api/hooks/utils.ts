@@ -2,6 +2,8 @@ import axios from 'axios'
 import { parse, parseISO, startOfDay } from 'date-fns'
 import { es } from 'date-fns/locale'
 import store from '../../redux/store'
+import { Appointment, AppointmentStatus, InteractionTag } from '../types/domain'
+import { AnswersAPIResponseRow, ChatAPIConversation, SearchAPIMultiAppointment, SearchAPISingleAppointment } from '../types/responses'
 
 export const API_ROOT = process.env.REACT_APP_API_ROOT
 
@@ -59,4 +61,36 @@ export const parseAPIDate = (
     parseISO(referenceISODate),
     { locale: es }
   )
+}
+
+export const getStatusFromAnswersResponseRow = (
+  appointment: AnswersAPIResponseRow
+): AppointmentStatus => {
+    return 'OTHER'
+}
+
+export const getStatusFromChatConversation = (
+  conversation: ChatAPIConversation
+): AppointmentStatus => {
+  return 'OTHER'
+}
+
+export const getStatusFromSearchRow = (
+  appointment: SearchAPISingleAppointment | SearchAPIMultiAppointment
+): AppointmentStatus => {
+  return 'OTHER'
+}
+
+export const getInteractionTags = (appointments: Appointment[]): InteractionTag[] => {
+  const tags: InteractionTag[] = []
+  if (appointments.some((a) => a.status !== 'SCHEDULED')) {
+    tags.push('ANSWERED_WHATSAPP')
+    if (appointments.some((a) => a.status === 'OTHER')) {
+      tags.push('OTHER')
+    }
+  }
+  else {
+    tags.push('UNANSWERED_WHATSAPP')
+  }
+  return tags
 }
