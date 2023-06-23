@@ -5,11 +5,13 @@ import useMetricsProgressQuery, {
 import Loader from '../../../Loader/Loader'
 import './ProgressDonut.css'
 import { getMetricHexColor } from '../utils'
+import { useIsFetching } from 'react-query'
 
 const ProgressDonut = ({ metric }: { metric: ProgressMetric }) => {
   const { data, isLoading } = useMetricsProgressQuery({ metric })
+  const isFetchingMetrics = useIsFetching({ queryKey: ['metrics'] })
 
-  if (isLoading) {
+  if (isLoading || isFetchingMetrics) {
     return <Loader />
   }
 

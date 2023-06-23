@@ -56,7 +56,7 @@ const useMetricsProgressQuery = ({
             fillPercentage: 100,
           }
         case 'ANSWERED':
-          const percentage = (100 * answered) / total
+          const percentage = total > 0 ? (100 * answered) / total : 0
           return {
             title:
               percentage.toLocaleString('de-DE', { maximumFractionDigits: 0 }) +

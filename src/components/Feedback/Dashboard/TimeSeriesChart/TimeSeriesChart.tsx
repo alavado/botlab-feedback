@@ -8,12 +8,14 @@ import useDashboardTimeSeriesQuery from '../../../../api/hooks/useMetricsTimeSer
 import { getDataGroupingXLabel, getMetricHexColor } from '../utils'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../redux/ducks'
+import { useIsFetching } from 'react-query'
 
 const TimeSeriesChart = () => {
   const { groupBy } = useSelector((state: RootState) => state.dashboard)
   const { data, isLoading, isError, error } = useDashboardTimeSeriesQuery()
+  const isFetchingMetrics = useIsFetching({ queryKey: ['metrics'] })
 
-  if (isLoading || !data) {
+  if (isLoading || isFetchingMetrics || !data) {
     return <Loader />
   }
 
@@ -68,7 +70,7 @@ const TimeSeriesChart = () => {
             case 'MONTH':
               return format(d.date, 'MMMM', { locale: es })
             default:
-              return format(d.date, 'dd/MM')
+              return format(d.date, 'eee dd/MM', { locale: es })
           }
         }),
         datasets: [

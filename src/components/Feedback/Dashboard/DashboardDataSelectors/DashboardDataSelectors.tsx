@@ -62,7 +62,7 @@ const DashboardDataSelectors = () => {
         />
       </div>
       {groupBy === 'DAY' && (
-        <>
+        <div className="DashboardDataSelectors__checkboxes_container">
           <div className="DashboardDataSelectors__checkbox_container">
             <input
               type="checkbox"
@@ -77,7 +77,7 @@ const DashboardDataSelectors = () => {
               Incluir fines de semana
             </label>
           </div>
-          <div className="DashboardDataSelectors__checkbox_container">
+          <div className="DashboardDataSelectors__checkbox_container DashboardDataSelectors__checkbox_container--secondary">
             <input
               type="checkbox"
               id="include-saturdays-checkbox"
@@ -91,7 +91,7 @@ const DashboardDataSelectors = () => {
               Incluir sábados
             </label>
           </div>
-          <div className="DashboardDataSelectors__checkbox_container">
+          <div className="DashboardDataSelectors__checkbox_container DashboardDataSelectors__checkbox_container--secondary">
             <input
               type="checkbox"
               id="include-sundays-checkbox"
@@ -105,7 +105,7 @@ const DashboardDataSelectors = () => {
               Incluir domingos
             </label>
           </div>
-        </>
+        </div>
       )}
     </div>
   )
