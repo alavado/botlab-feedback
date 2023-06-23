@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { addDays } from 'date-fns'
-import { MetricsTimeSeriesGroupByUnit } from '../../api/hooks/useMetricsTimeSeriesQuery'
+import { MetricsTimeSeriesTimeUnit } from '../../api/hooks/useMetricsTimeSeriesQuery'
 import {
   MetricFilterByAppointmentProperty,
   MetricFilterByAppointmentPropertyKind,
@@ -17,7 +17,7 @@ interface DashboardState {
   includeWeekends: boolean
   includeSaturdays: boolean
   includeSundays: boolean
-  groupBy: MetricsTimeSeriesGroupByUnit
+  timeUnit: MetricsTimeSeriesTimeUnit
   filters: DashboardFilter[]
 }
 
@@ -32,7 +32,7 @@ const Dashboard = createSlice({
     includeWeekends: true,
     includeSaturdays: true,
     includeSundays: true,
-    groupBy: initialGrouping,
+    timeUnit: initialGrouping,
     filters: [],
   } as DashboardState,
   reducers: {
@@ -55,8 +55,8 @@ const Dashboard = createSlice({
       state.includeSundays = action.payload
       state.includeWeekends = action.payload || state.includeSaturdays
     },
-    setGroupByUnit(state, action: PayloadAction<MetricsTimeSeriesGroupByUnit>) {
-      state.groupBy = action.payload
+    setGroupByUnit(state, action: PayloadAction<MetricsTimeSeriesTimeUnit>) {
+      state.timeUnit = action.payload
     },
     addFilter(
       state,

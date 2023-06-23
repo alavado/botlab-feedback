@@ -11,13 +11,13 @@ import useMetricsQuery, { DailyMetrics } from './useMetricsQuery'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 
-export type MetricsTimeSeriesGroupByUnit = 'DAY' | 'WEEK' | 'MONTH'
+export type MetricsTimeSeriesTimeUnit = 'DAY' | 'WEEK' | 'MONTH'
 
 const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
   const {
     start: startDate,
     end: endDate,
-    groupBy,
+    timeUnit,
     includeSaturdays,
     includeSundays,
   } = useSelector((state: RootState) => state.dashboard)
@@ -29,12 +29,12 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
   })
 
   return useQuery<any, any, any>(
-    ['dashboard-ts', start, end, groupBy, includeSaturdays, includeSundays],
+    ['dashboard-ts', start, end, timeUnit, includeSaturdays, includeSundays],
     async () => {
       if (!metricsData) {
         return []
       }
-      if (groupBy === 'WEEK') {
+      if (timeUnit === 'WEEK') {
         const weeklyData: DailyMetrics[] = []
         metricsData.forEach((day: DailyMetrics) => {
           const weekStart = startOfWeek(day.date, { weekStartsOn: 1 })
@@ -51,7 +51,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
         })
         return weeklyData
       }
-      if (groupBy === 'MONTH') {
+      if (timeUnit === 'MONTH') {
         const monthlyData: DailyMetrics[] = []
         metricsData.forEach((day: DailyMetrics) => {
           const monthStart = startOfMonth(day.date)
@@ -81,7 +81,11 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
       }
       return filteredMetricsData
     },
-    { enabled: !!metricsData, refetchOnWindowFocus: false }
+    {
+      enabled: !!metricsData,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
   )
 }
 

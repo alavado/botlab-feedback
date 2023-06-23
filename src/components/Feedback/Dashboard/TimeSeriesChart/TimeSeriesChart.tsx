@@ -11,7 +11,7 @@ import { RootState } from '../../../../redux/ducks'
 import { useIsFetching } from 'react-query'
 
 const TimeSeriesChart = () => {
-  const { groupBy } = useSelector((state: RootState) => state.dashboard)
+  const { timeUnit } = useSelector((state: RootState) => state.dashboard)
   const { data, isLoading, isError, error } = useDashboardTimeSeriesQuery()
   const isFetchingMetrics = useIsFetching({ queryKey: ['metrics'] })
 
@@ -43,7 +43,7 @@ const TimeSeriesChart = () => {
           x: {
             title: {
               display: true,
-              text: getDataGroupingXLabel(groupBy),
+              text: getDataGroupingXLabel(timeUnit),
             },
             grid: {
               display: false,
@@ -64,7 +64,7 @@ const TimeSeriesChart = () => {
       }}
       data={{
         labels: data.map((d: DailyMetrics) => {
-          switch (groupBy) {
+          switch (timeUnit) {
             case 'WEEK':
               return 'Semana del ' + format(d.date, 'dd/MM')
             case 'MONTH':

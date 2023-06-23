@@ -1,6 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../redux/ducks'
-import { format, parseISO } from 'date-fns'
+import {
+  endOfMonth,
+  endOfWeek,
+  format,
+  parse,
+  parseISO,
+  startOfMonth,
+  startOfWeek,
+} from 'date-fns'
 import {
   setEndDate,
   setGroupByUnit,
@@ -9,14 +17,61 @@ import {
   setIncludeWeekends,
   setStartDate,
 } from '../../../../redux/ducks/dashboard'
-import { MetricsTimeSeriesGroupByUnit } from '../../../../api/hooks/useMetricsTimeSeriesQuery'
+import { MetricsTimeSeriesTimeUnit } from '../../../../api/hooks/useMetricsTimeSeriesQuery'
 import './DashboardDataSelectors.css'
+
+const getInputType = (unit: MetricsTimeSeriesTimeUnit): string => {
+  switch (unit) {
+    case 'MONTH':
+      return 'month'
+    case 'WEEK':
+      return 'week'
+    default:
+      return 'date'
+  }
+}
+
+const getDateFormat = (unit: MetricsTimeSeriesTimeUnit): string => {
+  switch (unit) {
+    case 'MONTH':
+      return 'yyyy-MM'
+    case 'WEEK':
+      return "yyyy-'W'II"
+    default:
+      return 'yyyy-MM-dd'
+  }
+}
+
+const getDateFromFormattedDate = (
+  unit: MetricsTimeSeriesTimeUnit,
+  formattedDate: string,
+  bound: 'START' | 'END'
+): Date => {
+  switch (unit) {
+    case 'MONTH':
+      const monthDate = parse(formattedDate, 'yyyy-MM', new Date())
+      if (bound === 'START') {
+        return startOfMonth(monthDate)
+      }
+      return endOfMonth(monthDate)
+    case 'WEEK':
+      const [year, week] = formattedDate.split('-W')
+      const yearDate = parse(year, 'yyyy', new Date())
+      const yearAndWeekDate = parse(week, 'II', yearDate)
+      if (bound === 'START') {
+        startOfWeek(yearAndWeekDate)
+      }
+      return endOfWeek(yearAndWeekDate)
+    default:
+      return parseISO(formattedDate)
+  }
+}
 
 const DashboardDataSelectors = () => {
   const {
     start: startDate,
     end: endDate,
-    groupBy,
+    timeUnit,
     includeWeekends,
     includeSaturdays,
     includeSundays,
@@ -32,11 +87,11 @@ const DashboardDataSelectors = () => {
         <select
           onChange={(e) =>
             dispatch(
-              setGroupByUnit(e.target.value as MetricsTimeSeriesGroupByUnit)
+              setGroupByUnit(e.target.value as MetricsTimeSeriesTimeUnit)
             )
           }
           className="DashboardDataSelectors__input"
-          value={groupBy}
+          value={timeUnit}
         >
           <option value="DAY">Día</option>
           <option value="WEEK">Semana</option>
@@ -46,22 +101,36 @@ const DashboardDataSelectors = () => {
       <div className="DashboardDataSelectors__field_container">
         <label className="DashboardDataSelectors__field_label">Desde</label>
         <input
-          type="date"
+          type={getInputType(timeUnit)}
           className="DashboardDataSelectors__input"
-          value={format(startDate, 'yyyy-MM-dd')}
-          onChange={(e) => dispatch(setStartDate(parseISO(e.target.value)))}
+          value={format(startDate, getDateFormat(timeUnit))}
+          onChange={(e) => {
+            const startDate = getDateFromFormattedDate(
+              timeUnit,
+              e.target.value,
+              'START'
+            )
+            dispatch(setStartDate(startDate))
+          }}
         />
       </div>
       <div className="DashboardDataSelectors__field_container">
         <label className="DashboardDataSelectors__field_label">Hasta</label>
         <input
-          type="date"
+          type={getInputType(timeUnit)}
           className="DashboardDataSelectors__input"
-          value={format(endDate, 'yyyy-MM-dd')}
-          onChange={(e) => dispatch(setEndDate(parseISO(e.target.value)))}
+          value={format(endDate, getDateFormat(timeUnit))}
+          onChange={(e) => {
+            const endDate = getDateFromFormattedDate(
+              timeUnit,
+              e.target.value,
+              'END'
+            )
+            dispatch(setEndDate(endDate))
+          }}
         />
       </div>
-      {groupBy === 'DAY' && (
+      {timeUnit === 'DAY' && (
         <div className="DashboardDataSelectors__checkboxes_container">
           <div className="DashboardDataSelectors__checkbox_container">
             <input

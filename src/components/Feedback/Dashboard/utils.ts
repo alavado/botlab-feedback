@@ -1,11 +1,11 @@
 import { format } from 'date-fns'
 import { DailyMetrics } from '../../../api/hooks/useMetricsQuery'
-import { MetricsTimeSeriesGroupByUnit } from '../../../api/hooks/useMetricsTimeSeriesQuery'
+import { MetricsTimeSeriesTimeUnit } from '../../../api/hooks/useMetricsTimeSeriesQuery'
 import { utils, writeFile } from 'xlsx-js-style'
 import { ProgressMetric } from '../../../api/hooks/useMetricsProgressQuery'
 
 export const getDataGroupingXLabel = (
-  groupBy: MetricsTimeSeriesGroupByUnit
+  groupBy: MetricsTimeSeriesTimeUnit
 ): string => {
   switch (groupBy) {
     case 'DAY':
