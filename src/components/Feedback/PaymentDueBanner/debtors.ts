@@ -12,21 +12,13 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  Interclínica;          2023-04-11
-  Maitenes;          2023-04-11
   uandes;          2023-04-11
   Almendrales;          2023-04-11
   CEOLAConcepcion;          2023-04-11
-  CEOLAValdivia;          2023-04-11
-  Citymed;          2023-04-11
   CTMelipilla;          2023-04-11
-  Everest;          2023-04-11
   SantaBlanca;          2023-04-11
   YohananTherapeutes;          2023-04-11
   UTC;          2023-04-11
-  KinderSonrisa;          2023-04-11
-  Isamédica;          2023-04-11
-  Facelab;          2023-04-11
 `
 
 const debtors = debtorsData
