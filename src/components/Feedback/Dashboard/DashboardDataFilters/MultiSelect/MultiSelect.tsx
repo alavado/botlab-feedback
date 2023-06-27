@@ -7,6 +7,9 @@ import {
   MetricFilterByAppointmentProperty,
   MetricFilterByAppointmentPropertyKind,
 } from '../../../../../api/hooks/useMetricsFiltersQuery'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../../../redux/ducks'
+import { addFilter, removeFilter } from '../../../../../redux/ducks/dashboard'
 
 const MultiSelect = ({
   property,
@@ -15,17 +18,22 @@ const MultiSelect = ({
 }) => {
   const [selectorModalVisible, setSelectorModalVisible] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [selected, setSelected] = useState<string[]>([])
+  const { filters } = useSelector((state: RootState) => state.dashboard)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (selectorModalVisible) {
       inputRef.current?.focus()
     }
-  }, [selectorModalVisible, selected])
+  }, [selectorModalVisible])
 
   if (property.kind === MetricFilterByAppointmentPropertyKind.FREEFORM) {
     return null
   }
+
+  const filter =
+    filters !== 'NO_FILTERS' &&
+    filters.find((f) => f.property.id === property.id)
 
   return (
     <div className="MultiSelect">
@@ -54,21 +62,22 @@ const MultiSelect = ({
           })}
         >
           <div className="MultiSelect__freeform_input_container">
-            {selected.map((v) => (
-              <span className="MultiSelect__pill">
-                {v}{' '}
-                <button
-                  onClick={() => setSelected(selected.filter((x) => x !== v))}
-                >
-                  <Icon icon="mdi:close" />
-                </button>
-              </span>
-            ))}
+            {filter &&
+              filter.values.map((value) => (
+                <span className="MultiSelect__pill">
+                  {value}{' '}
+                  <button
+                    onClick={() => dispatch(removeFilter({ property, value }))}
+                  >
+                    <Icon icon="mdi:close" />
+                  </button>
+                </span>
+              ))}
 
             <input
               className="MultiSelect__freeform_input"
               placeholder={
-                selected.length === 0 ? 'Selecciona una o más opciones' : ''
+                filters === 'NO_FILTERS' ? 'Selecciona una o más opciones' : ''
               }
               type="text"
               ref={inputRef}
@@ -80,12 +89,12 @@ const MultiSelect = ({
                 <input
                   type="checkbox"
                   value={value}
-                  checked={selected.includes(value)}
+                  checked={filter && filter.values.includes(value)}
                   onChange={(e) => {
                     if (e.target.checked) {
-                      setSelected([...selected, e.target.value as string])
+                      dispatch(addFilter({ property, value }))
                     } else {
-                      setSelected(selected.filter((v) => v !== e.target.value))
+                      dispatch(removeFilter({ property, value }))
                     }
                   }}
                 />{' '}

@@ -1,10 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { addDays } from 'date-fns'
 import { MetricsTimeSeriesTimeUnit } from '../../api/hooks/useMetricsTimeSeriesQuery'
-import {
-  MetricFilterByAppointmentProperty,
-  MetricFilterByAppointmentPropertyKind,
-} from '../../api/hooks/useMetricsFiltersQuery'
+import { MetricFilterByAppointmentProperty } from '../../api/hooks/useMetricsFiltersQuery'
+import _ from 'lodash'
 
 export type DashboardFilter = {
   property: MetricFilterByAppointmentProperty
@@ -18,7 +16,7 @@ interface DashboardState {
   includeSaturdays: boolean
   includeSundays: boolean
   timeUnit: MetricsTimeSeriesTimeUnit
-  filters: DashboardFilter[]
+  filters: DashboardFilter[] | 'NO_FILTERS'
 }
 
 const initialGrouping = 'DAY'
@@ -33,7 +31,7 @@ const Dashboard = createSlice({
     includeSaturdays: true,
     includeSundays: true,
     timeUnit: initialGrouping,
-    filters: [],
+    filters: 'NO_FILTERS',
   } as DashboardState,
   reducers: {
     setStartDate(state, action: PayloadAction<Date>) {
@@ -63,27 +61,25 @@ const Dashboard = createSlice({
       action: PayloadAction<{
         property: MetricFilterByAppointmentProperty
         value: string
-        multiLevel: boolean
       }>
     ) {
-      const { property, value, multiLevel } = action.payload
-      const stateFilter = state.filters.find(
-        (f) => f.property.id === property.id
-      )
-      if (!stateFilter) {
-        state.filters.push({
-          property,
-          values: [value],
-        })
+      const { property, value } = action.payload
+      if (state.filters === 'NO_FILTERS') {
+        state.filters = [
+          {
+            property,
+            values: [value],
+          },
+        ]
       } else {
-        if (property.kind === MetricFilterByAppointmentPropertyKind.LEVELS) {
-          if (multiLevel) {
-            stateFilter.values.push(value)
-          } else {
-            stateFilter.values = [value]
-          }
+        const filter = state.filters.find((f) => f.property.id === property.id)
+        if (filter) {
+          filter.values.push(value)
         } else {
-          stateFilter.values = [value]
+          state.filters.push({
+            property,
+            values: [value],
+          })
         }
       }
     },
@@ -94,35 +90,32 @@ const Dashboard = createSlice({
         value: string
       }>
     ) {
+      if (state.filters === 'NO_FILTERS') {
+        return
+      }
       const { property, value } = action.payload
       const filter = state.filters.find((f) => f.property.id === property.id)
-      if (filter) {
-        if (
-          filter.property.kind === MetricFilterByAppointmentPropertyKind.LEVELS
-        ) {
-          state.filters = [
-            ...state.filters,
-            {
-              property,
-              values: filter.values.filter((v) => v !== value),
-            },
-          ]
-        } else {
-          state.filters = state.filters.filter(
-            (f) => f.property.id !== property.id
-          )
-        }
+      if (!filter) {
+        return
       }
-    },
-    clearFilter(
-      state,
-      action: PayloadAction<{
-        property: MetricFilterByAppointmentProperty
-      }>
-    ) {
-      state.filters = state.filters.filter(
-        (f) => f.property.id !== action.payload.property.id
-      )
+      const valuesWithoutOldValues = filter.values.filter((v) => v !== value)
+      if (_.isEmpty(valuesWithoutOldValues)) {
+        state.filters = state.filters.filter(
+          (f) => f.property.id !== property.id
+        )
+        if (_.isEmpty(state.filters)) {
+          state.filters = 'NO_FILTERS'
+        }
+        return
+      }
+      const filterWithoutValue: DashboardFilter = {
+        property,
+        values: filter.values.filter((v) => v !== value),
+      }
+      state.filters = [
+        ...state.filters.filter((f) => f.property.id !== property.id),
+        filterWithoutValue,
+      ]
     },
   },
 })
@@ -136,7 +129,6 @@ export const {
   setGroupByUnit,
   addFilter,
   removeFilter,
-  clearFilter,
 } = Dashboard.actions
 
 export default Dashboard.reducer

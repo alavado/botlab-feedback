@@ -4,7 +4,7 @@ import ProgressDonut from './ProgressDonut'
 import DownloadDashboardDataButton from './DownloadDashboardDataButton/DownloadDashboardDataButton'
 import DashboardDataSelectors from './DashboardDataSelectors/DashboardDataSelectors'
 import './Dashboard.css'
-import DashboardDataFilters2 from './DashboardDataFilters2/DashboardDataFilters2'
+import DashboardDataFilters from './DashboardDataFilters/DashboardDataFilters'
 
 const Dashboard = () => {
   return (
@@ -18,7 +18,7 @@ const Dashboard = () => {
       <div className="Dashboard__container">
         <div className="Dashboard__sidebar">
           <DashboardDataSelectors />
-          <DashboardDataFilters2 />
+          <DashboardDataFilters />
           <DownloadDashboardDataButton />
         </div>
         <div className="Dashboard__top_charts">

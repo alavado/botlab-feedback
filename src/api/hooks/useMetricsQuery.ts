@@ -30,7 +30,12 @@ const useMetricsQuery = ({
     ['metrics', clientId, startStr, endStr, filters],
     async () => {
       const { data } = await axios.get(
-        buildMetricsURL({ clientId, start: startStr, end: endStr, filters })
+        buildMetricsURL({
+          clientId,
+          start: startStr,
+          end: endStr,
+          filters: filters === 'NO_FILTERS' ? [] : filters,
+        })
       )
       if (_.isEmpty(data.citas)) {
         return []
@@ -72,7 +77,7 @@ const buildMetricsURL = ({
   params.append('end_date', end)
   filters.forEach((filter) => {
     if (!_.isEmpty(filter.values)) {
-      params.append(filter.property.id, filter.values[0])
+      filter.values.forEach((value) => params.append(filter.property.id, value))
     }
   })
   return url.toString()
