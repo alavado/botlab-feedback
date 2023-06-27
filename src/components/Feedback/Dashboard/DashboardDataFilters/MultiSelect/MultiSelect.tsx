@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'
 import { addFilter, removeFilter } from '../../../../../redux/ducks/dashboard'
+import { getHueForLabel } from './utils'
 
 const MultiSelect = ({
   property,
@@ -64,7 +65,12 @@ const MultiSelect = ({
           <div className="MultiSelect__freeform_input_container">
             {filter &&
               filter.values.map((value) => (
-                <span className="MultiSelect__pill">
+                <span
+                  className="MultiSelect__pill"
+                  style={{
+                    backgroundColor: `hsl(${getHueForLabel(value)}, 60%, 85%)`,
+                  }}
+                >
                   {value}{' '}
                   <button
                     onClick={() => dispatch(removeFilter({ property, value }))}
@@ -85,7 +91,7 @@ const MultiSelect = ({
           </div>
           <div className="MultiSelect__list">
             {property.values.map((value) => (
-              <label>
+              <label className="MultiSelect__list_element">
                 <input
                   type="checkbox"
                   value={value}
@@ -98,7 +104,14 @@ const MultiSelect = ({
                     }
                   }}
                 />{' '}
-                {value}
+                <span
+                  className="MultiSelect__list_value"
+                  style={{
+                    backgroundColor: `hsl(${getHueForLabel(value)}, 60%, 85%)`,
+                  }}
+                >
+                  {value}
+                </span>
               </label>
             ))}
           </div>
