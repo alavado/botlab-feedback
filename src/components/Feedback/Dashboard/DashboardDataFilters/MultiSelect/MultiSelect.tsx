@@ -10,7 +10,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'
 import { addFilter, removeFilter } from '../../../../../redux/ducks/dashboard'
-import { getHueForLabel } from './utils'
+import { getHueForLabel, getPillStyle } from './utils'
+import _ from 'lodash'
 
 const MultiSelect = ({
   property,
@@ -32,9 +33,10 @@ const MultiSelect = ({
     return null
   }
 
-  const filter =
-    filters !== 'NO_FILTERS' &&
-    filters.find((f) => f.property.id === property.id)
+  const propertyFilters =
+    filters === 'EVERYTHING'
+      ? []
+      : filters.filter((f) => f.property.id === property.id)
 
   return (
     <div className="MultiSelect">
@@ -63,27 +65,24 @@ const MultiSelect = ({
           })}
         >
           <div className="MultiSelect__freeform_input_container">
-            {filter &&
-              filter.values.map((value) => (
-                <span
-                  className="MultiSelect__pill"
-                  style={{
-                    backgroundColor: `hsl(${getHueForLabel(value)}, 60%, 85%)`,
-                  }}
+            {propertyFilters.map(({ value }) => (
+              <span className="MultiSelect__pill" style={getPillStyle(value)}>
+                {value}{' '}
+                <button
+                  onClick={() => dispatch(removeFilter({ property, value }))}
+                  title={`Remover "${value}"`}
                 >
-                  {value}{' '}
-                  <button
-                    onClick={() => dispatch(removeFilter({ property, value }))}
-                  >
-                    <Icon icon="mdi:close" />
-                  </button>
-                </span>
-              ))}
+                  <Icon icon="mdi:close" />
+                </button>
+              </span>
+            ))}
 
             <input
               className="MultiSelect__freeform_input"
               placeholder={
-                filters === 'NO_FILTERS' ? 'Selecciona una o más opciones' : ''
+                _.isEmpty(propertyFilters)
+                  ? 'Selecciona una o más opciones'
+                  : ''
               }
               type="text"
               ref={inputRef}
@@ -95,20 +94,19 @@ const MultiSelect = ({
                 <input
                   type="checkbox"
                   value={value}
-                  checked={filter && filter.values.includes(value)}
+                  checked={propertyFilters.some((f) => f.value === value)}
                   onChange={(e) => {
                     if (e.target.checked) {
                       dispatch(addFilter({ property, value }))
                     } else {
                       dispatch(removeFilter({ property, value }))
                     }
+                    inputRef.current?.focus()
                   }}
                 />{' '}
                 <span
                   className="MultiSelect__list_value"
-                  style={{
-                    backgroundColor: `hsl(${getHueForLabel(value)}, 60%, 85%)`,
-                  }}
+                  style={getPillStyle(value)}
                 >
                   {value}
                 </span>

@@ -35,7 +35,7 @@ const useMetricsQuery = ({
           clientId,
           start: startStr,
           end: endStr,
-          filters: filters === 'NO_FILTERS' ? [] : filters,
+          filters: filters === 'EVERYTHING' ? [] : filters,
         })
       )
       if (_.isEmpty(data.citas)) {
@@ -78,9 +78,7 @@ const buildMetricsURL = ({
   params.append('start_date', start)
   params.append('end_date', end)
   filters.forEach((filter) => {
-    if (!_.isEmpty(filter.values)) {
-      filter.values.forEach((value) => params.append(filter.property.id, value))
-    }
+    params.append(filter.property.id, filter.value)
   })
   return url.toString()
 }

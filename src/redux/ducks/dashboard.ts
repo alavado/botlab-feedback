@@ -6,7 +6,7 @@ import _ from 'lodash'
 
 export type DashboardFilter = {
   property: MetricFilterByAppointmentProperty
-  values: string[]
+  value: string
 }
 
 interface DashboardState {
@@ -16,7 +16,7 @@ interface DashboardState {
   includeSaturdays: boolean
   includeSundays: boolean
   timeUnit: MetricsTimeSeriesTimeUnit
-  filters: DashboardFilter[] | 'NO_FILTERS'
+  filters: DashboardFilter[] | 'EVERYTHING'
 }
 
 const initialGrouping = 'DAY'
@@ -31,7 +31,7 @@ const Dashboard = createSlice({
     includeSaturdays: true,
     includeSundays: true,
     timeUnit: initialGrouping,
-    filters: 'NO_FILTERS',
+    filters: 'EVERYTHING',
   } as DashboardState,
   reducers: {
     setStartDate(state, action: PayloadAction<Date>) {
@@ -64,23 +64,18 @@ const Dashboard = createSlice({
       }>
     ) {
       const { property, value } = action.payload
-      if (state.filters === 'NO_FILTERS') {
+      if (state.filters === 'EVERYTHING') {
         state.filters = [
           {
             property,
-            values: [value],
+            value,
           },
         ]
       } else {
-        const filter = state.filters.find((f) => f.property.id === property.id)
-        if (filter) {
-          filter.values.push(value)
-        } else {
-          state.filters.push({
-            property,
-            values: [value],
-          })
-        }
+        state.filters.push({
+          property,
+          value,
+        })
       }
     },
     removeFilter(
@@ -90,32 +85,19 @@ const Dashboard = createSlice({
         value: string
       }>
     ) {
-      if (state.filters === 'NO_FILTERS') {
+      if (state.filters === 'EVERYTHING') {
         return
       }
-      const { property, value } = action.payload
-      const filter = state.filters.find((f) => f.property.id === property.id)
-      if (!filter) {
-        return
+      const {
+        property: { id },
+        value,
+      } = action.payload
+      state.filters = state.filters.filter(
+        (f) => f.property.id !== id || f.value !== value
+      )
+      if (_.isEmpty(state.filters)) {
+        state.filters = 'EVERYTHING'
       }
-      const valuesWithoutOldValues = filter.values.filter((v) => v !== value)
-      if (_.isEmpty(valuesWithoutOldValues)) {
-        state.filters = state.filters.filter(
-          (f) => f.property.id !== property.id
-        )
-        if (_.isEmpty(state.filters)) {
-          state.filters = 'NO_FILTERS'
-        }
-        return
-      }
-      const filterWithoutValue: DashboardFilter = {
-        property,
-        values: filter.values.filter((v) => v !== value),
-      }
-      state.filters = [
-        ...state.filters.filter((f) => f.property.id !== property.id),
-        filterWithoutValue,
-      ]
     },
   },
 })
