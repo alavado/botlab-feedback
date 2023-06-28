@@ -4,7 +4,12 @@ import useMetricsQuery, { DailyMetrics } from './useMetricsQuery'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 
-export type ProgressMetric = 'TOTAL' | 'ANSWERED' | 'CONFIRMED' | 'CANCELLED'
+export type ProgressMetric =
+  | 'TOTAL'
+  | 'ANSWERED'
+  | 'CONFIRMED'
+  | 'CANCELLED'
+  | 'UNREACHABLE'
 
 type ProgressMetricData = {
   title: string
@@ -81,6 +86,12 @@ const useMetricsProgressQuery = ({
             metricKey: 'cancelled',
             label: 'Anuladas',
           })
+        case 'UNREACHABLE':
+          return buildProgressMetricData({
+            data: filteredMetricsData,
+            metricKey: 'unreachable',
+            label: 'Sin Whatsapp',
+          })
         default:
           return {
             title: '',
@@ -114,7 +125,7 @@ const buildProgressMetricData = ({
   label,
 }: {
   data: DailyMetrics[]
-  metricKey: 'total' | 'answered' | 'confirmed' | 'cancelled'
+  metricKey: 'total' | 'answered' | 'confirmed' | 'cancelled' | 'unreachable'
   label: string
 }): ProgressMetricData => {
   const metricCount = data.reduce(

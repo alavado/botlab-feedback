@@ -106,6 +106,14 @@ const TimeSeriesChart = () => {
             pointHitRadius: 25,
             borderWidth: 4,
           },
+          {
+            label: 'Sin Whatsapp',
+            data: data.map((d: DailyMetrics) => d.unreachable),
+            borderColor: getMetricHexColor('UNREACHABLE'),
+            backgroundColor: getMetricHexColor('UNREACHABLE'),
+            pointHitRadius: 25,
+            borderWidth: 4,
+          },
         ],
       }}
     />

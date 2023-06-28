@@ -30,6 +30,8 @@ export const getMetricHexColor = (metric: ProgressMetric): string => {
       return '#57f6dc'
     case 'CANCELLED':
       return '#f6a457'
+    case 'UNREACHABLE':
+      return '#f66257'
     default:
       return '#ff00ff'
   }

@@ -54,6 +54,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
               answered: 0,
               cancelled: 0,
               confirmed: 0,
+              unreachable: 0,
             })
           }
           const i = weeklyData.findIndex((w) => isSameDay(w.date, weekStart))
@@ -75,6 +76,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
               answered: 0,
               cancelled: 0,
               confirmed: 0,
+              unreachable: 0,
             })
           }
           const i = monthlyData.findIndex((m) => isSameDay(m.date, monthStart))

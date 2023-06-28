@@ -26,6 +26,7 @@ const Dashboard = () => {
           <ProgressDonut metric="ANSWERED" />
           <ProgressDonut metric="CONFIRMED" />
           <ProgressDonut metric="CANCELLED" />
+          <ProgressDonut metric="UNREACHABLE" />
         </div>
         <div className="Dashboard__chart_container">
           <TimeSeriesChart />
