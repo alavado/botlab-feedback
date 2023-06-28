@@ -45,8 +45,8 @@ const useMetricsQuery = ({
           date: parseISO(d.fecha_cita),
           total: d.carga || 0,
           answered: d.respuesta || 0,
-          confirmed: d.confirma || 0,
-          cancelled: d.anula || 0,
+          confirmed: d.confirmadas || 0,
+          cancelled: d.canceladas || 0,
         })
       )
       return fillInEmptyDays({ start, end, counts })
