@@ -6,6 +6,8 @@ export const getHueForLabel = (label: string): Number => {
 }
 
 export const getPillStyle = (value: string) => ({
-  backgroundColor: `hsl(${getHueForLabel(value)}, 70%, 95%)`,
-  border: `1px solid hsl(${getHueForLabel(value)}, 70%, 85%)`,
+  // backgroundColor: `hsl(${getHueForLabel(value)}, 70%, 95%)`,
+  // border: `1px solid hsl(${getHueForLabel(value)}, 70%, 85%)`,
+  backgroundColor: `hsl(250, 70%, 95%)`,
+  border: `1px solid hsl(250, 70%, 85%)`,
 })

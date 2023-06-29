@@ -1,9 +1,12 @@
 import { Icon } from '@iconify/react'
 import { useEffect, useRef, useState } from 'react'
-import { MetricFilterByAppointmentProperty } from '../../../../../api/hooks/useMetricsFiltersQuery'
+import {
+  MetricFilterByAppointmentProperty,
+  MetricFilterByAppointmentPropertyKind,
+} from '../../../../../api/hooks/useMetricsFiltersQuery'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'
-import { removeFilter } from '../../../../../redux/ducks/dashboard'
+import { addFilter, removeFilter } from '../../../../../redux/ducks/dashboard'
 import MultiSelectList from './MultiSelectList/MultiSelectList'
 import MultiSelectPill from './MultiSelectPill/MultiSelectPill'
 import _ from 'lodash'
@@ -17,19 +20,32 @@ const MultiSelect = ({
 }) => {
   const [selectorModalVisible, setSelectorModalVisible] = useState(false)
   const { filters } = useSelector((state: RootState) => state.dashboard)
+  const [localTextFilter, setLocalTextFilter] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useDispatch()
-
-  const propertyFilters =
-    filters === 'EVERYTHING'
-      ? []
-      : filters.filter((f) => f.property.id === property.id)
 
   useEffect(() => {
     if (selectorModalVisible) {
       inputRef.current?.focus()
     }
   }, [selectorModalVisible])
+
+  if (property.kind === MetricFilterByAppointmentPropertyKind.FREEFORM) {
+    return null
+  }
+
+  const propertyFilters =
+    filters === 'EVERYTHING'
+      ? []
+      : filters.filter((f) => f.property.id === property.id)
+
+  const filteredValues = property.values.filter(
+    (v) =>
+      !propertyFilters.some((f) => f.value === v) &&
+      v
+        .toLocaleLowerCase('de-DE')
+        .includes(localTextFilter.toLocaleLowerCase('de-ES'))
+  )
 
   return (
     <div className="MultiSelect">
@@ -62,13 +78,32 @@ const MultiSelect = ({
             }
             type="text"
             ref={inputRef}
+            value={localTextFilter}
+            onChange={(e) => setLocalTextFilter(e.target.value)}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                setLocalTextFilter('')
+                if (_.isEmpty(filteredValues)) {
+                  return
+                }
+                dispatch(addFilter({ property, value: filteredValues[0] }))
+              }
+            }}
           />
         </div>
       </div>
       <MultiSelectList
-        onOutsideClick={() => setSelectorModalVisible(false)}
         property={property}
-        onValueAdded={() => inputRef.current?.focus()}
+        values={filteredValues}
+        onOutsideClick={() => setSelectorModalVisible(false)}
+        onAddFilter={({ value }: { value: string }) => {
+          dispatch(addFilter({ property, value }))
+          setLocalTextFilter('')
+          inputRef.current?.focus()
+        }}
+        onRemoveFilter={({ value }: { value: string }) => {
+          dispatch(removeFilter({ property, value }))
+        }}
         visible={selectorModalVisible}
       />
     </div>

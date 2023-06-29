@@ -60,4 +60,5 @@
 .Dashboard__chart_container {
   padding: 0 2.5rem 2.5rem 0.5rem;
   flex: 1;
+  position: relative;
 }

@@ -1,35 +1,28 @@
 import classNames from 'classnames'
 import './MultiSelectList.css'
 import OutsideClickHandler from 'react-outside-click-handler'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  addFilter,
-  removeFilter,
-} from '../../../../../../redux/ducks/dashboard'
-import {
-  MetricFilterByAppointmentProperty,
-  MetricFilterByAppointmentPropertyKind,
-} from '../../../../../../api/hooks/useMetricsFiltersQuery'
+import { useSelector } from 'react-redux'
+import { MetricFilterByAppointmentProperty } from '../../../../../../api/hooks/useMetricsFiltersQuery'
 import { getPillStyle } from '../utils'
 import { RootState } from '../../../../../../redux/ducks'
+import { Icon } from '@iconify/react'
 
 const MultiSelectList = ({
   property,
+  values,
   visible,
   onOutsideClick,
-  onValueAdded,
+  onAddFilter,
+  onRemoveFilter,
 }: {
   property: MetricFilterByAppointmentProperty
+  values: string[]
   visible: boolean
+  onAddFilter: ({ value }: { value: string }) => void
+  onRemoveFilter: ({ value }: { value: string }) => void
   onOutsideClick: (x: MouseEvent) => void
-  onValueAdded: () => void
 }) => {
-  const dispatch = useDispatch()
   const { filters } = useSelector((state: RootState) => state.dashboard)
-
-  if (property.kind === MetricFilterByAppointmentPropertyKind.FREEFORM) {
-    return null
-  }
 
   const propertyFilters =
     filters === 'EVERYTHING'
@@ -45,29 +38,34 @@ const MultiSelectList = ({
         })}
       >
         <div className="MultiSelectList">
-          {property.values.map((value) => (
-            <label className="MultiSelectList__element">
-              <input
-                type="checkbox"
-                value={value}
-                checked={propertyFilters.some((f) => f.value === value)}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    dispatch(addFilter({ property, value }))
-                  } else {
-                    dispatch(removeFilter({ property, value }))
-                  }
-                  onValueAdded()
-                }}
-              />{' '}
-              <span
-                className="MultiSelectList__value"
-                style={getPillStyle(value)}
-              >
-                {value}
-              </span>
-            </label>
-          ))}
+          {values.length > 0 ? (
+            values.map((value) => (
+              <label className="MultiSelectList__element">
+                <Icon icon="mdi:plus" />
+                <input
+                  type="checkbox"
+                  value={value}
+                  checked={propertyFilters.some((f) => f.value === value)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      onAddFilter({ value })
+                    } else {
+                      onRemoveFilter({ value })
+                    }
+                  }}
+                  style={{ display: 'none' }}
+                />{' '}
+                <span
+                  className="MultiSelectList__value"
+                  style={getPillStyle(value)}
+                >
+                  {value}
+                </span>
+              </label>
+            ))
+          ) : (
+            <p className="MultiSelectList__no_results">No hay resultados</p>
+          )}
         </div>
       </div>
     </OutsideClickHandler>

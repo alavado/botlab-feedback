@@ -77,6 +77,7 @@ const Dashboard = createSlice({
         property,
         value,
       })
+      state.filters = _.sortBy(state.filters, 'value')
     },
     removeFilter(
       state,
