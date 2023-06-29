@@ -1,6 +1,4 @@
 .MultiSelectList__container {
-  padding: 0.35rem 0.35rem;
-  padding-top: 0;
   border-radius: 0.25rem;
   border: 1px solid var(--color-bordes);
   position: absolute;
@@ -48,6 +46,7 @@
   display: flex;
   align-items: center;
   gap: 0.2rem;
+  padding: 0.25rem;
 }
 
 .MultiSelectList__element:hover {

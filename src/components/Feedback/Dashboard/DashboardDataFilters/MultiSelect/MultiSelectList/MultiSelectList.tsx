@@ -41,7 +41,7 @@ const MultiSelectList = ({
           {values.length > 0 ? (
             values.map((value) => (
               <label className="MultiSelectList__element">
-                <Icon icon="mdi:plus" />
+                <Icon icon="mdi:plus" style={{ opacity: 0.65 }} />
                 <input
                   type="checkbox"
                   value={value}

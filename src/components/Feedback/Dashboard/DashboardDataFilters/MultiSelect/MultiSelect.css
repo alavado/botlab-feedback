@@ -21,7 +21,7 @@
   position: sticky;
   width: 100%;
   top: 0;
-  background-color: rgba(245, 245, 245);
+  background-color: var(--color-fondo);
   gap: 0.1rem;
   padding: 0.1rem;
   border: 1px solid var(--color-bordes);
@@ -34,7 +34,7 @@
   font-size: 0.5rem;
   padding: 0.2rem;
   flex: 1;
-  background-color: rgba(245, 245, 245);
+  background-color: var(--color-fondo);
   border: none;
   outline: none;
   display: block;
