@@ -16,7 +16,6 @@ const debtorsData = `
   Citymed;          2023-04-11
   Facelab;          2023-04-11
   Interclínica;          2023-04-11
-  Isamédica;          2023-04-11
   Maitenes;          2023-04-11
   KinderSonrisa;          2023-04-11
 `
