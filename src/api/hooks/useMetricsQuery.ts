@@ -15,17 +15,13 @@ export type DailyMetrics = {
   unreachable: number
 }
 
-const useMetricsQuery = ({
-  start,
-  end,
-}: {
-  start: Date
-  end: Date
-}): UseQueryResult<DailyMetrics[], any> => {
+const useMetricsQuery = (): UseQueryResult<DailyMetrics[], any> => {
+  const { filters, start, end } = useSelector(
+    (state: RootState) => state.dashboard
+  )
   const startStr = format(start, 'yyyy-MM-dd')
   const endStr = format(end, 'yyyy-MM-dd')
   const { idCliente: clientId } = useSelector((state: RootState) => state.login)
-  const { filters } = useSelector((state: RootState) => state.dashboard)
 
   return useQuery<any, any, any>(
     ['metrics', clientId, startStr, endStr, filters],

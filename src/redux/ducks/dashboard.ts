@@ -1,5 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { addDays } from 'date-fns'
+import {
+  addDays,
+  addMonths,
+  endOfMonth,
+  endOfWeek,
+  isSameMonth,
+  startOfMonth,
+  startOfWeek,
+} from 'date-fns'
 import { MetricsTimeSeriesTimeUnit } from '../../api/hooks/useMetricsTimeSeriesQuery'
 import { MetricFilterByAppointmentProperty } from '../../api/hooks/useMetricsFiltersQuery'
 import _ from 'lodash'
@@ -54,7 +62,19 @@ const Dashboard = createSlice({
       state.includeWeekends = action.payload || state.includeSaturdays
     },
     setGroupByUnit(state, action: PayloadAction<MetricsTimeSeriesTimeUnit>) {
-      state.timeUnit = action.payload
+      const timeUnit = action.payload
+      state.timeUnit = timeUnit
+      if (timeUnit === 'MONTH') {
+        if (isSameMonth(state.start, state.end)) {
+          state.start = startOfMonth(addMonths(state.start, -1))
+        } else {
+          state.start = startOfMonth(state.start)
+        }
+        state.end = endOfMonth(state.end)
+      } else if (timeUnit === 'WEEK') {
+        state.start = startOfWeek(state.start, { weekStartsOn: 1 })
+        state.end = endOfWeek(state.end, { weekStartsOn: 1 })
+      }
     },
     addFilter(
       state,

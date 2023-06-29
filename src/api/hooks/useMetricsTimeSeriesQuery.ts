@@ -24,10 +24,7 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
   } = useSelector((state: RootState) => state.dashboard)
   const start = format(startDate, 'yyyy-MM-dd')
   const end = format(endDate, 'yyyy-MM-dd')
-  const { data: metricsData } = useMetricsQuery({
-    start: startDate,
-    end: endDate,
-  })
+  const { data: metricsData } = useMetricsQuery()
 
   return useQuery<any, any, any>(
     [
