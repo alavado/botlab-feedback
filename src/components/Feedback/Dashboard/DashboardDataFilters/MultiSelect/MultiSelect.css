@@ -1,6 +1,5 @@
 .MultiSelect {
   border-radius: 0.25rem;
-  cursor: pointer;
   position: relative;
 }
 
@@ -9,28 +8,11 @@
   flex-direction: column;
 }
 
-.MultiSelect__list_container {
-  padding: 0.35rem 0.35rem;
-  padding-top: 0;
-  border-radius: 0.25rem;
-  border: 1px solid var(--color-bordes);
-  position: absolute;
-  top: calc(100% + 0.1rem);
-  left: 0;
-  width: 100%;
-  background-color: var(--color-fondo);
-  max-height: 10rem;
-  overflow: auto;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.1s ease;
-  z-index: 2;
-  box-shadow: 0 0 0.25rem var(--color-sombras);
-}
-
-.MultiSelect__list_container--visible {
-  opacity: 1;
-  pointer-events: all;
+.MultiSelect__label {
+  padding-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
 }
 
 .MultiSelect__freeform_input_container {
@@ -39,10 +21,12 @@
   position: sticky;
   width: 100%;
   top: 0;
-  background-color: rgba(240, 240, 240);
+  background-color: rgba(245, 245, 245);
   gap: 0.1rem;
   padding: 0.1rem;
   border: 1px solid var(--color-bordes);
+  border-radius: 0.25rem;
+  cursor: pointer;
   max-width: 11rem;
 }
 
@@ -68,35 +52,15 @@
 }
 
 .MultiSelect__freeform_input {
-  font-size: 0.45rem;
+  font-size: 0.5rem;
   padding: 0.2rem;
   flex: 1;
-  background-color: rgba(240, 240, 240);
+  background-color: rgba(245, 245, 245);
   border: none;
   outline: none;
+  display: block;
 }
 
-.MultiSelect__list {
-  display: flex;
-  flex-direction: column;
-}
-
-.MultiSelect__list_element {
-  padding: 0.25rem 0;
-  cursor: pointer;
-  transition: all 0.1s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-}
-
-.MultiSelect__list_element:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-
-.MultiSelect__list_value {
-  padding: 0.15rem 0.25rem;
-  border-radius: 0.15rem;
-  font-size: 0.55rem;
-  color: rgba(0, 0, 0, 0.7);
+.MultiSelect__freeform_input--hidden {
+  display: none;
 }

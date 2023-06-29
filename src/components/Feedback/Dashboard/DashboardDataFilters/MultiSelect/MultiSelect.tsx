@@ -8,6 +8,7 @@ import { removeFilter } from '../../../../../redux/ducks/dashboard'
 import { getPillStyle } from './utils'
 import _ from 'lodash'
 import MultiSelectList from './MultiSelectList/MultiSelectList'
+import classNames from 'classnames'
 
 const MultiSelect = ({
   property,
@@ -32,17 +33,17 @@ const MultiSelect = ({
 
   return (
     <div className="MultiSelect">
-      <div
-        className="MultiSelect__button"
-        onClick={() => {
-          setSelectorModalVisible(!selectorModalVisible)
-        }}
-      >
-        <div>
-          <Icon icon="mdi:arrow-down-drop-circle" />
+      <div className="MultiSelect__button">
+        <div className="MultiSelect__label">
+          <Icon icon="mdi:filter" />
           {property.label}
         </div>
-        <div className="MultiSelect__freeform_input_container">
+        <div
+          className="MultiSelect__freeform_input_container"
+          onClick={() => {
+            setSelectorModalVisible(!selectorModalVisible)
+          }}
+        >
           {propertyFilters.map(({ value }) => (
             <span className="MultiSelect__pill" style={getPillStyle(value)}>
               {value}{' '}
@@ -55,9 +56,13 @@ const MultiSelect = ({
             </span>
           ))}
           <input
-            className="MultiSelect__freeform_input"
+            className={classNames({
+              MultiSelect__freeform_input: true,
+              'MultiSelect__freeform_input--hidden':
+                !selectorModalVisible && propertyFilters.length > 0,
+            })}
             placeholder={
-              _.isEmpty(propertyFilters) ? 'Selecciona una o más opciones' : ''
+              _.isEmpty(propertyFilters) ? `Buscar ${property.label}` : ''
             }
             type="text"
             ref={inputRef}

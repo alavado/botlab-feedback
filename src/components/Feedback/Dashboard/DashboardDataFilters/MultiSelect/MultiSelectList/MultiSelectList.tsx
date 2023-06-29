@@ -40,13 +40,13 @@ const MultiSelectList = ({
     <OutsideClickHandler disabled={!visible} onOutsideClick={onOutsideClick}>
       <div
         className={classNames({
-          MultiSelect__list_container: true,
-          'MultiSelect__list_container--visible': visible,
+          MultiSelectList__container: true,
+          'MultiSelectList__container--visible': visible,
         })}
       >
-        <div className="MultiSelect__list">
+        <div className="MultiSelectList">
           {property.values.map((value) => (
-            <label className="MultiSelect__list_element">
+            <label className="MultiSelectList__element">
               <input
                 type="checkbox"
                 value={value}
@@ -61,7 +61,7 @@ const MultiSelectList = ({
                 }}
               />{' '}
               <span
-                className="MultiSelect__list_value"
+                className="MultiSelectList__value"
                 style={getPillStyle(value)}
               >
                 {value}

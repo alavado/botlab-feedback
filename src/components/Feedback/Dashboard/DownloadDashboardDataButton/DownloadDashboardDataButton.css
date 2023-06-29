@@ -1,6 +1,6 @@
 .DownloadDashboardDataButton {
   margin-top: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   background: var(--color-principal);
   border: none;
   color: var(--color-texto-claro);

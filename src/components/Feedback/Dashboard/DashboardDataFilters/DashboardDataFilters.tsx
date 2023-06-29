@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react'
 import useMetricsFiltersQuery from '../../../../api/hooks/useMetricsFiltersQuery'
 import Loader from '../../../Loader/Loader'
 import './DashboardDataFilters.css'
@@ -8,10 +7,7 @@ const DashboardDataFilters = () => {
   const { data, isLoading } = useMetricsFiltersQuery()
   return (
     <div className="DashboardDataFilters">
-      <h3 className="DashboardDataFilters__title">
-        <Icon icon="mdi:filter" />
-        Filtros
-      </h3>
+      <h3 className="DashboardDataFilters__title">Filtros</h3>
       {isLoading ? (
         <Loader />
       ) : (
