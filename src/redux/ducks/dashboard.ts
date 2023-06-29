@@ -71,12 +71,12 @@ const Dashboard = createSlice({
             value,
           },
         ]
-      } else {
-        state.filters.push({
-          property,
-          value,
-        })
+        return
       }
+      state.filters.push({
+        property,
+        value,
+      })
     },
     removeFilter(
       state,
