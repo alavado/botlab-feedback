@@ -1,14 +1,14 @@
 import { Icon } from '@iconify/react'
-import './MultiSelect.css'
 import { useEffect, useRef, useState } from 'react'
 import { MetricFilterByAppointmentProperty } from '../../../../../api/hooks/useMetricsFiltersQuery'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'
 import { removeFilter } from '../../../../../redux/ducks/dashboard'
-import { getPillStyle } from './utils'
-import _ from 'lodash'
 import MultiSelectList from './MultiSelectList/MultiSelectList'
+import MultiSelectPill from './MultiSelectPill/MultiSelectPill'
+import _ from 'lodash'
 import classNames from 'classnames'
+import './MultiSelect.css'
 
 const MultiSelect = ({
   property,
@@ -33,32 +33,28 @@ const MultiSelect = ({
 
   return (
     <div className="MultiSelect">
-      <div className="MultiSelect__button">
+      <div className="MultiSelect__field">
         <div className="MultiSelect__label">
           <Icon icon="mdi:filter" />
           {property.label}
         </div>
         <div
-          className="MultiSelect__freeform_input_container"
+          className="MultiSelect__input_container"
           onClick={() => {
             setSelectorModalVisible(!selectorModalVisible)
           }}
         >
           {propertyFilters.map(({ value }) => (
-            <span className="MultiSelect__pill" style={getPillStyle(value)}>
-              {value}{' '}
-              <button
-                onClick={() => dispatch(removeFilter({ property, value }))}
-                title={`Remover "${value}"`}
-              >
-                <Icon icon="mdi:close" />
-              </button>
-            </span>
+            <MultiSelectPill
+              key={`MultiSelectPill-${value}`}
+              label={value}
+              onRemove={() => dispatch(removeFilter({ property, value }))}
+            />
           ))}
           <input
             className={classNames({
-              MultiSelect__freeform_input: true,
-              'MultiSelect__freeform_input--hidden':
+              MultiSelect__input: true,
+              'MultiSelect__input--hidden':
                 !selectorModalVisible && propertyFilters.length > 0,
             })}
             placeholder={
