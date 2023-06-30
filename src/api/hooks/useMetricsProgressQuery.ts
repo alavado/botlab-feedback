@@ -28,6 +28,7 @@ const useMetricsProgressQuery = ({
     end: endDate,
     includeSaturdays,
     includeSundays,
+    filters,
   } = useSelector((state: RootState) => state.dashboard)
   const { data: metricsData } = useMetricsQuery()
   const start = format(startDate, 'yyyy-MM-dd')
@@ -41,6 +42,7 @@ const useMetricsProgressQuery = ({
       metric,
       includeSaturdays,
       includeSundays,
+      filters,
     ],
     (): ProgressMetricData => {
       if (!metricsData) {
