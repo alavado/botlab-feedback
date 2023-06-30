@@ -61,7 +61,7 @@
 }
 
 .MultiSelectList__no_results {
-  padding-top: 0.5rem;
+  padding: 0.5rem;
   font-size: 0.5rem;
   opacity: 0.75;
 }
