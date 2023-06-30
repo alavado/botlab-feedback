@@ -29,8 +29,6 @@ const TimeSeriesChart = () => {
   const tickCount = 10
   const stepSize = maxTick / tickCount
 
-  console.log({ data })
-
   return (
     <Line
       options={{

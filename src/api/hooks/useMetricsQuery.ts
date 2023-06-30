@@ -26,7 +26,7 @@ const useMetricsQuery = (): UseQueryResult<DailyMetrics[], any> => {
   const { idCliente: clientId } = useSelector((state: RootState) => state.login)
 
   return useQuery<any, any, any>(
-    ['metrics', clientId, startStr, endStr, JSON.stringify(filters)],
+    ['metrics', clientId, startStr, endStr, filters],
     async () => {
       const { data } = await axios.get(
         buildMetricsURL({
