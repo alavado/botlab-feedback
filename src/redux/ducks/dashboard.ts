@@ -13,7 +13,7 @@ import { MetricFilterByAppointmentProperty } from '../../api/hooks/useMetricsFil
 import _ from 'lodash'
 
 export type DashboardFilter = {
-  property: MetricFilterByAppointmentProperty
+  propertyId: MetricFilterByAppointmentProperty['id']
   value: string
 }
 
@@ -79,22 +79,22 @@ const Dashboard = createSlice({
     addFilter(
       state,
       action: PayloadAction<{
-        property: MetricFilterByAppointmentProperty
+        propertyId: MetricFilterByAppointmentProperty['id']
         value: string
       }>
     ) {
-      const { property, value } = action.payload
+      const { propertyId, value } = action.payload
       if (state.filters === 'EVERYTHING') {
         state.filters = [
           {
-            property,
+            propertyId,
             value,
           },
         ]
         return
       }
       state.filters.push({
-        property,
+        propertyId,
         value,
       })
       state.filters = _.sortBy(state.filters, 'value')
@@ -102,19 +102,16 @@ const Dashboard = createSlice({
     removeFilter(
       state,
       action: PayloadAction<{
-        property: MetricFilterByAppointmentProperty
+        propertyId: MetricFilterByAppointmentProperty['id']
         value: string
       }>
     ) {
       if (state.filters === 'EVERYTHING') {
         return
       }
-      const {
-        property: { id },
-        value,
-      } = action.payload
+      const { propertyId, value } = action.payload
       state.filters = state.filters.filter(
-        (f) => f.property.id !== id || f.value !== value
+        (f) => f.propertyId !== propertyId || f.value !== value
       )
       if (_.isEmpty(state.filters)) {
         state.filters = 'EVERYTHING'

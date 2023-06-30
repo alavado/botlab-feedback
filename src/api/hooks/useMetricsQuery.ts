@@ -15,6 +15,8 @@ export type DailyMetrics = {
   unreachable: number
 }
 
+const staleTimeMinutes = 30
+
 const useMetricsQuery = (): UseQueryResult<DailyMetrics[], any> => {
   const { filters, start, end } = useSelector(
     (state: RootState) => state.dashboard
@@ -24,7 +26,7 @@ const useMetricsQuery = (): UseQueryResult<DailyMetrics[], any> => {
   const { idCliente: clientId } = useSelector((state: RootState) => state.login)
 
   return useQuery<any, any, any>(
-    ['metrics', clientId, startStr, endStr, filters],
+    ['metrics', clientId, startStr, endStr, JSON.stringify(filters)],
     async () => {
       const { data } = await axios.get(
         buildMetricsURL({
@@ -52,6 +54,7 @@ const useMetricsQuery = (): UseQueryResult<DailyMetrics[], any> => {
     {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
+      staleTime: staleTimeMinutes * 60_000,
     }
   )
 }
@@ -74,7 +77,7 @@ const buildMetricsURL = ({
   params.append('start_date', start)
   params.append('end_date', end)
   filters.forEach((filter) => {
-    params.append(filter.property.id, filter.value)
+    params.append(filter.propertyId, filter.value)
   })
   return url.toString()
 }

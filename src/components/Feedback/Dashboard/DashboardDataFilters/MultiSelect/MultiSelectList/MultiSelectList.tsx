@@ -8,14 +8,14 @@ import { RootState } from '../../../../../../redux/ducks'
 import { Icon } from '@iconify/react'
 
 const MultiSelectList = ({
-  property,
+  propertyId,
   values,
   visible,
   onOutsideClick,
   onAddFilter,
   onRemoveFilter,
 }: {
-  property: MetricFilterByAppointmentProperty
+  propertyId: MetricFilterByAppointmentProperty['id']
   values: string[]
   visible: boolean
   onAddFilter: ({ value }: { value: string }) => void
@@ -27,7 +27,7 @@ const MultiSelectList = ({
   const propertyFilters =
     filters === 'EVERYTHING'
       ? []
-      : filters.filter((f) => f.property.id === property.id)
+      : filters.filter((f) => f.propertyId === propertyId)
 
   return (
     <OutsideClickHandler disabled={!visible} onOutsideClick={onOutsideClick}>
@@ -40,7 +40,10 @@ const MultiSelectList = ({
         <div className="MultiSelectList">
           {values.length > 0 ? (
             values.map((value) => (
-              <label className="MultiSelectList__element">
+              <label
+                className="MultiSelectList__element"
+                key={`MultiSelectList__${propertyId}_${value}`}
+              >
                 <Icon icon="mdi:plus" style={{ opacity: 0.65 }} />
                 <input
                   type="checkbox"

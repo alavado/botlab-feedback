@@ -37,7 +37,7 @@ const MultiSelect = ({
   const propertyFilters =
     filters === 'EVERYTHING'
       ? []
-      : filters.filter((f) => f.property.id === property.id)
+      : filters.filter((f) => f.propertyId === property.id)
 
   const filteredValues = property.values.filter(
     (v) =>
@@ -60,11 +60,11 @@ const MultiSelect = ({
             setSelectorModalVisible(!selectorModalVisible)
           }}
         >
-          {propertyFilters.map(({ value }) => (
+          {propertyFilters.map(({ propertyId, value }) => (
             <MultiSelectPill
               key={`MultiSelectPill-${value}`}
               label={value}
-              onRemove={() => dispatch(removeFilter({ property, value }))}
+              onRemove={() => dispatch(removeFilter({ propertyId, value }))}
             />
           ))}
           <input
@@ -86,23 +86,28 @@ const MultiSelect = ({
                 if (_.isEmpty(filteredValues)) {
                   return
                 }
-                dispatch(addFilter({ property, value: filteredValues[0] }))
+                dispatch(
+                  addFilter({
+                    propertyId: property.id,
+                    value: filteredValues[0],
+                  })
+                )
               }
             }}
           />
         </div>
       </div>
       <MultiSelectList
-        property={property}
+        propertyId={property.id}
         values={filteredValues}
         onOutsideClick={() => setSelectorModalVisible(false)}
         onAddFilter={({ value }: { value: string }) => {
-          dispatch(addFilter({ property, value }))
+          dispatch(addFilter({ propertyId: property.id, value }))
           setLocalTextFilter('')
           inputRef.current?.focus()
         }}
         onRemoveFilter={({ value }: { value: string }) => {
-          dispatch(removeFilter({ property, value }))
+          dispatch(removeFilter({ propertyId: property.id, value }))
         }}
         visible={selectorModalVisible}
       />
