@@ -71,7 +71,7 @@ const BarraLateral = () => {
             <div className="BarraLateral__nombre_seccion">Búsqueda</div>
           </NavLink>
         )}
-        {!isLabeler && (
+        {!isLabeler && cuenta?.endsWith('_cero') && (
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"

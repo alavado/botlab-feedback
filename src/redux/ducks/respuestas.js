@@ -10,7 +10,13 @@ export const normalizar = (s) =>
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
 
-const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
+const funcionFiltro = (
+  r,
+  nombreHeader,
+  terminoNormalizado,
+  idEncuesta,
+  calceExacto = false
+) => {
   const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(
     (t) => t.nombre === nombreHeader
   )
@@ -25,6 +31,9 @@ const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
     }
   }
   if (nombreHeader === 'sucursal_name') {
+    return r.respuestaNormalizada[nombreHeader] === terminoNormalizado
+  }
+  if (calceExacto) {
     return r.respuestaNormalizada[nombreHeader] === terminoNormalizado
   }
   return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
@@ -222,7 +231,8 @@ const sliceRespuestas = createSlice({
     agregaFiltro(state, action) {
       const { busqueda, nombreHeader, textoHeader, idEncuesta, opciones } =
         action.payload
-      const { filtroImplicito, titulo, temporal, mismaColumna } = opciones || {}
+      const { filtroImplicito, calceExacto, titulo, temporal, mismaColumna } =
+        opciones || {}
       const terminoNormalizado = normalizar(busqueda)
       const filtro = {
         headers: [nombreHeader],
@@ -233,7 +243,13 @@ const sliceRespuestas = createSlice({
         oculto: filtroImplicito,
         temporal,
         f: (r) =>
-          funcionFiltro(r, nombreHeader, terminoNormalizado, idEncuesta),
+          funcionFiltro(
+            r,
+            nombreHeader,
+            terminoNormalizado,
+            idEncuesta,
+            calceExacto
+          ),
       }
       const indiceFiltro = state.filtros.findIndex((f) =>
         f.headers.every((h) => h === nombreHeader)
