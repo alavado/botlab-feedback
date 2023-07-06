@@ -14,7 +14,6 @@ type Debtor = {
 const debtorsData = `
   NuevaPanoramica; 2023-07-12
   YohananTherapeutes;  2023-07-12
-  Vitasalud;  2023-07-12
   Vitalia;  2023-07-12
   Vitales;  2023-07-12
   Visum;  2023-07-12
@@ -36,14 +35,11 @@ const debtorsData = `
   FARR; 2023-07-12
   EzioChiappe; 2023-07-12
   Everest;  2023-07-12
-  Elquivision; 2023-07-12
   CTMelipilla;  2023-07-12
   CORE; 2023-07-12
   COP;  2023-07-12
-  Clinica Astra;  2023-07-12
   Clinyco;  2023-07-12
   Citymed;  2023-07-12
-  CEOLAVina; 2023-07-12
   CEOLAValdivia; 2023-07-12
   CEOLATemuco; 2023-07-12
   CEOLALaSerena;  2023-07-12
