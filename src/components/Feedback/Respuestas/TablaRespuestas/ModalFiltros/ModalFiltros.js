@@ -162,6 +162,7 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
                         idEncuesta: idEncuestaSeleccionada,
                         opciones: {
                           mismaColumna: true,
+                          calceExacto: true,
                         },
                       })
                     )
