@@ -81,6 +81,7 @@ const TimeSeriesChart = () => {
             backgroundColor: getMetricHexColor('TOTAL'),
             pointHitRadius: 25,
             borderWidth: 4,
+            tension: 0.2,
           },
           {
             label: 'Con respuesta',
@@ -89,6 +90,7 @@ const TimeSeriesChart = () => {
             backgroundColor: getMetricHexColor('ANSWERED'),
             pointHitRadius: 25,
             borderWidth: 4,
+            tension: 0.2,
           },
           {
             label: 'Confirmadas',
@@ -97,6 +99,7 @@ const TimeSeriesChart = () => {
             backgroundColor: getMetricHexColor('CONFIRMED'),
             pointHitRadius: 25,
             borderWidth: 4,
+            tension: 0.2,
           },
           {
             label: 'Anuladas',
@@ -105,6 +108,7 @@ const TimeSeriesChart = () => {
             backgroundColor: getMetricHexColor('CANCELLED'),
             pointHitRadius: 25,
             borderWidth: 4,
+            tension: 0.2,
           },
           {
             label: 'Sin Whatsapp',
@@ -113,6 +117,7 @@ const TimeSeriesChart = () => {
             backgroundColor: getMetricHexColor('UNREACHABLE'),
             pointHitRadius: 25,
             borderWidth: 4,
+            tension: 0.2,
           },
         ],
       }}

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
   addDays,
   addMonths,
+  addWeeks,
   endOfMonth,
   endOfWeek,
   isSameMonth,
@@ -27,18 +28,15 @@ interface DashboardState {
   filters: DashboardFilter[] | 'EVERYTHING'
 }
 
-const initialGrouping = 'DAY'
-const pastDaysInitialRange = 7
-
 const Dashboard = createSlice({
   name: 'Dashboard',
   initialState: {
-    start: addDays(new Date(), -pastDaysInitialRange),
-    end: new Date(),
+    start: startOfWeek(addWeeks(new Date(), -3)),
+    end: endOfWeek(addWeeks(new Date(), -1)),
     includeWeekends: true,
     includeSaturdays: true,
     includeSundays: true,
-    timeUnit: initialGrouping,
+    timeUnit: 'WEEK',
     filters: 'EVERYTHING',
   } as DashboardState,
   reducers: {
