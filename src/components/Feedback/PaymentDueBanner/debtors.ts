@@ -38,7 +38,6 @@ const debtorsData = `
   CTMelipilla;  2023-07-12
   CORE; 2023-07-12
   COP;  2023-07-12
-  Clinyco;  2023-07-12
   Citymed;  2023-07-12
   CEOLAValdivia; 2023-07-12
   CEOLATemuco; 2023-07-12
