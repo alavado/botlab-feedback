@@ -1,6 +1,4 @@
 .ProgressDonut {
-  height: 6.5rem;
-  width: 6.5rem;
   border-radius: 9in;
   display: flex;
   align-items: center;
@@ -10,23 +8,19 @@
   font-weight: 600;
   font-size: 0.9rem;
   --donut-batter-pipe-girth: 0.85rem;
-  box-shadow: 0 0 0 var(--donut-batter-pipe-girth) var(--donut-material);
+  --donut-radius: 3.25rem;
+  height: calc(2 * var(--donut-batter-pipe-girth) + 2 * var(--donut-radius));
+  width: calc(2 * var(--donut-batter-pipe-girth) + 2 * var(--donut-radius));
+  background: radial-gradient(
+      var(--color-fondo) 0 var(--donut-radius),
+      transparent 0
+    ),
+    conic-gradient(
+      var(--donut-material) calc(1% * var(--donut-leftover)),
+      var(--color-bordes) 0 100%
+    );
   white-space: nowrap;
   position: relative;
-}
-
-.ProgressDonut::before {
-  content: '';
-  top: calc(-1 * 1.1 * var(--donut-batter-pipe-girth));
-  left: calc(-1 * 1.1 * var(--donut-batter-pipe-girth));
-  width: calc(100% + 2 * 1.1 * var(--donut-batter-pipe-girth));
-  height: calc(100% + 2 * 1.1 * var(--donut-batter-pipe-girth));
-  background: conic-gradient(
-    transparent var(--donut-leftover),
-    var(--color-fondo) 0 100%
-  );
-  position: absolute;
-  z-index: 1;
 }
 
 .ProgressDonut__title {
