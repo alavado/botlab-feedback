@@ -31,7 +31,7 @@ const tags = {
     texto: 'Sí',
     titulo: 'Confirmaciones',
     icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--no',
+    clase: 'TagRespuesta TagRespuesta--si',
     color: 'var(--color-si)',
   },
   'PHONE:NO': {
