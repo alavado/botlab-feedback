@@ -25,9 +25,11 @@ import SingleAlertView from './SingleAlertView/SingleAlertView'
 import Dashboard from './Dashboard'
 import DashboardLegacy from './DashboardLegacy/DashboardLegacy'
 import Interactions from './Interactions'
+import useDebtorsQuery from '../../api/hooks/useDebtorsQuery'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
+  // const { data } = useDebtorsQuery()
   const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
   const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(
     (state) => state.respuestas
