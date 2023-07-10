@@ -27,14 +27,11 @@ const debtorsData = `
   EzioChiappe; 2023-07-12
   Everest;  2023-07-12
   CTMelipilla;  2023-07-12
-  CORE; 2023-07-12
   COP;  2023-07-12
   CEOLAValdivia; 2023-07-12
   CEOLATemuco; 2023-07-12
   CEOLALaSerena;  2023-07-12
   CEOLAConcepcion; 2023-07-12
-  BrisasSalud; 2023-07-12
-  Avaria; 2023-07-12
   Almendrales;  2023-07-12
 `
 
