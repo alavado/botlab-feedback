@@ -24,7 +24,6 @@ const debtorsData = `
   Isamedica;  2023-07-12
   IntegralLinares; 2023-07-12
   FARR; 2023-07-12
-  EzioChiappe; 2023-07-12
   Everest;  2023-07-12
   CTMelipilla;  2023-07-12
   COP;  2023-07-12
