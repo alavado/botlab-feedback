@@ -12,22 +12,13 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  NuevaPanoramica; 2023-07-12
   YohananTherapeutes;  2023-07-12
   Vitalia;  2023-07-12
-  Vitales;  2023-07-12
   Visum;  2023-07-12
   UTC;  2023-07-12
   SonrieArica; 2023-07-12
-  SGFertility; 2023-07-12
-  SantaCatalina; 2023-07-12
   SantaBlanca; 2023-07-12
-  Rao;  2023-07-12
   OYEDental; 2023-07-12
-  OrregoLuco;  2023-07-12
-  NucleoSalud; 2023-07-12
-  Medisis;  2023-07-12
-  Marchesani; 2023-07-12
   Maitentes;  2023-07-12
   KinderSonrisa; 2023-07-12
   Isamedica;  2023-07-12
@@ -38,7 +29,6 @@ const debtorsData = `
   CTMelipilla;  2023-07-12
   CORE; 2023-07-12
   COP;  2023-07-12
-  Citymed;  2023-07-12
   CEOLAValdivia; 2023-07-12
   CEOLATemuco; 2023-07-12
   CEOLALaSerena;  2023-07-12

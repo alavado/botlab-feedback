@@ -1,8 +1,4 @@
-import { format, parseISO } from 'date-fns'
 import { useQuery, UseQueryResult } from 'react-query'
-import { ReactionsAPIResponse } from '../types/responses'
-import { Comment, InteractionId } from '../types/domain'
-import { API_ROOT, get } from './utils'
 import axios from 'axios'
 
 const useDebtorsQuery = (): UseQueryResult<unknown> => {

@@ -31,37 +31,6 @@ export const juntarConfirmaYReagenda = (indiceConfirma, indiceReagenda) => {
   ]
 }
 
-const juntarConfirmaYReagendaAutomatico = (
-  indiceConfirma,
-  indiceReagenda,
-  indiceReagendaAuto
-) => {
-  return [
-    {
-      nombre: 'tc1',
-      texto: '¿Confirma?',
-      tipo: 'YESNO',
-      f: (r) => {
-        const confirma = r[indiceConfirma]
-        const reagenda = r[indiceReagenda]
-        if (reagenda?.tag === REAGENDA || reagenda?.tag === YES) {
-          return {
-            tag: REAGENDA,
-            text: `${confirma.text} / ${reagenda.text}`,
-          }
-        }
-        return reagenda?.tag ? reagenda : confirma
-      },
-    },
-    {
-      nombre: 'tc2',
-      texto: '¿Reagenda?',
-      tipo: 'OPEN',
-      f: (r) => r[indiceReagendaAuto],
-    },
-  ]
-}
-
 export const obtenerTagsCalculados = (idEncuesta) => {
   return (() => {
     const fechaCambioMapping = '2022-03-18'
