@@ -12,17 +12,13 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  YohananTherapeutes;  2023-07-12
   Vitalia;  2023-07-12
-  Visum;  2023-07-12
   UTC;  2023-07-12
   SonrieArica; 2023-07-12
   SantaBlanca; 2023-07-12
-  OYEDental; 2023-07-12
   Maitentes;  2023-07-12
   KinderSonrisa; 2023-07-12
   Isamedica;  2023-07-12
-  IntegralLinares; 2023-07-12
   FARR; 2023-07-12
   Everest;  2023-07-12
   CTMelipilla;  2023-07-12
