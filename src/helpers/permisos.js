@@ -38,6 +38,8 @@ export const tieneAccesoAUNREACHABLES = (cuenta) => {
     // Redsalud
     'sanasalud',
     'sanasalud_cero',
+    'norden',
+    'norden_cero',
   ]
   return !cuentasSinAcceso.includes(cuenta.toLowerCase())
 }
