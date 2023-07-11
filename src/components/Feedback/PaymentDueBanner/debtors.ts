@@ -28,6 +28,7 @@ const debtorsData = `
   CEOLALaSerena;  2023-07-12
   CEOLAConcepcion; 2023-07-12
   Almendrales;  2023-07-12
+  Citymed;  2023-07-12
 `
 
 const debtors = debtorsData
