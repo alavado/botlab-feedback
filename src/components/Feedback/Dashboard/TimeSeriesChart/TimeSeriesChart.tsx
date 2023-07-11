@@ -1,7 +1,7 @@
 import { Line } from 'react-chartjs-2'
 import './TimeSeriesChart.css'
 import { DailyMetrics } from '../../../../api/hooks/useMetricsQuery'
-import { format } from 'date-fns'
+import { endOfWeek, format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import Loader from '../../../Loader/Loader'
 import useDashboardTimeSeriesQuery from '../../../../api/hooks/useMetricsTimeSeriesQuery'
@@ -66,7 +66,10 @@ const TimeSeriesChart = () => {
         labels: data.map((d: DailyMetrics) => {
           switch (timeUnit) {
             case 'WEEK':
-              return 'Semana del ' + format(d.date, 'dd/MM')
+              return `Semana ${format(d.date, 'II')}: ${format(
+                d.date,
+                'd/M'
+              )} al ${format(endOfWeek(d.date, { weekStartsOn: 1 }), 'd/M')}`
             case 'MONTH':
               return format(d.date, 'MMMM', { locale: es })
             default:

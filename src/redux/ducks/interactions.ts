@@ -20,14 +20,14 @@ const getRangeFromWord = (word: RangeWord): Range => {
       }
     case 'THIS_WEEK':
       return {
-        start: startOfWeek(new Date()),
+        start: startOfWeek(new Date(), { weekStartsOn: 1 }),
         end: new Date(),
       }
     case 'LAST_WEEK':
       const lastWeek = addWeeks(new Date(), -1)
       return {
-        start: startOfWeek(lastWeek),
-        end: endOfWeek(lastWeek),
+        start: startOfWeek(lastWeek, { weekStartsOn: 1 }),
+        end: endOfWeek(lastWeek, { weekStartsOn: 1 }),
       }
     default:
       throw Error('Rango de fechas inválido')

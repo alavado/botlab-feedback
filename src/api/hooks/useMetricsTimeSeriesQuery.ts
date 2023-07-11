@@ -43,17 +43,17 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
       if (timeUnit === 'WEEK') {
         const weeklyData: DailyMetrics[] = []
         metricsData.forEach((day: DailyMetrics) => {
-          const weekStart = startOfWeek(day.date, { weekStartsOn: 1 })
-          if (!weeklyData.find((w) => isSameDay(w.date, weekStart))) {
+          const monday = startOfWeek(day.date, { weekStartsOn: 1 })
+          if (!weeklyData.find((w) => isSameDay(w.date, monday))) {
             weeklyData.push({
-              date: weekStart,
+              date: monday,
               total: 0,
               answered: 0,
               cancelled: 0,
               confirmed: 0,
             })
           }
-          const i = weeklyData.findIndex((w) => isSameDay(w.date, weekStart))
+          const i = weeklyData.findIndex((w) => isSameDay(w.date, monday))
           weeklyData[i].total += day.total
           weeklyData[i].answered += day.answered
           weeklyData[i].confirmed += day.confirmed

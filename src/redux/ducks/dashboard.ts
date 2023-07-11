@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
-  addDays,
   addMonths,
   addWeeks,
   endOfMonth,
@@ -31,8 +30,8 @@ interface DashboardState {
 const Dashboard = createSlice({
   name: 'Dashboard',
   initialState: {
-    start: startOfWeek(addWeeks(new Date(), -3)),
-    end: endOfWeek(addWeeks(new Date(), -1)),
+    start: startOfWeek(addWeeks(new Date(), -4), { weekStartsOn: 1 }),
+    end: endOfWeek(addWeeks(new Date(), -1), { weekStartsOn: 1 }),
     includeWeekends: true,
     includeSaturdays: true,
     includeSundays: true,

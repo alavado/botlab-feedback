@@ -45,12 +45,12 @@ export const getDateFromFormattedDate = (
       return endOfMonth(monthDate)
     case 'WEEK':
       const [year, week] = formattedDate.split('-W')
-      const weekDate = parse(week, 'II', new Date())
+      const weekDate = parse(week, 'II', new Date(), { weekStartsOn: 1 })
       const yearAndWeekDate = setYear(weekDate, Number(year))
       if (bound === 'START') {
-        startOfWeek(yearAndWeekDate)
+        return startOfWeek(yearAndWeekDate, { weekStartsOn: 1 })
       }
-      return endOfWeek(yearAndWeekDate)
+      return endOfWeek(yearAndWeekDate, { weekStartsOn: 1 })
     default:
       return parseISO(formattedDate)
   }
