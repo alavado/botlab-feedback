@@ -51,7 +51,6 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
               answered: 0,
               cancelled: 0,
               confirmed: 0,
-              unreachable: 0,
             })
           }
           const i = weeklyData.findIndex((w) => isSameDay(w.date, weekStart))
@@ -59,7 +58,6 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
           weeklyData[i].answered += day.answered
           weeklyData[i].confirmed += day.confirmed
           weeklyData[i].cancelled += day.cancelled
-          weeklyData[i].unreachable += day.unreachable
         })
         return weeklyData
       }
@@ -74,7 +72,6 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
               answered: 0,
               cancelled: 0,
               confirmed: 0,
-              unreachable: 0,
             })
           }
           const i = monthlyData.findIndex((m) => isSameDay(m.date, monthStart))
@@ -82,7 +79,6 @@ const useMetricsTimeSeriesQuery = (): UseQueryResult<DailyMetrics[], any> => {
           monthlyData[i].answered += day.answered
           monthlyData[i].confirmed += day.confirmed
           monthlyData[i].cancelled += day.cancelled
-          monthlyData[i].unreachable += day.unreachable
         })
         return monthlyData
       }

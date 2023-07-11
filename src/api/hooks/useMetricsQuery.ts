@@ -12,7 +12,6 @@ export type DailyMetrics = {
   answered: number
   confirmed: number
   cancelled: number
-  unreachable: number
 }
 
 const staleTimeMinutes = 30
@@ -46,7 +45,6 @@ const useMetricsQuery = (): UseQueryResult<DailyMetrics[], any> => {
           answered: d.respuesta || 0,
           confirmed: d.confirmadas || 0,
           cancelled: d.canceladas || 0,
-          unreachable: d.inalcanzables || 0,
         })
       )
       return fillInEmptyDays({ start, end, counts })
@@ -103,7 +101,6 @@ const fillInEmptyDays = ({
         answered: 0,
         confirmed: 0,
         cancelled: 0,
-        unreachable: 0,
       })
     }
     iterationDate = addDays(iterationDate, 1)
