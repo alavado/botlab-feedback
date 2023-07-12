@@ -41,6 +41,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--no',
     color: 'var(--color-no)',
   },
+  'PHONE:OUT': {
+    texto: 'Out',
+    titulo: 'Out',
+    icono: 'mdi:question-mark',
+    clase: 'TagRespuesta TagRespuesta--out',
+    color: 'var(--color-out)',
+  },
   FALLECIO_OTRO: {
     texto: 'No',
     titulo: 'Cancelaciones',
