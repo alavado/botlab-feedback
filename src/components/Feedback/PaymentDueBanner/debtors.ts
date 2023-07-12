@@ -19,7 +19,6 @@ const debtorsData = `
   Maitentes;  2023-07-12
   KinderSonrisa; 2023-07-12
   Isamedica;  2023-07-12
-  FARR; 2023-07-12
   Everest;  2023-07-12
   CTMelipilla;  2023-07-12
   COP;  2023-07-12
