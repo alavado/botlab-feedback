@@ -290,14 +290,14 @@ const tags = {
     texto: 'No',
     titulo: 'Paciente indica que ya cenceló su cita',
     icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--vacia',
+    clase: 'TagRespuesta TagRespuesta--no',
     color: '',
   },
   YA_CONFIRMO: {
     texto: 'Sí',
     titulo: 'Paciente indica que ya confirmó su cita',
     icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--vacia',
+    clase: 'TagRespuesta TagRespuesta--si',
     color: '',
   },
   CONTRADICCION: {
