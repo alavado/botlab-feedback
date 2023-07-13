@@ -12,7 +12,6 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  Vitalia;  2023-07-12
   UTC;  2023-07-12
   SonrieArica; 2023-07-12
   SantaBlanca; 2023-07-12
@@ -23,7 +22,6 @@ const debtorsData = `
   CTMelipilla;  2023-07-12
   COP;  2023-07-12
   CEOLAValdivia; 2023-07-12
-  CEOLATemuco; 2023-07-12
   CEOLALaSerena;  2023-07-12
   CEOLAConcepcion; 2023-07-12
   Almendrales;  2023-07-12
