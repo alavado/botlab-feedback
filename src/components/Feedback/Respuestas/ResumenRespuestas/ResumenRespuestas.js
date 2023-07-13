@@ -11,10 +11,10 @@ import { obtenerHeadersConTagsCalculados } from '../../../../helpers/tagsCalcula
 import useAnalytics from '../../../../hooks/useAnalytics'
 
 const tagsAMostrar = [
-  { tag: 'YES', alias: [] },
-  { tag: 'NO', alias: ['FALLECIO_OTRO'] },
+  { tag: 'YES', alias: ['PHONE:YES'] },
+  { tag: 'NO', alias: ['FALLECIO_OTRO', 'PHONE:NO'] },
   { tag: 'REAGENDA', alias: [] },
-  { tag: 'OUT', alias: [] },
+  { tag: 'OUT', alias: ['PHONE:OUT'] },
 ]
 
 const ResumenRespuestas = ({ cargando }) => {
