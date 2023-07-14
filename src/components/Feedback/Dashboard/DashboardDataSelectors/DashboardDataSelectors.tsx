@@ -12,6 +12,7 @@ import {
 import { MetricsTimeSeriesTimeUnit } from '../../../../api/hooks/useMetricsTimeSeriesQuery'
 import './DashboardDataSelectors.css'
 import { getDateFormat, getDateFromFormattedDate, getInputType } from './utils'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const DashboardDataSelectors = () => {
   const {
@@ -23,6 +24,7 @@ const DashboardDataSelectors = () => {
     includeSundays,
   } = useSelector((state: RootState) => state.dashboard)
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   return (
     <div className="DashboardDataSelectors">
@@ -31,11 +33,14 @@ const DashboardDataSelectors = () => {
           Agrupar por
         </label>
         <select
-          onChange={(e) =>
+          onChange={(e) => {
+            track('Feedback', 'Dashboard', 'setGroupByUnit', {
+              unit: e.target.value,
+            })
             dispatch(
               setGroupByUnit(e.target.value as MetricsTimeSeriesTimeUnit)
             )
-          }
+          }}
           className="DashboardDataSelectors__input"
           value={timeUnit}
         >
@@ -56,6 +61,7 @@ const DashboardDataSelectors = () => {
               e.target.value,
               'START'
             )
+            track('Feedback', 'Dashboard', 'setStartDate', { startDate })
             dispatch(setStartDate(startDate))
           }}
         />
@@ -72,6 +78,7 @@ const DashboardDataSelectors = () => {
               e.target.value,
               'END'
             )
+            track('Feedback', 'Dashboard', 'setEndDate', { endDate })
             dispatch(setEndDate(endDate))
           }}
         />

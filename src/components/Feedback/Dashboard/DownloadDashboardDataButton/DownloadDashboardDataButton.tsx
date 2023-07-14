@@ -5,10 +5,12 @@ import useMetricsQuery from '../../../../api/hooks/useMetricsQuery'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../redux/ducks'
 import Loader from '../../../Loader'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
 const DownloadDashboardDataButton = () => {
   const { data, isLoading } = useMetricsQuery()
   const { start, end } = useSelector((state: RootState) => state.dashboard)
+  const track = useAnalytics()
 
   if (!data) {
     return <Loader />
@@ -18,9 +20,10 @@ const DownloadDashboardDataButton = () => {
     <div className="DownloadDashboardDataButton">
       <button
         className="DownloadDashboardDataButton__main_button"
-        onClick={() =>
+        onClick={() => {
+          track('Feedback', 'Dashboard', 'downloadDashboardData')
           downloadDashboardData({ startDate: start, endDate: end, data })
-        }
+        }}
         title="Descargar datos en formato Excel"
         disabled={isLoading || !data}
       >
@@ -30,7 +33,10 @@ const DownloadDashboardDataButton = () => {
 
       <button
         className="DownloadDashboardDataButton__secondary_button"
-        onClick={downloadDashboardScreenshot}
+        onClick={() => {
+          track('Feedback', 'Dashboard', 'downloadDashboardScreenshot')
+          downloadDashboardScreenshot()
+        }}
         title="Descargar captura del dashboard"
         disabled={isLoading || !data}
       >
