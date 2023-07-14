@@ -45,6 +45,19 @@ export const tieneAccesoAUNREACHABLES = (cuenta) => {
   return !cuentasSinAcceso.includes(cuenta.toLowerCase())
 }
 
+export const tieneAccesoADashboard = (cuenta) => {
+  const cuentasConAcceso = [
+    // Redsalud
+    'nucleosalud',
+    'alemana',
+    'hospital_osorno',
+    'hospital_puerto_montt',
+  ]
+  return (
+    cuentasConAcceso.includes(cuenta.toLowerCase()) || cuenta.endsWith('_cero')
+  )
+}
+
 export const esRedSalud = (cuenta) => {
   return cuenta.indexOf('redsalud') >= 0
 }

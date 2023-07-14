@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import {
   tieneAccesoAAlertas,
   tieneAccesoAReportes,
+  tieneAccesoADashboard,
 } from '../../../helpers/permisos'
 import useAnalytics from '../../../hooks/useAnalytics'
 import AlertsCount from './AlertsCount'
@@ -71,7 +72,7 @@ const BarraLateral = () => {
             <div className="BarraLateral__nombre_seccion">Búsqueda</div>
           </NavLink>
         )}
-        {!isLabeler && cuenta?.endsWith('_cero') && (
+        {tieneAccesoADashboard(cuenta) && !isLabeler && (
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
