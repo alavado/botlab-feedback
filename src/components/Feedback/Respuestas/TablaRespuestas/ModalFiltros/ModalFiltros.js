@@ -82,8 +82,20 @@ const ModalFiltros = ({ i, header, activo, containerClass, esconder }) => {
   }
 
   const categoria = categorias.find((c) => c.propiedad === header.nombre)
-  const nivelesHeader =
+  let nivelesHeader =
     categoria?.niveles.filter((x) => categoria.esTag || x) || []
+
+  if (nivelesHeader.includes('YES') && nivelesHeader.includes('PHONE:YES')) {
+    nivelesHeader = nivelesHeader.filter((n) => n !== 'PHONE:YES')
+  }
+
+  if (nivelesHeader.includes('NO') && nivelesHeader.includes('PHONE:NO')) {
+    nivelesHeader = nivelesHeader.filter((n) => n !== 'PHONE:NO')
+  }
+
+  if (nivelesHeader.includes('OUT') && nivelesHeader.includes('PHONE:OUT')) {
+    nivelesHeader = nivelesHeader.filter((n) => n !== 'PHONE:OUT')
+  }
 
   return ReactDOM.createPortal(
     <div
