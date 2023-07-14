@@ -18,12 +18,10 @@ const debtorsData = `
   Maitentes;  2023-07-12
   KinderSonrisa; 2023-07-12
   Isamedica;  2023-07-12
-  Everest;  2023-07-12
   CTMelipilla;  2023-07-12
   COP;  2023-07-12
   CEOLAValdivia; 2023-07-12
   CEOLALaSerena;  2023-07-12
-  CEOLAConcepcion; 2023-07-12
   Almendrales;  2023-07-12
   Citymed;  2023-07-12
 `

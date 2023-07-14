@@ -35,7 +35,6 @@ export const tieneAccesoAAlertas = (cuenta) => {
 
 export const tieneAccesoAUNREACHABLES = (cuenta) => {
   const cuentasSinAcceso = [
-    // Redsalud
     'sanasalud',
     'sanasalud_cero',
     'norden',
@@ -47,7 +46,6 @@ export const tieneAccesoAUNREACHABLES = (cuenta) => {
 
 export const tieneAccesoADashboard = (cuenta) => {
   const cuentasConAcceso = [
-    // Redsalud
     'nucleosalud',
     'alemana',
     'hospital_osorno',
