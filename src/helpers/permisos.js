@@ -40,6 +40,7 @@ export const tieneAccesoAUNREACHABLES = (cuenta) => {
     'sanasalud_cero',
     'norden',
     'norden_cero',
+    'mega_admin_cero',
   ]
   return !cuentasSinAcceso.includes(cuenta.toLowerCase())
 }
