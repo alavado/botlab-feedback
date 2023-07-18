@@ -6,6 +6,10 @@ import { AlertType } from '../types/domain'
 
 const alertTypes = [
   {
+    id: 'Equivocado: Entrega número correcto',
+    name: 'Número equivocado: envía corrección',
+  },
+  {
     id: 'Número equivocado',
     name: 'Número equivocado',
   },
@@ -47,7 +51,11 @@ const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
   const { nombreUsuario } = useSelector((state: RootState) => state.login)
   return useQuery<AlertType[], any, any>('alertTypes', async () => {
     let filteredAlertTypes = alertTypes
-    if (nombreUsuario !== 'NucleoSalud' && nombreUsuario !== 'Sanasalud') {
+    if (
+      nombreUsuario !== 'NucleoSalud' &&
+      nombreUsuario !== 'Sanasalud' &&
+      nombreUsuario !== 'Interclínica'
+    ) {
       filteredAlertTypes = filteredAlertTypes.filter(
         (t) => t.id !== 'Derivación de examen o procedimiento'
       )

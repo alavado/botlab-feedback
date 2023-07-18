@@ -1,0 +1,48 @@
+.DownloadDashboardDataButton {
+  margin-top: auto;
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+  display: flex;
+}
+
+.DownloadDashboardDataButton__main_button {
+  flex: 1;
+  border: none;
+  color: var(--color-texto-claro);
+  background: var(--color-principal);
+  border-radius: 0.25rem 0 0 0.25rem;
+  font-size: 0.65rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.DownloadDashboardDataButton svg {
+  font-size: 1rem;
+}
+
+.DownloadDashboardDataButton__secondary_button {
+  display: flex;
+  align-items: center;
+  color: var(--color-texto-claro);
+  background: var(--color-principal);
+  border-radius: 0 0.25rem 0.25rem 0;
+  border: none;
+  border-left: 1px dotted var(--color-bordes);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.DownloadDashboardDataButton__main_button:hover,
+.DownloadDashboardDataButton__secondary_button:hover {
+  filter: brightness(110%);
+}
+
+.DownloadDashboardDataButton__main_button:active,
+.DownloadDashboardDataButton__secondary_button:active {
+  filter: brightness(130%);
+}

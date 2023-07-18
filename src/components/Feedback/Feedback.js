@@ -22,10 +22,14 @@ import { toggleDebugging } from '../../redux/ducks/cero'
 import PaymentDueBanner from './PaymentDueBanner/PaymentDueBanner'
 import PaymentDueModal from './PaymentDueModal/PaymentDueModal'
 import SingleAlertView from './SingleAlertView/SingleAlertView'
+import Dashboard from './Dashboard'
+import DashboardLegacy from './DashboardLegacy/DashboardLegacy'
 import Interactions from './Interactions'
+import useDebtorsQuery from '../../api/hooks/useDebtorsQuery'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
+  // const { data } = useDebtorsQuery()
   const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
   const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(
     (state) => state.respuestas
@@ -118,6 +122,12 @@ const Feedback = () => {
                 <Route path="/alertas">
                   <></>
                 </Route>
+                <Route path="/dashboard">
+                  <></>
+                </Route>
+                <Route path="/dashboard-legacy">
+                  <></>
+                </Route>
                 <Route path="/interacciones">
                   <></>
                 </Route>
@@ -153,6 +163,12 @@ const Feedback = () => {
                   </Route>
                   <Route exact path="/busqueda">
                     <Search />
+                  </Route>
+                  <Route path="/dashboard">
+                    <Dashboard />
+                  </Route>
+                  <Route path="/dashboard-legacy">
+                    <DashboardLegacy />
                   </Route>
                   <Route path="/exportar">
                     <ExportacionAvanzada />

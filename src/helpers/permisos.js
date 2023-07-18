@@ -35,11 +35,25 @@ export const tieneAccesoAAlertas = (cuenta) => {
 
 export const tieneAccesoAUNREACHABLES = (cuenta) => {
   const cuentasSinAcceso = [
-    // Redsalud
     'sanasalud',
     'sanasalud_cero',
+    'norden',
+    'norden_cero',
+    'mega_admin_cero',
   ]
   return !cuentasSinAcceso.includes(cuenta.toLowerCase())
+}
+
+export const tieneAccesoADashboard = (cuenta) => {
+  const cuentasConAcceso = [
+    'nucleosalud',
+    'alemana',
+    'hospital_osorno',
+    'hospital_puerto_montt',
+  ]
+  return (
+    cuentasConAcceso.includes(cuenta.toLowerCase()) || cuenta.endsWith('_cero')
+  )
 }
 
 export const esRedSalud = (cuenta) => {

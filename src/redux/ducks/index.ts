@@ -13,6 +13,7 @@ import { combineReducers } from 'redux'
 import search from './search'
 import alerts from './alerts'
 import comments from './comments'
+import dashboard from './dashboard'
 import interactions from './interactions'
 
 const rootReducer = combineReducers({
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   search,
   alerts,
   comments,
+  dashboard,
   interactions,
 })
 

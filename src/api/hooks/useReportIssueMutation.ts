@@ -51,6 +51,17 @@ const useReportIssueMutation = (): UseMutationResult<unknown, unknown> => {
           },
         ],
       })
+      await axios({
+        method: 'post',
+        url: 'https://eoyqyij8fcu0p4y.m.pipedream.net',
+        data: {
+          client: nombreUsuario,
+          service: nombreEncuestaSeleccionada,
+          description,
+          feedback_username: cuenta,
+          feedback_url: window.location.href,
+        },
+      })
       return result
     },
   })

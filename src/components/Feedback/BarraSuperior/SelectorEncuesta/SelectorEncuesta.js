@@ -129,9 +129,14 @@ const SelectorEncuesta = () => {
       })}
       onClick={() => setPopupActivo(path.indexOf('chat') < 0)}
     >
-      {['busqueda', 'uso', 'alertas', 'tutoriales', 'exportar'].some(
-        (x) => path.indexOf(x) >= 0
-      ) ? (
+      {[
+        'busqueda',
+        'uso',
+        'alertas',
+        'tutoriales',
+        'exportar',
+        'dashboard',
+      ].some((x) => path.indexOf(x) >= 0) ? (
         <>
           <Icon
             className="SelectorEncuesta__icono_empresa"

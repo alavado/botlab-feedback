@@ -10,6 +10,13 @@ import { obtenerHeaders } from '../../../../helpers/tablaRespuestas'
 import { obtenerHeadersConTagsCalculados } from '../../../../helpers/tagsCalculados'
 import useAnalytics from '../../../../hooks/useAnalytics'
 
+const tagsAMostrar = [
+  { tag: 'YES', alias: ['PHONE:YES'] },
+  { tag: 'NO', alias: ['FALLECIO_OTRO', 'PHONE:NO'] },
+  { tag: 'REAGENDA', alias: [] },
+  { tag: 'OUT', alias: ['PHONE:OUT'] },
+]
+
 const ResumenRespuestas = ({ cargando }) => {
   const { headers, idEncuestaSeleccionada } = useSelector(
     (state) => state.encuestas
@@ -27,13 +34,6 @@ const ResumenRespuestas = ({ cargando }) => {
     (h) => h.tipo === 'YESNO'
   )
   const track = useAnalytics()
-
-  const tagsAMostrar = [
-    { tag: 'YES', alias: [] },
-    { tag: 'NO', alias: ['FALLECIO_OTRO'] },
-    { tag: 'REAGENDA', alias: [] },
-    { tag: 'OUT', alias: [] },
-  ]
 
   const conteosTags = useMemo(() => {
     if (cargando) {
@@ -56,15 +56,31 @@ const ResumenRespuestas = ({ cargando }) => {
       : null
   }, [cargando, headersConTagsCalculados, headersOriginales, respuestas])
 
-  let total, conRespuesta, porcentaje
-  if (respuestas) {
-    total = respuestas.length
-    conRespuesta = Object.keys(conteosTags).reduce(
-      (prev, k) => prev + conteosTags[k],
-      0
-    )
-    porcentaje = (100 * conRespuesta) / total || 0
-  }
+  let { total, conRespuesta, porcentaje } = useMemo(() => {
+    if (respuestas) {
+      const primerHeaderYESNO = (
+        headersConTagsCalculados || headersOriginales
+      ).find((h) => h.tipo === 'YESNO')
+      if (!primerHeaderYESNO) {
+        return { total: 0, conRespuesta: 0, porcentaje: 0 }
+      } else {
+        let total = respuestas.length
+        let conRespuesta = respuestas.reduce((prev, respuesta) => {
+          const tagRespuesta = headersConTagsCalculados
+            ? primerHeaderYESNO.f(respuesta)?.tag
+            : respuesta[primerHeaderYESNO.nombre]?.tag
+          if (tagRespuesta && tagRespuesta !== 'UNREACHABLE') {
+            return prev + 1
+          }
+          return prev
+        }, 0)
+        let porcentaje = (100 * conRespuesta) / total || 0
+        return { total, conRespuesta, porcentaje }
+      }
+    } else {
+      return { total: 0, conRespuesta: 0, porcentaje: 0 }
+    }
+  }, [respuestas, headersConTagsCalculados, headersOriginales])
 
   return (
     <div className="ResumenRespuestas">

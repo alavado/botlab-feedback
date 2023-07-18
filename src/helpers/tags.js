@@ -31,7 +31,7 @@ const tags = {
     texto: 'Sí',
     titulo: 'Confirmaciones',
     icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--no',
+    clase: 'TagRespuesta TagRespuesta--si',
     color: 'var(--color-si)',
   },
   'PHONE:NO': {
@@ -40,6 +40,13 @@ const tags = {
     icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--no',
     color: 'var(--color-no)',
+  },
+  'PHONE:OUT': {
+    texto: 'Out',
+    titulo: 'Out',
+    icono: 'mdi:question-mark',
+    clase: 'TagRespuesta TagRespuesta--out',
+    color: 'var(--color-out)',
   },
   FALLECIO_OTRO: {
     texto: 'No',
@@ -283,14 +290,14 @@ const tags = {
     texto: 'No',
     titulo: 'Paciente indica que ya cenceló su cita',
     icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--vacia',
+    clase: 'TagRespuesta TagRespuesta--no',
     color: '',
   },
   YA_CONFIRMO: {
     texto: 'Sí',
     titulo: 'Paciente indica que ya confirmó su cita',
     icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--vacia',
+    clase: 'TagRespuesta TagRespuesta--si',
     color: '',
   },
   CONTRADICCION: {

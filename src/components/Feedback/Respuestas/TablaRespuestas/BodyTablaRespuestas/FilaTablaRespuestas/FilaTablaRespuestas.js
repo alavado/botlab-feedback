@@ -110,7 +110,14 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
                 className="FilaTablaRespuestas__contenedor_tag"
                 title={valorHeader.text}
               >
-                <TagRespuesta tag={valorHeader.tag} pregunta={texto} />
+                <TagRespuesta
+                  tag={valorHeader.tag}
+                  pregunta={texto}
+                  contactadoPorTelefono={
+                    respuestaManipulada.is_unreachable?.whatsapp &&
+                    !respuestaManipulada.is_unreachable?.phone
+                  }
+                />
               </span>
             ) : (
               <Scrambler tipo={nombre}>

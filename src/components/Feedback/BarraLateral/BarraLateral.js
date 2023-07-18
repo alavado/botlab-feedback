@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import {
   tieneAccesoAAlertas,
   tieneAccesoAReportes,
+  tieneAccesoADashboard,
 } from '../../../helpers/permisos'
 import useAnalytics from '../../../hooks/useAnalytics'
 import AlertsCount from './AlertsCount'
@@ -69,6 +70,17 @@ const BarraLateral = () => {
           >
             <Icon icon="mdi:search" />
             <div className="BarraLateral__nombre_seccion">Búsqueda</div>
+          </NavLink>
+        )}
+        {tieneAccesoADashboard(cuenta) && !isLabeler && (
+          <NavLink
+            className="BarraLateral__link"
+            activeClassName="BarraLateral__link--activo"
+            to="/dashboard"
+            onClick={() => track('Feedback', 'BarraLateral', 'verDashboard')}
+          >
+            <Icon icon="mdi:chart-areaspline" />
+            <div className="BarraLateral__nombre_seccion">Dashboard</div>
           </NavLink>
         )}
         {tieneAccesoAReportes(cuenta) && !isLabeler && (
