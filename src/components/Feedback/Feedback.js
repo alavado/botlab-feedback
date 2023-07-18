@@ -25,7 +25,6 @@ import SingleAlertView from './SingleAlertView/SingleAlertView'
 import Dashboard from './Dashboard'
 import DashboardLegacy from './DashboardLegacy/DashboardLegacy'
 import Interactions from './Interactions'
-import useDebtorsQuery from '../../api/hooks/useDebtorsQuery'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)

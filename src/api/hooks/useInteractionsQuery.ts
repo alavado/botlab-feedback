@@ -6,7 +6,13 @@ import {
   AnswersAPIResponse,
   AnswersAPIResponseRow,
 } from '../types/responses'
-import { API_ROOT, get, getInteractionTags, getStatusFromAnswersResponseRow, parseAPIDate } from './utils'
+import {
+  API_ROOT,
+  get,
+  getInteractionTags,
+  getStatusFromAnswersResponseRow,
+  parseAPIDate,
+} from './utils'
 import { addHours, format, parseISO } from 'date-fns'
 import _ from 'lodash'
 import { useRouteMatch } from 'react-router-dom'
@@ -29,16 +35,18 @@ const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
         return []
       }
       const { data }: { data: AnswersAPIResponse } = await get(url)
-      return _.sortBy(data.data.map((answer: AnswersAPIResponseRow): Interaction => {
-        const nAppointments = Number(answer.n_appointments || 1)
-        return nAppointments === 1
-          ? answerSingleAppointmentToInteraction(answer, serviceId)
-          : answerSingleAppointmentToInteraction(answer, serviceId)
-      }), (i) => i.appointments[0].datetime)
+      return _.sortBy(
+        data.data.map((answer: AnswersAPIResponseRow): Interaction => {
+          const nAppointments = Number(answer.n_appointments || 1)
+          return nAppointments === 1
+            ? answerSingleAppointmentToInteraction(answer, serviceId)
+            : answerSingleAppointmentToInteraction(answer, serviceId)
+        }),
+        (i) => i.appointments[0].datetime
+      )
     },
     {
-      refetchOnWindowFocus: false,
-      refetchInterval: 120_000,
+      refetchInterval: 60_000,
     }
   )
 }
