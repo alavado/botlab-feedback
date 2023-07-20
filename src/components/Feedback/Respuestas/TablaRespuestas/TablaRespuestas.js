@@ -13,7 +13,11 @@ import Filtros from './Filtros'
 import './TablaRespuestas.css'
 import { fijaScrollTabla } from '../../../../redux/ducks/respuestas'
 import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
-import { esRedSalud, tieneAccesoAReportes } from '../../../../helpers/permisos'
+import {
+  esCero,
+  esRedSalud,
+  tieneAccesoAReportes,
+} from '../../../../helpers/permisos'
 import useAnalytics from '../../../../hooks/useAnalytics'
 import SelectorRangoFechas2 from '../SelectorRangoFechas2'
 import BotonActualizar from '../BotonActualizar'
@@ -22,16 +26,24 @@ const respuestasPorPagina = 50
 const idsEncuestasAgendamiento = [509, 557, 577]
 
 const TablaRespuestas = () => {
-
-  const { headers, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
-  const { cuenta } = useSelector(state => state.login)
+  const { headers, idEncuestaSeleccionada } = useSelector(
+    (state) => state.encuestas
+  )
+  const { cuenta } = useSelector((state) => state.login)
   const refContenedor = useRef()
   const dispatch = useDispatch()
-  const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla, cacheInvalido } = useSelector(state => state.respuestas)
+  const {
+    respuestasVisibles: respuestas,
+    tablaDestacada,
+    scrollTabla,
+    cacheInvalido,
+  } = useSelector((state) => state.respuestas)
   const track = useAnalytics()
 
   const cargando = !respuestas || !headers
-  const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO')) && !idsEncuestasAgendamiento.includes(idEncuestaSeleccionada)
+  const mostrarResumen =
+    !!headers?.find((h) => h.tipo === 'YESNO') &&
+    !idsEncuestasAgendamiento.includes(idEncuestaSeleccionada)
 
   useEffect(() => {
     dispatch(fijaOpcionTableroVisible(false))
@@ -51,22 +63,32 @@ const TablaRespuestas = () => {
           Respuestas
           <BotonActualizar />
         </h1>
-        {esRedSalud(cuenta) ? <SelectorRangoFechas /> : <SelectorRangoFechas2 />}
+        {esRedSalud(cuenta) || esCero(cuenta) ? (
+          <SelectorRangoFechas />
+        ) : (
+          <SelectorRangoFechas2 />
+        )}
         <div className="TablaRespuestas__herramientas">
           <BuscadorRespuestas cargando={cargando} />
-          {tieneAccesoAReportes(cuenta) && <ExportadorRespuestas cargando={cargando} />}
+          {tieneAccesoAReportes(cuenta) && (
+            <ExportadorRespuestas cargando={cargando} />
+          )}
         </div>
       </div>
-      <div className={classNames({
-        'TablaRespuestas__contenedor': true,
-        'TablaRespuestas__contenedor--cargando': cacheInvalido,
-      })}>
+      <div
+        className={classNames({
+          TablaRespuestas__contenedor: true,
+          'TablaRespuestas__contenedor--cargando': cacheInvalido,
+        })}
+      >
         <Filtros />
         {mostrarResumen && <ResumenRespuestas cargando={cargando} />}
-        <div className={classNames({
-          "TablaRespuestas__overlay": true,
-          "TablaRespuestas__overlay--activo": tablaDestacada
-        })}>
+        <div
+          className={classNames({
+            TablaRespuestas__overlay: true,
+            'TablaRespuestas__overlay--activo': tablaDestacada,
+          })}
+        >
           <div className="TablaRespuestas__contenido_overlay">
             <Icon icon="mdi:download-outline" />
           </div>
@@ -74,8 +96,8 @@ const TablaRespuestas = () => {
         <div className="TablaRespuestas__contenedor_central">
           <div
             className={classNames({
-              "TablaRespuestas__contenedor_tabla": true,
-              "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen
+              TablaRespuestas__contenedor_tabla: true,
+              'TablaRespuestas__contenedor_tabla--extendido': !mostrarResumen,
             })}
             ref={refContenedor}
           >

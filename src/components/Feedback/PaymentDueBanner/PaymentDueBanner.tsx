@@ -4,6 +4,7 @@ import { RootState } from '../../../redux/ducks'
 import { isDebtor } from './debtors'
 import { format, addMonths, differenceInDays } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { esCero } from '../../../helpers/permisos'
 
 const PaymentDueBanner = () => {
   const { nombreUsuario, cuenta } = useSelector(
@@ -12,7 +13,7 @@ const PaymentDueBanner = () => {
 
   const debtor = isDebtor(nombreUsuario as string)
 
-  if (!debtor || cuenta?.endsWith('_cero')) {
+  if (!debtor || esCero(cuenta)) {
     return null
   }
 

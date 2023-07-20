@@ -12,6 +12,7 @@ import { obtenerPollsCalculadas } from '../../../helpers/pollsCalculadas'
 import { obtenerTiposEncuestasVisibles } from '../../../helpers/encuestasSecretas'
 import AlertaDeudores from './AlertaDeudores'
 import AlertaAlemana from './AlertaAlemana'
+import { esCero } from '../../../helpers/permisos'
 
 const BarraSuperior = () => {
   const { respuestas } = useSelector((state) => state.respuestas)
@@ -79,7 +80,7 @@ const BarraSuperior = () => {
         </Switch>
       )}
       <div style={{ display: 'flex' }}>
-        {cuenta.endsWith('_cero') && (
+        {esCero(cuenta) && (
           <Switch>
             <Route
               exact

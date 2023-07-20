@@ -6,6 +6,7 @@ import { format, addMonths, differenceInDays } from 'date-fns'
 import { useState } from 'react'
 import { es } from 'date-fns/locale'
 import useIsClientDebtorQuery from '../../../api/hooks/useIsClientDebtorQuery'
+import { esCero } from '../../../helpers/permisos'
 
 const PaymentDueModal = () => {
   const { nombreUsuario, cuenta } = useSelector(
@@ -16,7 +17,7 @@ const PaymentDueModal = () => {
   const debtor = isDebtor(nombreUsuario as string)
   // const isClientDebtor = useIsClientDebtorQuery()
 
-  if (!debtor || !visible || cuenta?.endsWith('_cero')) {
+  if (!debtor || !visible || esCero(cuenta)) {
     return null
   }
 
