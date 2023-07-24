@@ -12,7 +12,6 @@ type Debtor = {
 // `
 
 const debtorsData = `
-  UTC;  2023-07-12
   SonrieArica; 2023-07-12
   SantaBlanca; 2023-07-12
   Maitenes;  2023-07-12
