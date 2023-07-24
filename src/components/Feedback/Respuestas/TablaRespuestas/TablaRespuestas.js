@@ -63,7 +63,7 @@ const TablaRespuestas = () => {
           Respuestas
           <BotonActualizar />
         </h1>
-        {esRedSalud(cuenta) || esCero(cuenta) ? (
+        {esRedSalud(cuenta) ? (
           <SelectorRangoFechas />
         ) : (
           <SelectorRangoFechas2 />
