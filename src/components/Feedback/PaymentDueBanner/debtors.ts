@@ -16,7 +16,7 @@ const debtorsData = `
   SantaBlanca; 2023-07-12
   Maitenes;  2023-07-12
   KinderSonrisa; 2023-07-12
-  Interclinica;  2023-07-12
+  Interclinicas;  2023-07-12
   Isamedica;  2023-07-12
   CTMelipilla;  2023-07-12
   CEOLAValdivia; 2023-07-12
