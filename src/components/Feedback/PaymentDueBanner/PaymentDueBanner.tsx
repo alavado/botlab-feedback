@@ -14,15 +14,15 @@ const PaymentDueBanner = () => {
 
   const message =
     data?.status === 'ALMOST_EXPIRED'
-      ? `Recordatorio! Su factura por el servicio del mes de ${
+      ? `Su factura por el servicio del mes de ${
           data?.documentIssueMonth
         } vence en ${data.daysLeft} ${data.daysLeft !== 1 ? 'días' : 'día'}`
-      : `Recordatorio! Su factura por el servicio del mes de ${data?.documentIssueMonth} se encuentra vencida`
+      : `Su factura por el servicio del mes de ${data?.documentIssueMonth} se encuentra vencida`
 
   return (
     <p className="PaymentDueBanner">
-      {message}. Para evitar una suspensión del servicio comuníquese con
-      finanzas@cero.ai o al +569 4277 3233
+      Recordatorio! {message}. Para evitar una suspensión del servicio
+      comuníquese con finanzas@cero.ai o al +569 4277 3233
     </p>
   )
 }
