@@ -13,7 +13,6 @@ type Debtor = {
 
 const debtorsData = `
   SonrieArica; 2023-07-12
-  SantaBlanca; 2023-07-12
   KinderSonrisa; 2023-07-12
   Interclínica;  2023-07-12
   Isamedica;  2023-07-12
