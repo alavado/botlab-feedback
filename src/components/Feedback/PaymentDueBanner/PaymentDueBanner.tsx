@@ -5,11 +5,13 @@ import { isDebtor } from './debtors'
 import { format, addMonths, differenceInDays } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { esCero } from '../../../helpers/permisos'
+import useIsClientDebtorQuery from '../../../api/hooks/useIsClientDebtorQuery'
 
 const PaymentDueBanner = () => {
   const { nombreUsuario, cuenta } = useSelector(
     (state: RootState) => state.login
   )
+  const { data } = useIsClientDebtorQuery()
 
   const debtor = isDebtor(nombreUsuario as string)
 
