@@ -2,20 +2,23 @@ import { useQuery, UseQueryResult } from 'react-query'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
-import { differenceInDays, parse } from 'date-fns'
+import { differenceInDays, format, parse } from 'date-fns'
+import { es } from 'date-fns/locale'
+
+const twoHoursInMS = 2 * 60 * 60 * 1_000
+const daysForAlmostExpiredStatus = 7
 
 type PaymentStatus =
   | {
       status: 'EXPIRED'
-      sinceDays: number
+      documentIssueMonth: string
     }
   | {
       status: 'ALMOST_EXPIRED'
+      documentIssueMonth: string
       daysLeft: number
     }
   | { status: 'NOT_EXPIRED' }
-
-const twoHoursInMS = 20_000 //2 * 60 * 60 * 1_000
 
 const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
   const { nombreUsuario } = useSelector((state: RootState) => state.login)
@@ -23,35 +26,45 @@ const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
     ['isDebtor', nombreUsuario],
     async () => {
       const params = new URLSearchParams([['client', nombreUsuario || '']])
-      const data = await axios.get(
-        `https://eo4g04esyiiff0d.m.pipedream.net/debtors`,
-        {
-          params,
-        }
-      )
-      const paymentData = data.data
-      if (paymentData.mostExpiredDocumentDate) {
+      const {
+        data: {
+          mostExpiredDocumentIssueDate,
+          nearestDueDate,
+          nearestDueDateIssueDate,
+        },
+      } = await axios.get(`https://eo4g04esyiiff0d.m.pipedream.net/debtors`, {
+        params,
+      })
+      if (mostExpiredDocumentIssueDate) {
+        const issueMonth = formatDocumentIssueMonth(
+          mostExpiredDocumentIssueDate
+        )
         return {
           status: 'EXPIRED',
-          sinceDays: differenceInDays(
-            new Date(),
-            parse(paymentData.mostExpiredDocumentDate, 'yyyy-MM-dd', new Date())
-          ),
+          documentIssueMonth: issueMonth,
         }
-      } else if (paymentData.dueDate) {
-        return {
-          status: 'ALMOST_EXPIRED',
-          daysLeft: differenceInDays(
-            parse(paymentData.dueDate, 'yyyy-MM-dd', new Date()),
-            new Date()
-          ),
-        }
-      } else {
-        return { status: 'NOT_EXPIRED' }
       }
+      if (nearestDueDate) {
+        const daysLeft = differenceInDays(
+          parse(nearestDueDate, 'yyyy-MM-dd', new Date()),
+          new Date()
+        )
+        if (daysLeft <= daysForAlmostExpiredStatus) {
+          const issueMonth = formatDocumentIssueMonth(nearestDueDateIssueDate)
+          return {
+            status: 'ALMOST_EXPIRED',
+            documentIssueMonth: issueMonth,
+            daysLeft,
+          }
+        }
+      }
+      return { status: 'NOT_EXPIRED' }
     },
-    { refetchInterval: twoHoursInMS }
+    { refetchInterval: twoHoursInMS, refetchOnWindowFocus: true }
   )
 }
+
+const formatDocumentIssueMonth = (dateISO: string) =>
+  format(parse(dateISO, 'yyyy-MM-dd', new Date()), 'MMMM', { locale: es })
 
 export default useIsClientDebtorQuery
