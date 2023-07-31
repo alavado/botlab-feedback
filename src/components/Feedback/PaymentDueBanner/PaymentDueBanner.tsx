@@ -1,14 +1,10 @@
-import { useSelector } from 'react-redux'
-import './PaymentDueBanner.css'
-import { RootState } from '../../../redux/ducks'
-import { esCero } from '../../../helpers/permisos'
 import useIsClientDebtorQuery from '../../../api/hooks/useIsClientDebtorQuery'
+import './PaymentDueBanner.css'
 
 const PaymentDueBanner = () => {
-  const { cuenta } = useSelector((state: RootState) => state.login)
   const { data, isLoading } = useIsClientDebtorQuery()
 
-  if (isLoading || esCero(cuenta) || data?.status === 'NOT_EXPIRED') {
+  if (isLoading || data?.status === 'NOT_EXPIRED') {
     return null
   }
 
