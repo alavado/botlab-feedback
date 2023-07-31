@@ -1,19 +1,23 @@
-import useIsClientDebtorQuery from '../../../api/hooks/useIsClientDebtorQuery'
+import { useSelector } from 'react-redux'
 import './PaymentDueBanner.css'
+import { RootState } from '../../../redux/ducks'
+import { esCero } from '../../../helpers/permisos'
+import useIsClientDebtorQuery from '../../../api/hooks/useIsClientDebtorQuery'
 
 const PaymentDueBanner = () => {
+  const { cuenta } = useSelector((state: RootState) => state.login)
   const { data, isLoading } = useIsClientDebtorQuery()
 
-  if (isLoading || data?.status === 'NOT_EXPIRED') {
+  if (isLoading || esCero(cuenta) || data?.status === 'NOT_EXPIRED') {
     return null
   }
 
   const message =
     data?.status === 'ALMOST_EXPIRED'
       ? `Su factura por el servicio del mes de ${
-          data?.documentIssueMonth
+          data?.documentServiceMonth
         } vence en ${data.daysLeft} ${data.daysLeft !== 1 ? 'días' : 'día'}`
-      : `Su factura por el servicio del mes de ${data?.documentIssueMonth} se encuentra vencida`
+      : `Su factura por el servicio del mes de ${data?.documentServiceMonth} se encuentra vencida`
 
   return (
     <p className="PaymentDueBanner">

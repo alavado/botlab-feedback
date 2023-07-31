@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from 'react-query'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
-import { differenceInDays, format, parse } from 'date-fns'
+import { addMonths, differenceInDays, format, parse } from 'date-fns'
 import { es } from 'date-fns/locale'
 
 const twoHoursInMS = 2 * 60 * 60 * 1_000
@@ -11,11 +11,11 @@ const daysForAlmostExpiredStatus = 7
 type PaymentStatus =
   | {
       status: 'EXPIRED'
-      documentIssueMonth: string
+      documentServiceMonth: string
     }
   | {
       status: 'ALMOST_EXPIRED'
-      documentIssueMonth: string
+      documentServiceMonth: string
       daysLeft: number
     }
   | { status: 'NOT_EXPIRED' }
@@ -36,12 +36,12 @@ const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
         params,
       })
       if (mostExpiredDocumentIssueDate) {
-        const issueMonth = formatDocumentIssueMonth(
+        const documentServiceMonth = formatDocumentIssueMonth(
           mostExpiredDocumentIssueDate
         )
         return {
           status: 'EXPIRED',
-          documentIssueMonth: issueMonth,
+          documentServiceMonth,
         }
       }
       if (nearestDueDate) {
@@ -50,10 +50,12 @@ const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
           new Date()
         )
         if (daysLeft <= daysForAlmostExpiredStatus) {
-          const issueMonth = formatDocumentIssueMonth(nearestDueDateIssueDate)
+          const documentServiceMonth = formatDocumentIssueMonth(
+            nearestDueDateIssueDate
+          )
           return {
             status: 'ALMOST_EXPIRED',
-            documentIssueMonth: issueMonth,
+            documentServiceMonth,
             daysLeft,
           }
         }
@@ -65,6 +67,8 @@ const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
 }
 
 const formatDocumentIssueMonth = (dateISO: string) =>
-  format(parse(dateISO, 'yyyy-MM-dd', new Date()), 'MMMM', { locale: es })
+  format(addMonths(parse(dateISO, 'yyyy-MM-dd', new Date()), -1), 'MMMM', {
+    locale: es,
+  })
 
 export default useIsClientDebtorQuery
