@@ -1,10 +1,9 @@
 import { Icon } from '@iconify/react'
 import { CSSProperties } from 'react'
-import { Tag } from '../../../../api/types/domain'
 import './TagLabel.css'
 import { getPresentationForTag } from './utils'
 
-const TagLabel = ({ tag }: { tag: Tag | unknown }) => {
+const TagLabel = ({ tag }: { tag?: string }) => {
   const { colorVar, icon, label } = getPresentationForTag({ tag })
 
   if (!label) {

@@ -10,6 +10,7 @@ export interface ServiceHeader {
   name: string
   displayName: string
   type: ServiceHeaderType
+  levels: string[]
 }
 
 export interface Branch {
@@ -44,33 +45,28 @@ export interface Interaction {
   tags: InteractionTag[]
 }
 
+export const tagPreffix = 'TAG:'
+
 export type Tag =
   | 'YES'
   | 'NO'
   | 'REAGENDA'
   | 'OUT'
+  | 'OTRO'
   | 'SIN RESPUESTA'
   | 'UNREACHABLE'
 
 export const isTag = (stuff: any): stuff is Tag => {
-  return [
-    'YES',
-    'NO',
-    'REAGENDA',
-    'OUT',
-    'SIN RESPUESTA',
-    'UNREACHABLE',
-  ].includes(stuff)
-}
-
-export type TagWithText = {
-  tag: Tag
-  text: string
+  return (
+    ['YES', 'NO', 'REAGENDA', 'OUT', 'SIN RESPUESTA', 'UNREACHABLE'].includes(
+      stuff
+    ) || stuff.startsWith(tagPreffix)
+  )
 }
 
 export interface InteractionExtraData {
   header: string
-  value: string | TagWithText
+  value: string
 }
 
 export type SchedulingSystem = 'Dentalink' | 'Medilink' | 'Otro'

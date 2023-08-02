@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import './InteractionsLegacyTableRow.css'
-import { Interaction } from '../../../../../api/types/domain'
+import { Interaction, isTag } from '../../../../../api/types/domain'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import useActiveServiceQuery from '../../../../../api/hooks/useActiveServiceQuery'
@@ -43,24 +43,19 @@ const InteractionsLegacyTableRow = ({
     >
       <div className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--notes-cell"></div>
       {service?.headers.map((header, m) => {
-        const metaValue = interaction.extraData.find(
+        const headerValue = interaction.extraData.find(
           (m) => m.header === header.name
-        )
+        )?.value as string
         return (
           <div
             key={`cell-${header.displayName}-${m}`}
             className={classNames({
               InteractionsLegacyTableRow__cell: true,
-              'InteractionsLegacyTableRow__cell--tag-container': !_.isString(
-                metaValue?.value
-              ),
+              'InteractionsLegacyTableRow__cell--tag-container':
+                isTag(headerValue),
             })}
           >
-            {_.isString(metaValue?.value) ? (
-              metaValue?.value
-            ) : (
-              <TagLabel tag={metaValue?.value.tag} />
-            )}
+            {isTag(headerValue) ? <TagLabel tag={headerValue} /> : headerValue}
           </div>
         )
       })}

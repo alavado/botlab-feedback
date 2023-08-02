@@ -26,6 +26,7 @@ const useServicesQuery = (): UseQueryResult<Service[], unknown> => {
               name: header.name,
               displayName: header.display_name,
               type: header.type,
+              levels: [],
             })),
           }
         }),

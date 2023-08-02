@@ -1,5 +1,5 @@
 import { UseQueryResult, useQuery } from 'react-query'
-import { Interaction, ServiceId, Tag, TagWithText } from '../types/domain'
+import { Interaction, ServiceId, Tag, tagPreffix } from '../types/domain'
 import {
   APIMetaValue,
   APITag,
@@ -89,24 +89,21 @@ const answerSingleAppointmentToInteraction = (
   }
 }
 
-const processMeta = (meta: APIMetaValue): string | TagWithText => {
+const processMeta = (meta: APIMetaValue): string => {
   if (!_.isString(meta) && !_.isNumber(meta) && meta) {
-    return {
-      tag: mapTag(meta.tag),
-      text: meta.text,
-    }
+    return formatTag(meta.tag)
   }
   return meta + ''
 }
 
-const mapTag = (tag: APITag): Tag => {
+const formatTag = (tag: APITag): string => {
   switch (tag) {
     case 'PHONE:YES':
-      return 'YES'
+      return tagPreffix + 'YES'
     case 'PHONE:NO':
-      return 'NO'
+      return tagPreffix + 'NO'
   }
-  return tag
+  return tagPreffix + tag
 }
 
 export default useInteractionsQuery
