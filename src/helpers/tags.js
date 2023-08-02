@@ -216,6 +216,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)',
   },
+  MEDIA_VCARD: {
+    texto: 'Contacto',
+    titulo: 'Paciente envía contacto',
+    icono: 'mdi:card-account-phone',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)',
+  },
   CONFIRMA_DESPUES: {
     texto: 'Confirma después',
     titulo: 'Paciente indica que confirmará más tarde',

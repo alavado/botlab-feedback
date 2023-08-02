@@ -13,6 +13,7 @@ import useAnalytics from '../../../../hooks/useAnalytics'
 import Draggable from 'react-draggable'
 import ReactJson from 'react-json-view'
 import useIsLabeler from '../../../../hooks/useIsLabeler'
+import { esCero } from '../../../../helpers/permisos'
 
 const msHabilitacionReporteSlack = 0
 
@@ -89,7 +90,7 @@ const Chat = () => {
 
   return (
     <div className="Chat">
-      {jsonChat?.data && cuenta.endsWith('_cero') && debugging && (
+      {jsonChat?.data && esCero(cuenta) && debugging && (
         <>
           <Draggable>
             <div

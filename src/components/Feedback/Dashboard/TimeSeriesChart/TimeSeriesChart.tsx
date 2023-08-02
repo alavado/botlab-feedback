@@ -27,7 +27,7 @@ const TimeSeriesChart = () => {
   const order = Math.pow(10, Math.floor(Math.log10(maxValue)))
   const maxTick = order * Math.ceil(maxValue / order)
   const tickCount = 10
-  const stepSize = maxTick / tickCount
+  const stepSize = Math.round(maxTick / tickCount)
 
   return (
     <Line
