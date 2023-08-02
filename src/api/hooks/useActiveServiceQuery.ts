@@ -8,6 +8,7 @@ import {
 import useServicesQuery from './useServicesQuery'
 import { useRouteMatch } from 'react-router-dom'
 import useInteractionsQuery from './useInteractionsQuery'
+import _ from 'lodash'
 
 const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {
   const { data: services } = useServicesQuery()
@@ -18,7 +19,7 @@ const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {
     : undefined
 
   return useQuery<any, any, Service>(
-    ['active-service', activeServiceId],
+    ['active-service', activeServiceId, interactions?.[0].id],
     async () => {
       if (!activeServiceId || !services) {
         return undefined
@@ -43,20 +44,21 @@ const getServiceHeadersWithLevels = (
   headers: ServiceHeader[],
   interactions?: Interaction[]
 ): ServiceHeader[] => {
-  return headers
-  // if (!interactions) {
-  //   return headers
-  // }
-  // const levels = headers.map((header) => ({
-  //   ...header,
-  //   levels: interactions.map((interaction) => {
-  //     const headerValue: InteractionExtraData = interaction.extraData.find(
-  //       (p) => p.header === header.name
-  //     ) as InteractionExtraData
-  //     return headerValue.value
-  //   }),
-  // }))
-  // return levels
+  if (!interactions) {
+    return headers
+  }
+  const headersWithLevels = headers.map((header) => ({
+    ...header,
+    levels: _.uniq(
+      interactions.map((interaction) => {
+        const headerValue: InteractionExtraData = interaction.extraData.find(
+          (p) => p.header === header.name
+        ) as InteractionExtraData
+        return headerValue.value
+      })
+    ),
+  }))
+  return headersWithLevels
 }
 
 export default useActiveServiceQuery

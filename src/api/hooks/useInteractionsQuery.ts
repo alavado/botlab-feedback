@@ -1,5 +1,5 @@
 import { UseQueryResult, useQuery } from 'react-query'
-import { Interaction, ServiceId, Tag, tagPreffix } from '../types/domain'
+import { Interaction, ServiceId, tagPreffix } from '../types/domain'
 import {
   APIMetaValue,
   APITag,

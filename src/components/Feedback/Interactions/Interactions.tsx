@@ -17,6 +17,8 @@ const Interactions = () => {
   const { data: activeService } = useActiveServiceQuery()
   const { params }: any = useRouteMatch()
 
+  console.log({ activeService })
+
   return (
     <div className="Interactions">
       <InteractionDrawerCover visible={params?.patientId} />

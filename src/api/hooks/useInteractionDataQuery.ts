@@ -16,7 +16,7 @@ const useInteractionDataQuery = ({
         return []
       }
       const { currentInteraction } = data
-      return currentInteraction.extraData
+      return currentInteraction?.extraData || []
     },
     { enabled: !!data }
   )

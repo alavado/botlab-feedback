@@ -5,7 +5,6 @@ import { useHistory, useRouteMatch } from 'react-router-dom'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import useActiveServiceQuery from '../../../../../api/hooks/useActiveServiceQuery'
 import TagLabel from '../../TagLabel/TagLabel'
-import _ from 'lodash'
 
 const InteractionsLegacyTableRow = ({
   interaction,
