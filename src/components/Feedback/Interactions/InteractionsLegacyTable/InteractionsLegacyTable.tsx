@@ -55,6 +55,7 @@ const InteractionsLegacyTable = ({
             <div
               key={`header-${header.name}`}
               className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--header"
+              draggable={true}
             >
               <div>{header.displayName}</div>
             </div>

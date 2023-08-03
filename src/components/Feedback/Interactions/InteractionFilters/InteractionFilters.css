@@ -1,4 +1,49 @@
 .InteractionFilters {
-  background-color: red;
-  color: yellow;
+  margin: 0 0.25rem;
+  font-size: 0.65rem;
+}
+
+.InteractionFilters__title {
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  gap: 0.25rem;
+}
+
+.InteractionFilters__filters_container {
+  min-height: calc(100vh - 18.5rem);
+  max-height: calc(100vh - 18.5rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.InteractionFilters__filter {
+  display: flex;
+  flex-direction: column;
+}
+
+.InteractionFilters__filter_title {
+  font-weight: 600;
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid #eee;
+  padding: 0.25rem 0.2rem;
+  background-color: var(--color-fondo);
+}
+
+.InteractionFilters__filter_checkbox {
+  display: flex;
+  gap: 0.15rem;
+  align-items: center;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  padding: 0.2rem 0;
+}
+
+.InteractionFilters__filter_checkbox:hover {
+  background-color: #eee;
 }

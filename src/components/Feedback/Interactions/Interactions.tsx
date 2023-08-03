@@ -10,14 +10,13 @@ import InteractionFilters from './InteractionFilters/InteractionFilters'
 import ServiceSelector from './ServiceSelector/ServiceSelector'
 import './Interactions.css'
 import DateRangeSelector from './DateRangeSelector/DateRangeSelector'
+import SearchBar from './SearchBar/SearchBar'
 
 const Interactions = () => {
   const { data: interactions, isLoading: loadingInteractions } =
     useInteractionsQuery()
   const { data: activeService } = useActiveServiceQuery()
   const { params }: any = useRouteMatch()
-
-  console.log({ activeService })
 
   return (
     <div className="Interactions">
@@ -26,6 +25,7 @@ const Interactions = () => {
         <div className="Interactions__topbar_left">
           <h2 className="Interactions__title">Interacciones</h2>
           <DateRangeSelector />
+          <SearchBar />
         </div>
         <MenuUsuario />
       </div>
