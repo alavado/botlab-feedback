@@ -19,7 +19,6 @@ const debtorsData = `
   CTMelipilla;  2023-07-12
   CEOLAValdivia; 2023-07-12
   CEOLALaSerena;  2023-07-12
-  Almendrales;  2023-07-12
   OAS;  2023-07-12
 `
 

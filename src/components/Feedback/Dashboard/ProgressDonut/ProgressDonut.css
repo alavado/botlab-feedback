@@ -7,14 +7,11 @@
   gap: 0.35rem;
   font-weight: 600;
   font-size: 0.9rem;
-  --donut-batter-pipe-girth: 0.85rem;
   --donut-radius: 3.25rem;
+  --donut-batter-pipe-girth: calc(var(--donut-radius) / 4);
   height: calc(2 * var(--donut-batter-pipe-girth) + 2 * var(--donut-radius));
   width: calc(2 * var(--donut-batter-pipe-girth) + 2 * var(--donut-radius));
-  background: radial-gradient(
-      var(--color-fondo) 0 var(--donut-radius),
-      transparent 0
-    ),
+  background: radial-gradient(var(--color-fondo) 0 55%, transparent 0),
     conic-gradient(
       var(--donut-material) calc(1% * var(--donut-leftover)),
       var(--color-bordes) 0 100%
