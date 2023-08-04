@@ -23,6 +23,7 @@
 .InteractionFilters__filter {
   display: flex;
   flex-direction: column;
+  padding-bottom: 0.5rem;
 }
 
 .InteractionFilters__filter_title {
@@ -41,7 +42,10 @@
   align-items: center;
   margin-left: 0.5rem;
   cursor: pointer;
-  padding: 0.2rem 0;
+  height: 1.35rem;
+  transition: all 0.15s ease;
+  line-height: 1.15;
+  user-select: none;
 }
 
 .InteractionFilters__filter_checkbox:hover {
