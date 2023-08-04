@@ -45,10 +45,11 @@ const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
         }
       }
       if (nearestDueDate) {
-        const daysLeft = differenceInDays(
-          parse(nearestDueDate, 'yyyy-MM-dd', new Date()),
-          new Date()
-        )
+        const daysLeft =
+          differenceInDays(
+            parse(nearestDueDate, 'yyyy-MM-dd', new Date()),
+            new Date()
+          ) + 1
         if (daysLeft <= daysForAlmostExpiredStatus) {
           const documentServiceMonth = formatDocumentIssueMonth(
             nearestDueDateIssueDate
