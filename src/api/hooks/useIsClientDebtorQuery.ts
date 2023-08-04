@@ -32,9 +32,12 @@ const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
           nearestDueDate,
           nearestDueDateIssueDate,
         },
-      } = await axios.get(`https://eo4g04esyiiff0d.m.pipedream.net/debtors`, {
-        params,
-      })
+      } = await axios.get(
+        process.env.REACT_APP_PIPEDREAM_DUEMINT_WORKFLOW_URL as string,
+        {
+          params,
+        }
+      )
       if (mostExpiredDocumentIssueDate) {
         const documentServiceMonth = formatDocumentIssueMonth(
           mostExpiredDocumentIssueDate
