@@ -1,32 +1,29 @@
 import { useSelector } from 'react-redux'
 import './PaymentDueBanner.css'
 import { RootState } from '../../../redux/ducks'
-import { isDebtor } from './debtors'
-import { format, addMonths, differenceInDays } from 'date-fns'
-import { es } from 'date-fns/locale'
 import { esCero } from '../../../helpers/permisos'
+import useIsClientDebtorQuery from '../../../api/hooks/useIsClientDebtorQuery'
 
 const PaymentDueBanner = () => {
-  const { nombreUsuario, cuenta } = useSelector(
-    (state: RootState) => state.login
-  )
+  const { cuenta } = useSelector((state: RootState) => state.login)
+  const { data, isLoading } = useIsClientDebtorQuery()
 
-  const debtor = isDebtor(nombreUsuario as string)
-
-  if (!debtor || esCero(cuenta)) {
+  if (isLoading || esCero(cuenta) || data?.status === 'NOT_EXPIRED') {
     return null
   }
 
-  const daysLeft = 1 + differenceInDays(debtor.dueDate, new Date())
-  const month = format(addMonths(new Date(), -2), 'MMMM', { locale: es })
-
   const message =
-    daysLeft > 0
-      ? `Recordatorio! Su factura por el servicio del mes de ${month} vence en ${daysLeft} ${
-          daysLeft !== 1 ? 'días' : 'día'
-        }. Para evitar una suspensión del servicio comuníquese con finanzas@cero.ai o al +569 4277 3233`
-      : `Recordatorio! Su factura por el servicio del mes de ${month} se encuentra vencida. Para evitar una suspensión del servicio comuníquese con +56 94277 3233 o en finanzas@cero.ai`
+    data?.status === 'ALMOST_EXPIRED'
+      ? `Su factura por el servicio del mes de ${
+          data?.documentServiceMonth
+        } vence en ${data.daysLeft} ${data.daysLeft !== 1 ? 'días' : 'día'}`
+      : `Su factura por el servicio del mes de ${data?.documentServiceMonth} se encuentra vencida`
 
-  return <p className="PaymentDueBanner">{message}</p>
+  return (
+    <p className="PaymentDueBanner">
+      Recordatorio! {message}. Para evitar una suspensión del servicio
+      comuníquese con finanzas@cero.ai o al +569 4277 3233
+    </p>
+  )
 }
 export default PaymentDueBanner
