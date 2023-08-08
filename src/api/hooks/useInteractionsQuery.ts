@@ -55,7 +55,7 @@ const useInteractionsQuery = ({
     {
       refetchInterval: 60_000,
       select: (interactions: Interaction[]) => {
-        if (applyFilters) {
+        if (applyFilters && globalSearch) {
           const globalSearchNormalized = normalizeString(globalSearch)
           return interactions.filter((interaction: Interaction) => {
             return interaction.normalized.indexOf(globalSearchNormalized) >= 0

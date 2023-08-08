@@ -61,7 +61,7 @@ const InteractionsLegacyTable = ({
             </div>
           ))}
         </div>
-        {interactions.slice(0, 50).map((i: Interaction, n) => (
+        {interactions.slice(0, 40).map((i: Interaction, n) => (
           <InteractionsLegacyTableRow
             interaction={i}
             highlighted={

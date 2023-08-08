@@ -1,3 +1,7 @@
+// hay que mover esto a un select del interactionsQuery mejor,
+// asi se puede usar el loader de esa query y tambien
+// los datos filtrados
+
 import { UseQueryResult, useQuery } from 'react-query'
 import useActiveServiceQuery from './useActiveServiceQuery'
 import useInteractionsQuery from './useInteractionsQuery'

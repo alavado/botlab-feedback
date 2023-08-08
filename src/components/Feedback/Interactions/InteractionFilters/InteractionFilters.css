@@ -1,6 +1,6 @@
 .InteractionFilters {
   margin: 0 0.25rem;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
 }
 
 .InteractionFilters__title {
@@ -42,7 +42,7 @@
   align-items: center;
   margin-left: 0.5rem;
   cursor: pointer;
-  height: 1.35rem;
+  padding: 0.15rem 0;
   transition: all 0.15s ease;
   line-height: 1.15;
   user-select: none;

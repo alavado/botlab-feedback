@@ -10,6 +10,7 @@ import {
   setNextDay,
   setPreviousDay,
 } from '../../../../redux/ducks/interactions'
+import { isToday } from 'date-fns'
 
 const DateRangeSelector = () => {
   const [calendarVisible, setCalendarVisible] = useState(false)
@@ -34,6 +35,7 @@ const DateRangeSelector = () => {
         <button
           className="DateRangeSelector__step_button DateRangeSelector__step_button--right"
           onClick={() => dispatch(setNextDay())}
+          disabled={isToday(range.end)}
         >
           <InlineIcon icon="mdi:chevron-right" />
         </button>
