@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { addWeeks, endOfWeek, startOfWeek } from 'date-fns'
 
-type Range = {
+export type Range = {
   start: Date
   end: Date
 }

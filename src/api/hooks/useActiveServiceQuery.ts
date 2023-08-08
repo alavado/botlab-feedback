@@ -17,9 +17,10 @@ const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {
   const activeServiceId = params.serviceId
     ? Number(params.serviceId)
     : undefined
+  const firstInteraction = interactions?.[0]?.id
 
   return useQuery<any, any, Service>(
-    ['active-service', activeServiceId, interactions?.[0].id],
+    ['active-service', activeServiceId, firstInteraction],
     async () => {
       if (!activeServiceId || !services) {
         return undefined
