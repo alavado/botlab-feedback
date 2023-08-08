@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { addWeeks, endOfWeek, startOfWeek } from 'date-fns'
+import { addDays, addWeeks, endOfWeek, startOfWeek } from 'date-fns'
 
 export type Range = {
   start: Date
@@ -43,12 +43,38 @@ const interactionsSlice = createSlice({
     setRange(state, action: PayloadAction<Range>) {
       state.range = action.payload
     },
+    setDay(state, action: PayloadAction<Date>) {
+      state.range = {
+        start: action.payload,
+        end: action.payload,
+      }
+    },
+    setPreviousDay(state) {
+      const previousDay = addDays(state.range.start, -1)
+      state.range = {
+        start: previousDay,
+        end: previousDay,
+      }
+    },
+    setNextDay(state) {
+      const nextDay = addDays(state.range.start, 1)
+      state.range = {
+        start: nextDay,
+        end: nextDay,
+      }
+    },
     setRangeFromWord(state, action: PayloadAction<RangeWord>) {
       state.range = getRangeFromWord(action.payload)
     },
   },
 })
 
-export const { setRange } = interactionsSlice.actions
+export const {
+  setRange,
+  setDay,
+  setNextDay,
+  setPreviousDay,
+  setRangeFromWord,
+} = interactionsSlice.actions
 
 export default interactionsSlice.reducer

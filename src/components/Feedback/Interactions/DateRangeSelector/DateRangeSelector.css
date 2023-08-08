@@ -1,32 +1,22 @@
 .DateRangeSelector {
   cursor: pointer;
-  position: relative;
   font-size: 0.65rem;
+  position: relative;
 }
 
 .DateRangeSelector__input {
   background-color: var(--color-fondo);
   height: 1.5rem;
-  padding: 0 1.75rem 0 3.25rem;
   border-radius: 1rem;
   display: grid;
-  gap: 0.35rem;
-  grid-template: auto / auto;
+  grid-template: auto / auto 1fr auto;
+  place-content: stretch center;
   transition: all 0.15s ease;
   align-items: center;
   border: 1px solid var(--color-bordes);
-  position: relative;
-}
-
-.DateRangeSelector__main_icon {
-  position: absolute;
-  left: 0.5rem;
-  opacity: 0.4;
-  font-size: 0.8rem;
 }
 
 .DateRangeSelector__step_button {
-  position: absolute;
   background: transparent;
   border: none;
   font-size: 0.8rem;
@@ -37,12 +27,13 @@
   justify-content: center;
 }
 
+.DateRangeSelector__date:hover,
 .DateRangeSelector__step_button:hover {
   background-color: var(--color-bordes);
 }
 
 .DateRangeSelector__step_button--left {
-  left: 1.5rem;
+  left: 0;
   border-radius: 2rem 0 0 2rem;
 }
 
@@ -51,10 +42,19 @@
   border-radius: 0 2rem 2rem 0;
 }
 
+.DateRangeSelector__date {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
 .DateRangeSelector__calendar {
   cursor: default;
   position: absolute;
-  top: 100%;
+  top: 1.35rem;
+  left: 1.25rem;
   opacity: 0;
   pointer-events: none;
   background-color: var(--color-fondo);
