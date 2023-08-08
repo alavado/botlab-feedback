@@ -3,26 +3,35 @@ import { parse, parseISO, startOfDay } from 'date-fns'
 import { es } from 'date-fns/locale'
 import store from '../../redux/store'
 import { Appointment, AppointmentStatus, InteractionTag } from '../types/domain'
-import { AnswersAPIResponseRow, ChatAPIConversation, SearchAPIMultiAppointment, SearchAPISingleAppointment } from '../types/responses'
+import {
+  AnswersAPIResponseRow,
+  ChatAPIConversation,
+  SearchAPIMultiAppointment,
+  SearchAPISingleAppointment,
+} from '../types/responses'
 
 export const API_ROOT = process.env.REACT_APP_API_ROOT
 
 export const get = async (url: string) => {
   const { login }: any = store.getState()
   const { token } = login
-  return axios.get(url, { headers: { 'authorization': `Bearer ${token}` } })
+  return axios.get(url, { headers: { authorization: `Bearer ${token}` } })
 }
 
 export const post = async (url: string, params: any) => {
   const { login }: any = store.getState()
   const { token } = login
-  return axios.post(url, params, { headers: { 'authorization': `Bearer ${token}` } })
+  return axios.post(url, params, {
+    headers: { authorization: `Bearer ${token}` },
+  })
 }
 
 export const patch = async (url: string, params: any) => {
   const { login }: any = store.getState()
   const { token } = login
-  return axios.patch(url, params, { headers: { 'authorization': `Bearer ${token}` } })
+  return axios.patch(url, params, {
+    headers: { authorization: `Bearer ${token}` },
+  })
 }
 
 export const del = async (url: string, data: any) => {
@@ -66,7 +75,7 @@ export const parseAPIDate = (
 export const getStatusFromAnswersResponseRow = (
   appointment: AnswersAPIResponseRow
 ): AppointmentStatus => {
-    return 'OTHER'
+  return 'OTHER'
 }
 
 export const getStatusFromChatConversation = (
@@ -81,16 +90,24 @@ export const getStatusFromSearchRow = (
   return 'OTHER'
 }
 
-export const getInteractionTags = (appointments: Appointment[]): InteractionTag[] => {
+export const getInteractionTags = (
+  appointments: Appointment[]
+): InteractionTag[] => {
   const tags: InteractionTag[] = []
   if (appointments.some((a) => a.status !== 'SCHEDULED')) {
     tags.push('ANSWERED_WHATSAPP')
     if (appointments.some((a) => a.status === 'OTHER')) {
       tags.push('OTHER')
     }
-  }
-  else {
+  } else {
     tags.push('UNANSWERED_WHATSAPP')
   }
   return tags
 }
+
+export const normalizeString = (s: string) =>
+  s
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^A-Za-z0-9]/g, '')
+    .toLowerCase()

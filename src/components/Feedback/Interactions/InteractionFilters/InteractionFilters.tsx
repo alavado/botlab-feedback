@@ -6,7 +6,7 @@ import './InteractionFilters.css'
 
 const InteractionFilters = () => {
   const { data } = useActiveServiceQuery()
-  const { data: interactions } = useInteractionsQuery()
+  const { data: interactions } = useInteractionsQuery({ applyFilters: false })
 
   return (
     <div className="InteractionFilters">

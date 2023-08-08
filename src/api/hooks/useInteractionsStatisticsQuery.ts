@@ -18,7 +18,7 @@ const useInteractionsStatisticsQuery = (): UseQueryResult<
   any
 > => {
   const { data: service } = useActiveServiceQuery()
-  const { data: interactions } = useInteractionsQuery()
+  const { data: interactions } = useInteractionsQuery({ applyFilters: true })
 
   return useQuery<InteractionStatistics, any, any>(
     ['interactions-stats', service?.id],

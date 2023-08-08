@@ -14,7 +14,12 @@ import {
   Message,
   SchedulingSystem,
 } from '../types/domain'
-import { get, API_ROOT, parseAPIDate, getStatusFromChatConversation } from './utils'
+import {
+  get,
+  API_ROOT,
+  parseAPIDate,
+  getStatusFromChatConversation,
+} from './utils'
 
 const useChatQuery = (
   interactionId?: InteractionId
@@ -178,7 +183,7 @@ const extractAppointments = (
           patientName: getPatientName(context, appointmentIndex),
           url: getSchedulingSystemURL(conversation),
           schedulingSystem: inferSchedulingSystem(conversation),
-          status: getStatusFromChatConversation(conversation)
+          status: getStatusFromChatConversation(conversation),
         }
       })
   }
@@ -193,7 +198,7 @@ const extractAppointments = (
       patientName: getPatientName(context),
       url: getSchedulingSystemURL(conversation),
       schedulingSystem: inferSchedulingSystem(conversation),
-      status: getStatusFromChatConversation(conversation)
+      status: getStatusFromChatConversation(conversation),
     },
   ]
 }
@@ -206,7 +211,7 @@ const conversationToInteraction = (
 ): Interaction => {
   const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
-  const interaction: Interaction = {
+  const interaction = {
     id: {
       patientId: patientId,
       serviceId: serviceId,
@@ -233,7 +238,10 @@ const conversationToInteraction = (
     })),
     tags: [],
   }
-  return interaction
+  return {
+    ...interaction,
+    normalized: JSON.stringify(interaction).toLowerCase(),
+  }
 }
 
 const getSchedulingSystemURL = (

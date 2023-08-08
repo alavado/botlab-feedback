@@ -11,6 +11,7 @@ import {
   get,
   getInteractionTags,
   getStatusFromAnswersResponseRow,
+  normalizeString,
   parseAPIDate,
 } from './utils'
 import { addHours, format, parseISO } from 'date-fns'
@@ -19,8 +20,14 @@ import { useRouteMatch } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 
-const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
-  const { range } = useSelector((state: RootState) => state.interactions)
+const useInteractionsQuery = ({
+  applyFilters,
+}: {
+  applyFilters: boolean
+}): UseQueryResult<Interaction[], unknown> => {
+  const { globalSearch, range } = useSelector(
+    (state: RootState) => state.interactions
+  )
   const startDateString = format(range.start, 'yyyy-MM-dd')
   const endDateString = format(range.end, 'yyyy-MM-dd')
   const {
@@ -47,6 +54,15 @@ const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
     },
     {
       refetchInterval: 60_000,
+      select: (interactions: Interaction[]) => {
+        if (applyFilters) {
+          const globalSearchNormalized = normalizeString(globalSearch)
+          return interactions.filter((interaction: Interaction) => {
+            return interaction.normalized.indexOf(globalSearchNormalized) >= 0
+          })
+        }
+        return interactions
+      },
     }
   )
 }
@@ -69,7 +85,7 @@ const answerSingleAppointmentToInteraction = (
       | undefined,
     status: getStatusFromAnswersResponseRow(apiAppointment),
   }
-  return {
+  const interaction = {
     id: {
       patientId: apiAppointment.user_id,
       serviceId,
@@ -86,6 +102,10 @@ const answerSingleAppointmentToInteraction = (
       value: processMeta(apiAppointment[header]),
     })),
     tags: getInteractionTags([appointment]),
+  }
+  return {
+    ...interaction,
+    normalized: normalizeString(JSON.stringify(interaction)),
   }
 }
 

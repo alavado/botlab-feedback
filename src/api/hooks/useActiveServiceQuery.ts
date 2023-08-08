@@ -12,7 +12,7 @@ import _ from 'lodash'
 
 const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {
   const { data: services } = useServicesQuery()
-  const { data: interactions } = useInteractionsQuery()
+  const { data: interactions } = useInteractionsQuery({ applyFilters: false })
   const { params }: any = useRouteMatch()
   const activeServiceId = params.serviceId
     ? Number(params.serviceId)

@@ -34,7 +34,7 @@ const useSearchQuery = (
 const searchSingleAppointmentToInteraction = (
   appointment: SearchAPISingleAppointment
 ): Interaction => {
-  return {
+  const interaction = {
     id: {
       patientId: appointment.user_id,
       serviceId: appointment.poll_id,
@@ -56,18 +56,22 @@ const searchSingleAppointmentToInteraction = (
         rut: appointment.rut,
         id: appointment.id_cita,
         url: appointment.dentalink_link || appointment.medilink_link,
-        status: getStatusFromSearchRow(appointment)
+        status: getStatusFromSearchRow(appointment),
       },
     ],
     extraData: [],
     tags: [],
+  }
+  return {
+    ...interaction,
+    normalized: JSON.stringify(interaction).toLowerCase(),
   }
 }
 
 const searchMultiAppointmentToInteraction = (
   appointment: SearchAPIMultiAppointment
 ): Interaction => {
-  return {
+  const interaction = {
     id: {
       patientId: appointment.user_id,
       serviceId: appointment.poll_id,
@@ -101,11 +105,15 @@ const searchMultiAppointmentToInteraction = (
           id: appointment[
             `id_cita_${index}` as keyof SearchAPIMultiAppointment
           ] as string,
-          status: getStatusFromSearchRow(appointment)
+          status: getStatusFromSearchRow(appointment),
         }
       }),
     extraData: [],
     tags: [],
+  }
+  return {
+    ...interaction,
+    normalized: JSON.stringify(interaction).toLowerCase(),
   }
 }
 

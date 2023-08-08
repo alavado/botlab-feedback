@@ -8,6 +8,7 @@ export type Range = {
 
 type RangeWord = 'TODAY' | 'THIS_WEEK' | 'LAST_WEEK'
 interface InteractionsState {
+  globalSearch: string
   range: Range
 }
 
@@ -37,9 +38,13 @@ const getRangeFromWord = (word: RangeWord): Range => {
 const interactionsSlice = createSlice({
   name: 'Interactions',
   initialState: {
+    globalSearch: '',
     range: getRangeFromWord('TODAY'),
   } as InteractionsState,
   reducers: {
+    setGlobalSearch(state, action: PayloadAction<string>) {
+      state.globalSearch = action.payload
+    },
     setRange(state, action: PayloadAction<Range>) {
       state.range = action.payload
     },
@@ -70,6 +75,7 @@ const interactionsSlice = createSlice({
 })
 
 export const {
+  setGlobalSearch,
   setRange,
   setDay,
   setNextDay,

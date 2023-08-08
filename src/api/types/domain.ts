@@ -43,6 +43,7 @@ export interface Interaction {
   botName?: string
   extraData: InteractionExtraData[]
   tags: InteractionTag[]
+  normalized: string
 }
 
 export const tagPreffix = 'TAG:'

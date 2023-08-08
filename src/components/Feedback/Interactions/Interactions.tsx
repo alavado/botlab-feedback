@@ -14,7 +14,7 @@ import SearchBar from './SearchBar/SearchBar'
 
 const Interactions = () => {
   const { data: interactions, isLoading: loadingInteractions } =
-    useInteractionsQuery()
+    useInteractionsQuery({ applyFilters: true })
   const { data: activeService } = useActiveServiceQuery()
   const { params }: any = useRouteMatch()
 
