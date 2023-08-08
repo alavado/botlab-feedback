@@ -5,7 +5,7 @@ import { RootState } from '../../redux/ducks'
 import { addMonths, differenceInDays, format, parse } from 'date-fns'
 import { es } from 'date-fns/locale'
 
-const twoHoursInMS = 2 * 60 * 60 * 1_000
+const oneHourInMS = 1 * 60 * 60 * 1_000
 const daysForAlmostExpiredStatus = 7
 
 type PaymentStatus =
@@ -66,7 +66,7 @@ const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
       }
       return { status: 'NOT_EXPIRED' }
     },
-    { refetchInterval: twoHoursInMS, refetchOnWindowFocus: true }
+    { refetchInterval: oneHourInMS, refetchOnWindowFocus: false }
   )
 }
 
