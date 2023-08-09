@@ -26,12 +26,12 @@ const DateRangeSelector = () => {
         >
           <InlineIcon icon="mdi:chevron-left" />
         </button>
-        <span
+        <button
           className="DateRangeSelector__date"
           onClick={() => setCalendarVisible(true)}
         >
           {formatRange(range)}
-        </span>
+        </button>
         <button
           className="DateRangeSelector__step_button DateRangeSelector__step_button--right"
           onClick={() => dispatch(setNextDay())}

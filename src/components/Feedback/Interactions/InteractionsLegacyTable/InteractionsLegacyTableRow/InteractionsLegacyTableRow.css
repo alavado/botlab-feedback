@@ -1,14 +1,12 @@
 .InteractionsLegacyTableRow {
-  display: flex;
+  display: contents;
   border-bottom: 1px solid var(--color-bordes);
-  padding: 0.4rem 0;
-  align-items: center;
-  width: fit-content;
+  height: 2rem;
   cursor: pointer;
   transition: background-color 0.15s ease;
 }
 
-.InteractionsLegacyTableRow:hover {
+.InteractionsLegacyTableRow:hover > div {
   background-color: var(--color-fila-destacada);
 }
 
@@ -26,12 +24,9 @@
 .InteractionsLegacyTableRow__cell {
   padding-left: 0.25rem;
   flex: 1;
-  min-width: 7rem;
-  max-width: 7rem;
+  padding-right: 2rem;
   line-height: 1.5;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
   display: flex;
   align-items: center;
 }
@@ -43,27 +38,5 @@
   flex: 1;
   font-weight: 600;
   text-transform: uppercase;
-  background-color: var(--color-fondo);
-}
-
-.InteractionsLegacyTableRow__cell--notes-header {
-  max-width: 1.5rem;
-  min-width: 1.5rem;
-  justify-content: center;
-}
-
-.InteractionsLegacyTableRow__cell--notes-cell {
-  max-width: 1.5rem;
-  min-width: 1.5rem;
-  justify-content: center;
-}
-
-.InteractionsLegacyTableRow__cell--tag-container {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.InteractionsLegacyTableRow--active,
-.InteractionsLegacyTableRow--active:hover {
   background-color: var(--color-fondo);
 }

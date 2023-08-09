@@ -9,6 +9,8 @@ import { useHistory, useRouteMatch } from 'react-router-dom'
 import { useMemo } from 'react'
 import InteractionsLegacyTablePageSelector from './InteractionsLegacyTablePageSelector/InteractionsLegacyTablePageSelector'
 
+const INTERACTIONS_PER_PAGE = 40
+
 const InteractionsLegacyTable = ({
   interactions,
 }: {
@@ -45,7 +47,14 @@ const InteractionsLegacyTable = ({
           />
         )}
       </div>
-      <div className="InteractionsLegacyTable__table_container">
+      <div
+        className="InteractionsLegacyTable__table_container"
+        style={{
+          gridTemplate: `repeat(${1 + INTERACTIONS_PER_PAGE}, 2rem) / repeat(${
+            1 + (service?.headers.length || 0)
+          }, auto)`,
+        }}
+      >
         {/* <!--- jiji ---> */}
         <div className="InteractionsLegacyTableRow InteractionsLegacyTableRow--headers">
           <div className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--header InteractionsLegacyTableRow__cell--notes-header">
@@ -61,16 +70,18 @@ const InteractionsLegacyTable = ({
             </div>
           ))}
         </div>
-        {interactions.slice(0, 40).map((i: Interaction, n) => (
-          <InteractionsLegacyTableRow
-            interaction={i}
-            highlighted={
-              i.id.patientId === activeInteraction?.id.patientId &&
-              i.id.serviceId === activeInteraction?.id.serviceId
-            }
-            key={`InteractionsLegacyTableRow-${n}`}
-          />
-        ))}
+        {interactions
+          .slice(0, INTERACTIONS_PER_PAGE)
+          .map((i: Interaction, n) => (
+            <InteractionsLegacyTableRow
+              interaction={i}
+              highlighted={
+                i.id.patientId === activeInteraction?.id.patientId &&
+                i.id.serviceId === activeInteraction?.id.serviceId
+              }
+              key={`InteractionsLegacyTableRow-${n}`}
+            />
+          ))}
       </div>
       <InteractionsLegacyTablePageSelector />
     </div>

@@ -28,4 +28,5 @@
   max-width: calc(100vw - 12.75rem);
   overflow: auto;
   flex: 1;
+  display: grid;
 }
