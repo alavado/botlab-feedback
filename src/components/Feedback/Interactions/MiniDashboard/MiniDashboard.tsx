@@ -5,6 +5,7 @@ import './MiniDashboard.css'
 import useInteractionsQuery, {
   InteractionStatistics,
 } from '../../../../api/hooks/useInteractionsQuery'
+import CountUp from 'react-countup'
 
 const MiniDashboard = () => {
   const { data, isLoading } = useInteractionsQuery({
@@ -24,38 +25,43 @@ const MiniDashboard = () => {
         className="MiniDashboard__gauge"
         style={{ '--fill': `${stats?.answeredPercentage}%` } as CSSProperties}
       />
-      <p className="MiniDashboard__title">{stats?.answeredPercentage}%</p>
+      <p className="MiniDashboard__title">
+        <CountUp end={stats?.answeredPercentage} />%
+      </p>
       <p className="MiniDashboard__subtitle">
-        Respondidas {stats?.answeredCount}/{stats?.totalCount}
+        Respondidas <CountUp end={stats?.answeredCount} /> de{' '}
+        {stats?.totalCount}
       </p>
       <div className="MiniDashboard__tags_container">
         <div className="MiniDashboard__tag_count_container">
           <TagLabel tag="SIN RESPUESTA" />
           <span className="MiniDashboard__tag_count">
-            {stats?.unansweredCount}
+            <CountUp end={stats?.unansweredCount} />
           </span>
         </div>
         <div className="MiniDashboard__tag_count_container">
           <TagLabel tag="YES" />
           <span className="MiniDashboard__tag_count">
-            {stats?.confirmedCount}
+            <CountUp end={stats?.confirmedCount} />
           </span>
         </div>
         <div className="MiniDashboard__tag_count_container">
           <TagLabel tag="NO" />
           <span className="MiniDashboard__tag_count">
-            {stats?.cancelledCount}
+            <CountUp end={stats?.cancelledCount} />
           </span>
         </div>
         <div className="MiniDashboard__tag_count_container">
           <TagLabel tag="REAGENDA" />
           <span className="MiniDashboard__tag_count">
-            {stats?.rescheduledCount}
+            <CountUp end={stats?.rescheduledCount} />
           </span>
         </div>
         <div className="MiniDashboard__tag_count_container">
           <TagLabel tag="OTRO" />
-          <span className="MiniDashboard__tag_count">{stats?.otherCount}</span>
+          <span className="MiniDashboard__tag_count">
+            <CountUp end={stats?.otherCount} />
+          </span>
         </div>
       </div>
     </div>
