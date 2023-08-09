@@ -2,12 +2,18 @@ import axios from 'axios'
 import { parse, parseISO, startOfDay } from 'date-fns'
 import { es } from 'date-fns/locale'
 import store from '../../redux/store'
-import { Appointment, AppointmentStatus, InteractionTag } from '../types/domain'
 import {
+  Appointment,
+  AppointmentStatus,
+  InteractionStatus,
+} from '../types/domain'
+import {
+  APITagWithText,
   AnswersAPIResponseRow,
   ChatAPIConversation,
   SearchAPIMultiAppointment,
   SearchAPISingleAppointment,
+  isAPITagWithText,
 } from '../types/responses'
 
 export const API_ROOT = process.env.REACT_APP_API_ROOT
@@ -75,7 +81,29 @@ export const parseAPIDate = (
 export const getStatusFromAnswersResponseRow = (
   appointment: AnswersAPIResponseRow
 ): AppointmentStatus => {
-  return 'OTHER'
+  const firstTagKey = Object.keys(appointment).find((key) =>
+    isAPITagWithText(appointment[key])
+  )
+  const firstTag = firstTagKey && appointment[firstTagKey]
+  if (firstTag) {
+    const firstTagValue = firstTag as APITagWithText
+    switch (firstTagValue.tag) {
+      case '':
+      case 'UNREACHABLE':
+        return 'SCHEDULED'
+      case 'YES':
+      case 'PHONE:YES':
+        return 'CONFIRMED'
+      case 'PHONE:NO':
+      case 'NO':
+        return 'CANCELLED'
+      case 'REAGENDA':
+        return 'RESCHEDULED'
+      default:
+        return 'OTHER'
+    }
+  }
+  return 'SCHEDULED'
 }
 
 export const getStatusFromChatConversation = (
@@ -90,19 +118,24 @@ export const getStatusFromSearchRow = (
   return 'OTHER'
 }
 
-export const getInteractionTags = (
+export const getInteractionStatus = (
   appointments: Appointment[]
-): InteractionTag[] => {
-  const tags: InteractionTag[] = []
+): InteractionStatus => {
   if (appointments.some((a) => a.status !== 'SCHEDULED')) {
-    tags.push('ANSWERED_WHATSAPP')
-    if (appointments.some((a) => a.status === 'OTHER')) {
-      tags.push('OTHER')
+    if (appointments.some((a) => a.status === 'CONFIRMED')) {
+      return 'CONFIRMED_WHATSAPP'
     }
-  } else {
-    tags.push('UNANSWERED_WHATSAPP')
+    if (appointments.some((a) => a.status === 'CANCELLED')) {
+      return 'CANCELLED_WHATSAPP'
+    }
+    if (appointments.some((a) => a.status === 'RESCHEDULED')) {
+      return 'RESCHEDULED_WHATSAPP'
+    }
+    if (appointments.some((a) => a.status === 'OTHER')) {
+      return 'OTHER'
+    }
   }
-  return tags
+  return 'UNANSWERED_WHATSAPP'
 }
 
 export const normalizeString = (s: string) =>

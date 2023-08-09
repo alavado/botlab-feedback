@@ -17,7 +17,7 @@ const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {
   const activeServiceId = params.serviceId
     ? Number(params.serviceId)
     : undefined
-  const firstInteraction = interactions?.[0]?.id
+  const firstInteraction = (interactions as Interaction[])?.[0]?.id
 
   return useQuery<any, any, Service>(
     ['active-service', activeServiceId, firstInteraction],
@@ -30,7 +30,10 @@ const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {
       ) as Service
       return {
         ...service,
-        headers: getServiceHeadersWithLevels(service.headers, interactions),
+        headers: getServiceHeadersWithLevels(
+          service.headers,
+          interactions as Interaction[]
+        ),
       }
     },
     {

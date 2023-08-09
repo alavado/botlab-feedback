@@ -18,7 +18,7 @@ export interface Branch {
   name: string
 }
 
-export type InteractionTag =
+export type InteractionStatus =
   | 'UNANSWERED_WHATSAPP'
   | 'UNREACHABLE_WHATSAPP'
   | 'ANSWERED_WHATSAPP'
@@ -42,7 +42,7 @@ export interface Interaction {
   comments?: Comment[]
   botName?: string
   extraData: InteractionExtraData[]
-  tags: InteractionTag[]
+  status: InteractionStatus
   normalized: string
 }
 

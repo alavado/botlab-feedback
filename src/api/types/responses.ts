@@ -243,6 +243,12 @@ export type APITag =
   | 'OUT'
   | 'PHONE:YES'
   | 'PHONE:NO'
+  | 'UNREACHABLE'
+  | ''
+
+export const isAPITagWithText = (stuff: any): stuff is APITagWithText => {
+  return 'text' in stuff && 'tag' in stuff
+}
 
 export type APITagWithText = {
   tag: APITag

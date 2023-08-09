@@ -3,13 +3,15 @@ import useActiveServiceQuery from '../../../../api/hooks/useActiveServiceQuery'
 import useInteractionsQuery from '../../../../api/hooks/useInteractionsQuery'
 import Loader from '../../../Loader/Loader'
 import './InteractionFilters.css'
+import { Interaction } from '../../../../api/types/domain'
 
 const InteractionFilters = () => {
   const { data } = useActiveServiceQuery()
   const { data: interactions } = useInteractionsQuery({ applyFilters: false })
 
   const elegibleHeaders = data?.headers.filter(
-    (header) => header.levels.length < (interactions?.length || 0) / 2
+    (header) =>
+      header.levels.length < ((interactions as Interaction[])?.length || 0) / 2
   )
 
   return (

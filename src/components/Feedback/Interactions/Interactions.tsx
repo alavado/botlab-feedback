@@ -11,6 +11,7 @@ import ServiceSelector from './ServiceSelector/ServiceSelector'
 import './Interactions.css'
 import DateRangeSelector from './DateRangeSelector/DateRangeSelector'
 import SearchBar from './SearchBar/SearchBar'
+import { Interaction } from '../../../api/types/domain'
 
 const Interactions = () => {
   const { data: interactions, isLoading: loadingInteractions } =
@@ -38,7 +39,9 @@ const Interactions = () => {
         <div className="Interactions__table_container">
           {loadingInteractions && <Loader />}
           {interactions && activeService && (
-            <InteractionsLegacyTable interactions={interactions} />
+            <InteractionsLegacyTable
+              interactions={interactions as Interaction[]}
+            />
           )}
         </div>
       </main>

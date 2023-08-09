@@ -12,6 +12,7 @@
   text-shadow: 0 0 0 0.5rem var(--color-sombras);
   gap: 0.5rem;
   position: relative;
+  cursor: default;
 }
 
 .MiniDashboard__title {
