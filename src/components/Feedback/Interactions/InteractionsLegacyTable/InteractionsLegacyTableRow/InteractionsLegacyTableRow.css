@@ -1,7 +1,5 @@
 .InteractionsLegacyTableRow {
   display: contents;
-  border-bottom: 1px solid var(--color-bordes);
-  height: 2rem;
   cursor: pointer;
   transition: background-color 0.15s ease;
 }
@@ -10,25 +8,25 @@
   background-color: var(--color-fila-destacada);
 }
 
-.InteractionsLegacyTableRow--headers {
-  position: sticky;
-  top: 0;
-  background-color: var(--color-fondo);
-  z-index: 2;
-}
-
 .InteractionsLegacyTableRow--headers:hover {
   background-color: inherit;
 }
 
+.InteractionsLegacyTableRow__cell:first-child {
+  padding: 0 0.75rem;
+}
+
 .InteractionsLegacyTableRow__cell {
-  padding-left: 0.25rem;
+  padding-left: 0;
   flex: 1;
-  padding-right: 2rem;
+  padding-right: 1.5rem;
   line-height: 1.5;
   white-space: nowrap;
   display: flex;
   align-items: center;
+  height: 1.8rem;
+  font-size: 0.6rem;
+  border-bottom: 1px solid var(--color-bordes);
 }
 
 .InteractionsLegacyTableRow__cell--header {
@@ -39,4 +37,8 @@
   font-weight: 600;
   text-transform: uppercase;
   background-color: var(--color-fondo);
+  position: sticky;
+  top: 0;
+  background-color: var(--color-fondo);
+  z-index: 2;
 }

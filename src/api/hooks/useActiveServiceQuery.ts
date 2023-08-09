@@ -51,17 +51,21 @@ const getServiceHeadersWithLevels = (
   if (!interactions) {
     return headers
   }
-  const headersWithLevels = headers.map((header) => ({
-    ...header,
-    levels: _.uniq(
+  const headersWithLevels = headers.map((header) => {
+    const levels = _.uniq(
       interactions.map((interaction) => {
         const headerValue: InteractionExtraData = interaction.extraData.find(
           (p) => p.header === header.name
         ) as InteractionExtraData
         return headerValue.value
       })
-    ),
-  }))
+    )
+    levels.sort()
+    return {
+      ...header,
+      levels,
+    }
+  })
   return headersWithLevels
 }
 

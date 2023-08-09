@@ -98,9 +98,8 @@ const useInteractionsQuery = ({
           const answeredCount = totalCount - unansweredCount
           const otherCount =
             answeredCount - confirmedCount - cancelledCount - rescheduledCount
-          const answeredPercentage = Math.round(
-            (100 * answeredCount) / (totalCount || 1)
-          )
+          const answeredPercentage =
+            Math.round((1000 * answeredCount) / (totalCount || 1)) / 10.0
           return {
             totalCount,
             answeredCount,

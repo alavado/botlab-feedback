@@ -50,15 +50,15 @@ const InteractionsLegacyTable = ({
       <div
         className="InteractionsLegacyTable__table_container"
         style={{
-          gridTemplate: `repeat(${1 + INTERACTIONS_PER_PAGE}, 2rem) / repeat(${
+          gridTemplateColumns: `repeat(${
             1 + (service?.headers.length || 0)
           }, auto)`,
         }}
       >
         {/* <!--- jiji ---> */}
-        <div className="InteractionsLegacyTableRow InteractionsLegacyTableRow--headers">
+        <div className="InteractionsLegacyTableRow">
           <div className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--header InteractionsLegacyTableRow__cell--notes-header">
-            <Icon icon="mdi:note" />
+            <Icon icon="mdi:note-text-outline" />
           </div>
           {service?.headers.map((header) => (
             <div

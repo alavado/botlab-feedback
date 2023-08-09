@@ -30,7 +30,6 @@
 
 .Interactions__main {
   display: grid;
-  flex: 1;
   grid-template: 1fr auto / auto 1fr;
 }
 
