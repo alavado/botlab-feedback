@@ -24,7 +24,7 @@
 }
 
 .InteractionsLegacyTable__table_container {
-  max-height: calc(100vh - 5.5rem);
+  max-height: calc(100vh - 5.25rem);
   max-width: calc(100vw - 12.75rem);
   overflow: auto;
   flex: 1;

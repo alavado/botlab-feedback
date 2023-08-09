@@ -32,12 +32,14 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .InteractionsLegacyTableRow__cell--header {
   white-space: nowrap;
-  padding-top: 0.5rem;
-  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.2rem;
   flex: 1;
   font-weight: 600;
   text-transform: uppercase;
@@ -45,14 +47,15 @@
 }
 
 .InteractionsLegacyTableRow__cell--notes-header {
-  max-width: 1.75rem;
-  min-width: 1.75rem;
+  max-width: 1.5rem;
+  min-width: 1.5rem;
   justify-content: center;
 }
 
 .InteractionsLegacyTableRow__cell--notes-cell {
-  max-width: 1.75rem;
-  min-width: 1.75rem;
+  max-width: 1.5rem;
+  min-width: 1.5rem;
+  justify-content: center;
 }
 
 .InteractionsLegacyTableRow__cell--tag-container {
