@@ -34,6 +34,7 @@
   border-bottom: 1px solid #eee;
   padding: 0.25rem 0.2rem;
   background-color: var(--color-fondo);
+  z-index: 2;
 }
 
 .InteractionFilters__filter_checkbox {

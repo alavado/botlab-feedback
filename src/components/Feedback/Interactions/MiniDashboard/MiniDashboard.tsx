@@ -32,6 +32,7 @@ const MiniDashboard = () => {
           end={stats?.answeredPercentage}
           preserveValue={true}
           decimals={1}
+          duration={0.35}
           suffix="%"
         />
       </p>
@@ -42,6 +43,7 @@ const MiniDashboard = () => {
           decimal=","
           end={stats?.answeredCount}
           preserveValue={true}
+          duration={0.35}
         />{' '}
         de {stats?.totalCount}
       </p>
@@ -54,6 +56,7 @@ const MiniDashboard = () => {
               decimal=","
               end={stats?.unansweredCount}
               preserveValue={true}
+              duration={0.35}
             />
           </span>
         </div>
@@ -65,6 +68,7 @@ const MiniDashboard = () => {
               decimal=","
               end={stats?.confirmedCount}
               preserveValue={true}
+              duration={0.35}
             />
           </span>
         </div>
@@ -76,6 +80,7 @@ const MiniDashboard = () => {
               decimal=","
               end={stats?.cancelledCount}
               preserveValue={true}
+              duration={0.35}
             />
           </span>
         </div>
@@ -87,6 +92,7 @@ const MiniDashboard = () => {
               decimal=","
               end={stats?.rescheduledCount}
               preserveValue={true}
+              duration={0.35}
             />
           </span>
         </div>
@@ -98,6 +104,7 @@ const MiniDashboard = () => {
               decimal=","
               end={stats?.otherCount}
               preserveValue={true}
+              duration={0.35}
             />
           </span>
         </div>

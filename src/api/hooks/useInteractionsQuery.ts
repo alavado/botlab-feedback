@@ -94,17 +94,17 @@ const useInteractionsQuery = ({
           )
         }
         if (aggregate) {
-          const totalCount = interactions.length
-          const unansweredCount = interactions.filter(
+          const totalCount = selectedInteractions.length
+          const unansweredCount = selectedInteractions.filter(
             (i) => i.status === 'UNANSWERED_WHATSAPP'
           ).length
-          const confirmedCount = interactions.filter(
+          const confirmedCount = selectedInteractions.filter(
             (i) => i.status === 'CONFIRMED_WHATSAPP'
           ).length
-          const cancelledCount = interactions.filter(
+          const cancelledCount = selectedInteractions.filter(
             (i) => i.status === 'CANCELLED_WHATSAPP'
           ).length
-          const rescheduledCount = interactions.filter(
+          const rescheduledCount = selectedInteractions.filter(
             (i) => i.status === 'RESCHEDULED_WHATSAPP'
           ).length
           const answeredCount = totalCount - unansweredCount

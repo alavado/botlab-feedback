@@ -3,7 +3,8 @@ import useActiveServiceQuery from '../../../../api/hooks/useActiveServiceQuery'
 import useInteractionsQuery from '../../../../api/hooks/useInteractionsQuery'
 import Loader from '../../../Loader/Loader'
 import './InteractionFilters.css'
-import { Interaction } from '../../../../api/types/domain'
+import { Interaction, isTag } from '../../../../api/types/domain'
+import TagLabel from '../TagLabel/TagLabel'
 
 const InteractionFilters = () => {
   const { data } = useActiveServiceQuery()
@@ -36,7 +37,7 @@ const InteractionFilters = () => {
                     key={`filter-title-${header.name}-${level}-${j}`}
                   >
                     <input type="checkbox" />
-                    <p>{level}</p>
+                    <p>{isTag(level) ? <TagLabel tag={level} /> : level}</p>
                   </label>
                 ))}
               </div>
