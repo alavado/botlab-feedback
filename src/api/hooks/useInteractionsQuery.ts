@@ -69,6 +69,18 @@ const useInteractionsQuery = ({
     },
     {
       refetchInterval: 30_000,
+      notifyOnChangeProps: 'tracked',
+      isDataEqual: (oldData, newData) => {
+        if (!oldData) {
+          return false
+        }
+        if (oldData.length !== newData.length) {
+          return false
+        }
+        const oldStatuses = oldData.map((i) => i.status)
+        const newStatuses = newData.map((i) => i.status)
+        return _.isEqual(oldStatuses, newStatuses)
+      },
       select: (
         interactions: Interaction[]
       ): Interaction[] | InteractionStatistics => {
@@ -151,6 +163,13 @@ const answerSingleAppointmentToInteraction = (
       header,
       value: processMeta(apiAppointment[header]),
     })),
+    extraDataDict: Object.keys(apiAppointment).reduce(
+      (dict, header) => ({
+        ...dict,
+        [header]: processMeta(apiAppointment[header]),
+      }),
+      {}
+    ),
     status: getInteractionStatus([appointment]),
   }
   return {

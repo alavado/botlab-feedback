@@ -9,7 +9,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom'
 import { useMemo } from 'react'
 import InteractionsLegacyTablePageSelector from './InteractionsLegacyTablePageSelector/InteractionsLegacyTablePageSelector'
 
-const INTERACTIONS_PER_PAGE = 40
+const INTERACTIONS_PER_PAGE = 30
 
 const InteractionsLegacyTable = ({
   interactions,
@@ -79,6 +79,7 @@ const InteractionsLegacyTable = ({
                 i.id.patientId === activeInteraction?.id.patientId &&
                 i.id.serviceId === activeInteraction?.id.serviceId
               }
+              row={n}
               key={`InteractionsLegacyTableRow-${n}`}
             />
           ))}

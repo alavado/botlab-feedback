@@ -238,6 +238,10 @@ const conversationToInteraction = (
       header: meta.title,
       value: meta.value,
     })),
+    extraDataDict: context.reduce(
+      (dict, meta) => ({ ...dict, [meta.title]: meta.value }),
+      {}
+    ),
     status: getInteractionStatus(appointments),
   }
   return {

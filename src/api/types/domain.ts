@@ -42,6 +42,7 @@ export interface Interaction {
   comments?: Comment[]
   botName?: string
   extraData: InteractionExtraData[]
+  extraDataDict: any
   status: InteractionStatus
   normalized: string
 }
@@ -49,20 +50,16 @@ export interface Interaction {
 export const tagPreffix = 'TAG:'
 
 export type Tag =
-  | 'YES'
-  | 'NO'
-  | 'REAGENDA'
-  | 'OUT'
-  | 'OTRO'
-  | 'SIN RESPUESTA'
-  | 'UNREACHABLE'
+  | 'TAG:YES'
+  | 'TAG:NO'
+  | 'TAG:REAGENDA'
+  | 'TAG:OUT'
+  | 'TAG:OTRO'
+  | 'TAG:SIN RESPUESTA'
+  | 'TAG:UNREACHABLE'
 
 export const isTag = (stuff: any): stuff is Tag => {
-  return (
-    ['YES', 'NO', 'REAGENDA', 'OUT', 'SIN RESPUESTA', 'UNREACHABLE'].includes(
-      stuff
-    ) || stuff.startsWith(tagPreffix)
-  )
+  return stuff.startsWith(tagPreffix)
 }
 
 export interface InteractionExtraData {

@@ -67,6 +67,7 @@ const searchSingleAppointmentToInteraction = (
     phone: appointment.phone,
     appointments,
     extraData: [],
+    extraDataDict: [],
     status: getInteractionStatus(appointments),
   }
   return {
@@ -117,6 +118,7 @@ const searchMultiAppointmentToInteraction = (
     phone: appointment.phone,
     appointments,
     extraData: [],
+    extraDataDict: [],
     status: getInteractionStatus(appointments),
   }
   return {

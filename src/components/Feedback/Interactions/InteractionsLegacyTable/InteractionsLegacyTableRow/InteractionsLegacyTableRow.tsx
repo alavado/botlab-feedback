@@ -9,9 +9,11 @@ import TagLabel from '../../TagLabel/TagLabel'
 const InteractionsLegacyTableRow = ({
   interaction,
   highlighted,
+  row,
 }: {
   interaction: Interaction
   highlighted: boolean
+  row: number
 }) => {
   const { params }: any = useRouteMatch()
   const history = useHistory()
@@ -42,12 +44,10 @@ const InteractionsLegacyTableRow = ({
     >
       <div className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--notes-cell"></div>
       {service?.headers.map((header, m) => {
-        const headerValue = interaction.extraData.find(
-          (m) => m.header === header.name
-        )?.value as string
+        const headerValue = interaction.extraDataDict[header.name] as string
         return (
           <div
-            key={`cell-${header.displayName}-${m}`}
+            key={`cell-${row}-${m}`}
             className={classNames({
               InteractionsLegacyTableRow__cell: true,
               'InteractionsLegacyTableRow__cell--tag-container':
