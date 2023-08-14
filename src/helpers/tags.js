@@ -315,7 +315,7 @@ const tags = {
     color: '',
   },
   CONTRADICCION: {
-    texto: 'Contradicción (i)',
+    texto: 'Contradicción',
     titulo: 'Paciente indica que hay información contradictoria',
     icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--vacia',
