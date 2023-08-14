@@ -69,6 +69,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--out',
     color: 'var(--color-out)',
   },
+  SMALL_TALK: {
+    texto: 'Out',
+    titulo: 'Out',
+    icono: 'mdi:question-mark',
+    clase: 'TagRespuesta TagRespuesta--out',
+    color: 'var(--color-out)',
+  },
   REAGENDADO: {
     texto: 'Reagendado',
     titulo: 'Reagendamientos ok',
@@ -308,7 +315,14 @@ const tags = {
     color: '',
   },
   CONTRADICCION: {
-    texto: 'Contradicción',
+    texto: 'Contradicción (i)',
+    titulo: 'Paciente indica que hay información contradictoria',
+    icono: 'mdi:close',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: '',
+  },
+  IN_CONTRADICCION: {
+    texto: 'Contradicción (i)',
     titulo: 'Paciente indica que hay información contradictoria',
     icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--vacia',
@@ -386,6 +400,13 @@ const tags = {
   },
   EQUIVOCADO: {
     texto: 'Equivocado',
+    titulo: 'Equivocado',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta  TagRespuesta--vacia',
+    color: '',
+  },
+  EQUIVOCADO_MAS_INFO: {
+    texto: 'Equivocado (i)',
     titulo: 'Equivocado',
     icono: 'mdi:alert',
     clase: 'TagRespuesta  TagRespuesta--vacia',
