@@ -50,7 +50,7 @@ const BarraSuperior = () => {
       <AlertaDeudores />
       {/* <AlertaAlemana /> */}
       {cuenta.includes('centauro') ||
-      (tiposOrdenados?.length < 5 && !cuenta.includes('redsalud')) ? (
+      (tiposOrdenados?.length <= 5 && !cuenta.includes('redsalud')) ? (
         <Switch>
           <Route
             path="/chat/:idEncuesta/:idUsuario"
