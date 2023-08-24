@@ -212,30 +212,42 @@ export const obtenerTagsCalculados = (idEncuesta) => {
           {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
-            f: (r) => r[2],
+            f: (r) => r[3],
           },
           {
             texto: 'Opción elegida',
             tipo: 'OPEN',
-            f: (r) => r[3],
+            f: (r) => r[4],
           },
           {
             texto: 'Bloque agendado',
             tipo: 'INTERNAL',
             f: (r) => {
-              if (r[510].tag === actionSuccess) {
+              if (r[61]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_1,
                   texto: 'Bloque 1',
                 }
               }
-              if (r[520].tag === actionSuccess) {
+              if (r[62]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_2,
                   texto: 'Bloque 2',
                 }
               }
-              if (r[530].tag === actionSuccess) {
+              if (r[63]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3',
+                }
+              }
+              if (r[64]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3',
+                }
+              }
+              if (r[65]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_3,
                   texto: 'Bloque 3',
