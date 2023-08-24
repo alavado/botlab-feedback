@@ -398,9 +398,5 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
     .map((h) =>
       h.texto.includes(' Externo') ? { ...h, texto: h.texto.slice(0, -8) } : h
     )
-  // caso especial agendamiento, para poner el teléfono al comienzo
-  if ([509, 557, 577].includes(idEncuesta)) {
-    return [...headersSinTags, ...tagsCalculados]
-  }
   return [...tagsCalculados, ...headersSinTags]
 }
