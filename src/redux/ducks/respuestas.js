@@ -43,8 +43,12 @@ const ordenarPorFechaCita =
   (orden = 'ASC') =>
   (r1, r2) => {
     try {
-      const propHora = r1.time ? 'time' : 'time_1'
-      const propFecha = r1.time ? 'date' : 'date_1'
+      const propHora = r1.time
+        ? 'time'
+        : r1.time_1
+        ? 'time_1'
+        : 'time_truncated'
+      const propFecha = r1.time || r1.time_truncated ? 'date' : 'date_1'
       const formato = r1[propHora].includes('M')
         ? "d 'de' MMMM h:m a"
         : "d 'de' MMMM H:m"
@@ -68,6 +72,7 @@ const ordenarPorFechaCita =
         ? 1
         : -1
     } catch (e) {
+      console.log(e)
       return 1
     }
   }
