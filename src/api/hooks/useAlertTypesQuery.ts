@@ -45,6 +45,14 @@ const alertTypes = [
     id: 'Derivación de examen o procedimiento',
     name: 'Derivación',
   },
+  {
+    id: 'Derivación de examen o procedimiento',
+    name: 'Derivación',
+  },
+  {
+    id: 'Paciente quiere cambiar a telemedicina',
+    name: 'Paciente quiere cambiar a telemedicina',
+  },
 ]
 
 const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
@@ -58,6 +66,11 @@ const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
     ) {
       filteredAlertTypes = filteredAlertTypes.filter(
         (t) => t.id !== 'Derivación de examen o procedimiento'
+      )
+    }
+    if (nombreUsuario !== 'CEAPSI') {
+      filteredAlertTypes = filteredAlertTypes.filter(
+        (t) => t.id !== 'Paciente quiere cambiar a telemedicina'
       )
     }
     return _.sortBy(filteredAlertTypes, 'name')
