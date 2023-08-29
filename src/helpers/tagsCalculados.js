@@ -202,6 +202,60 @@ export const obtenerTagsCalculados = (idEncuesta) => {
             },
           },
         ]
+      case 891: // cero
+        return [
+          {
+            texto: 'Mensaje Inicial',
+            tipo: 'OPEN',
+            f: (r) => r[0],
+          },
+          {
+            texto: 'Encontramos horas',
+            tipo: 'INTERNAL',
+            f: (r) => r[3],
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: (r) => r[4],
+          },
+          {
+            texto: 'Bloque agendado',
+            tipo: 'INTERNAL',
+            f: (r) => {
+              if (r[61]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_1,
+                  texto: 'Bloque 1',
+                }
+              }
+              if (r[62]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_2,
+                  texto: 'Bloque 2',
+                }
+              }
+              if (r[63]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3',
+                }
+              }
+              if (r[64]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3',
+                }
+              }
+              if (r[65]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3',
+                }
+              }
+            },
+          },
+        ]
       case 509: // SS agendamiento
         return [
           {
