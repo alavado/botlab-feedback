@@ -64,11 +64,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
             f: (r) => r[13],
           },
           {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
-          {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
             f: (r) => r[2],
@@ -111,11 +106,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
             f: (r) => r[13],
           },
           {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
-          {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
             f: (r) => r[2],
@@ -152,11 +142,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
         ]
       case 892: // agendamiento nucleo
         return [
-          {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
           {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
@@ -207,11 +192,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
       case 891: // cero
         return [
           {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
-          {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
             f: (r) => r[3],
@@ -260,11 +240,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
         ]
       case 509: // SS agendamiento
         return [
-          {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
           {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
