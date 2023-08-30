@@ -11,6 +11,8 @@ export const CUALQUIERA = 'CUALQUIERA'
 export const AGENDA_OPCION_1 = 'AGENDA_OPCION_1'
 export const AGENDA_OPCION_2 = 'AGENDA_OPCION_2'
 export const AGENDA_OPCION_3 = 'AGENDA_OPCION_3'
+export const AGENDA_OPCION_4 = 'AGENDA_OPCION_4'
+export const AGENDA_OPCION_5 = 'AGENDA_OPCION_5'
 
 const tags = {
   YES: {
@@ -380,6 +382,20 @@ const tags = {
   AGENDA_OPCION_3: {
     texto: 'Bloque 3 agendado',
     titulo: 'Bloque 3 agendado',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: '',
+  },
+  AGENDA_OPCION_4: {
+    texto: 'Bloque 4 agendado',
+    titulo: 'Bloque 4 agendado',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: '',
+  },
+  AGENDA_OPCION_5: {
+    texto: 'Bloque 5 agendado',
+    titulo: 'Bloque 5 agendado',
     icono: 'mdi:check',
     clase: 'TagRespuesta TagRespuesta--si',
     color: '',

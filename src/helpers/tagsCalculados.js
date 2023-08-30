@@ -5,6 +5,8 @@ import {
   AGENDA_OPCION_1,
   AGENDA_OPCION_2,
   AGENDA_OPCION_3,
+  AGENDA_OPCION_4,
+  AGENDA_OPCION_5,
 } from './tags'
 
 const actionSuccess = 'action_result:SUCCESS'
@@ -189,14 +191,14 @@ export const obtenerTagsCalculados = (idEncuesta) => {
               }
               if (r[64]?.tag === actionSuccess) {
                 return {
-                  tag: AGENDA_OPCION_3,
-                  texto: 'Bloque 3',
+                  tag: AGENDA_OPCION_4,
+                  texto: 'Bloque 4',
                 }
               }
               if (r[65]?.tag === actionSuccess) {
                 return {
-                  tag: AGENDA_OPCION_3,
-                  texto: 'Bloque 3',
+                  tag: AGENDA_OPCION_5,
+                  texto: 'Bloque 5',
                 }
               }
             },
@@ -243,14 +245,14 @@ export const obtenerTagsCalculados = (idEncuesta) => {
               }
               if (r[64]?.tag === actionSuccess) {
                 return {
-                  tag: AGENDA_OPCION_3,
-                  texto: 'Bloque 3',
+                  tag: AGENDA_OPCION_4,
+                  texto: 'Bloque 4',
                 }
               }
               if (r[65]?.tag === actionSuccess) {
                 return {
-                  tag: AGENDA_OPCION_3,
-                  texto: 'Bloque 3',
+                  tag: AGENDA_OPCION_5,
+                  texto: 'Bloque 5',
                 }
               }
             },
@@ -297,14 +299,14 @@ export const obtenerTagsCalculados = (idEncuesta) => {
               }
               if (r[64]?.tag === actionSuccess) {
                 return {
-                  tag: AGENDA_OPCION_3,
-                  texto: 'Bloque 3',
+                  tag: AGENDA_OPCION_4,
+                  texto: 'Bloque 4',
                 }
               }
               if (r[65]?.tag === actionSuccess) {
                 return {
-                  tag: AGENDA_OPCION_3,
-                  texto: 'Bloque 3',
+                  tag: AGENDA_OPCION_5,
+                  texto: 'Bloque 5',
                 }
               }
             },
