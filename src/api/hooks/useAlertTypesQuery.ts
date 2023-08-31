@@ -46,10 +46,6 @@ const alertTypes = [
     name: 'Derivación',
   },
   {
-    id: 'Derivación de examen o procedimiento',
-    name: 'Derivación',
-  },
-  {
     id: 'Paciente quiere cambiar a telemedicina',
     name: 'Paciente quiere cambiar a telemedicina',
   },
