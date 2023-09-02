@@ -89,7 +89,7 @@ export const exportarRespuestas = (
     {
       headers: {
         authorization: `Bearer ${token}`,
-        'Api-UTC-Offset': -240,
+        'Api-UTC-Offset': -180,
       },
     }
   )
