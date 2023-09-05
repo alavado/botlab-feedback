@@ -47,6 +47,7 @@ export const tieneAccesoADashboard = (cuenta) => {
     'hospital_osorno',
     'hospital_puerto_montt',
     'cleversalud',
+    'imagen_dental',
   ]
   return cuentasConAcceso.includes(cuenta.toLowerCase()) || esCero(cuenta)
 }
