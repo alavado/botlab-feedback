@@ -3,6 +3,7 @@ import { formatISO9075, parse } from 'date-fns'
 import { es } from 'date-fns/locale'
 import diccionarioTags from '../../helpers/tags'
 import { obtenerTagsCalculados } from '../../helpers/tagsCalculados'
+import { CANAL_HEADER_NAME } from './encuestas'
 
 export const normalizar = (s) =>
   (s.tag ?? s)
@@ -139,6 +140,11 @@ const sliceRespuestas = createSlice({
             }
             return prev
           }, {})
+          r[CANAL_HEADER_NAME] = !r.is_unreachable.whatsapp
+            ? 'whatsapp'
+            : !r.is_unreachable.phone
+            ? 'phone'
+            : 'cellphone-off'
           return {
             ...r,
             respuestaString,
