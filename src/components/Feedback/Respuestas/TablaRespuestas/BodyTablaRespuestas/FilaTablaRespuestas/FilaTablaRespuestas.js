@@ -107,10 +107,13 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
             })}
           >
             {tipo === 'ICON' ? (
-              <Icon
-                className="FilaTablaRespuestas__channel_icon"
-                icon={`mdi:${valorHeader}`}
-              />
+              <div title={valorHeader.label}>
+                <Icon
+                  className="FilaTablaRespuestas__channel_icon"
+                  icon={`mdi:${valorHeader.icon}`}
+                  title={valorHeader.label}
+                />
+              </div>
             ) : valorHeader && valorHeader.tag !== undefined ? (
               <span
                 className="FilaTablaRespuestas__contenedor_tag"

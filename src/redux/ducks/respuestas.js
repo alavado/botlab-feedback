@@ -132,19 +132,21 @@ const sliceRespuestas = createSlice({
             }
             return prev + slug
           }, '')
+          r[CANAL_HEADER_NAME] = !r.is_unreachable.whatsapp
+            ? { icon: 'whatsapp', label: 'Whatsapp' }
+            : !r.is_unreachable.phone
+            ? { icon: 'phone', label: 'Teléfono' }
+            : { icon: 'cellphone-off', label: 'No pudo ser contactado' }
           const respuestaNormalizada = Object.keys(r).reduce((prev, k) => {
             if (typeof r[k] === 'string') {
               prev[k] = normalizar(r[k])
             } else if (r[k]?.tag || r[k]?.tag === '') {
               prev[k] = normalizar(diccionarioTags(r[k].tag)?.id || r[k].tag)
+            } else if (r[k]?.icon) {
+              prev[k] = normalizar(r[k].label)
             }
             return prev
           }, {})
-          r[CANAL_HEADER_NAME] = !r.is_unreachable.whatsapp
-            ? 'whatsapp'
-            : !r.is_unreachable.phone
-            ? 'phone'
-            : 'cellphone-off'
           return {
             ...r,
             respuestaString,
@@ -153,19 +155,27 @@ const sliceRespuestas = createSlice({
         })
         .reverse()
       try {
-        let categorias = Object.keys(respuestas[0]).map((k) =>
-          respuestas[0][k]?.tag !== undefined
+        let categorias = Object.keys(respuestas[0]).map((propiedad) =>
+          respuestas[0][propiedad]?.tag !== undefined
             ? {
-                propiedad: k,
+                propiedad,
                 esTag: true,
-                niveles: [...new Set(respuestas.map((r) => r[k].tag))].sort(
-                  (x, y) => (x > y ? 1 : -1)
-                ),
+                niveles: [
+                  ...new Set(respuestas.map((r) => r[propiedad].tag)),
+                ].sort((x, y) => (x > y ? 1 : -1)),
+              }
+            : respuestas[0][propiedad]?.icon
+            ? {
+                propiedad,
+                esTag: false,
+                niveles: [
+                  ...new Set(respuestas.map((r) => r[propiedad].label)),
+                ].sort((x, y) => (x > y ? 1 : -1)),
               }
             : {
-                propiedad: k,
+                propiedad,
                 esTag: false,
-                niveles: [...new Set(respuestas.map((r) => r[k]))].sort(
+                niveles: [...new Set(respuestas.map((r) => r[propiedad]))].sort(
                   (x, y) => (x > y ? 1 : -1)
                 ),
               }
