@@ -10,7 +10,7 @@ import {
   limpiaRespuestas,
 } from '../../../../redux/ducks/respuestas'
 import { guardaIdEncuesta } from '../../../../redux/ducks/opciones'
-import { useParams, useRouteMatch } from 'react-router-dom'
+import { useHistory, useParams, useRouteMatch } from 'react-router-dom'
 import { obtenerTiposEncuestasVisibles } from '../../../../helpers/encuestasSecretas'
 import { obtenerPollsCalculadas } from '../../../../helpers/pollsCalculadas'
 import Loader from '../../../Loader'
@@ -33,6 +33,7 @@ const TabsEncuestas = () => {
   const { path } = useRouteMatch()
   const dispatch = useDispatch()
   const track = useAnalytics()
+  const history = useHistory()
 
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos?.find(
@@ -58,6 +59,7 @@ const TabsEncuestas = () => {
 
   const verEncuesta = useCallback(
     async (id) => {
+      history.push('/respuestas')
       setCargandoEncuesta(true)
       if (`${id}`.startsWith('filtro')) {
         setCargandoEncuesta(false)
@@ -93,7 +95,7 @@ const TabsEncuestas = () => {
         console.error('un error', e)
       }
     },
-    [dispatch, idEncuestaSeleccionada]
+    [dispatch, idEncuestaSeleccionada, history]
   )
 
   useEffect(() => {
