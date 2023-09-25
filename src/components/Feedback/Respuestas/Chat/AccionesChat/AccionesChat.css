@@ -271,6 +271,7 @@
   cursor: pointer;
   font-size: 0.65rem;
   background-color: var(--color-fondo);
+  color: var(--color-texto);
   border: 0;
   box-shadow: 0 0.15rem 0.25rem var(--color-sombras);
   height: 1.75rem;
