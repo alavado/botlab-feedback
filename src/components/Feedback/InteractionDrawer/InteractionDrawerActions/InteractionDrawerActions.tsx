@@ -8,6 +8,7 @@ import logo from '../../../../assets/images/logo_blanco.png'
 import './InteractionDrawerActions.css'
 import ReportIssueDialog from './IssueSubmissionDialog/IssueSubmissionDialog'
 import { useState } from 'react'
+import useWhatsappLink from '../../../../hooks/useWhatsappLink'
 
 interface InteractionDrawerActionsProps {
   interactionId?: InteractionId
@@ -28,6 +29,7 @@ const InteractionDrawerActions = ({
   const track = useAnalytics()
   const isLabeler = useIsLabeler()
   const [issueDialogVisible, setIssueDialogVisible] = useState(false)
+  const whatsappLink = useWhatsappLink(phone)
 
   const openChatView = () => {
     history.push(
@@ -38,9 +40,7 @@ const InteractionDrawerActions = ({
     )
   }
 
-  const openWhatsapp = () => {
-    openExternalLink(`https://web.whatsapp.com/send/?phone=${phone}`)
-  }
+  const openWhatsapp = () => openExternalLink(whatsappLink)
 
   const openSchedulingSystem = () => {
     if (!schedulingSystemURL) {

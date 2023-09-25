@@ -1,11 +1,11 @@
 .AccionesChat {
   position: relative;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 }
 
 .AccionesChat__titulo {
   font-weight: 600;
-  font-size: .93rem;
+  font-size: 0.93rem;
   font-family: 'Raleway';
   color: var(--color-texto);
 }
@@ -13,32 +13,32 @@
 .AccionesChat__boton {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: .25rem;
-  border-radius: .35rem;
+  justify-content: flex-start;
+  gap: 0.25rem;
+  border-radius: 0.35rem;
   height: 1.5rem;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   color: var(--color-texto-claro);
   background-color: var(--color-principal);
   border: none;
   cursor: pointer;
   outline: none;
-  transition: all .25s ease;
+  transition: all 0.25s ease;
   position: relative;
   filter: none;
-  font-size: .65rem;
-  animation: aparece-boton-reacciones .2s ease both;
+  font-size: 0.65rem;
+  animation: aparece-boton-reacciones 0.2s ease both;
   margin: 1rem 0;
 }
 
 .AccionesChat__formulario {
   display: flex;
   flex-direction: column;
-  padding: .75rem 1.25rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 1rem;
-  animation: aparece-formulario-reporte .15s ease-in-out both;
+  animation: aparece-formulario-reporte 0.15s ease-in-out both;
   max-width: 40ch;
-  box-shadow: 0 0 .1rem var(--color-sombras);
+  box-shadow: 0 0 0.1rem var(--color-sombras);
   border: 1px solid var(--color-bordes);
   position: fixed;
   top: 8rem;
@@ -49,30 +49,30 @@
 
 .AccionesChat__boton_cerrar {
   position: absolute;
-  top: .75rem;
-  right: .75rem;
+  top: 0.75rem;
+  right: 0.75rem;
   cursor: pointer;
   background: none;
   border: none;
 }
 
 .AccionesChat__boton_cerrar svg {
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: var(--color-texto);
 }
 
 .AccionesChat__label {
-  font-size: .75rem;
-  margin-top: .75rem;
-  margin-bottom: .5rem;
+  font-size: 0.75rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
   color: var(--color-texto);
 }
 
 .AccionesChat__selector {
-  padding: .5rem;
-  font-size: .8rem;
-  border-radius: .25rem;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
   background-color: var(--color-fondo);
   color: var(--color-texto);
 }
@@ -84,9 +84,9 @@
 .AccionesChat__textarea {
   resize: none;
   height: 8rem;
-  padding: .5rem;
-  font-size: .8rem;
-  border-radius: .25rem;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
   border: 1px solid var(--color-bordes);
   background-color: var(--color-fondo);
   color: var(--color-secundario);
@@ -98,19 +98,19 @@
 
 .AccionesChat__textarea::placeholder {
   color: var(--color-texto);
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .AccionesChat__boton_enviar {
   cursor: pointer;
   padding: 0 1rem;
-  font-size: .7rem;
-  padding: .5rem 1rem;
+  font-size: 0.7rem;
+  padding: 0.5rem 1rem;
   background: var(--color-principal);
   color: var(--color-texto-claro);
   border-radius: 1in;
   border: none;
-  box-shadow: 0 0 .1rem var(--color-sombras);
+  box-shadow: 0 0 0.1rem var(--color-sombras);
   margin-top: 1rem;
   display: flex;
   align-items: center;
@@ -126,23 +126,23 @@
 }
 
 .AccionesChat__logo_cero {
-  height: .65rem;
-  margin-left: .25rem;
-  filter: drop-shadow(-.05rem .1rem .01rem rgba(0, 0, 0, .1));
+  height: 0.65rem;
+  margin-left: 0.25rem;
+  filter: drop-shadow(-0.05rem 0.1rem 0.01rem rgba(0, 0, 0, 0.1));
 }
 
 .AccionesChat__gracias {
-  font-size: .9rem;
+  font-size: 0.9rem;
   line-height: 1.15;
   font-weight: bold;
   color: var(--color-texto);
-  animation: aparece-gracias-por-reporte .15s ease-in-out both;
+  animation: aparece-gracias-por-reporte 0.15s ease-in-out both;
 }
 
 .AccionesChat__icono_gracias {
   font-size: 2.5rem;
   color: var(--color-principal);
-  margin-right: .35rem;
+  margin-right: 0.35rem;
   grid-row: span 2;
   place-self: center;
 }
@@ -150,7 +150,7 @@
 .AccionesChat__icono_enviando {
   font-size: 1rem;
   color: var(--color-texto-claro);
-  margin-right: .25rem;
+  margin-right: 0.25rem;
   animation: gira-icono-enviando 1s ease-in-out infinite both;
 }
 
@@ -158,8 +158,8 @@
   display: grid;
   margin-bottom: auto;
   grid-template: repeat(2, auto) / auto auto;
-  gap: 0 .5rem;
-  box-shadow: 0 0 .1rem var(--color-sombras);
+  gap: 0 0.5rem;
+  box-shadow: 0 0 0.1rem var(--color-sombras);
   border: 1px solid var(--color-bordes);
   border-radius: 1rem;
   padding: 1rem 2rem 1rem 1rem;
@@ -169,21 +169,21 @@
 .AccionesChat__formulario_contacto {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .AccionesChat__mensaje_contacto {
-  font-size: .75rem;
+  font-size: 0.75rem;
   line-height: 1.15;
-  margin: .5rem 0 0 0;
+  margin: 0.5rem 0 0 0;
 }
 
 .AccionesChat__input_contacto {
-  padding: .25rem .75rem;
+  padding: 0.25rem 0.75rem;
   border: 1px solid var(--color-principal);
   outline: none;
-  border-radius: .25rem;
-  font-size: .75rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
   text-align: center;
   font-weight: bold;
 }
@@ -192,26 +192,118 @@
   flex: 1;
   cursor: pointer;
   padding: 0 1rem;
-  font-size: .75rem;
-  padding: .5rem 1rem;
+  font-size: 0.75rem;
+  padding: 0.5rem 1rem;
   background: var(--color-principal);
   color: var(--color-texto-claro);
   border-radius: 1in;
   border: none;
-  box-shadow: 0 0 .1rem var(--color-sombras);
+  box-shadow: 0 0 0.1rem var(--color-sombras);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .AccionesChat__gracias--contacto {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
+}
+
+.AccionesChat__contenedor_boton_whatsapp {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 1.5rem;
+  margin-top: 1rem;
+  width: fit-content;
+}
+
+.AccionesChat__modal_modo_whatsapp {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  top: calc(100% + 0.15rem);
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(-0.1rem);
+  pointer-events: none;
+  transition: all 0.15s ease;
+  border: 1px solid var(--color-bordes);
+  border-radius: 0.5rem;
+}
+
+.AccionesChat__modal_modo_whatsapp--activo {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.AccionesChat__boton--whatsapp {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin: 0;
+  padding-right: 0.15rem;
+  min-width: 12rem;
+}
+
+.AccionesChat__boton_selector_modo_whatsapp {
+  border-radius: 0 0.35rem 0.35rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem;
+  padding: 0 0.25rem;
+  color: var(--color-texto-claro);
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  filter: none;
+  font-size: 0.85rem;
+}
+
+.AccionesChat__boton_selector_modo_whatsapp:hover {
+  filter: brightness(110%);
+}
+
+.AccionesChat__boton_modo_whatsapp {
+  cursor: pointer;
+  font-size: 0.65rem;
+  background-color: var(--color-fondo);
+  border: 0;
+  box-shadow: 0 0.15rem 0.25rem var(--color-sombras);
+  height: 1.75rem;
+  text-align: right;
+  border: none;
+  padding: 0 0.25rem 0 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.AccionesChat__boton_modo_whatsapp:hover {
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+}
+
+.AccionesChat__boton_modo_whatsapp:not(:last-child) {
+  border-bottom: 1px solid var(--color-bordes);
+}
+
+.AccionesChat__boton_modo_whatsapp:first-child {
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.AccionesChat__boton_modo_whatsapp:last-child {
+  border-radius: 0 0 0.25rem 0.25rem;
 }
 
 @keyframes aparece-formulario-reporte {
   0% {
     opacity: 0;
-    transform: translateY(-.5rem);
+    transform: translateY(-0.5rem);
   }
   100% {
     opacity: 1;
@@ -222,7 +314,7 @@
 @keyframes aparece-gracias-por-reporte {
   0% {
     opacity: 0;
-    transform: translateY(-.5rem);
+    transform: translateY(-0.5rem);
   }
   100% {
     opacity: 1;
@@ -242,7 +334,7 @@
 @keyframes aparece-boton-alerta-slack {
   0% {
     opacity: 0;
-    transform: translateY(.25rem);
+    transform: translateY(0.25rem);
   }
   100% {
     opacity: 1;

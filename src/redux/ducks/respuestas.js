@@ -105,8 +105,12 @@ const sliceRespuestas = createSlice({
     scrollTabla: 0,
     filaTablaDestacada: undefined,
     fechaActualizacion: Date.now(),
+    abrirAppWhatsapp: false,
   },
   reducers: {
+    fijaAbrirAppWhatsapp(state, action) {
+      state.abrirAppWhatsapp = action.payload
+    },
     fijaScrollTabla(state, action) {
       state.scrollTabla = action.payload
     },
@@ -600,6 +604,7 @@ export const {
   fijaScrollTabla,
   fijaFilaTablaDestacada,
   remueveFiltrosTemporales,
+  fijaAbrirAppWhatsapp,
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer
