@@ -6,9 +6,13 @@ import useIsClientDebtorQuery from '../../../api/hooks/useIsClientDebtorQuery'
 
 const PaymentDueBanner = () => {
   const { cuenta } = useSelector((state: RootState) => state.login)
-  const { data, isLoading } = useIsClientDebtorQuery()
+  const { data, isLoading, isError } = useIsClientDebtorQuery()
 
   if (isLoading || esCero(cuenta) || data?.status === 'NOT_EXPIRED') {
+    return null
+  }
+
+  if (isError) {
     return null
   }
 
