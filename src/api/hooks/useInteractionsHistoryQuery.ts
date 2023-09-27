@@ -1,6 +1,7 @@
 import { useQuery, UseQueryResult } from 'react-query'
 import { PatientId, ServiceId } from '../types/domain'
-import { API_ROOT, get } from './utils'
+import { API_ROOT_NEW, get } from './utils'
+import { InteractionHistoryResponse } from '../types/responses'
 
 const useInteractionsHistoryQuery = ({
   serviceId,
@@ -9,17 +10,16 @@ const useInteractionsHistoryQuery = ({
   serviceId: ServiceId
   patientId: PatientId
 }): UseQueryResult<any, unknown> => {
-  const url = `${API_ROOT}/interactions/${serviceId}/${patientId}`
+  const url = `${API_ROOT_NEW}/interactions/${serviceId}/${patientId}`
 
   return useQuery<any, any, any>(
     ['interactions-history', serviceId, patientId],
     async () => {
-      const data = get(url)
+      const { data }: { data: InteractionHistoryResponse } = await get(url)
       if (!data) {
         return []
       }
-      console.log(data)
-      return []
+      return data.interactions
     }
   )
 }

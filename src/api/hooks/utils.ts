@@ -6,6 +6,7 @@ import { Appointment, AppointmentStatus, InteractionTag } from '../types/domain'
 import { AnswersAPIResponseRow, ChatAPIConversation, SearchAPIMultiAppointment, SearchAPISingleAppointment } from '../types/responses'
 
 export const API_ROOT = process.env.REACT_APP_API_ROOT
+export const API_ROOT_NEW = process.env.REACT_APP_API_ROOT?.replace("/v3/old", "/v3")
 
 export const get = async (url: string) => {
   const { login }: any = store.getState()

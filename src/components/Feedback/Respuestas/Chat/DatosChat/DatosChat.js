@@ -10,9 +10,12 @@ import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import classNames from 'classnames'
 import useWhatsappLink from '../../../../../hooks/useWhatsappLink'
+import HistorialInteraccionesModal from '../HistorialInteraccionesModal'
 
 const DatosChat = ({ cargando, datos, telefono, intentos }) => {
   const [intentosVisibles, setIntentosVisibles] = useState(false)
+  const [showInteractionHistoryModal, setInteractionHistoryModal] =
+    useState(false)
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } =
     useSelector((state) => state.respuestas)
   const { idEncuestaSeleccionada: idEncuesta } = useSelector(
@@ -170,48 +173,22 @@ const DatosChat = ({ cargando, datos, telefono, intentos }) => {
             </div>
           )}
       </div>
-      <h1 className="DatosChat__titulo">Datos del chat</h1>
+      <div>
+        <h1 className="DatosChat__titulo">Datos del chat</h1>
+        <button
+          onClick={() =>
+            setInteractionHistoryModal(!showInteractionHistoryModal)
+          }
+        >
+          Historial de Interacciones
+        </button>
+        {showInteractionHistoryModal && <HistorialInteraccionesModal />}
+      </div>
       {!cargando && datos !== undefined ? (
         <div className="DatosChat__contenedor_datos">
-          {intentos.length > 0 && (
-            <div
-              className={classNames({
-                DatosChat__contenedor_reintentos: true,
-                'DatosChat__contenedor_reintentos--visible': intentosVisibles,
-              })}
-            >
-              <div className="DatosChat__reintentos">
-                {intentos.length > 1 ? (
-                  <>
-                    Los siguientes números asociados a la cita
-                    <br /> no tienen WhatsApp
-                  </>
-                ) : (
-                  <>
-                    El siguiente número asociado a la cita
-                    <br /> no tiene WhatsApp
-                  </>
-                )}
-                :
-                {intentos.map((intento, i) => (
-                  <div className={`intento-${i}`}>
-                    {formatearCampoRespuestas(intento.phone, 'phone')}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
           <div className="DatosChat__contenedor_header">
             <div className="DatosChat__nombre_header">
               <span>Teléfono</span>
-              {intentos.length > 0 && (
-                <Icon
-                  className="DatosChat__icono_reintentos"
-                  icon="mdi:info"
-                  onMouseEnter={() => setIntentosVisibles(true)}
-                  onMouseLeave={() => setIntentosVisibles(false)}
-                />
-              )}
             </div>
             <div className="DatosChat__valor_header">
               <Scrambler tipo="telefono">
