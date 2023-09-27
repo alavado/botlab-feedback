@@ -70,6 +70,7 @@ export interface ChatAPIConversation {
       tag: string
     }
   ]
+  is_unreachable: { whatsapp: boolean }
 }
 
 export interface ChatAPIResponse {
@@ -221,6 +222,16 @@ interface FixedAnswersAPIResponseKeys {
       reaction_emoji: string
       reaction_text: string
       created_at: string
+    }
+  ]
+}
+
+export interface FiltersAPIResponse {
+  filters: [
+    {
+      display_name: string
+      filter_name: string
+      values: null | string[]
     }
   ]
 }

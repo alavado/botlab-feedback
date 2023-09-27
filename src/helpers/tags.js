@@ -11,6 +11,8 @@ export const CUALQUIERA = 'CUALQUIERA'
 export const AGENDA_OPCION_1 = 'AGENDA_OPCION_1'
 export const AGENDA_OPCION_2 = 'AGENDA_OPCION_2'
 export const AGENDA_OPCION_3 = 'AGENDA_OPCION_3'
+export const AGENDA_OPCION_4 = 'AGENDA_OPCION_4'
+export const AGENDA_OPCION_5 = 'AGENDA_OPCION_5'
 
 const tags = {
   YES: {
@@ -31,7 +33,7 @@ const tags = {
     texto: 'Sí',
     titulo: 'Confirmaciones',
     icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--no',
+    clase: 'TagRespuesta TagRespuesta--si',
     color: 'var(--color-si)',
   },
   'PHONE:NO': {
@@ -40,6 +42,13 @@ const tags = {
     icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--no',
     color: 'var(--color-no)',
+  },
+  'PHONE:OUT': {
+    texto: 'Out',
+    titulo: 'Out',
+    icono: 'mdi:question-mark',
+    clase: 'TagRespuesta TagRespuesta--out',
+    color: 'var(--color-out)',
   },
   FALLECIO_OTRO: {
     texto: 'No',
@@ -56,6 +65,13 @@ const tags = {
     color: 'var(--color-reagenda)',
   },
   OUT: {
+    texto: 'Out',
+    titulo: 'Out',
+    icono: 'mdi:question-mark',
+    clase: 'TagRespuesta TagRespuesta--out',
+    color: 'var(--color-out)',
+  },
+  SMALL_TALK: {
     texto: 'Out',
     titulo: 'Out',
     icono: 'mdi:question-mark',
@@ -209,6 +225,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: 'var(--color-bordes)',
   },
+  MEDIA_VCARD: {
+    texto: 'Contacto',
+    titulo: 'Paciente envía contacto',
+    icono: 'mdi:card-account-phone',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: 'var(--color-bordes)',
+  },
   CONFIRMA_DESPUES: {
     texto: 'Confirma después',
     titulo: 'Paciente indica que confirmará más tarde',
@@ -279,8 +302,29 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: '',
   },
+  YA_CANCELO: {
+    texto: 'No',
+    titulo: 'Paciente indica que ya cenceló su cita',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--no',
+    color: '',
+  },
+  YA_CONFIRMO: {
+    texto: 'Sí',
+    titulo: 'Paciente indica que ya confirmó su cita',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: '',
+  },
   CONTRADICCION: {
     texto: 'Contradicción',
+    titulo: 'Paciente indica que hay información contradictoria',
+    icono: 'mdi:close',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: '',
+  },
+  IN_CONTRADICCION: {
+    texto: 'Contradicción (i)',
     titulo: 'Paciente indica que hay información contradictoria',
     icono: 'mdi:close',
     clase: 'TagRespuesta TagRespuesta--vacia',
@@ -342,6 +386,20 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--si',
     color: '',
   },
+  AGENDA_OPCION_4: {
+    texto: 'Bloque 4 agendado',
+    titulo: 'Bloque 4 agendado',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: '',
+  },
+  AGENDA_OPCION_5: {
+    texto: 'Bloque 5 agendado',
+    titulo: 'Bloque 5 agendado',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: '',
+  },
   MANTENER_ORIGINAL: {
     texto: 'Mantener original',
     titulo: 'Mantener original',
@@ -356,15 +414,47 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--is_unreachable',
     color: '',
   },
+  EQUIVOCADO: {
+    texto: 'Equivocado',
+    titulo: 'Equivocado',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta  TagRespuesta--vacia',
+    color: '',
+  },
+  EQUIVOCADO_MAS_INFO: {
+    texto: 'Equivocado (i)',
+    titulo: 'Equivocado',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta  TagRespuesta--vacia',
+    color: '',
+  },
+  FALLECIO: {
+    texto: 'Falleció',
+    titulo: 'Falleció',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta  TagRespuesta--vacia',
+    color: '',
+  },
 }
 
-const diccionarioTags = (tag) =>
-  tags[tag] || {
-    texto: tag,
-    titulo: tag,
-    icono: 'mdi:check',
-    clase: 'TagRespuesta TagRespuesta--vacia',
-    color: 'var(--color-bordes)',
+const diccionarioTags = (tag) => {
+  let tagEnDiccionario = tags[tag]
+  if (tagEnDiccionario) {
+    tagEnDiccionario = {
+      ...tagEnDiccionario,
+      id: 'TAG' + tagEnDiccionario.texto + 'TAG',
+    }
   }
+  return (
+    tagEnDiccionario || {
+      id: '',
+      texto: tag,
+      titulo: tag,
+      icono: 'mdi:check',
+      clase: 'TagRespuesta TagRespuesta--vacia',
+      color: 'var(--color-bordes)',
+    }
+  )
+}
 
 export default diccionarioTags

@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { format } from 'date-fns'
 import { useCallback } from 'react'
 import useChangeAlertMutation from '../../../../../api/hooks/useChangeAlertStatusMutation'
-import { Alert } from '../../../../../api/types/types'
+import { Alert } from '../../../../../api/types/domain'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import useIsLabeler from '../../../../../hooks/useIsLabeler'
 import {

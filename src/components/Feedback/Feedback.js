@@ -22,10 +22,12 @@ import { toggleDebugging } from '../../redux/ducks/cero'
 import PaymentDueBanner from './PaymentDueBanner/PaymentDueBanner'
 import PaymentDueModal from './PaymentDueModal/PaymentDueModal'
 import SingleAlertView from './SingleAlertView/SingleAlertView'
-import Answers from './Answers/Answers'
+import Dashboard from './Dashboard'
+import Interactions from './Interactions'
 
 const Feedback = () => {
   const { token } = useSelector((state) => state.login)
+  // const { data } = useDebtorsQuery()
   const [errorCargandoRespuestas, setErrorCargandoRespuestas] = useState()
   const { fechaInicio, fechaTermino, cacheInvalido } = useSelector(
     (state) => state.respuestas
@@ -112,16 +114,16 @@ const Feedback = () => {
               <PaymentDueModal />
               <PaymentDueBanner />
               <Switch>
-                <Route path="/interaccion">
-                  <></>
-                </Route>
                 <Route path="/busqueda">
                   <></>
                 </Route>
                 <Route path="/alertas">
                   <></>
                 </Route>
-                <Route path="/respuestas2">
+                <Route path="/dashboard">
+                  <></>
+                </Route>
+                <Route path="/interacciones">
                   <></>
                 </Route>
                 <Route>
@@ -136,8 +138,14 @@ const Feedback = () => {
                   <Route path="/respuestas">
                     <Respuestas />
                   </Route>
-                  <Route path="/respuestas2">
-                    <Answers />
+                  <Route path="/interacciones/:serviceId/:patientId">
+                    <Interactions />
+                  </Route>
+                  <Route path="/interacciones/:serviceId">
+                    <Interactions />
+                  </Route>
+                  <Route exact path="/interacciones">
+                    <Interactions />
                   </Route>
                   <Route path="/chat">
                     <Respuestas />
@@ -150,6 +158,9 @@ const Feedback = () => {
                   </Route>
                   <Route exact path="/busqueda">
                     <Search />
+                  </Route>
+                  <Route path="/dashboard">
+                    <Dashboard />
                   </Route>
                   <Route path="/exportar">
                     <ExportacionAvanzada />

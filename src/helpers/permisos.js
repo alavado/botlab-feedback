@@ -33,6 +33,25 @@ export const tieneAccesoAAlertas = (cuenta) => {
   return !cuentasSinAlertas.includes(cuenta.toLowerCase())
 }
 
+export const esCero = (cuenta) => {
+  if (!cuenta) {
+    return false
+  }
+  return cuenta.toLowerCase().endsWith('_cero')
+}
+
+export const tieneAccesoADashboard = (cuenta) => {
+  const cuentasConAcceso = [
+    'nucleosalud',
+    'alemana',
+    'hospital_osorno',
+    'hospital_puerto_montt',
+    'cleversalud',
+    'imagen_dental',
+  ]
+  return cuentasConAcceso.includes(cuenta.toLowerCase()) || esCero(cuenta)
+}
+
 export const esRedSalud = (cuenta) => {
   return cuenta.indexOf('redsalud') >= 0
 }

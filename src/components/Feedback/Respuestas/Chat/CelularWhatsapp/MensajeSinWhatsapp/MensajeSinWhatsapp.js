@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react'
 import './MensajeSinWhatsapp.css'
 import { format, parseISO } from 'date-fns'
 import { formatearCampoRespuestas } from '../../../../../../helpers/respuestas'
@@ -56,6 +55,7 @@ const MensajeSinWhatsapp = ({ start, intentos }) => {
               </ol>
             </>
           ) : (
+            // xx aqui hay que modificar
             <>El número asociado no tiene Whatsapp</>
           )}
         </p>

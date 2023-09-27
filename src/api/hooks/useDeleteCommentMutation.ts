@@ -1,6 +1,5 @@
-import { format } from 'date-fns'
-import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
-import { CommentId, PatientId, ServiceId } from '../types/types'
+import { useMutation, UseMutationResult } from 'react-query'
+import { CommentId, PatientId, ServiceId } from '../types/domain'
 import { API_ROOT, del } from './utils'
 
 const useDeleteCommentMutation = ({
@@ -12,7 +11,6 @@ const useDeleteCommentMutation = ({
   patientId: PatientId
   commentId: CommentId
 }): UseMutationResult<unknown, unknown> => {
-  const queryClient = useQueryClient()
   const url = `${API_ROOT}/reactions/${serviceId}/${patientId}`
   return useMutation<any, any, any>(
     async () => {

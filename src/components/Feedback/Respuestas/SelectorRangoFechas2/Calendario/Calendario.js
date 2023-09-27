@@ -21,7 +21,9 @@ import useAnalytics from '../../../../../hooks/useAnalytics'
 import './Calendario.css'
 
 const Calendario = ({ ocultar, fechaSeleccionada, seleccionarFecha }) => {
-  const [mes, setMes] = useState(endOfWeek(fechaSeleccionada, { locale: es }))
+  const [mes, setMes] = useState(
+    endOfWeek(fechaSeleccionada, { locale: es, weekStartsOn: 1 })
+  )
   const track = useAnalytics()
 
   const fechas = useMemo(() => {

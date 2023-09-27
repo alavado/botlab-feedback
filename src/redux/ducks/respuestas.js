@@ -3,6 +3,7 @@ import { formatISO9075, parse } from 'date-fns'
 import { es } from 'date-fns/locale'
 import diccionarioTags from '../../helpers/tags'
 import { obtenerTagsCalculados } from '../../helpers/tagsCalculados'
+import { CANAL_HEADER_NAME } from './encuestas'
 
 export const normalizar = (s) =>
   (s.tag ?? s)
@@ -10,14 +11,20 @@ export const normalizar = (s) =>
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
 
-const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
+const funcionFiltro = (
+  r,
+  nombreHeader,
+  terminoNormalizado,
+  idEncuesta,
+  calceExacto = false
+) => {
   const tagCalculado = obtenerTagsCalculados(idEncuesta)?.find(
     (t) => t.nombre === nombreHeader
   )
   if (tagCalculado) {
     const tagEnDiccionario = diccionarioTags(tagCalculado.f(r).tag)
     if (tagEnDiccionario) {
-      return normalizar(tagEnDiccionario.texto).indexOf(terminoNormalizado) >= 0
+      return normalizar(tagEnDiccionario.id).indexOf(terminoNormalizado) >= 0
     } else if (!isNaN(tagCalculado.f(r).tag)) {
       return normalizar(tagCalculado.f(r).tag).indexOf(terminoNormalizado) >= 0
     } else {
@@ -27,6 +34,9 @@ const funcionFiltro = (r, nombreHeader, terminoNormalizado, idEncuesta) => {
   if (nombreHeader === 'sucursal_name') {
     return r.respuestaNormalizada[nombreHeader] === terminoNormalizado
   }
+  if (calceExacto) {
+    return r.respuestaNormalizada[nombreHeader] === terminoNormalizado
+  }
   return r.respuestaNormalizada[nombreHeader].indexOf(terminoNormalizado) >= 0
 }
 
@@ -34,8 +44,12 @@ const ordenarPorFechaCita =
   (orden = 'ASC') =>
   (r1, r2) => {
     try {
-      const propHora = r1.time ? 'time' : 'time_1'
-      const propFecha = r1.time ? 'date' : 'date_1'
+      const propHora = r1.time
+        ? 'time'
+        : r1.time_1
+        ? 'time_1'
+        : 'time_truncated'
+      const propFecha = r1.time || r1.time_truncated ? 'date' : 'date_1'
       const formato = r1[propHora].includes('M')
         ? "d 'de' MMMM h:m a"
         : "d 'de' MMMM H:m"
@@ -59,6 +73,7 @@ const ordenarPorFechaCita =
         ? 1
         : -1
     } catch (e) {
+      console.log(e)
       return 1
     }
   }
@@ -90,8 +105,12 @@ const sliceRespuestas = createSlice({
     scrollTabla: 0,
     filaTablaDestacada: undefined,
     fechaActualizacion: Date.now(),
+    abrirAppWhatsapp: false,
   },
   reducers: {
+    fijaAbrirAppWhatsapp(state, action) {
+      state.abrirAppWhatsapp = action.payload
+    },
     fijaScrollTabla(state, action) {
       state.scrollTabla = action.payload
     },
@@ -113,15 +132,22 @@ const sliceRespuestas = createSlice({
             if (typeof r[k] === 'string') {
               slug = normalizar(r[k])
             } else if (r[k]?.tag) {
-              slug = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
+              slug = normalizar(diccionarioTags(r[k].tag)?.id || r[k].tag)
             }
             return prev + slug
           }, '')
+          r[CANAL_HEADER_NAME] = !r.is_unreachable.whatsapp
+            ? { icon: 'whatsapp', label: 'Whatsapp' }
+            : !r.is_unreachable.phone
+            ? { icon: 'phone', label: 'Teléfono' }
+            : { icon: 'cellphone-off', label: 'No pudo ser contactado' }
           const respuestaNormalizada = Object.keys(r).reduce((prev, k) => {
             if (typeof r[k] === 'string') {
               prev[k] = normalizar(r[k])
             } else if (r[k]?.tag || r[k]?.tag === '') {
-              prev[k] = normalizar(diccionarioTags(r[k].tag)?.texto || r[k].tag)
+              prev[k] = normalizar(diccionarioTags(r[k].tag)?.id || r[k].tag)
+            } else if (r[k]?.icon) {
+              prev[k] = normalizar(r[k].label)
             }
             return prev
           }, {})
@@ -133,19 +159,27 @@ const sliceRespuestas = createSlice({
         })
         .reverse()
       try {
-        let categorias = Object.keys(respuestas[0]).map((k) =>
-          respuestas[0][k]?.tag !== undefined
+        let categorias = Object.keys(respuestas[0]).map((propiedad) =>
+          respuestas[0][propiedad]?.tag !== undefined
             ? {
-                propiedad: k,
+                propiedad,
                 esTag: true,
-                niveles: [...new Set(respuestas.map((r) => r[k].tag))].sort(
-                  (x, y) => (x > y ? 1 : -1)
-                ),
+                niveles: [
+                  ...new Set(respuestas.map((r) => r[propiedad].tag)),
+                ].sort((x, y) => (x > y ? 1 : -1)),
+              }
+            : respuestas[0][propiedad]?.icon
+            ? {
+                propiedad,
+                esTag: false,
+                niveles: [
+                  ...new Set(respuestas.map((r) => r[propiedad].label)),
+                ].sort((x, y) => (x > y ? 1 : -1)),
               }
             : {
-                propiedad: k,
+                propiedad,
                 esTag: false,
-                niveles: [...new Set(respuestas.map((r) => r[k]))].sort(
+                niveles: [...new Set(respuestas.map((r) => r[propiedad]))].sort(
                   (x, y) => (x > y ? 1 : -1)
                 ),
               }
@@ -222,7 +256,8 @@ const sliceRespuestas = createSlice({
     agregaFiltro(state, action) {
       const { busqueda, nombreHeader, textoHeader, idEncuesta, opciones } =
         action.payload
-      const { filtroImplicito, titulo, temporal, mismaColumna } = opciones || {}
+      const { filtroImplicito, calceExacto, titulo, temporal, mismaColumna } =
+        opciones || {}
       const terminoNormalizado = normalizar(busqueda)
       const filtro = {
         headers: [nombreHeader],
@@ -233,7 +268,13 @@ const sliceRespuestas = createSlice({
         oculto: filtroImplicito,
         temporal,
         f: (r) =>
-          funcionFiltro(r, nombreHeader, terminoNormalizado, idEncuesta),
+          funcionFiltro(
+            r,
+            nombreHeader,
+            terminoNormalizado,
+            idEncuesta,
+            calceExacto
+          ),
       }
       const indiceFiltro = state.filtros.findIndex((f) =>
         f.headers.every((h) => h === nombreHeader)
@@ -563,6 +604,7 @@ export const {
   fijaScrollTabla,
   fijaFilaTablaDestacada,
   remueveFiltrosTemporales,
+  fijaAbrirAppWhatsapp,
 } = sliceRespuestas.actions
 
 export default sliceRespuestas.reducer

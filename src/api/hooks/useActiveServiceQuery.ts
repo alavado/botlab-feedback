@@ -1,12 +1,14 @@
 import { useQuery, UseQueryResult } from 'react-query'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../redux/ducks'
-import { Service } from '../types/types'
+import { Service } from '../types/domain'
 import useServicesQuery from './useServicesQuery'
+import { useRouteMatch } from 'react-router-dom'
 
 const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {
   const { data: services } = useServicesQuery()
-  const { activeServiceId } = useSelector((state: RootState) => state.answers)
+  const { params }: any = useRouteMatch()
+  const activeServiceId = params.serviceId
+    ? Number(params.serviceId)
+    : undefined
 
   return useQuery<any, any, any>(
     ['active-service', activeServiceId],

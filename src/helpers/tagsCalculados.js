@@ -5,6 +5,8 @@ import {
   AGENDA_OPCION_1,
   AGENDA_OPCION_2,
   AGENDA_OPCION_3,
+  AGENDA_OPCION_4,
+  AGENDA_OPCION_5,
 } from './tags'
 
 const actionSuccess = 'action_result:SUCCESS'
@@ -26,52 +28,6 @@ export const juntarConfirmaYReagenda = (indiceConfirma, indiceReagenda) => {
           }
         }
         return reagenda?.tag ? reagenda : confirma
-      },
-    },
-  ]
-}
-
-const juntarConfirmaYReagendaAutomatico = (
-  indiceConfirma,
-  indiceReagenda,
-  indiceReagendaAuto
-) => {
-  return [
-    {
-      nombre: 'tc1',
-      texto: '¿Confirma?',
-      tipo: 'YESNO',
-      f: (r) => {
-        const confirma = r[indiceConfirma]
-        const reagenda = r[indiceReagenda]
-        if (reagenda?.tag === REAGENDA || reagenda?.tag === YES) {
-          return {
-            tag: REAGENDA,
-            text: `${confirma.text} / ${reagenda.text}`,
-          }
-        }
-        return reagenda?.tag ? reagenda : confirma
-      },
-    },
-    {
-      nombre: 'tc2',
-      texto: '¿Reagenda?',
-      tipo: 'OPEN',
-      f: (r) => r[indiceReagendaAuto],
-    },
-  ]
-}
-
-const juntaTagsEquivalentes = (indice1, indice2, texto, tipo = 'YESNO') => {
-  return [
-    {
-      nombre: 'tc0',
-      texto,
-      tipo,
-      f: (r) => {
-        const tag1 = r[indice1]
-        const tag2 = r[indice2]
-        return tag1?.tag ? tag1 : tag2
       },
     },
   ]
@@ -100,31 +56,12 @@ export const obtenerTagsCalculados = (idEncuesta) => {
                 : null,
           },
         ]
-      // case 167: // confirmación norden
-      //   return [
-      //     ...juntaTagsEquivalentes(0, 1001, '¿Confirma?'),
-      //     {
-      //       texto: '¿Reagenda?',
-      //       tipo: 'REAGENDA',
-      //       f: (r) => r[104],
-      //     },
-      //     {
-      //       texto: 'Opción elegida',
-      //       tipo: 'OPEN',
-      //       f: (r) => r[6],
-      //     },
-      //   ]
       case 557: // agendamiento norden
         return [
           {
             texto: '¿Menor de edad?',
             tipo: 'YESNO',
             f: (r) => r[13],
-          },
-          {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
           },
           {
             texto: 'Encontramos horas',
@@ -169,11 +106,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
             f: (r) => r[13],
           },
           {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
-          {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
             f: (r) => r[2],
@@ -208,43 +140,148 @@ export const obtenerTagsCalculados = (idEncuesta) => {
             },
           },
         ]
-      case 509: // SS agendamiento
+      case 892: // agendamiento nucleo
         return [
-          {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
           {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
-            f: (r) => r[2],
+            f: (r) => r[4],
           },
           {
             texto: 'Opción elegida',
             tipo: 'OPEN',
-            f: (r) => r[3],
+            f: (r) => r[5],
           },
           {
             texto: 'Bloque agendado',
             tipo: 'INTERNAL',
             f: (r) => {
-              if (r[510].tag === actionSuccess) {
+              if (r[61]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_1,
                   texto: 'Bloque 1',
                 }
               }
-              if (r[520].tag === actionSuccess) {
+              if (r[62]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_2,
                   texto: 'Bloque 2',
                 }
               }
-              if (r[530].tag === actionSuccess) {
+              if (r[63]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_3,
                   texto: 'Bloque 3',
+                }
+              }
+              if (r[64]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_4,
+                  texto: 'Bloque 4',
+                }
+              }
+              if (r[65]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_5,
+                  texto: 'Bloque 5',
+                }
+              }
+            },
+          },
+        ]
+      case 891: // cero
+        return [
+          {
+            texto: 'Encontramos horas',
+            tipo: 'INTERNAL',
+            f: (r) => r[3],
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: (r) => r[4],
+          },
+          {
+            texto: 'Bloque agendado',
+            tipo: 'INTERNAL',
+            f: (r) => {
+              if (r[61]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_1,
+                  texto: 'Bloque 1',
+                }
+              }
+              if (r[62]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_2,
+                  texto: 'Bloque 2',
+                }
+              }
+              if (r[63]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3',
+                }
+              }
+              if (r[64]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_4,
+                  texto: 'Bloque 4',
+                }
+              }
+              if (r[65]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_5,
+                  texto: 'Bloque 5',
+                }
+              }
+            },
+          },
+        ]
+      case 509: // SS agendamiento
+        return [
+          {
+            texto: 'Encontramos horas',
+            tipo: 'INTERNAL',
+            f: (r) => r[3],
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: (r) => r[4],
+          },
+          {
+            texto: 'Bloque agendado',
+            tipo: 'INTERNAL',
+            f: (r) => {
+              if (r[61]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_1,
+                  texto: 'Bloque 1',
+                }
+              }
+              if (r[62]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_2,
+                  texto: 'Bloque 2',
+                }
+              }
+              if (r[63]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3',
+                }
+              }
+              if (r[64]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_4,
+                  texto: 'Bloque 4',
+                }
+              }
+              if (r[65]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_5,
+                  texto: 'Bloque 5',
                 }
               }
             },
@@ -301,71 +338,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
             f: (r) => (r[-41].tag ? r[-41] : r[-51] || r[-41]),
           },
         ]
-
-      // case Number(process.env.REACT_APP_ID_POLL_REDSALUD_LISTA_DE_ESPERA_2):
-      //   return juntaTagsEquivalentes(100, 101, '¿Agenda?')
-
-      // case Number(process.env.REACT_APP_ID_POLL_SPA_DENTAL):
-      // case Number(process.env.REACT_APP_ID_POLL_UDENT):
-      // case Number(process.env.REACT_APP_ID_POLL_VITALIA):
-      // case Number(process.env.REACT_APP_ID_POLL_OAS):
-      // case Number(process.env.REACT_APP_ID_POLL_EDERNA):
-      // case Number(process.env.REACT_APP_ID_POLL_DENT_ALL_CLEAR):
-      // case Number(process.env.REACT_APP_ID_POLL_BOKA):
-      // case Number(process.env.REACT_APP_ID_POLL_COEPEJ):
-      // case Number(process.env.REACT_APP_ID_POLL_EFIDENT):
-      // case Number(process.env.REACT_APP_ID_POLL_BELADENT):
-      // case Number(process.env.REACT_APP_ID_POLL_MARCHESANI):
-      // case Number(process.env.REACT_APP_ID_POLL_CERRO_BLANCO):
-      // case Number(process.env.REACT_APP_ID_POLL_SMILE_DESIGN):
-      // case Number(process.env.REACT_APP_ID_POLL_BRACKET_CENTER):
-      // case Number(process.env.REACT_APP_ID_POLL_DENTALSKI):
-      // case Number(process.env.REACT_APP_ID_POLL_BEHAPPY):
-      // case Number(process.env.REACT_APP_ID_POLL_CRD):
-      // case Number(process.env.REACT_APP_ID_POLL_MENTA):
-      // case Number(process.env.REACT_APP_ID_POLL_BIODENS):
-      // case Number(process.env.REACT_APP_ID_POLL_MENTA_DEL_VALLE):
-      // case Number(process.env.REACT_APP_ID_POLL_SMILERS):
-      // case Number(process.env.REACT_APP_ID_POLL_ODONTO_CLINICA):
-      // case Number(process.env.REACT_APP_ID_POLL_CTMELIPILLA):
-      // case Number(process.env.REACT_APP_ID_POLL_DENTISTAS_TIJUANA):
-      // case Number(process.env.REACT_APP_ID_POLL_KEMM):
-      // case Number(process.env.REACT_APP_ID_POLL_MONTE_VITAL):
-      // case Number(process.env.REACT_APP_ID_POLL_PROCLINIC):
-      // case Number(process.env.REACT_APP_ID_POLL_SMILE_AND_MORE):
-      // case Number(process.env.REACT_APP_ID_POLL_ODONTOSUR):
-      // case Number(process.env.REACT_APP_ID_POLL_BIOREUMA):
-      // case Number(process.env.REACT_APP_ID_POLL_ARAPROTEC):
-      // case Number(process.env.REACT_APP_ID_POLL_ODONTOLOGIA_POR_ESPECIALISTAS):
-      // case Number(process.env.REACT_APP_ID_POLL_SAN_BARTOLOME):
-      // case Number(process.env.REACT_APP_ID_POLL_FNH):
-      // case Number(process.env.REACT_APP_ID_POLL_DENTAL_TOTAL):
-      // case Number(process.env.REACT_APP_ID_POLL_PEHUEN):
-      // case Number(process.env.REACT_APP_ID_POLL_FAMILY_DENTAL_CARE):
-      // case Number(process.env.REACT_APP_ID_POLL_SMILE_KIDS_CENTER):
-      // case Number(process.env.REACT_APP_ID_POLL_AVARIA):
-      // case Number(process.env.REACT_APP_ID_POLL_ORREGO_LUCO):
-      // case Number(process.env.REACT_APP_ID_POLL_CSI):
-      // case Number(process.env.REACT_APP_ID_POLL_DENTAL_REAGAN):
-      // case Number(process.env.REACT_APP_ID_POLL_YOHANAN_THERAPEUTES):
-      // case Number(process.env.REACT_APP_ID_POLL_180_GRADOS):
-      // case Number(process.env.REACT_APP_ID_POLL_TU_SALUD_DENTAL):
-      // case Number(process.env.REACT_APP_ID_POLL_SMILE_ACAPULCO):
-      // case Number(process.env.REACT_APP_ID_POLL_ADICH):
-      // case Number(process.env.REACT_APP_ID_POLL_ACADEMIA_DE_IMPLANTES):
-      // case Number(process.env.REACT_APP_ID_POLL_CATH):
-      // case Number(process.env.REACT_APP_ID_POLL_SOULS):
-      // case Number(process.env.REACT_APP_ID_POLL_INMUNODENT):
-      // case Number(process.env.REACT_APP_ID_POLL_180_GRADOS_RECONFIRMACION):
-      // case Number(process.env.REACT_APP_ID_POLL_TU_SALUD_DENTAL_RECONFIRMACION):
-      // case Number(process.env.REACT_APP_ID_POLL_VISUM):
-      // case Number(process.env.REACT_APP_ID_POLL_2020):
-      //   return juntarConfirmaYReagenda(0, 104)
-
-      // case Number(process.env.REACT_APP_ID_POLL_EVEREST1):
-      // case Number(process.env.REACT_APP_ID_POLL_EVEREST2):
-      //   return juntarConfirmaYReagendaAutomatico(50, 104, 204)
-
       case Number(process.env.REACT_APP_ID_POLL_FALP_CONVENIOS):
         return [
           {
@@ -457,9 +429,5 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
     .map((h) =>
       h.texto.includes(' Externo') ? { ...h, texto: h.texto.slice(0, -8) } : h
     )
-  // caso especial agendamiento, para poner el teléfono al comienzo
-  if ([509, 557, 577].includes(idEncuesta)) {
-    return [...headersSinTags, ...tagsCalculados]
-  }
   return [...tagsCalculados, ...headersSinTags]
 }

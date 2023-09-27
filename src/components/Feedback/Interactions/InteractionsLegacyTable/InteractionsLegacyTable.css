@@ -1,0 +1,23 @@
+.InteractionsLegacyTable {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.65rem;
+  position: relative;
+}
+
+.InteractionsLegacyTable__drawer {
+  position: fixed;
+  height: 100%;
+  right: 0;
+  top: 0;
+  background: var(--color-fondo);
+  transition: right 0.35s ease-out, opacity 0.35s ease-out;
+  opacity: 1;
+  display: flex;
+  z-index: 4;
+}
+
+.InteractionsLegacyTable__drawer--hidden {
+  right: -100%;
+  opacity: 0;
+}

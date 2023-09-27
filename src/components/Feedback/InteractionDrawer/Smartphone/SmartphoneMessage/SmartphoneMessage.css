@@ -67,11 +67,6 @@
   bottom: 0.45rem;
 }
 
-.SmartphoneMessage--unfocused {
-  filter: saturate(10%) sepia(10%);
-  opacity: 0.9;
-}
-
 .SmartphoneMessage__tag {
   position: absolute;
   right: -0.35rem;

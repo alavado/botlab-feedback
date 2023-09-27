@@ -9,7 +9,7 @@ import {
 import InteractionCommentIcon from '../InteractionComment/InteractionCommentIcon'
 import { Icon } from '@iconify/react'
 import useAddCommentMutation from '../../../../../api/hooks/useAddCommentMutation'
-import { PatientId, ServiceId } from '../../../../../api/types/types'
+import { InteractionId } from '../../../../../api/types/domain'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux/ducks'
@@ -20,16 +20,12 @@ const emojis = Object.keys(emojiMap).filter(
 )
 
 const NewCommentPopup = ({
-  interactionStart,
-  serviceId,
-  patientId,
+  interactionId,
   isOpen,
   close,
   originComponentName,
 }: {
-  interactionStart: Date
-  serviceId: ServiceId
-  patientId: PatientId
+  interactionId: InteractionId
   isOpen: boolean
   close: Function
   originComponentName: string
@@ -39,9 +35,7 @@ const NewCommentPopup = ({
   const textRef = useRef<HTMLInputElement>(null)
   const { mutate, isLoading } = useAddCommentMutation({
     emoji: selectedEmoji as Emoji,
-    interactionStart,
-    patientId,
-    serviceId,
+    interactionId,
     text,
   })
   const track = useAnalytics()

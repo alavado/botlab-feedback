@@ -5,12 +5,29 @@
   border-radius: 0.25rem;
   color: var(--color-texto-tag) !important;
   margin-right: 0.5rem;
-  overflow: hidden;
   align-self: flex-start;
   display: flex;
   align-items: center;
   min-width: 3.25rem;
   box-shadow: 0.1rem 0.1rem 0.1rem -0.1rem rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.TagRespuesta__contacto_telefonico {
+  position: absolute;
+  right: -0.25rem;
+  top: -0.25rem;
+  font-size: 0.5rem;
+  font-weight: 600;
+  background-color: var(--color-principal-claro);
+  color: white;
+  padding: 0.2rem;
+  border-radius: 9in;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0.05rem 0.05rem 0.1rem var(--color-sombras);
+  align-items: center;
+  justify-content: center;
+  display: none;
 }
 
 .TagRespuesta--no {
@@ -55,6 +72,7 @@
 .TagRespuesta--is_unreachable {
   background-color: var(--color-unreachable);
   color: var(--color-secundario) !important;
+  display: none;
 }
 
 /* .TagRespuesta--nota {

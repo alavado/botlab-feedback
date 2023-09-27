@@ -1,5 +1,5 @@
-import { InlineIcon } from '@iconify/react'
-import { useEffect, useState, useRef } from 'react'
+import { Icon, InlineIcon } from '@iconify/react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   agregarMensajeAHilo,
@@ -9,6 +9,10 @@ import logoCero from '../../../../../assets/images/logo-cero.svg'
 import './AccionesChat.css'
 import { guardaContacto } from '../../../../../redux/ducks/opciones'
 import useAnalytics from '../../../../../hooks/useAnalytics'
+import classNames from 'classnames'
+import OutsideClickHandler from 'react-outside-click-handler'
+import { fijaAbrirAppWhatsapp } from '../../../../../redux/ducks/respuestas'
+import useWhatsappLink from '../../../../../hooks/useWhatsappLink'
 
 const obtenerSonrisa = () => {
   const opciones = ['😀', '😊', '😄', '😁', '😃', '😉', '🙂']
@@ -36,6 +40,10 @@ const AccionesChat = ({ telefono, link }) => {
   const refContacto = useRef()
   const dispatch = useDispatch()
   const track = useAnalytics()
+  const { abrirAppWhatsapp } = useSelector((state) => state.respuestas)
+  const [seleccionandoModoWhatsapp, setSeleccionandoModoWhatsapp] =
+    useState(false)
+  const whatsappLink = useWhatsappLink(telefono)
 
   useEffect(() => {
     formularioVisible && refDescripcion.current?.focus()
@@ -81,11 +89,10 @@ const AccionesChat = ({ telefono, link }) => {
     dispatch(guardaContacto(contacto))
   }
 
-  const abrirWhatsappWeb = () => {
-    const link = `https://web.whatsapp.com/send/?phone=${telefono}`
-    track('Feedback', 'Chat', 'abrirWhatsappWeb', { link })
-    window.open(link, '_blank').focus()
-  }
+  const abrirChatEnWhatsapp = useCallback(() => {
+    track('Feedback', 'Chat', 'abrirWhatsappWeb', { whatsappLink })
+    window.open(whatsappLink, '_blank').focus()
+  }, [track, whatsappLink])
 
   const abrirAgenda = () => {
     track('Feedback', 'Chat', 'abrirAgenda', { link: link.url })
@@ -203,18 +210,71 @@ const AccionesChat = ({ telefono, link }) => {
         </form>
       ) : (
         <>
-          <button
-            className="AccionesChat__boton"
-            onClick={() => abrirWhatsappWeb()}
-            title="Abrir chat en Whatsapp Web"
-          >
-            <InlineIcon
-              style={{ fontSize: '.8rem' }}
-              className="AccionesChat__icono_boton"
-              icon="mdi:whatsapp"
-            />
-            Contactar paciente por Whatsapp
-          </button>
+          <div className="AccionesChat__contenedor_boton_whatsapp">
+            <OutsideClickHandler
+              onOutsideClick={() => setSeleccionandoModoWhatsapp(false)}
+            >
+              <div
+                className={classNames({
+                  AccionesChat__modal_modo_whatsapp: true,
+                  'AccionesChat__modal_modo_whatsapp--activo':
+                    seleccionandoModoWhatsapp,
+                })}
+              >
+                <button
+                  className="AccionesChat__boton_modo_whatsapp"
+                  onClick={() => {
+                    setSeleccionandoModoWhatsapp(false)
+                    dispatch(fijaAbrirAppWhatsapp(false))
+                  }}
+                >
+                  Usar Whatsapp Web
+                  <InlineIcon
+                    icon={'mdi:check'}
+                    style={abrirAppWhatsapp && { opacity: 0 }}
+                  />
+                </button>
+                <button
+                  className="AccionesChat__boton_modo_whatsapp"
+                  onClick={() => {
+                    setSeleccionandoModoWhatsapp(false)
+                    dispatch(fijaAbrirAppWhatsapp(true))
+                  }}
+                >
+                  Usar App de Whatsapp
+                  <InlineIcon
+                    icon={'mdi:check'}
+                    style={!abrirAppWhatsapp && { opacity: 0 }}
+                  />
+                </button>
+              </div>
+            </OutsideClickHandler>
+            <button
+              className="AccionesChat__boton AccionesChat__boton--whatsapp"
+              onClick={abrirChatEnWhatsapp}
+              title={
+                abrirAppWhatsapp
+                  ? 'Abrir chat en Whatsapp'
+                  : 'Abrir chat en Whatsapp Web'
+              }
+            >
+              <InlineIcon
+                style={{ fontSize: '.8rem' }}
+                className="AccionesChat__icono_boton"
+                icon="mdi:whatsapp"
+              />
+              Contactar por{' '}
+              {abrirAppWhatsapp ? 'App de Whatsapp' : 'Whatsapp Web'}
+            </button>
+            <button
+              className="AccionesChat__boton_selector_modo_whatsapp"
+              onClick={() =>
+                setSeleccionandoModoWhatsapp(!seleccionandoModoWhatsapp)
+              }
+            >
+              <Icon icon="mdi:chevron-down" />
+            </button>
+          </div>
           {link && (
             <button
               className="AccionesChat__boton"

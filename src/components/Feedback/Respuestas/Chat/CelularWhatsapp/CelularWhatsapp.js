@@ -97,7 +97,7 @@ const CelularWhatsapp = ({
                       }
                     }}
                   >
-                    {c.is_unreachable?.whatsapp ? (
+                    {c.is_unreachable?.whatsapp && c.is_unreachable?.phone ? (
                       <MensajeSinWhatsapp start={c.start} intentos={intentos} />
                     ) : mensajes.length > 0 ? (
                       mensajes.map((mensaje, i) => (

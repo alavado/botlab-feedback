@@ -27,7 +27,7 @@ export const exportarTablaRespuestas = async (
     'dd-MM-yyyy'
   )}_${format(fechaTermino, 'dd-MM-yyyy')}.${formato}`
   const headersAIncluir = headers.filter((h) =>
-    ['META', 'YESNO', 'RANGE', 'OPEN'].includes(h.tipo)
+    ['META', 'YESNO', 'RANGE', 'OPEN', 'ICON'].includes(h.tipo)
   )
   if (formato === 'xlsx') {
     let headersXLSX

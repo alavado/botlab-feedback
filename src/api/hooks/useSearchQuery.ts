@@ -6,8 +6,8 @@ import {
   SearchAPIMultiAppointment,
   SearchAPISingleAppointment,
 } from '../types/responses'
-import { Appointment, Interaction } from '../types/types'
-import { get, parseAPIDate, API_ROOT } from './utils'
+import { Appointment, Interaction } from '../types/domain'
+import { get, parseAPIDate, API_ROOT, getStatusFromSearchRow } from './utils'
 
 const useSearchQuery = (
   term: String
@@ -35,12 +35,14 @@ const searchSingleAppointmentToInteraction = (
   appointment: SearchAPISingleAppointment
 ): Interaction => {
   return {
-    start: addHours(
-      parseISO(appointment.start),
-      Number(process.env.REACT_APP_UTC_OFFSET)
-    ),
-    patientId: appointment.user_id,
-    serviceId: appointment.poll_id,
+    id: {
+      patientId: appointment.user_id,
+      serviceId: appointment.poll_id,
+      start: addHours(
+        parseISO(appointment.start),
+        Number(process.env.REACT_APP_UTC_OFFSET)
+      ),
+    },
     branch: appointment.sucursal_name,
     phone: appointment.phone,
     appointments: [
@@ -54,9 +56,11 @@ const searchSingleAppointmentToInteraction = (
         rut: appointment.rut,
         id: appointment.id_cita,
         url: appointment.dentalink_link || appointment.medilink_link,
+        status: getStatusFromSearchRow(appointment)
       },
     ],
-    meta: [],
+    extraData: [],
+    tags: [],
   }
 }
 
@@ -64,12 +68,14 @@ const searchMultiAppointmentToInteraction = (
   appointment: SearchAPIMultiAppointment
 ): Interaction => {
   return {
-    start: addHours(
-      parseISO(appointment.start),
-      Number(process.env.REACT_APP_UTC_OFFSET)
-    ),
-    patientId: appointment.user_id,
-    serviceId: appointment.poll_id,
+    id: {
+      patientId: appointment.user_id,
+      serviceId: appointment.poll_id,
+      start: addHours(
+        parseISO(appointment.start),
+        Number(process.env.REACT_APP_UTC_OFFSET)
+      ),
+    },
     branch: appointment.sucursal_name_1 || appointment.sucursal_name,
     phone: appointment.phone,
     appointments: Array(Number(appointment.n_appointments))
@@ -95,9 +101,11 @@ const searchMultiAppointmentToInteraction = (
           id: appointment[
             `id_cita_${index}` as keyof SearchAPIMultiAppointment
           ] as string,
+          status: getStatusFromSearchRow(appointment)
         }
       }),
-    meta: [],
+    extraData: [],
+    tags: [],
   }
 }
 

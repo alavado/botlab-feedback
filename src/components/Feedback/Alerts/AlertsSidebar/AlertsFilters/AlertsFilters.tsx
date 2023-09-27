@@ -11,7 +11,7 @@ import {
   BranchId,
   Service,
   ServiceId,
-} from '../../../../../api/types/types'
+} from '../../../../../api/types/domain'
 import { RootState } from '../../../../../redux/ducks'
 import {
   hideAlertTypeShowIfAllHidden,

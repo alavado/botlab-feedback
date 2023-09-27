@@ -22,7 +22,7 @@ const SmartphoneMessage = ({ data }: { data: SmartphoneChatMessage }) => {
         SmartphoneMessage: true,
         'SmartphoneMessage--outbound': data.message.sender === 'BOT',
         'SmartphoneMessage--focused': data.current,
-        'SmartphoneMessage--unfocused': !data.current,
+        Smartphone__element_not_current: !data.current,
       })}
     >
       <span className="SmartphoneMessage__content">{messageContent}</span>

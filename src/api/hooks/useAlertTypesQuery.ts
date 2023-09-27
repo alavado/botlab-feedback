@@ -2,9 +2,13 @@ import _ from 'lodash'
 import { useQuery, UseQueryResult } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
-import { AlertType } from '../types/types'
+import { AlertType } from '../types/domain'
 
 const alertTypes = [
+  {
+    id: 'Equivocado: Entrega número correcto',
+    name: 'Número equivocado: envía corrección',
+  },
   {
     id: 'Número equivocado',
     name: 'Número equivocado',
@@ -41,15 +45,28 @@ const alertTypes = [
     id: 'Derivación de examen o procedimiento',
     name: 'Derivación',
   },
+  {
+    id: 'Paciente quiere cambiar a telemedicina',
+    name: 'Paciente quiere cambiar a telemedicina',
+  },
 ]
 
 const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
   const { nombreUsuario } = useSelector((state: RootState) => state.login)
   return useQuery<AlertType[], any, any>('alertTypes', async () => {
     let filteredAlertTypes = alertTypes
-    if (nombreUsuario !== 'NucleoSalud' && nombreUsuario !== 'Sanasalud') {
+    if (
+      nombreUsuario !== 'NucleoSalud' &&
+      nombreUsuario !== 'Sanasalud' &&
+      nombreUsuario !== 'Interclínica'
+    ) {
       filteredAlertTypes = filteredAlertTypes.filter(
         (t) => t.id !== 'Derivación de examen o procedimiento'
+      )
+    }
+    if (nombreUsuario !== 'CEAPSI') {
+      filteredAlertTypes = filteredAlertTypes.filter(
+        (t) => t.id !== 'Paciente quiere cambiar a telemedicina'
       )
     }
     return _.sortBy(filteredAlertTypes, 'name')

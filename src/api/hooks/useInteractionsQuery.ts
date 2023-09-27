@@ -1,27 +1,31 @@
 import { UseQueryResult, useQuery } from 'react-query'
-import { Interaction, ServiceId, Tag, TagWithText } from '../types/types'
+import { Interaction, ServiceId, Tag, TagWithText } from '../types/domain'
 import {
   APIMetaValue,
   APITag,
-  APITagWithText,
   AnswersAPIResponse,
   AnswersAPIResponseRow,
 } from '../types/responses'
-import { API_ROOT, get, parseAPIDate } from './utils'
+import {
+  API_ROOT,
+  get,
+  getInteractionTags,
+  getStatusFromAnswersResponseRow,
+  parseAPIDate,
+} from './utils'
 import { addHours, format, parseISO } from 'date-fns'
-import _, { isObject } from 'lodash'
+import _ from 'lodash'
+import { useRouteMatch } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/ducks'
 
-const useInteractionsQuery = ({
-  serviceId,
-  startDate,
-  endDate,
-}: {
-  serviceId: ServiceId | undefined
-  startDate: Date
-  endDate: Date
-}): UseQueryResult<Interaction[], unknown> => {
-  const startDateString = format(startDate, 'yyyy-MM-dd')
-  const endDateString = format(endDate, 'yyyy-MM-dd')
+const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
+  const { range } = useSelector((state: RootState) => state.interactions)
+  const startDateString = format(range.start, 'yyyy-MM-dd')
+  const endDateString = format(range.end, 'yyyy-MM-dd')
+  const {
+    params: { serviceId },
+  }: any = useRouteMatch()
   const url = `${API_ROOT}/answers/${serviceId}?fecha_inicio=${startDateString}%2000%3A00&fecha_termino=${endDateString}%2023%3A59`
 
   return useQuery<Interaction[], any, any>(
@@ -31,52 +35,57 @@ const useInteractionsQuery = ({
         return []
       }
       const { data }: { data: AnswersAPIResponse } = await get(url)
-      return data.data.map((answer: AnswersAPIResponseRow): Interaction => {
-        const nAppointments = Number(answer.n_appointments || 1)
-        return nAppointments === 1
-          ? answerSingleAppointmentToInteraction(answer, serviceId)
-          : answerSingleAppointmentToInteraction(answer, serviceId)
-      })
+      return _.sortBy(
+        data.data.map((answer: AnswersAPIResponseRow): Interaction => {
+          const nAppointments = Number(answer.n_appointments || 1)
+          return nAppointments === 1
+            ? answerSingleAppointmentToInteraction(answer, serviceId)
+            : answerSingleAppointmentToInteraction(answer, serviceId)
+        }),
+        (i) => i.appointments[0].datetime
+      )
     },
     {
-      refetchOnWindowFocus: false,
-      refetchInterval: 120_000,
+      refetchInterval: 60_000,
     }
   )
 }
 
 const answerSingleAppointmentToInteraction = (
-  appointment: AnswersAPIResponseRow,
+  apiAppointment: AnswersAPIResponseRow,
   serviceId: ServiceId
 ): Interaction => {
-  return {
-    start: addHours(
-      parseISO(appointment.start),
-      Number(process.env.REACT_APP_UTC_OFFSET)
+  const appointment = {
+    datetime: parseAPIDate(
+      apiAppointment.date,
+      apiAppointment.time,
+      apiAppointment.start
     ),
-    patientId: appointment.user_id,
-    serviceId,
-    branch: appointment.sucursal_name as string | undefined,
-    phone: appointment.phone,
-    appointments: [
-      {
-        datetime: parseAPIDate(
-          appointment.date,
-          appointment.time,
-          appointment.start
-        ),
-        patientName: appointment.name as string,
-        rut: appointment.rut as string,
-        id: appointment.id_cita as string,
-        url: (appointment.dentalink_link || appointment.medilink_link) as
-          | string
-          | undefined,
-      },
-    ],
-    meta: Object.keys(appointment).map((header) => ({
+    patientName: apiAppointment.name as string,
+    rut: apiAppointment.rut as string,
+    id: apiAppointment.id_cita as string,
+    url: (apiAppointment.dentalink_link || apiAppointment.medilink_link) as
+      | string
+      | undefined,
+    status: getStatusFromAnswersResponseRow(apiAppointment),
+  }
+  return {
+    id: {
+      patientId: apiAppointment.user_id,
+      serviceId,
+      start: addHours(
+        parseISO(apiAppointment.start),
+        Number(process.env.REACT_APP_UTC_OFFSET)
+      ),
+    },
+    branch: apiAppointment.sucursal_name as string | undefined,
+    phone: apiAppointment.phone,
+    appointments: [appointment],
+    extraData: Object.keys(apiAppointment).map((header) => ({
       header,
-      value: processMeta(appointment[header]),
+      value: processMeta(apiAppointment[header]),
     })),
+    tags: getInteractionTags([appointment]),
   }
 }
 

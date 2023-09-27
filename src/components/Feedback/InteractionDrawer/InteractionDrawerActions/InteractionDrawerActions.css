@@ -22,7 +22,7 @@
   transition: all 0.25s ease;
   position: relative;
   filter: none;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   animation: aparece-boton-reacciones 0.2s ease both;
   min-width: 5rem;
 }
@@ -37,5 +37,10 @@
 }
 
 .InteractionDrawerActions__button svg {
-  font-size: 1rem;
+  font-size: 0.85rem;
+}
+
+.InteractionDrawerActions__cero {
+  width: 1.7rem;
+  transform: translateY(0.035rem);
 }

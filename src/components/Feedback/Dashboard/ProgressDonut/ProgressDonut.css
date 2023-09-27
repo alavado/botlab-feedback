@@ -1,0 +1,36 @@
+.ProgressDonut {
+  border-radius: 9in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  --donut-radius: 3.25rem;
+  --donut-batter-pipe-girth: calc(var(--donut-radius) / 4);
+  height: calc(2 * var(--donut-batter-pipe-girth) + 2 * var(--donut-radius));
+  width: calc(2 * var(--donut-batter-pipe-girth) + 2 * var(--donut-radius));
+  background: radial-gradient(var(--color-fondo) 0 55%, transparent 0),
+    conic-gradient(
+      var(--donut-material) calc(1% * var(--donut-leftover)),
+      var(--color-bordes) 0 100%
+    );
+  white-space: nowrap;
+  position: relative;
+}
+
+.ProgressDonut__title {
+  font-weight: 800;
+  font-size: 1.4rem;
+  z-index: 2;
+}
+
+.ProgressDonut__figure {
+  z-index: 2;
+}
+
+.ProgressDonut__label {
+  font-size: 0.7rem;
+  z-index: 2;
+}

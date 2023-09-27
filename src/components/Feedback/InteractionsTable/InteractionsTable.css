@@ -1,10 +1,23 @@
 .InteractionsTable {
   font-size: 0.65rem;
-  width: 100%;
+  max-width: calc(100vw - 2.75rem);
   display: flex;
   flex-direction: column;
   height: calc(100vh - 0.5rem - var(--topbar-height));
-  overflow-y: scroll;
+  overflow: scroll;
+  scrollbar-width: 0.45rem;
+  scrollbar-color: var(--color-principal) var(--color-fondo);
+}
+
+.InteractionsTable::-webkit-scrollbar {
+  width: 0.45rem;
+  height: 0.45rem;
+  background-color: var(--color-fondo);
+}
+
+.InteractionsTable::-webkit-scrollbar-thumb {
+  border-radius: 0.25rem;
+  background-color: var(--color-principal);
 }
 
 .InteractionsTable__table {

@@ -10,6 +10,8 @@ export const extraerTextoHeader = (header, respuesta) => {
     return respuesta[header.nombre].tag
   } else if (header.tipo === 'OPEN') {
     return respuesta[header.nombre]?.tag || respuesta[header.nombre]?.text || ''
+  } else if (header.tipo === 'ICON') {
+    return respuesta[header.nombre].label
   } else {
     throw Error(`${header}, ${respuesta}`)
   }
