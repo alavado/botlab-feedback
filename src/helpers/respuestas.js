@@ -36,6 +36,23 @@ export const formatearCampoRespuestas = (texto, tipoCampo) => {
       -8
     )} ${texto.slice(-8, -4)} ${texto.slice(-4)}`
   }
+  else if (tipoCampo === 'contact-status') {
+    return {
+      // Whatsapp
+      "sent": "Enviado",
+      "received": "Recibido",
+      "read": "Leído",
+      "unreachable": "Inalcanzable",
+      // Phone
+      "calling": "Llamando",
+      "success": "Contactado",
+      "busy": "Ocupado",
+      "no-answer": "No contesta",
+      "answering_machine": "Buzón de voz",
+      "failed": "Fallido",
+      "silent": "No responde",
+    }[texto]
+  }
   return texto
 }
 

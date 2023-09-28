@@ -130,7 +130,6 @@ const Chat = () => {
       )}
       <DatosChat
         datos={conversaciones?.[indiceConversacion]?.context}
-        intentos={phoneHistories?.[indiceConversacion]}
         telefono={telefono}
         cargando={cargando}
       />

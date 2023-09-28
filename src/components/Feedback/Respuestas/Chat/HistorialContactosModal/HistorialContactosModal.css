@@ -1,0 +1,96 @@
+.HistorialContactosModal__backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.HistorialContactosModal__paper {
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  min-width: 65%;
+  padding: 2rem;
+  padding-bottom: 2.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.HistorialContactosModal__close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 0;
+  opacity: 0.9;
+}
+
+.HistorialContactosModal__close:hover {
+  color: var(--color-principal);
+}
+
+.HistorialContactosModal__content {
+}
+
+.HistorialContactosModal__title {
+  font-weight: bold;
+  font-size: 1.35rem;
+  font-family: 'Raleway';
+  margin-top: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.HistorialContactosModal__grid {
+  display: grid;
+  position: relative;
+  font-size: 0.875rem;
+  grid-template-columns: repeat(4, auto);
+  row-gap: 10px;
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
+.HistorialContactosModal__grid__header {
+  display: contents;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+  padding: .75rem .2rem.75rem .2rem;
+  text-overflow: ellipsis;
+  color: var(--color-texto);
+}
+
+.HistorialContactosModal__grid__header > * {
+  background-color: white;
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  border-bottom: 2px solid black;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+}
+
+.HistorialContactosModal__grid__body {
+  display: contents;
+}
+
+.HistorialContactosModal__grid__body > * {
+  border-bottom: 1px solid black;
+  padding-right: 10px;
+  padding-bottom: 15px;
+}
+
+.HistorialContactosModal__channel_icon {
+  opacity: 0.9;
+}

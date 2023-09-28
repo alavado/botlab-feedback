@@ -259,3 +259,23 @@ export type AnswersAPIResponse = {
   status: string
   data: [AnswersAPIResponseRow]
 }
+
+export type InteractionHistoryRecordChannel =
+  | 'whatsapp'
+  | 'phone'
+
+export type InteractionHistoryRecord = {
+  money_id: number
+  poll_id: number
+  user_id: number
+  channel: InteractionHistoryRecordChannel
+  status: string
+  phone: string
+  timestamp: string
+}
+
+export type InteractionHistoryResponse = {
+  poll_id: number
+  user_id: number
+  interactions: [InteractionHistoryRecord]
+}
