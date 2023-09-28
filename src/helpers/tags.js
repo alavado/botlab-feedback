@@ -11,6 +11,8 @@ export const CUALQUIERA = 'CUALQUIERA'
 export const AGENDA_OPCION_1 = 'AGENDA_OPCION_1'
 export const AGENDA_OPCION_2 = 'AGENDA_OPCION_2'
 export const AGENDA_OPCION_3 = 'AGENDA_OPCION_3'
+export const AGENDA_OPCION_4 = 'AGENDA_OPCION_4'
+export const AGENDA_OPCION_5 = 'AGENDA_OPCION_5'
 
 const tags = {
   YES: {
@@ -63,6 +65,13 @@ const tags = {
     color: 'var(--color-reagenda)',
   },
   OUT: {
+    texto: 'Out',
+    titulo: 'Out',
+    icono: 'mdi:question-mark',
+    clase: 'TagRespuesta TagRespuesta--out',
+    color: 'var(--color-out)',
+  },
+  SMALL_TALK: {
     texto: 'Out',
     titulo: 'Out',
     icono: 'mdi:question-mark',
@@ -314,6 +323,13 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--vacia',
     color: '',
   },
+  IN_CONTRADICCION: {
+    texto: 'Contradicción (i)',
+    titulo: 'Paciente indica que hay información contradictoria',
+    icono: 'mdi:close',
+    clase: 'TagRespuesta TagRespuesta--vacia',
+    color: '',
+  },
   REAGENDA_SOFT: {
     texto: 'Reagenda sin perder hora',
     titulo: 'Paciente intenta reagendar solo de ser posible',
@@ -370,6 +386,20 @@ const tags = {
     clase: 'TagRespuesta TagRespuesta--si',
     color: '',
   },
+  AGENDA_OPCION_4: {
+    texto: 'Bloque 4 agendado',
+    titulo: 'Bloque 4 agendado',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: '',
+  },
+  AGENDA_OPCION_5: {
+    texto: 'Bloque 5 agendado',
+    titulo: 'Bloque 5 agendado',
+    icono: 'mdi:check',
+    clase: 'TagRespuesta TagRespuesta--si',
+    color: '',
+  },
   MANTENER_ORIGINAL: {
     texto: 'Mantener original',
     titulo: 'Mantener original',
@@ -386,6 +416,13 @@ const tags = {
   },
   EQUIVOCADO: {
     texto: 'Equivocado',
+    titulo: 'Equivocado',
+    icono: 'mdi:alert',
+    clase: 'TagRespuesta  TagRespuesta--vacia',
+    color: '',
+  },
+  EQUIVOCADO_MAS_INFO: {
+    texto: 'Equivocado (i)',
     titulo: 'Equivocado',
     icono: 'mdi:alert',
     clase: 'TagRespuesta  TagRespuesta--vacia',

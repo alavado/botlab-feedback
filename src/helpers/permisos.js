@@ -33,17 +33,6 @@ export const tieneAccesoAAlertas = (cuenta) => {
   return !cuentasSinAlertas.includes(cuenta.toLowerCase())
 }
 
-export const tieneAccesoAUNREACHABLES = (cuenta) => {
-  const cuentasSinAcceso = [
-    'sanasalud',
-    'sanasalud_cero',
-    'norden',
-    'norden_cero',
-    'mega_admin_cero',
-  ]
-  return !cuentasSinAcceso.includes(cuenta.toLowerCase())
-}
-
 export const esCero = (cuenta) => {
   if (!cuenta) {
     return false
@@ -58,6 +47,7 @@ export const tieneAccesoADashboard = (cuenta) => {
     'hospital_osorno',
     'hospital_puerto_montt',
     'cleversalud',
+    'imagen_dental',
   ]
   return cuentasConAcceso.includes(cuenta.toLowerCase()) || esCero(cuenta)
 }

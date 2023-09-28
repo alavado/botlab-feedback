@@ -9,6 +9,7 @@ import Scrambler from '../../../../Scrambler'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import classNames from 'classnames'
+import useWhatsappLink from '../../../../../hooks/useWhatsappLink'
 
 const DatosChat = ({ cargando, datos, telefono, intentos }) => {
   const [intentosVisibles, setIntentosVisibles] = useState(false)
@@ -17,10 +18,10 @@ const DatosChat = ({ cargando, datos, telefono, intentos }) => {
   const { idEncuestaSeleccionada: idEncuesta } = useSelector(
     (state) => state.encuestas
   )
-  // const { tableroVisible } = useSelector(state => state.opciones)
   const dispatch = useDispatch()
   const history = useHistory()
   const track = useAnalytics()
+  const whatsappLink = useWhatsappLink(telefono)
 
   const haySiguienteChat =
     respuestas && indiceRespuestaSeleccionada < respuestas.length - 1
@@ -219,12 +220,12 @@ const DatosChat = ({ cargando, datos, telefono, intentos }) => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`https://web.whatsapp.com/send/?phone=${telefono}`}
+                href={whatsappLink}
                 className="DatosChat__link_ws"
-                title="Continuar a chat WhatsApp"
+                title="Chatear en WhatsApp"
                 onClick={() =>
                   track('Feedback', 'Chat', 'abrirWhatsappWebDesdeDatosChat', {
-                    link: `https://web.whatsapp.com/send/?phone=${telefono}`,
+                    link: whatsappLink,
                   })
                 }
               >

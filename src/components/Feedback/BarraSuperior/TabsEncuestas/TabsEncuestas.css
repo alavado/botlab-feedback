@@ -3,25 +3,30 @@
   align-items: flex-end;
   margin-top: auto;
   height: 2rem;
+  max-width: 75vw;
 }
 
 .TabsEncuestas__tab {
   background: var(--color-barra-superior);
   color: var(--color-texto);
   border: none;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   border: 1px solid var(--color-bordes);
   border-bottom: none;
-  border-radius: .35rem .35rem 0 0;
-  font-size: .62rem;
+  border-radius: 0.35rem 0.35rem 0 0;
+  font-size: 0.62rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
-  gap: .2rem;
+  gap: 0.25rem;
   height: calc(1.5rem - 1px);
   align-items: center;
-  transition: all .15s ease;
-  opacity: .85;
+  transition: all 0.15s ease;
+  opacity: 0.85;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+  flex: 1;
 }
 
 .TabsEncuestas__tab--activo {
@@ -37,23 +42,23 @@
 }
 
 .TabsEncuestas__tab_icono_empresa {
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: var(--color-whatsapp);
 }
 
 .TabsEncuestas__icono_empresa {
-  width: .75rem;
-  height: .75rem;
-  margin-left: .25rem;
-  margin-right: .25rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
   color: var(--color-texto);
   align-self: center;
 }
 
 .TabsEncuestas__nombre_encuesta {
-  padding-right: .5rem;
+  padding-right: 0.5rem;
   font-weight: 600;
-  font-size: .7rem;
+  font-size: 0.7rem;
   color: var(--color-texto);
   align-self: center;
 }

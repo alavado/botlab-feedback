@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { obtenerContenidoMultimedia } from '../../../../../../api/endpoints'
 import axios from 'axios'
 import { marcarNegritas } from '../../../../../../helpers/mensajes'
+import useWhatsappLink from '../../../../../../hooks/useWhatsappLink'
 
 const extensionesImagenes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 const tokenAdjunto = 'ATTACHMENT:'
@@ -323,6 +324,7 @@ const MensajeArchivo = ({ mensaje }) => {
 const MensajeContacto = ({ mensaje }) => {
   const [huboError, setHuboError] = useState(false)
   const [telefonoContacto, setTelefonoContacto] = useState()
+  const whatsappLink = useWhatsappLink(telefonoContacto?.replace(/[^0-9]/g, ''))
   const [nombreContacto, setNombreContacto] = useState()
 
   const descargarArchivo = async () => {
@@ -360,14 +362,7 @@ const MensajeContacto = ({ mensaje }) => {
         />
         <p>{nombreContacto}</p>
         {telefonoContacto && (
-          <a
-            href={`https://web.whatsapp.com/send/?phone=${telefonoContacto.replace(
-              /[^0-9]/g,
-              ''
-            )}`}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
+          <a href={whatsappLink} target="_blank" rel="noreferrer noopener">
             {telefonoContacto}
           </a>
         )}

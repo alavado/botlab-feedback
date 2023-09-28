@@ -11,6 +11,7 @@ import TagRespuesta from '../../TagRespuesta'
 import './FilaTablaRespuestas.css'
 import useAnalytics from '../../../../../../hooks/useAnalytics'
 import InteractionCommentIcon from '../../../../InteractionDrawer/InteractionComments/InteractionComment/InteractionCommentIcon'
+import { Icon } from '@iconify/react'
 
 const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
   const { columnaDestacada, filaTablaDestacada } = useSelector(
@@ -93,7 +94,7 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
           </span>
         )}
       </td>
-      {headers.map(({ nombre, f, texto }, j) => {
+      {headers.map(({ nombre, f, texto, tipo }, j) => {
         let valorHeader = f
           ? f(respuestaManipulada)
           : respuestaManipulada[nombre]
@@ -105,7 +106,15 @@ const FilaTablaRespuestas = ({ respuesta, indice, onClick, headers }) => {
               'FilaTablaRespuestas__celda--destacada': columnaDestacada === j,
             })}
           >
-            {valorHeader && valorHeader.tag !== undefined ? (
+            {tipo === 'ICON' ? (
+              <div title={valorHeader.label}>
+                <Icon
+                  className="FilaTablaRespuestas__channel_icon"
+                  icon={`mdi:${valorHeader.icon}`}
+                  title={valorHeader.label}
+                />
+              </div>
+            ) : valorHeader && valorHeader.tag !== undefined ? (
               <span
                 className="FilaTablaRespuestas__contenedor_tag"
                 title={valorHeader.text}

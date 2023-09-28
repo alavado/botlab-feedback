@@ -5,6 +5,8 @@ import {
   AGENDA_OPCION_1,
   AGENDA_OPCION_2,
   AGENDA_OPCION_3,
+  AGENDA_OPCION_4,
+  AGENDA_OPCION_5,
 } from './tags'
 
 const actionSuccess = 'action_result:SUCCESS'
@@ -62,11 +64,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
             f: (r) => r[13],
           },
           {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
-          {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
             f: (r) => r[2],
@@ -109,11 +106,6 @@ export const obtenerTagsCalculados = (idEncuesta) => {
             f: (r) => r[13],
           },
           {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
-          {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
             f: (r) => r[2],
@@ -148,43 +140,148 @@ export const obtenerTagsCalculados = (idEncuesta) => {
             },
           },
         ]
-      case 509: // SS agendamiento
+      case 892: // agendamiento nucleo
         return [
-          {
-            texto: 'Mensaje Inicial',
-            tipo: 'OPEN',
-            f: (r) => r[0],
-          },
           {
             texto: 'Encontramos horas',
             tipo: 'INTERNAL',
-            f: (r) => r[2],
+            f: (r) => r[4],
           },
           {
             texto: 'Opción elegida',
             tipo: 'OPEN',
-            f: (r) => r[3],
+            f: (r) => r[5],
           },
           {
             texto: 'Bloque agendado',
             tipo: 'INTERNAL',
             f: (r) => {
-              if (r[510].tag === actionSuccess) {
+              if (r[61]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_1,
                   texto: 'Bloque 1',
                 }
               }
-              if (r[520].tag === actionSuccess) {
+              if (r[62]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_2,
                   texto: 'Bloque 2',
                 }
               }
-              if (r[530].tag === actionSuccess) {
+              if (r[63]?.tag === actionSuccess) {
                 return {
                   tag: AGENDA_OPCION_3,
                   texto: 'Bloque 3',
+                }
+              }
+              if (r[64]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_4,
+                  texto: 'Bloque 4',
+                }
+              }
+              if (r[65]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_5,
+                  texto: 'Bloque 5',
+                }
+              }
+            },
+          },
+        ]
+      case 891: // cero
+        return [
+          {
+            texto: 'Encontramos horas',
+            tipo: 'INTERNAL',
+            f: (r) => r[3],
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: (r) => r[4],
+          },
+          {
+            texto: 'Bloque agendado',
+            tipo: 'INTERNAL',
+            f: (r) => {
+              if (r[61]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_1,
+                  texto: 'Bloque 1',
+                }
+              }
+              if (r[62]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_2,
+                  texto: 'Bloque 2',
+                }
+              }
+              if (r[63]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3',
+                }
+              }
+              if (r[64]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_4,
+                  texto: 'Bloque 4',
+                }
+              }
+              if (r[65]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_5,
+                  texto: 'Bloque 5',
+                }
+              }
+            },
+          },
+        ]
+      case 509: // SS agendamiento
+        return [
+          {
+            texto: 'Encontramos horas',
+            tipo: 'INTERNAL',
+            f: (r) => r[3],
+          },
+          {
+            texto: 'Opción elegida',
+            tipo: 'OPEN',
+            f: (r) => r[4],
+          },
+          {
+            texto: 'Bloque agendado',
+            tipo: 'INTERNAL',
+            f: (r) => {
+              if (r[61]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_1,
+                  texto: 'Bloque 1',
+                }
+              }
+              if (r[62]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_2,
+                  texto: 'Bloque 2',
+                }
+              }
+              if (r[63]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_3,
+                  texto: 'Bloque 3',
+                }
+              }
+              if (r[64]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_4,
+                  texto: 'Bloque 4',
+                }
+              }
+              if (r[65]?.tag === actionSuccess) {
+                return {
+                  tag: AGENDA_OPCION_5,
+                  texto: 'Bloque 5',
                 }
               }
             },
@@ -332,9 +429,5 @@ export const obtenerHeadersConTagsCalculados = (headers, idEncuesta) => {
     .map((h) =>
       h.texto.includes(' Externo') ? { ...h, texto: h.texto.slice(0, -8) } : h
     )
-  // caso especial agendamiento, para poner el teléfono al comienzo
-  if ([509, 557, 577].includes(idEncuesta)) {
-    return [...headersSinTags, ...tagsCalculados]
-  }
   return [...tagsCalculados, ...headersSinTags]
 }

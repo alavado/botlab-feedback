@@ -55,6 +55,7 @@ const MensajeSinWhatsapp = ({ start, intentos }) => {
               </ol>
             </>
           ) : (
+            // xx aqui hay que modificar
             <>El número asociado no tiene Whatsapp</>
           )}
         </p>

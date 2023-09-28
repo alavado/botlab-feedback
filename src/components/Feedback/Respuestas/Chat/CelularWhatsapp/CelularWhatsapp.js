@@ -11,7 +11,6 @@ import { Icon } from '@iconify/react'
 import { useHistory } from 'react-router'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import MensajeSinWhatsapp from './MensajeSinWhatsapp/MensajeSinWhatsapp'
-import { tieneAccesoAUNREACHABLES } from '../../../../../helpers/permisos'
 
 const CelularWhatsapp = ({
   conversaciones,
@@ -27,7 +26,6 @@ const CelularWhatsapp = ({
   const dispatch = useDispatch()
   const history = useHistory()
   const track = useAnalytics()
-  const { nombreUsuario: cuenta } = useSelector((state) => state.login)
 
   const todosLosMensajes = useMemo(() => {
     return conversaciones
@@ -99,8 +97,7 @@ const CelularWhatsapp = ({
                       }
                     }}
                   >
-                    {c.is_unreachable?.whatsapp &&
-                    tieneAccesoAUNREACHABLES(cuenta) ? (
+                    {c.is_unreachable?.whatsapp && c.is_unreachable?.phone ? (
                       <MensajeSinWhatsapp start={c.start} intentos={intentos} />
                     ) : mensajes.length > 0 ? (
                       mensajes.map((mensaje, i) => (

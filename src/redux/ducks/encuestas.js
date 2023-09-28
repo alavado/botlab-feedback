@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+export const CANAL_HEADER_NAME = 'canal'
+
 const encuestasSlice = createSlice({
   name: 'encuestas',
   initialState: {},
@@ -21,11 +23,14 @@ const encuestasSlice = createSlice({
     guardaHeadersEncuesta(state, action) {
       const { id, data } = action.payload
       state.idEncuestaSeleccionada = id
-      state.headers = data.data.data.map(({ name, display_name, type }) => ({
-        nombre: name,
-        texto: display_name,
-        tipo: type,
-      }))
+      state.headers = [
+        { nombre: CANAL_HEADER_NAME, texto: 'Canal', tipo: 'ICON' },
+        ...data.data.data.map(({ name, display_name, type }) => ({
+          nombre: name,
+          texto: display_name,
+          tipo: type,
+        })),
+      ]
     },
     guardaHeaders(state, action) {
       state.todosLosHeaders = action.payload.data.data
