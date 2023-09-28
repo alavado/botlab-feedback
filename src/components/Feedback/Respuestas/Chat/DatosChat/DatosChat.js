@@ -173,16 +173,18 @@ const DatosChat = ({ cargando, datos, telefono, intentos }) => {
             </div>
           )}
       </div>
-      <div>
+      <div className="DatosChat__header">
         <h1 className="DatosChat__titulo">Datos del chat</h1>
         <button
+          className="DatosChat__boton_historial"
           onClick={() =>
             setInteractionHistoryModal(!showInteractionHistoryModal)
           }
+          title='Historial de Interacciones'
         >
-          Historial de Interacciones
+          <Icon icon="mdi:history" />
         </button>
-        {showInteractionHistoryModal && <HistorialInteraccionesModal />}
+        {showInteractionHistoryModal && <HistorialInteraccionesModal close={() => setInteractionHistoryModal(false)} />}
       </div>
       {!cargando && datos !== undefined ? (
         <div className="DatosChat__contenedor_datos">

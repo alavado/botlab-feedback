@@ -5,9 +5,10 @@ import { Fragment } from 'react'
 import './HistorialInteraccionesModal.css'
 import { InteractionHistoryRecord } from '../../../../../api/types/responses'
 import { format, parseISO } from 'date-fns'
+import { Icon } from '@iconify/react'
 
 // modal-historial-interacciones
-const HistorialInteraccionesModal = () => {
+const HistorialInteraccionesModal = ({ close }: {close: Function}) => {
   const params: any = useParams()
   const { data, isLoading } = useInteractionsHistoryQuery({
     serviceId: params.idEncuesta,
@@ -19,8 +20,11 @@ const HistorialInteraccionesModal = () => {
   }
 
   return createPortal(
-    <div className="HistorialInteraccionesModal__backdrop">
-      <div className="HistorialInteraccionesModal__paper">
+    <div className="HistorialInteraccionesModal__backdrop" onClick={(e: React.MouseEvent) => close()}>
+      <div className="HistorialInteraccionesModal__paper" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+        <button className="HistorialInteraccionesModal__close" onClick={(e: React.MouseEvent) => close()}>
+          <Icon icon="mdi:close" />
+        </button>
         <div className="HistorialInteraccionesModal__content">
           <div className="HistorialInteraccionesModal__title">
             Historial de Interacciones
