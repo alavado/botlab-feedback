@@ -13,6 +13,7 @@
 
 .HistorialContactosModal__paper {
   position: relative;
+  overflow: hidden;
   background-color: white;
   min-width: 65%;
   padding: 2rem;
@@ -38,7 +39,6 @@
 }
 
 .HistorialContactosModal__content {
-  /* position: relative */
 }
 
 .HistorialContactosModal__title {
@@ -51,8 +51,12 @@
 
 .HistorialContactosModal__grid {
   display: grid;
+  position: relative;
+  font-size: 0.875rem;
   grid-template-columns: repeat(4, auto);
   row-gap: 10px;
+  max-height: 70vh;
+  overflow-y: scroll;
 }
 
 .HistorialContactosModal__grid__header {
@@ -67,6 +71,10 @@
 }
 
 .HistorialContactosModal__grid__header > * {
+  background-color: white;
+  position: sticky;
+  z-index: 1;
+  top: 0;
   border-bottom: 2px solid black;
   padding-right: 10px;
   padding-bottom: 10px;
@@ -81,4 +89,8 @@
   border-bottom: 1px solid black;
   padding-right: 10px;
   padding-bottom: 15px;
+}
+
+.HistorialContactosModal__channel_icon {
+  opacity: 0.9;
 }

@@ -6,6 +6,7 @@ import './HistorialContactosModal.css'
 import { InteractionHistoryRecord } from '../../../../../api/types/responses'
 import { format, parseISO } from 'date-fns'
 import { Icon } from '@iconify/react'
+import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 
 // modal-historial-contactos
 const HistorialContactosModal = ({ close }: {close: Function}) => {
@@ -32,17 +33,22 @@ const HistorialContactosModal = ({ close }: {close: Function}) => {
           <div className="HistorialContactosModal__grid">
             <div className="HistorialContactosModal__grid__header">
               <div>Fecha</div>
-              <div>Canal de contacto</div>
+              <div>Canal</div>
               <div>Teléfono</div>
               <div>Estado</div>
             </div>
             <div className="HistorialContactosModal__grid__body">
               {data.map((record: InteractionHistoryRecord) => (
-                <Fragment key={record.money_id}>
+                <Fragment key={record.timestamp}>
                   <div>{format(parseISO(record.timestamp), 'yyyy-MM-dd HH:mm')}</div>
-                  <div>{record.channel}</div>
-                  <div>{record.phone}</div>
-                  <div>{record.status.toUpperCase()}</div>
+                  <div>
+                    <Icon
+                      className="HistorialContactosModal__channel_icon"
+                      icon={`mdi:${record.channel}`}
+                    />
+                  </div>
+                  <div>{formatearCampoRespuestas(record.phone, 'phone')}</div>
+                  <div>{formatearCampoRespuestas(record.status, 'contact-status')}</div>
                 </Fragment>
               ))}
             </div>
