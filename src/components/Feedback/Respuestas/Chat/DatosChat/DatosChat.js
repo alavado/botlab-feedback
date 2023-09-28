@@ -10,7 +10,7 @@ import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 import useAnalytics from '../../../../../hooks/useAnalytics'
 import classNames from 'classnames'
 import useWhatsappLink from '../../../../../hooks/useWhatsappLink'
-import HistorialInteraccionesModal from '../HistorialInteraccionesModal'
+import HistorialContactosModal from '../HistorialContactosModal'
 
 const DatosChat = ({ cargando, datos, telefono, intentos }) => {
   const [intentosVisibles, setIntentosVisibles] = useState(false)
@@ -184,7 +184,7 @@ const DatosChat = ({ cargando, datos, telefono, intentos }) => {
         >
           <Icon icon="mdi:history" />
         </button>
-        {showInteractionHistoryModal && <HistorialInteraccionesModal close={() => setInteractionHistoryModal(false)} />}
+        {showInteractionHistoryModal && <HistorialContactosModal close={() => setInteractionHistoryModal(false)} />}
       </div>
       {!cargando && datos !== undefined ? (
         <div className="DatosChat__contenedor_datos">
