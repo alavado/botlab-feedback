@@ -27,7 +27,7 @@ const HistorialInteraccionesModal = ({ close }: {close: Function}) => {
         </button>
         <div className="HistorialInteraccionesModal__content">
           <div className="HistorialInteraccionesModal__title">
-            Historial de Interacciones
+            Historial de Contactos
           </div>
           <div className="HistorialInteraccionesModal__grid">
             <div className="HistorialInteraccionesModal__grid__header">
