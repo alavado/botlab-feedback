@@ -11,7 +11,7 @@ import useAnalytics from '../../../../../hooks/useAnalytics'
 import useWhatsappLink from '../../../../../hooks/useWhatsappLink'
 import HistorialContactosModal from '../HistorialContactosModal'
 
-const DatosChat = ({ cargando, datos, telefono, intentos }) => {
+const DatosChat = ({ cargando, datos, telefono }) => {
   const [showInteractionHistoryModal, setInteractionHistoryModal] =
     useState(false)
   const { respuestasVisibles: respuestas, indiceRespuestaSeleccionada } =

@@ -49,7 +49,7 @@ const HistorialContactosModal = ({ close }: {close: Function}) => {
                     />
                   </div>
                   <div>
-                    <Scrambler tipo="telefono">
+                    <Scrambler tipo="telefono" propagar={false}>
                       {formatearCampoRespuestas(record.phone, 'phone')}
                     </Scrambler>
                   </div>
