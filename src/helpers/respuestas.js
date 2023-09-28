@@ -44,8 +44,8 @@ export const formatearCampoRespuestas = (texto, tipoCampo) => {
       "read": "Leído",
       "unreachable": "Inalcanzable",
       // Phone
+      "completed": "Contactado",
       "calling": "Llamando",
-      "success": "Contactado",
       "busy": "Ocupado",
       "no-answer": "No contesta",
       "answering_machine": "Buzón de voz",
