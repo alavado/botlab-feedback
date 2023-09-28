@@ -7,6 +7,7 @@ import { InteractionHistoryRecord } from '../../../../../api/types/responses'
 import { format, parseISO } from 'date-fns'
 import { Icon } from '@iconify/react'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
+import Scrambler from '../../../../Scrambler'
 
 // modal-historial-contactos
 const HistorialContactosModal = ({ close }: {close: Function}) => {
@@ -47,7 +48,11 @@ const HistorialContactosModal = ({ close }: {close: Function}) => {
                       icon={`mdi:${record.channel}`}
                     />
                   </div>
-                  <div>{formatearCampoRespuestas(record.phone, 'phone')}</div>
+                  <div>
+                    <Scrambler tipo="telefono">
+                      {formatearCampoRespuestas(record.phone, 'phone')}
+                    </Scrambler>
+                  </div>
                   <div>{formatearCampoRespuestas(record.status, 'contact-status')}</div>
                 </Fragment>
               ))}
