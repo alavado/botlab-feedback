@@ -324,7 +324,7 @@ const MensajeArchivo = ({ mensaje }) => {
 const MensajeContacto = ({ mensaje }) => {
   const [huboError, setHuboError] = useState(false)
   const [telefonoContacto, setTelefonoContacto] = useState()
-  const whatsappLink = useWhatsappLink(telefonoContacto.replace(/[^0-9]/g, ''))
+  const whatsappLink = useWhatsappLink(telefonoContacto?.replace(/[^0-9]/g, ''))
   const [nombreContacto, setNombreContacto] = useState()
 
   const descargarArchivo = async () => {
