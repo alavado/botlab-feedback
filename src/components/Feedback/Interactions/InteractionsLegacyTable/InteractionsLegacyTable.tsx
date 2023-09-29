@@ -7,6 +7,9 @@ import InteractionsLegacyTableRow from './InteractionsLegacyTableRow/Interaction
 import useActiveServiceQuery from '../../../../api/hooks/useActiveServiceQuery'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { useMemo } from 'react'
+import InteractionsLegacyTablePageSelector from './InteractionsLegacyTablePageSelector/InteractionsLegacyTablePageSelector'
+
+const INTERACTIONS_PER_PAGE = 30
 
 const InteractionsLegacyTable = ({
   interactions,
@@ -44,30 +47,44 @@ const InteractionsLegacyTable = ({
           />
         )}
       </div>
-      {/* <!--- jiji ---> */}
-      <div className="InteractionsLegacyTableRow InteractionsLegacyTableRow--headers">
-        <div className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--header InteractionsLegacyTableRow__cell--notes-header">
-          <Icon icon="mdi:note" />
-        </div>
-        {service?.headers.map((header) => (
-          <div
-            key={`header-${header.name}`}
-            className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--header"
-          >
-            <div>{header.displayName}</div>
+      <div
+        className="InteractionsLegacyTable__table_container"
+        style={{
+          gridTemplateColumns: `repeat(${
+            1 + (service?.headers.length || 0)
+          }, auto)`,
+        }}
+      >
+        {/* <!--- jiji ---> */}
+        <div className="InteractionsLegacyTableRow">
+          <div className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--header InteractionsLegacyTableRow__cell--notes-header">
+            <Icon icon="mdi:note-text-outline" />
           </div>
-        ))}
+          {service?.headers.map((header) => (
+            <div
+              key={`header-${header.name}`}
+              className="InteractionsLegacyTableRow__cell InteractionsLegacyTableRow__cell--header"
+              draggable={true}
+            >
+              <div>{header.displayName}</div>
+            </div>
+          ))}
+        </div>
+        {interactions
+          .slice(0, INTERACTIONS_PER_PAGE)
+          .map((i: Interaction, n) => (
+            <InteractionsLegacyTableRow
+              interaction={i}
+              highlighted={
+                i.id.patientId === activeInteraction?.id.patientId &&
+                i.id.serviceId === activeInteraction?.id.serviceId
+              }
+              row={n}
+              key={`InteractionsLegacyTableRow-${n}`}
+            />
+          ))}
       </div>
-      {interactions.slice(0, 50).map((i: Interaction, n) => (
-        <InteractionsLegacyTableRow
-          interaction={i}
-          highlighted={
-            i.id.patientId === activeInteraction?.id.patientId &&
-            i.id.serviceId === activeInteraction?.id.serviceId
-          }
-          key={`InteractionsLegacyTableRow-${n}`}
-        />
-      ))}
+      <InteractionsLegacyTablePageSelector />
     </div>
   )
 }

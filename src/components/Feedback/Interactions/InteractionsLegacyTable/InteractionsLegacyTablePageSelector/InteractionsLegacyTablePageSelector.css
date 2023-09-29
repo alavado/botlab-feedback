@@ -1,0 +1,7 @@
+.InteractionsLegacyTablePageSelector {
+  background-color: var(--color-fondo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.25rem;
+}

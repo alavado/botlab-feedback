@@ -93,10 +93,7 @@ const Smartphone = ({
         }
       }
     pastInteractions?.forEach((interaction: Interaction) => {
-      if (
-        canSeeUnreachables &&
-        interaction.tags.includes('UNREACHABLE_WHATSAPP')
-      ) {
+      if (canSeeUnreachables && interaction.status === 'UNREACHABLE_WHATSAPP') {
         elements.push({
           date: interaction.id.start,
           unreachableExplanation: 'blabla',
@@ -107,7 +104,7 @@ const Smartphone = ({
     })
     if (
       canSeeUnreachables &&
-      currentInteraction.tags.includes('UNREACHABLE_WHATSAPP')
+      currentInteraction.status === 'UNREACHABLE_WHATSAPP'
     ) {
       elements.push({
         date: currentInteraction.id.start,
@@ -117,10 +114,7 @@ const Smartphone = ({
       currentInteraction.messages?.forEach(addElement(true))
     }
     futureInteractions?.forEach((interaction: Interaction) => {
-      if (
-        canSeeUnreachables &&
-        interaction.tags.includes('UNREACHABLE_WHATSAPP')
-      ) {
+      if (canSeeUnreachables && interaction.status === 'UNREACHABLE_WHATSAPP') {
         elements.push({
           date: interaction.id.start,
           unreachableExplanation: 'blabla',

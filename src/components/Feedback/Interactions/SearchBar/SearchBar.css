@@ -1,0 +1,26 @@
+.SearchBar {
+  display: grid;
+  gap: 0.35rem;
+  grid-template: auto / auto;
+  transition: all 0.15s ease;
+  align-items: center;
+  position: relative;
+  padding: 0;
+}
+
+.SearchBar__icon {
+  position: absolute;
+  left: 0.5rem;
+  opacity: 0.5;
+  font-size: 0.9rem;
+}
+
+.SearchBar__input {
+  border: 1px solid var(--color-bordes);
+  border-radius: 1rem;
+  background-color: var(--color-fondo);
+  height: 1.5rem;
+  padding: 0 0 0 2rem;
+  font-size: 0.6rem;
+  min-width: 12rem;
+}

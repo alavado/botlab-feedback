@@ -10,6 +10,7 @@ export interface ServiceHeader {
   name: string
   displayName: string
   type: ServiceHeaderType
+  levels: string[]
 }
 
 export interface Branch {
@@ -17,7 +18,7 @@ export interface Branch {
   name: string
 }
 
-export type InteractionTag =
+export type InteractionStatus =
   | 'UNANSWERED_WHATSAPP'
   | 'UNREACHABLE_WHATSAPP'
   | 'ANSWERED_WHATSAPP'
@@ -41,36 +42,29 @@ export interface Interaction {
   comments?: Comment[]
   botName?: string
   extraData: InteractionExtraData[]
-  tags: InteractionTag[]
+  extraDataDict: any
+  status: InteractionStatus
+  normalized: string
 }
+
+export const tagPreffix = 'TAG:'
 
 export type Tag =
-  | 'YES'
-  | 'NO'
-  | 'REAGENDA'
-  | 'OUT'
-  | 'SIN RESPUESTA'
-  | 'UNREACHABLE'
+  | 'TAG:YES'
+  | 'TAG:NO'
+  | 'TAG:REAGENDA'
+  | 'TAG:OUT'
+  | 'TAG:OTRO'
+  | 'TAG:SIN RESPUESTA'
+  | 'TAG:UNREACHABLE'
 
 export const isTag = (stuff: any): stuff is Tag => {
-  return [
-    'YES',
-    'NO',
-    'REAGENDA',
-    'OUT',
-    'SIN RESPUESTA',
-    'UNREACHABLE',
-  ].includes(stuff)
-}
-
-export type TagWithText = {
-  tag: Tag
-  text: string
+  return stuff.startsWith(tagPreffix)
 }
 
 export interface InteractionExtraData {
   header: string
-  value: string | TagWithText
+  value: string
 }
 
 export type SchedulingSystem = 'Dentalink' | 'Medilink' | 'Otro'

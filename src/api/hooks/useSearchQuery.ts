@@ -7,7 +7,13 @@ import {
   SearchAPISingleAppointment,
 } from '../types/responses'
 import { Appointment, Interaction } from '../types/domain'
-import { get, parseAPIDate, API_ROOT, getStatusFromSearchRow } from './utils'
+import {
+  get,
+  parseAPIDate,
+  API_ROOT,
+  getStatusFromSearchRow,
+  getInteractionStatus,
+} from './utils'
 
 const useSearchQuery = (
   term: String
@@ -34,7 +40,21 @@ const useSearchQuery = (
 const searchSingleAppointmentToInteraction = (
   appointment: SearchAPISingleAppointment
 ): Interaction => {
-  return {
+  const appointments = [
+    {
+      datetime: parseAPIDate(
+        appointment.date,
+        appointment.time,
+        appointment.start
+      ),
+      patientName: appointment.name,
+      rut: appointment.rut,
+      id: appointment.id_cita,
+      url: appointment.dentalink_link || appointment.medilink_link,
+      status: getStatusFromSearchRow(appointment),
+    },
+  ]
+  const interaction = {
     id: {
       patientId: appointment.user_id,
       serviceId: appointment.poll_id,
@@ -45,29 +65,47 @@ const searchSingleAppointmentToInteraction = (
     },
     branch: appointment.sucursal_name,
     phone: appointment.phone,
-    appointments: [
-      {
-        datetime: parseAPIDate(
-          appointment.date,
-          appointment.time,
-          appointment.start
-        ),
-        patientName: appointment.name,
-        rut: appointment.rut,
-        id: appointment.id_cita,
-        url: appointment.dentalink_link || appointment.medilink_link,
-        status: getStatusFromSearchRow(appointment)
-      },
-    ],
+    appointments,
     extraData: [],
-    tags: [],
+    extraDataDict: [],
+    status: getInteractionStatus(appointments),
+  }
+  return {
+    ...interaction,
+    normalized: JSON.stringify(interaction).toLowerCase(),
   }
 }
 
 const searchMultiAppointmentToInteraction = (
   appointment: SearchAPIMultiAppointment
 ): Interaction => {
-  return {
+  const appointments = Array(Number(appointment.n_appointments))
+    .fill(0)
+    .map<Appointment>((_, i): Appointment => {
+      const index = i + 1
+      const appointment_time =
+        (appointment[
+          `time_${index}` as keyof SearchAPIMultiAppointment
+        ] as string) || ''
+      return {
+        datetime: parseAPIDate(
+          appointment.date_1,
+          appointment_time,
+          appointment.start
+        ),
+        patientName: appointment[
+          `patient_name_${index}` as keyof SearchAPIMultiAppointment
+        ] as string,
+        rut: appointment[
+          `rut_${index}` as keyof SearchAPIMultiAppointment
+        ] as string,
+        id: appointment[
+          `id_cita_${index}` as keyof SearchAPIMultiAppointment
+        ] as string,
+        status: getStatusFromSearchRow(appointment),
+      }
+    })
+  const interaction = {
     id: {
       patientId: appointment.user_id,
       serviceId: appointment.poll_id,
@@ -78,34 +116,14 @@ const searchMultiAppointmentToInteraction = (
     },
     branch: appointment.sucursal_name_1 || appointment.sucursal_name,
     phone: appointment.phone,
-    appointments: Array(Number(appointment.n_appointments))
-      .fill(0)
-      .map<Appointment>((_, i): Appointment => {
-        const index = i + 1
-        const appointment_time =
-          (appointment[
-            `time_${index}` as keyof SearchAPIMultiAppointment
-          ] as string) || ''
-        return {
-          datetime: parseAPIDate(
-            appointment.date_1,
-            appointment_time,
-            appointment.start
-          ),
-          patientName: appointment[
-            `patient_name_${index}` as keyof SearchAPIMultiAppointment
-          ] as string,
-          rut: appointment[
-            `rut_${index}` as keyof SearchAPIMultiAppointment
-          ] as string,
-          id: appointment[
-            `id_cita_${index}` as keyof SearchAPIMultiAppointment
-          ] as string,
-          status: getStatusFromSearchRow(appointment)
-        }
-      }),
+    appointments,
     extraData: [],
-    tags: [],
+    extraDataDict: [],
+    status: getInteractionStatus(appointments),
+  }
+  return {
+    ...interaction,
+    normalized: JSON.stringify(interaction).toLowerCase(),
   }
 }
 

@@ -14,7 +14,13 @@ import {
   Message,
   SchedulingSystem,
 } from '../types/domain'
-import { get, API_ROOT, parseAPIDate, getStatusFromChatConversation } from './utils'
+import {
+  get,
+  API_ROOT,
+  parseAPIDate,
+  getStatusFromChatConversation,
+  getInteractionStatus,
+} from './utils'
 
 const useChatQuery = (
   interactionId?: InteractionId
@@ -178,7 +184,7 @@ const extractAppointments = (
           patientName: getPatientName(context, appointmentIndex),
           url: getSchedulingSystemURL(conversation),
           schedulingSystem: inferSchedulingSystem(conversation),
-          status: getStatusFromChatConversation(conversation)
+          status: getStatusFromChatConversation(conversation),
         }
       })
   }
@@ -193,7 +199,7 @@ const extractAppointments = (
       patientName: getPatientName(context),
       url: getSchedulingSystemURL(conversation),
       schedulingSystem: inferSchedulingSystem(conversation),
-      status: getStatusFromChatConversation(conversation)
+      status: getStatusFromChatConversation(conversation),
     },
   ]
 }
@@ -206,13 +212,14 @@ const conversationToInteraction = (
 ): Interaction => {
   const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
-  const interaction: Interaction = {
+  const appointments = extractAppointments(start, conversation)
+  const interaction = {
     id: {
       patientId: patientId,
       serviceId: serviceId,
       start: parseISO(conversation.start),
     },
-    appointments: extractAppointments(start, conversation),
+    appointments,
     branch: _.find(context, { target: 'sucursal_name' })?.value,
     phone,
     messages: messages.map(
@@ -231,9 +238,16 @@ const conversationToInteraction = (
       header: meta.title,
       value: meta.value,
     })),
-    tags: [],
+    extraDataDict: context.reduce(
+      (dict, meta) => ({ ...dict, [meta.title]: meta.value }),
+      {}
+    ),
+    status: getInteractionStatus(appointments),
   }
-  return interaction
+  return {
+    ...interaction,
+    normalized: JSON.stringify(interaction).toLowerCase(),
+  }
 }
 
 const getSchedulingSystemURL = (

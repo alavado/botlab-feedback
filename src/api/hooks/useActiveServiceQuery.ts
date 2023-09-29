@@ -1,24 +1,40 @@
 import { useQuery, UseQueryResult } from 'react-query'
-import { Service } from '../types/domain'
+import {
+  Interaction,
+  InteractionExtraData,
+  Service,
+  ServiceHeader,
+} from '../types/domain'
 import useServicesQuery from './useServicesQuery'
 import { useRouteMatch } from 'react-router-dom'
+import useInteractionsQuery from './useInteractionsQuery'
+import _ from 'lodash'
 
 const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {
   const { data: services } = useServicesQuery()
+  const { data: interactions } = useInteractionsQuery({ applyFilters: false })
   const { params }: any = useRouteMatch()
   const activeServiceId = params.serviceId
     ? Number(params.serviceId)
     : undefined
+  const firstInteraction = (interactions as Interaction[])?.[0]?.id
 
-  return useQuery<any, any, any>(
-    ['active-service', activeServiceId],
+  return useQuery<any, any, Service>(
+    ['active-service', activeServiceId, firstInteraction],
     async () => {
-      if (!activeServiceId) {
+      if (!activeServiceId || !services) {
         return undefined
       }
-      return services?.find(
+      const service = services.find(
         (service: Service) => service.id === activeServiceId
-      )
+      ) as Service
+      return {
+        ...service,
+        headers: getServiceHeadersWithLevels(
+          service.headers,
+          interactions as Interaction[]
+        ),
+      }
     },
     {
       refetchOnMount: false,
@@ -26,6 +42,31 @@ const useActiveServiceQuery = (): UseQueryResult<Service, unknown> => {
       enabled: !!services,
     }
   )
+}
+
+const getServiceHeadersWithLevels = (
+  headers: ServiceHeader[],
+  interactions?: Interaction[]
+): ServiceHeader[] => {
+  if (!interactions) {
+    return headers
+  }
+  const headersWithLevels = headers.map((header) => {
+    const levels = _.uniq(
+      interactions.map((interaction) => {
+        const headerValue: InteractionExtraData = interaction.extraData.find(
+          (p) => p.header === header.name
+        ) as InteractionExtraData
+        return headerValue.value
+      })
+    )
+    levels.sort()
+    return {
+      ...header,
+      levels,
+    }
+  })
+  return headersWithLevels
 }
 
 export default useActiveServiceQuery

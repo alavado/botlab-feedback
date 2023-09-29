@@ -1,25 +1,23 @@
-import useServicesQuery from '../../../api/hooks/useServicesQuery'
 import MenuUsuario from '../BarraSuperior/MenuUsuario/MenuUsuario'
-import './Interactions.css'
 import useInteractionsQuery from '../../../api/hooks/useInteractionsQuery'
 import InteractionsLegacyTable from './InteractionsLegacyTable/InteractionsLegacyTable'
 import Loader from '../../Loader/Loader'
-import { Icon } from '@iconify/react'
-import classNames from 'classnames'
 import MiniDashboard from './MiniDashboard'
 import InteractionDrawerCover from '../InteractionDrawer/InteractionDrawerCover/InteractionDrawerCover'
-import { useHistory, useRouteMatch } from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 import useActiveServiceQuery from '../../../api/hooks/useActiveServiceQuery'
+import InteractionFilters from './InteractionFilters/InteractionFilters'
+import ServiceSelector from './ServiceSelector/ServiceSelector'
+import './Interactions.css'
+import DateRangeSelector from './DateRangeSelector/DateRangeSelector'
+import SearchBar from './SearchBar/SearchBar'
+import { Interaction } from '../../../api/types/domain'
 
 const Interactions = () => {
-  const { data: services, isLoading: loadingServices } = useServicesQuery()
   const { data: interactions, isLoading: loadingInteractions } =
-    useInteractionsQuery()
-  const { params }: any = useRouteMatch()
+    useInteractionsQuery({ applyFilters: true })
   const { data: activeService } = useActiveServiceQuery()
-  const history = useHistory()
-
-  console.log({interactions})
+  const { params }: any = useRouteMatch()
 
   return (
     <div className="Interactions">
@@ -27,40 +25,23 @@ const Interactions = () => {
       <div className="Interactions__topbar">
         <div className="Interactions__topbar_left">
           <h2 className="Interactions__title">Interacciones</h2>
+          <DateRangeSelector />
+          <SearchBar />
         </div>
         <MenuUsuario />
       </div>
       <main className="Interactions__main">
-        <div className="Interactions__services_tabs">
-          {loadingServices ? (
-            <Loader />
-          ) : (
-            services?.map((service) => (
-              <button
-                key={`tab-service-${service.id}`}
-                onClick={() => history.push(`/interacciones/${service.id}`)}
-                className={classNames({
-                  Interactions__service_tab: true,
-                  'Interactions__service_tab--active':
-                    activeService?.id === service.id,
-                })}
-              >
-                <Icon
-                  className="Interactions__tab_button_icon"
-                  icon="mdi:whatsapp"
-                />
-                <p className="Interactions__tab_label">{service.name}</p>
-              </button>
-            ))
-          )}
-        </div>
-        <div className="Interactions__sidebar">
+        <ServiceSelector />
+        <aside className="Interactions__sidebar">
           <MiniDashboard />
-        </div>
+          <InteractionFilters />
+        </aside>
         <div className="Interactions__table_container">
           {loadingInteractions && <Loader />}
           {interactions && activeService && (
-            <InteractionsLegacyTable interactions={interactions} />
+            <InteractionsLegacyTable
+              interactions={interactions as Interaction[]}
+            />
           )}
         </div>
       </main>

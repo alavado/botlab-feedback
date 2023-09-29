@@ -1,0 +1,60 @@
+.ServiceSelector {
+  grid-column: 1 / -1;
+  display: flex;
+  height: 1.5rem;
+  background-color: var(--color-barra-superior);
+  overflow-x: hidden;
+}
+
+.ServiceSelector::before {
+  content: '';
+  width: 0.25rem;
+  border-bottom: 1px solid var(--color-bordes);
+}
+
+.ServiceSelector::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--color-bordes);
+}
+
+.ServiceSelector__tab {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0 0.5rem;
+  background-color: var(--color-barra-superior);
+  border-radius: 0.25rem 0.25rem 0 0;
+  border: 1px solid transparent;
+  border-bottom: 1px solid var(--color-bordes);
+  transition: all 0.26s ease;
+}
+
+.ServiceSelector__tab:hover {
+  background-color: var(--color-fondo);
+}
+
+.ServiceSelector__tab--active {
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-bordes);
+  border-bottom: 1px solid transparent;
+  max-width: 20rem;
+}
+
+.ServiceSelector__tab_button_icon {
+  font-size: 0.65rem;
+  color: var(--color-whatsapp);
+  min-width: 0.75rem;
+}
+
+.ServiceSelector__tab_label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: left;
+  white-space: nowrap;
+}

@@ -1,5 +1,5 @@
 import { UseQueryResult, useQuery } from 'react-query'
-import { Interaction, ServiceId, Tag, TagWithText } from '../types/domain'
+import { Interaction, ServiceId, tagPreffix } from '../types/domain'
 import {
   APIMetaValue,
   APITag,
@@ -9,8 +9,9 @@ import {
 import {
   API_ROOT,
   get,
-  getInteractionTags,
+  getInteractionStatus,
   getStatusFromAnswersResponseRow,
+  normalizeString,
   parseAPIDate,
 } from './utils'
 import { addHours, format, parseISO } from 'date-fns'
@@ -19,8 +20,27 @@ import { useRouteMatch } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/ducks'
 
-const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
-  const { range } = useSelector((state: RootState) => state.interactions)
+export type InteractionStatistics = {
+  totalCount: number
+  answeredCount: number
+  answeredPercentage: number
+  unansweredCount: number
+  confirmedCount: number
+  cancelledCount: number
+  rescheduledCount: number
+  otherCount: number
+}
+
+const useInteractionsQuery = ({
+  applyFilters,
+  aggregate,
+}: {
+  applyFilters: boolean
+  aggregate?: boolean
+}): UseQueryResult<Interaction[] | InteractionStatistics, unknown> => {
+  const { globalSearch, range } = useSelector(
+    (state: RootState) => state.interactions
+  )
   const startDateString = format(range.start, 'yyyy-MM-dd')
   const endDateString = format(range.end, 'yyyy-MM-dd')
   const {
@@ -28,7 +48,7 @@ const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
   }: any = useRouteMatch()
   const url = `${API_ROOT}/answers/${serviceId}?fecha_inicio=${startDateString}%2000%3A00&fecha_termino=${endDateString}%2023%3A59`
 
-  return useQuery<Interaction[], any, any>(
+  return useQuery<Interaction[], any, Interaction[] | InteractionStatistics>(
     ['interactions', serviceId, startDateString, endDateString],
     async () => {
       if (!serviceId) {
@@ -36,17 +56,75 @@ const useInteractionsQuery = (): UseQueryResult<Interaction[], unknown> => {
       }
       const { data }: { data: AnswersAPIResponse } = await get(url)
       return _.sortBy(
-        data.data.map((answer: AnswersAPIResponseRow): Interaction => {
-          const nAppointments = Number(answer.n_appointments || 1)
-          return nAppointments === 1
-            ? answerSingleAppointmentToInteraction(answer, serviceId)
-            : answerSingleAppointmentToInteraction(answer, serviceId)
-        }),
+        data.data
+          .filter((answer) => answer.started === 'True')
+          .map((answer: AnswersAPIResponseRow): Interaction => {
+            const nAppointments = Number(answer.n_appointments || 1)
+            return nAppointments === 1
+              ? answerSingleAppointmentToInteraction(answer, serviceId)
+              : answerSingleAppointmentToInteraction(answer, serviceId)
+          }),
         (i) => i.appointments[0].datetime
       )
     },
     {
-      refetchInterval: 60_000,
+      refetchInterval: 30_000,
+      notifyOnChangeProps: 'tracked',
+      isDataEqual: (oldData, newData) => {
+        if (!oldData) {
+          return false
+        }
+        if (oldData.length !== newData.length) {
+          return false
+        }
+        const oldStatuses = oldData.map((i) => i.status)
+        const newStatuses = newData.map((i) => i.status)
+        return _.isEqual(oldStatuses, newStatuses)
+      },
+      select: (
+        interactions: Interaction[]
+      ): Interaction[] | InteractionStatistics => {
+        let selectedInteractions = interactions
+        if (applyFilters && globalSearch) {
+          const globalSearchNormalized = normalizeString(globalSearch)
+          selectedInteractions = interactions.filter(
+            (interaction: Interaction) => {
+              return interaction.normalized.indexOf(globalSearchNormalized) >= 0
+            }
+          )
+        }
+        if (aggregate) {
+          const totalCount = selectedInteractions.length
+          const unansweredCount = selectedInteractions.filter(
+            (i) => i.status === 'UNANSWERED_WHATSAPP'
+          ).length
+          const confirmedCount = selectedInteractions.filter(
+            (i) => i.status === 'CONFIRMED_WHATSAPP'
+          ).length
+          const cancelledCount = selectedInteractions.filter(
+            (i) => i.status === 'CANCELLED_WHATSAPP'
+          ).length
+          const rescheduledCount = selectedInteractions.filter(
+            (i) => i.status === 'RESCHEDULED_WHATSAPP'
+          ).length
+          const answeredCount = totalCount - unansweredCount
+          const otherCount =
+            answeredCount - confirmedCount - cancelledCount - rescheduledCount
+          const answeredPercentage =
+            Math.round((1000 * answeredCount) / (totalCount || 1)) / 10.0
+          return {
+            totalCount,
+            answeredCount,
+            answeredPercentage,
+            unansweredCount,
+            confirmedCount,
+            cancelledCount,
+            rescheduledCount,
+            otherCount,
+          }
+        }
+        return selectedInteractions
+      },
     }
   )
 }
@@ -69,7 +147,7 @@ const answerSingleAppointmentToInteraction = (
       | undefined,
     status: getStatusFromAnswersResponseRow(apiAppointment),
   }
-  return {
+  const interaction = {
     id: {
       patientId: apiAppointment.user_id,
       serviceId,
@@ -85,28 +163,36 @@ const answerSingleAppointmentToInteraction = (
       header,
       value: processMeta(apiAppointment[header]),
     })),
-    tags: getInteractionTags([appointment]),
+    extraDataDict: Object.keys(apiAppointment).reduce(
+      (dict, header) => ({
+        ...dict,
+        [header]: processMeta(apiAppointment[header]),
+      }),
+      {}
+    ),
+    status: getInteractionStatus([appointment]),
+  }
+  return {
+    ...interaction,
+    normalized: normalizeString(JSON.stringify(interaction)),
   }
 }
 
-const processMeta = (meta: APIMetaValue): string | TagWithText => {
+const processMeta = (meta: APIMetaValue): string => {
   if (!_.isString(meta) && !_.isNumber(meta) && meta) {
-    return {
-      tag: mapTag(meta.tag),
-      text: meta.text,
-    }
+    return formatTag(meta.tag)
   }
   return meta + ''
 }
 
-const mapTag = (tag: APITag): Tag => {
+const formatTag = (tag: APITag): string => {
   switch (tag) {
     case 'PHONE:YES':
-      return 'YES'
+      return tagPreffix + 'YES'
     case 'PHONE:NO':
-      return 'NO'
+      return tagPreffix + 'NO'
   }
-  return tag
+  return tagPreffix + tag
 }
 
 export default useInteractionsQuery

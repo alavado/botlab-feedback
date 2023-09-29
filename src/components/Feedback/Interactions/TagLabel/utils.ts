@@ -1,25 +1,28 @@
-import { Tag, isTag } from '../../../../api/types/domain'
+import { tagPreffix } from '../../../../api/types/domain'
 
 export const getPresentationForTag = ({
   tag,
 }: {
-  tag: Tag | unknown
+  tag?: string
 }): { icon: string; label: string; colorVar: string } => {
-  if (!isTag(tag)) {
-    if (!tag) {
+  if (!tag) {
+    return {
+      icon: '',
+      label: '',
+      colorVar: '',
+    }
+  }
+  let tagWithoutPreffix = tag
+  if (tag.startsWith(tagPreffix)) {
+    tagWithoutPreffix = tag.substring(tagPreffix.length)
+  }
+  switch (tagWithoutPreffix) {
+    case '':
       return {
         icon: '',
         label: '',
         colorVar: '',
       }
-    }
-    return {
-      icon: 'mdi:question-mark',
-      label: 'Otro',
-      colorVar: '--color-out',
-    }
-  }
-  switch (tag) {
     case 'YES':
       return {
         icon: 'mdi:check',
@@ -59,7 +62,7 @@ export const getPresentationForTag = ({
     default:
       return {
         icon: 'mdi:question-mark',
-        label: tag,
+        label: tagWithoutPreffix,
         colorVar: '--color-out',
       }
   }

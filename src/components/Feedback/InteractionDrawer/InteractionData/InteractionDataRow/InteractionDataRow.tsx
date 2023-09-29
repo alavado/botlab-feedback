@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import './InteractionDataRow.css'
 import { InteractionExtraData } from '../../../../../api/types/domain'
 import useAnalytics from '../../../../../hooks/useAnalytics'
@@ -27,7 +26,7 @@ const InteractionDataRow = ({
           navigator.clipboard.writeText(value + '')
         }}
       >
-        {_.isString(value) || _.isNumber(value) ? value : value.tag}
+        {value}
       </p>
     </div>
   )

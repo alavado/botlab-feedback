@@ -83,11 +83,11 @@ const reportToSlackChannel = async ({
   const messagesContainerClass = 'Smartphone__messages_container'
   const previousDisplayStyles = Array.from(
     document.querySelectorAll<HTMLElement>('.Smartphone__element_not_current')
-  ).map((nodo) => nodo.style.display)
+  ).map((node) => node.style.display)
   document
     .querySelectorAll<HTMLElement>('.Smartphone__element_not_current')
-    .forEach((nodo) => {
-      nodo.style.display = 'none'
+    .forEach((node) => {
+      node.style.display = 'none'
     })
 
   const mainContainerElement = document.getElementsByClassName(
@@ -112,8 +112,8 @@ const reportToSlackChannel = async ({
   messagesContainerElement.style.maxHeight = prevMaxHeight
   document
     .querySelectorAll<HTMLElement>('.Smartphone__element_not_current')
-    .forEach((nodo, i) => {
-      nodo.style.display = previousDisplayStyles[i]
+    .forEach((node, i) => {
+      node.style.display = previousDisplayStyles[i]
     })
 
   const fieldsPostData = new FormData()

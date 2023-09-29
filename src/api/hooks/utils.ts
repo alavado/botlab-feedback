@@ -2,8 +2,19 @@ import axios from 'axios'
 import { parse, parseISO, startOfDay } from 'date-fns'
 import { es } from 'date-fns/locale'
 import store from '../../redux/store'
-import { Appointment, AppointmentStatus, InteractionTag } from '../types/domain'
-import { AnswersAPIResponseRow, ChatAPIConversation, SearchAPIMultiAppointment, SearchAPISingleAppointment } from '../types/responses'
+import {
+  Appointment,
+  AppointmentStatus,
+  InteractionStatus,
+} from '../types/domain'
+import {
+  APITagWithText,
+  AnswersAPIResponseRow,
+  ChatAPIConversation,
+  SearchAPIMultiAppointment,
+  SearchAPISingleAppointment,
+  isAPITagWithText,
+} from '../types/responses'
 
 export const API_ROOT = process.env.REACT_APP_API_ROOT
 export const API_ROOT_NEW = process.env.REACT_APP_API_ROOT?.replace("/v3/old", "/v3")
@@ -11,19 +22,23 @@ export const API_ROOT_NEW = process.env.REACT_APP_API_ROOT?.replace("/v3/old", "
 export const get = async (url: string) => {
   const { login }: any = store.getState()
   const { token } = login
-  return axios.get(url, { headers: { 'authorization': `Bearer ${token}` } })
+  return axios.get(url, { headers: { authorization: `Bearer ${token}` } })
 }
 
 export const post = async (url: string, params: any) => {
   const { login }: any = store.getState()
   const { token } = login
-  return axios.post(url, params, { headers: { 'authorization': `Bearer ${token}` } })
+  return axios.post(url, params, {
+    headers: { authorization: `Bearer ${token}` },
+  })
 }
 
 export const patch = async (url: string, params: any) => {
   const { login }: any = store.getState()
   const { token } = login
-  return axios.patch(url, params, { headers: { 'authorization': `Bearer ${token}` } })
+  return axios.patch(url, params, {
+    headers: { authorization: `Bearer ${token}` },
+  })
 }
 
 export const del = async (url: string, data: any) => {
@@ -67,7 +82,29 @@ export const parseAPIDate = (
 export const getStatusFromAnswersResponseRow = (
   appointment: AnswersAPIResponseRow
 ): AppointmentStatus => {
-    return 'OTHER'
+  const firstTagKey = Object.keys(appointment).find((key) =>
+    isAPITagWithText(appointment[key])
+  )
+  const firstTag = firstTagKey && appointment[firstTagKey]
+  if (firstTag) {
+    const firstTagValue = firstTag as APITagWithText
+    switch (firstTagValue.tag) {
+      case '':
+      case 'UNREACHABLE':
+        return 'SCHEDULED'
+      case 'YES':
+      case 'PHONE:YES':
+        return 'CONFIRMED'
+      case 'PHONE:NO':
+      case 'NO':
+        return 'CANCELLED'
+      case 'REAGENDA':
+        return 'RESCHEDULED'
+      default:
+        return 'OTHER'
+    }
+  }
+  return 'SCHEDULED'
 }
 
 export const getStatusFromChatConversation = (
@@ -82,16 +119,29 @@ export const getStatusFromSearchRow = (
   return 'OTHER'
 }
 
-export const getInteractionTags = (appointments: Appointment[]): InteractionTag[] => {
-  const tags: InteractionTag[] = []
+export const getInteractionStatus = (
+  appointments: Appointment[]
+): InteractionStatus => {
   if (appointments.some((a) => a.status !== 'SCHEDULED')) {
-    tags.push('ANSWERED_WHATSAPP')
+    if (appointments.some((a) => a.status === 'CONFIRMED')) {
+      return 'CONFIRMED_WHATSAPP'
+    }
+    if (appointments.some((a) => a.status === 'CANCELLED')) {
+      return 'CANCELLED_WHATSAPP'
+    }
+    if (appointments.some((a) => a.status === 'RESCHEDULED')) {
+      return 'RESCHEDULED_WHATSAPP'
+    }
     if (appointments.some((a) => a.status === 'OTHER')) {
-      tags.push('OTHER')
+      return 'OTHER'
     }
   }
-  else {
-    tags.push('UNANSWERED_WHATSAPP')
-  }
-  return tags
+  return 'UNANSWERED_WHATSAPP'
 }
+
+export const normalizeString = (s: string) =>
+  s
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^A-Za-z0-9]/g, '')
+    .toLowerCase()

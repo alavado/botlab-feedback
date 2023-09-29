@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { addWeeks, endOfWeek, startOfWeek } from 'date-fns'
+import { addDays, addWeeks, endOfWeek, startOfWeek } from 'date-fns'
 
-type Range = {
+export type Range = {
   start: Date
   end: Date
 }
 
 type RangeWord = 'TODAY' | 'THIS_WEEK' | 'LAST_WEEK'
 interface InteractionsState {
+  globalSearch: string
   range: Range
 }
 
@@ -37,11 +38,35 @@ const getRangeFromWord = (word: RangeWord): Range => {
 const interactionsSlice = createSlice({
   name: 'Interactions',
   initialState: {
+    globalSearch: '',
     range: getRangeFromWord('TODAY'),
   } as InteractionsState,
   reducers: {
+    setGlobalSearch(state, action: PayloadAction<string>) {
+      state.globalSearch = action.payload
+    },
     setRange(state, action: PayloadAction<Range>) {
       state.range = action.payload
+    },
+    setDay(state, action: PayloadAction<Date>) {
+      state.range = {
+        start: action.payload,
+        end: action.payload,
+      }
+    },
+    setPreviousDay(state) {
+      const previousDay = addDays(state.range.start, -1)
+      state.range = {
+        start: previousDay,
+        end: previousDay,
+      }
+    },
+    setNextDay(state) {
+      const nextDay = addDays(state.range.start, 1)
+      state.range = {
+        start: nextDay,
+        end: nextDay,
+      }
     },
     setRangeFromWord(state, action: PayloadAction<RangeWord>) {
       state.range = getRangeFromWord(action.payload)
@@ -49,6 +74,13 @@ const interactionsSlice = createSlice({
   },
 })
 
-export const { setRange } = interactionsSlice.actions
+export const {
+  setGlobalSearch,
+  setRange,
+  setDay,
+  setNextDay,
+  setPreviousDay,
+  setRangeFromWord,
+} = interactionsSlice.actions
 
 export default interactionsSlice.reducer
