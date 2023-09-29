@@ -5,21 +5,89 @@
     <link rel="icon" href="%PUBLIC_URL%/logo64.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Feedback by Cero"
-    />
+    <meta name="description" content="Feedback by Cero" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Feedback</title>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B0RSCR3558"></script>
+    <!-- Hotjar Tracking Code for Feedback -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-B0RSCR3558');
+      ;(function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            ;(h.hj.q = h.hj.q || []).push(arguments)
+          }
+        h._hjSettings = { hjid: 3425458, hjsv: 6 }
+        a = o.getElementsByTagName('head')[0]
+        r = o.createElement('script')
+        r.async = 1
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv
+        a.appendChild(r)
+      })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=')
+    </script>
+    <!-- Segment -->
+    <script>
+      !(function () {
+        var analytics = (window.analytics = window.analytics || [])
+        if (!analytics.initialize)
+          if (analytics.invoked)
+            window.console &&
+              console.error &&
+              console.error('Segment snippet included twice.')
+          else {
+            analytics.invoked = !0
+            analytics.methods = [
+              'trackSubmit',
+              'trackClick',
+              'trackLink',
+              'trackForm',
+              'pageview',
+              'identify',
+              'reset',
+              'group',
+              'track',
+              'ready',
+              'alias',
+              'debug',
+              'page',
+              'once',
+              'off',
+              'on',
+              'addSourceMiddleware',
+              'addIntegrationMiddleware',
+              'setAnonymousId',
+              'addDestinationMiddleware',
+            ]
+            analytics.factory = function (e) {
+              return function () {
+                var t = Array.prototype.slice.call(arguments)
+                t.unshift(e)
+                analytics.push(t)
+                return analytics
+              }
+            }
+            for (var e = 0; e < analytics.methods.length; e++) {
+              var key = analytics.methods[e]
+              analytics[key] = analytics.factory(key)
+            }
+            analytics.load = function (key, e) {
+              var t = document.createElement('script')
+              t.type = 'text/javascript'
+              t.async = !0
+              t.src =
+                'https://cdn.segment.com/analytics.js/v1/' +
+                key +
+                '/analytics.min.js'
+              var n = document.getElementsByTagName('script')[0]
+              n.parentNode.insertBefore(t, n)
+              analytics._loadOptions = e
+            }
+            analytics._writeKey = 'sKhI4dam6rZPfl9S44W17TOMcLDvKDcb'
+            analytics.SNIPPET_VERSION = '4.15.3'
+            analytics.load('sKhI4dam6rZPfl9S44W17TOMcLDvKDcb')
+            analytics.page()
+          }
+      })()
     </script>
   </head>
   <body>
@@ -33,17 +101,8 @@
     <div id="selector-emojis"></div>
     <div id="modal-enviador-respuestas"></div>
     <div id="modal-novedades"></div>
+    <div id="modal-historial-contactos"></div>
     <div id="root"></div>
-    <!-- Hotjar Tracking Code for https://feedback-beta.botlab.cl -->
-    <script>
-      (function(h,o,t,j,a,r){
-          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-          h._hjSettings={hjid:2892698,hjsv:6};
-          a=o.getElementsByTagName('head')[0];
-          r=o.createElement('script');r.async=1;
-          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-          a.appendChild(r);
-      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
   </body>
 </html>

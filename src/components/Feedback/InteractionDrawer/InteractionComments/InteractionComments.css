@@ -1,0 +1,66 @@
+.InteractionComments {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--color-bordes);
+  padding-top: 1rem;
+  padding-left: 0.25rem;
+  width: 100%;
+}
+
+.InteractionComments__title {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.InteractionComments__title svg {
+  font-size: 1rem;
+}
+
+.InteractionComments__comments_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.InteractionComments__add_comment_button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  border-radius: 0.35rem;
+  padding: 0.45rem 0.75rem 0.45rem 0.5rem;
+  color: var(--color-texto-claro);
+  background-color: var(--color-principal);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+  position: relative;
+  filter: none;
+  font-size: 0.6rem;
+  animation: aparece-boton-reacciones 0.2s ease both;
+  min-width: 5rem;
+  align-self: flex-start;
+}
+
+.InteractionComments__add_comment_button:hover {
+  box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
+  filter: brightness(110%);
+}
+
+.InteractionComments__add_comment_button:active {
+  filter: brightness(130%);
+}
+
+.InteractionComments__add_comment_button svg {
+  font-size: 0.85rem;
+}
+
+.InteractionComments__no_comments {
+  padding: 0.25rem 0.1rem;
+  font-size: 0.65rem;
+  opacity: 0.8;
+}

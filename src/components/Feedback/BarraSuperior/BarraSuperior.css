@@ -6,14 +6,14 @@
   justify-content: space-between;
   border-bottom: 1px solid var(--color-bordes);
   z-index: 5;
-  padding: 0 .75rem 0 .5rem;
+  padding: 0 0.75rem 0 0.5rem;
   position: sticky;
   top: 0;
 }
 
 .BarraSuperior__boton {
   margin-right: auto;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 100%;
@@ -25,14 +25,14 @@
   border: none;
   cursor: pointer;
   outline: none;
-  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
-  transition: all .15s ease;
+  box-shadow: 0.1rem 0.1rem 0.15rem rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
   position: relative;
   z-index: 7;
 }
 
 .BarraSuperior__boton:hover {
-  box-shadow: .15rem .15rem .25rem rgba(0, 0, 0, .1);
+  box-shadow: 0.15rem 0.15rem 0.25rem rgba(0, 0, 0, 0.1);
   filter: brightness(110%);
 }
 
@@ -45,16 +45,15 @@
   border: none;
   background: var(--color-principal);
   color: var(--color-texto-claro);
-  padding: .25rem .5rem;
-  border-radius: .35rem;
-  font-size: .65rem;
-  transition: all .2s ease;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.35rem;
+  font-size: 0.65rem;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .35rem;
+  gap: 0.35rem;
   margin-right: 1rem;
-  margin-left: auto;
 }
 
 .BarraSuperior__boton:hover::before {
@@ -62,10 +61,10 @@
   content: '';
   width: 1rem;
   height: 1rem;
-  border: .5rem solid transparent;
-  border-bottom: .5rem solid var(--color-principal-2);
-  top: calc(100% - .5rem);
-  animation: aparece-tooltip-opcion .1s ease both;
+  border: 0.5rem solid transparent;
+  border-bottom: 0.5rem solid var(--color-principal-2);
+  top: calc(100% - 0.5rem);
+  animation: aparece-tooltip-opcion 0.1s ease both;
 }
 
 .BarraSuperior__boton:hover::after {
@@ -73,15 +72,15 @@
   content: attr(title);
   background-color: var(--color-principal-2);
   color: var(--color-texto-claro);
-  top: calc(100% + .5rem);
+  top: calc(100% + 0.5rem);
   white-space: nowrap;
-  border-radius: .25rem;
-  padding: 0 .5rem;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
   height: 1.5rem;
-  font-size: .75rem;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
-  animation: aparece-tooltip-opcion .1s ease both;
+  animation: aparece-tooltip-opcion 0.1s ease both;
   z-index: 4;
 }
 
@@ -92,7 +91,7 @@
 .BarraSuperior__boton:disabled {
   filter: brightness(90%);
   animation: girar-boton-actualizando 1s ease-in-out infinite both;
-  box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .BarraSuperior__boton:disabled:hover::after {
@@ -103,7 +102,7 @@
   display: none;
 }
 
-@media(orientation: portrait) {
+@media (orientation: portrait) {
   .BarraSuperior__boton {
     display: none;
   }

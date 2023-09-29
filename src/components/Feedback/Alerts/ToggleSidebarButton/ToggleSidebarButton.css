@@ -1,0 +1,23 @@
+.ToggleSidebarButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 9in;
+  cursor: pointer;
+  background: none;
+  font-size: 0.8rem;
+  color: var(--color-texto);
+  animation: ToggleSidebarButton__appears 0.25s ease both;
+}
+
+@keyframes ToggleSidebarButton__appears {
+  0% {
+    opacity: 0;
+    transform: translate(-0.75rem, 0.5rem) rotate(-100deg);
+  }
+  100% {
+    opacity: 0.75;
+    transform: translate(0, 0) rotate(0);
+  }
+}

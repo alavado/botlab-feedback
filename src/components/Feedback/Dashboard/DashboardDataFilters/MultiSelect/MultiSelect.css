@@ -1,0 +1,48 @@
+.MultiSelect {
+  border-radius: 0.25rem;
+  position: relative;
+}
+
+.MultiSelect__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.MultiSelect__label {
+  padding-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.MultiSelect__input_container {
+  display: flex;
+  flex-wrap: wrap;
+  position: sticky;
+  width: 100%;
+  top: 0;
+  background-color: var(--color-fondo);
+  gap: 0.1rem;
+  padding: 0.1rem;
+  border: 1px solid var(--color-bordes);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  max-width: 11rem;
+}
+
+.MultiSelect__input {
+  font-size: 0.5rem;
+  padding: 0.2rem;
+  flex: 1;
+  background-color: var(--color-fondo);
+  border: none;
+  outline: none;
+  display: block;
+  height: 1rem;
+  transition: all 0.25s ease;
+}
+
+.MultiSelect__input--hidden {
+  height: 0;
+  padding: 0;
+}

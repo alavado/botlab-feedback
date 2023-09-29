@@ -1,28 +1,28 @@
 .ExportadorRespuestas {
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 .ExportadorRespuestas__boton {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   height: 1.75rem;
-  padding: 0 .6rem;
-  margin-left: .5rem;
+  padding: 0 0.6rem;
+  margin-left: 0.5rem;
   color: var(--color-texto-claro);
   background-color: var(--color-principal);
   border: none;
   cursor: pointer;
   outline: none;
-  transition: all .25s ease;
+  transition: all 0.25s ease;
   position: relative;
   filter: none;
-  font-size: .75rem;
+  font-size: 0.75rem;
 }
 
 .ExportadorRespuestas__boton:hover {
-  box-shadow: .15rem .15rem .2rem rgba(0, 0, 0, .1);
+  box-shadow: 0.15rem 0.15rem 0.2rem rgba(0, 0, 0, 0.1);
   filter: brightness(110%);
 }
 
@@ -31,7 +31,7 @@
 }
 
 .ExportadorRespuestas__boton:disabled {
-  opacity: .5;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -40,15 +40,15 @@
   content: attr(tooltip);
   background-color: var(--color-principal-2);
   color: var(--color-texto-claro);
-  top: calc(100% + .35rem);
+  top: calc(100% + 0.35rem);
   white-space: nowrap;
-  border-radius: .25rem;
-  padding: 0 .5rem;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
   height: 1.5rem;
-  font-size: .7rem;
+  font-size: 0.7rem;
   display: flex;
   align-items: center;
-  animation: aparece-tooltip-opcion .15s ease both;
+  animation: aparece-tooltip-opcion 0.15s ease both;
   z-index: 4;
 }
 
@@ -57,13 +57,19 @@
   content: '';
   width: 1rem;
   height: 1rem;
-  border: .5rem solid transparent;
-  border-bottom: .5rem solid var(--color-principal-2);
-  top: calc(100% - .5rem);
-  animation: aparece-tooltip-opcion .15s ease both;
+  border: 0.5rem solid transparent;
+  border-bottom: 0.5rem solid var(--color-principal-2);
+  top: calc(100% - 0.5rem);
+  animation: aparece-tooltip-opcion 0.15s ease both;
 }
 
 .ExportadorRespuestas__icono {
-  margin-right: .25rem;
+  margin-right: 0.25rem;
   font-size: 1.1rem;
+}
+
+@media (max-width: 1000px) {
+  .ExportadorRespuestas {
+    display: none;
+  }
 }

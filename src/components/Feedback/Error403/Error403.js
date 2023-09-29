@@ -1,6 +1,4 @@
-import React from 'react'
-import Icon from '@iconify/react'
-import icono from '@iconify/icons-mdi/chat-remove-outline'
+import { Icon } from '@iconify/react'
 import './Error403.css'
 import { useDispatch } from 'react-redux'
 import { cierraLaSesion } from '../../../redux/ducks/login'
@@ -12,7 +10,7 @@ const Error403 = ({ mensaje }) => {
 
   return (
     <div className="Error403">
-      <Icon icon={icono} className="Error403__icono" />
+      <Icon icon="mdi:chat-remove-outline" className="Error403__icono" />
       <p className="Error403__mensaje">{mensaje}</p>
       <button
         className="Error403__boton_cerrar_sesion"

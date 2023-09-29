@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import SelectorRangoFechas from '../SelectorRangoFechas'
 import BuscadorRespuestas from '../BuscadorRespuestas'
-import iconoCSV from '@iconify/icons-mdi/download-outline'
-import Icon from '@iconify/react'
+import { Icon } from '@iconify/react'
 import FooterTablaRespuestas from './FooterTablaRespuestas'
 import HeadTablaRespuestas from './HeadTablaRespuestas'
 import BodyTablaRespuestas from './BodyTablaRespuestas'
@@ -14,18 +13,37 @@ import Filtros from './Filtros'
 import './TablaRespuestas.css'
 import { fijaScrollTabla } from '../../../../redux/ducks/respuestas'
 import { fijaOpcionTableroVisible } from '../../../../redux/ducks/opciones'
+import {
+  esCero,
+  esRedSalud,
+  tieneAccesoAReportes,
+} from '../../../../helpers/permisos'
+import useAnalytics from '../../../../hooks/useAnalytics'
+import SelectorRangoFechas2 from '../SelectorRangoFechas2'
+import BotonActualizar from '../BotonActualizar'
 
 const respuestasPorPagina = 50
+const idsEncuestasAgendamiento = [509, 557, 577]
 
 const TablaRespuestas = () => {
-
-  const { headers } = useSelector(state => state.encuestas)
+  const { headers, idEncuestaSeleccionada } = useSelector(
+    (state) => state.encuestas
+  )
+  const { cuenta } = useSelector((state) => state.login)
   const refContenedor = useRef()
   const dispatch = useDispatch()
-  const { respuestasVisibles: respuestas, tablaDestacada, scrollTabla, cacheInvalido } = useSelector(state => state.respuestas)
+  const {
+    respuestasVisibles: respuestas,
+    tablaDestacada,
+    scrollTabla,
+    cacheInvalido,
+  } = useSelector((state) => state.respuestas)
+  const track = useAnalytics()
 
   const cargando = !respuestas || !headers
-  const mostrarResumen = !!(headers?.find(h => h.tipo === 'YESNO'))
+  const mostrarResumen =
+    !!headers?.find((h) => h.tipo === 'YESNO') &&
+    !idsEncuestasAgendamiento.includes(idEncuestaSeleccionada)
 
   useEffect(() => {
     dispatch(fijaOpcionTableroVisible(false))
@@ -35,36 +53,51 @@ const TablaRespuestas = () => {
     const scrollFinal = refContenedor.current?.scrollTop || 0
     return () => dispatch(fijaScrollTabla(scrollFinal))
   }, [dispatch, scrollTabla])
-  
+
+  useEffect(() => track('Feedback', 'Respuestas', 'index'), [track])
+
   return (
     <div className="TablaRespuestas">
       <div className="TablaRespuestas__superior">
-        <h1 className="TablaRespuestas__titulo">Respuestas</h1>
-        <SelectorRangoFechas />
+        <h1 className="TablaRespuestas__titulo">
+          Respuestas
+          <BotonActualizar />
+        </h1>
+        {esRedSalud(cuenta) ? (
+          <SelectorRangoFechas />
+        ) : (
+          <SelectorRangoFechas2 />
+        )}
         <div className="TablaRespuestas__herramientas">
           <BuscadorRespuestas cargando={cargando} />
-          <ExportadorRespuestas cargando={cargando} />
+          {tieneAccesoAReportes(cuenta) && (
+            <ExportadorRespuestas cargando={cargando} />
+          )}
         </div>
       </div>
-      <div className={classNames({
-        'TablaRespuestas__contenedor': true,
-        'TablaRespuestas__contenedor--cargando': cacheInvalido,
-      })}>
+      <div
+        className={classNames({
+          TablaRespuestas__contenedor: true,
+          'TablaRespuestas__contenedor--cargando': cacheInvalido,
+        })}
+      >
         <Filtros />
         {mostrarResumen && <ResumenRespuestas cargando={cargando} />}
-        <div className={classNames({
-          "TablaRespuestas__overlay": true,
-          "TablaRespuestas__overlay--activo": tablaDestacada
-        })}>
+        <div
+          className={classNames({
+            TablaRespuestas__overlay: true,
+            'TablaRespuestas__overlay--activo': tablaDestacada,
+          })}
+        >
           <div className="TablaRespuestas__contenido_overlay">
-            <Icon icon={iconoCSV} />
+            <Icon icon="mdi:download-outline" />
           </div>
         </div>
         <div className="TablaRespuestas__contenedor_central">
           <div
             className={classNames({
-              "TablaRespuestas__contenedor_tabla": true,
-              "TablaRespuestas__contenedor_tabla--extendido": !mostrarResumen
+              TablaRespuestas__contenedor_tabla: true,
+              'TablaRespuestas__contenedor_tabla--extendido': !mostrarResumen,
             })}
             ref={refContenedor}
           >

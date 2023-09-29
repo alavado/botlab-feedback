@@ -1,0 +1,21 @@
+.AlertsFilters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.65rem;
+}
+
+.AlertsFilters__section_container {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--color-bordes);
+  padding-bottom: 0.75rem;
+}
+
+.AlertsFilters__section_title {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}

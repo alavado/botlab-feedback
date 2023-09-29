@@ -1,7 +1,7 @@
 .CelularWhatsapp {
   width: auto;
   height: 25%;
-  animation: aparece-celular .25s ease both;
+  animation: aparece-celular 0.25s ease both;
   font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
@@ -9,47 +9,46 @@
   grid-row: span 2;
 }
 
-.CelularWhatsapp  * {
-  transition: all .15s ease-out;
+.CelularWhatsapp * {
+  transition: all 0.15s ease-out;
 }
 
 .CelularWhatsapp__datos_extra {
   position: absolute;
-  color: rgba(255, 255, 255, .4);
+  color: rgba(255, 255, 255, 0.4);
   left: calc(50% - 1.5rem);
   z-index: 3;
   width: 3rem;
-  padding: .01rem .05rem;
+  padding: 0.01rem 0.05rem;
   border-radius: 1rem;
   text-align: center;
-  font-size: .4rem;
-  top: .5rem;
-  letter-spacing: .05rem;
-  background: rgba(255, 255, 255, .04);
+  font-size: 0.4rem;
+  top: 0.5rem;
+  letter-spacing: 0.05rem;
+  background: rgba(255, 255, 255, 0.04);
   font-weight: bold;
-  box-shadow: 0 0 0 .1rem rgba(10, 10, 10, .15);
+  box-shadow: 0 0 0 0.1rem rgba(10, 10, 10, 0.15);
 }
 
 .CelularWhatsapp__datos_extra::before {
   content: '';
   position: absolute;
-  left: calc(100% + .5rem);
-  width: .3rem;
-  height: .3rem;
-  background: rgba(255, 255, 255, .15);
-  box-shadow: 0 0 0 .1rem rgba(10, 10, 10, .15);
+  left: calc(100% + 0.5rem);
+  width: 0.3rem;
+  height: 0.3rem;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 0.1rem rgba(10, 10, 10, 0.15);
   border-radius: 100%;
-  top: .05rem;
+  top: 0.05rem;
 }
 
 .CelularWhatsapp__celular {
   background-color: var(--whatsapp-color-celular);
-  box-shadow:
-    -.02rem -.02rem 0 .025rem var(--whatsapp-color-brillo-celular),
-    .03rem .03rem 0 .025rem var(--whatsapp-color-brillo-2-celular),
-    0 .05rem .25rem .05rem var(--color-sombras),
-    0 .25rem .75rem var(--color-sombras);
-  padding: .3rem;
+  box-shadow: -0.02rem -0.02rem 0 0.025rem var(--whatsapp-color-brillo-celular),
+    0.03rem 0.03rem 0 0.025rem var(--whatsapp-color-brillo-2-celular),
+    0 0.05rem 0.25rem 0.05rem var(--color-sombras),
+    0 0.25rem 0.75rem var(--color-sombras);
+  padding: 0.3rem;
   border-radius: 1.5rem;
   height: 83vh;
   width: 45vh;
@@ -63,28 +62,27 @@
   content: '';
   position: absolute;
   width: 7rem;
-  height: .9rem;
+  height: 0.9rem;
   background: var(--whatsapp-color-celular);
   z-index: 2;
   border-radius: 0 0 1rem 1rem;
   left: calc(50% - 3.5rem);
-  transition: all .15s ease-out;
+  transition: all 0.15s ease-out;
 }
 
 .CelularWhatsapp__celular::after {
   content: '';
   position: absolute;
-  width: .2rem;
+  width: 0.2rem;
   height: 3rem;
   background: var(--whatsapp-color-celular);
   z-index: 2;
   border-radius: 1rem;
   top: 20%;
-  left: -.2rem;
-  box-shadow:
-    45.5vh -5vh var(--whatsapp-color-celular),
+  left: -0.2rem;
+  box-shadow: 45.5vh -5vh var(--whatsapp-color-celular),
     45.5vh 5vh var(--whatsapp-color-celular);
-  transition: opacity .15s ease-out, box-shadow .15s .5s ease-out;
+  transition: opacity 0.15s ease-out, box-shadow 0.15s 0.5s ease-out;
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__celular {
@@ -123,31 +121,30 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: .35rem .75rem;
+  padding: 0.35rem 0.75rem;
   overflow-y: auto;
   max-height: calc(83vh - 4.1rem);
   background: var(--whatsapp-fondo);
   background-size: cover;
-  scroll-behavior: smooth;
   outline: none;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, .25) transparent;
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
 }
 
 .CelularWhatsapp--expandido .CelularWhatsapp__contenedor_mensajes {
-  padding: .15rem .35rem;
+  padding: 0.15rem 0.35rem;
   max-height: 83vh;
   border-radius: 1rem;
   overflow-x: hidden;
 }
 
 .CelularWhatsapp__contenedor_mensajes::-webkit-scrollbar {
-  width: .35em;
+  width: 0.35rem;
   background-color: transparent;
 }
 
 .CelularWhatsapp__contenedor_mensajes::-webkit-scrollbar-thumb {
-  border-radius: .25em;
+  border-radius: 0.25rem;
   background-color: var(--whatsapp-color-scrollbar-contenedor-mensajes);
 }
 
@@ -175,8 +172,8 @@
 
 .CelularWhatsapp__contenedor_conversacion {
   filter: saturate(10%);
-  opacity: .5;
-  transition: all .15s ease-in-out;
+  opacity: 0.5;
+  transition: all 0.15s ease-in-out;
   cursor: pointer;
 }
 
@@ -188,22 +185,22 @@
 
 .CelularWhatsapp__conversacion_vacia {
   text-align: center;
-  font-size: .7rem;
+  font-size: 0.7rem;
   margin: 1rem 2rem;
   background: var(--color-fondo);
   color: var(--color-texto);
-  padding: .5rem 1rem;
-  border-radius: .15rem;
-  box-shadow: 0 .1rem .1rem var(--color-sombras);
+  padding: 0.5rem 1rem;
+  border-radius: 0.15rem;
+  box-shadow: 0 0.1rem 0.1rem var(--color-sombras);
   font-style: italic;
-  opacity: .8;
+  opacity: 0.8;
   line-height: 1.25;
 }
 
 @keyframes aparece-celular {
   0% {
     opacity: 0;
-    transform: translateY(-.25rem);
+    transform: translateY(-0.25rem);
   }
   100% {
     opacity: 1;
@@ -214,7 +211,7 @@
 @keyframes aparece-mensaje-entrante-celular {
   0% {
     opacity: 0;
-    transform: translateY(-.25rem);
+    transform: translateY(-0.25rem);
   }
   100% {
     opacity: 1;
@@ -225,7 +222,7 @@
 @keyframes aparece-mensaje-saliente-celular {
   0% {
     opacity: 0;
-    transform: translateY(-.25rem);
+    transform: translateY(-0.25rem);
   }
   100% {
     opacity: 1;

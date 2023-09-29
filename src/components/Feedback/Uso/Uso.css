@@ -13,13 +13,13 @@
 
 .Uso__titulo {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-family: 'Raleway';
 }
 
 .Uso__selector_periodo {
-  padding: 0 .75rem;
-  font-size: .8rem;
+  padding: 0 0.75rem;
+  font-size: 0.8rem;
   border-radius: 1rem;
   height: 2rem;
   cursor: pointer;
@@ -38,11 +38,11 @@
   justify-content: space-between;
   background-color: var(--color-barra-superior);
   height: 3.25rem;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   border: 1px solid var(--color-bordes);
   align-items: center;
   margin-top: 1rem;
-  animation: Uso__aparece .35s .1s ease both;
+  animation: Uso__aparece 0.35s 0.1s ease both;
 }
 
 .Uso__contenedor_tabla {
@@ -53,19 +53,19 @@
 }
 
 .Uso__contenedor_tabla::-webkit-scrollbar {
-  width: .6em;
-  height: .6em;
+  width: 0.6rem;
+  height: 0.6rem;
   background-color: var(--color-fondo);
 }
 
 .Uso__contenedor_tabla::-webkit-scrollbar-thumb {
-  border-radius: .25em;
+  border-radius: 0.25rem;
   background-color: var(--color-principal);
 }
 
 .Uso__tabla_uso {
   border: 1px solid var(--color-bordes);
-  animation: Uso__aparece .35s .1s ease both;
+  animation: Uso__aparece 0.35s 0.1s ease both;
 }
 
 .Uso__tabla_uso thead {
@@ -76,7 +76,7 @@
 .Uso__tabla_uso thead th {
   background-color: var(--color-barra-superior);
   text-transform: uppercase;
-  font-size: .7rem;
+  font-size: 0.7rem;
 }
 
 .Uso__tabla_uso tr {
@@ -96,7 +96,7 @@
 
 .Uso__tabla_uso th,
 .Uso__tabla_uso td {
-  padding: 0 .75rem;
+  padding: 0 0.75rem;
   text-align: right;
   vertical-align: middle;
   width: 15%;
@@ -104,12 +104,12 @@
 
 .Uso__tabla_uso th:first-child,
 .Uso__tabla_uso td:first-child {
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   text-align: left;
 }
 
 .Uso__tabla_uso td {
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 
 .Uso__tabla_uso tbody tr:hover {
@@ -120,36 +120,37 @@
   font-weight: 600;
 }
 
-.Uso__opcion_mes, .Uso__selector_periodo {
+.Uso__opcion_mes,
+.Uso__selector_periodo {
   text-transform: capitalize;
 }
 
 .Uso__fila_tipo_encuesta {
-  animation: Uso__aparece_fila_tabla_uso .25s ease both;
+  animation: Uso__aparece_fila_tabla_uso 0.25s ease both;
 }
 
 .Uso__boton_descargar_pdf {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   height: 1.75rem;
-  padding: 0 .6rem;
-  margin-left: .5rem;
+  padding: 0 0.6rem;
+  margin-left: 0.5rem;
   color: var(--color-texto-claro);
   background-color: var(--color-principal);
   border: none;
   cursor: pointer;
   outline: none;
-  box-shadow: .1rem .1rem .15rem rgba(0, 0, 0, .1);
-  transition: all .25s ease;
+  box-shadow: 0.1rem 0.1rem 0.15rem rgba(0, 0, 0, 0.1);
+  transition: all 0.25s ease;
   position: relative;
   filter: none;
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .Uso__boton_descargar_pdf:hover {
-  box-shadow: .15rem .15rem .2rem rgba(0, 0, 0, .1);
+  box-shadow: 0.15rem 0.15rem 0.2rem rgba(0, 0, 0, 0.1);
   filter: brightness(110%);
 }
 
@@ -159,13 +160,13 @@
 }
 
 .Uso__icono_descargar_pdf {
-  margin-right: .25rem;
+  margin-right: 0.25rem;
   font-size: 1.1rem;
 }
 
 @keyframes Uso__aparece {
   0% {
-    transform: translateY(-.1rem);
+    transform: translateY(-0.1rem);
     opacity: 0;
   }
   100% {

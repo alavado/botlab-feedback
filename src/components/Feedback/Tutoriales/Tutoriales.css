@@ -1,0 +1,197 @@
+.Tutoriales {
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  width: 100%;
+  color: var(--color-texto);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.Tutoriales__titulo {
+  font-weight: bold;
+  font-size: 1.35rem;
+  font-family: 'Raleway';
+  z-index: 3;
+  padding-top: 1rem;
+  grid-column: span 2;
+}
+
+.Tutoriales__contenedor {
+  display: flex;
+  gap: 1rem;
+}
+
+.Tutoriales__titulo_playlist {
+  height: 3rem;
+  background-color: var(--color-principal);
+  padding: 0.5rem 0 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  color: var(--color-texto-claro);
+  border: 1px solid var(--color-principal);
+  border-bottom: none;
+  font-weight: bold;
+  border-radius: 0.15rem 0.15rem 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.Tutoriales__conteo_playlist {
+  font-size: 0.55rem;
+  opacity: 0.75;
+  font-weight: 400;
+}
+
+.Tutoriales__botones {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 12rem);
+  overflow: auto;
+  border: 1px solid var(--color-bordes);
+  border-top: none;
+  width: 20rem;
+}
+
+.Tutoriales__botones::-webkit-scrollbar {
+  width: 0.35rem;
+  background-color: transparent;
+}
+
+.Tutoriales__botones::-webkit-scrollbar-thumb {
+  border-radius: 0.25rem;
+  background-color: var(--color-principal);
+}
+
+.Tutoriales__video {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.Tutoriales__contenedor_video_con_titulo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+}
+
+.Tutoriales__contenedor_video_titulo {
+  font-size: 0.75rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.Tutoriales__video iframe {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  align-self: flex-start;
+}
+
+.Tutoriales__boton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: right;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  display: grid;
+  gap: 0 1rem;
+  grid-template: 1fr 1fr / auto auto 1fr;
+}
+
+.Tutoriales__boton--activo {
+  font-weight: bold;
+  background-color: var(--color-fila-destacada);
+  box-shadow: 0 0 0 1px var(--color-bordes);
+  z-index: 2;
+}
+
+.Tutoriales__miniatura_play {
+  display: none;
+}
+
+.Tutoriales__boton--activo .Tutoriales__miniatura_play {
+  display: block;
+}
+
+.Tutoriales__boton--activo .Tutoriales__miniatura_n {
+  display: none;
+}
+
+.Tutoriales__miniatura {
+  grid-row: span 2;
+  width: 5rem;
+  height: 3rem;
+  position: relative;
+  place-self: center center;
+}
+
+.Tutoriales__miniatura_numero {
+  grid-row: span 2;
+  place-self: center center;
+  width: 0.5rem;
+  font-size: 0.55rem;
+  opacity: 0.75;
+}
+
+.Tutoriales__miniatura_numero svg {
+  opacity: 1;
+  font-size: 0.75rem;
+}
+
+.Tutoriales__miniatura_duracion {
+  right: 0.15rem;
+  bottom: 0.15rem;
+  position: absolute;
+  font-size: 0.45rem;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: var(--color-texto-claro);
+  padding: 0.05rem 0.15rem;
+  border-radius: 0.1rem;
+}
+
+.Tutoriales__indicacion {
+  padding: 0 3rem 3rem 3rem;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 0.35rem dashed var(--color-bordes);
+  border-radius: 1rem;
+  font-size: 1rem;
+}
+
+.Tutoriales__boton_indicacion {
+  background: none;
+  border: none;
+  font-size: 3rem;
+  cursor: pointer;
+  color: var(--color-texto);
+}
+
+.Tutoriales__titulo_miniatura {
+  place-self: end start;
+}
+
+.Tutoriales__autor {
+  padding-top: 0.15rem;
+  place-self: start start;
+  opacity: 0.75;
+  font-size: 0.5rem;
+}
+
+.Tutoriales__bajada_relleno {
+  width: 10rem;
+  opacity: 0.05;
+  align-self: center;
+  padding: 6rem 0 10rem 0;
+}

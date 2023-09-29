@@ -1,14 +1,15 @@
 export const obtenerTiposEncuestasVisibles = (cuenta, tipos) => {
-  let tiposEncuestas = tipos?.slice() || []
   const cuentaLC = cuenta?.toLowerCase() || ''
-  if (cuentaLC !== 'sanasalud_botlab') {
-    tiposEncuestas = tiposEncuestas.filter(t => t.id !== 233)
+  if (cuentaLC.endsWith('_cero') || cuentaLC.endsWith('_botlab')) {
+    return tipos
   }
-  if (cuentaLC !== 'falp_cero') {
-    tiposEncuestas = tiposEncuestas.filter(t => t.id !== 374)
-  }
-  if (cuentaLC !== 'alemana_cero') {
-    tiposEncuestas = tiposEncuestas.filter(t => t.id !== 457)
-  }
-  return tiposEncuestas
+  let tiposEncuestas = tipos?.slice() || []
+  return tiposEncuestas.filter(
+    (t) =>
+      ![
+        233, // Sanasalud Reactivación (deshabilitado)
+        374, // FALP Convenios
+        457, // Alemana Seguros
+      ].includes(t.id)
+  )
 }

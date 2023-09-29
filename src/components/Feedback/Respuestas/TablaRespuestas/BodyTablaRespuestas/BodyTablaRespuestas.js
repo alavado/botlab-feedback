@@ -7,6 +7,7 @@ import Skeleton from '../../../../Skeleton'
 import { obtenerHeaders } from '../../../../../helpers/tablaRespuestas'
 import FilaTablaRespuestas from './FilaTablaRespuestas'
 import BodyTablaSinRespuestas from './BodyTablaSinRespuestas'
+import useAnalytics from '../../../../../hooks/useAnalytics'
 
 const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
 
@@ -14,8 +15,10 @@ const BodyTablaRespuestas = ({ respuestasPorPagina }) => {
   const { respuestasVisibles: respuestas, pagina } = useSelector(state => state.respuestas)
   const dispatch = useDispatch()
   const history = useHistory()
+  const track = useAnalytics()
 
   const verChat = (respuesta, indice) => {
+    track('Feedback', 'Respuestas', 'verChat', { idEncuesta, idUsuario: respuesta.user_id })
     dispatch(guardaEstaRespuesta([respuesta, indice]))
     history.push(`/chat/${idEncuesta}/${respuesta.user_id}`)
   }

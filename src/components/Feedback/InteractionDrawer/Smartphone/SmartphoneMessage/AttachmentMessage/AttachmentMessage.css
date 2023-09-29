@@ -1,0 +1,57 @@
+.AttachmentMessage__file_link {
+  color: var(--whatsapp-color-texto);
+  display: flex;
+  align-items: center;
+  background: var(--whatsapp-fondo-mensajes-salientes);
+  filter: brightness(96%);
+  width: 100%;
+  padding: 0.35rem 0.25rem;
+  border-radius: 0.05rem;
+  margin-bottom: 0.35rem;
+}
+
+.AttachmentMessage__file_name {
+  margin-right: 0.25rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--color-texto);
+}
+
+.AttachmentMessage__pdf_icon {
+  font-size: 0.45rem;
+  margin-right: 0.3rem;
+  background-color: #f34646;
+  color: white;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  border-radius: 0.1rem;
+  font-weight: 500;
+  height: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  clip-path: polygon(0% 0%, 80% 0%, 100% 20%, 100% 100%, 0% 100%);
+  padding-bottom: 0.2rem;
+}
+
+.AttachmentMessage__image_thumbnail {
+  object-fit: cover;
+  width: 100%;
+  min-height: 2rem;
+}
+
+.AttachmentMessage__link_icon {
+  margin-left: auto;
+  border: 1px solid var(--color-texto);
+  min-width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  color: var(--color-texto);
+  opacity: 0.5;
+}

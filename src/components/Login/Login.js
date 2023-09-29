@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './Login.css'
 import { useDispatch } from 'react-redux'
 import { guardaToken } from '../../redux/ducks/login'
@@ -9,23 +9,21 @@ import classNames from 'classnames'
 import logo from '../../assets/images/logo-feedback.svg'
 import Loader from '../Loader'
 import { InlineIcon } from '@iconify/react'
-import iconoError from '@iconify/icons-mdi/warning'
 
 const Login = () => {
-
   const [auth, setAuth] = useState({
     username: '',
-    password: ''
+    password: '',
   })
   const [error, setError] = useState()
   const [cargando, setCargando] = useState()
   const dispatch = useDispatch()
 
-  const cambiarVariable = variable => e => {
+  const cambiarVariable = (variable) => (e) => {
     setAuth({ ...auth, [variable]: e.target.value })
   }
 
-  const login = async e => {
+  const login = async (e) => {
     e.preventDefault()
     try {
       setCargando(true)
@@ -36,28 +34,28 @@ const Login = () => {
       setCargando(false)
       if (e.response?.status === 401) {
         setError('Usuario o contraseña incorrectos.')
-      }
-      else {
-        setError('Servicio no disponible en estos momentos. Por favor, intenta de nuevo en unos minutos.')
+      } else {
+        setError(
+          'Servicio no disponible en estos momentos. Por favor, intenta de nuevo en unos minutos.'
+        )
       }
     }
   }
 
   return (
-    <div className={classNames({
-      'Login': true,
-      'Login--cargando': cargando
-    })}>
+    <div
+      className={classNames({
+        Login: true,
+        'Login--cargando': cargando,
+      })}
+    >
       <div className="Login__contenedor_logo">
         <img className="Login__logo" src={logo} alt="Logo Botlab Feedback" />
       </div>
       <form className="Login__form" onSubmit={login}>
         <h1 className="Login__instruccion">Inicia sesión en tu cuenta</h1>
         <div className="Login__campo">
-          <label
-            htmlFor="login_usuario"
-            className="Login__label"
-          >
+          <label htmlFor="login_usuario" className="Login__label">
             Nombre de usuario
           </label>
           <input
@@ -71,10 +69,7 @@ const Login = () => {
           />
         </div>
         <div className="Login__campo">
-          <label
-            htmlFor="login_password"
-            className="Login__label"
-          >
+          <label htmlFor="login_password" className="Login__label">
             Contraseña
           </label>
           <input
@@ -88,15 +83,11 @@ const Login = () => {
         </div>
         {error && (
           <p className="Login__error">
-            <InlineIcon className="Login__icono_error" icon={iconoError} />
+            <InlineIcon className="Login__icono_error" icon="mdi:warning" />
             {error}
           </p>
         )}
-        <button
-          className="Login__boton"
-          type="submit"
-          disabled={cargando}
-        >
+        <button className="Login__boton" type="submit" disabled={cargando}>
           {cargando ? <Loader /> : 'Ingresar'}
         </button>
       </form>

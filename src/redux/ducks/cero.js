@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const ceroSlice = createSlice({
-  name: 'enviador',
+  name: 'cero',
   initialState: {
     debugging: false
   },

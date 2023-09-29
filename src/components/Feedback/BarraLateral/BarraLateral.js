@@ -1,42 +1,31 @@
-import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Icon } from '@iconify/react'
-import search from '@iconify/icons-mdi/search'
-import alertas from '@iconify/icons-mdi/robot'
-import iconoSinAlertas from '@iconify/icons-mdi/robot-happy'
-import exportar from '@iconify/icons-mdi/table-export'
-import usage from '@iconify/icons-mdi/wallet'
-import home from '@iconify/icons-mdi/home'
-// import preparaciones from '@iconify/icons-mdi/clipboard-check'
 import logo from '../../../assets/images/logo-cero.svg'
 import './BarraLateral.css'
 import { useSelector } from 'react-redux'
-import ConteoAlertas from './ConteoAlertas'
-import { tieneAccesoAReportes } from '../../../helpers/permisos'
-
-const usuariosConAlertas = [
-  'Aquamed',
-  'MAZ',
-  'Bioreuma',
-  'OYEDental',
-  'Avaria',
-  'YohananTherapeutes',
-  'Maitenes'
-]
+import {
+  tieneAccesoAAlertas,
+  tieneAccesoAReportes,
+  tieneAccesoADashboard,
+} from '../../../helpers/permisos'
+import useAnalytics from '../../../hooks/useAnalytics'
+import AlertsCount from './AlertsCount'
+import useIsLabeler from '../../../hooks/useIsLabeler'
 
 const BarraLateral = () => {
+  const { cuenta } = useSelector((state) => state.login)
+  const isLabeler = useIsLabeler()
+  const track = useAnalytics()
 
-  const { cuenta, nombreUsuario } = useSelector(state => state.login)
-  const [feliz, setFeliz] = useState(false)
-  
   return (
     <div className="BarraLateral">
-      <Link
-        to="/"
-        className="BarraLateral__link_logo"
-      >
+      <Link to="/" className="BarraLateral__link_logo">
         <div className="BarraLateral__logo">
-          <img className="BarraLateral__logo_imagen" src={logo} alt="Logo Cero.ai" />
+          <img
+            className="BarraLateral__logo_imagen"
+            src={logo}
+            alt="Logo Cero.ai"
+          />
           {window.location.href.includes('qa') && <p>QA</p>}
           {window.location.href.includes('dev') && <p>DEV</p>}
         </div>
@@ -47,21 +36,23 @@ const BarraLateral = () => {
           activeClassName="BarraLateral__link--activo"
           to="/"
           exact
+          onClick={() => track('Feedback', 'BarraLateral', 'verRespuestas')}
         >
-          <Icon icon={home} />
+          <Icon icon="mdi:home" />
           <div className="BarraLateral__nombre_seccion">Respuestas</div>
         </NavLink>
-        {(cuenta.endsWith('_cero') || cuenta.endsWith('_botlab') || usuariosConAlertas.includes(nombreUsuario)) &&
+        {tieneAccesoAAlertas(cuenta) && (
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
             to="/alertas"
+            onClick={() => track('Feedback', 'BarraLateral', 'verAlertas')}
           >
-            <ConteoAlertas setFeliz={setFeliz} />
-            <Icon icon={feliz ? iconoSinAlertas : alertas} />
+            <AlertsCount />
+            <Icon icon="mdi:bell" />
             <div className="BarraLateral__nombre_seccion">Alertas</div>
           </NavLink>
-        }
+        )}
         {/* <NavLink
           className="BarraLateral__link"
           activeClassName="BarraLateral__link--activo"
@@ -70,32 +61,63 @@ const BarraLateral = () => {
         <Icon icon={preparaciones} />
         <div className="BarraLateral__nombre_seccion">Preparaciones</div>
         </NavLink> */}
-        {tieneAccesoAReportes(cuenta) && (
+        {!isLabeler && (
+          <NavLink
+            className="BarraLateral__link"
+            activeClassName="BarraLateral__link--activo"
+            to="/busqueda"
+            onClick={() => track('Feedback', 'BarraLateral', 'verBusqueda')}
+          >
+            <Icon icon="mdi:search" />
+            <div className="BarraLateral__nombre_seccion">Búsqueda</div>
+          </NavLink>
+        )}
+        {tieneAccesoADashboard(cuenta) && !isLabeler && (
+          <NavLink
+            className="BarraLateral__link"
+            activeClassName="BarraLateral__link--activo"
+            to="/dashboard"
+            onClick={() => track('Feedback', 'BarraLateral', 'verDashboard')}
+          >
+            <Icon icon="mdi:chart-areaspline" />
+            <div className="BarraLateral__nombre_seccion">Dashboard</div>
+          </NavLink>
+        )}
+        {tieneAccesoAReportes(cuenta) && !isLabeler && (
           <NavLink
             className="BarraLateral__link"
             activeClassName="BarraLateral__link--activo"
             to="/exportar"
+            onClick={() => track('Feedback', 'BarraLateral', 'verExportar')}
           >
-            <Icon icon={exportar} />
+            <Icon icon="mdi:table-export" />
             <div className="BarraLateral__nombre_seccion">Reporte</div>
           </NavLink>
         )}
-        <NavLink
-          className="BarraLateral__link"
-          activeClassName="BarraLateral__link--activo"
-          to="/busqueda"
-        >
-          <Icon icon={search} />
-          <div className="BarraLateral__nombre_seccion">Búsqueda</div>
-        </NavLink>
-        <NavLink
-          className="BarraLateral__link"
-          activeClassName="BarraLateral__link--activo"
-          to="/uso"
-        >
-          <Icon icon={usage} />
-          <div className="BarraLateral__nombre_seccion">Uso</div>
-        </NavLink>
+        {!isLabeler && (
+          <NavLink
+            className="BarraLateral__link"
+            activeClassName="BarraLateral__link--activo"
+            to="/uso"
+            onClick={() => track('Feedback', 'BarraLateral', 'verUso')}
+          >
+            <Icon icon="mdi:wallet" />
+            <div className="BarraLateral__nombre_seccion">Uso</div>
+          </NavLink>
+        )}
+        {!isLabeler && (
+          <div className="BarraLateral__fondo">
+            <NavLink
+              className="BarraLateral__link"
+              activeClassName="BarraLateral__link--activo"
+              to="/tutoriales"
+              onClick={() => track('Feedback', 'BarraLateral', 'verTutoriales')}
+            >
+              <Icon icon="mdi:play-box-multiple" />
+              <div className="BarraLateral__nombre_seccion">Tutoriales</div>
+            </NavLink>
+          </div>
+        )}
       </div>
     </div>
   )

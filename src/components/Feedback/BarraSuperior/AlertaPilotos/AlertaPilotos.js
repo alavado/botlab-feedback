@@ -7,24 +7,22 @@ import { useSelector } from 'react-redux'
 import './AlertaPilotos.css'
 
 const usuariosPiloto = [
-  {
-    nombre: 'Imaginate',
-    exp: '2022-04-21 00:00:00'
-  },
-  {
-    nombre: 'CSMI',
-    exp: '2022-04-23 00:00:00'
-  },
+  // {
+  //   nombre: 'BiobioSalud',
+  //   exp: '2022-07-26 00:00:00'
+  // },
 ]
 
 const AlertaPilotos = () => {
-
-  const { nombreUsuario } = useSelector(state => state.login)
-  const usuario = usuariosPiloto.find(u => u.nombre === nombreUsuario)
+  const { nombreUsuario } = useSelector((state) => state.login)
+  const usuario = usuariosPiloto.find((u) => u.nombre === nombreUsuario)
   const [diferencia, setDiferencia] = useState()
 
   useEffect(() => {
-    const f = () => setDiferencia(usuario && differenceInDays(parseISO(usuario.exp), Date.now()))
+    const f = () =>
+      setDiferencia(
+        usuario && differenceInDays(parseISO(usuario.exp), Date.now())
+      )
     f()
     const interval = setInterval(f, 60_000)
     return () => clearInterval(interval)
@@ -38,12 +36,25 @@ const AlertaPilotos = () => {
   const cc = `contacto@cero.ai`
   const asunto = `Contacto%20Piloto%20${nombreUsuario}`
   const cuerpo = `Tu%20mensaje`
-  const dias = formatDistanceToNow(parseISO(usuario.exp), { locale: es, addSuffix: true })
-  const verbo = differenceInHours(parseISO(usuario.exp), Date.now()) > 0 ? 'finaliza' : 'finalizó'
+  const dias = formatDistanceToNow(parseISO(usuario.exp), {
+    locale: es,
+    addSuffix: true,
+  })
+  const verbo =
+    differenceInHours(parseISO(usuario.exp), Date.now()) > 0
+      ? 'finaliza'
+      : 'finalizó'
 
   return (
     <div className="AlertaPilotos">
-      <strong>{dias}</strong> {verbo} tu piloto del servicio. ¿Quieres continuar confirmando con Cero? 👉 <a className="AlertaPilotos__link" href={`mailto:${correoPrincipal}?cc=${cc}&subject=${asunto}&body=${cuerpo}`}>Contáctanos</a>
+      <strong>{dias}</strong> {verbo} tu piloto del servicio. ¿Quieres continuar
+      confirmando con Cero? 👉{' '}
+      <a
+        className="AlertaPilotos__link"
+        href={`mailto:${correoPrincipal}?cc=${cc}&subject=${asunto}&body=${cuerpo}`}
+      >
+        Contáctanos
+      </a>
     </div>
   )
 }

@@ -1,0 +1,82 @@
+.InteractionDrawer {
+  background-color: var(--color-fondo);
+  height: 100%;
+  box-shadow: -0.25rem 0 0.25rem var(--color-sombras);
+  display: grid;
+  grid-template: 2rem auto 1fr / auto 1fr;
+  gap: 0 0.15rem;
+  padding: 0 0rem 0.5rem 0rem;
+  z-index: 4;
+}
+
+.InteractionDrawer__top_bar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 0.5rem;
+}
+
+.InteractionDrawer__top_bar_actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 0.25rem;
+}
+
+.InteractionDrawer__actions_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0.5rem 1rem 0;
+  gap: 1rem;
+  height: calc(100vh - 2rem);
+  max-height: calc(100vh - 2rem);
+  overflow-y: scroll;
+  scrollbar-width: 0.35rem;
+  scrollbar-color: var(--whatsapp-color-scrollbar-contenedor-mensajes)
+    var(--color-fondo);
+}
+
+.InteractionDrawer__actions_container::-webkit-scrollbar {
+  border-radius: 0.1rem;
+  width: 0.35rem;
+  background-color: transparent;
+}
+
+.InteractionDrawer__actions_container::-webkit-scrollbar-thumb {
+  border-radius: 0.1rem;
+  width: 0.35rem;
+  background-color: var(--whatsapp-color-scrollbar-contenedor-mensajes);
+}
+
+.InteractionDrawer__top_bar_action_button {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  color: var(--color-texto);
+  cursor: pointer;
+  gap: 0.1rem;
+}
+
+.InteractionDrawer__phone_container {
+  grid-row: 2 / -1;
+  grid-column: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 0.75rem 0 1rem;
+}
+
+.InteractionDrawer__data_container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow-y: auto;
+}
+
+.InteractionDrawer__data_container p {
+  flex: 1;
+}

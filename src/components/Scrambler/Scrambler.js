@@ -50,7 +50,7 @@ const Scrambler = ({ tipo, children: texto, propagar }) => {
         rel="noreferrer noopener"
         onClick={e => e.stopPropagation()}
       >
-        {new URL(texto).hostname}
+        {scrambled ? new URL(texto).hostname.substring(new URL(texto).hostname.indexOf('.') + 1) : new URL(texto).hostname}
       </a>
     : (scrambled ? scramble(texto, tipo, terminos) : (texto ?? ''))
 

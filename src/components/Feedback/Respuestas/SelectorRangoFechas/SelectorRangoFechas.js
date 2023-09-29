@@ -1,13 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
-import ReactDatePicker, { registerLocale } from 'react-datepicker'
+import ReactDatePicker, { registerLocale as reactDatePickerRegisterLocale } from 'react-datepicker'
 import es from 'date-fns/locale/es'
 import { useDispatch, useSelector } from 'react-redux'
 import { actualizaRespuestas, guardaFechaInicio, guardaFechaTermino, guardaRangoFechas } from '../../../../redux/ducks/respuestas'
-import iconoOpciones from '@iconify/icons-mdi/dots-vertical'
-import iconoRecargar from '@iconify/icons-mdi/refresh'
-import chevronDown from '@iconify/icons-mdi/chevron-down'
-import Icon, { InlineIcon } from '@iconify/react'
+import { Icon, InlineIcon } from '@iconify/react'
 import './SelectorRangoFechas.css'
 import './react-datepicker-overrides.css'
 import PopupRangosFechas from './PopupRangosFechas'
@@ -15,27 +12,35 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import classNames from 'classnames'
 import { differenceInMinutes } from 'date-fns'
 import PopupTipoSeleccion from './PopupTipoSeleccion'
+import useAnalytics from '../../../../hooks/useAnalytics'
 
-registerLocale('es', es)
+reactDatePickerRegisterLocale('es', es)
 
 const SelectorRangoFechas = () => {
 
   const { fechaInicio, fechaTermino, cacheInvalido, fechaActualizacion } = useSelector(state => state.respuestas)
   const { seleccionarRangoFechas } = useSelector(state => state.opciones)
+  const { cuenta } = useSelector(state => state.login)
   const [popupRangosComunesActivo, setPopupRangosComunesActivo] = useState(false)
   const [popupTipoSeleccionActivo, setPopupTipoSeleccionActivo] = useState(false)
-  const [fechaActual, setFechaActual] = useState('')
+  const [fechaActual, setFechaActual] = useState(Date.now())
   const esconderPopupRangosComunes = useCallback(() => setPopupRangosComunesActivo(false), [setPopupRangosComunesActivo])
   const esconderPopupTipoSeleccionActivo = useCallback(() => setPopupTipoSeleccionActivo(false), [setPopupTipoSeleccionActivo])
   const dispatch = useDispatch()
+  const track = useAnalytics()
 
   useEffect(() => {
-    const intervalFecha = setInterval(() => setFechaActual(() => Date.now()), 1000)
+    const intervalFecha = setInterval(() => setFechaActual(() => Date.now()), 10_000)
     return () => clearInterval(intervalFecha)
   }, [])
 
   const alertar = differenceInMinutes(fechaActual, fechaActualizacion) >= 5
   const mensajeActualizacion = `actualizado ${formatDistanceToNow(fechaActualizacion, { locale: es, addSuffix: true })}`
+
+  const actualizar = () => {
+    track('Feedback', 'Respuestas', 'actualizar')
+    dispatch(actualizaRespuestas())
+  }
 
   return (
     <div className="SelectorRangoFechas">
@@ -44,14 +49,18 @@ const SelectorRangoFechas = () => {
       onClick={() => setPopupTipoSeleccionActivo(true)}
       tooltip="Tipo de selección"
     >
-      {seleccionarRangoFechas ? 'Rango' : 'Fecha'} <InlineIcon icon={chevronDown} />
+      {seleccionarRangoFechas ? 'Rango' : 'Fecha'} <InlineIcon icon="mdi:chevron-down" />
     </button>
-      {
-        seleccionarRangoFechas
+      {seleccionarRangoFechas
         ? <>
             <ReactDatePicker
               selected={fechaInicio}
-              onChange={f => dispatch(guardaFechaInicio(f))}
+              onChange={f => {
+                track('Feedback', 'Respuestas', 'cambiarFechaInicial', { fecha: f })
+                dispatch(guardaFechaInicio(f))
+              }}
+              onCalendarOpen={() => track('Feedback', 'Respuestas', 'abrirCalendario', { posicion: 'inicio' })}
+              onClickOutside={() => track('Feedback', 'Respuestas', 'cerrarCalendario', { posicion: 'inicio' })}
               maxDate={fechaTermino}
               dateFormat="d MMMM yyyy"
               locale="es"
@@ -60,19 +69,31 @@ const SelectorRangoFechas = () => {
             -
             <ReactDatePicker
               selected={fechaTermino}
-              onChange={f => dispatch(guardaFechaTermino(f))}
+              onChange={f => {
+                track('Feedback', 'Respuestas', 'cambiarFechaFinal', { fecha: f })
+                dispatch(guardaFechaTermino(f))
+              }}
+              onCalendarOpen={() => track('Feedback', 'Respuestas', 'abrirCalendario', { posicion: 'fin' })}
+              onClickOutside={() => track('Feedback', 'Respuestas', 'cerrarCalendario', { posicion: 'fin' })}
               dateFormat="d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker"
+              maxDate={Date.now()}
             />
           </>
         : <>
             <ReactDatePicker
               selected={fechaInicio}
-              onChange={f => dispatch(guardaRangoFechas([f, f]))}
+              onChange={f => {
+                track('Feedback', 'Respuestas', 'cambiarFechaEspecifica', { fecha: f })
+                dispatch(guardaRangoFechas([f, f]))
+              }}
+              onCalendarOpen={() => track('Feedback', 'Respuestas', 'abrirCalendario', { posicion: 'unica' })}
+              onClickOutside={() => track('Feedback', 'Respuestas', 'cerrarCalendario', { posicion: 'unica' })}
               dateFormat="iiii d MMMM yyyy"
               locale="es"
               className="SelectorRangoFechas__datepicker SelectorRangoFechas__datepicker--ancho"
+              maxDate={Date.now()}
             />
           </>
       }
@@ -81,7 +102,7 @@ const SelectorRangoFechas = () => {
         onClick={() => setPopupRangosComunesActivo(true)}
         tooltip="Rangos habituales"
       >
-        <Icon className="SelectorRangoFechas__boton_icono" icon={iconoOpciones} />
+        <Icon className="SelectorRangoFechas__boton_icono" icon="mdi:dots-vertical" />
       </button>
       <PopupRangosFechas
         activo={popupRangosComunesActivo}
@@ -92,17 +113,17 @@ const SelectorRangoFechas = () => {
         activo={popupTipoSeleccionActivo}
         esconder={esconderPopupTipoSeleccionActivo}
       />
-      <button
+      {/* <button
         className={classNames({
           "SelectorRangoFechas__boton": true,
           "SelectorRangoFechas__boton--alerta": alertar,
         })}
         tooltip={`Actualizar (${mensajeActualizacion})`}
-        onClick={() => dispatch(actualizaRespuestas())}
+        onClick={actualizar}
         disabled={cacheInvalido}
       >
-        <Icon className="SelectorRangoFechas__boton_icono" icon={iconoRecargar} />
-      </button>
+        <Icon className="SelectorRangoFechas__boton_icono" icon="mdi:refresh" />
+      </button> */}
     </div>
   )
 }

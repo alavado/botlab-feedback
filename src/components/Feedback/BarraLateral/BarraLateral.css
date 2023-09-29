@@ -11,7 +11,8 @@
 .BarraLateral__contenedor_links_secciones {
   display: flex;
   flex-direction: column;
-  padding-top: .15rem;
+  padding-top: 0.15rem;
+  height: 100%;
 }
 
 .BarraLateral__logo {
@@ -19,9 +20,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, .2);
+  background-color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
   position: relative;
 }
 
@@ -30,10 +31,10 @@
   z-index: 2;
   top: 1.75rem;
   left: calc(100% - 1.25rem);
-  font-size: .55rem;
+  font-size: 0.55rem;
   font-weight: bold;
   color: var(--color-texto-claro);
-  text-shadow: 0 0 .1rem black;
+  text-shadow: 0 0 0.1rem black;
 }
 
 .BarraLateral__link_logo {
@@ -46,7 +47,7 @@
 }
 
 .BarraLateral__link {
-  color: rgba(255, 255, 255, .5);
+  color: rgba(255, 255, 255, 0.5);
   height: 3.35rem;
   font-size: 1.3rem;
   display: flex;
@@ -54,8 +55,8 @@
   justify-content: center;
   flex-direction: column;
   position: relative;
-  gap: .25rem;
-  transition: all .15s ease;
+  gap: 0.25rem;
+  transition: all 0.15s ease;
   position: relative;
 }
 
@@ -64,19 +65,25 @@
 }
 
 .BarraLateral__nombre_seccion {
-  font-size: .4rem;
+  font-size: 0.4rem;
 }
 
 .BarraLateral__link:active {
   color: var(--color-texto-claro);
-  opacity: .9;
+  opacity: 0.9;
 }
 
 .BarraLateral__link--activo {
   color: var(--color-texto-claro);
 }
 
-@media(orientation: portrait) {
+.BarraLateral__fondo {
+  margin-top: auto;
+  margin-bottom: 0.25rem;
+  position: relative;
+}
+
+@media (orientation: portrait) {
   .BarraLateral {
     z-index: 100;
     position: fixed;
@@ -90,7 +97,7 @@
     justify-content: space-evenly;
     background: var(--color-principal);
   }
-  
+
   .BarraLateral__logo,
   .BarraLateral__popup_link {
     display: none;
@@ -114,5 +121,16 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes aparece-explicacion {
+  0% {
+    opacity: 0;
+    transform: translateX(0.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

@@ -4,7 +4,9 @@ const novedadesSlice = createSlice({
   name: 'novedades',
   initialState: {
     vistas: false,
-    modalActivo: false
+    modalActivo: false,
+    tooltipVisible: false,
+    modalAlertasDesactivado: false,
   },
   reducers: {
     activaModal(state) {
@@ -13,12 +15,20 @@ const novedadesSlice = createSlice({
     desactivaModal(state) {
       state.modalActivo = false
     },
+    desactivaTooltip(state) {
+      state.tooltipVisible = false
+    },
+    desactivaModalAlertas(state) {
+      state.modalAlertasDesactivado = true
+    }
   }
 })
 
 export const {
   activaModal,
-  desactivaModal
+  desactivaModal,
+  desactivaTooltip,
+  desactivaModalAlertas,
 } = novedadesSlice.actions
 
 export default novedadesSlice.reducer

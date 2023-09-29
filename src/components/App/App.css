@@ -1,16 +1,12 @@
 .App {
   display: flex;
-  background: linear-gradient(var(--color-principal), var(--color-secundario) 300%);
+  background: linear-gradient(var(--color-principal), var(--color-secundario) 250%);
   background-size: cover;
   overflow: hidden;
 }
 
 .App__preload_imagenes {
   display: none;
-}
-
-button:hover {
-  filter: brightness(115%);
 }
 
 body {

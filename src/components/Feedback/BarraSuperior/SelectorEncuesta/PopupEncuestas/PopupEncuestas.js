@@ -1,19 +1,20 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import { useSelector } from 'react-redux'
 import { Icon } from '@iconify/react'
-import whatsapp from '@iconify/icons-mdi/whatsapp'
 import classNames from 'classnames'
 import './PopupEncuestas.css'
-import Scrambler from '../../../../Scrambler/Scrambler'
 import { obtenerPollsCalculadas } from '../../../../../helpers/pollsCalculadas'
 import { obtenerTiposEncuestasVisibles } from '../../../../../helpers/encuestasSecretas'
+import useAnalytics from '../../../../../hooks/useAnalytics'
+import { formatearNombreEncuesta } from '../../../../../helpers/respuestas'
 
 const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
 
   const { tipos, idEncuestaSeleccionada } = useSelector(state => state.encuestas)
-  const { cuenta } = useSelector(state => state.login)
+  const { cuenta, nombreUsuario } = useSelector(state => state.login)
   const { respuestas } = useSelector(state => state.respuestas)
+  const track = useAnalytics()
   
   const tiposOrdenados = useMemo(() => {
     const encuestaSeleccionada = tipos.find(({ id }) => id === idEncuestaSeleccionada)
@@ -24,7 +25,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
       ...tipos.filter(({ id }) => id !== idEncuestaSeleccionada)
     ]
     return obtenerTiposEncuestasVisibles(cuenta, tiposEncuestas)
-  }, [tipos, idEncuestaSeleccionada, respuestas])
+  }, [tipos, idEncuestaSeleccionada, respuestas, cuenta])
 
   return <>
       {ReactDOM.createPortal(
@@ -51,6 +52,7 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
           <div
             key={`boton-${id}`}
             onClick={e => {
+              track('Feedback', 'Respuestas', 'verEncuestaConSelector', { idEncuesta: id, nombreEncuesta: nombre })
               verEncuesta(id)
               esconder()
               e.stopPropagation()
@@ -62,11 +64,11 @@ const PopupEncuestas = ({ activo, esconder, verEncuesta }) => {
           >
             <Icon
               className="PopupEncuestas__icono_empresa"
-              icon={icono || whatsapp}
+              icon={icono || 'mdi:whatsapp'}
               style={{ color: enabled ? '#48BB78' : '#9f9eae' }}
             />
             <div className="PopupEncuestas__nombre_encuesta">
-              <Scrambler tipo="multi">{nombre}</Scrambler>
+              {formatearNombreEncuesta(nombreUsuario, nombre)}
             </div>
           </div>
         ))}

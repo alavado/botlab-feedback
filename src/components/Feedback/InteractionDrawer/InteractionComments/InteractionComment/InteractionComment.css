@@ -1,0 +1,28 @@
+.InteractionComment {
+  display: grid;
+  grid-template: auto / 1.25rem 2rem 5rem;
+  place-items: center start;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  min-height: 2rem;
+}
+
+.InteractionComment__time {
+  position: relative;
+}
+
+.InteractionComment__icon {
+  font-size: 1rem;
+}
+
+.InteractionComment__text {
+  line-height: 1.25;
+}
+
+.InteractionComment__day {
+  position: absolute;
+  bottom: calc(100% + 0.15rem);
+  left: 0;
+  font-size: 0.45rem;
+  opacity: 0.5;
+}

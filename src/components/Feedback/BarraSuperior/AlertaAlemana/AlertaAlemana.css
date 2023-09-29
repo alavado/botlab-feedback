@@ -1,0 +1,47 @@
+.AlertaAlemana {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 500;
+  height: 0.85rem;
+  padding: 0.1rem 0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  background: var(--color-secundario);
+  font-size: 0.65rem;
+  box-shadow: 0 0.1rem 0.25rem rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+  cursor: default;
+  overflow: hidden;
+}
+
+.AlertaAlemana:hover {
+  height: 1.25rem;
+}
+
+.AlertaAlemana strong {
+  font-weight: bolder;
+  padding: 0 0.3rem;
+}
+
+.AlertaAlemana strong::first-letter {
+  text-transform: capitalize;
+}
+
+.AlertaAlemana__link {
+  display: flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  border-radius: 0.25rem;
+  text-decoration: underline;
+}
+
+.AlertaAlemana__link:hover {
+  filter: brightness(110%);
+}

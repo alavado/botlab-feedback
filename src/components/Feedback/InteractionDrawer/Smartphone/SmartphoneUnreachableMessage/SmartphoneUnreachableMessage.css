@@ -1,0 +1,29 @@
+.SmartphoneUnreachableMessage {
+  background-color: var(--color-fondo);
+  align-self: center;
+  margin: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.1rem 0.25rem var(--color-sombras);
+  font-size: 0.8rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.SmartphoneUnreachableMessage__image_container {
+  display: flex;
+  align-items: center;
+}
+
+.SmartphoneUnreachableMessage__image {
+  width: 4.5rem;
+}
+
+.SmartphoneUnreachableMessage__title {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.SmartphoneUnreachableMessage__content {
+  opacity: 0.6;
+}

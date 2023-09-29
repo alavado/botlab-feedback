@@ -1,4 +1,17 @@
-import iconoSucursal from '@iconify/icons-mdi/map-marker-radius'
+const obtenerIconoAreaRedsalud = area => {
+  switch (area) {
+    case 'Dental':
+      return 'mdi:tooth'
+    case 'Médica':
+      return 'mdi:medical-bag'
+    case 'Telemedicina':
+      return 'mdi:clipboard-pulse'
+    case 'GES':
+      return 'mdi:hospital'
+    default:
+      return 'mdi:medical-bag'
+  }
+}
 
 const crearPollPorFiltro = (encuesta, respuestas, header) => {
   const encuestasFicticias = [...new Set(respuestas.map(r => r[header]))]
@@ -9,7 +22,7 @@ const crearPollPorFiltro = (encuesta, respuestas, header) => {
         nombre: nombreEncuesta,
         propiedad: s,
         enabled: encuesta.enabled,
-        icono: iconoSucursal
+        icono: encuesta.id === 220 ? obtenerIconoAreaRedsalud(s) : 'mdi:map-marker-radius'
       }})
     .sort((s1, s2) => s1.nombre < s2.nombre ? -1 : 1)
   return encuestasFicticias.length > 0 ? encuestasFicticias : []
@@ -37,6 +50,8 @@ export const obtenerPollsCalculadas = (encuesta, respuestas) => {
     case Number(process.env.REACT_APP_ID_POLL_ODONTOLOGIA_POR_ESPECIALISTAS):
     case Number(process.env.REACT_APP_ID_POLL_SMILE_KIDS_CENTER):
       return crearPollPorFiltro(encuesta, respuestas, 'sucursal_name')
+    case 220:
+      return crearPollPorFiltro(encuesta, respuestas, 'area_1')
     default: return []
   }
 }

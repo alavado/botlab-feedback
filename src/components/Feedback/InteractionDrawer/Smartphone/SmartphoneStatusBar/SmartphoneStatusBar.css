@@ -1,0 +1,35 @@
+.SmartphoneStatusBar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  padding: 0 1rem;
+  height: 1.15rem;
+  align-items: center;
+}
+
+.SmartphoneStatusBar__time {
+  opacity: 0.75;
+  font-size: 0.5rem;
+}
+
+.SmartphoneStatusBar__camera {
+  position: absolute;
+  width: 40%;
+  background-color: black;
+  left: calc(50% - 40% / 2);
+  top: 0;
+  padding: 0.2rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 0 0 0.75rem 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.4rem;
+}
+
+.SmartphoneStatusBar__icons {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  opacity: 0.75;
+}

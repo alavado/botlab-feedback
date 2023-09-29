@@ -1,0 +1,70 @@
+.AlertsList {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}
+
+.AlertsList__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-bordes);
+  width: 100%;
+  height: 3rem;
+}
+
+.AlertsList__tab_button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: grid;
+  grid-template: 1fr 1fr / auto 1fr;
+  gap: 0 0.65rem;
+  padding: 0 3rem 0 0.75rem;
+  transition: all 0.15s ease;
+  color: var(--alert-status-color);
+  filter: saturate(50%) opacity(0.7);
+  width: 10rem;
+  z-index: 3;
+}
+
+.AlertsList__tab_button:hover {
+  background: var(--color-fila-destacada);
+}
+
+.AlertsList__tab_button--solved {
+  --alert-status-color: var(--solved-alerts-color);
+}
+
+.AlertsList__tab_button--pending {
+  --alert-status-color: var(--pending-alerts-color);
+}
+
+.AlertsList__tab_button_icon {
+  grid-row: 1 / -1;
+  font-size: 1.25rem;
+  place-self: center center;
+}
+
+.AlertsList__tab_label {
+  place-self: end start;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.AlertsList__tab_count {
+  place-self: start start;
+  font-size: 0.6rem;
+}
+
+.AlertsList__tab_button--active {
+  box-shadow: inset 0 -0.1rem var(--alert-status-color);
+  filter: saturate(100%);
+}
+
+.AlertsList__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 5rem);
+  overflow-y: scroll;
+}

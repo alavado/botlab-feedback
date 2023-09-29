@@ -1,0 +1,55 @@
+.Rangos {
+  position: absolute;
+  z-index: 2;
+  width: 12rem;
+  display: flex;
+  flex-direction: column;
+  top: 2.25rem;
+  box-shadow: 0 .2rem .35rem var(--color-sombras);
+}
+
+.Rangos__opcion {
+  background-color: transparent;
+  padding: .5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .25rem;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  padding: .5rem .75rem;
+  transition: all .1s ease;
+  font-weight: 600;
+  font-size: .75rem;
+  border: none;
+}
+
+.Rangos__opcion svg {
+  font-size: 1rem;
+}
+
+.Rangos__opcion:first-child {
+  border-top-right-radius: .25rem;
+  border-top-left-radius: .25rem;
+}
+
+.Rangos__opcion:not(:last-child) {
+  border-bottom: 1px solid var(--color-bordes);
+}
+
+.Rangos__opcion:last-child {
+  border-bottom-right-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.Rangos__opcion:hover {
+  background-color: var(--color-principal);
+  color: var(--color-texto-claro);
+}
+
+.Rangos__mensaje {
+  font-size: .7rem;
+  background-color: var(--color-fondo);
+  padding: .25rem;
+}

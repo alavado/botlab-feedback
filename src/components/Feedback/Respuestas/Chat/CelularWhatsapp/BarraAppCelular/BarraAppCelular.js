@@ -1,45 +1,41 @@
-import React from 'react'
 import { Icon } from '@iconify/react'
-import iconoVolver from '@iconify/icons-mdi/arrow-back'
-import iconoExpandir from '@iconify/icons-mdi/arrow-expand'
 import './BarraAppCelular.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fijaChatExpandido } from '../../../../../../redux/ducks/opciones'
-import { useHistory } from 'react-router-dom'
 import Scrambler from '../../../../../Scrambler'
 
-const BarraAppCelular = ({ nombreBot }) => {
-
-  const { nombreUsuario } = useSelector(state => state.login)
+const BarraAppCelular = ({ nombrePaciente, telefono }) => {
   const dispatch = useDispatch()
-  const history = useHistory()
 
   return (
     <div className="BarraAppCelular">
       <div className="BarraAppCelular__izquierda">
-        <Icon
-          icon={iconoVolver}
-          className="BarraAppCelular__icono_volver"
-          onClick={() => history.goBack()}
-        />
-        <div className="BarraAppCelular__avatar">{nombreUsuario[0]}</div>
+        <div
+          className="BarraAppCelular__avatar"
+          style={{
+            '--avatar-hue':
+              360 *
+              (((nombrePaciente?.[0].toLowerCase() ?? 'z').charCodeAt(0) - 97) /
+                25),
+          }}
+        >
+          {nombrePaciente?.[0] || ''}
+        </div>
         <div className="BarraAppCelular__contenedor_nombre">
           <div className="BarraAppCelular__nombre">
-            <Scrambler tipo="usuario">{nombreBot}</Scrambler>
+            <Scrambler tipo="usuario">{nombrePaciente}</Scrambler>
           </div>
-          <div className="BarraAppCelular__estado">
-            en línea
-          </div>
+          <div className="BarraAppCelular__estado">{telefono}</div>
         </div>
       </div>
       <div className="BarraAppCelular__contenedor_iconos">
-        <button
+        {/* <button
           onClick={() => dispatch(fijaChatExpandido(true))}
           className="BarraAppCelular__iconos"
           title="Vista expandida"
         >
-          <Icon icon={iconoExpandir} />
-        </button>
+          <Icon icon="mdi:arrow-expand" />
+        </button> */}
         {/* <button
           onClick={() => mensajes && actualizarMensajes(false)}
           className={classNames({

@@ -9,8 +9,8 @@
 }
 
 .DatosChat__icono_volver {
-  margin-right: .5rem;
-  font-size: .85rem;
+  margin-right: 0.5rem;
+  font-size: 0.85rem;
 }
 
 .DatosChat__botones_navegacion {
@@ -20,7 +20,7 @@
 
 .DatosChat__link_atras {
   font-weight: 600;
-  font-size: .7rem;
+  font-size: 0.7rem;
   display: flex;
   align-items: flex-end;
   background: none;
@@ -59,7 +59,7 @@
 
 .DatosChat__icono_siguiente,
 .DatosChat__icono_anterior {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .DatosChat__link_anterior:hover,
@@ -69,23 +69,28 @@
 
 .DatosChat__link_anterior:disabled,
 .DatosChat__link_siguiente:disabled {
-  filter: saturate(0%) opacity(.4);
+  filter: saturate(0%) opacity(0.4);
 }
 
 .DatosChat__posicion {
   font-weight: 600;
-  font-size: .7rem;
+  font-size: 0.7rem;
   display: flex;
   justify-content: center;
-  padding: 0 .75rem;
+  padding: 0 0.75rem;
+}
+
+DatosChat__header {
+  display: flex;
 }
 
 .DatosChat__titulo {
+  display: inline-block;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-family: 'Raleway';
-  margin-top: .75rem;
-  margin-bottom: .75rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .DatosChat__contenedor_datos {
@@ -95,25 +100,27 @@
 }
 
 .DatosChat__contenedor_datos::-webkit-scrollbar {
-  width: .6em;
-  height: .6em;
+  width: 0.6rem;
+  height: 0.6rem;
   background-color: var(--color-fondo);
 }
 
 .DatosChat__contenedor_datos::-webkit-scrollbar-thumb {
-  border-radius: .25em;
+  border-radius: 0.25rem;
   background-color: var(--color-principal);
 }
 
 .DatosChat__contenedor_header {
   min-height: 2.75rem;
-  padding: .5rem 0 .5rem .25rem;
+  padding: 0.5rem 0 0.5rem 0.25rem;
   display: flex;
-  font-size: .7rem;
+  font-size: 0.7rem;
   line-height: 1.15;
   border-bottom: 1px solid var(--color-bordes);
   align-items: center;
-  animation: aparece-contenedor-datos .25s ease both;
+  position: relative;
+  animation: aparece-contenedor-datos 0.25s ease both;
+  z-index: 2;
 }
 
 .DatosChat__contenedor_header:hover {
@@ -125,16 +132,97 @@
 }
 
 .DatosChat__nombre_header {
+  display: flex;
+  gap: 0.25rem;
   font-weight: 600;
-  min-width: 12em;
-  max-width: 12em;
+  min-width: 12rem;
+  max-width: 12rem;
   padding-right: 1rem;
 }
 
 .DatosChat__link_ws {
   color: var(--color-whatsapp);
-  margin-left: .35rem;
-  font-size: .8rem;
+  margin-left: 0.1rem;
+  font-size: 0.8rem;
+}
+
+.DatosChat__valor_header {
+  display: flex;
+}
+
+.DatosChat__contenedor_header:hover .DatosChat__boton_copiar {
+  opacity: 1;
+}
+
+.DatosChat__boton_copiar {
+  cursor: pointer;
+  border: none;
+  background: none;
+  position: absolute;
+  right: 0.25rem;
+  display: flex;
+  opacity: 0;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--color-principal);
+  background-color: var(--color-fila-destacada);
+  box-shadow: 0 0.05rem 0.1rem var(--color-sombras);
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.DatosChat__boton_historial {
+  border: none;
+  background: none;
+  color: var(--color-principal);
+  cursor: pointer;
+  margin-left: 0.1rem;
+  font-size: 0.8rem;
+}
+
+.DatosChat__boton_copiar:hover {
+  filter: brightness(105%);
+}
+
+.DatosChat__boton_copiar:active {
+  opacity: 0.8 !important;
+}
+
+.DatosChat__contenedor_reintentos {
+  position: relative;
+  cursor: help;
+  display: flex;
+  transition: all 0.25s ease;
+  opacity: 0;
+  z-index: 10;
+  align-items: center;
+}
+
+.DatosChat__icono_reintentos {
+  color: var(--color-secundario);
+  font-size: 0.9rem;
+  cursor: help;
+}
+
+.DatosChat__reintentos {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 5rem;
+  top: 0;
+  pointer-events: none;
+  background-color: var(--color-secundario);
+  color: var(--color-texto-claro);
+  white-space: nowrap;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  font-size: 0.65rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0.25rem var(--color-sombras);
+}
+
+.DatosChat__contenedor_reintentos--visible {
+  opacity: 1;
 }
 
 @keyframes aparece-contenedor-datos {
@@ -147,9 +235,14 @@
 }
 
 @media (max-width: 1240px) {
+  .DatosChat {
+    height: calc(100vh - 7.5rem);
+    padding-left: 1rem;
+  }
+
   .DatosChat__navegacion {
     flex-direction: column;
-    gap: .25rem;
+    gap: 0.25rem;
   }
 
   .DatosChat__titulo {
@@ -159,6 +252,6 @@
   .DatosChat__contenedor_header {
     flex-direction: column;
     align-items: flex-start;
-    gap: .25rem;
+    gap: 0.25rem;
   }
 }
