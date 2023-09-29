@@ -49,6 +49,10 @@ const alertTypes = [
     id: 'Paciente quiere cambiar a telemedicina',
     name: 'Paciente quiere cambiar a telemedicina',
   },
+  {
+    id: 'Paciente cancela su cita',
+    name: 'Paciente cancela su cita',
+  },
 ]
 
 const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
@@ -67,6 +71,11 @@ const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
     if (nombreUsuario !== 'CEAPSI') {
       filteredAlertTypes = filteredAlertTypes.filter(
         (t) => t.id !== 'Paciente quiere cambiar a telemedicina'
+      )
+    }
+    if (nombreUsuario !== 'Caminos IPS') {
+      filteredAlertTypes = filteredAlertTypes.filter(
+        (t) => t.id !== 'Paciente cancela su cita'
       )
     }
     return _.sortBy(filteredAlertTypes, 'name')
