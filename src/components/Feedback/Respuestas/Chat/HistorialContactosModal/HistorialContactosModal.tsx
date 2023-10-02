@@ -18,7 +18,7 @@ const HistorialContactosModal = ({ close }: {close: Function}) => {
     serviceId: params.idEncuesta,
     patientId: params.idUsuario,
   })
-  const { timeDiff: timeOffset } = useSelector((state: RootState) => state.login)
+  const { timeOffset } = useSelector((state: RootState) => state.login)
 
   if (isLoading) {
     return null

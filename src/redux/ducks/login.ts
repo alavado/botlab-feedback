@@ -8,7 +8,7 @@ interface LoginState {
   nombreUsuario?: string
   cuenta?: string
   idCliente?: number
-  timeDiff?: number
+  timeOffset?: number
 }
 
 const loginSlice = createSlice({
@@ -16,10 +16,10 @@ const loginSlice = createSlice({
   initialState: {} as LoginState,
   reducers: {
     guardaToken(state, action) {
-      const { token, client: nombreUsuario, cuenta, polls, time_diff: timeDiff } = action.payload
+      const { token, client: nombreUsuario, cuenta, polls, time_diff: timeOffset } = action.payload
       state.sucursales = _.uniq(_.flatten(polls.map((p: any) => p.sucursales)))
       state.token = token
-      state.timeDiff = timeDiff
+      state.timeOffset = timeOffset
       state.fechaToken = new Date()
       state.nombreUsuario = nombreUsuario
       state.cuenta = cuenta
