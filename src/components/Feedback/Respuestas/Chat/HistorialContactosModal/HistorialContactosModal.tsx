@@ -8,6 +8,8 @@ import { format, parseISO } from 'date-fns'
 import { Icon } from '@iconify/react'
 import { formatearCampoRespuestas } from '../../../../../helpers/respuestas'
 import Scrambler from '../../../../Scrambler'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../redux/ducks'
 
 // modal-historial-contactos
 const HistorialContactosModal = ({ close }: {close: Function}) => {
@@ -16,6 +18,7 @@ const HistorialContactosModal = ({ close }: {close: Function}) => {
     serviceId: params.idEncuesta,
     patientId: params.idUsuario,
   })
+  const { timeDiff: timeOffset } = useSelector((state: RootState) => state.login)
 
   if (isLoading) {
     return null
@@ -39,23 +42,28 @@ const HistorialContactosModal = ({ close }: {close: Function}) => {
               <div>Estado</div>
             </div>
             <div className="HistorialContactosModal__grid__body">
-              {data.map((record: InteractionHistoryRecord) => (
-                <Fragment key={record.timestamp}>
-                  <div>{format(parseISO(record.timestamp), 'yyyy-MM-dd HH:mm')}</div>
-                  <div>
-                    <Icon
-                      className="HistorialContactosModal__channel_icon"
-                      icon={`mdi:${record.channel}`}
-                    />
-                  </div>
-                  <div>
-                    <Scrambler tipo="telefono" propagar={false}>
-                      {formatearCampoRespuestas(record.phone, 'phone')}
-                    </Scrambler>
-                  </div>
-                  <div>{formatearCampoRespuestas(record.status, 'contact-status')}</div>
-                </Fragment>
-              ))}
+              {data.map((record: InteractionHistoryRecord) => {
+                const date = parseISO(record.timestamp)
+                date.setHours(date.getHours() + (timeOffset ?? 0))
+
+                return (
+                  <Fragment key={record.timestamp}>
+                    <div>{format(date, 'yyyy-MM-dd HH:mm')}</div>
+                    <div>
+                      <Icon
+                        className="HistorialContactosModal__channel_icon"
+                        icon={`mdi:${record.channel}`}
+                      />
+                    </div>
+                    <div>
+                      <Scrambler tipo="telefono" propagar={false}>
+                        {formatearCampoRespuestas(record.phone, 'phone')}
+                      </Scrambler>
+                    </div>
+                    <div>{formatearCampoRespuestas(record.status, 'contact-status')}</div>
+                  </Fragment>
+                )
+              })}
             </div>
           </div>
         </div>
