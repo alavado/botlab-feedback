@@ -14,7 +14,7 @@ const MensajeSinWhatsapp = ({ start, intentos }) => {
           </div>
           <p>
             Desde ahora en Feedback estamos marcando los números de teléfono de
-            pacientes que no usan WhatsApp
+            pacientes que no pudimos contactar por no tener Whatsapp u otros motivos.
           </p>
           <form method="dialog">
             <button className="MensajeSinWhatsapp__boton_cerrar_dialogo">
@@ -56,7 +56,7 @@ const MensajeSinWhatsapp = ({ start, intentos }) => {
             </>
           ) : (
             // xx aqui hay que modificar
-            <>El número asociado no tiene Whatsapp</>
+            <></>
           )}
         </p>
       </div>
