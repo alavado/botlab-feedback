@@ -15,9 +15,6 @@ const SmartphoneUnreachableMessage = () => {
         <h3 className="SmartphoneUnreachableMessage__title">
           No pudimos contactar a este paciente
         </h3>
-        <p className="SmartphoneUnreachableMessage__content">
-          El número asociado no tiene Whatsapp
-        </p>
       </div>
     </div>
   )
