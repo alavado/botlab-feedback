@@ -62,7 +62,8 @@ const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
     if (
       nombreUsuario !== 'NucleoSalud' &&
       nombreUsuario !== 'Sanasalud' &&
-      nombreUsuario !== 'Interclínica'
+      nombreUsuario !== 'Interclínica' &&
+      nombreUsuario !== 'Andes Salud Concepción'
     ) {
       filteredAlertTypes = filteredAlertTypes.filter(
         (t) => t.id !== 'Derivación de examen o procedimiento'
