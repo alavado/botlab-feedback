@@ -63,7 +63,10 @@ const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
       nombreUsuario !== 'NucleoSalud' &&
       nombreUsuario !== 'Sanasalud' &&
       nombreUsuario !== 'Interclínica' &&
-      nombreUsuario !== 'Andes Salud Concepción'
+      nombreUsuario !== 'Andes Salud Chillán' &&
+      nombreUsuario !== 'Andes Salud Concepción' &&
+      nombreUsuario !== 'Andes Salud El Loa' &&
+      nombreUsuario !== 'Andes Salud Puerto Montt'
     ) {
       filteredAlertTypes = filteredAlertTypes.filter(
         (t) => t.id !== 'Derivación de examen o procedimiento'
