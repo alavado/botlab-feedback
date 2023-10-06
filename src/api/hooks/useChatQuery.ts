@@ -11,6 +11,7 @@ import {
   Appointment,
   Interaction,
   InteractionId,
+  InteractionTag,
   Message,
   SchedulingSystem,
 } from '../types/domain'
@@ -206,6 +207,9 @@ const conversationToInteraction = (
 ): Interaction => {
   const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
+  let tags :Array<InteractionTag> = []
+  if (conversation.is_unreachable.whatsapp || conversation.is_unreachable.phone)
+    tags.push('UNREACHABLE_WHATSAPP')
   const interaction: Interaction = {
     id: {
       patientId: patientId,
@@ -231,7 +235,7 @@ const conversationToInteraction = (
       header: meta.title,
       value: meta.value,
     })),
-    tags: [],
+    tags: tags,
   }
   return interaction
 }
