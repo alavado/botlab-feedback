@@ -208,7 +208,7 @@ const conversationToInteraction = (
   const { serviceId, patientId, start } = interactionId
   const { context, messages } = conversation
   let tags :Array<InteractionTag> = []
-  if (conversation.is_unreachable.whatsapp || conversation.is_unreachable.phone)
+  if (conversation.is_unreachable.whatsapp && conversation.is_unreachable.phone)
     tags.push('UNREACHABLE_WHATSAPP')
   const interaction: Interaction = {
     id: {
