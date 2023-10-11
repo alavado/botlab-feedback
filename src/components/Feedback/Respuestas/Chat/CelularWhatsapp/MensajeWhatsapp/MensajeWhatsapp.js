@@ -3,7 +3,7 @@ import { format, parseISO } from 'date-fns'
 import { Icon, InlineIcon } from '@iconify/react'
 import classNames from 'classnames'
 import { es } from 'date-fns/locale'
-import Linkify from 'react-linkify'
+import Linkify from 'linkify-react'
 import nl2br from 'react-newline-to-break'
 import './MensajeWhatsapp.css'
 import { scrambleMulti } from '../../../../../Scrambler/scramblers'
@@ -141,7 +141,7 @@ const MensajeTexto = ({ mensaje, hora, esDeHumano }) => {
       {mensaje.message.indexOf(tokenAdjunto) >= 0 ? (
         <MensajeConAdjunto mensaje={mensaje.message} />
       ) : (
-        <Linkify>
+        <Linkify options={{target: "_blank"}}>
           <span className="MensajeWhatsapp__texto_nl2br">
             {marcarNegritas(
               nl2br(
