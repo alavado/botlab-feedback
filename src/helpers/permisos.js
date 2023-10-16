@@ -44,6 +44,11 @@ export const tieneAccesoADashboard = (cuenta) => {
   const cuentasConAcceso = [
     'nucleosalud',
     'alemana',
+    'vguerra@alemana.cl',
+    'krodriguez@alemana.cl',
+    'vbernal@alemana.cl',
+    'alemana_contact',
+    'jjerez@alemana.cl',
     'hospital_osorno',
     'hospital_puerto_montt',
     'cleversalud',
