@@ -33,7 +33,7 @@ const PaymentDueModal = () => {
         <p>{message}</p>
         <p>
           Para evitar una suspensión del servicio comuníquese con
-          finanzas@cero.ai o al +569 4277 3233.
+          finanzas@cero.ai o al +56923700821
         </p>
         <button
           className="PaymentDueModal__button"

@@ -36,7 +36,7 @@ const AlertaDeudores = () => {
   return (
     <div className="AlertaDeudores">
       Tienes facturas vencidas en espera de pago. Regulariza tu deuda
-      comunicándote al +56942773233 o en {correoPrincipal}
+      comunicándote al +56923700821 o en {correoPrincipal}
     </div>
   )
 }
