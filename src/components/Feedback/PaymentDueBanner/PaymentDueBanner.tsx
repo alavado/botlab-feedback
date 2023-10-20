@@ -26,7 +26,7 @@ const PaymentDueBanner = () => {
   return (
     <p className="PaymentDueBanner">
       Recordatorio! {message}. Para evitar una suspensión del servicio
-      comuníquese con finanzas@cero.ai o al +569 4277 3233
+      comuníquese con finanzas@cero.ai o al +56923700821
     </p>
   )
 }
