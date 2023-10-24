@@ -13,6 +13,7 @@ const PaymentDueModal = () => {
   if (
     isLoading ||
     !visible ||
+    data === undefined ||
     esCero(cuenta) ||
     data?.status === 'NOT_EXPIRED'
   ) {
