@@ -16,12 +16,16 @@ const PaymentDueBanner = () => {
     return null
   }
 
-  const message =
-    data?.status === 'ALMOST_EXPIRED'
-      ? `Su factura por el servicio del mes de ${
-          data?.documentServiceMonth
-        } vence en ${data.daysLeft} ${data.daysLeft !== 1 ? 'días' : 'día'}`
-      : `Su factura por el servicio del mes de ${data?.documentServiceMonth} se encuentra vencida`
+  var message = ''
+  if (data?.status === 'ALMOST_EXPIRED') {
+    message = `Su factura por el servicio del mes de ${
+      data?.documentServiceMonth
+    } vence en ${data.daysLeft} ${data.daysLeft !== 1 ? 'días' : 'día'}`
+  } else if (data?.status === 'NON_CHILEAN_EXPIRED') {
+    message = 'Su cuenta tiene estados de pago vencidos'
+  } else if (data?.status === 'EXPIRED') {
+    message = `Su factura por el servicio del mes de ${data?.documentServiceMonth} se encuentra vencida`
+  }
 
   return (
     <p className="PaymentDueBanner">

@@ -19,6 +19,11 @@ type PaymentStatus =
       daysLeft: number
     }
   | { status: 'NOT_EXPIRED' }
+  | { status: 'NON_CHILEAN_EXPIRED'}
+
+const usuariosDeudores = [
+  'Bukal', 'DentalTotal', 'Medfam', 'salauno'
+]
 
 const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
   const { nombreUsuario } = useSelector((state: RootState) => state.login)
@@ -26,6 +31,14 @@ const useIsClientDebtorQuery = (): UseQueryResult<PaymentStatus> => {
     ['isDebtor', nombreUsuario],
     async () => {
       const params = new URLSearchParams([['client', nombreUsuario || '']])
+
+      const usuario = usuariosDeudores.find((u) => u === nombreUsuario)
+
+      if(usuario){
+        return {
+          status: 'NON_CHILEAN_EXPIRED'
+        }
+      }
       const {
         data: {
           mostExpiredDocumentIssueDate,
