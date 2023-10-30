@@ -53,6 +53,10 @@ const alertTypes = [
     id: 'Paciente cancela su cita',
     name: 'Paciente cancela su cita',
   },
+  {
+    id: 'Paciente envía imagen',
+    name: 'Paciente envía imagen',
+  }
 ]
 
 const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
@@ -81,6 +85,11 @@ const useAlertTypesQuery = (): UseQueryResult<AlertType[], unknown> => {
     if (nombreUsuario !== 'Caminos IPS') {
       filteredAlertTypes = filteredAlertTypes.filter(
         (t) => t.id !== 'Paciente cancela su cita'
+      )
+    }
+    if (nombreUsuario !== 'YohananTherapeutes') {
+      filteredAlertTypes = filteredAlertTypes.filter(
+        (t) => t.id !== 'Paciente envía imagen'
       )
     }
     return _.sortBy(filteredAlertTypes, 'name')
